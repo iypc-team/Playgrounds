@@ -1,0 +1,609 @@
+/* Title of Guidebook */
+"GuideBook..title" = "사운드 패드";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..title" = "사운드 패드로 나만의 음악 생성하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph0" = "이 튜토리얼에서는 사운드 패드를 사용자화하여 여러 사운드 기능을 살펴볼 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph1" = "나만의 음악에 맞춰 춤추고 즐길 준비를 하세요!";
+
+/* Title of step named Make your own sound pad */
+"GuideBook..Guide0..StepMake your own sound pad..title" = "나만의 사운드 패드 만들기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph2" = "![](intro.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph3" = "사운드 패드 앱을 사용하면 여러 오디오 구성요소를 조합하여 나만의 음악을 만들 수 있습니다. 코드로 나만의 악기를 만들고 곡을 녹음하여 친구 및 가족과 공유할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph4" = "나만의 음악을 생성할 준비가 됐나요?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..title" = "사운드 패드 디자인하기";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..title" = "다양한 비트 연주하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph5" = "방금 중요한 임무를 받았습니다. 친구들이 여는 파티에서 펑키한 비트를 연주해야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph6" = "걱정하지 마세요! 우리에겐 비밀 전략이 있으니까요. 코드의 힘으로 세상에 없던 음악을 선보일 수 있습니다. 🧑‍🎤";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph7" = "시작하기 전에 오른쪽에 있는 미리보기를 확인하고 사운드 패드 앱을 사용해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph8" = "앱을 사용하는 동안 다음 질문에 대한 답을 생각해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph9" = "사운트 패드 버튼 중 하나를 탭하거나 클릭하면 어떻게 되나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph10" = "사운드를 어떻게 정지하나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph11" = "빨간색 녹음 버튼을 탭하거나 클릭하면 어떻게 되나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph12" = "이런 질문에 답하면서 사운드 패드가 어떻게 작동하는지 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph13" = "미리보기의 두 버튼이 `SoundPadView`의 `LoopButton`에 각각 해당됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph14" = "`LoopButton`을 탭하거나 클릭하면 비트가 재생됩니다. 아래에 코드 스니펫을 추가하여 새로운 `LoopButton`을 추가해 보세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..CodeBlock0" = "LoopButton(beat: /*#-code-walkthrough(1.changeSound)*/<#T##BeatSounds#>/*#-code-walkthrough(1.changeSound)*/, color: .indigo)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph15" = "다른 비트를 보려면 `BeatSounds`를 선택하고 마침표(`.`)를 입력하세요. 사운드 목록에서 `.GlowBeat` 등 새로운 비트를 선택하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..CodeBlock1" = "LoopButton(beat: .GlowBeat, color: .indigo)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph16" = "사운드 라이브러리에서 다른 비트를 살펴 보고 마음에 드는 비트를 선택하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph17" = "잘했어요! 사운드 [매개변수](glossary://parameter)의 값을 변경하면 재생되는 비트도 변경됩니다. 각 `LoopButton`에는 `color` 매개변수도 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph18" = "`.teal`을 삭제하고 `.`를 입력한 다음 `.mint` 등 새로운 옵션 중 하나를 선택하여 색상을 변경할 수 있습니다.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..CodeBlock2" = "LoopButton(beat: .CosmicBeat, color: .mint)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..Paragraph19" = "이미 만들어진 버튼을 추가할 수도 있습니다! 다음과 같은 예시 버튼을 하이라이트된 섹션에 복사해서 붙여넣으세요. . 시간을 들여서 좋아하는 비트 루프를 모두 찾으세요. 찾은 루프를 음악을 작곡하는 데 사용할 수 있기 때문에 가장 마음에 드는 사운드를 선택하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock3" = "LoopButton(beat: .DiscoBeat1, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock4" = "LoopButton(beat: .FeverBeat, color: .yellow)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock5" = "LoopButton(beat: .SolarisBeat2, color: .red)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock6" = "LoopButton(beat: .GoTimeBeat2, color: .pink)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph20" = "녹음 스튜디오로 넘어갈 시간입니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph21" = "먼저 비트 루프를 재생하고 새로운 비트에 맞춰 박수를 치거나 테이블을 두드리는 연습을 하세요. 루프의 비트와 박자를 맞출 수 있나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph22" = "녹음 버튼을 눌러서 빠르게 사운드 확인을 실행한 다음 재생하여 소리를 확인하세요. 이미 음악 프로듀서나 다름없습니다! 😎";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..title" = "베이스 추가하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph23" = "이제 사운드 패드에 비트 세트를 준비했으니 다양한 사운드를 겹겹이 쌓아볼 때가 되었습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph24" = "`LoopButton`에서 설정할 수 있는 사운드 매개변수의 유형은 `beats`, `bass`, `melodic` 및 `ambient` 네 가지입니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph25" = "비트는 노래의 리듬을 설정합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph26" = "멜로디는 노래를 돋보이고 기억에 남도록 만듭니다. 사람들이 흥얼거리는 노래의 일부입니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph27" = "베이스는 노래의 리듬과 멜로디를 하나로 묶어 줍니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph28" = "앰비언트 사운드는 분위기를 설정하여 노래에 깊이를 더합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..Paragraph29" = "먼저 다음과 같이 베이스 루프를 재생하는 새로운 `LoopButton`을 추가하여 새로운 베이스와 비트를 조합하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..CodeBlock7" = "/*#-code-walkthrough(3.exploreBass)*/\nBass {\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .CosmicBass, color: .gray)\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .PrismaticaBass7, color: .brown)\n}\n/*#-code-walkthrough(3.exploreBass)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph30" = "오른쪽 미리보기에서 `Bass { }`를 추가하면 루프 버튼의 새로운 베이스 섹션이 생성됩니다. 이제 비트와 베이스 두 섹션이 있어서 사운드를 다양한 카테고리와 심지어 색상으로 분류할 수 있습니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph31" = "비트 및 베이스 섹션의 루프를 각각 한 개씩 동시에 재생하고 조합을 들어보세요. 꽤 좋지 않나요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph32" = "이제 같은 카테고리에 있는 두 개의 루프를 동시에 재생해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph33" = "으악! 🙉 듣기 싫은 소리죠? 동일한 카테고리의 루프가 서로 경쟁하면서 음악을 혼란스럽게 만들기 때문입니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph34" = "팁: 한 번에 각 카테고리에서 하나의 루프만 사용하세요!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..Paragraph35" = "이제 `LoopButton`이 `.DreamsBass1` 등 다른 베이스 루프를 재생하게 수정하고 버튼 색상을 변경하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph36" = "시간을 들여서 좋아하는 베이스 루프를 찾고 추가하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph37" = "모든 베이스 사운드를 `Bass` 섹션에 넣으세요. 이렇게 카테고리별로 분류하면 연주 중에 재생할 수 있는 적절한 사운드를 찾을 수 있습니다. 🎼";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock8" = "LoopButton(bass: .ParisNightsBass, color: .blue)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock9" = "LoopButton(bass: .LesInfernoBass, color: .purple)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock10" = "LoopButton(bass: .SaintTropezBass, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock11" = "LoopButton(bass: .PrismaticaBass7, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph38" = "스튜디오로 돌아갈 시간입니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph39" = "비트 루프를 선택하고 한 번 끝까지 재생하세요. 비트 재생이 한 번 완료되면 베이스 버튼 중 하나를 탭하거나 클릭하여 베이스 루프를 추가하세요. 분위기가 어떻게 바뀌나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph40" = "비트와 베이스의 조합이 마음에 들면 음악을 재생하고 녹음을 탭하거나 클릭하세요. 행운을 빕니다!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..title" = "멜로디와 앰비언트 사운드 겹겹이 쌓기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph41" = "멜로디와 앰비언트 사운드는 어떻습니까? 멜로디는 노래가 기억에 남도록 만드는 구성요소이므로 작곡을 하는 데 매우 중요합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph42" = "앰비언트 사운드는 노래의 분위기를 설정하는 데 도움이 되고 노래의 한 파트에서 다음으로 전환하는 데 도움이 됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph43" = "이 섹션을 사운드 패드에 어떻게 추가할 수 있는지 맞춰 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..Paragraph44" = "아래 코드를 사용하여 멜로디와 앰비언트 섹션을 추가하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..CodeBlock12" = "/*#-code-walkthrough(3.exploreMelody)*/\nMelodic {\n    LoopButton(melodic: .DreamsChords3, color: .teal)\n}\n/*#-code-walkthrough(3.exploreMelody)*/\n/*#-code-walkthrough(3.exploreAmbient)*/\nAmbient {\n    LoopButton(ambient: .DiscoSynth1, color: .red)\n}\n/*#-code-walkthrough(3.exploreAmbient)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph45" = "`.DreamsChords3` 및 `.DiscoSynth1`를 변경하여 다양한 멜로디와 앰비언트 루프로 실험해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph46" = "작곡 중인 음악에 멜로디와 앰비언트 사운드가 어떤 영향을 미치나요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..Paragraph47" = "좋아하는 멜로디 루프를 찾고 다음과 같이 코드를 멜로디 섹션 안에 추가하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock13" = "LoopButton(melodic: .ParisArpeggio, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock14" = "LoopButton(melodic: .GlowChords, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock15" = "LoopButton(melodic: .PrismaticaChords2, color: .cyan)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..Paragraph48" = "이제 앰비언트 루프 세트를 앰비언트 섹션에 추가하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock16" = "LoopButton(ambient: .PrismaticaSynth2, color: .yellow)          \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock17" = "LoopButton(ambient: .SolarisString, color: .red)                     \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock18" = "LoopButton(ambient: .GlitterSynth, color: .pink)               \n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph49" = "야호! 사운드 패드가 멋지게 완성되고 있습니다. 스튜디오로 넘어가서 첫 번째 데모 테이프를 녹음해 봅시다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph50" = "다음과 같은 방법으로 데모를 구성할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph51" = "비트로 시작하고 전체 루프를 한 번 재생하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph52" = "베이스 루프를 추가하고 전체 루프를 한 번 재생하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph53" = "멜로디 루프를 선택하고 전체 루프를 한 번 재생하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph54" = "마지막으로 앰비언트 사운드를 추가하여 분위기를 설정하고 노래를 계속 재생하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph55" = "다음 페이지로 이동하여 데모를 구성하는 더 많은 방법을 알아보세요!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph56" = "이제 다양한 연주를 시도해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph57" = "노래의 다양한 버전을 만드는 한 가지 방법은 다른 루프가 등장하는 순서를 변경하는 것입니다. 멜로디로 노래를 시작한 다음 비트, 앰비언트 사운드 및 베이스를 차례로 재생하세요. 어떤 버전이 더 마음에 드나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph58" = "첫 번째 데모 버전을 녹음하고 친구들에게 보내서 감상을 들어 보세요!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..title" = "사운드 효과 추가";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..Paragraph59" = "이제 사운드 효과를 추가하고 재미를 더해볼까요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..Paragraph60" = "먼저 사운드 효과를 재생하는 새로운 섹션인 SoundFX를 추가하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..CodeBlock19" = "/*#-code-walkthrough(4.exploreSoundFX)*/\nSoundFX {\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n    SoundFXButton(sound: .PlanetariumFX3, color: .green)\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n}\n/*#-code-walkthrough(3.exploreSoundFX)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph61" = "`LoopButton`을 탭하거나 클릭하는 것과는 달리 `SoundFXButton` 버튼은 사운드를 한 번만 재생한 뒤 정지합니다. 한 번 사용해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph62" = "`LoopButton`처럼 `sound` 및 `color` [매개변수](glossary://parameter)의 값을 변경하여 `SoundFXButton`의 사운드 및 색상을 사용자화할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..Paragraph63" = "일부 사운드 효과를 사용하여 노래에 매력을 더하세요. 다음과 같이 좋아하는 효과를 사용하여 SoundFX 섹션을 만드세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock20" = "SoundFXButton(sound: .FirstGearFX, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock21" = "SoundFXButton(sound: .HornBassFX, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock22" = "SoundFXButton(sound: .BotTalkFX3, color: .mint)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock23" = "SoundFXButton(sound: .KazooFX4, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock24" = "SoundFXButton(sound: .TromboneFX1, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph64" = "그 시간이 돌아왔습니다… 스튜디오 세션 시간입니다! 🎉";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph65" = "다양한 위치에서 사운드 효과를 사용할 수 있습니다. 노래 시작 부분에 재생하여 놀라게 하거나 코러스 전인 중간에 추가하여 노래에 감정을 담을 수 있습니다. 다양한 사운드 효과를 살펴보고 노래에 어떤 영향을 미치는지 들어보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph66" = "준비됐나요? 다른 사운드 효과를 포함한 두 번째 데모 테이프를 녹음하고 이전 데모와 비교해 보세요. 어느 쪽이 더 마음에 드나요?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..title" = "사운드 조정하기";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..title" = "음량 조정하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..Paragraph67" = "가끔 각 사운드의 음량을 변경하고 싶을 수 있습니다. 이 작업은 [제어자](glossary://modifier)로 수행할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph68" = "음량 [제어자](glossary://modifier)를 `LoopButton` 또는 `SoundFXButton`에 추가하여 음량을 변경할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph69" = "음량 제어자는 `0`과 `1.0` 사이의 숫자를 선택할 수 있고, `0`은 무음, `1.0`이 최고 음량입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph70" = "이 제어자를 다음과 같은 기존 버튼에 추가하고 재생해 보세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..CodeBlock25" = ".volume(0.5)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph71" = "차이가 들리나요? 음량을 `0.5`로 설정하면 음량을 절반으로 낮춥니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..Paragraph72" = "멋져요! 이제 사운드 패드에서 사운드의 음량을 조절할 수 있습니다!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..title" = "피치 조정하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..Paragraph73" = "다른 [제어자](glossary://modifier)를 추가하여 `pitch` 조절 등 사운드를 변경할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph74" = "`SoundFXButton` 또는 `LoopButton`에 피치 [제어자](glossary://modifier)를 추가하여 [피치](glossary://pitch%20audio)를 변경할 수 있습니다.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..CodeBlock26" = ".pitch(.E)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph75" = "차이가 들리나요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph76" = "이제 사운드의 피치를 사용자화할 수 있습니다! 이미 추가한 사운드의 피치를 조정해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph77" = "단일 버튼에는 피치와 음량을 동시에 조절할 수 있는 여러 제어자가 있을 수 있습니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..title" = "속도 조정하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..Paragraph78" = "[제어자](glossary://modifier)를 사용하여 각 사운드의 `speed`를 조절할 수도 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph79" = "속도를 변경하려면 `.speed` 제어자를 추가할 수 있습니다. 이 프로젝트에서 속도의 범위는 `0`에서 `2.0`까지로 `2.0`은 두 배 속도입니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph80" = "다음과 같은 사운드 효과 또는 루프 아래에 속도 제어자를 추가하여 속도를 높이세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..CodeBlock27" = ".speed(2)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..Paragraph81" = "다른 사운드에 속도 제어자를 추가하여 속도를 낮춰볼까요?";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..CodeBlock28" = ".speed(0.5)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph82" = "스튜디오 세션 시간입니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph83" = "난이도를 올려 볼까요? 비트 사운드를 선택하고 속도를 `0.5`로 변경하세요. 이제 새로운 속도에서 노래를 재생해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph84" = "베이스 또는 멜로디 루프 등 다른 루프를 `2.0` 속도로 변경해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph85" = "망설이지 마세요! 녹음 버튼을 탭하거나 클릭하여 사운드를 함께 재생해 보세요. 루프 속도를 높이거나 낮출 때 노래가 어떻게 바뀌나요?";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..title" = "필터 추가하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..Paragraph86" = "더 깜짝 놀라게 하기 위해 사운드에 필터를 적용할 수 있습니다!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph87" = "`filter` [제어자](glossary://modifier)로 새로운 사운드를 추가하고 값을 `drumsBitBrush`로 설정해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph88" = "필터를 추가하는 방법을 모른다면 다음과 같은 예시를 참조하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..CodeBlock29" = ".filter(.drumsBitBrush)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph89" = "우와! 방금 들었어요? 멋진데요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..Paragraph90" = "다른 사운드 효과를 사용하여 사운드가 어떻게 변경되는지 확인해 보세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock30" = ".filter(.drumsLoFi)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock31" = ".filter(.multiDecimated1)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock32" = ".filter(.multiEcho1)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph91" = "야호! 거의 다 끝났습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph92" = "모두 조합해 볼 때가 되었습니다. 여러 사운드를 추가하고 피치, 속도 및 필터로 미세하게 조절해 보세요. 해당 필터를 사용하여 노래의 멋진 리믹스를 만들 수도 있습니다. 으스스한 노래는 어때요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph93" = "녹음 버튼을 탭하거나 클릭하여 노래를 재생하는 동안 녹음하세요. 완료하면 버튼을 다시 탭하거나 클릭하여 녹음을 정지하세요. 이제 노래의 데모 버전을 친구 및 가족과 공유하여 의견을 들어보세요!";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..title" = "나만의 버튼 만들기";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..title" = "SwiftUI 버튼 추가하기";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..Paragraph94" = "한 단계 더 나아가 볼까요? 사운드 패드의 사용자 설정 버튼을 생성하기 위해 코드를 더 자세히 살펴보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph95" = "왼쪽 미리보기에서는 화면 중앙에 있는 [Button](doc://com.apple.documentation/documentation/swiftui/button)을 볼 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph96" = "미리보기에서 버튼을 탭하거나 클릭하세요. 소리가 들리나요?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph97" = "`Button`을 탭하거나 클릭하면 해당 코드가 `soundPlayer.playSound(.FirstGearFX)` [함수](glossary://function)를 호출합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph98" = "함수[호출](glossary://call)은 함수 실행을 요청합니다. 이러한 경우에는 함수가 `.FirstGearFX` 사운드를 호출하거나 재생합니다.\n다른 사운드로 변경해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph99" = "흠… 버튼이 사운드 패드 버튼처럼 보이지 않는군요. 버튼의 모양을 변경해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph100" = "이전 버튼을 제거하고 아래의 코드로 대치하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..CodeBlock33" = "Button {\n    soundPlayer.playSound(.FirstGearFX)\n} label: {\n    /*#-code-walkthrough(6.buttonLabel)*/\n    Circle()\n    /*#-code-walkthrough(6.buttonLabel)*/\n    //#-learning-code-snippet(6.buttonLabel)\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph101" = "사용자 설정 `label`을 버튼에 추가하여 모양을 변경할 수 있습니다. `label` 안에 `Circle()`을 배치하면 버튼이 원이 됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph102" = "`Circle()`을 아래의 `ButtonView`로 대치하세요.";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..CodeBlock34" = "/*#-code-walkthrough(6.colorButton)*/\nButtonView(color: .orange)\n/*#-code-walkthrough(6.colorButton)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..Paragraph103" = "`ButtonView`는 단일 [매개변수](glossary://parameter) `color`를 사용합니다. `.orange`를 좋아하는 색상으로 대치하여 버튼 색상을 변경할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..Paragraph104" = "우와! 이제 나만의 버튼을 만들어서 사운드를 재생할 수 있어요!";
+

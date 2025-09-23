@@ -1,0 +1,187 @@
+
+import SwiftUI
+import SceneKit
+//import Dispatch
+//import QuartzCore
+import GLKit
+
+struct SceneKitView : UIViewRepresentable {
+    let radianConversion = CGFloat(GLKMathDegreesToRadians(360.0))
+    var scene = SCNScene(named: "fighter.scn")!
+    
+    func printDivider()  {
+        print("""
+        ---------------------------------------------
+        """)
+    }
+//         https://stackoverflow.com/questions/43843110/ios-scenekit-add-fresnel-effect-to-material-transparency
+    func ghostEffect(scene: SCNScene) -> SCNNode {
+        let sphere = SCNSphere(radius: 8)
+        
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.black
+        material.reflective.contents = UIColor(red: 0, green: 0.764, blue: 1, alpha: 1)
+        material.reflective.intensity = 3
+        material.transparent.contents = UIColor.black.withAlphaComponent(0.15)
+        material.transparencyMode = .default
+        material.fresnelExponent = 4
+        sphere.materials = [material]
+        
+        let node = SCNNode(geometry: sphere)
+        // Add Physics Body to the sphere. 
+        let physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        print("physicsBody.categoryBitMask \(physicsBody.categoryBitMask)")
+        print("physicsBody.contactTestBitMask  \(physicsBody.contactTestBitMask )")
+        print("physicsBody.mass  \(physicsBody.mass )")
+        print("physicsBody.restitution  \(physicsBody.restitution )")
+        print("physicsBody  \(physicsBody )")
+        print("physicsBody?.physicsShape: \(String(describing: node.physicsBody?.physicsShape)))\n")
+        printDivider()
+        node.physicsBody = physicsBody
+        
+        return node
+    }
+    
+    func makeUIView(context: Context) -> SCNView {
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 20)
+        cameraNode.look(at: SCNVector3(0, 0, 0))
+        var lookAtPos:SCNVector3? = SCNVector3Zero
+        cameraNode.look(at: lookAtPos ?? SCNVector3(x: 0.0, y: 0.0, z: 0.0))
+        cameraNode.camera?.automaticallyAdjustsZRange = true
+        scene.rootNode.addChildNode(cameraNode)
+        
+        // create and add a light to the scene
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight()
+        lightNode.light!.type = .omni
+        lightNode.light!.color = UIColor.gray
+        lightNode.position = SCNVector3(x: 0, y: 0, z: 100)
+        scene.rootNode.addChildNode(lightNode)
+        
+        let lightNode2 = SCNNode()
+        lightNode2.light = SCNLight()
+        lightNode2.light!.type = .omni
+        lightNode2.light!.color = UIColor.gray
+        lightNode2.position = SCNVector3(x: 0, y: 0, z: -100)
+        scene.rootNode.addChildNode(lightNode2)
+        
+        let engineLightNode = SCNNode()
+        engineLightNode.light = SCNLight()
+        engineLightNode.light!.type = .omni
+        engineLightNode.light!.color = UIColor(.green)
+        engineLightNode.light!.intensity = 10000
+        engineLightNode.light!.castsShadow = false
+        engineLightNode.light!.attenuationEndDistance = 4
+        engineLightNode.position = SCNVector3(x: 0, y: -2, z: 0)
+//        scene.rootNode.addChildNode(engineLightNode)
+        
+        let engineLightNode2 = SCNNode()
+        engineLightNode2.light = SCNLight()
+        engineLightNode2.light!.type = .omni
+        engineLightNode2.light!.color = UIColor(.green)
+        engineLightNode2.light!.intensity = 10000
+        engineLightNode2.light!.castsShadow = false
+        engineLightNode2.light!.attenuationEndDistance = 4
+        engineLightNode2.position = SCNVector3(x: 0, y: 1.5, z: 0)
+//        scene.rootNode.addChildNode(engineLightNode2)
+        
+        let cabinLightNode = SCNNode()
+        cabinLightNode.light = SCNLight()
+        cabinLightNode.light!.type = .omni
+        cabinLightNode.light!.color = UIColor(.red)
+        cabinLightNode.light!.intensity = 30000
+        cabinLightNode.light!.castsShadow = false
+        cabinLightNode.light!.attenuationEndDistance = 4
+        cabinLightNode.position = SCNVector3(x: 0, y: -4.5, z: 0)
+//        scene.rootNode.addChildNode(cabinLightNode)
+        
+        // create and add an ambient light to the scene
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = SCNLight()
+        ambientLightNode.light!.type = .ambient
+        ambientLightNode.light!.color = UIColor.darkGray
+        scene.rootNode.addChildNode(ambientLightNode)
+        
+//        let plane = SCNPlane(width: 3, height: 2.1)
+//        plane.firstMaterial?.diffuse.contents = UIColor.white
+//        plane.firstMaterial?.fresnelExponent = .infinity
+//        plane.firstMaterial?.isDoubleSided = true
+//        
+//        let planeNode = SCNNode(geometry: plane)
+//        planeNode.position = SCNVector3Make(0, 2.55 , 0)
+//        
+        
+//        planeNode.runAction(SCNAction.rotate(by: radianConversion, around: SCNVector3(1, 0, 0), duration: 0))
+//        scene.rootNode.addChildNode(planeNode)
+        
+        let shieldsNode = ghostEffect(scene: scene)
+        // retrieve the ship node
+        let ship = scene.rootNode.childNode(withName: "fighter", recursively: true)!
+//        ship.scale = SCNVector3(0.25, 0.25, 0.25)
+        lookAtPos = ship.position
+        ship.addChildNode(cabinLightNode)
+        ship.addChildNode(engineLightNode)
+        ship.addChildNode(engineLightNode2)
+        ship.addChildNode(shieldsNode)
+//        shieldsNode.removeFromParentNode()
+        Task {
+            ship.runAction(SCNAction.repeatForever(SCNAction.rotate(by: radianConversion, around: SCNVector3(0, 0, 1), duration: 20)))
+        }
+        print( "ship: \(ship)")
+        print( "ship.childNodes: \(ship.childNodes)")
+        print("ship.position: \(ship.position)")
+        print("simdPosition: \(ship.simdPosition)")
+        print("worldPosition: \(ship.worldPosition)")
+//        for node in ship.childNodes{
+//            print(node)
+//        }
+        printDivider()
+        
+        
+        
+        //         let stars = SCNParticleSystem(named: "starParticles.scnp", inDirectory: nil)
+        //        
+        //        stars?.particleDiesOnCollision = true
+        //        
+        //        stars?.birthDirection = .random
+        //        print(stars?.birthDirection as Any)
+        //        
+        //        stars?.particleLifeSpan = 1
+        //        print("stars.particleLifeSpan", stars?.particleLifeSpan as Any)
+        //        
+        //        stars?.birthRate = 75000
+        //        print("stars.birthRate", stars!.birthRate)
+        //        
+        //        print(stars.debugDescription)
+        //         scene.rootNode.addParticleSystem(stars!)
+        //        
+        // retrieve the SCNView
+        let scnView = SCNView()
+        return scnView
+    }
+    
+    func updateUIView(_ scnView: SCNView, context: Context) {
+        scnView.scene = scene
+        // allows the user to manipulate the camera
+        scnView.allowsCameraControl = true
+        // show statistics such as fps and timing information
+        scnView.showsStatistics = true
+        // configure the view
+        scnView.backgroundColor = UIColor.darkGray
+        
+        // other items
+        scnView.antialiasingMode = .multisampling4X
+        scnView.autoenablesDefaultLighting = true
+        scnView.isTemporalAntialiasingEnabled = true
+    }
+}
+
+
+struct SceneKitView_Previews: PreviewProvider {
+    static var previews: some View {
+        SceneKitView()
+            .preferredColorScheme(.dark)
+    }
+}

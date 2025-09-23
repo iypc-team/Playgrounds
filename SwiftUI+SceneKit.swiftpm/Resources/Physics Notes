@@ -1,0 +1,20 @@
+var mass: CGFloat
+The mass of the body, in kilograms.
+
+var density: CGFloat
+The density of the object, in kilograms per square meter.
+
+var area: CGFloat
+The area covered by the body.
+
+var friction: CGFloat
+The roughness of the surface of the physics body.
+
+var restitution: CGFloat
+The bounciness of the physics body.
+
+var linearDamping: CGFloat
+A property that reduces the body’s linear velocity.
+
+var angularDamping: CGFloat
+A property that reduces the body’s rotational velocity.

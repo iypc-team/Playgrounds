@@ -1,0 +1,609 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Sound Pad";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..title" = "Bir sound pad ile kendi müziğini yaratma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph0" = "Bu öğreticide, kendi sound pad’ini özelleştirerek farklı ses fonksiyonlarını ve bunların özelliklerini keşfedeceksin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph1" = "Eğlenmeye ve kendi arka plan müziğinle dans etmeye hazır ol!";
+
+/* Title of step named Make your own sound pad */
+"GuideBook..Guide0..StepMake your own sound pad..title" = "Kendi sound pad’ini oluşturma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph2" = "![](intro.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph3" = "Sound pad uygulaması, kendi müziğini yaratmak için farklı ses bileşenlerini karıştırıp birbirine uydurmana olanak tanır. Kodla kendi müzik aletini oluşturabilir, arkadaşların ve ailenle paylaşmak üzere müzik besteleri kaydedebilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph4" = "Kendi doğaçlamanı yaratmaya hazır mısın?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..title" = "Sound pad’ini tasarlama";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..title" = "Farklı vuruşları çalma";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph5" = "Sana önemli bir görev verildi: Arkadaşların bir parti veriyor ve senden müthiş ritimler çalmanı istediler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph6" = "Ama çok fazla ter dökmen gerekmiyor! Gizli bir stratejin var: Dünyada duyulmamış doğaçlamalar oluşturmak için kodlamanın gücünü kullanabilirsin 🧑‍🎤.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph7" = "Başlamadan önce, sağdaki önizlemeye bak ve sound pad uygulamasını biraz dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph8" = "Uygulamayı kullanırken akla gelebilecek bazı sorular:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph9" = "Sound pad düğmelerinden birine dokunduğunda veya tıkladığında ne olur?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph10" = "Bir sesi nasıl durdurursun?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph11" = "Kırmızı Kayıt Yap düğmesine dokunduğunda veya tıkladığında ne olur?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph12" = "Sound pad’in nasıl çalıştığını anlamak için bu yol gösterme sorularını kullan.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph13" = "Önizlemedeki iki düğmenin her birinin `SoundPadView`’da bir `LoopButton` düğmesine karşılık geldiğine dikkat et.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph14" = "`LoopButton` düğmesine dokunulduğunda veya tıklandığında bir vuruş çalınır. Yeni bir `LoopButton` eklemek için aşağıdaki kod parçacığını ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..CodeBlock0" = "LoopButton(beat: /*#-code-walkthrough(1.changeSound)*/<#T##BeatSounds#>/*#-code-walkthrough(1.changeSound)*/, color: .indigo)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph15" = "Diğer vuruşları görmek için `BeatSounds` öğesini seç ve bir nokta (`.`) yaz. Ses listesinde `.GlowBeat` gibi yeni bir vuruş seç:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..CodeBlock1" = "LoopButton(beat: .GlowBeat, color: .indigo)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph16" = "Ses arşivindeki diğer vuruşları keşfetmeyi dene ve beğendiğin vuruşları seç.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph17" = "Güzel! Ses [parametresinin](glossary://parameter) değerini değiştirmek çalınan vuruşu değiştirir. Her bir `LoopButton` düğmesinde bir `color` parametresi olduğuna da dikkat et.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph18" = "`.teal`’i silip `.` yazarak ve ardından `.mint` gibi yeni seçeneklerden birini seçerek rengi değiştirebilirsin:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..CodeBlock2" = "LoopButton(beat: .CosmicBeat, color: .mint)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..Paragraph19" = "Bu hazır düğmeleri buraya eklemeyi de deneyebilirsin! Bu örnek düğmeleri kopyalayıp yapıştır ve bunları vurgulanan bölüme yerleştir. Tüm favori vuruş döngülerini bulmak için zaman ayır; bunları müziğini bestelemek için kullanacaksın, o yüzden en çok hangi sesleri sevdiğini düşün:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock3" = "LoopButton(beat: .DiscoBeat1, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock4" = "LoopButton(beat: .FeverBeat, color: .yellow)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock5" = "LoopButton(beat: .SolarisBeat2, color: .red)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock6" = "LoopButton(beat: .GoTimeBeat2, color: .pink)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph20" = "Kayıt stüdyosuna girme zamanı!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph21" = "Bir vuruş döngüsünü çalarak başla ve yeni vuruşunu el çırparak veya masada ritim tutarak dene. Döngünün vuruşuna uydurabiliyor musun?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph22" = "Hızlı bir ses kontrolü yapmak için Kayıt Yap düğmesine bas, sonra yeniden çal ve kulağa nasıl geldiğine bak. Şimdiden müzik üretmeye başladın bile! 😎";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..title" = "Bas ekleme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph23" = "Sound pad’inde bir dizi vuruşun olduğuna göre, şimdi bazı farklı sesleri katmanlamayı deneme zamanı.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph24" = "`LoopButton`’da ayarlayabileceğin dört tür ses parametresi vardır: `beats`, `bass`, `melodic` ve `ambient`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph25" = "Vuruşlar, parçanın ritmini ayarlar.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph26" = "Melodi, parçanın öne çıkmasını ve akılda kalıcı olmasını sağlar. Parçanın insanların mırıldandığı kısmıdır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph27" = "Bas, parçanın ritmini ve melodisini birbirine bağlar.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph28" = "Ortam sesleri, ruh hâlini veya atmosferi ayarlayarak parçana derinlik katar.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..Paragraph29" = "Bir bas döngüsü çalan yeni bir `LoopButton` ekleyerek vuruşlarını basla eşleyerek başla:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..CodeBlock7" = "/*#-code-walkthrough(3.exploreBass)*/\nBass {\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .CosmicBass, color: .gray)\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .PrismaticaBass7, color: .brown)\n}\n/*#-code-walkthrough(3.exploreBass)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph30" = "Sağdaki önizlemede `Bass { }` eklemenin döngünün düğmeleri için yeni bir Bass bölümü yarattığına dikkat et. Artık iki bölüm var: Beats ve Bass, bunlar seslerini farklı kategoriler halinde ve renge göre düzenlemene yardımcı olur!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph31" = "Beats ve Bass bölümlerinin her birinden aynı anda bir döngü çalmayı dene ve birlikte kulağa nasıl geldiklerini gör. Gayet iyi, değil mi?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph32" = "Şimdi, aynı kategoriden iki döngüyü aynı anda çalmayı dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph33" = "Iyy! 🙉 Kulağa ne kadar kötü geliyor fark ettin mi? Bunun nedeni, aynı kategorideki döngülerin birbiriyle yarışmaya eğilimli olmasıdır ve bu da müziğinin biraz karmaşık olmasına neden olabilir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph34" = "İpucu: Her bir kategoriden tek seferde yalnızca bir döngü kullanmayı dene!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..Paragraph35" = "Şimdi, `.DreamsBass1` gibi farklı bir bas döngüsü çalması için `LoopButton` düğmeni ve düğmenin rengini değiştir.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph36" = "Favori bas döngülerini bulmak ve eklemek için zaman ayır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph37" = "Tüm bas seslerini `Bass` bölümünün içine yerleştir. Onları bu şekilde kategorilere ayırmak performansın sırasında çalacağın doğru sesleri bulmana yardımcı olabilir: 🎼";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock8" = "LoopButton(bass: .ParisNightsBass, color: .blue)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock9" = "LoopButton(bass: .LesInfernoBass, color: .purple)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock10" = "LoopButton(bass: .SaintTropezBass, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock11" = "LoopButton(bass: .PrismaticaBass7, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph38" = "Stüdyoya dönme zamanı!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph39" = "Bir vuruş döngüsü seç ve bir tur çalmasına izin ver. Vuruş bir tur çalmayı tamamladığında, Bas düğmelerinden birine dokunarak veya bunu tıklayarak bir bas döngüsü ekle. Bu ritmi nasıl değiştiriyor?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph40" = "Vuruş ve bas seslerinin birlikte kulağa nasıl geldiğinden memnun olduğunda bırak çalsın ve Kayıt Yap’a dokun ya da bunu tıkla. İyi şanslar!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..title" = "Melodi ve ortam seslerini katmanlama";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph41" = "Peki ya melodi ve ortam sesleri? Melodi, parçanın akılda kalmasını sağlayan bileşendir, bu nedenle parçanı oluşturmak için gerçekten çok önemli.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph42" = "Ortam sesleri parçanın modunu ayarlamana ve parçanın bir bölümünden sıradaki bölümüne geçiş yapmana yardımcı olabilir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph43" = "Bu bölümleri sound pad’ine nasıl ekleyeceğini tahmin edebilir misin?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..Paragraph44" = "Melodic ve Ambient bölümlerini aşağıdaki kodla ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..CodeBlock12" = "/*#-code-walkthrough(3.exploreMelody)*/\nMelodic {\n    LoopButton(melodic: .DreamsChords3, color: .teal)\n}\n/*#-code-walkthrough(3.exploreMelody)*/\n/*#-code-walkthrough(3.exploreAmbient)*/\nAmbient {\n    LoopButton(ambient: .DiscoSynth1, color: .red)\n}\n/*#-code-walkthrough(3.exploreAmbient)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph45" = "`.DreamsChords3` ve `.DiscoSynth1` öğelerini değiştirerek farklı melodiler ve ortam döngüleri ile deneme yapmak için zaman ayır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph46" = "Melodi ve ortam sesleri bestelediğin müziği nasıl etkiliyor?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..Paragraph47" = "Favori melodik döngülerini bul ve kodunu Melodic bölümünün içine ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock13" = "LoopButton(melodic: .ParisArpeggio, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock14" = "LoopButton(melodic: .GlowChords, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock15" = "LoopButton(melodic: .PrismaticaChords2, color: .cyan)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..Paragraph48" = "Şimdi, Ambient bölümüne bir ortam döngüleri kümesi ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock16" = "LoopButton(ambient: .PrismaticaSynth2, color: .yellow)          \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock17" = "LoopButton(ambient: .SolarisString, color: .red)                     \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock18" = "LoopButton(ambient: .GlitterSynth, color: .pink)               \n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph49" = "Yaşasın! Sound pad’in gerçekten bitmek üzere. Stüdyoya girme ve ilk demo kasedini kaydetme zamanı!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph50" = "Demonu yapılandırmanın bir yolu şudur:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph51" = "Bir vuruşla başla ve bir tam döngü boyunca çalmasını sağla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph52" = "Bir bas döngüsü ekle ve bir tam döngü boyunca çalmasını sağla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph53" = "Bir melodik döngü seç ve bir tam döngü boyunca çalmasını sağla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph54" = "Son olarak, modu ayarlamak için bir ortam sesi ekle ve bırak parçan çalsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph55" = "Demonu yapılandırmanın daha fazla yolu için bir sonraki sayfaya geç!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph56" = "Şimdi, performansınla deneme yapmayı dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph57" = "Parçanın kulağa nasıl geldiğini çeşitlendirmenin bir yolu, farklı döngüleri tanıtma sırasını değiştirmektir. Parçana öncelikle melodi ile başla, sonra vuruşu tanıt, sonra ortam sesini ve sonra da bası. Hangi hâlini daha çok sevdin?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph58" = "İlk demonu kaydet ve geri bildirim almak için arkadaşlarına gönder!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..title" = "Ses efektleri ekleme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..Paragraph59" = "Şimdi bazı ses efektleri ekleyerek hareket katma zamanı!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..Paragraph60" = "Öncelikle, ses efektlerini çalan SoundFX adlı yeni bir bölüm ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..CodeBlock19" = "/*#-code-walkthrough(4.exploreSoundFX)*/\nSoundFX {\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n    SoundFXButton(sound: .PlanetariumFX3, color: .green)\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n}\n/*#-code-walkthrough(3.exploreSoundFX)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph61" = "`LoopButton` düğmesine dokunmanın veya bunu tıklamanın aksine, `SoundFXButton` düğmeleri, sesi yalnızca bir kez çalar ve sonra durur. Haydi bir dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph62" = "Tıpkı `LoopButton` gibi, `sound` ve `color` [parametrelerini](glossary://parameter) değiştirerek `SoundFXButton` düğmesinin sesini ve rengini özelleştirebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..Paragraph63" = "Bazı ses efektleri ile parçana canlılık ekle. En sevdiğin efektlerle SoundFX bölümünü oluştur:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock20" = "SoundFXButton(sound: .FirstGearFX, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock21" = "SoundFXButton(sound: .HornBassFX, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock22" = "SoundFXButton(sound: .BotTalkFX3, color: .mint)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock23" = "SoundFXButton(sound: .KazooFX4, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock24" = "SoundFXButton(sound: .TromboneFX1, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph64" = "Ne yapacağını biliyorsun… Stüdyo seansı zamanı! 🎉";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph65" = "Ses efektlerini pek çok yerde kullanabilirsin. Sürpriz etkisi yaratmak için parçanın başlangıcında çalabilirsin ya da parçana biraz duygu katmak için nakarata bağlanacak şekilde ortasına ekleyebilirsin. Farklı ses efektlerini keşfetmeyi dene ve parçana etkilerini dinle.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph66" = "Hazır mısın? Farklı ses efektleri içeren ikinci bir demo kasedi kaydet ve bunu öncekiyle karşılaştır. Hangisinden daha çok etkilendin?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..title" = "Sesleri değiştirme";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..title" = "Ses yüksekliğini değiştirme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..Paragraph67" = "Bazen her bir sesin yüksekliğini değiştirmek istersin. Bunu bir [niteleyici](glossary://modifier) ile yapabilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph68" = "Herhangi bir `LoopButton` veya `SoundFXButton` düğmesine bir ses yükseliği [niteleyicisi](glossary://modifier) ekleyerek ses yüksekliğini değiştirebilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph69" = "Ses yüksekliği niteleyicisi `0` ile `1.0` arasında bir sayı alır; burada `0` sessiz, `1.0` ise tam ses yüksekliğidir.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph70" = "Bu niteleyiciyi var olan düğmelerden herhangi birine ekle ve çal:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..CodeBlock25" = ".volume(0.5)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph71" = "Farkı duyuyor musun? Ses yüksekliği `0.5` olarak ayarlamak sesin yüksekliğini yarıya indirir.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..Paragraph72" = "Harika! Artık sound pad’indeki herhangi bir sesin yüksekliğini ayarlayabilirsin!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..title" = "Perdeyi değiştirme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..Paragraph73" = "Seslerini değiştirmek için ekleyebileceğin perdeyi (`pitch`) ayarlamak gibi başka [niteleyiciler](glossary://modifier) de vardır.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph74" = "Herhangi bir `SoundFXButton` veya `LoopButton` düğmesine bir perde [niteleyicisi](glossary://modifier) ekleyerek [perdeyi](glossary://pitch%20audio) değiştirebilirsin:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..CodeBlock26" = ".pitch(.E)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph75" = "Farkı duyuyor musun?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph76" = "Artık herhangi bir ses perdesini özelleştirebilirsin! Daha önce eklediğin seslerin perdesini değiştirmeyi dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph77" = "Tek bir düğmenin aynı anda perdeyi ve ses yüksekliğini ayarlamak için birden fazla niteleyicisi olabilir.";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..title" = "Hızı değiştirme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..Paragraph78" = "Her bir sesin hızını (`speed`) ayarlamak için de [niteleyicileri](glossary://modifier) kullanabilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph79" = "Hızı değiştirmek için bir `.speed` niteleyicisi ekleyebilirsin. Bu projede, hız `0` değerinden `2.0` değerine değişebilir; `2.0` değeri hızı ikiye katlamak anlamına gelir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph80" = "Hızlandırmak için ses efektlerinin veya döngülerinin birinin altına hız niteleyicisini ekle:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..CodeBlock27" = ".speed(2)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..Paragraph81" = "Yavaşlatmak için başka bir sese bir hız niteleyicisi eklemeyi deneyebilir misin?";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..CodeBlock28" = ".speed(0.5)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph82" = "Stüdyo seansı zamanı!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph83" = "Küçük bir meydan okumaya var mısın? Bir vuruş sesi seç ve hızını `0.5` olarak değiştir. Şimdi, parçanı bu yeni hızda çalmayı dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph84" = "Başka bir bass veya melodic döngüsünü `2.0` hızı ile değiştirmeyi dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph85" = "Ne bekliyorsun? Kayıt Yap düğmesine dokun veya düğmeyi tıkla ve sesleri birlikte çalmayı dene. Döngüleri hızlandırdığında veya yavaşlattığında parçada neyin değiştiğini fark ediyorsun?";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..title" = "Filtre ekleme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..Paragraph86" = "Ekstra çarpıcı özellik için seslerine filtreler uygulayabilirsin!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph87" = "Bir `filter` [niteleyicisi](glossary://modifier) ile yeni bir ses eklemeyi dene ve değeri `drumsBitBrush` olarak ayarla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph88" = "Nasıl filtre ekleyeceğinden emin değilsen bir örneği şu şekildedir:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..CodeBlock29" = ".filter(.drumsBitBrush)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph89" = "Vay be! Duydun mu? Kulağa harika geliyor!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..Paragraph90" = "Seslerini nasıl değiştirdiği görmek için diğer ses efektlerini dene:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock30" = ".filter(.drumsLoFi)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock31" = ".filter(.multiDecimated1)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock32" = ".filter(.multiEcho1)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph91" = "Yaşasın! Neredeyse bitirdin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph92" = "Şimdi her şeyi bir araya getirme zamanı. Farklı sesler ekle ve bunlara ses yüksekliği, perde, hız ve filtre ile ince ayar yap. Parçanın ilginç bir remiksini (yeni ürkütücü doğaçlamanı?) yaratmak için de bu filtreleri kullanabilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph93" = "Kayıt Yap düğmesine dokunarak veya düğmeyi tıklayarak parçayı çalarken kendini kaydet. Bitirdiğinde, kaydı durdurmak için düğmeye yeniden dokun veya tıkla. Artık parçanın bir demosu var, bunu arkadaşlarınla ve ailenle paylaşabilir ve düşüncelerini öğrenebilirsin.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..title" = "Kendi düğmelerini oluşturma";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..title" = "Bir SwiftUI Düğmesi ekleme";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..Paragraph94" = "Bir adım öteye gitme zamanı. Sound pad’in için özel düğmeler yaratmak üzere kodunda daha derinlere dalacaksın.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph95" = "Soldaki önizlemede, ekranın ortasında bir [Düğme](doc://com.apple.documentation/documentation/swiftui/button) görebilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph96" = "Önizlemedeki düğmeye dokun veya onu tıkla, herhangi bir şey duydun mu?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph97" = "Bir düğmeye (`Button`) dokunduğunda veya onu tıkladığında, kod `soundPlayer.playSound(.FirstGearFX)` [fonksiyonunu](glossary://function) çağırır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph98" = "Bir fonksiyon [çağrısı](glossary://call) fonksiyondan çalışmasını ister. Bu durumda, fonksiyon `.FirstGearFX` sesini çağırır (veya çalar).\nSesi başka bir şeyle değiştirmeyi dene.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph99" = "Hmm… Düğme bir sound pad düğmesi gibi görünmüyor. Düğmenin görünümünü değiştirmeyi denemelisin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph100" = "Eski düğmeyi sil ve bunu aşağıdaki kodla değiştir:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..CodeBlock33" = "Button {\n    soundPlayer.playSound(.FirstGearFX)\n} label: {\n    /*#-code-walkthrough(6.buttonLabel)*/\n    Circle()\n    /*#-code-walkthrough(6.buttonLabel)*/\n    //#-learning-code-snippet(6.buttonLabel)\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph101" = "Düğmenin görünümünü değiştirmek için ona özel bir etiket (`label`) ekleyebilirsin. `Circle()`öğesini `label` öğesinin içine yerleştirmek düğmeyi bir daireye dönüştürür.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph102" = "`Circle()` öğesini aşağıdaki `ButtonView` ile değiştir:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..CodeBlock34" = "/*#-code-walkthrough(6.colorButton)*/\nButtonView(color: .orange)\n/*#-code-walkthrough(6.colorButton)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..Paragraph103" = "`ButtonView` tek bir [parametre](glossary://parameter) rengini (`color`) alır. `.orange` öğesini favori renginle değiştirerek düğmenin rengini değiştirebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..Paragraph104" = "Vay canına! Artık tüm sesleri çalmak için kendi düğmeni yaratabilirsin!";
+

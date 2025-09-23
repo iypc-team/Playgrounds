@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "捕捉照片";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "捕捉照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "想象一下使用你自己 App 中的相机能做到什么炫酷的事情！在本示例中，你将探索相机 App 的构建块，并了解如何通过 SwiftUI 技能使用相机和照片图库。";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "捕捉照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "欢迎使用捕捉照片！";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "想一想相机 App 应该有的基本功能是：";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "在取景器中显示来自摄像头的实时视频";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "轻点或点按快门按钮时拍照";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "存储照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "浏览和查看已拍摄的照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "你将学会如何做到这一切，甚至更多。你将了解 App 使用的数据对象，以及如何管理对象和 App 用户界面之间的数据流动。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "开始前，选择“App 预览”，然后花点时间探索相机 App，并拍几张照片吧。";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "开始演示";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "按钮辅助功能描述";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "预览相机输出";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "相机的视频输出会发送连续的单个图像流（视频帧）。你需要将它们显示在取景器中，以便能够看到相机所捕捉到的准确内容，然后再进行画面构图和拍摄。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "进一步探索工作原理。🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "使用相机";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "了解数据模型中的相机。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "你的数据模型有一个 `camera` 属性，代表了设备上可用的其中一个实体相机或拍照设备。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "你的设备可能可以使用多个拍照设备，例如 iPad 的前置和后置相机。你可以使用相机的 `switchCaptureDevice()`(切换拍照设备)方法切换这两个相机。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "在 [Choosing a Capture Device](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device)（选取捕捉设备）中进一步了解捕捉设备。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "若要开始使用相机，你可以调用它的 `start()`（开始）方法：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "注意，必须先添加“相机”功能，才能在自己的项目中使用设备相机。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "在[为项目请求访问功能](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)中进一步了解更多。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "探索预览流";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "了解来自相机的预览图像流。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "调用相机的 `start()` 方法后，它的视频输出会生成一系列低分辨率的预览图像（视频帧），速率为每秒最多 60 帧。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "你将通过相机的 `previewStream`（预览流）属性，将这些预览图像作为 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)（核心图像）对象的[异步流](glossary://asynchronous%20stream)接收。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "处理预览流";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "了解如何处理预览流，让它准备好在取景器中显示。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[数据模型](glossary://data%20model)有一个专用[任务](glossary://task)，可通过它的 `handleCameraPreviews`（处理相机预览）函数处理来自相机的预览图像[流](glossary://asynchronous%20stream)。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "你可以在 Swift 标准库中进一步了解[任务](doc://com.apple.documentation/documentation/swift/task)。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "在 `handleCameraPreviews` 中，将来自相机的 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 对象预览流变为 [Image](doc://com.apple.documentation/documentation/swiftui/image)（图像）视图流，以准备好进行显示。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream)（异步流）是指隔一段时间产生的数值流。这些值组成了一个[序列](glossary://sequence)，只是它的值为异步到达，也就是说，它是一个 [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence)（异步序列）。你可以对它执行许多对任何其他值序列（如[数组](glossary://array)）执行的相同操作。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "在这种情况下，你将使用流的 [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map)（映射）函数，并通过 `CIImage` 的 `image` 属性扩展将每个元素 (即 `$0`) 转换为 [Image](doc://com.apple.documentation/documentation/swiftui/image) 实例。这个操作会将 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 实例流转换为 [Image](doc://com.apple.documentation/documentation/swiftui/image) 实例流。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "`for`-`await`（等待中）循环会等待转换后的 `imageStream`（图像流）中的每张图像，然后才对它们执行一些操作。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "在 [Swift 编程语言指南](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences)中进一步了解使用异步序列。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "你将使用来自预览流的图像更新数据模型的 `viewfinderImage`（取景器图像）属性。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI 会确保在 `viewfinderImage` 值更改时，使用这个属性的任何视图都会更新。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "查看预览流";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "了解如何将取景器视图连接到处理后的预览流。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView`（相机视图）有一个 `ViewfinderView`（取景器视图），用于显示来自相机的实时视频。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "通过将模型的 `viewfinderImage` 属性[绑定](glossary://binding)到 `ViewfinderView`，可确保视图每次收到新预览图像时，取景器都会更新。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "由于预览图像每秒更新很多次，你在取景器中看到的就像实时视频一样。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "旋转或模糊化取景器";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "尝试旋转或模糊化预览流中的图像。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "`handleCameraPreviews` 方法会将相机的 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 实例预览[流](glossary://asynchronous%20stream)映射到 [Image](doc://com.apple.documentation/documentation/swiftui/image) 视图流，以准备好在 `ViewfinderView` 中显示。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "这个位置非常适合对预览图像进行其他有用的处理，然后再将它们映射到 [Image](doc://com.apple.documentation/documentation/swiftui/image) 视图。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "假如你想要将图像向侧面转动，或者甚至上下颠倒，可以调用它的 [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented)（方向）方法。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "在 `imageStream` 定义中，将这行代码添加到 `.map { $0.image }` 上方：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "在这里，你正在使用 `map`，并通过为图像流中的每个元素 (`$0`) 调用函数 `oriented(.left)`，来将图像流变为旋转后的图像流。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "或者你可能想要将预览图像变得模糊一点？";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "将另一个操作应用到图像，方法是将这些代码添加到 `.map { $0.image }` 上方：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "你正在将 `map` 操作一个接一个地应用到[流](glossary://asynchronous%20stream)，这个过程也称为[串联](glossary://chaining)操作。事实上，你可以按需串联任意数量的操作。例如，以下操作接收来自预览流的输入、旋转图像、模糊化图像，最后将它们转换为 `Image` 流。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "试验一下吧！";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "试试不同的方向选项；例如，将方向更改为 `.down`（下）时会发生什么？";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "试试不同的模糊值。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 包含用于转换图像的许多有用方法。";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "捕捉和存储照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "微笑！咔嚓！拍摄一张照片时，接二连三发生了许多事情。📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "跟踪轻点或点按快门按钮后执行的操作，探寻从拍摄瞬间到照片在照片图库中显示的过程中发生了什么。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "响应快门按钮";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "了解如何处理快门按钮操作，以及如何请求相机拍摄照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "在相机视图中轻点或点按快门按钮时，一切就会开始发生！";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "按钮立即开始行动，抓取模型的 `camera`（相机）对象，然后调用它的 `takePhoto()`（拍照）方法。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "继续探索，发现照片是如何拍出来的！";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "捕捉照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "拍摄照片时，相机会从传感器捕捉图像数据。了解如何启动这个过程，以及如何处理捕捉到的照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "拍摄照片时，你通常希望以尽可能高的分辨率捕捉图像。但预览图像与此相反，它们往往分辨率较低，以便在取景器中快速更新预览。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "相机有一个特殊的照片输出，它的 `takePhoto()` 方法会使用这个输出，将你在取景器中看到的景象捕捉为高分辨率的图像。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "请求这个照片输出捕捉照片，这样就能真正开始拍照了。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "如果一切顺利，这时你会听到意料中的快门声，告诉你和周围的所有人，你刚刚拍了一张照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "你可能会想，`capturePhoto`（捕捉照片）为什么不直接返回照片。这是因为捕捉照片需要时间：相机可能需要对焦或者等待闪光灯亮起，然后曝光也需要时间。`capturePhoto` 方法是[异步](glossary://asynchronous%20process)进行的，捕捉到的照片通常将在你轻点或点按快门按钮的一小段时间之后到达。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "照片捕捉完成后，你会收到对相机对象中另一个方法 `photoOutput(_:didFinishProcessingPhoto:error:)` 的[回调](glossary://callback)。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "它的第一个实参会接收捕捉到的照片，作为 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) 的实例。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "现在你有了捕捉到的照片，可将它添加到相机的照片流中。然后 App 中等待照片的任何对象（如数据模型）都可以使用它了。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "处理和存储照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "探索如何对捕捉到的照片进行拆包，并将它存储到照片图库中。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "你的数据模型正在耐心等待新捕捉的照片。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "和预览图像一样，数据模型还有另一个专用[任务](glossary://task)，可通过它的 `handleCameraPhotos`（处理相机照片）方法处理来自相机的已捕捉照片流。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "你可以在 Swift 标准库中进一步了解[任务](doc://com.apple.documentation/documentation/swift/task)。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "相机 `photoStream`（照片流）中的每个 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) 元素都可能包含不同分辨率的多张图像，以及关于该图像的其他[元数据](glossary://metadata)，如图像的大小和图像捕捉的日期及时间。你必须对 `photoStream` 进行拆包，才能获得想要的图像和元数据。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "在 `handleCameraPhotos` 中要做的第一件事是将 `photoStream` 转换为更加有用的 `unpackedPhotoStream`（已拆包照片流），其中每个元素都是包含所需数据的 `PhotoData`（照片数据）结构的一个实例。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "将 `photoStream` 拆包将需要使用 `unpackPhoto(_:)` 函数，它会接收已捕捉的照片，并返回包含以下内容的 `PhotoData` 实例：";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "一张低分辨率的图像缩略图，作为 [Image](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "图像缩略图的大小";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "一张高分辨率的图像，作为 [Data](doc://com.apple.documentation/documentation/foundation/data)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "高分辨率图像的大小";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "你会回想起，`photoStream` 作为一个[异步流](glossary://asynchronous%20stream)，与 [Sequence](doc://com.apple.documentation/documentation/swift/sequence)（序列）非常相似。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "你可以使用它的 [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap)（精简映射）方法，来为流中的每张照片 (`$0`) 调用 `unpackPhoto(_:)`。这个操作会将 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) 实例流转换为更加有用的 `PhotoData` 实例流。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "`for`-`await` 循环现在会等待已拆包流中的 `photoData` 元素到达，然后才对它进行处理。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "使用 `photoData` 中的缩略图图像更新模型的 `thumbnailImage`（缩略图图像）属性。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "调用模型的 `savePhoto(imageData:)` 方法，将来自 `photoData` 的图像数据存储为照片图库中的新照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "`savePhoto(imageData:)` 方法会创建一个[任务](glossary://task)，通过调用 `addImage(_:)`（添加图像）方法，把存储照片数据的实际工作传递给 `photoCollection`（照片集）对象。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "没关系！数据模型的工作就是协调 App 的数据对象之间的数据流。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "添加有延迟的快门";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "尝试给相机的快门按钮添加延迟。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "想像你将相机架设在某个地方（比如三脚架上），轻点或点按按钮，在照片拍摄之前还有足够的时间跑一圈再跃入画面！";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "若要实现，你需要在轻点或点按快门按钮之后、相机拍摄照片之前添加短暂的延迟。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "查看处理快门按钮操作的代码，想想应该如何实施。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "你很快想出了一个计划：";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "添加[状态属性](glossary://state%20value) `delayCount`（延迟量），来在拍摄照片前倒计时特定秒数。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "轻点或点按快门按钮时，将 `delayCount` 设为相机拍照前要等待的秒数。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "设定 [Timer](doc://com.apple.documentation/documentation/foundation/timer)（计时器），以每秒钟将 `delayCount` [递减](glossary://decrement)一次。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "`delayCount` 变为零时，停止计时器，同时让相机拍摄照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "首先在 `CameraView` 顶部、`body`（主体）属性上方定义[状态属性](glossary://state%20value) `delayCount`，并将它的初始值设为零。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "提示：将它设为 `private` 是因为你只在 `CameraView` 内部使用它。对于只打算在某个类型内部使用的任何定义，这都是一种很好的做法。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "然后，在快门 [Button](doc://com.apple.documentation/documentation/swiftui/button)（按钮）处理程序中，将用于在轻点或点按按钮时立即拍照的那一行代码[注释掉](glossary://comment%20out)。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "你将改为在计时器处理程序内调用 `takePhoto()`。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "接下来，将 `delayCount` 变量设为想要倒计时的秒数，比如 `5` 秒。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "在 `delayCount` 赋值语句下方，添加已设定的 [Timer](doc://com.apple.documentation/documentation/foundation/timer) 并让它每秒重复一次。计时器启动时，会调用你提供给它的[闭包](glossary://closure)中的代码，让 `delayCount` [递减](glossary://decrement)。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "现在到了计时器闭包的最后一步：当 `delayCount` 归零时，让计时器停止运行，并命令相机拍摄照片。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "将以下代码添加到计时器闭包中，放在 `delayCount -= 1` 之后：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "调用计时器的 [invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate)（无效化）方法时，计时器将停止运行，它的工作完成了！";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "按钮处理程序现在看起来应该像下面的代码这样。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "仔细检查代码后，轻点或点按快门按钮，然后等一等！";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "提示：有时候，尤其是代码未按你的预期执行的时候，你会不会想，代码中究竟发生了什么？";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "你可以添加 `print`（打印）语句，让代码将有用的信息写入[控制台](glossary://console)来告诉你它究竟执行了什么操作。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "试试将这一行添加到计时器闭包内：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "打开控制台，然后轻点或点按快门按钮来拍一张有延迟的照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "对有延迟的快门按钮不太满意吗？不妨加入一点装饰！✨ 你可以让倒计时直接显示在按钮中！";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "找到快门按钮的图标：带有两个 [Circle](doc://com.apple.documentation/documentation/swiftui/circle)（圆形）视图的 [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack)（Z 轴堆栈）。在这个 [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) 内的第二个 [Circle](doc://com.apple.documentation/documentation/swiftui/circle) 之后，添加这些代码：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "现在轻点或点按快门按钮。看看拍摄照片前所等待秒数的倒计时过程。";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "浏览照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "喜欢拍照吗？大多数人都喜欢，而且一不小心图库中就可能有成百上千张照片。🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "跟踪从照片图库中取出并显示在滚动的可浏览画廊中的照片。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "使用照片集";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "了解数据模型中的照片集，以及它如何为画廊提供照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "数据模型有一个 `photoCollection` 属性，可以代表照片图库中任何项目的集合。它可以是整个照片图库，或者只是一个相簿，甚至是一次搜索的结果。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "你可以使用智能相簿 `.smartAlbumUserLibrary`（智能相簿用户图库）初始化 `photoCollection`，来包括图库中的所有照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "注意，必须先添加“照片图库”功能，才能在自己的项目中访问照片图库。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "在[为项目请求访问功能](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)中进一步了解更多。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "获取照片资源";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "照片集中的每一项称为一个照片[资源](glossary://asset)。探索如何获取这些资源吧。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "数据模型的 `photoCollection` 有一个 `photoAssets`（照片资源）属性，可让你像使用数组一样使用照片资源集。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "例如，你可以使用照片资源的索引来获取它：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "或者为照片集中的所有照片计数：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "你还可以使用循环[迭代](glossary://iteration) `photoAssets` 中的资源。你会发现这个功能对于构建画廊非常有用。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "你会注意到，`photoAssets` 是 `PhotoCollection` 的[已发布](glossary://published%20value)属性，而 `PhotoCollection` 是一个[可观测对象](glossary://observable%20object)。这意味着你可以响应照片资源中的更改，如添加或删除照片。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "导航到照片画廊";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "探索如何导航到照片画廊，以及如何将它连接到照片图库。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "在相机视图中，使用[导航链接](glossary://navigation%20link)前往照片画廊。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "导航链接就像按钮一样，你甚至可以为它添加标签和图标。将这个按钮放在快门按钮的左侧。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "轻点或点按导航链接时，SwiftUI 会为你导航至另一个视图，在本例中是用于显示照片画廊的照片集视图。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "如果在 [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack)（导航叠放）内使用导航链接，SwiftUI 会管理各视图的显示，让你轻松在其间导航。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "初始化 `PhotoCollectionView`（照片集视图）时，通过将模型的 `photoCollection` 传递到 `PhotoCollectionView`，你可以提供想要在画廊中显示的照片集。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "打开画廊时，你将不会再看到取景器，因此没有必要继续对它进行更新。你更应该将设备的性能集中用于显示照片。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "若要控制相机预览流活跃的时间，可使用导航链接的 [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) 修饰符来在画廊显示时暂停预览流，使用 [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) 来在导航回相机时重新恢复预览流。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "构建照片画廊";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "探索如何在滚动网格中显示照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "你将使用 `PhotoCollectionView` 将照片显示在滚动网格中，最近的照片显示在顶部。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "创建 `PhotoCollectionView` 时，`photoCollection` 属性将通过引用模型的 `photoCollection` 进行初始化。它提供了构建照片画廊所需的所有数据。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "通过将 `photoCollection` 设为[被观测对象](glossary://observed%20object)，SwiftUI 会更新照片集视图来响应照片集[发布值](glossary://published%20value)的更改。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "使用一个惰性垂直网格 ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)) 来将照片显示为网格布局中的项目。由于布局使用的是垂直网格，你只需要决定想要的 `columns`（列）数和每个项目之间的 `spacing`（间距）。网格包含列数后会垂直展开，以添加足够的行来显示所有照片。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "为什么叫做惰性？那是因为，如果网格比它含有的视图更大，视图只会显示当前可见的项目。这种“惰性”实际上增强了 App 的性能，特别是对滚动浏览照片网格时的性能。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "你可以在网格中使用固定列数，但更[快速响应](glossary://responsive)的方法是根据视图的宽度显示尽可能多的列。这种方法可为用户调整 App 大小带来更好的体验。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "若要创建适应视图宽度的网格，可定义一个 `adaptive` [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem)（网格项），并指定大小和要保持的间距。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "想像你有成百上千张照片。即使使用自适应布局，网格也可能变得非常高，可能比你用来显示它的空间要高得多！";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "将网格放到 [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview)（滚动视图）内来将它变成可滚动网格，这样它就可以具有所需要的任意多行数，并且你将能够上下滚动浏览照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "在网格内使用 [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach)（针对每个）来[迭代](glossary://iteration)照片集中的照片资源，并为每个资源生成一个视图。这些视图将填充网格。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "由于网格是惰性的，在滚动时，[ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) 只会对可见的照片资源进行操作。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "为每个网格项创建 [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink)（导航链接），以在轻点或点按每一项时，使用通过照片资源初始化的[目的视图](glossary://destination%20view) `PhotoView`，以完整大小显示单张照片。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "`photoItemView(asset:)` 方法创建了一个视图，显示照片资源的较小图像缩略图。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "这个视图将用作导航链接的[标签](glossary://label)，让每个链接显示为照片的缩略图大小版本。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "显示照片";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "了解照片视图载入和显示照片的方式。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "关于单独显示一张照片，你将使用 `PhotoView`。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "在照片视图中显示从照片请求的高分辨率图像。你还有一个叠层，显示用于收藏或删除照片的按钮。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "照片视图有一个针对它所显示照片的 `photoAsset` 属性。你将在初始化 `PhotoView` 时传入这个属性。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "你还将使用 `cache`（缓存）属性初始化视图，这个属性包含对图像缓存的引用。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "你可以从图像缓存中请求指定大小的图像。从照片资源载入这张图像后，缓存会将它发回给你。图像缓存还在内存中保存了最近请求过的图像，如果你再次请求这些图像就无需重新载入。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "视图有一个 `image` [状态属性](glossary://state%20value)，随时准备在图像载入完成后进行保存。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "它是一个[可选](glossary://optional)类型（即 `Image?`），因为你需要它在没有任何初始值的状态下启动。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "视图可以使用它的 [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) 修饰符，来在视图载入时[异步](glossary://asynchronous%20process)运行一些代码。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "你将在这里添加代码来从照片资源的缓存中请求高分辨率图像，并指定想要的大小。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "你还将为缓存提供[闭包](glossary://closure)，其中包含有 `result`（结果）时可以调用的代码。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "结果闭包会收到来自缓存的一次或多次调用。如果缓存中已经包含你请求的图像，它会立即将图像放入 `result`，并调用闭包。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "如果缓存中没有请求的图像，则会从照片资源载入图像并进行缓存。载入图像时，缓存可能会先通过低分辨率图像调用闭包，最后才将高分辨率图像放入 `result` 中发送。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "结果闭包会在结果中查找图像。如果找到，它会更新 `image` 属性。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "由于你已将 `image` 设为状态属性，SwiftUI 会在它的值更改时更新视图。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "如果 `image` 包含值，你将对图像进行[解包](glossary://unwrap)，并将它显示在视图中。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "但如果 `image` 不包含值，你可以使用 [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview)（进度视图）将旋转图标显示为[占位符](glossary://placeholder%20view)。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "仔细查看，你可能只会在视图首次载入时看到这个旋转图标，这时缓存还没有机会从照片资源载入图像。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "使用固定网格";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "在照片画廊中尝试其他网格样式。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "画廊以网格形式显示照片，每张照片都位于大小固定的方块中。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "使用 `columns` 属性定义这种排列方式，这个属性会返回一个 [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) 数组。使用单个 [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) 网格项意味着 `LazyVGrid` 会适应可用宽度，并放入尽可能多的列。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "但如果你想要的是固定列数布局，其中每张照片占据尽可能多的空间呢？";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "若要实现，`columns` 数组中想要的每一列应改为包含 [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) 网格项。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "在 `columns` 下方，定义一个 `fixedColumns`（固定列）属性，让它为每一列返回一个 `flexible` 网格项数组：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "将 `fixedColumns`（而非 `columns`）传入惰性网格，就像这样：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "现在浏览你的照片画廊，看看这一步带来了什么不同，尤其是在调整视图大小的时候。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "你会注意到现在显示的是两列，和你预期的一样，但照片仍然是原始大小。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "还有另一件事需要你处理…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "看看构建照片项视图的函数中的这一行代码。思考片刻，问题可能出在哪里？";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "是的，你不再想要每张照片都是固定 [frame](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:))（帧）大小，而是让视图的宽度和网格中的列数来确定图像的大小。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "注释掉下面显示的这一行，让每张照片都可以自由占据所需要的空间：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "重新打开照片画廊，现在你将看到每张照片填满了列的宽度。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "试试将视图变宽。注意到发生什么了吗？";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "仔细查看新的固定列，你会注意到列之间有空隙，但两侧都没有。看看代码，你知道为什么吗？";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "更改视图的填充，将它应用到四周，而不是仅应用到垂直方向：";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "还可以尝试一些更深入的操作：";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "再添加一些网格项，以显示更多列。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "更改 `imageSize`（图像大小）属性返回的值，为固定网格获取更高分辨率的图像。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "为照片项视图使用最大高度，而非固定高度：`.frame(maxHeight: 400)`。";
+

@@ -1,0 +1,609 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Sound pad";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..title" = "Comporre la tua musica con un sound pad";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph0" = "In questo tutorial, esplorerai le funzioni per creare suoni e le loro potenzialità, personalizzando il tuo primo sound pad.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph1" = "Preparati a vederne delle belle e a ballare al ritmo della tua colonna sonora originale!";
+
+/* Title of step named Make your own sound pad */
+"GuideBook..Guide0..StepMake your own sound pad..title" = "Creare il tuo sound pad";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph2" = "![](intro.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph3" = "L\'app “Sound pad” ti consente di combinare vari componenti audio per creare la tua musica. Potrai creare i tuoi strumenti con il codice e registrare le tue composizioni musicali per farle ascoltare ai tuoi amici e familiari.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph4" = "Che ne dici di iniziare a creare la tua jam?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..title" = "Progettare il tuo sound pad";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..title" = "Suonare beat diversi";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph5" = "Ti è stata affidata una missione molto delicata: i tuoi amici hanno organizzato una festa e ti hanno chiesto di mettere della musica cool.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph6" = "Non preoccuparti! Te la caverai alla grande grazie alla tua arma segreta: con il potere del codice potrai creare dei mix originali stratosferici 🧑‍🎤.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph7" = "Prima di iniziare, guarda l\'anteprima a destra e divertiti a sperimentare con l\'app “Sound pad”.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph8" = "Ecco alcune domande che potrebbero esserti utili quando utilizzi l\'app:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph9" = "Che cosa succede quando premi uno dei pulsanti del sound pad?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph10" = "Come si interrompe un suono?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph11" = "Che cosa succede quando premi il pulsante rosso per la registrazione?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph12" = "Utilizza queste domande per capire come funziona il sound pad.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph13" = "Nota che i due pulsanti nell\\\'anteprima corrispondono ognuno a un `LoopButton` in `SoundPadView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph14" = "Toccando o facendo clic su `LoopButton` viene riprodotto un beat. Aggiungi il frammento di codice mostrato di seguito per aggiungere un nuovo `LoopButton`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..CodeBlock0" = "LoopButton(beat: /*#-code-walkthrough(1.changeSound)*/<#T##BeatSounds#>/*#-code-walkthrough(1.changeSound)*/, color: .indigo)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph15" = "Per vedere altri beat, seleziona `BeatSounds` e digita un punto (`.`), quindi selezionane uno nuovo dall\'elenco di suoni, ad esempio `.GlowBeat`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..CodeBlock1" = "LoopButton(beat: .GlowBeat, color: .indigo)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph16" = "Prova a esplorare altri beat nella libreria dei suoni e seleziona quelli che ti emozionano di più.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph17" = "Ottimo lavoro! Cambiando il valore del [parametro](glossary://parameter) del suono, viene modificato il beat riprodotto. Nota che ciascun `LoopButton` presenta un parametro `color`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph18" = "Puoi cambiare il colore `.teal`, digitando `.` quindi scegliendo il colore tra una delle opzioni che ti vengono proposte, ad esempio, `.mint`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..CodeBlock2" = "LoopButton(beat: .CosmicBeat, color: .mint)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..Paragraph19" = "Inoltre, puoi anche provare ad aggiungere i pulsanti già pronti che trovi qui sotto. Copia e incolla i pulsanti di esempio e posizionali nella sezione evidenziata. Prenditi un po\' di tempo per scoprire i tuoi beat loop preferiti, perché ti serviranno per comporre la tua musica. Trova i suoni che ti piacciono di più:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock3" = "LoopButton(beat: .DiscoBeat1, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock4" = "LoopButton(beat: .FeverBeat, color: .yellow)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock5" = "LoopButton(beat: .SolarisBeat2, color: .red)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock6" = "LoopButton(beat: .GoTimeBeat2, color: .pink)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph20" = "Cosa aspetti ad andare nello studio di registrazione?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph21" = "Inizia riproducendo un beat loop e prova a tenere il ritmo battendo le mani o battendo le dita sul tavolo. Riesci a seguire i beat del loop?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph22" = "Premi il pulsante di registrazione per effettuare un rapido sound check, poi riproduci il brano che hai registrato per sentire come suona. Hai già iniziato a produrre la tua musica! 😎";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..title" = "Aggiungere i bassi";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph23" = "Ora hai raccolto una serie di beat sul tuo sound pad, è arrivato il momento di sovrapporre altri tipi di suoni.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph24" = "In `LoopButton` puoi impostare quattro tipi di parametri di suono: `beats`, `bass`, `melodic` e `ambient`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph25" = "beats (ritmo) dà il ritmo al brano.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph26" = "melodic (melodia) è ciò che caratterizza un brano e che lo rende memorabile. È la componente della canzone che le persone canticchiano dopo averla sentita.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph27" = "bass (bassi) amalgama il ritmo e la melodia.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph28" = "ambient (ambientazione) aggiunge profondità al pezzo, conferendo un\'atmosfera ben precisa.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..Paragraph29" = "Inizia ad abbinare i beat ai bassi aggiungendo un nuovo `LoopButton` che riproduce un bass loop:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..CodeBlock7" = "/*#-code-walkthrough(3.exploreBass)*/\nBass {\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .CosmicBass, color: .gray)\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .PrismaticaBass7, color: .brown)\n}\n/*#-code-walkthrough(3.exploreBass)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph30" = "Nell\'anteprima a destra, avrai notato che una volta che `Bass { }` è stato aggiunto viene creata una nuova sezione Bass per i pulsanti del loop. Ora ci sono due sezioni: Beats e Bass, che ti aiuteranno a organizzare meglio i suoni in diverse categorie, alle quali potrai anche assegnare un colore.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph31" = "Prova a riprodurre un loop dalla sezione Beats e un altro dalla sezione Bass contemporaneamente, per capire come suonano insieme. Niente male, vero?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph32" = "Adesso prova a riprodurre due loop della stessa categoria contemporaneamente.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph33" = "🙉 Hai sentito che suono orribile? Questo è successo perché due loop della stessa categoria tendono a competere l\'uno con l\'altro e di conseguenza il risultato finale è un po\' caotico.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph34" = "Suggerimento: prova a utilizzare soltanto un loop di ciascuna categoria alla volta.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..Paragraph35" = "Ora prova a modificare `LoopButton` in modo che riproduca un altro bass loop, come `.DreamsBass1` e modifica il colore del pulsante.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph36" = "Prenditi qualche minuto per trovare e aggiungere i tuoi bass loop preferiti.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph37" = "Posiziona tutti i bassi nella sezione `Bass`. Se organizzi i suoni in questo modo, potrai trovare facilmente proprio quelli che ti serviranno durante la tua esibizione: 🎼";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock8" = "LoopButton(bass: .ParisNightsBass, color: .blue)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock9" = "LoopButton(bass: .LesInfernoBass, color: .purple)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock10" = "LoopButton(bass: .SaintTropezBass, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock11" = "LoopButton(bass: .PrismaticaBass7, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph38" = "È il momento di tornare nello studio di registrazione!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph39" = "Seleziona un beat loop e fallo suonare una volta. Al termine della prima riproduzione, aggiungi un bass loop toccando o facendo clic su uno dei pulsanti `Bass`. Come cambia l\'effetto?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph40" = "Quando ti sembra che i bassi e i beat suonino bene insieme, riproduci la composizione e tocca o fai clic sul pulsante per iniziare la registrazione. In bocca al lupo!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..title" = "Sovrapporre la melodia e i suoni ambient";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph41" = "Non dimentichiamoci della melodia e dei suoni ambient. La melodia è ciò che rende il tuo brano memorabile, dunque è una componente molto importante durante la realizzazione della tua canzone.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph42" = "I suoni ambient, invece, servono a definire l\'atmosfera che vuoi creare e ti aiutano nel passaggio da una parte all\'altra del brano.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph43" = "Riesci a indovinare come fare ad aggiungere queste sezioni al tuo sound pad?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..Paragraph44" = "Aggiungi le sezioni Melodic e Ambient con il codice di seguito:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..CodeBlock12" = "/*#-code-walkthrough(3.exploreMelody)*/\nMelodic {\n    LoopButton(melodic: .DreamsChords3, color: .teal)\n}\n/*#-code-walkthrough(3.exploreMelody)*/\n/*#-code-walkthrough(3.exploreAmbient)*/\nAmbient {\n    LoopButton(ambient: .DiscoSynth1, color: .red)\n}\n/*#-code-walkthrough(3.exploreAmbient)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph45" = "Concediti qualche secondo per sperimentare varie melodie e ambient loop, modificando `.DreamsChords3` e `.DiscoSynth1`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph46" = "In che modo la melodia e i suoni ambient influenzano la tua composizione?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..Paragraph47" = "Trova i tuoi loop melodici preferiti e inserisci il codice all\'interno della sezione Melodic:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock13" = "LoopButton(melodic: .ParisArpeggio, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock14" = "LoopButton(melodic: .GlowChords, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock15" = "LoopButton(melodic: .PrismaticaChords2, color: .cyan)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..Paragraph48" = "Ora, aggiungi una serie di ambient loop alla sezione Ambient:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock16" = "LoopButton(ambient: .PrismaticaSynth2, color: .yellow)          \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock17" = "LoopButton(ambient: .SolarisString, color: .red)                     \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock18" = "LoopButton(ambient: .GlitterSynth, color: .pink)               \n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph49" = "Fantastico! Il tuo sound pad inizia davvero a prendere forma. Cosa aspetti ad andare in studio e a registrare la tua prima demo?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph50" = "Ecco un\'idea su come puoi strutturarla:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph51" = "Inizia con un beat e riproducilo per un loop intero.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph52" = "Aggiungi un bass loop e fallo suonare per un loop intero.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph53" = "Scegli un loop melodico e fallo suonare per intero.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph54" = "Infine, aggiungi un suono ambient per creare l\'atmosfera e continua a riprodurre il brano.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph55" = "Vai alla pagina successiva per scoprire altri modi per strutturare la tua demo.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph56" = "Ora, prova a giocare con la tua creazione.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph57" = "Puoi variare il brano invertendo l\'ordine in cui introduci i vari loop. Inizia con la melodia, poi inserisci i beat, il suono ambient e infine i bassi. Quale versione preferisci?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph58" = "Registra la tua prima demo e condividila con gli amici per sapere che cosa ne pensano!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..title" = "Aggiungere effetti sonori";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..Paragraph59" = "È arrivato il momento di aggiungere gli effetti sonori.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..Paragraph60" = "Innanzitutto, aggiungi una nuova sezione, che sarà chiamata SoundFX, che riprodurrà gli effetti sonori:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..CodeBlock19" = "/*#-code-walkthrough(4.exploreSoundFX)*/\nSoundFX {\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n    SoundFXButton(sound: .PlanetariumFX3, color: .green)\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n}\n/*#-code-walkthrough(3.exploreSoundFX)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph61" = "A differenza di ciò che avviene quando tocchi o fai clic su `LoopButton`, il pulsante `SoundFXButton` riproduce il suono soltanto una volta. Che cosa aspetti a provarlo?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph62" = "Proprio come per `LoopButton`, puoi personalizzare il suono e il colore di `SoundFXButton`, modificando i valori dei [parametri](glossary://parameter) `sound` e `color`.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..Paragraph63" = "Dai un\'iniezione di energia al tuo brano aggiungendo gli effetti sonori. Arricchisci la sezione SoundFX con gli effetti che preferisci:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock20" = "SoundFXButton(sound: .FirstGearFX, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock21" = "SoundFXButton(sound: .HornBassFX, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock22" = "SoundFXButton(sound: .BotTalkFX3, color: .mint)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock23" = "SoundFXButton(sound: .KazooFX4, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock24" = "SoundFXButton(sound: .TromboneFX1, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph64" = "Ormai lo sai… è arrivato il momento di andare nello studio di registrazione! 🎉";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph65" = "Puoi usare gli effetti sonori in vari punti: ad esempio, all\'inizio del brano per inserire un elemento inaspettato oppure potresti inserirlo a metà, prima del ritornello, per aggiungere un po\' di pathos alla canzone. Prova a esplorare i diversi effetti sonori e senti come cambia il brano.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph66" = "È arrivato il momento di registrare un\'altra demo con vari effetti sonori e di confrontarla con la prima: quale ti fa emozionare di più?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..title" = "Modificare i suoni";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..title" = "Modificare il volume";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..Paragraph67" = "Se vuoi modificare il volume dei suoni, puoi farlo con un [modificatore](glossary://modifier).";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph68" = "Puoi modificare il volume aggiungendo il [modificatore](glossary://modifier) corrispondente ai pulsanti `LoopButton` o `SoundFXButton`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph69" = "Al modificatore del volume puoi assegnare un valore compreso tra `0` e `1.0`, in cui `0` corrisponde all\'assenza di suono e `1.0` corrisponde al volume più alto.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph70" = "Prova ad aggiungere questo modificatore ai pulsanti esistenti e poi ascoltalo:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..CodeBlock25" = ".volume(0.5)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph71" = "Hai notato la differenza? Se imposti il volume su un valore di `0.5`, il volume si abbassa della metà.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..Paragraph72" = "Fantastico! Adesso puoi regolare il volume di tutti i suoni del tuo sound pad!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..title" = "Modificare la tonalità";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..Paragraph73" = "Hai a disposizione altri [modificatori](glossary://modifier) per modificare i suoni, ad esempio, puoi regolare il `pitch`.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph74" = "Puoi cambiare la [tonalità](glossary://pitch%20audio) aggiungendo un [modificatore](glossary://modifier) di tonalità a qualsiasi `SoundFXButton` o `LoopButton`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..CodeBlock26" = ".pitch(.E)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph75" = "Senti la differenza?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph76" = "Adesso puoi personalizzare la tonalità di tutti i suoni che vuoi! Prova a farlo con quelli che hai già aggiunto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph77" = "A un unico pulsante possono corrispondere più modificatori applicati contemporaneamente per regolare la tonalità e il volume.";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..title" = "Modificare la velocità";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..Paragraph78" = "Puoi anche utilizzare i [modificatori](glossary://modifier) per regolare il valore `speed` dei suoni.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph79" = "Per modificare la velocità, puoi inserire un modificatore `.speed`. In questo progetto, la velocità varia da `0` a `2.0`, in cui `2.0` la raddoppia.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph80" = "Aggiungi il modificatore della velocità sotto uno degli effetti sonori o dei loop per accelerarli:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..CodeBlock27" = ".speed(2)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..Paragraph81" = "Perché non provi ad aggiungere un modificatore della velocità a un altro suono per rallentarlo?";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..CodeBlock28" = ".speed(0.5)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph82" = "Andiamo nello studio di registrazione!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph83" = "Te la senti di affrontare una piccola sfida? Seleziona il suono di un beat e modifica la velocità a `0.5`, poi prova a riprodurre il tuo brano.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph84" = "Prova a modificare la velocità di un altro loop, ad esempio, uno di quelli per il basso o uno melodico, a `2.0`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph85" = "Che cosa aspetti? Tocca o fai clic sul pulsante di registrazione e prova a riprodurre i suoni tutti insieme. Come cambia il brano quando i loop accelerano o rallentano?";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..title" = "Aggiungi un filtro";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..Paragraph86" = "Per lasciare il tuo pubblico a bocca aperta, puoi anche applicare i filtri ai tuoi suoni!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph87" = "Prova ad aggiungere un suono nuovo con un [modificatore](glossary://modifier) `filter` e imposta il valore su `drumsBitBrush`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph88" = "Se non hai chiaro come aggiungere un filtro, ecco un esempio:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..CodeBlock29" = ".filter(.drumsBitBrush)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph89" = "Wow! Hai creato un suono decisamente funky!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..Paragraph90" = "Prova anche a inserire gli altri effetti sonori di seguito per vedere come cambiano i tuoi suoni:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock30" = ".filter(.drumsLoFi)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock31" = ".filter(.multiDecimated1)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock32" = ".filter(.multiEcho1)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph91" = "Ce l\'hai quasi fatta!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph92" = "È arrivato il momento di mettere insieme tutto ciò che hai imparato. Combina vari suoni e perfezionali con il volume, la tonalità, la velocità e i filtri. Puoi utilizzare i filtri anche per creare un remix funky del tuo brano oppure una nuova jam.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph93" = "Registrati mentre esegui il brano, toccando o facendo clic sul pulsante di registrazione. Quando hai finito, premilo di nuovo per interrompere la registrazione. Ora hai una demo della tua canzone da condividere con tutte le persone che conosci per sentire che cosa ne pensano.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..title" = "Creare i tuoi pulsanti personalizzati";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..title" = "Aggiungere un pulsante SwiftUI";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..Paragraph94" = "Adesso puoi cimentarti con qualcosa di più complesso. Approfondisci il codice per creare pulsanti personalizzati per il tuo sound pad.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph95" = "Nell\'anteprima a sinistra, vedi un [Button](doc://com.apple.documentation/documentation/swiftui/button) al centro dello schermo.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph96" = "Tocca o fai clic sul pulsante nell\'anteprima. Hai sentito qualcosa?";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph97" = "Quando tocchi o fai clic su `Button`, il codice richiama la [funzione](glossary://function) `soundPlayer.playSound(.FirstGearFX)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph98" = "Una [chiamata](glossary://call) di funzione richiede alla funzione di essere eseguita. In questo caso, la funzione richiama (o riproduce) il suono `.FirstGearFX`.\nProva a modificare il suono con qualcosa di diverso.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph99" = "Il pulsante non assomiglia a un pulsante del sound pad. Prova a modificare il suo aspetto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph100" = "Rimuovi il pulsante precedente e sostituiscilo con il codice di seguito:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..CodeBlock33" = "Button {\n    soundPlayer.playSound(.FirstGearFX)\n} label: {\n    /*#-code-walkthrough(6.buttonLabel)*/\n    Circle()\n    /*#-code-walkthrough(6.buttonLabel)*/\n    //#-learning-code-snippet(6.buttonLabel)\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph101" = "Puoi anche aggiungere una `label` personalizzata al pulsante per modificare il suo aspetto. Se inserisci `Circle()` all\'interno di `label` il pulsante verrà trasformato in un cerchio.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph102" = "Sostituisci `Circle()` con `ButtonView` di seguito:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..CodeBlock34" = "/*#-code-walkthrough(6.colorButton)*/\nButtonView(color: .orange)\n/*#-code-walkthrough(6.colorButton)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..Paragraph103" = "`ButtonView` accetta un solo [parametro](glossary://parameter) `color`. Puoi modificare il colore del pulsante sostituendo `.orange` con il tuo colore preferito.";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..Paragraph104" = "Incredibile: adesso puoi creare un pulsante per riprodurre qualsiasi tipo di suono.";
+

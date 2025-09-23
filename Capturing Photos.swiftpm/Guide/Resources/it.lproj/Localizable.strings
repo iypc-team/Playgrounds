@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Scattare foto";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "Scattare foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "Immagina tutto ciò che potresti fare se la tua app avesse una fotocamera! In questo playground di esempio, scoprirai di più sui blocchi costitutivi di un’app Fotocamera e apprenderai come utilizzare le tue conoscenze di SwiftUI per utilizzare la fotocamera e la libreria di foto.";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "Scattare foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "“Scattare foto” ti dà il benvenuto!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "Prova a pensare alle funzionalità essenziali che dovrebbe avere un’app fotocamera:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "Mostrare video in diretta dalla fotocamera in un mirino";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "Scattare foto con il pulsante di scatto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "Salvare foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "Sfogliare e mostrare le foto che hai già scattato";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "Imparerai a programmarle tutte, insieme a molte altre. Acquisirai, inoltre, informazioni sugli oggetti dati utilizzati dalla tua app e su come gestire il flusso di dati tra loro e l’interfaccia utente dell’app.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "Prima di iniziare, seleziona “Anteprima app” ed esplora le funzionalità della tua app fotocamera in azione, scattando alcune foto.";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "Avvia la guida passo passo";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "Descrizione di accessibilità per il pulsante";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "Vedere l’anteprima dell’output della fotocamera";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "L’output video della tua fotocamera invia un flusso continuo di immagini singole, dette “fotogrammi video”, che puoi visualizzare in un mirino. Così, prima di comporre l’immagine e scattare una foto, potrai vedere esattamente gli elementi su cui sta puntando la fotocamera.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "Scopri come funziona. 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "Utilizzare la fotocamera";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "Scopri di più sulla fotocamera in relazione al tuo modello di dati.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "Il tuo modello di dati ha una proprietà `camera` che rappresenta una delle fotocamere fisiche o uno dei dispositivi di acquisizione delle foto disponibili.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "Il tuo dispositivo ha accesso a diversi dispositivi di acquisizione di foto come, ad esempio, la fotocamera anteriore o quella posteriore di iPad (puoi passare da una all’altra utilizzando il metodo `switchCaptureDevice()` della fotocamera).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "Scopri di più sui dispositivi di acquisizione in [Scegliere un dispositivo di acquisizione](doc://com.apple.documentation/documentation/avfoundation/cameras_and_media_capture).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "Per iniziare a usare la fotocamera, occorre richiamare il suo metodo `start()`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "Tieni presente che per poter utilizzare le fotocamere del dispositivo nel tuo progetto, devi prima aggiungere la funzionalità Fotocamera.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "Per ulteriori informazioni, consulta [Richiedere accesso alle funzionalità per il progetto](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "Esplorare il flusso di anteprime";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "Scopri di più sul flusso di immagini di anteprima dalla tua fotocamera.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "Dopo aver richiamato il metodo `start()` della fotocamera, l’output video produce un flusso di immagini di anteprima a bassa risoluzione (fotogrammi video), a velocità che arrivano fino a 60 fotogrammi al secondo.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "Riceverai le anteprime delle immagini tramite la proprietà della fotocamera `previewStream`, come [flusso asincrono](glossary://asynchronous%20stream) di oggetti (Core Image) [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "Elaborare il flusso di anteprime";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "Scopri come elaborare il flusso di anteprime in modo che sia pronto per essere visualizzato nel mirino.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "Il tuo [modello di dati](glossary://data%20model) dispone di un’[attività](glossary://task) dedicata per gestire il [flusso](glossary://asynchronous%20stream) delle immagini di anteprima provenienti dalla fotocamera, utilizzando la funzione `handleCameraPreviews`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "Puoi scoprire di più sulle [attività](doc://com.apple.documentation/documentation/swift/task) nella libreria standard di Swift.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "In `handleCameraPreviews`, trasforma il flusso di anteprime di oggetti di [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) provenienti dalla fotocamera in un flusso di viste [Image](doc://com.apple.documentation/documentation/swiftui/image), pronte per essere visualizzate.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "Un [AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream) corrisponde a un flusso di valori che sono prodotti a determinati intervalli di tempo. I valori formano una [sequenza](glossary://sequence), ma con valori che arrivano in modo asincrono, ovvero in una [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence). Puoi eseguire azioni molto simili a quelle che esegui con qualsiasi altra sequenza di valori, ad esempio, con un [array](glossary://array).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "In questo caso, utilizzerai la funzione [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) del flusso per convertire ciascun elemento (`$0`) in un’istanza di [Image](doc://com.apple.documentation/documentation/swiftui/image), utilizzando un’estensione della proprietà `image` di `CIImage`. Questa operazione trasforma il flusso di istanze di [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) in un flusso di istanze di [Image](doc://com.apple.documentation/documentation/swiftui/image).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "Il ciclo `for`-`await` attende ciascuna immagine nel flusso `imageStream` trasformato prima di effettuare operazioni con ognuna di esse.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "Puoi trovare ulteriori informazioni sulle sequenze asincrone nel [manuale del linguaggio di programmazione Swift](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html#ID640).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "Utilizzerai l’immagine del flusso di anteprime per aggiornare la proprietà `viewfinderImage` del tuo modello di dati.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI verifica che tutte le viste che utilizzano la proprietà vengano aggiornate quando il valore di `viewfinderImage` cambia.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "Visualizzare il flusso di anteprime";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "Impara a collegare la vista del mirino al flusso di anteprime elaborato.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView` ha un valore `ViewfinderView` che viene utilizzato per mostrare il video dal vivo dalla fotocamera.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "Creando un [vincolo](glossary://binding) tra la proprietà del modello `viewfinderImage` e `ViewfinderView`, fai in modo che il mirino si aggiorni ogni volta che la vista riceve una nuova anteprima dell’immagine.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "Visto che l’anteprima dell’immagine si aggiorna diverse volte al secondo, i nostri occhi la percepiscono come un video dal vivo nel mirino.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "Ruotare o sfocare il mirino";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "Fai qualche esperimento: prova a ruotare o a sfocare le immagini nel flusso di anteprime.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "Il metodo `handleCameraPreviews` mappa il [flusso](glossary://asynchronous%20stream) di anteprime della fotocamera delle istanze [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) in un flusso di viste [Image](doc://com.apple.documentation/documentation/swiftui/image), pronte per essere visualizzate in `ViewfinderView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "Qui potrai fare altre cose utili con le immagini di anteprima prima di mapparle su una vista [Image](doc://com.apple.documentation/documentation/swiftui/image).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "Se volessi ruotare l’immagine lateralmente o addirittura capovolgerla, potresti richiamare il metodo [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "Nella definizione di `imageStream`, aggiungi questa riga di codice sopra a `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "In questo caso, stai usando `map` per trasformare un flusso di immagini ordinarie in un flusso di immagini ruotate, richiamando la funzione `oriented(.left)` per ciascun elemento (`$0`) presente nel flusso.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "O forse ti piacerebbe sfocare un po’ le immagini dell’anteprima?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "Applica un’altra operazione alle immagini, aggiungendo il codice mostrato di seguito sopra `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "Stai applicando un’operazione `map` dopo l’altra al [flusso](glossary://asynchronous%20stream), ovvero, stai eseguendo un [concatenamento](glossary://chaining) delle operazioni. Puoi concatenare tutte le operazioni che desideri. Per esempio, il codice di seguito prende l’input dal flusso di anteprima, ruota le immagini, le sfoca e infine le converte in un flusso `Image`.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "Prova a sperimentare un po’!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "Prova ad applicare orientamenti diversi, per esempio, cosa succede quando modifichi l’orientamento in `.down`?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "Prova diversi valori di sfocatura.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) ha un sacco di metodi utili per trasformare le immagini.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "Acquisire e salvare una foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "Cheese! Quando scatti una foto avvengono molte cose in rapida successione. 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "Scopri cosa accade una volta selezionato il pulsante di scatto e fai attenzione a cosa succede da quel momento fino a quando la foto non viene visualizzata nella tua libreria.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "Reagire al pulsante di scatto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "Scopri come gestire l’azione del pulsante di scatto e come richiedere alla fotocamera di scattare una foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "Quando selezioni il pulsante di scatto nella vista della fotocamera, la magia ha inizio!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "Il pulsante entra in azione, prende l’oggetto `camera` del modello di dati, quindi richiama il relativo metodo `takePhoto()`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "Vai avanti per scoprire in che modo scatta una foto!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "Acquisire una foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "Quando scatti una foto, la fotocamera acquisisce i dati dell’immagine dal sensore. Scopri come iniziare il processo e gestire la foto acquisita che ne risulta.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "Quando scatti una foto, di solito vuoi un’immagine con la più alta risoluzione possibile. Questo è in contrasto con ciò che avviene per le immagini di anteprima, le quali, invece, tendono ad avere una risoluzione inferiore per facilitare l’aggiornamento rapido delle anteprime nel mirino.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "La fotocamera è dotata di uno speciale output fotografico, utilizzato dal metodo `takePhoto()` per acquisire immagini ad alta risoluzione di ciò che vedi nel mirino.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "La proceduta per scattare una foto inizia davvero quando richiedi all’output fotografico di acquisire una foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "Se tutto va come previsto, sentirai il rumore rassicurante dell’otturatore, che segnala a te e a coloro che si trovano nelle vicinanze che hai appena scattato una foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "Potresti chiederti come mai `capturePhoto` non restituisce nessuna foto. Questo succede perché acquisire una foto richiede un certo tempo: la fotocamera deve mettere a fuoco l’immagine o attendere il flash, senza considerare il tempo di esposizione. Il metodo `capturePhoto` è [asincrono](glossary://asynchronous%20process), quindi, la foto acquisita tipicamente arriva poco dopo aver selezionato il pulsante di scatto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "Dopo che la foto sarà stata acquisita, riceverai una [richiamata](glossary://callback) a un altro metodo nel tuo oggetto fotocamera `photoOutput(_:didFinishProcessingPhoto:error:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "Il suo primo argomento riceve la foto acquisita come istanza di [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "Adesso che hai acquisito una foto, puoi aggiungerla al flusso della fotocamera, in modo che poi sia disponibile per qualsiasi oggetto nella tua app in attesa di una foto, come il modello di dati.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "Elaborare e salvare una foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "Scopri come decomprimere una foto che hai acquisito e salvarla nella libreria di foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "Il tuo modello di dati è in attesa delle nuove foto che hai acquisito.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "Proprio come avviene per le immagini di anteprima, c’è un’[attività](glossary://task) dedicata per gestire il flusso di immagini acquisite dalla fotocamera, utilizzando il metodo `handleCameraPhotos`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "Puoi scoprire di più sulle [attività](doc://com.apple.documentation/documentation/swift/task) nella libreria standard di Swift.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "Ogni elemento [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) nel flusso `photoStream` della fotocamera può contenere varie immagini con risoluzioni differenti, così come altri [metadati](glossary://metadata), come, per esempio, la data e l’ora in cui la foto è stata scattata e le sue dimensioni. Per ottenere le immagini e i metadati che ti interessano, prima devi decomprimerli.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "La prima cosa da fare in `handleCameraPhotos` è convertire `photoStream` in un molto più utile `unpackedPhotoStream`, in cui ciascun elemento è un’istanza della struttura `PhotoData` contenente i dati che desideri.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "Per decomprimere il `photoStream`, devi usare la funzione `unpackPhoto(_:)`, la quale prende una foto scattata e restituisce un’istanza `PhotoData` che contiene:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "una miniatura a bassa risoluzione sotto forma di un’[immagine](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "le dimensioni della miniatura dell’immagine";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "un’immagine ad alta risoluzione sotto forma di [dati](doc://com.apple.documentation/documentation/foundation/data)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "le dimensioni dell’immagine ad alta risoluzione";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "Questo verrà richiamato come [flusso asincrono](glossary://asynchronous%20stream); `photoStream` è davvero molto simile a una [sequenza](doc://com.apple.documentation/documentation/swift/sequence).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "Puoi utilizzare il relativo metodo [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) per richiamare `unpackPhoto(_:)` per ciascuna foto (`$0`) inclusa nel flusso. Il metodo è in grado di trasformare il flusso di istanze di [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) in un flusso di istanze di `PhotoData`, che risulta molto più utile.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "Il ciclo `for`-`await` adesso attenderà l’arrivo di un elemento `photoData` nel flusso decompresso prima di elaborarlo.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "Utilizza la miniatura dell’immagine in `photoData` per aggiornare la proprietà `thumbnailImage` del tuo modello.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "Richiama il metodo `savePhoto(imageData:)` del modello per salvare i dati dell’immagine da `photoData` come una nuova foto nella tua libreria.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "Il metodo `savePhoto(imageData:)` crea un’[attività](glossary://task) e successivamente trasferisce l’effettivo lavoro di salvare i dati della foto all’oggetto `photoCollection`, richiamando il relativo metodo `addImage(_:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "Va benissimo così! La funzione del modello di dati è coordinare il flusso di dati tra i diversi oggetti di dati dell’app.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "Aggiungi uno scatto con ritardo";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "Sperimenta con la tua fotocamera aggiungendo un ritardo al pulsante di scatto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "Immagina di posizionare la fotocamera, ad esempio, su un treppiede, di premere il pulsante e di avere tempo a sufficienza per tuffarti nell’inquadratura prima dello scatto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "Per farlo, hai bisogno di aggiungere un breve ritardo tra il momento in cui premi il pulsante e quello in cui la fotocamera effettivamente scatta la foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "Osservando il codice che hai creato per la gestione dell’azione del pulsante di scatto, pensa a come potresti implementare l’operazione.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "Devi trovare una soluzione rapidamente:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "Aggiungi una [proprietà di stato](glossary://state%20value) `delayCount` per effettuare il conto alla rovescia fino al momento in cui scatterai la foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "Quando selezioni il pulsante di scatto, occorre impostare `delayCount` sul numero di secondi di attesa richiesti prima scattare la foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "Imposta un [Timer](doc://com.apple.documentation/documentation/foundation/timer) per [decrementare](glossary://decrement) `delayCount` una volta al secondo.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "Quando `delayCount` raggiunge lo zero, occorre interrompere il timer e indicare simultaneamente alla fotocamera di scattare una foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "Prima definisci la [proprietà di stato](glossary://state%20value) `delayCount` in cima a `CameraView`, sopra la proprietà `body`, e imposta il suo valore iniziale su zero.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "Suggerimento: usa `private` perché lo stai inserendo soltanto all’interno di `CameraView`. Questa è una buona pratica per qualsiasi definizione che pensi di usare soltanto all’interno di un tipo.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "Quindi, nel gestore del [pulsante](doc://com.apple.documentation/documentation/swiftui/button) di scatto, [converti in commento](glossary://comment%20out) la linea di codice che scatta una foto immediatamente quando selezioni il pulsante.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "Richiamerai `takePhoto()` all’interno del gestore del timer.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "Nel passaggio successivo, imposta la variabile `delayCount` sul numero di secondi corrispondenti alla durata del conto alla rovescia, ad esempio, `5` secondi.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "Sotto all’assegnazione `delayCount`, aggiungi un [Timer](doc://com.apple.documentation/documentation/foundation/timer) programmato che si ripete una volta al secondo. Quando il timer si attiva, il codice nella [chiusura](glossary://closure) che hai fornito viene richiamato, [decrementando](glossary://decrement) il valore `delayCount`.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "Ora manca l’ultimo passaggio necessario per la chiusura del temporizzatore: quando `delayCount` raggiunge lo zero, interrompi il timer e indica alla fotocamera di scattare una foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "Aggiungi il codice di seguito nella chiusura del timer, dopo `delayCount -= 1`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "Quando richiami il metodo [invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) del timer, questo si interromperà. Missione compiuta!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "Il codice del gestore del pulsante dovrebbe essere come quello mostrato sotto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "Dopo aver controllato attentamente il codice che hai scritto, seleziona il pulsante di scatto e aspetta!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "Suggerimento: ti è mai successo di chiederti che cosa accada davvero all’interno del tuo codice, specialmente quando non si comporta come ti aspetteresti?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "Puoi aggiungere un’istruzione `print` affinché il codice ti spieghi esattamente cosa sta facendo, scrivendo informazioni utili nella [console](glossary://console).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "Prova ad aggiungere questa linea di codice all’interno della chiusura del timer:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "Apri la console, quindi seleziona il pulsante di scatto per acquisire una foto con ritardo.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "Non pensi di aver fatto un ottimo lavoro aggiungendo questo ritardo al pulsante di scatto? A questo punto, perché non aggiungere un altro tocco da maestro? ✨ Potresti fare in modo che il conto alla rovescia venga mostrato direttamente all’interno del pulsante!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "Trova l’icona per il pulsante di scatto: una vista [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) con due viste [Circle](doc://com.apple.documentation/documentation/swiftui/circle). All’interno di [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) e dopo il secondo [Circle](doc://com.apple.documentation/documentation/swiftui/circle), aggiungi il codice di seguito:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "Seleziona il pulsante di scatto e osserva il conto alla rovescia dei secondi prima che la foto venga scattata.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "Sfogliare le tue foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "Ti diverti a scattare foto? Piace praticamente a tutti e spesso ci ritroviamo con migliaia di foto nella libreria. 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "Segui il viaggio delle tue foto da quando vengono recuperate dalla tua libreria fino a quando vengono visualizzate in una galleria che puoi far scorrere per consultarla.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "Utilizzare la raccolta di foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "Scopri ulteriori informazioni sulla raccolta di foto nel tuo modello di dati e come quest’ultimo fornisce foto per la galleria.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "Il tuo modello di dati dispone di una proprietà `photoCollection` che rappresenta tutte le raccolte di elementi presenti nella tua libreria fotografica. Potrebbe corrispondere alla tua intera libreria oppure solo a un album o perfino ai risultati di una ricerca.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "Puoi includere tutte le foto presenti nella tua libreria inizializzando `photoCollection` con un album smart `.smartAlbumUserLibrary`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "Tieni presente che per poter accedere alla tua libreria fotografica nel tuo progetto, devi prima aggiungere la funzionalità \"Libreria di foto\".";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "Per ulteriori informazioni, consulta [Richiedere accesso alle funzionalità per il progetto](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "Recuperare le risorse fotografiche";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "Ogni elemento della tua raccolta di foto è una [risorsa](glossary://asset) di tipo fotografico. Scopri come recuperarle.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "`photoCollection` del tuo modello di dati ha una proprietà `photoAssets` che consente di usare la raccolta di risorse fotografiche proprio come faresti con un array.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "Ad esempio, puoi recuperare una risorsa fotografica usando il rispettivo indice:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "Oppure, contare tutte le foto nella tua raccolta:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "Puoi anche effettuare un’[iterazione](glossary://iteration) sulle risorse in `photoAssets` utilizzando un ciclo. Questa operazione ti risulterà molto utile per costruire la tua galleria.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "Noterai che `photoAssets` è una proprietà [pubblicata](glossary://published%20value) di `PhotoCollection`, che a sua volta è un [oggetto osservabile](glossary://observable%20object). Questo significa che puoi rispondere ai cambiamenti che avvengono nelle risorse fotografiche, ad esempio se vengono aggiunte o cancellate foto.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "Andare alla galleria fotografica";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "Scopri come accedere alla galleria fotografica e connetterla alla tua libreria di foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "Nella tua vista Fotocamera, utilizza un [link di navigazione](glossary://navigation%20link) per accedere alla galleria fotografica.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "Il link di navigazione è simile a un pulsante, puoi anche assegnargli un’etichetta e un’icona. Puoi posizionarlo a sinistra del pulsante di scatto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "Quando selezioni un link di navigazione, SwiftUI apre un’altra vista, in questo caso, la vista della raccolta di foto che utilizzi per visualizzare la tua galleria fotografica.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "Se utilizzi i link di navigazione all’interno di una struttura [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack), SwiftUI gestisce il modo in cui le viste si presentano, per facilitare la navigazione tra di loro.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "Trasmettendo `photoCollection` del tuo modello di dati a `PhotoCollectionView` quando esegui l’inizializzazione, fornisci la raccolta di foto che vuoi visualizzare nella tua galleria.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "Dopo aver aperto la galleria, non vedrai più il mirino, quindi non dovrai più aggiornarlo continuamente. Concentrati sulle prestazioni del dispositivo quando vengono visualizzate le foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "Per controllare quando il flusso di anteprime della fotocamera è attivo, utilizza il modificatore del link di navigazione [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) per mettere in pausa il flusso quando viene mostrata la galleria e usa [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) per riavviarlo quando torni alla fotocamera.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "Creare la galleria fotografica";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "Scopri come visualizzare le tue foto in una griglia scorrevole.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "La vista `PhotoCollectionView` serve per visualizzare le foto in una griglia che scorre, con le foto più recenti in alto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "Quando crei la tua `PhotoCollectionView`, la proprietà `photoCollection` corrispondente si inizializza con un riferimento a `photoCollection` del tuo modello di dati. In questo modo, l’azione fornisce tutti i dati necessari per creare la galleria fotografica.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "Rendendo `photoCollection` un [oggetto osservato](glossary://observed%20object), SwiftUI aggiorna la vista della tua raccolta fotografica in risposta ai cambiamenti dei [valori pubblicati](glossary://published%20value) della raccolta.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "Per mostrare le foto come elementi in un layout a griglia, si utilizza una griglia verticale “pigra” ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)). Visto che il layout utilizza una griglia verticale, devi solo decidere quante `columns` vuoi e specificare il valore di `spacing` tra ciascun elemento. Una volta specificato il numero di colonne, la griglia si espanderà verticalmente, aggiungendo un numero di righe sufficiente per mostrare tutte le foto.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "Perché viene definita “pigra”? Se la griglia è più grande della vista che la contiene, quest’ultima mostra solo gli elementi che sono attualmente visibili. In realtà, questa sua “pigrizia” consente di migliorare le prestazioni dell’app, specialmente quando scorri i contenuti della griglia di foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "Nella tua griglia puoi utilizzare un numero di colonne fisso, ma per adottare un approccio più [reattivo](glossary://responsive), potresti voler visualizzare quante più colonne possibili, in base alla larghezza della vista, offrendo così un’esperienza ottimizzata.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "Per creare una griglia che si adatta alla larghezza della vista, definisci un [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) di tipo `adaptive` e specifica le dimensioni e la spaziatura che deve mantenere.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "Immagina di avere centinaia o persino migliaia di foto. Anche con un layout adattivo, la griglia può diventare molto lunga, molto più estesa dello spazio che hai a disposizione per visualizzarla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "Rendi scorrevole la tua griglia posizionandola all’interno della vista [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview). In questo modo la griglia potrà avere tutte le righe che vuoi e potrai scorrere le tue foto verso o l’alto o verso il basso.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "All’interno della griglia puoi utilizzare un valore [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) per effettuare un’[iterazione](glossary://iteration) sulle risorse fotografiche nella raccolta e generare una vista per ciascuna risorsa; queste viste popoleranno la tua griglia.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "Visto che la griglia è “pigra”, quando scorri, [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) ha effetto soltanto sulle risorse fotografiche visibili.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "Crea un [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) per ciascun elemento della griglia che, quando viene selezionato, mostra la singola foto a dimensioni intere utilizzando la [destinazione](glossary://destination%20view) `PhotoView` inizializzata con la risorsa fotografica.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "Il metodo `photoItemView(asset:)` crea una vista che mostra una miniatura di piccole dimensioni della risorsa fotografica.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "Utilizzerai questa vista come l’[etichetta](glossary://label) per il link di navigazione, che mostrerà ciascun link come un’immagine in miniatura della foto.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "Visualizzare una foto";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "Scopri come le foto vengono mostrate e caricate dalla tua vista fotografica.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "Se invece desideri visualizzare una foto singolarmente, usa `PhotoView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "Nella vista fotografica viene visualizzata un’immagine ad alta risoluzione che richiedi alla foto. Inoltre, hai a disposizione anche un elemento sovrapposto con i pulsanti per aggiungere la foto a quelle preferite o per eliminarla.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "La vista fotografica ha una proprietà `photoAsset` per la foto che mostra. Questa è la proprietà che trasmetti quando inizializzi `PhotoView`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "Puoi inizializzare la vista anche con una proprietà `cache` che contiene un riferimento alla tua cache delle immagini.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "Dalla cache delle immagini, puoi richiedere un’immagine di dimensioni specifiche. Dopo aver caricato l’immagine dalla risorsa fotografica, la cache te la restituisce. La cache delle immagini salva in memoria anche le immagini richieste di recente, in modo che non devi ricaricarle se le richiedi nuovamente.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "La tua vista ha una [proprietà di stato](glossary://state%20value) `image` che può ritenere l’immagine dopo che è stata caricata.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "È di tipo [opzionale](glossary://optional) (`Image?`) perché vuoi che venga avviato senza alcun valore.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "Una vista può utilizzare il proprio modificatore [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) per eseguire il codice [in modo asincrono](glossary://asynchronous%20process), ogni volta che la vista viene caricata.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "Qui aggiungerai il codice per richiedere un’immagine ad alta risoluzione dalla cache per la risorsa fotografica, specificandone le dimensioni.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "Puoi anche fornire alla cache una [chiusura](glossary://closure) che contiene il codice da richiamare quando è presente un `result`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "La tua chiusura viene richiamata una o più volte dalla cache. Se la cache contiene già l’immagine che hai richiesto, tra i suoi `result`, richiamerà immediatamente la chiusura con l’immagine.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "Se l’immagine richiesta non è presente, allora la cache inizia a caricare l’immagine dalle risorse fotografiche e la salva. Mentre carica l’immagine, prima di fornire l’immagine ad alta risoluzione finale in `result`, la cache può richiamare la chiusura con un’immagine a bassa risoluzione.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "La tua chiusura cerca un’immagine all’interno del risultato. Se non la trova, aggiorna la proprietà `image`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "Poiché hai reso `image` una proprietà di stato, SwiftUI aggiorna la tua vista quando il suo valore cambia.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "Se `image` contiene un valore, puoi [rivelare](glossary://unwrap) l’immagine e mostrarla nella vista.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "Se invece `image` non presenta nessun valore, puoi usare una vista [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) per mostrare una rotella che ruota su se stessa come [segnaposto](glossary://placeholder%20view).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "Osserva molto attentamente, poiché potresti vedere questa rotella quando la vista si carica per la prima volta, prima che la cache riesca a caricare un’immagine dalla risorsa fotografica.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "Utilizzare una griglia fissa";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "Prova a sperimentare stili di griglia diversi nella tua galleria di foto.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "La tua galleria mostra le foto in una griglia, ciascuna foto a forma di un rettangolo di dimensioni fisse.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "Puoi definire questa disposizione utilizzando la proprietà `columns` che restituisce un array di [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem). L’utilizzo di un singolo elemento griglia [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) significa che la tua `LazyVGrid` si adatta alla larghezza disponibile, inserendo quante più colonne possibili.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "E se invece preferissi avere un numero fisso di colonne con ciascuna foto che occupa quanto più spazio possibile?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "Per farlo, il tuo array `columns` dovrebbe contenere un elemento griglia [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) per ciascuna colonna che vuoi ottenere.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "Sotto `columns`, definisci una proprietà `fixedColumns` che restituisce un array di elementi griglia `flexible`, uno per ogni colonna:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "Invece di `columns`, trasmetti `fixedColumns` alla tua `LazyVGrid`, come mostrato di seguito:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "Ora prova a sfogliare la galleria fotografica e a notare la differenza, in particolare quando ridimensioni la vista.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "Vedrai che adesso ci sono due colonne, come previsto, ma le foto mantengono le dimensioni originali.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "C’è ancora una cosa da fare…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "Dai un’occhiata a questa linea di codice nella funzione che costruisce la tua vista degli elementi foto. Prenditi alcuni minuti per pensare a quale potrebbe essere il problema.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "Esatto! Ora non vuoi più che le dimensioni del [riquadro](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:)) di ciascuna foto siano fisse. Al contrario, vuoi che la larghezza della vista e il numero di colonne nella griglia determinino le dimensioni dell’immagine.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "Converti la riga seguente in commento, come mostrato, per fare in modo che ciascuna foto possa occupare quanto più spazio possibile:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "Apri di nuovo la galleria fotografica e vedrai che tutte le foto ora occupano l’intera larghezza.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "Se adesso provi ad allargare la vista, che cosa succede?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "Osservando attentamente le tue nuove colonne fisse, noterai che è presente uno spazio tra loro ma non da entrambi i lati. Sei in grado di capire il perché analizzando il codice?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "Modifica la spaziatura interna della vista in modo che non sia soltanto verticale ma sia anche distribuita in modo uniforme:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "Ecco un paio di altre cose da provare:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "Aggiungi più elementi griglia per ottenere altre colonne.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "Modifica il valore restituito dalla proprietà `imageSize` per ottenere immagini con risoluzione più alta per la tua griglia fissa.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "Usa un’altezza massima per l’elemento foto piuttosto che un’altezza fissa: `.frame(maxHeight: 400)`.";
+

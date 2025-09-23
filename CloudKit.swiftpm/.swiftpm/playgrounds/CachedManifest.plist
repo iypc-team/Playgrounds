@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CachedManifest</key>
+	<dict>
+		<key>manifestData</key>
+		<data>
+		eyJkZXBlbmRlbmNpZXMiOltdLCJkaXNwbGF5TmFtZSI6IkNsb3VkIEtpdCIs
+		InBhY2thZ2VLaW5kIjp7InJvb3QiOnt9fSwicGxhdGZvcm1zIjpbeyJvcHRp
+		b25zIjpbXSwicGxhdGZvcm1OYW1lIjoiaW9zIiwidmVyc2lvbiI6IjE2LjAi
+		fV0sInByb2R1Y3RzIjpbeyJuYW1lIjoiQ2xvdWQgS2l0Iiwic2V0dGluZ3Mi
+		Olt7ImJ1bmRsZUlkZW50aWZpZXIiOlsiYml6LklZUEMuQ2xvdWRLaXQiXX0s
+		eyJ0ZWFtSWRlbnRpZmllciI6WyJKU1FCUzZNRkJCIl19LHsiZGlzcGxheVZl
+		cnNpb24iOlsiMS4wIl19LHsiYnVuZGxlVmVyc2lvbiI6WyIxIl19LHsiaU9T
+		QXBwSW5mbyI6W3siYWNjZW50Q29sb3IiOnsicHJlc2V0Q29sb3IiOnsicHJl
+		c2V0Q29sb3IiOnsicmF3VmFsdWUiOiJwdXJwbGUifX19LCJhcHBDYXRlZ29y
+		eSI6eyJyYXdWYWx1ZSI6InB1YmxpYy5hcHAtY2F0ZWdvcnkudXRpbGl0aWVz
+		In0sImFwcEljb24iOnsiYXNzZXQiOnsibmFtZSI6IkFwcEljb24ifX0sImNh
+		cGFiaWxpdGllcyI6W10sInN1cHBvcnRlZERldmljZUZhbWlsaWVzIjpbInBh
+		ZCIsInBob25lIl0sInN1cHBvcnRlZEludGVyZmFjZU9yaWVudGF0aW9ucyI6
+		W3sicG9ydHJhaXQiOnt9fSx7ImxhbmRzY2FwZVJpZ2h0Ijp7fX0seyJsYW5k
+		c2NhcGVMZWZ0Ijp7fX0seyJwb3J0cmFpdFVwc2lkZURvd24iOnsiY29uZGl0
+		aW9uIjp7ImRldmljZUZhbWlsaWVzIjpbInBhZCJdfX19XX1dfV0sInRhcmdl
+		dHMiOlsiQXBwTW9kdWxlIl0sInR5cGUiOnsiZXhlY3V0YWJsZSI6bnVsbH19
+		XSwidGFyZ2V0TWFwIjp7IkFwcE1vZHVsZSI6eyJkZXBlbmRlbmNpZXMiOltd
+		LCJleGNsdWRlIjpbXSwibmFtZSI6IkFwcE1vZHVsZSIsInBhY2thZ2VBY2Nl
+		c3MiOmZhbHNlLCJwYXRoIjoiLiIsInJlc291cmNlcyI6W10sInNldHRpbmdz
+		IjpbXSwidHlwZSI6ImV4ZWN1dGFibGUifX0sInRhcmdldHMiOlt7ImRlcGVu
+		ZGVuY2llcyI6W10sImV4Y2x1ZGUiOltdLCJuYW1lIjoiQXBwTW9kdWxlIiwi
+		cGFja2FnZUFjY2VzcyI6ZmFsc2UsInBhdGgiOiIuIiwicmVzb3VyY2VzIjpb
+		XSwic2V0dGluZ3MiOltdLCJ0eXBlIjoiZXhlY3V0YWJsZSJ9XSwidG9vbHNW
+		ZXJzaW9uIjp7Il92ZXJzaW9uIjoiNS43LjAifX0=
+		</data>
+		<key>manifestHash</key>
+		<data>
+		qNgJyI3psgRfkv48DnjKVZQb/wH0LuiGzfn3mtZaDEE=
+		</data>
+		<key>schemaVersion</key>
+		<integer>4</integer>
+		<key>swiftPMVersionString</key>
+		<string>5.10.0-dev</string>
+	</dict>
+</dict>
+</plist>

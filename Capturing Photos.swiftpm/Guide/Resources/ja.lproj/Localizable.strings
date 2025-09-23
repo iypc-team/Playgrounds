@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "写真を取り込む";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "写真を取り込む";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "自分だけのAppでカメラを使ってできる、ワクワクすることを想像してみましょう! このサンプルでは、カメラAppの構築要素を見てみて、SwiftUIのスキルを使ってカメラとフォトライブラリを操作する方法を身に付けます。";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "写真を取り込む";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "ようこそ“写真を取り込む”へ!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "カメラAppに欠かせない機能と言えば、以下のようなものがあります:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "カメラのライブ映像をファインダーに表示する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "シャッターボタンをタップまたはクリックしたときに写真を撮影する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "写真を保存する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "撮影済みの写真をブラウズする/表示する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "これらのすべての機能を実現するにはどうすればよいかなどを探りましょう。ここでは、Appで使用するデータオブジェクトについて学びます。また、オブジェクトとAppのユーザインターフェイスの間のフローを管理する方法も学びます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "始める前に、まずはAppのプレビューを選択し、少し時間を取ってカメラAppについて調べて、何枚か写真を撮影してみましょう。";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "ガイドを開始";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "ボタンのアクセシビリティの説明";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "カメラ出力をプレビューする";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "カメラのビデオ出力から、個々のイメージ（ビデオフレーム）のストリームが継続的に送信されます。これらをファインダーに表示して、構図を決めて写真を撮影する前にカメラが捕らえているものを正確に確認できるようにしましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "この仕組みを詳しく見てみましょう。🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "カメラを使う";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "データモデルのカメラについて学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "データモデルには、デバイスで使用可能な物理的なカメラ（キャプチャデバイス）のいずれかを表す`camera`（カメラ）プロパティがあります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "デバイスでは複数のキャプチャデバイス（iPadの前面カメラと背面カメラなど）にアクセスできる場合があります。それらは、カメラの`switchCaptureDevice()`を使って切り替えることができます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "キャプチャデバイスについて詳しくは[キャプチャデバイスを選択する](doc://com.apple.documentation/documentation/avfoundation/cameras_and_media_capture)をご覧ください。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "カメラを使い始めるには、その`start()`メソッドを呼び出します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "自分だけのプロジェクトでデバイスのカメラを使用するには、“カメラ”機能を追加する必要があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "詳しくは、[Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)（英語）を確認してください。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "プレビューストリームを探求する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "カメラから送信されるプレビューイメージのストリームについて学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "カメラの`start()`メソッドを呼び出すと、カメラのビデオ出力によって、1秒あたり最大60フレームの速度で低解像度のプレビューイメージ（ビデオフレーム）のストリームが生成されます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "これらのプレビューイメージをカメラの`previewStream`（プレビューストリーム）プロパティを通じて、[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)（コアイメージ）オブジェクトの[非同期ストリーム](glossary://asynchronous%20stream)として受信します。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "プレビューストリームを処理する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "プレビューストリームを処理して、ファインダーで表示できる状態にする方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[データモデル](glossary://data%20model)には、カメラから送信されるプレビューイメージの[ストリーム](glossary://asynchronous%20stream)を`handleCameraPreviews`（カメラのプレビューを処理）関数を使って処理するための専用[タスク](glossary://task)があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "[tasks](doc://com.apple.documentation/documentation/swift/task)（タスク）について詳しくは、Swift標準ライブラリをご覧ください。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "`handleCameraPreviews`（カメラのプレビューを処理）で、カメラから送信される[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)（コアイメージ）オブジェクトのプレビューストリームを、表示できる状態になった[Image](doc://com.apple.documentation/documentation/swiftui/image)（イメージ）ビューのストリームに変換することです。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream)（非同期ストリーム）は、一定の間隔で生成される値のストリームです。値は[シーケンス](glossary://sequence)を形成しますが、その値が非同期的に届く[AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence)（非同期シーケンス）です。[配列](glossary://array)でできることなど、値のほかのシーケンスでできることの多くを行うことができます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "ここでは、ストリームの[map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map)関数を使って、それぞれの要素（`$0`）を`CIImage`（コアイメージ）の`image`（イメージ）プロパティ拡張機能を使った[Image](doc://com.apple.documentation/documentation/swiftui/image)インスタンスに変換します。これにより、[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)インスタンスが[Image](doc://com.apple.documentation/documentation/swiftui/image)インスタンスのストリームに変換されます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "`for`-`await`ループで、それぞれのイメージが変換後の`imageStream`（イメージストリーム）で届くのを待ってから、届いたイメージを使って処理を行います。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "非同期シーケンスを操作する方法について詳しくは、[Swiftプログラミング言語ガイド](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences)を参照してください。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "プレビューストリームのイメージを使って、データモデルの`viewfinderImage`（ファインダーイメージ）プロパティをアップデートします。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "`viewfinderImage`（ファインダーイメージ）の値が変わると、SwiftUIによって、このプロパティを使用しているすべてのビューが確実にアップデートされます。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "プレビューストリームを表示する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "ファインダービューを処理済みのプレビューストリームに接続する方法を見てみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView`（カメラビュー）には、カメラからのライブ映像を表示するために使用する`ViewfinderView`（ファインダービュー）があります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "モデルの`viewfinderImage`（ファインダーイメージ）プロパティを`ViewfinderView`（ファインダービュー）に[バインド](glossary://binding)して、ビューに新しいプレビューイメージが届くたびにファインダーがアップデートされるようにします。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "プレビューイメージは1秒間に何度もアップデートされるので、ファインダーでライブビデオのように見えます。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "ファインダーを回転する/ぼかす";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "プレビューストリームのイメージを回転したりぼかしたりしてみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "`handleCameraPreviews`メソッドは、[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)（コアイメージ）インスタンスのカメラのプレビュー[ストリーム](glossary://asynchronous%20stream)を、`ViewfinderView`（ファインダービュー）に表示できる状態になった[Image](doc://com.apple.documentation/documentation/swiftui/image)（イメージ）ビューのストリームにマッピングします。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "ここは、[image](doc://com.apple.documentation/documentation/swiftui/image)（イメージ）ビューにマッピングする前にプレビューイメージにほかの有益な処理を施す絶好の場所です。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "例えば、イメージを横向きに（または上下逆さまに）したい場合は、[oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented)（向き）メソッドを呼び出せます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "`imageStream`（イメージストリーム）の定義で、このコード行を`.map { $0.image }`の上に追加します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "ここでは、`map`を使って、ストリーム内の要素（`$0`）ごとに関数`oriented(.left)`を呼び出すことによって、イメージのストリームを回転後のイメージのストリームに変換します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "または、プレビューイメージをほんの少しぼかしたいですか?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "このコードを`.map { $0.image }`の上に追加して、イメージに別の操作を適用します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "1つの`map`操作を次々と[ストリーム](glossary://asynchronous%20stream)操作に適用するか、操作を[連鎖](glossary://chaining)させます。実際には、いくつでも好きなだけ操作を連鎖させることができます。例えば、次の例では、プレビューストリームから入力を受け取り、イメージを回転させてぼかし、最後に`Image`（イメージ）のストリームに変換します。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "ちょっと試してみましょう!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "別の向きのオプションを試してみましょう。例えば、`.down`（下向き）に向きを変えると、どうなるでしょうか?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "別のぼかし値を試してみましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)（コアイメージ）には、イメージを変換するための便利なメソッドがたくさんあります。";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "写真を取り込んで保存する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "はい笑って! クリック! 写真を撮影すると、そのあとすぐにたくさんのことが起こります。📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "シャッターボタンをタップまたはクリックしたあとのアクションを追って、その瞬間から写真がフォトライブラリに表示されるまでに何が起きるかを調べましょう。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "シャッターボタンに応答する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "シャッターボタンのアクションを処理する方法、およびカメラに写真を撮影するようリクエストする方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "カメラビューでシャッターボタンをタップまたはクリックすると、いろいろなことが起き始めますよ!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "ボタンによって、素早くアクションが開始され、モデルの`camera`（カメラ）オブジェクトが取得されてから、`takePhoto()`（写真を撮影）メソッドが呼び出されます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "引き続き、どのように写真が撮影されるのか解明しましょう!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "写真を取り込む";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "写真を撮影すると、カメラのセンサーからイメージデータが取り込まれます。この処理を開始する方法、および結果として取り込まれた写真を処理する方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "写真を撮影するときは、可能な限り高い解像度のイメージを取り込みたいでしょう。これは、ファインダーのプレビューを素早くアップデートしやすくするために解像度が低くなる傾向があるプレビューイメージとは対照的です。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "カメラには、ファインダーで見ているものの高解像度のイメージを取り込むために`takePhoto()`（写真を撮影）メソッドで使用する特殊な写真出力があります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "写真撮影の実際の作業は、写真を取り込むために写真出力をリクエストすることから始まります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "すべてがうまくいけば、このタイミングで再確認のシャッター音が聞こえ、あなた（および近くにいる人）に写真が撮影されたことが知らされます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "なぜ`capturePhoto`（写真を撮影）からすぐに写真が返されないのか不思議に思うかもしれません。それは、写真の取り込みには時間がかかるからです。場合によってはピントを合わせたりフラッシュが光るのを待ったりする必要があり、そのあとには露光時間があります。`capturePhoto`（写真を取り込む）メソッドは[非同期](glossary://asynchronous%20process)で、取り込まれた写真は、通常はシャッターボタンをタップまたはクリックして少したってから到着します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "写真の取り込みが完了すると、カメラオブジェクトの別のメソッドへの[コールバック](glossary://callback)である`photoOutput(_:didFinishProcessingPhoto:error:)`（写真出力）が返されます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "最初の引数では、[AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)のインスタンスとして取り込まれた写真を受け取ります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "これで写真が取り込まれたので、それをカメラのフォトストリームに追加しましょう。そうすると、データモデルなど、写真を待っているApp内のすべてのオブジェクトで使用できるようになります。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "写真を処理して保存する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "取り込んだ写真を展開する方法、およびそれをフォトライブラリに保存する方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "データモデルは、新しく取り込まれた写真を辛抱強く待っています。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "プレビューイメージと同じように、カメラから取り込んだフォトストリームを`handleCameraPhotos`（カメラの写真を処理）メソッドを使って処理するための専用[タスク](glossary://task)があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "[tasks](doc://com.apple.documentation/documentation/swift/task)（タスク）について詳しくは、Swift標準ライブラリをご覧ください。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "カメラの`photoStream`（写真ストリーム）内のそれぞれの[AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)要素には、解像度が異なる複数のイメージと、イメージに関するその他の[メタデータ](glossary://metadata)（イメージのサイズやイメージが取り込まれた日時など）が含まれています。これを展開して、必要なイメージとメタデータを取得する必要があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "`handleCameraPhotos`（カメラの写真を処理）で最初に行うのは、`photoStream`（写真ストリーム）をもっと便利な`unpackedPhotoStream`（展開後の写真ストリーム）に変換することです。`unpackedPhotoStream`内のそれぞれの要素は、あなたが必要とするデータを含んだ`PhotoData`（写真データ）構造体のインスタンスです。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "`photoStream`（写真ストリーム）を展開するには、`unpackPhoto(_:)`（写真を展開）関数を使用します。この関数は、取り込まれた写真を取得し、含まれている`PhotoData`（写真データ）インスタンスを返します:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "[Image](doc://com.apple.documentation/documentation/swiftui/image)（イメージ）としての低解像度イメージのサムネール";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "イメージサムネールのサイズ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "[Data](doc://com.apple.documentation/documentation/foundation/data)（データ）としての高解像度イメージ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "高解像度イメージのサイズ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "前にも[非同期ストリーム](glossary://asynchronous%20stream)として説明しましたが、`photoStream`（写真ストリーム）は、[Sequence](doc://com.apple.documentation/documentation/swift/sequence)（シーケンス）にとてもよく似ています。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "[compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap)メソッドを使って、ストリーム内のそれぞれの写真（`$0`）ごとに`unpackPhoto(_:)`（写真を展開）を呼び出すことができます。これにより、[AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)インスタンスのストリームが、さらに便利な`PhotoData`（写真データ）インスタンスのストリームに変換されます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "次に、`for`-`await`ループで、`photoData`（写真データ）要素が展開後のストリームで到着するまで待ってから、それを処理します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "`photoData`（写真データ）のサムネールイメージを使って、モデルの`thumbnailImage`（サムネールイメージ）プロパティをアップデートします。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "モデルの`savePhoto(imageData:)`（写真を保存）メソッドを呼び出して、`photoData`（写真データ）のイメージデータをフォトライブラリ内の新しい写真として保存します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "`savePhoto(imageData:)`（写真を保存）メソッドは[タスク](glossary://task)の作成を行い、`addImage(_:)`（イメージを追加）メソッドを呼び出して、写真データを`photoCollection`（フォトコレクション）オブジェクトに保存するという実作業をまわします。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "でも、それでいいんです! データモデルの仕事は、Appのデータオブジェクト間のデータフローを調整することです。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "少し遅れて作動するシャッターを追加する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "カメラのシャッターボタンに遅延を追加してみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "どこか（三脚など）にカメラを設置して、ボタンをタップまたはクリックし、あわてて走って自分がフレームに収まってから写真が撮影されるという場面を想像してみましょう!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "そのためには、シャッターボタンをタップまたはクリックしたあと、カメラで写真が撮影されるまでの間に若干の遅延を追加する必要があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "シャッターボタンのアクションを処理するコードを見て、これをどのように実装するか考えてみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "すぐに次のような計画を思いつきますよね:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "写真を撮影するまでの秒数をカウントダウンするために、`delayCount`（遅延カウント）という[状態プロパティ](glossary://state%20value)を追加します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "シャッターボタンをタップまたはクリックしたときに、`delayCount`（遅延カウント）を、写真を撮影するまでカメラに待機させたい秒数に設定します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "1秒につき1回`delayCount`（遅延カウント）を[減らす（デクリメントする）](glossary://decrement)[Timer](doc://com.apple.documentation/documentation/foundation/timer)（タイマー）を設定します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "`delayCount`（遅延カウント）がゼロになったら、タイマーを停止して、同時に写真を撮影するようにカメラに伝えます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "まず、[状態プロパティ](glossary://state%20value) `delayCount`（遅延カウント）を`CameraView`（カメラビュー）の一番上（`body`プロパティの上）に定義し、初期値をゼロに設定します。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "ヒント: これは、`CameraView`（カメラビュー）の中でのみ使うので、`private`（プライベート）にしておきます。型の中でのみ使用する予定の定義には、この方法を使うようにしましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "そのあとで、シャッターの[Button](doc://com.apple.documentation/documentation/swiftui/button)（ボタン）ハンドラで、ボタンをタップまたはクリックしたらすぐに写真を撮影するコード行を[コメントアウト](glossary://comment%20out)します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "その代わりに、timer（タイマー）ハンドラの中で`takePhoto()`（写真を撮影）を呼び出します。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "次に、`delayCount`（遅延カウント）変数を、5秒など、カウントダウンしたい秒数に設定します。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "`delayCount`（遅延カウント）への値の代入の下に、1秒につき1回繰り返すスケジュール済みの[Timer](doc://com.apple.documentation/documentation/foundation/timer)（タイマー）を追加します。タイマーが作動すると、指定した[クロージャ](glossary://closure)のコードが呼び出されて、`delayCount`が[減って（デクリメントして）](glossary://decrement)いきます。";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "次は、timer（タイマー）クロージャの最終ステップです。`delayCount`（遅延カウント）がゼロになったら、タイマーを停止して写真を撮影するようにカメラに指示します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "`delayCount -= 1`のあと、timer（タイマー）クロージャに次のコードを追加します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "timer（タイマー）の[invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate)（無効化）メソッドを呼び出すと、タイマーが停止します。これでタイマーの仕事は完了です!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "ボタンハンドラは、次のコードのようになります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "コードを入念にチェックしたら、シャッターボタンをタップまたはクリックして、待ちましょう!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "ヒント: コード内で実際に何が起こっているのか気になることがありませんか? 期待通りに動いていない場合は、特にそうですよね?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "`print`（プリント）文を追加すると、役立つ情報を[コンソール](glossary://console)に出力することによって、コードで何が行われているかが分かるようにできます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "このコードをtimer（タイマー）クロージャの中に追加してみましょう:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "コンソールを開いてからシャッターボタンをタップまたはクリックして、少し遅らせて写真を撮影しましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "少し遅れて作動するシャッターボタンに満足しましたか? では、もう少し磨きをかけてみましょう! ✨ ボタンのところにカウントダウンが表示されるといいですよね!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "シャッターボタン用のアイコンを見つけましょう。2つの[Circle](doc://com.apple.documentation/documentation/swiftui/circle)（円）ビューが含まれた[ZStack](doc://com.apple.documentation/documentation/swiftui/zstack)です。[ZStack](doc://com.apple.documentation/documentation/swiftui/zstack)の中の2番目の[Circle](doc://com.apple.documentation/documentation/swiftui/circle)のあとに、このコードを追加します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "では、シャッターボタンをタップまたはクリックしましょう。数秒間カウントダウンしてから写真が撮影されますね?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "写真をブラウズする";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "写真撮影を楽しんでいますか? ほとんどの人がそうかと思いますが、何百枚、何千枚もの写真がライブラリに溜まってしまいがちですよね。🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "フォトライブラリから取り出される都度、写真をフォローし、ブラウズできる、スクロールするギャラリーに表示しましょう。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "フォトコレクションを使う";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "データモデルのフォトコレクションの概要と、ギャラリーに写真を表示する仕組みを学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "データモデルには、フォトライブラリ内の項目のコレクションを表示できる`photoCollection`（フォトコレクション）プロパティがあります。フォトライブラリ全体を表示することも、1つのアルバムだけを表示することもできます。検索からの結果も表示できます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "スマートアルバム`.smartAlbumUserLibrary`（スマートアルバムのユーザライブラリ）を使って`photoCollection`（フォトコレクション）を初期化することで、ライブラリ内のすべての写真を含めることができます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "自分だけのプロジェクトで写真ライブラリにアクセスするには、“写真ライブラリ”機能を追加する必要があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "詳しくは、[Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)（英語）を確認してください。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "フォト素材を取得する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "フォトコレクション内のそれぞれの項目をフォト[素材](glossary://asset)といいます。これらの素材を取得する方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "データモデルの`photoCollection`（フォトコレクション）には、配列のようにフォト素材のコレクションを使用できる`photoAssets`（フォト素材）プロパティがあります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "例えば、インデックスを使って写真を取得することができます:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "コレクション内のすべての写真の枚数を数えることもできます:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "ループを使って、`photoAssets`（フォト素材）の素材を[反復処理](glossary://iteration)することもできます。これは、ギャラリーをバインドするときにものすごく便利です。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "`photoAssets`（フォト素材）は、[オブザーバブルオブジェクト](glossary://observable%20object)である`PhotoCollection`（フォトコレクション）の[公開](glossary://published%20value)プロパティです。つまり、写真が追加されたり削除された場合などのフォト素材の変化に対応することができます。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "フォトギャラリーに移動する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "フォトギャラリーに移動する方法、およびフォトギャラリーをフォトライブラリに接続する方法を理解しましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "フォトギャラリーに移動するには、カメラビューで[ナビゲーションリンク](glossary://navigation%20link)を使います。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "ナビゲーションリンクはボタンのようなものです。ラベルやアイコンを付けることもできます。シャッターボタンの左側にこのボタンを配置しましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "ナビゲーションリンクをタップまたはクリックすると、別のビューに移動できます。この場合は、フォトギャラリーを表示するために使用するフォトコレクションのビューに移動します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "[NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack)内でナビゲーションリンクを使うと、SwiftUIによってビューの表示が管理されるため、リンク間を簡単に移動できます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "`PhotoCollectionView`（フォトコレクションビュー）を初期化するときにモデルの`photoCollection`（フォトコレクション）を渡すことによって、ギャラリーに表示したい写真のコレクションが用意されます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "ギャラリーを開くとファインダーは表示されなくなるので、ファインダーのアップデートを続ける必要はありません。代わりに、デバイスのパフォーマンスを写真の表示に集中させます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "カメラのプレビューストリームのオン/オフを制御する場合、ギャラリーを表示するときはナビゲーションリンクの[onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:))（表示のとき）修飾子を使って一時停止し、カメラに戻るときは[onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:))（非表示のとき）修飾子を使って再開します。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "フォトギャラリーを作成する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "スクロールするグリッドに写真を表示する方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "スクロールするグリッドに最新の写真が一番上に来るようにして写真を表示するには、`PhotoCollectionView`（フォトコレクションビュー）を使います。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "`PhotoCollectionView`（フォトコレクションビュー）を作成すると、モデルの`photoCollection`（フォトコレクション）への参照を使って`photoCollection`プロパティが初期化されます。これにより、フォトギャラリーの作成に必要なすべてのデータが用意されます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "`photoCollection`（フォトコレクション）を[オブザーブドオブジェクト](glossary://observed%20object)にすると、コレクションの[公開値](glossary://published%20value)の変化に応じて、SwifUIによってフォトコレクションビューがアップデートされます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "ゆるやかな縦方向のグリッド（[LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)）を使って、写真をグリッドレイアウトの項目として表示しましょう。レイアウトでは縦方向のグリッドが使われるので、決める必要があるのは希望する`columns`（列）の数と、項目と項目の間の`spacing`（間隔）だけです。列の数が決まったら、グリッドが縦方向に広がって、すべての写真を表示できるだけの行が追加されます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "なぜ、ゆるやかなのでしょう? そう、グリッドがそれに含まれているビューよりも大きい場合は、現在表示されている項目だけが表示されます。実はこの“ゆるやかさ”が、特に写真のグリッドをスクロールするときには、Appのパフォーマンスを向上させます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "グリッド内の列数を固定してもよいのですが、ビューの幅に応じてできるだけ多くの列を表示する方が、より[レスポンシブ](glossary://responsive)な方法といえます。そうすると、ユーザがAppのサイズを変更できて、操作性が向上します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "ビューの幅に適応するグリッドを作成するには、`adaptive`（可変）[GridItem](doc://com.apple.documentation/documentation/swiftui/griditem)（グリッド項目）を定義して、維持したいサイズと間隔を指定します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "何百枚、何千枚という写真がある場合を想像してみましょう。可変レイアウトを使用しても、グリッドの高さが非常に大きくなり、表示する必要がある領域を超えてしまう可能性がありますね!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "なので、グリッドを[ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview)（スクロールビュー）の中に配置して、スクロールできるようにしましょう。そうすれば、グリッドに必要な数の行ができ、写真を上下にスクロールできるようになります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "グリッドの中で[ForEach](doc://com.apple.documentation/documentation/swiftui/foreach)を使ってコレクション内のフォト素材を[反復処理](glossary://iteration)し、素材ごとにビューを生成します。生成したビューでグリッドを埋めます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "このグリッドはゆるやかなので、スクロールしたときに、[ForEach](doc://com.apple.documentation/documentation/swiftui/foreach)では表示されるフォト素材しか処理されません。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "フォト素材で初期化される[移動先](glossary://destination%20view) `PhotoView`（写真ビュー）を使って、タップまたはクリックされたときに個々の写真がフルサイズで表示される、グリッド項目ごとの[NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink)（ナビゲーションリンク）を作成します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "`photoItemView(asset:)`（写真項目表示）メソッドで、フォト素材の小さいイメージサムネールを表示するビューを作成します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "このビューをナビゲーションリンクの[ラベル](glossary://label)として使って、それぞれのリンクを写真のサムネールサイズのイメージとして表示します。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "写真を表示する";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "写真ビューに写真を読み込んで表示する方法を学びましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "写真が自動的に表示されるようにする場合は、`PhotoView`（写真ビュー）を使用します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "写真ビューで、写真の高解像度イメージをリクエストして表示しましょう。写真をお気に入りにしたり、削除したりするボタンが付いたオーバーレイも使いましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "写真ビューには、表示する写真の`photoAsset`（フォト素材）プロパティがあります。このプロパティは、`PhotoView`（写真ビュー）を初期化するときに渡します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "また、イメージキャッシュへの参照を格納する`cache`（キャッシュ）プロパティを使ってビューを初期化します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "サイズを指定して、イメージキャッシュのイメージをリクエストできます。フォト素材からイメージが読み込まれると、キャッシュからそれが配信されます。イメージキャッシュでは最近リクエストされたイメージもメモリに保管されるので、もう一度リクエストした場合に再読み込みする必要はありません。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "ビューには、読み込んだあとでイメージを格納できる`image`（イメージ）[状態プロパティ](glossary://state%20value)があります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "これは、[オプショナル](glossary://optional)型（`Image?`）です。値がなくても開始する必要があるためです。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "ビューの[task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:))（タスク）修飾子を使って、ビューが読み込まれるたびに一部のコードを[非同期的](glossary://asynchronous%20process)に実行することができます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "ここでは、希望するサイズを指定して、キャッシュのフォト素材の高解像度イメージをリクエストするコードを追加しましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "また、`result`（結果）があるときに呼び出すことができるコードが含まれる[クロージャ](glossary://closure)を使ってキャッシュを用意しましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "result（結果）クロージャは、キャッシュから1件以上の呼び出しを受け取ります。リクエストしたイメージがすでにキャッシュに格納されている場合は、すぐに`result`内のイメージと共にクロージャが呼び出されます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "キャッシュにリクエストしたイメージがない場合は、フォト素材からイメージが読み込まれ、キャッシュに入れられます。イメージの読み込み中は、キャッシュで最初に低解像度イメージと共にクロージャが呼び出されてから、最終的に`result`（結果）の高解像度イメージが配信されます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "result（結果）クロージャは、result内でイメージを探します。見つかった場合は、`image`（イメージ）プロパティがアップデートされます。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "`image`（イメージ）状態プロパティを作成しているため、値が変わるとSwiftUIによってビューがアップデートされます。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "`image`（イメージ）に値が格納されている場合は、そのイメージを[ラップ解除](glossary://unwrap)して、ビューに表示します。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "ただし、`image`（イメージ）に値がない場合は、[ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview)（進行状況ビュー）を使用して、Spinnerを[プレースホルダ](glossary://placeholder%20view)として表示します。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "よく見てください。この待機カーソルは、ビューが最初に読み込みを行ったとき（まだキャッシュがフォト素材からイメージを読み込んでいないとき）のみ表示されますよね。";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "固定グリッドを使う";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "フォトギャラリーで別のグリッドスタイルを試してみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "ギャラリーでは写真がグリッドに表示され、それぞれの写真は固定サイズの正方形に収まっています。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "この並び方は、[GridItem](doc://com.apple.documentation/documentation/swiftui/griditem)（グリッド項目）の配列を返す`columns`（列）プロパティを使って定義します。1つの[adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:))（可変）グリッド項目を使うと、可能な幅が`LazyVGrid`（ゆるやかな縦方向のグリッド）に適用されるので、できるだけ多くの列を表示することが可能です。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "でも、代わりに列数を固定して、それぞれの写真が可能な限り広い領域に表示されるようにしたいとしたらどうでしょう?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "そのためには、`columns`（列）配列に、希望するそれぞれの列の[flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:))（柔軟性の高い）グリッド項目を含める必要があります。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "`columns`（列）の下で、それぞれの列に1つずつ、`flexible`グリッド項目の配列を返す`fixedColumns`（固定列）プロパティを定義します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "また、`columns`（列）の代わりに、このようにしてゆるやかなグリッドに`fixedColumns`（固定列）を渡します:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "では、フォトギャラリーをブラウズして、特にビューのサイズを変更したときに、どんな違いがあるか見てみましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "期待通りに2列になりましたね? でも、写真はまだ元のサイズのままです。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "やらなければいけないことがもう1つあります…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "写真項目のビューを作成する、関数内のこのコードを見てください。何が問題なのか、ちょっと考えてみましょう。";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "そう、それぞれの写真の固定の[frame](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:))（フレーム）サイズはもういりませんよね。代わりに、ビューの幅とグリッド内の列数によって、イメージのサイズが決まります。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "示されているように次の行をコメントアウトして、それぞれの写真にできるだけ多くの領域を自由に占有できるようにしましょう:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "もう一度フォトギャラリーを開いてみましょう。それぞれの写真が列幅いっぱいに表示されていますね?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "ビューの幅を広げてみましょう。どうなりますか?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "新しい固定の列をよく見てください。列と列の間には間隔がありますが、両脇にはありませんね? コードを見てみましょう。なぜだか分かりますか?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "ビューのpadding（パディング）を、縦方向だけでなく、全方向に変更しましょう:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "さらに、次のことを試してみましょう:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "追加列にグリッド項目を追加しましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "`imageSize`（イメージサイズ）プロパティから返される値を変更して、固定グリッド用の高解像度イメージを取得しましょう。";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "写真項目のビューに、固定の高さではなく、最大の高さ（`.frame(maxHeight: 400)`）を使用しましょう。";
+

@@ -1,0 +1,627 @@
+@GuideBook(title: "Capturing Photos", icon: title.png, background: titleBackground.png, firstFile: DataModel.swift) {
+    
+    @WelcomeMessage(title: "Capturing Photos") {
+        Imagine the exciting things you could do with the camera in your own app! In this sample, you explore the building blocks of a camera app, and discover how you can use your SwiftUI skills to work with the camera and photo library.
+    }
+    
+    @Guide {
+        
+        @Step(title: "Capturing Photos") {
+            @ContentAndMedia {
+                ![Composition showing photos of giraffe and cheetah, along with an iPad](intro-header.png)  
+
+                Welcome to Capturing Photos!
+                
+                Think of the essential things a camera app should do: 
+                
+                * Display live video from the camera in a viewfinder
+                * Take a photo when you tap or click the shutter button
+                * Save your photo
+                * Browse and view the photos you’ve already taken
+                
+                You’ll find out how to do all of these — and more. You’ll learn about the data objects your app uses, and how to manage the flow of data between them and the app’s user interface. 
+                
+                Before you get started, select App Preview and take a moment to explore your camera app and take a few photos. 
+
+                @GuideButton(type: walkthrough, title: "Start Walkthrough", description: "AX description for button")
+            }
+            
+            @TaskGroup(title: "Previewing the Camera Output") {
+                Your camera’s video output sends a continuous stream of individual images (video frames). You display these in a viewfinder so you can see exactly what the camera is looking at before composing your shot and taking a photo. 
+                
+                Discover more about how this works. 🎞
+                
+                @Task(type: walkthrough, title: "Using the Camera", id: "usingCamera", file: DataModel.swift) {
+                    
+                    Learn about the camera in your data model.
+                    
+                    @Page(id: "dm.camera", title: "") {
+                        Your data model has a `camera` property that represents one of the physical cameras — or capture devices — available to your device.
+                    }
+                    
+                    @Page(id: "dm.camera", title: "") {
+                        Your device may have access to several capture devices — for example, the front and back cameras on iPad — and you can switch between these using the camera’s `switchCaptureDevice()` method.
+                        
+                        Learn more about capture devices in [Choosing a Capture Device](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device).
+                    }
+                    
+                    @Page(id: "dm.camera", title: "") {
+                        To start using the camera, you call its `start()` method:
+                        
+                        ```
+                        await model.camera.start()
+                        ```
+                    }
+                    
+                    @Page(id: "dm.camera", title: "") {
+                        Note that before you can use the device camera(s) in your own project, you must add the Camera capability.
+                        
+                        Find out more more in [Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).
+                    }
+                }
+            
+                @Task(type: walkthrough, title: "Exploring the Preview Stream", id: "previewStream", file: Camera.swift) {
+                    
+                    Learn about the stream of preview images from your camera.
+                    
+                    @Page(id: "previewflow.start", title: "") {
+                        After calling the camera’s `start()` method, its video output produces a stream of low-resolution preview images (video frames), at rates of up to 60 frames a second.
+                    }
+                    
+                    @Page(id: "previewflow.previewStream", title: "") {
+                        You receive these preview images through the camera’s `previewStream` property, as an [asynchronous stream](glossary://asynchronous%20stream) of [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) (Core Image) objects.
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Processing the Preview Stream", id: "processPreviews", file: DataModel.swift) {
+                    
+                    Learn how to process the preview stream so that it’s ready to display in the viewfinder. 
+                    
+                    @Page(id: "previewflow.taskHandlePreviews", title: "") {
+                        Your [data model](glossary://data%20model) has a dedicated [task](glossary://task) to handle the [stream](glossary://asynchronous%20stream) of preview images from the camera, using its `handleCameraPreviews` function.
+                        
+                        You can learn more about [tasks](doc://com.apple.documentation/documentation/swift/task) in the Swift standard library.
+                    }
+                    @Page(id: "previewflow.handleCameraPreviews", title: "") {
+                        In `handleCameraPreviews`, turn the preview stream of [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) objects from the camera into a stream of [Image](doc://com.apple.documentation/documentation/swiftui/image) views, ready for display.
+                    }
+                    @Page(id: "previewflow.map", title: "") {
+                        An [AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream) is a stream of values that are produced at time intervals. The values form a [sequence](glossary://sequence), but with its values arriving asynchronously — an [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence). You can do many of the same things you can do with any other sequence of values, such as with an [array](glossary://array).
+                        
+                        In this case you use the stream’s [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/map(_:)-1q1k3) function to convert each element — `$0` — into an [Image](doc://com.apple.documentation/documentation/swiftui/image) instance using an `image` property extension of `CIImage`. This transforms the stream of [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) instances into a stream of [Image](doc://com.apple.documentation/documentation/swiftui/image) instances.
+                    }
+                    @Page(id: "previewflow.forAwait", title: "") {
+                        Your `for`-`await` loop waits for each image in your transformed `imageStream` before doing something with it.
+                        
+                        Learn more about working with asynchronous sequences in the [Swift Programming Language Guide](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences).
+                    }
+                    @Page(id: "previewflow.updateViewfinderImage", title: "") {
+                        You use the image from the preview stream to update your data model’s `viewfinderImage` property.
+                        
+                        SwiftUI makes sure that any views using this property get updated when the `viewfinderImage` value changes.
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Viewing the Preview Stream", id: "viewPreviews", file: CameraView.swift) {
+                    
+                    See how you can connect your viewfinder view to the processed preview stream.
+                    
+                    @Page(id: "previewflow.viewPreviews", title: "") {
+                        Your `CameraView` has a `ViewfinderView` that it uses to display live video from the camera. 
+                    }
+                    @Page(id: "previewflow.binding", title: "") {
+                        By [binding](glossary://binding) the the model’s `viewfinderImage` property to your `ViewfinderView`, you ensure that the viewfinder updates whenever the view receives a new preview image.
+                        
+                        Because the preview image updates many times per second, your eyes see it as live video in the viewfinder.
+                    }
+                }   
+                
+                @Task(type: experiment, title: "Rotate or Blur the Viewfinder", id: "previewExperiment", file: DataModel.swift) {
+                    
+                    Experiment by rotating or blurring the images in the preview stream.
+                    
+                    @Page(id: "previewflow.imageStream", title: "") {
+                        Your `handleCameraPreviews` method maps the camera’s preview [stream](glossary://asynchronous%20stream) of [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) instances to a stream of [Image](doc://com.apple.documentation/documentation/swiftui/image) views, ready for display in your `ViewfinderView`.
+                        
+                        This is a great place to do other useful things to the preview images before mapping them to an [Image](doc://com.apple.documentation/documentation/swiftui/image) view.
+                    }
+                    @Page(id: "previewExperiment.1", title: "") {
+                                            
+                        Say you wanted to turn the image sideways, or even upside down, you could call its [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented) method.
+                    }
+                    @Page(id: "previewExperiment.2", title: "") {
+                        In the definition for `imageStream`, add this line of code above `.map { $0.image }`:
+                        ```
+                        .map { $0.oriented(.left) }
+                        ```
+                        Here, you’re using `map` to turn a stream of images into a stream of rotated images by calling the function `oriented(.left)` for each element (`$0`) in the stream.
+                    }
+                    @Page(id: "previewExperiment.3", title: "") {
+                        Or perhaps you’d like to blur the preview images a little?
+                        
+                        Apply another operation to the images by adding this code above `.map { $0.image }`:
+                        ```
+                        .map { $0.applyingGaussianBlur(sigma: 5) }
+                        ```
+                    }
+                    @Page(id: "previewExperiment.4", title: "") {
+                        You’re applying one `map` operation after another to the [stream](glossary://asynchronous%20stream), or [chaining](glossary://chaining) the operations. In fact, you can chain as many operations together as you’d like. For example, the following takes the input from the preview stream, rotates the images, blurs them, and finally converts them to a stream of `Image`.
+                        
+                        ```
+                        let imageStream = camera.previewStream
+                            .map { $0.oriented(.left) }
+                            .map { $0.applyingGaussianBlur(sigma: 5) }
+                            .map { $0.image }
+                        ```
+                    }
+                    @Page(id: "previewExperiment.5", title: "") {
+                        Experiment a little!
+                        
+                        * Try different orientation options; for example, what happens when you change the orientation to `.down`?
+                        
+                        * Try different blur values.
+                        
+                        [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) has lots of useful methods for transforming images.
+                    }
+                }
+            }
+            
+            @TaskGroup(title: "Capturing and Saving a Photo") {
+                Smile! Click! A lot happens in quick succession when you take a photo. 📸
+                
+                Follow the action after you tap or click the shutter button, to investigate what happens from that moment to when the photo shows up in your photo library.
+            
+                @Task(type: walkthrough, title: "Responding to the Shutter Button", id: "shutterButton", file: CameraView.swift) {
+                    
+                    Learn how to handle the shutter button action, and request the camera to take a photo.
+                    
+                    @Page(id: "photoflow.shutterButton", title: "") {
+                        When you tap or click the shutter button in your camera view, things start happening!
+                    }
+                    @Page(id: "photoflow.shutterButtonAction", title: "") {
+                        The button springs into action, grabs the model’s `camera` object, then calls its `takePhoto()` method.
+                        
+                        Keep going to find out how it takes a photo!
+                    }
+                }
+                            
+                @Task(type: walkthrough, title: "Capturing a Photo", id: "capturePhoto", file: Camera.swift) {
+                    
+                    When you take a photo, the camera captures image data from its sensor. Learn how to initiate this, and handle the resulting captured photo.
+                    
+                    @Page(id: "photoflow.takePhoto", title: "") {
+                        When you take a photo, you want to capture an image with the highest possible resolution. This contrasts with the preview images, which tend to have a lower resolution to facilitate rapidly updating previews in the viewfinder.
+                        
+                        Your camera has a special photo output that its `takePhoto()` method uses to capture high-resolution images of what you see in the viewfinder.
+                    }
+                    @Page(id: "photoflow.capturePhoto", title: "") {
+                        You start the real work of taking the photo by requesting the photo output to capture a photo.
+                        
+                        If all goes well, this is when you hear a reassuring shutter sound to let you — and anyone nearby — know that you’ve just taken a photo.
+                    }
+                    @Page(id: "photoflow.capturePhoto", title: "") {
+                        You might wonder why `capturePhoto` doesn’t just return the photo. That’s because capturing a photo takes time: the camera may need to focus, or wait for the flash, and then there’s the exposure time. The `capturePhoto` method is [asynchronous](glossary://asynchronous%20process), with the captured photo typically arriving a short time after you tap or click the shutter button.
+                    }
+                    @Page(id: "photoflow.didFinishProcessingPhoto", title: "") {
+                        After the photo capture has completed, you receive a [callback](glossary://callback) to another method in your camera object: `photoOutput(_:didFinishProcessingPhoto:error:)`.
+                        
+                        Its first argument receives the captured photo as an instance of [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/).
+                    }
+                    @Page(id: "photoflow.addToPhotoStream", title: "") {
+                        Now that you’ve got the captured photo, you add it into the camera’s photo stream. It’s then available to any object in your app waiting for a photo, like the data model.
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Processing and Saving a Photo", id: "processPhoto", file: DataModel.swift) {
+                    
+                    Discover how to unpack a captured photo and save it to your photo library.
+                    
+                    @Page(id: "photoflow.taskHandlePhotos", title: "") {
+                        Your data model is patiently awaiting newly-captured photos.
+                        
+                        Just as for preview images, it has a dedicated [task](glossary://task) for handling the captured photo stream from the camera, using its `handleCameraPhotos` method.
+                        
+                        You can learn more about [tasks](doc://com.apple.documentation/documentation/swift/task) in the Swift standard library.
+                    }
+                    @Page(id: "photoflow.unpackedPhotoStream", title: "") {
+                        Each [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) element in the camera’s `photoStream` may contain several images at different resolutions, as well as other [metadata](glossary://metadata) about the image, such as its size and the date and time the image was captured. You have to unpack it to get the images and metadata that you want.
+                        
+                        The first thing you do in `handleCameraPhotos` is to convert `photoStream` into a more useful `unpackedPhotoStream`, in which each element is an instance of the `PhotoData` structure that contains the data you want.
+                    }
+                    @Page(id: "photoflow.unpackPhoto", title: "") {
+                        To unpack the `photoStream`, you’ll use the `unpackPhoto(_:)` function, which takes a captured photo and returns a `PhotoData` instance that contains:
+                        * a low-resolution image thumbnail as an [Image](doc://com.apple.documentation/documentation/swiftui/image)
+                        * the size of the image thumbnail
+                        * a high-resolution image as [Data](doc://com.apple.documentation/documentation/foundation/data)
+                        * the size of the high-resolution image
+                    }
+                    @Page(id: "photoflow.compactMap", title: "") {
+                        You’ll recall that, as an [asynchronous stream](glossary://asynchronous%20stream), `photoStream` is very much like a [Sequence](doc://com.apple.documentation/documentation/swift/sequence).
+                        
+                        You can use its [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/compactmap(_:)-1f8zn) method to call `unpackPhoto(_:)` for each photo (`$0`) in the stream. This transforms the stream of [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) instances into a much more useful stream of `PhotoData` instances.
+                    }
+                    @Page(id: "photoflow.forAwait", title: "") {
+                        The `for`-`await` loop now waits for a `photoData` element to arrive in your unpacked stream before processing it.
+                    }
+                    @Page(id: "photoflow.updateThumbnailImage", title: "") {
+                        You use the thumbnail image in `photoData` to update your model’s `thumbnailImage` property.
+                    }
+                    @Page(id: "photoflow.callSavePhoto", title: "") {
+                        Call your model’s `savePhoto(imageData:)` method to save the image data from `photoData` as a new photo in your photo library.
+                    }
+                    @Page(id: "photoflow.savePhoto", title: "") {
+                        The `savePhoto(imageData:)` method creates a [task](glossary://task) and passes on the real work of saving the photo data to the `photoCollection` object by calling its `addImage(_:)` method.
+                        
+                        And that’s fine! The data model’s job is to coordinate data flow between the app’s data objects.
+                    }
+                }
+                
+                @Task(type: experiment, title: "Add a Delayed Shutter", id: "delayedShutter", file: CameraView.swift) {
+                    
+                    Experiment with your camera by adding a delay to its shutter button. 
+                    
+                    @Page(id: "photoflow.shutterButton", title: "") {
+                        Imagine setting the camera up somewhere — like on a tripod, tapping or clicking the button, and having enough time to run around and leap into the frame before the photo is taken!
+                        
+                        To do that you’ll need to add a short delay after you tap or click the shutter button before the camera takes the photo. 
+                        
+                        Looking at your code for handling the shutter button action, think about how you might implement this.
+                    }
+                    @Page(id: "delayedShutter.2", title: "") {
+                        You quickly come up with a plan:
+                        
+                        1. Add a [state property](glossary://state%20value) `delayCount` to count down the seconds until you take the photo.
+                        
+                        2. When you tap or click the shutter button, set `delayCount` to the number of seconds you want the camera to wait before taking the photo.
+                        
+                        3. Schedule a [Timer](doc://com.apple.documentation/documentation/foundation/timer) to [decrement](glossary://decrement) `delayCount` once per second.
+                        
+                        4. When `delayCount` reaches zero, stop the timer, and simultaneously tell the camera to take a photo.
+                    }
+                    @Page(id: "delayedShutter.delayCount", title: "") {
+                        First define the [state property](glossary://state%20value) `delayCount` at the top of `CameraView`, above its `body` property, setting its initial value to zero.
+                        
+                        ```
+                        @State private var delayCount = 0
+                        ```
+                        Tip: Keep it `private` because you’re only using it inside `CameraView`. This is a good practice for any definition that you only plan to use within a type.
+                    }
+                    @Page(id: "photoflow.shutterButton", title: "") {
+                        Then, in your shutter [Button](doc://com.apple.documentation/documentation/swiftui/button) handler, [comment out](glossary://comment%20out) the line of code that immediately takes a photo when you tap or click the button.
+                                            
+                        You’ll call `takePhoto()` inside your timer handler instead.
+                        
+                        ```
+                        Button {
+                            // model.camera.takePhoto()
+                        }
+                        ```
+                    }
+                    @Page(id: "delayedShutter.5", title: "") {
+                        Next set your `delayCount` variable to the number of seconds you want to count down, like `5` seconds.
+                        
+                        ```
+                        // model.camera.takePhoto()
+                        delayCount = 5
+                        ```
+                    }
+                    @Page(id: "delayedShutter.6", title: "") {
+                        Below your `delayCount` assignment, add a scheduled [Timer](doc://com.apple.documentation/documentation/foundation/timer) to repeat once per second. When your timer goes off, it calls the code in the [closure](glossary://closure) that you provide for it, [decrementing](glossary://decrement) `delayCount`.
+                        
+                        ```
+                        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                            delayCount -= 1
+                        }
+                        ```
+                    }
+                    @Page(id: "delayedShutter.7", title: "") {
+                        And now for the final step in your timer closure: when `delayCount` reaches zero, stop the timer and instruct the camera to take the photo.
+                        
+                        Add the following code in your timer closure, after `delayCount -= 1`:
+                        ```
+                        if delayCount == 0 {
+                            timer.invalidate()
+                            model.camera.takePhoto()
+                        }
+                        ```
+                        When you call the timer’s [invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) method, it stops — its job is done!
+                    }
+                    @Page(id: "delayedShutter.8", title: "") {
+                        Your button handler should now look like the code below.
+                                            
+                        After checking your code carefully, tap or click the shutter button and wait!
+                        ```
+                        Button {
+                            // model.camera.takePhoto()
+                            delayCount = 5
+                            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                                delayCount -= 1
+                                if delayCount == 0 {
+                                    timer.invalidate()
+                                    model.camera.takePhoto()
+                                }
+                            }
+                        }
+                        ```
+                    }
+                    @Page(id: "delayedShutter.9", title: "") {
+                        Tip: Do you sometimes wonder what’s really going on in your code, especially if it isn’t doing what you expect?
+                        
+                        You can add a `print` statement to have your code tell you exactly what it’s doing by writing useful information to the [console](glossary://console).
+                        
+                        Try adding this line inside your timer closure:
+                        ```
+                        print("Timer \(delayCount) \(Date.now)")
+                        ```
+                        
+                        Open the console, and then tap or click the shutter button to take a delayed photo. 
+                    }
+                    @Page(id: "delayedShutter.icon", title: "") {
+                        Aren’t you so delighted with your delayed shutter button? Well, why not add a little polish! ✨ You could have the countdown displayed right there in the button!
+                        
+                        Find the icon for the shutter button: a [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) with its two [Circle](doc://com.apple.documentation/documentation/swiftui/circle) views. Inside the [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack), and after the second [Circle](doc://com.apple.documentation/documentation/swiftui/circle), add this code:
+                        
+                        ```
+                        if delayCount > 0 {
+                            Text("\(delayCount)")
+                        }
+                        ```
+                        
+                        Now tap or click the shutter button. Watch it count down the seconds before taking the photo.
+                    }
+                }
+            }
+                    
+            @TaskGroup(title: "Browsing Your Photos") {
+                Enjoy taking photos? Most of us do, and it’s easy to end up with hundreds or thousands of photos in your library. 🏞
+                                
+                Follow your photos as they’re retrieved from your photo library and displayed in a scrolling gallery you can browse.
+            
+                @Task(type: walkthrough, title: "Using the Photo Collection", id: "dataModelPhotoCollection", file: DataModel.swift) {
+                    
+                    Learn about the photo collection in your data model and how it provides the photos for your gallery.
+                    
+                    @Page(id: "dm.photoCollection", title: "") {
+                        Your data model has a `photoCollection` property that can represent any collection of items in your photo library. This could be your entire photo library, or just one album, or even the results from a search.
+                        
+                        You can include all of your photos in your library by initializing `photoCollection` with a Smart Album `.smartAlbumUserLibrary`.
+                    }
+                    
+                    @Page(id: "dm.photoCollection", title: "") {
+                        Note that before accessing the photo library in your own project, you must add the Photo Library capability.
+                        
+                        Find out more more in [Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Fetching the Photo Assets", id: "photoAssets", file: PhotoCollection.swift) {
+                    
+                    Each item in your photo collection is known as a photo [asset](glossary://asset). Find out how to fetch those assets.
+                    
+                    @Page(id: "pc.photoAssets", title: "") {
+                        Your data model’s `photoCollection` has a `photoAssets` property that enables use of the photo assets collection just like you would an array.
+                    }
+                    @Page(id: "pc.photoAssets", title: "") {
+                        For example, you can fetch a photo asset using its index:
+                        
+                        ```
+                        let asset = photoCollection.photoAssets[4]
+                        ```
+                    }
+                    @Page(id: "pc.photoAssets", title: "") {
+                        Or count all of the photos in your collection:
+                        
+                        ```
+                        let count = photoCollection.photoAssets.count
+                        ```
+                    }
+                    @Page(id: "pc.photoAssets", title: "") {
+                        You can also [iterate over](glossary://iteration) the assets in `photoAssets` using a loop. You’ll find this incredibly useful for building your gallery.
+                    }
+                    @Page(id: "pc.observablePublished", title: "") {
+                        You’ll notice that `photoAssets` is a [published](glossary://published%20value) property of `PhotoCollection`, which is an [observable object](glossary://observable%20object). This means that you can respond to changes in the photo assets, such as when photos are added or deleted.
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Navigating to the Photo Gallery", id: "navigateToGallery", file: CameraView.swift) {
+                    
+                    Find out how to navigate to the photo gallery and connect it to your photo library.
+                    
+                    @Page(id: "navigateToGallery.entireLink", title: "") {
+                        In your camera view, use a [navigation link](glossary://navigation%20link) to take you to your photo gallery. 
+                        
+                        A navigation link is just like a button — you can even give it a label and an icon. You place this button to the left of the shutter button.
+                    }
+                    @Page(id: "navigateToGallery.photoCollection", title: "") {
+                        When you tap or click a navigation link, SwiftUI takes you to another view — in this case, the photo collection view — that you use to display your photo gallery.
+                        
+                        If you use navigation links within a [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack), SwiftUI manages the presentation of your views so you can easily navigate between them.
+                    }
+                    @Page(id: "navigateToGallery.photoCollection", title: "") {
+                        By passing your model’s `photoCollection` to the `PhotoCollectionView` when you initialize it, you provide the collection of photos that you want to display in your gallery.
+                    }
+                    @Page(id: "navigateToGallery.onAppear", title: "") {
+                        When you open the gallery, you’ll no longer see the viewfinder, so there’s no need to keep updating it. Instead, you’d rather concentrate the device’s performance on displaying your photos.
+                        
+                        To control when the camera’s preview stream is active, use the navigation link’s [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) modifier to pause it when the gallery appears, and [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) to resume it again when you navigate back to the camera.
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Building the Photo Gallery", id: "photoCollectionView", file: PhotoCollectionView.swift) {
+                    
+                    Discover how to display your photos in a scrolling grid.
+                    
+                    @Page(id: "pcv.PhotoCollectionView", title: "") {
+                        You use a `PhotoCollectionView` to display your photos in a scrolling grid, with the most recent photos at the top.
+                    }
+                    @Page(id: "pcv.photoCollection", title: "") {
+                        When you create your `PhotoCollectionView`, the `photoCollection` property initializes with a reference to your model’s `photoCollection`. It provides all of the data you need to build your photo gallery.
+                        
+                        By making `photoCollection` an [observed object](glossary://observed%20object), SwiftUI updates your photo collection view in response to changes in the collection’s [published values](glossary://published%20value).
+                    }
+                    @Page(id: "pcv.LazyVGrid", title: "") {
+                        You use a lazy vertical grid ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)) to display your photos as items in a grid layout. Because the layout uses a vertical grid, you only need to decide how many `columns` you want and the `spacing` between each item. After the grid has the number of columns, it expands vertically to add enough rows for displaying all of your photos.
+                        
+                        Why lazy? Well, if the grid is larger than its containing view, the view only displays the items that are currently visible. This "laziness" actually enhances the performance of your app, especially as you scroll through the grid of photos.
+                    }
+                    @Page(id: "pcv.columns", title: "") {
+                        You could use a fixed number of columns in your grid, but a more [responsive](glossary://responsive) approach is to display as many columns as you can, depending on the width of the view. This creates a much better experience as people resize your app.
+                        
+                        To create a grid that adapts to the width of your view, define an `adaptive` [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) and specify the size and spacing you want it to maintain.
+                    }
+                    @Page(id: "pcv.ScrollView", title: "") {
+                        Imagine having hundreds — or thousands — of photos. Even with adaptive layout, your grid can get very tall — way taller than the space you have to display it!
+                        
+                        Make your grid scrollable by placing it inside a [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview). This makes it so your grid can have as many rows as it needs, and you’ll be able to scroll up and down through your photos.
+                    }
+                    @Page(id: "pcv.ForEach", title: "") {
+                        Inside your grid, use [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) to [iterate](glossary://iteration) over the photo assets in your collection and generate a view for each asset — these views populate your grid.
+                        
+                        Because your grid is lazy, as you scroll, [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) only operates on the visible photo assets.
+                    }
+                    @Page(id: "pcv.NavigationLink", title: "") {
+                        Create a [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) for each grid item that, when tapped or clicked, displays the individual photo at full size using the [destination](glossary://destination%20view) `PhotoView` initialized with the photo asset.
+                    }
+                    @Page(id: "pcv.photoItemView", title: "") {
+                        The `photoItemView(asset:)` method creates a view that displays a small image thumbnail for a photo asset.  
+                        
+                        You’ll use this view as the [label](glossary://label) for the navigation link, displaying each link as a thumbnail-sized image of the photo. 
+                    }
+                }
+                
+                @Task(type: walkthrough, title: "Displaying a Photo", id: "photoView", file: PhotoView.swift) {
+                    
+                    Learn how the photo view loads and displays your photo.
+                    
+                    @Page(id: "pv.intro", title: "") {
+                        When it comes to displaying a photo on its own, you’ll use `PhotoView`.
+                        
+                        In your photo view, you display a high-resolution image that you request from the photo. You also have an overlay with buttons for favoriting or deleting the photo.
+                    }
+                    @Page(id: "pv.asset", title: "") {
+                        Your photo view has a `photoAsset` property for the photo it displays. You pass this in when you initialize the `PhotoView`.
+                    }
+                    @Page(id: "pv.cache", title: "") {
+                        You also initialize the view with a `cache` property that holds a reference to your image cache. 
+                        
+                        You can request an image of a specified size from the image cache. After loading the image from the photo asset, the cache delivers it back to you. The image cache also keeps recently-requested images in memory, so it doesn’t have to reload them if you request them again.
+                    }
+                    @Page(id: "pv.image", title: "") {
+                        Your view has an `image` [state property](glossary://state%20value) ready to hold the image after loading it.
+                        
+                        It’s an [optional](glossary://optional) type — `Image?` — because you want it to start off without any value.
+                    }
+                    @Page(id: "pv.task", title: "") {
+                        A view can use its [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) modifier to run some code [asynchronously](glossary://asynchronous%20process) whenever the view loads.
+                    }
+                    @Page(id: "pv.requestImage", title: "") {
+                        This is where you add code to request a high-resolution image from the cache for the photo asset, specifying the size you want.
+                        
+                        You also provide the cache with a [closure](glossary://closure) that contains code it can call when it has a `result`. 
+                    }
+                    @Page(id: "pv.resultClosure", title: "") {
+                        Your result closure receives one or more calls from the cache. If the cache already contains the image you requested, it immediately calls your closure with the image in its `result`.
+                        
+                        If the cache doesn’t have the requested image, then it loads the image from the photo asset and caches it. While loading the image, the cache may first call your closure with a low-resolution image, before finally delivering the high-resolution image in the `result`.
+                    }
+                    @Page(id: "pv.updateImage", title: "") {
+                        Your result closure looks for an image in the result. If it finds one, it updates your `image` property.
+                    }
+                    @Page(id: "pv.displayImage", title: "") {
+                        Because you’ve made `image` a state property, SwiftUI updates your view when its value changes.
+                        
+                        If `image` contains a value, you [unwrap](glossary://unwrap) the image and display it in your view.
+                    }
+                    @Page(id: "pv.progressView", title: "") {
+                        However, if `image` doesn’t have a value, you use a [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) to display a spinner as a [placeholder](glossary://placeholder%20view). 
+                        
+                        Look very carefully, and you might just see this spinner when your view first loads, before the cache has a chance to load an image from the photo asset.
+                    }
+                }
+                
+                @Task(type: experiment, title: "Use a Fixed Grid", id: "fixedGrid", file: PhotoCollectionView.swift) {
+                    
+                    Experiment with alternative grid styles in your photo gallery. 
+                    
+                    @Page(id: "pcv.columns", title: "") {
+                        
+                        Your gallery displays photos in a grid, with each photo in a fixed-size square.
+                        
+                        You define this arrangement using the `columns` property which returns an array of [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem). Using a single [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) grid item means that your `LazyVGrid` adapts to the available width, fitting in as many columns as it can.
+                    }
+                    @Page(id: "pcv.columns", title: "") {
+                        
+                        But say you wanted a fixed number of columns instead, with each photo taking up as much space as possible?
+                        
+                        To do this, your `columns` array should instead contain a [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) grid item for each column that you want.
+                    }
+                    @Page(id: "pcv.belowColumns", title: "") {
+                        
+                        Below `columns`, define a `fixedColumns` property that returns an array of `flexible` grid items, one for each column: 
+                        
+                        ```
+                        let fixedColumns = [ 
+                            GridItem(.flexible(), spacing: itemSpacing),
+                            GridItem(.flexible(), spacing: itemSpacing)
+                        ]
+                        ```
+                    }
+                    @Page(id: "pcv.LazyVGrid", title: "") {
+                        
+                        And, instead of `columns`, pass `fixedColumns` to your lazy grid like this:
+                        
+                        ```
+                        LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)
+                        ```
+                    }
+                    @Page(id: "pcv.LazyVGrid", title: "") {
+                        
+                        Now browse to your photo gallery and see what difference this makes, especially when you resize the view.
+                        
+                        You’ll notice that there are now two columns as you expect, but the photos are still the original size.
+                    }
+                    @Page(id: "pcv.photoItemViewFrame", title: "") {
+                        
+                        You’ve one more thing to take care of...
+                        
+                        Look at this line of code in the function that builds your photo item view. Take a moment to think about what the problem might be?
+                    }
+                    @Page(id: "pcv.photoItemViewFrame", title: "") {
+                        
+                        Yes, you no longer want a fixed [frame](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:)) size for each photo. Instead, the width of the view and the number of columns in the grid determine the image size.
+                        
+                        Comment out the following line, as shown, so that each photo is free to occupy as much space as possible:
+                        
+                        ```
+                        // .frame(width: Self.itemSize.width, height: Self.itemSize.height)
+                        ```
+                    }
+                    @Page(id: "pcv.photoItemViewFrame", title: "") {
+                        
+                        Open your photo gallery again and you’ll see that each photo now fills the column width.
+                        
+                        Try making your view wider. What do you notice happens? 
+                    }
+                    @Page(id: "pcv.padding", title: "") {
+                        
+                        Look carefully at your new fixed columns and you’ll notice that they have space between them, but none on either side. Looking at the code, can you see why?
+                        
+                        Change the view’s padding so it’s all around instead of just vertical:
+                        
+                        ```
+                        .padding(Self.itemSpacing)
+                        ```
+                    }
+                    @Page(id: "pcv.photoItemViewFrame", title: "") {
+                        
+                        Some further things to try:
+                    
+                        * Add more grid items for additional columns.
+                        * Change the value returned by your `imageSize` property to obtain higher-resolution images for your fixed grid.
+                        * Use a maximum height for your photo item view instead of a fixed height: `.frame(maxHeight: 400)`.
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,609 @@
+/* Title of Guidebook */
+"GuideBook..title" = "แป้นเสียง";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..title" = "สร้างเพลงของคุณเองด้วยแป้นเสียง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph0" = "ในคู่มือสอนใช้งานนี้ คุณจะได้สำรวจฟังก์ชั่นต่างๆ ของเสียงและความสามารถของฟังก์ชั่นโดยการกำหนดแป้นเสียงของคุณเอง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCreate your own music with a sound pad..Paragraph1" = "เตรียมตัวสนุกและเต้นไปกับเสียงประกอบของคุณเอง!";
+
+/* Title of step named Make your own sound pad */
+"GuideBook..Guide0..StepMake your own sound pad..title" = "สร้างแป้นเสียงของคุณเอง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph2" = "![](intro.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph3" = "แอปแป้นเสียงทำให้คุณสามารถผสมผสานองค์ประกอบเสียงต่างๆ เพื่อสร้างเพลงของคุณเองได้ คุณสามารถสร้างเครื่องดนตรีของคุณเองได้ด้วยโค้ด และบันทึกเพลงที่แต่งเพื่อแชร์กับเพื่อนๆ และครอบครัวได้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..LearningCenterContent..Paragraph4" = "พร้อมที่จะสร้างแนวเพลงโปรดของคุณหรือยัง";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..title" = "การออกแบบแป้นเสียงของคุณ";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..title" = "เล่นจังหวะอื่น";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph5" = "คุณเพิ่งได้รับมอบหมายภารกิจที่สำคัญสุดๆ เพื่อนของคุณกำลังจะจัดปาร์ตี้และเขาขอให้คุณมิกซ์เพลงจังหวะสนุกๆ ให้หน่อย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page0..Paragraph6" = "แต่เดี๋ยวก่อน อย่าเพิ่งกังวลไป! คุณมีกลยุทธ์ลับอยู่นะ คุณสามารถใช้พลังของโค้ดเพื่อสร้างสรรค์จังหวะที่โลกไม่เคยได้ยินมาก่อนได้ 🧑‍🎤";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph7" = "ก่อนที่คุณจะเริ่ม ให้ดูที่การแสดงตัวอย่างทางด้านขวาแล้วเล่นสนุกกับแอปแป้นเสียง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph8" = "บางคำถามที่ควรพิจารณาขณะใช้แอป:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph9" = "เกิดอะไรขึ้นเมื่อคุณแตะหรือคลิกบนปุ่มแป้นเสียงปุ่มใดปุ่มหนึ่ง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph10" = "คุณจะหยุดเสียงได้อย่างไร";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..UnorderedList0..Paragraph11" = "เกิดอะไรขึ้นเมื่อคุณแตะหรือคลิกบนปุ่ม Record สีแดง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page1..Paragraph12" = "ใช้คำถามนำทางเหล่านี้เพื่อหาคำตอบว่าแป้นเสียงทำงานอย่างไร";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph13" = "สังเกตว่ามีสองปุ่มในการแสดงตัวอย่าง ซึ่งแต่ละปุ่มสอดคล้องกับ `LoopButton` ใน `SoundPadView`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..Paragraph14" = "การแตะหรือคลิกที่ `LoopButton` จะเล่นจังหวะ ลองเพิ่มส่วนย่อยของโค้ดด้านล่างเพื่อเพิ่ม `LoopButton` ใหม่:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page2..CodeBlock0" = "LoopButton(beat: /*#-code-walkthrough(1.changeSound)*/<#T##BeatSounds#>/*#-code-walkthrough(1.changeSound)*/, color: .indigo)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph15" = "ในการดูจังหวะอื่นๆ ให้เลือก `BeatSounds` แล้วป้อนจุด (`.`) จากนั้นเลือกจังหวะใหม่จากรายการของเสียง อย่างเช่น `.GlowBeat`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..CodeBlock1" = "LoopButton(beat: .GlowBeat, color: .indigo)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page3..Paragraph16" = "ลองสำรวจจังหวะอื่นๆ ในคลังเสียง แล้วเลือกจังหวะที่โดนใจคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph17" = "เยี่ยม! การเปลี่ยนค่าของ[พารามิเตอร์](glossary://parameter)เสียงจะเปลี่ยนจังหวะที่เล่น สังเกตว่าแต่ละ `LoopButton` ยังมีพารามิเตอร์ `color` อีกด้วย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..Paragraph18" = "คุณสามารถเปลี่ยนสีได้โดยลบ `.teal` แล้วป้อน `.` จากนั้นเลือกสีจากหนึ่งในตัวเลือกใหม่ เช่น `.mint`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page4..CodeBlock2" = "LoopButton(beat: .CosmicBeat, color: .mint)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..Paragraph19" = "คุณยังสามารถลองเพิ่มปุ่มสำเร็จรูปเหล่านี้ได้! เพียงคัดลอกแล้ววางปุ่มตัวอย่างเหล่านี้ แล้วใส่ในส่วนที่ไฮไลท์ ใช้เวลาสักครู่เพื่อค้นหา loop จังหวะโปรดทั้งหมดของคุณ คุณจะต้องใช้สิ่งเหล่านี้เพื่อแต่งเพลงของคุณ ดังนั้นให้ลองคิดดูว่าคุณชอบเสียงแบบใดมากที่สุด:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock3" = "LoopButton(beat: .DiscoBeat1, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock4" = "LoopButton(beat: .FeverBeat, color: .yellow)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock5" = "LoopButton(beat: .SolarisBeat2, color: .red)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page5..CodeBlock6" = "LoopButton(beat: .GoTimeBeat2, color: .pink)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph20" = "ถึงเวลากลับไปที่สตูดิโอกันแล้ว!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph21" = "เริ่มจากเล่น loop จังหวะ แล้วฝึกตบมือหรือเคาะโต๊ะตามจังหวะใหม่ของคุณ คุณสามารถทำให้ตรงกับจังหวะของ loop ได้หรือไม่";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySounds..Page6..Paragraph22" = "กดปุ่ม Record เพื่อทำการตรวจสอบเสียงอย่างรวดเร็ว จากนั้นลองเล่นเพื่อฟังว่าเสียงออกมาเป็นอย่างไร คุณทำเพลงได้แล้ว! 😎";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..title" = "การเพิ่มเบส";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph23" = "ตอนนี้เมื่อคุณมีชุดจังหวะบนแป้นเสียงของคุณแล้ว ก็ถึงเวลาลองซ้อนเสียงต่างๆ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..Paragraph24" = "มีพารามิเตอร์เสียงสี่ประเภทที่คุณสามารถตั้งค่าใน `LoopButton` ได้ ซึ่งได้แก่ `beats` (จังหวะ), `bass` (เบส), `melodic` (ทำนอง) และ `ambient` (บรรยากาศ):";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph25" = "จังหวะจะกำหนดท่วงทำนองของเพลง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph26" = "ทำนองคือสิ่งที่ทำให้เพลงโดดเด่นและเป็นที่จดจำ ซึ่งเป็นส่วนของเพลงที่ผู้คนฮัมตาม";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph27" = "เบสคือสิ่งที่ผูกจังหวะและทำนองเพลงของคุณเข้าด้วยกัน";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page7..UnorderedList1..Paragraph28" = "เสียงบรรยากาศเพิ่มความลึกให้กับเพลงของคุณด้วยการกำหนดอารมณ์หรือบรรยากาศของเพลง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..Paragraph29" = "เริ่มจากจับคู่จังหวะของคุณกับเบสโดยเพิ่ม `LoopButton` ใหม่ที่จะเล่น loop เบส:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page8..CodeBlock7" = "/*#-code-walkthrough(3.exploreBass)*/\nBass {\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .CosmicBass, color: .gray)\n/*#-code-walkthrough(3.editSoundLook)*/\nLoopButton(bass: .PrismaticaBass7, color: .brown)\n}\n/*#-code-walkthrough(3.exploreBass)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph30" = "สังเกตว่าในการแสดงตัวอย่างทางด้านขวา การเพิ่ม `Bass { }` จะสร้างส่วน Bass ใหม่สำหรับปุ่มของ loop ในตอนนี้จึงมีสองส่วน ได้แก่ Beat และ Bass ซึ่งช่วยคุณจัดระเบียบเสียงในหมวดหมู่ที่แตกต่างกัน และยังจัดตามสีอีกด้วย!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page9..Paragraph31" = "ลองเล่นทีละหนึ่ง loop จากส่วน Beats และ Bass พร้อมกัน เพื่อดูว่าเสียงที่เล่นพร้อมกันฟังดูเป็นอย่างไร เพราะใช่ไหมล่ะ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph32" = "ตอนนี้ให้ลองเล่นสอง loop จากหมวดหมู่เดียวกันพร้อมกัน";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph33" = "เอ๊ะ! 🙉 สังเกตไหมว่าเสียงแย่ขนาดไหน นั่นเป็นเพราะ loop ในหมวดหมู่เดียวกันมีแนวโน้มที่จะแข่งกันเด่น จึงอาจทำให้เพลงของคุณฟังดูวุ่นวายนิดหน่อย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page10..Paragraph34" = "เคล็ดลับ: ลองใช้เพียงหนึ่ง loop จากแต่ละหมวดหมู่ในเวลาเดียวกัน!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page11..Paragraph35" = "ตอนนี้ลองแก้ไข `LoopButton` เพื่อให้เล่น loop เบสที่ต่างออกไป เช่น `.DreamsBass1` และเปลี่ยนสีของปุ่ม";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph36" = "ใช้เวลาสักครู่เพื่อค้นหาและเพิ่ม loop เบสที่คุณชอบ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..Paragraph37" = "ใส่เสียงเบสทั้งหมดในส่วน `Bass` การจัดหมวดหมู่ด้วยวิธีนี้จะช่วยเหลือคุณในการค้นหาประเภทเสียงที่เหมาะสมสำหรับเล่นระหว่างการแสดงของคุณ: 🎼";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock8" = "LoopButton(bass: .ParisNightsBass, color: .blue)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock9" = "LoopButton(bass: .LesInfernoBass, color: .purple)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock10" = "LoopButton(bass: .SaintTropezBass, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page12..CodeBlock11" = "LoopButton(bass: .PrismaticaBass7, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph38" = "ถึงเวลากลับไปที่สตูดิโอแล้ว!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph39" = "เลือก loop จังหวะ แล้วปล่อยให้เล่นจนจบหนึ่งรอบ เมื่อเล่นจังหวะจบหนึ่งรอบ ให้เพิ่ม loop เบสโดยแตะหรือคลิกที่ปุ่ม Bass ปุ่มใดปุ่มหนึ่ง การทำเช่นนี้ให้ความรู้สึกเปลี่ยนไปอย่างไรบ้าง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayBass..Page13..Paragraph40" = "เมื่อคุณพอใจกับเสียงจากการเล่นจังหวะและเบสร่วมกันแล้ว ลองปล่อยให้เสียงเล่น แล้วแตะหรือคลิก Record ขอให้โชคดีนะ!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..title" = "การซ้อนเสียงทำนองและบรรยากาศ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph41" = "แล้วเสียงทำนองและบรรยากาศล่ะ ทำนองคือองค์ประกอบที่ทำให้เพลงของคุณน่าจดจำ ซึ่งจะสำคัญอย่างยิ่งต่อการสร้างเพลงของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph42" = "เสียงบรรยากาศช่วยกำหนดอารมณ์ให้กับเพลงของคุณ และสามารถช่วยให้คุณเปลี่ยนจากส่วนหนึ่งของเพลงไปสู่ส่วนถัดไปได้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page14..Paragraph43" = "คุณพอจะเดาได้ไหมว่าคุณจะเพิ่มส่วนเหล่านี้ไปยังแป้นเสียงของคุณได้อย่างไร";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..Paragraph44" = "เพิ่มส่วน Melodic และ Ambient ด้วยโค้ดด้านล่าง:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page15..CodeBlock12" = "/*#-code-walkthrough(3.exploreMelody)*/\nMelodic {\n    LoopButton(melodic: .DreamsChords3, color: .teal)\n}\n/*#-code-walkthrough(3.exploreMelody)*/\n/*#-code-walkthrough(3.exploreAmbient)*/\nAmbient {\n    LoopButton(ambient: .DiscoSynth1, color: .red)\n}\n/*#-code-walkthrough(3.exploreAmbient)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph45" = "ลองใช้เวลาสักครู่เพื่อทดลองกับ loop ทำนองและบรรยากาศต่างๆ โดยเปลี่ยน `.DreamsChords3` และ `.DiscoSynth1`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page16..Paragraph46" = "เสียงทำนองและบรรยากาศส่งผลต่อเพลงที่คุณแต่งอย่างไรบ้าง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..Paragraph47" = "ค้นหา loop ทำนองที่คุณชอบ แล้วเพิ่มโค้ดของคุณภายในส่วน Melodic:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock13" = "LoopButton(melodic: .ParisArpeggio, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock14" = "LoopButton(melodic: .GlowChords, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page17..CodeBlock15" = "LoopButton(melodic: .PrismaticaChords2, color: .cyan)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..Paragraph48" = "ตอนนี้ ให้เพิ่มชุด loop บรรยากาศไปยังส่วน Ambient:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock16" = "LoopButton(ambient: .PrismaticaSynth2, color: .yellow)          \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock17" = "LoopButton(ambient: .SolarisString, color: .red)                     \n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page18..CodeBlock18" = "LoopButton(ambient: .GlitterSynth, color: .pink)               \n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph49" = "ไชโย! ตอนนี้แป้นเสียงของคุณก็เป็นรูปเป็นร่างขึ้นมาแล้ว ถึงเวลาไปที่สตูดิโอและบันทึกเทปเดโมแรกของคุณแล้ว!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph50" = "นี่คือวิธีหนึ่งในการจัดโครงสร้างเดโมของคุณ:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph51" = "เริ่มจากจังหวะ และปล่อยให้เล่นจนครบหนึ่ง loop";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph52" = "เพิ่ม loop เบส และปล่อยให้เล่นจนครบหนึ่ง loop";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph53" = "เลือก loop ทำนอง แล้วปล่อยให้เล่นจนครบหนึ่ง loop";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..UnorderedList2..Paragraph54" = "สุดท้าย ให้เพิ่มเสียงบรรยากาศเพื่อกำหนดอารมณ์เพลง และปล่อยให้เพลงของคุณเล่นต่อไป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page19..Paragraph55" = "ไปยังหน้าถัดไปเพื่อดูวิธีอื่นๆ ในการจัดโครงสร้างเดโมของคุณ!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph56" = "ตอนนี้ ให้ทดลองกับการแสดงของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph57" = "วิธีหนึ่งที่จะทำให้เพลงของคุณมีเสียงที่หลากหลาย คือการสลับลำดับของเวลาที่คุณเพิ่ม loop อื่นๆ เช่น เริ่มเพลงของคุณด้วยทำนองเป็นอันดับแรก จากนั้นจึงเพิ่มจังหวะ บรรยากาศ และเบส คุณชอบเวอร์ชั่นใดมากกว่ากัน";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplayMelody..Page20..Paragraph58" = "บันทึกเดโมแรกของคุณและส่งให้เพื่อนๆ เพื่อรับคำติชม!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..title" = "การเพิ่มเอฟเฟ็กต์เสียง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page21..Paragraph59" = "ถึงเวลาเพิ่มความสนุกและเพิ่มเอฟเฟ็กต์เสียงแล้ว!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..Paragraph60" = "ก่อนอื่น ให้เพิ่มส่วน SoundFX ใหม่ที่จะเล่นเอฟเฟ็กต์เสียง:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page22..CodeBlock19" = "/*#-code-walkthrough(4.exploreSoundFX)*/\nSoundFX {\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n    SoundFXButton(sound: .PlanetariumFX3, color: .green)\n    /*#-code-walkthrough(4.SoundFXExplain)*/\n}\n/*#-code-walkthrough(3.exploreSoundFX)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph61" = "การแตะหรือคลิกปุ่ม `SoundFXButton` แตกต่างจากปุ่ม `LoopButton` เนื่องจากจะเล่นเสียงเพียงครั้งเดียวแล้วหยุด มาลองกันเลย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page23..Paragraph62" = "เช่นเดียวกับ `LoopButton` คุณสามารถกำหนดเสียงและสีของ `SoundFXButton` เองได้ โดยเปลี่ยนค่าสำหรับ[พารามิเตอร์](glossary://parameter) `sound` และ `color`";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..Paragraph63" = "เพิ่มชีวิตชีวาให้กับเพลงของคุณด้วยเอฟเฟ็กต์เสียง สร้างส่วน SoundFX ให้สมบูรณ์ด้วยเอฟเฟ็กต์ที่คุณชอบที่สุด:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock20" = "SoundFXButton(sound: .FirstGearFX, color: .teal)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock21" = "SoundFXButton(sound: .HornBassFX, color: .orange)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock22" = "SoundFXButton(sound: .BotTalkFX3, color: .mint)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock23" = "SoundFXButton(sound: .KazooFX4, color: .indigo)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page24..CodeBlock24" = "SoundFXButton(sound: .TromboneFX1, color: .green)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph64" = "ตอนนี้คุณก็รู้ทุกอย่างแล้ว…ถึงเวลาเซสชั่นสตูดิโอ! 🎉";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph65" = "คุณสามารถใช้เอฟเฟ็กต์เสียงได้ในหลายตำแหน่ง โดยคุณสามารถเล่นเอฟเฟ็กต์เสียงเมื่อเริ่มต้นเพลงเพื่อสร้างองค์ประกอบที่ทำให้ตื่นใจ หรือคุณสามารถเพิ่มเอฟเฟ็กต์เสียงตรงกลางเพลงก่อนคอรัสเพื่อเพิ่มอารมณ์เพลงได้ ลองสำรวจเอฟเฟ็กต์เสียงต่างๆ และฟังดูว่าเอฟเฟ็กต์เสียงเหล่านั้นส่งผลต่อเพลงของคุณอย่างไร";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup0..TaskplaySoundFX..Page25..Paragraph66" = "พร้อมหรือยัง ลองบันทึกเทปเดโมที่สองโดยรวมเอฟเฟ็กต์เสียงต่างๆ เข้าไปด้วย แล้วเปรียบเทียบกับเพลงก่อนหน้า แบบไหนที่โดนใจคุณมากที่สุด";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..title" = "การแก้ไขเสียง";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..title" = "แก้ไขระดับเสียง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page26..Paragraph67" = "บางครั้งคุณอาจต้องการเปลี่ยนระดับเสียงของเสียงแต่ละรายการ คุณสามารถทำเช่นนั้นได้ด้วย[ปุ่มปรับค่า](glossary://modifier)";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph68" = "คุณสามารถเปลี่ยนระดับเสียงได้โดยเพิ่ม[ปุ่มปรับค่า](glossary://modifier)ระดับเสียงไปยัง `LoopButton` หรือ `SoundFXButton` ต่างๆ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page27..Paragraph69" = "ปุ่มปรับค่าระดับเสียงจะรับเลขระหว่าง `0` ถึง `1.0` โดย `0` คือเงียบ และ `1.0` คือเต็มระดับเสียง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph70" = "ลองเพิ่มปุ่มปรับค่านี้ไปยังปุ่มใดปุ่มหนึ่งที่มีอยู่ แล้วเล่น:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..CodeBlock25" = ".volume(0.5)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page28..Paragraph71" = "คุณได้ยินความแตกต่างหรือไม่ การตั้งค่าระดับเสียงเป็น `0.5` จะลดระดับเสียงลงครึ่งหนึ่ง";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyVolume..Page29..Paragraph72" = "สุดยอดไปเลย! ตอนนี้คุณก็สามารถปรับระดับเสียงของเสียงต่างๆ ในแป้นเสียงของคุณได้แล้ว!";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..title" = "แก้ไขระดับเสียงสูงต่ำ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page30..Paragraph73" = "มี[ปุ่มปรับค่า](glossary://modifier)อื่นๆ ที่คุณสามารถเพิ่มเพื่อเปลี่ยนเสียงของคุณได้ เช่น การปรับ `pitch`";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph74" = "คุณสามารถเปลี่ยน[ระดับเสียงสูงต่ำ](glossary://pitch%20audio)ได้โดยเพิ่ม[ปุ่มปรับค่า](glossary://modifier)ระดับเสียงสูงต่ำไปยัง `SoundFXButton` หรือ `LoopButton`:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..CodeBlock26" = ".pitch(.E)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page31..Paragraph75" = "คุณได้ยินความแตกต่างไหม";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph76" = "ตอนนี้คุณก็สามารถกำหนดระดับเสียงสูงต่ำได้แล้ว! ลองแก้ไขระดับเสียงสูงต่ำของเสียงที่คุณได้เพิ่มไปแล้วดูสิ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifyPitch..Page32..Paragraph77" = "หนึ่งปุ่มสามารถมีหลายปุ่มปรับค่าได้ เพื่อปรับระดับเสียงสูงต่ำและระดับเสียงทั้งหมดได้พร้อมกัน";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..title" = "แก้ไขความเร็ว";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page33..Paragraph78" = "คุณยังสามารถใช้[ปุ่มปรับค่า](glossary://modifier)เพื่อปรับ `speed` ของเสียงแต่ละรายการได้อีกด้วย";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph79" = "ในการเปลี่ยนความเร็ว คุณสามารถเพิ่มปุ่มปรับค่า `.speed` ได้ ในโปรเจ็กต์นี้ ความเร็วจะอยู่ในช่วงตั้งแต่ `0` ถึง `2.0` โดยที่ `2.0` จะเพิ่มความเร็วเป็นสองเท่า";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..Paragraph80" = "เพิ่มปุ่มปรับค่าความเร็วด้านล่างเอฟเฟ็กต์เสียงหรือ loop รายการใดรายการหนึ่งเพื่อเพิ่มความเร็ว:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page34..CodeBlock27" = ".speed(2)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..Paragraph81" = "คุณลองเพิ่มปุ่มปรับค่าความเร็วให้กับเสียงอื่นเพื่อลดความเร็วของเสียงนั้นได้หรือไม่";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page35..CodeBlock28" = ".speed(0.5)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph82" = "ถึงเวลาเซสชั่นสตูดิโอ!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph83" = "ต้องความความท้าทายสักหน่อยไหม ให้เลือกเสียงจังหวะแล้วเปลี่ยนความเร็วเป็น `0.5` ตอนนี้ให้ลองเล่นเพลงของคุณที่ความเร็วใหม่นี้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph84" = "ลองเปลี่ยน loop อื่น เช่น loop เบสหรือทำนองให้เป็นความเร็ว `2.0`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..TaskmodifySpeed..Page36..Paragraph85" = "คุณรออะไรอยู่ แตะหรือคลิกปุ่ม Record แล้วลองเล่นเสียงพร้อมกันเลย คุณสังเกตไหมว่าเพลงเปลี่ยนไปอย่างไรเมื่อคุณเพิ่มหรือลดความเร็วของ loop";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..title" = "เพิ่มฟิลเตอร์";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page37..Paragraph86" = "เพื่อเพิ่มความว้าวเป็นพิเศษ คุณสามารถปรับใช้ฟิลเตอร์กับเสียงของคุณได้!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph87" = "ลองเพิ่มเสียงใหม่ด้วย[ปุ่มปรับค่า](glossary://modifier) `filter` แล้วตั้งค่าเป็น `drumsBitBrush`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph88" = "ถ้าคุณไม่แน่ใจเกี่ยวกับวิธีเพิ่มฟิลเตอร์ นี่คือตัวอย่าง:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..CodeBlock29" = ".filter(.drumsBitBrush)\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page38..Paragraph89" = "ว้าว! คุณได้ยินไหม ฟังดูสุดยอดมาก!";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..Paragraph90" = "ลองใช้เอฟเฟ็กต์เสียงเหล่านี้เพื่อดูว่าเสียงของคุณเปลี่ยนไปอย่างไร:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock30" = ".filter(.drumsLoFi)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock31" = ".filter(.multiDecimated1)\n";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page39..CodeBlock32" = ".filter(.multiEcho1)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph91" = "เย่! เกือบเสร็จแล้ว";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph92" = "ถึงเวลารวมทุกอย่างเข้าด้วยกัน เพิ่มเสียงอื่นๆ และปรับเสียงให้ละเอียดขึ้นด้วยระดับเสียง ระดับเสียงสูงต่ำ ความเร็ว และฟิลเตอร์ คุณยังสามารถใช้ฟิลเตอร์เหล่านี้เพื่อสร้างรีมิกซ์ที่ยอดเยี่ยมสำหรับเพลง (เสียงชวนหลอนใหม่) ของคุณได้อีกด้วย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup1..Taskmodifyfilter..Page40..Paragraph93" = "บันทึกการเล่นเพลงของคุณโดยแตะหรือคลิกปุ่ม Record เมื่อคุณบันทึกเสร็จ ให้แตะหรือคลิกปุ่มอีกครั้งเพื่อหยุดบันทึก ตอนนี้คุณก็จะมีเดโมเพลงที่คุณสามารถแชร์กับเพื่อนๆ และครอบครัวของคุณแล้วดูว่าพวกเขาคิดอย่างไร!";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..title" = "การสร้างปุ่มของคุณเอง";
+
+/* Title for task */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..title" = "เพิ่มปุ่ม SwiftUI";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page41..Paragraph94" = "ถึงเวลาพัฒนาไปอีกขั้นแล้ว คุณจะได้เจาะลึกเกี่ยวกับโค้ดเพื่อสร้างปุ่มแบบกำหนดเองสำหรับแป้นเสียงของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph95" = "ในการแสดงตัวอย่างทางด้านซ้าย คุณจะเห็น[ปุ่ม](doc://com.apple.documentation/documentation/swiftui/button)ที่กึ่งกลางหน้าจอ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page42..Paragraph96" = "แตะหรือคลิกปุ่มในการแสดงตัวอย่าง คุณได้ยินอะไรไหม";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph97" = "เมื่อคุณแตะหรือคลิก `Button` โค้ดจะเรียกใช้[ฟังก์ชั่น](glossary://function) `soundPlayer.playSound(.FirstGearFX)`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page43..Paragraph98" = "การ[เรียกใช้](glossary://call)ฟังก์ชั่นจะสั่งให้ฟังก์ชั่นทำงาน ในกรณีนี้ ฟังก์ชั่นจะเรียกใช้ (หรือเล่น) เสียง `.FirstGearFX`\nลองเปลี่ยนเป็นเสียงอื่นๆ ดูสิ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph99" = "อืม…ปุ่มยังดูไม่เหมือนปุ่มแป้นเสียงเลย คุณสามารถลองเปลี่ยนรูปแบบของปุ่มได้นะ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..Paragraph100" = "เอาปุ่มเก่าออกแล้วแทนที่ด้วยโค้ดด้านล่าง:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page44..CodeBlock33" = "Button {\n    soundPlayer.playSound(.FirstGearFX)\n} label: {\n    /*#-code-walkthrough(6.buttonLabel)*/\n    Circle()\n    /*#-code-walkthrough(6.buttonLabel)*/\n    //#-learning-code-snippet(6.buttonLabel)\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph101" = "คุณสามารถเพิ่ม `label` แบบกำหนดเองไปยังปุ่มเพื่อเปลี่ยนรูปแบบได้ การวาง `Circle()` ภายใน `label` จะเปลี่ยนปุ่มให้เป็นวงกลม";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..Paragraph102" = "แทนที่ `Circle()` ด้วย `ButtonView` ด้านล่าง:";
+
+/*  */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page45..CodeBlock34" = "/*#-code-walkthrough(6.colorButton)*/\nButtonView(color: .orange)\n/*#-code-walkthrough(6.colorButton)*/\n";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page46..Paragraph103" = "`ButtonView` จะรับ[พารามิเตอร์](glossary://parameter) `color` หนึ่งพารามิเตอร์ คุณสามารถเปลี่ยนสีของปุ่มได้โดยแทนที่ `.orange` ด้วยสีโปรดของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepMake your own sound pad..TaskGroup2..TaskownButton..Page47..Paragraph104" = "วู้ฮู! ตอนนี้คุณสามารถสร้างปุ่มของคุณเองเพื่อเล่นเสียงต่างๆ ได้แล้ว!";
+

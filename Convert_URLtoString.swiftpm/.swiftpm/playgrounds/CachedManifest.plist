@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CachedManifest</key>
+	<dict>
+		<key>manifestData</key>
+		<data>
+		eyJkZXBlbmRlbmNpZXMiOltdLCJkaXNwbGF5TmFtZSI6Ik15IEFwcCIsInBh
+		Y2thZ2VLaW5kIjp7InJvb3QiOnt9fSwicGxhdGZvcm1zIjpbeyJvcHRpb25z
+		IjpbXSwicGxhdGZvcm1OYW1lIjoiaW9zIiwidmVyc2lvbiI6IjE2LjAifV0s
+		InByb2R1Y3RzIjpbeyJuYW1lIjoiTXkgQXBwIiwic2V0dGluZ3MiOlt7ImRp
+		c3BsYXlWZXJzaW9uIjpbIjEuMCJdfSx7ImJ1bmRsZVZlcnNpb24iOlsiMSJd
+		fSx7ImlPU0FwcEluZm8iOlt7ImFjY2VudENvbG9yIjp7InByZXNldENvbG9y
+		Ijp7InByZXNldENvbG9yIjp7InJhd1ZhbHVlIjoib3JhbmdlIn19fSwiYXBw
+		SWNvbiI6eyJwbGFjZWhvbGRlciI6eyJpY29uIjp7InJhd1ZhbHVlIjoiYnV0
+		dGVyZmx5In19fSwiY2FwYWJpbGl0aWVzIjpbXSwic3VwcG9ydGVkRGV2aWNl
+		RmFtaWxpZXMiOlsicGFkIiwicGhvbmUiXSwic3VwcG9ydGVkSW50ZXJmYWNl
+		T3JpZW50YXRpb25zIjpbeyJwb3J0cmFpdCI6e319LHsibGFuZHNjYXBlUmln
+		aHQiOnt9fSx7ImxhbmRzY2FwZUxlZnQiOnt9fSx7InBvcnRyYWl0VXBzaWRl
+		RG93biI6eyJjb25kaXRpb24iOnsiZGV2aWNlRmFtaWxpZXMiOlsicGFkIl19
+		fX1dfV19XSwidGFyZ2V0cyI6WyJBcHBNb2R1bGUiXSwidHlwZSI6eyJleGVj
+		dXRhYmxlIjpudWxsfX1dLCJ0YXJnZXRNYXAiOnsiQXBwTW9kdWxlIjp7ImRl
+		cGVuZGVuY2llcyI6W10sImV4Y2x1ZGUiOltdLCJuYW1lIjoiQXBwTW9kdWxl
+		IiwicGFja2FnZUFjY2VzcyI6ZmFsc2UsInBhdGgiOiIuIiwicmVzb3VyY2Vz
+		IjpbeyJwYXRoIjoiUmVzb3VyY2VzIiwicnVsZSI6eyJwcm9jZXNzIjp7fX19
+		XSwic2V0dGluZ3MiOlt7ImtpbmQiOnsiZW5hYmxlVXBjb21pbmdGZWF0dXJl
+		Ijp7Il8wIjoiQmFyZVNsYXNoUmVnZXhMaXRlcmFscyJ9fSwidG9vbCI6InN3
+		aWZ0In1dLCJ0eXBlIjoiZXhlY3V0YWJsZSJ9fSwidGFyZ2V0cyI6W3siZGVw
+		ZW5kZW5jaWVzIjpbXSwiZXhjbHVkZSI6W10sIm5hbWUiOiJBcHBNb2R1bGUi
+		LCJwYWNrYWdlQWNjZXNzIjpmYWxzZSwicGF0aCI6Ii4iLCJyZXNvdXJjZXMi
+		Olt7InBhdGgiOiJSZXNvdXJjZXMiLCJydWxlIjp7InByb2Nlc3MiOnt9fX1d
+		LCJzZXR0aW5ncyI6W3sia2luZCI6eyJlbmFibGVVcGNvbWluZ0ZlYXR1cmUi
+		OnsiXzAiOiJCYXJlU2xhc2hSZWdleExpdGVyYWxzIn19LCJ0b29sIjoic3dp
+		ZnQifV0sInR5cGUiOiJleGVjdXRhYmxlIn1dLCJ0b29sc1ZlcnNpb24iOnsi
+		X3ZlcnNpb24iOiI1LjguMCJ9fQ==
+		</data>
+		<key>manifestHash</key>
+		<data>
+		X6j40MYGpRnFxyaK2yr8Ltrq5vdD6lk16wiaVA9x2GY=
+		</data>
+		<key>schemaVersion</key>
+		<integer>4</integer>
+		<key>swiftPMVersionString</key>
+		<string>5.10.0-dev</string>
+	</dict>
+</dict>
+</plist>

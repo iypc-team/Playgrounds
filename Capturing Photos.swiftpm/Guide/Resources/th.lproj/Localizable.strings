@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "การถ่ายรูป";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "การถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "ลองจินตนาการถึงเรื่องน่าตื่นเต้นที่คุณสามารถทำได้ด้วยกล้องในแอปของคุณเองดูสิ! ในตัวอย่างนี้ คุณจะได้สำรวจองค์ประกอบหลักของแอปกล้อง และค้นพบวิธีที่คุณสามารถใช้ทักษะ SwiftUI ของคุณเพื่อทำงานกับกล้องและคลังรูปภาพได้";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "การถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "ยินดีต้อนรับสู่การถ่ายรูป!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "นึกถึงสิ่งสำคัญที่แอปกล้องควรทำ:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "แสดงวิดีโอสดจากกล้องในช่องมองภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "ถ่ายรูปเมื่อคุณแตะหรือกดปุ่มชัตเตอร์";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "บันทึกรูปภาพของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "เลือกหาและดูรูปภาพที่คุณถ่ายไว้แล้ว";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "คุณจะได้ค้นพบวิธีการทำสิ่งต่างๆ เหล่านี้ทั้งหมด และอื่นๆ อีกมากมาย คุณจะได้เรียนรู้เกี่ยวกับวัตถุข้อมูลที่แอปของคุณใช้ รวมถึงวิธีจัดการลำดับของข้อมูลระหว่างวัตถุข้อมูลเหล่านั้นกับอินเทอร์เฟซผู้ใช้ของแอป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "ก่อนที่คุณจะเริ่ม ให้เลือกการแสดงตัวอย่างแอปและใช้เวลาสักครู่ในการสำรวจแอปกล้องของคุณ แล้วลองถ่ายสักสองสามรูป";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "เริ่มการสาธิต";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "คำอธิบาย AX สำหรับปุ่ม";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "การแสดงตัวอย่าง output ของกล้อง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "output วิดีโอของกล้องของคุณจะส่งการสตรีมต่อเนื่องของแต่ละภาพ (เฟรมวิดีโอ) คุณแสดงภาพเหล่านี้ในช่องมองภาพ คุณจึงสามารถดูสิ่งที่กล้องกำลังมองอยู่ได้อย่างชัดเจนก่อนที่จะจัดองค์ประกอบภาพของคุณและถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "ค้นพบเพิ่มเติมเกี่ยวกับการทำงานของสิ่งนี้ 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "การใช้กล้อง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "เรียนรู้เกี่ยวกับกล้องในโมเดลข้อมูลของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "โมเดลข้อมูลของคุณมีคุณสมบัติ `camera` ที่แสดงถึงกล้องจริงตัวใดตัวหนึ่งหรืออุปกรณ์จับภาพเครื่องใดเครื่องหนึ่งที่มีให้สำหรับอุปกรณ์ของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "อุปกรณ์ของคุณอาจสามารถเข้าถึงอุปกรณ์จับภาพได้หลายเครื่อง ตัวอย่างเช่น กล้องด้านหน้าและกล้องด้านหลังบน iPad และคุณสามารถสลับระหว่างอุปกรณ์เหล่านี้โดยใช้วิธีการ `switchCaptureDevice()` ของกล้องได้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "เรียนรู้เพิ่มเติมเกี่ยวกับอุปกรณ์จับภาพใน[การเลือกอุปกรณ์จับภาพ](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device)";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "ในการเริ่มใช้กล้อง ให้คุณเรียกวิธีการ `start()`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "โปรดทราบว่าก่อนที่คุณจะสามารถใช้กล้องของอุปกรณ์ในโปรเจ็กต์ของคุณเองได้ คุณจะต้องเพิ่มความสามารถกล้อง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "ค้นหาเพิ่มเติมใน[การขอสิทธิ์เข้าถึงความสามารถต่างๆ สำหรับโปรเจ็กต์ของคุณ](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "การสำรวจสตรีมการแสดงตัวอย่าง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "เรียนรู้เกี่ยวกับสตรีมของภาพการแสดงตัวอย่างจากกล้องของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "หลังจากเรียกใช้วิธีการ `start()` output วิดีโอจะสร้างสตรีมภาพการแสดงตัวอย่างความละเอียดต่ำ (เฟรมวิดีโอ) ในอัตราสูงสุด 60 เฟรมต่อวินาที";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "คุณจะได้รับภาพการแสดงตัวอย่างเหล่านี้ผ่านคุณสมบัติ `previewStream` ของกล้องในรูปแบบ[สตรีมแบบอะซิงโครนัส](glossary://asynchronous%20stream)ของวัตถุ [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) (Core Image)";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "การประมวลผลสตรีมการแสดงตัวอย่าง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "เรียนรู้วิธีประมวลผลสตรีมการแสดงตัวอย่างเพื่อให้พร้อมสำหรับแสดงผลในช่องมองภาพ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[โมเดลข้อมูล](glossary://data%20model)ของคุณมี[งาน](glossary://task)เฉพาะสำหรับจัดการ[สตรีม](glossary://asynchronous%20stream)ของภาพการแสดงตัวอย่างจากกล้องโดยใช้ฟังก์ชั่น `handleCameraPreviews`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "คุณสามารถเรียนรู้เพิ่มเติมเกี่ยวกับ[งาน](doc://com.apple.documentation/documentation/swift/task)ในคลังมาตรฐาน Swift ได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "ใน `handleCameraPreviews` ให้เปลี่ยนสตรีมการแสดงตัวอย่างของวัตถุ [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) จากกล้องเป็นสตรีมของมุมมอง [Image](doc://com.apple.documentation/documentation/swiftui/image) ที่พร้อมแล้วสำหรับการแสดงผล";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream) คือสตรีมของค่าที่ถูกสร้างขึ้นตามช่วงเวลา ค่าจะสร้าง[ลำดับ](glossary://sequence)ขึ้น แต่ค่าของลำดับจะมาถึงแบบอะซิงโครนัส หรือเรียกอีกอย่างว่า [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence) คุณสามารถทำสิ่งเดียวกันกับที่คุณทำกับลำดับอื่นๆ ของค่าได้มากมาย เช่น กับ[อาร์เรย์](glossary://array)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "ในกรณีนี้ คุณใช้ฟังก์ชั่น [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) ของสตรีมเพื่อแปลงองค์ประกอบแต่ละรายการ นั่นคือ `$0` เป็นชื่อแทนประเภท [Image](doc://com.apple.documentation/documentation/swiftui/image) โดยใช้ส่วนขยายคุณสมบัติ `image` ของ `CIImage` การทำงานนี้จะแปลงสตรีมของชื่อแทนประเภท [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) เป็นสตรีมของชื่อแทนประเภท [Image](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "`for`-`await` loop ของคุณจะรอแต่ละภาพใน `imageStream` ที่แปลงแล้วของคุณก่อนจะทำบางอย่างกับภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "เรียนรู้เพิ่มเติมเกี่ยวกับการทำงานกับลำดับแบบอะซิงโครนัสใน[คู่มือใช้ภาษาการเขียนโปรแกรมภาษา Swift](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences)";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "คุณใช้ภาพจากสตรีมการแสดงตัวอย่างเพื่ออัปเดตคุณสมบัติ `viewfinderImage` ของโมเดลข้อมูลของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI จะตรวจสอบให้แน่ใจว่ามุมมองที่ใช้คุณสมบัตินี้ได้รับการอัปเดตเมื่อค่า `viewfinderImage` เปลี่ยนแปลง";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "การดูสตรีมการแสดงตัวอย่าง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "ดูวิธีที่คุณสามารถเชื่อมต่อมุมมองช่องมองภาพของคุณกับสตรีมการแสดงตัวอย่างที่ประมวลผลแล้ว";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView` ของคุณมี `ViewfinderView` ที่ใช้สำหรับแสดงผลวิดีโอสดจากกล้อง";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "การ[รวม](glossary://binding)คุณสมบัติ `viewfinderImage` ของโมเดลกับ `ViewfinderView` ของคุณช่วยให้คุณแน่ใจว่าช่องมองภาพจะอัปเดตทุกครั้งที่มุมมองได้รับภาพการแสดงตัวอย่างใหม่";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "เนื่องจากภาพการแสดงตัวอย่างอัปเดตหลายครั้งต่อวินาที ตาของคุณจึงมองเห็นภาพเป็นวิดีโอสดในช่องมองภาพ";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "หมุนหรือเบลอช่องมองภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "ทดลองใช้โดยหมุนหรือเบลอภาพในสตรีมการแสดงตัวอย่าง";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "วิธีการ `handleCameraPreviews` จะแมป[สตรีม](glossary://asynchronous%20stream)การแสดงตัวอย่างของกล้องของชื่อแทนประเภท [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) กับสตรีมของมุมมอง [Image](doc://com.apple.documentation/documentation/swiftui/image) ที่พร้อมแล้วสำหรับการแสดงผลใน `ViewfinderView` ของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "นี่เป็นที่ที่ยอดเยี่ยมในการทำสิ่งอื่นๆ ที่เป็นประโยชน์สำหรับภาพการแสดงตัวอย่างก่อนที่จะแมปภาพเหล่านั้นกับมุมมอง [Image](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "อย่างเช่น คุณต้องการที่จะเปลี่ยนให้ภาพเอียงไปทางด้านข้างหรือแม้แต่คว่ำลง คุณก็สามารถเรียกใช้วิธีการ [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented) ได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "ในคำจำกัดความของ `imageStream` ให้เพิ่มโค้ดบรรทัดนี้เหนือ `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "ในขั้นตอนนี้ คุณจะใช้ `map` เพื่อเปลี่ยนสตรีมของภาพเป็นสตรีมของภาพที่หมุนโดยเรียกใช้ฟังก์ชั่น `oriented(.left)` สำหรับแต่ละองค์ประกอบ (`$0`) ในสตรีม";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "หรือบางทีคุณต้องการที่จะเบลอภาพการแสดงตัวอย่างสักเล็กน้อยใช่ไหม";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "ปรับใช้การดำเนินการอื่นกับภาพโดยเพิ่มโค้ดนี้เหนือ `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "คุณกำลังปรับใช้การดำเนินการ `map` ทีละรายการกับการดำเนินการ[สตรีม](glossary://asynchronous%20stream)หรือการดำเนินการ[การเชื่อมโยง](glossary://chaining) อันที่จริง คุณสามารถเชื่อมโยงการดำเนินการเข้าด้วยกันได้มากเท่าที่คุณต้องการ ตัวอย่างเช่น การดำเนินการต่อไปนี้จะรับ input จากสตรีมการแสดงตัวอย่าง หมุนภาพ เบลอภาพ และสุดท้ายแปลงภาพเป็นสตรีมของ `Image`";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "ทดลองใช้กันสักหน่อย!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "ลองตัวเลือกแนวอื่นดูสิ เช่น จะเกิดอะไรขึ้นเมื่อคุณเปลี่ยนแนวเป็น `.down`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "ลองค่าการเบลออื่นดูสิ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) มีวิธีการที่เป็นประโยชน์มากมายสำหรับการแปลงภาพ";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "การถ่ายรูปและบันทึกรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "ยิ้ม! คลิก! สิ่งต่างๆ มากมายเกิดขึ้นอย่างรวดเร็วและต่อเนื่องเมื่อคุณถ่ายรูป 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "ติดตามการทำงานหลังจากที่คุณแตะหรือคลิกปุ่มชัตเตอร์เพื่อตรวจสอบสิ่งที่เกิดขึ้นตั้งแต่ช่วงเวลานั้นไปจนถึงเมื่อรูปภาพแสดงขึ้นมาในคลังรูปภาพของคุณ";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "การตอบสนองต่อปุ่มชัตเตอร์";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "เรียนรู้วิธีจัดการกับการทำงานของปุ่มชัตเตอร์ และขอให้กล้องถ่ายรูป";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "เมื่อคุณแตะหรือคลิกปุ่มชัตเตอร์ในมุมมองกล้องของคุณ สิ่งต่างๆ ก็เริ่มเกิดขึ้น!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "ปุ่มจะเริ่มทำงาน แล้วเลือกวัตถุ `camera` ของโมเดล จากนั้นจะเรียกใช้วิธีการ `takePhoto()`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "ทำต่อไปเพื่อค้นหาวิธีถ่ายรูป!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "การถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "เมื่อคุณถ่ายรูป กล้องจะจับภาพข้อมูลภาพจากเซ็นเซอร์ของกล้อง เรียนรู้วิธีเริ่มต้นการทำงานนี้และจัดการรูปภาพที่ถ่าย";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "เมื่อคุณถ่ายรูป คุณต้องการถ่ายรูปที่มีความละเอียดสูงสุดเท่าที่จะเป็นไปได้ ซึ่งจะแตกต่างจากภาพการแสดงตัวอย่างที่มีแนวโน้มที่จะมีความละเอียดต่ำลงเพื่อช่วยให้อัปเดตการแสดงตัวอย่างในช่องมองภาพได้อย่างรวดเร็ว";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "กล้องของคุณมี output รูปภาพแบบพิเศษที่วิธีการ `takePhoto()` ของกล้องใช้เพื่อจับภาพความละเอียดสูงของสิ่งที่คุณเห็นในช่องมองภาพ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "คุณเริ่มการทำงานของการถ่ายรูปอย่างแท้จริงโดยส่งคำขอให้ output รูปภาพถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "ถ้าทุกอย่างผ่านไปได้ด้วยดี คุณก็จะได้ยินเสียงชัตเตอร์ที่น่าอุ่นใจที่บอกให้คุณและทุกคนที่อยู่ใกล้เคียงรู้ว่าคุณเพิ่งถ่ายรูปไป";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "คุณอาจสงสัยว่าทำไม `capturePhoto` ถึงไม่คืนค่ารูปภาพกลับมาเลย นั่นเป็นเพราะว่าการถ่ายรูปใช้เวลาพอสมควร กล้องอาจต้องการโฟกัสหรือรอแฟลช จากนั้นก็จะมีเวลาการเปิดรับแสงอีก วิธีการ `capturePhoto` จึงเป็นแบบ[อะซิงโครนัส](glossary://asynchronous%20process) ซึ่งโดยปกติแล้วรูปภาพที่ถ่ายจะมาถึงในระยะเวลาสั้นๆ หลังจากที่คุณแตะหรือคลิกปุ่มชัตเตอร์";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "หลังจากถ่ายรูปเสร็จแล้ว คุณจะได้รับ[การเรียกกลับ](glossary://callback)ไปยังอีกวิธีการหนึ่งในวัตถุกล้องของคุณ: `photoOutput(_:didFinishProcessingPhoto:error:)`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "อาร์กิวเมนต์แรกจะรับรูปภาพที่ถ่ายเป็นชื่อแทนประเภทของ [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "ตอนนี้คุณมีรูปภาพที่ถ่ายแล้ว ให้คุณเพิ่มรูปภาพนั้นลงในสตรีมรูปภาพของกล้อง จากนั้นรูปภาพนั้นจะพร้อมใช้งานสำหรับวัตถุใดๆ ในแอปของคุณที่กำลังรอรูปภาพ เช่น โมเดลข้อมูล";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "การประมวลผลและบันทึกรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "ค้นหาวิธีถอดแพ็คเกจรูปภาพที่ถ่าย แล้วบันทึกลงในคลังรูปภาพของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "โมเดลข้อมูลของคุณกำลังรอคอยรูปภาพที่ถ่ายใหม่อย่างใจเย็น";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "เช่นเดียวกับภาพการแสดงตัวอย่าง มี[งาน](glossary://task)เฉพาะสำหรับจัดการสตรีมของรูปภาพที่ถ่ายจากกล้องโดยใช้วิธีการ `handleCameraPhotos`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "คุณสามารถเรียนรู้เพิ่มเติมเกี่ยวกับ[งาน](doc://com.apple.documentation/documentation/swift/task)ในคลังมาตรฐาน Swift ได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "องค์ประกอบ [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) แต่ละองค์ประกอบใน `photoStream` ของกล้องอาจมีหลากหลายภาพในความละเอียดที่ต่างกัน รวมทั้งมี[เมตาดาต้า](glossary://metadata)อื่นเกี่ยวกับภาพ เช่น ขนาดของภาพและวันที่และเวลาที่ถ่ายภาพ คุณต้องถอดแพ็คเกจเพื่อรับภาพและเมตาดาต้าที่คุณต้องการ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "สิ่งแรกที่คุณจะทำใน `handleCameraPhotos` คือแปลง `photoStream` ให้เป็น `unpackedPhotoStream` ที่มีประโยชน์มากขึ้น โดยแต่ละองค์ประกอบเป็นชื่อแทนประเภทของโครงสร้าง `PhotoData` ที่มีข้อมูลที่คุณต้องการ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "ในการถอดแพ็คเกจ `photoStream` คุณจะต้องใช้ฟังก์ชั่น `unpackPhoto(_:)` ซึ่งถ่ายรูปและคืนค่าชื่อแทนประเภท `PhotoData` ที่มีสิ่งต่างๆ ต่อไปนี้:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "รูปย่อภาพความละเอียดต่ำในรูปแบบ [Image](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "ขนาดของรูปย่อภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "ภาพความละเอียดสูงในรูปแบบ[ข้อมูล](doc://com.apple.documentation/documentation/foundation/data)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "ขนาดของภาพความละอียดสูง";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "คุณจะจำได้ว่า `photoStream` ในรูปแบบ[สตรีมแบบอะซิงโครนัส](glossary://asynchronous%20stream) เหมือนกับ[ลำดับ](doc://com.apple.documentation/documentation/swift/sequence)เป็นอย่างมาก";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "คุณสามารถใช้วิธีการ [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) เพื่อเรียกใช้ `unpackPhoto(_:)` สำหรับรูปภาพแต่ละรูป (`$0`) ในสตรีมได้ การทำงานนี้จะแปลงสตรีมของชื่อแทนประเภท [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) เป็นสตรีมของชื่อแทนประเภท `PhotoData` ที่มีประโยชน์กว่ามาก";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "ตอนนี้ `for`-`await` loop จะรอให้องค์ประกอบ `photoData` มาถึงในสตรีมที่ถอดแพ็คเกจแล้วของคุณก่อนที่จะประมวลผล";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "คุณจะใช้ภาพรูปย่อใน `photoData` เพื่ออัปเดตคุณสมบัติ `thumbnailImage` ของโมเดลของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "เรียกใช้วิธีการ `savePhoto(imageData:)` ของโมเดลของคุณเพื่อบันทึกข้อมูลภาพจาก `photoData` เป็นรูปภาพใหม่ในคลังรูปภาพของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "วิธีการ `savePhoto(imageData:)` จะสร้าง[งาน](glossary://task)แล้วส่งต่องานจริงของการบันทึกข้อมูลรูปภาพไปยังวัตถุ `photoCollection` โดยเรียกใช้วิธีการ `addImage(_:)`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "แต่ไม่เป็นไร! หน้าที่ของโมเดลข้อมูลของคุณคือประสานลำดับข้อมูลระหว่างวัตถุข้อมูลในแอป";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "เพิ่มชัตเตอร์แบบหน่วงเวลา";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "ทดลองใช้กล้องของคุณโดยเพิ่มการหน่วงเวลาให้กับปุ่มชัตเตอร์";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "ลองจินตนาการว่าตั้งกล้องไว้ที่ใดที่หนึ่ง เช่น บนขาตั้งกล้อง แล้วแตะหรือคลิกปุ่ม จากนั้นมีเวลามากพอที่จะวิ่งไปรอบๆ แล้วกระโดดเข้าไปในกรอบก่อนที่จะถ่ายรูปดูสิ!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "ในการทำเช่นนั้น คุณจะต้องเพิ่มความหน่วงเวลาสั้นๆ หลังจากที่คุณแตะหรือคลิกปุ่มชัตเตอร์ก่อนที่กล้องจะถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "ดูโค้ดของคุณสำหรับการจัดการกับการทำงานของปุ่มชัตเตอร์ แล้วคิดว่าคุณอาจใช้งานโค้ดนี้อย่างไร";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "คุณคิดแผนออกมาได้อย่างรวดเร็ว:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "เพิ่ม[คุณสมบัติสถานะ](glossary://state%20value) `delayCount` เพื่อนับถอยหลังเป็นวินาทีจนกว่าคุณจะถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "เมื่อคุณแตะหรือคลิกปุ่มชัตเตอร์ ให้ตั้งค่า `delayCount` เป็นจำนวนวินาทีที่คุณต้องการให้กล้องรอก่อนที่จะถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "กำหนดเวลา[นาฬิกานับถอยหลัง](doc://com.apple.documentation/documentation/foundation/timer)ให้[ลด](glossary://decrement)จำนวนของ `delayCount` ลงครั้งละหนึ่งวินาที";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "เมื่อ `delayCount` ถึงศูนย์ ให้หยุดนาฬิกานับถอยหลังแล้วสั่งให้กล้องถ่ายรูปพร้อมกัน";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "ก่อนอื่นให้กำหนด[คุณสมบัติสถานะ](glossary://state%20value) `delayCount` ที่ด้านบนสุดของ `CameraView` ซึ่งอยู่ด้านบนคุณสมบัติ `body` โดยตั้งค่าเริ่มต้นเป็นศูนย์";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "เคล็ดลับ: ทำให้เป็นส่วนตัวอยู่เสมอด้วย `private` เนื่องจากคุณใช้อยู่ภายใน `CameraView` เท่านั้น นี่จึงเป็นแนวทางการปฏิบัติที่ดีสำหรับคำจำกัดความใดๆ ที่คุณวางแผนว่าจะใช้ภายในประเภทเท่านั้น";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "จากนั้น ในตัวจัดการ[ปุ่ม](doc://com.apple.documentation/documentation/swiftui/button)ชัตเตอร์ของคุณ ให้ทำให้บรรทัดโค้ดที่ถ่ายรูปในทันทีเมื่อคุณแตะหรือคลิกปุ่ม[เป็นความคิดเห็น](glossary://comment%20out)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "คุณจะต้องเรียกใช้ `takePhoto()` ภายในตัวจัดการนาฬิกานับถอยหลังของคุณแทน";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "ถัดไป ตั้งค่าตัวแปร `delayCount` ของคุณเป็นจำนวนวินาทีที่คุณต้องการนับถอยหลัง เช่น `5` วินาที";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "ด้านล่างการกำหนดค่า `delayCount` ของคุณ ให้เพิ่ม[นาฬิกานับถอยหลัง](doc://com.apple.documentation/documentation/foundation/timer)ที่กำหนดเวลาไว้เพื่อทำซ้ำวินาทีละครั้ง เมื่อนาฬิกานับถอยหลังของคุณหยุดลง ก็จะเรียกใช้โค้ดใน[การปิด](glossary://closure)ที่คุณระบุไว้ โดยจะ[ลด]จำนวนของ `delayCount`";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "และสำหรับขั้นตอนสุดท้ายในการปิดนาฬิกานับถอยหลังของคุณ เมื่อ `delayCount` ถึงศูนย์ ให้หยุดนาฬิกานับถอยหลังแล้วสั่งให้กล้องถ่ายรูป";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "เพิ่มโค้ดต่อไปนี้ในการปิดนาฬิกานับถอยหลังของคุณต่อจาก `delayCount -= 1`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "เมื่อคุณเรียกใช้วิธีการ[ทำให้เป็นโมฆะ](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate)ของนาฬิกานับถอยหลัง นาฬิกานับถอยหลังจะหยุดและถือว่าทำหน้าที่สิ้นสุดแล้ว!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "ตอนนี้ตัวจัดการปุ่มของคุณควรมีลักษณะดังโค้ดด้านล่าง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "หลังจากตรวจสอบโค้ดของคุณอย่างถี่ถ้วนแล้ว ให้แตะหรือคลิกปุ่มชัตเตอร์ แล้วรอก่อน!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "เคล็ดลับ: บางครั้งคุณสงสัยหรือไม่ว่าเกิดอะไรขึ้นกันแน่ในโค้ดของคุณ โดยเฉพาะอย่างยิ่งหากโค้ดนั้นไม่เป็นไปตามที่คุณคาดไว้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "คุณสามารถเพิ่มชุดคำสั่ง `print` เพื่อให้โค้ดของคุณบอกคุณได้อย่างชัดเจนว่ากำลังทำอะไรอยู่โดยการเขียนข้อมูลที่เป็นประโยชน์ลงบน[จอคอนโซล](glossary://console)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "ลองเพิ่มบรรทัดนี้ภายในการปิดนาฬิกานับถอยหลังของคุณ:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "เปิดจอคอนโซล จากนั้นแตะหรือคลิกปุ่มชัตเตอร์เพื่อถ่ายรูปแบบหน่วงเวลา";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "คุณพอใจกับปุ่มชัตเตอร์แบบหน่วงเวลามากเลยใช่ไหมล่ะ งั้นลองเพิ่มความสวยงามเข้าไปอีกสักนิดสิ! ✨ คุณสามารถทำให้การนับถอยหลังแสดงอยู่ในปุ่มได้เลยด้วย!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "ค้นหาไอคอนสำหรับปุ่มชัตเตอร์ ซึ่งคือ [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) ที่มีมุมมอง[วงกลม](doc://com.apple.documentation/documentation/swiftui/circle)สองมุมมอง ภายใน [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) และต่อจาก[วงกลม](doc://com.apple.documentation/documentation/swiftui/circle)อันที่สอง ให้ใส่โค้ดนี้:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "ตอนนี้ให้แตะหรือคลิกปุ่มชัตเตอร์ แล้วดูนาฬิกานับถอยหลังเป็นวินาทีก่อนที่จะถ่ายรูป";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "การเลือกหารูปภาพของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "ชอบถ่ายรูปใช่ไหม พวกเราส่วนใหญ่ชอบ และลงเอยด้วยการมีรูปภาพเป็นร้อยๆ หรือเป็นพันๆ รูปในคลังของคุณได้ง่ายๆ 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "ติดตามรูปภาพของคุณในขณะที่ถูกดึงข้อมูลมาจากคลังรูปภาพและแสดงในแกลเลอรี่แบบเลื่อนไปมาที่คุณสามารถเลือกดูได้";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "การใช้คอลเลกชั่นรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "เรียนรู้เกี่ยวกับคอลเลกชั่นรูปภาพในโมเดลข้อมูลของคุณและวิธีที่คอลเลกชั่นให้รูปภาพสำหรับแกลเลอรี่ของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "โมเดลข้อมูลของคุณมีคุณสมบัติ `photoCollection` ที่สามารถแสดงถึงคอลเลกชั่นของรายการต่างๆ ในคลังรูปภาพของคุณได้ โดยอาจเป็นคลังรูปภาพทั้งคลังของคุณ หรือเพียงอัลบั้มเดียว หรือแม้กระทั่งผลลัพธ์จากการค้นหา";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "คุณสามารถรวมรูปภาพทั้งหมดของคุณไว้ในคลังได้โดยสร้างค่าเริ่มต้นของ `photoCollection` ด้วยอัลบั้มอัจฉริยะ `.smartAlbumUserLibrary`";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "โปรดทราบว่าก่อนจะเข้าถึงคลังรูปภาพในโปรเจ็กต์ของคุณเอง คุณจะต้องเพิ่มความสามารถคลังรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "ค้นหาเพิ่มเติมใน[การขอสิทธิ์เข้าถึงความสามารถต่างๆ สำหรับโปรเจ็กต์ของคุณ](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "การดึงข้อมูลแอสเซทรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "แต่ละรายการในคอลเลกชั่นรูปภาพของคุณจะเรียกว่า[แอสเซท](glossary://asset)รูปภาพ ดูวิธีดึงข้อมูลแอสเซทเหล่านั้น";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "`photoCollection` ของโมเดลข้อมูลของคุณมีคุณสมบัติ `photoAssets` ที่ช่วยให้สามารถใช้คอลเลกชั่นแอสเซทรูปภาพได้เหมือนกับที่คุณใช้อาร์เรย์";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "ตัวอย่างเช่น คุณสามารถดึงข้อมูลแอสเซทรูปภาพได้โดยใช้ดัชนี:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "หรือนับจำนวนรูปภาพทั้งหมดในคอลเลกชั่นของคุณ:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "คุณยังสามารถ[ทำซ้ำ](glossary://iteration)แอสเซทใน `photoAssets` โดยใช้ loop ได้อีกด้วย คุณจะพบว่าการทำเช่นนี้มีประโยชน์อย่างเหลือเชื่อในการสร้างแกลเลอรี่ของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "คุณจะสังเกตเห็นว่า `photoAssets` เป็นคุณสมบัติ[ที่ถูกเผยแพร่](glossary://published%20value)ของ `PhotoCollection` ซึ่งเป็น[วัตถุที่สังเกตเห็นได้](glossary://observable%20object) นั่นหมายความว่าคุณสามารถตอบรับกับการเปลี่ยนแปลงในแอสเซทรูปภาพได้ เช่น เมื่อมีการเพิ่มหรือลบรูปภาพ";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "การนำทางไปยังแกลเลอรี่รูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "ดูวิธีนำทางไปยังแกลเลอรี่รูปภาพและเชื่อมต่อกับคลังรูปภาพของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "ในมุมมองกล้องของคุณ ให้ใช้[ลิงก์การนำทาง](glossary://navigation%20link)เพื่อนำคุณไปยังแกลเลอรี่รูปภาพของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "ลิงก์การนำทางก็เหมือนกับปุ่ม ซึ่งคุณสามารถกำหนดป้ายและไอคอนให้กับลิงก์ได้ ให้คุณวางปุ่มนี้ไว้ทางด้านซ้ายของปุ่มชัตเตอร์";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "เมื่อคุณแตะหรือคลิกลิงก์การนำทาง SwiftUI จะนำคุณไปยังมุมมองอื่น ในกรณีนี้คือมุมมองคอลเลกชั่นรูปภาพที่คุณใช้เพื่อแสดงแกลเลอรี่รูปภาพของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "ถ้าคุณใช้ลิงก์การนำทางภายใน [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack) SwiftUI จะจัดการการนำเสนอมุมมองของคุณเพื่อให้คุณสามารถนำทางไปมาระหว่างมุมมองต่างๆ ได้อย่างง่ายดาย";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "ให้คุณระบุคอลเลกชั่นรูปภาพที่คุณต้องการแสดงในแกลเลอรี่ของคุณ โดยการส่งผ่าน `photoCollection` ของโมเดลของคุณไปยัง `PhotoCollectionView` เมื่อคุณสร้างค่าเริ่มต้นของคอลเลกชั่นรูปภาพ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "เมื่อคุณเปิดแกลเลอรี่ คุณจะไม่เห็นช่องมองภาพอีกต่อไป ดังนั้นจึงไม่จำเป็นต้องอัปเดตช่องมองภาพต่อ คุณควรเน้นที่ประสิทธิภาพของอุปกรณ์ในการแสดงรูปภาพของคุณแทน";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "ในการควบคุมเวลาที่สตรีมการแสดงตัวอย่างของกล้องทำงาน ให้ใช้ปุ่มปรับค่า [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) ของลิงก์การนำทางเพื่อหยุดพักเมื่อแกลเลอรี่แสดงขึ้นมา และใช้ [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) เพื่อทำต่ออีกครั้งเมื่อคุณนำทางกลับไปยังกล้อง";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "การสร้างแกลเลอรี่รูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "ค้นพบวิธีแสดงรูปภาพของคุณในตารางแบบเลื่อนได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "ให้คุณใช้ `PhotoCollectionView` เพื่อแสดงรูปภาพของคุณในตารางแบบเลื่อนได้ โดยมีรูปภาพล่าสุดอยู่ด้านบนสุด";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "เมื่อคุณสร้าง `PhotoCollectionView` ของคุณ คุณสมบัติ `photoCollection` จะสร้างค่าเริ่มต้นด้วยการอ้างอิงกับ `photoCollection` ของโมเดลของคุณ ซึ่งจะให้ข้อมูลทั้งหมดที่คุณต้องใช้ในการสร้างแกลเลอรี่รูปภาพของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "เมื่อทำให้ `photoCollection` เป็น[วัตถุที่สังเกตการณ์](glossary://observed%20object) SwiftUI จะอัปเดตมุมมองคอลเลกชั่นรูปภาพของคุณตามการเปลี่ยนแปลงใน[ค่าที่เผยแพร่](glossary://published%20value)ของคอลเลกชั่น";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "คุณจะใช้ตารางแนวตั้งแบบยืดหยุ่น ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)) เพื่อแสดงรูปภาพของคุณเป็นรายการในเค้าโครงตาราง เนื่องจากเค้าโครงใช้ตารางแนวตั้ง คุณเพียงแค่ต้องตัดสินใจเกี่ยวกับจำนวนของ `columns` ที่คุณต้องการและ `spacing` ระหว่างแต่ละรายการ หลังจากที่ตารางมีจำนวนคอลัมน์แล้ว ตารางจะขยายขนาดในแนวตั้งเพื่อเพิ่มจำนวนแถวให้เพียงพอสำหรับการแสดงรูปภาพทั้งหมดของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "ทำไมถึงใช้แบบยืดหยุ่น ถ้าตารางใหญ่กว่ามุมมองที่มี มุมมองจะแสดงเฉพาะรายการที่มองเห็นได้ในขณะนั้น อันที่จริง “ความยืดหยุ่น” นี้จะเพิ่มประสิทธิภาพของแอปของคุณ โดยเฉพาะในขณะที่คุณเลื่อนดูตารางรูปภาพ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "คุณสามารถใช้จำนวนคอลัมน์ที่คงที่ในตารางของคุณได้ แต่วิธีการที่[ตอบสนอง](glossary://responsive)มากกว่าคือการแสดงคอลัมน์ให้มากที่สุดเท่าที่คุณสามารถทำได้ โดยจะขึ้นอยู่กับความกว้างของมุมมอง การทำเช่นนี้จะสร้างประสบการณ์ที่ดียิ่งขึ้นเมื่อผู้อื่นปรับขนาดแอปของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "ในการสร้างตารางที่ปรับให้เข้ากับความกว้างของมุมมองของคุณ ให้กำหนด [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) `adaptive` และระบุขนาดและระยะห่างที่คุณต้องการที่จะคงไว้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "ลองจินตนาการถึงรูปภาพจำนวนหลายร้อยหรือหลายพันรูป แม้จะมีเค้าโครงที่ปรับเปลี่ยนได้ แต่ตารางของคุณก็อาจสูงมากๆ ได้ ซึ่งสูงกว่าพื้นที่ที่คุณมีไว้แสดงตารางเสียอีก!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "ทำให้ตารางของคุณเลื่อนได้โดยวางไว้ภายใน [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview) การทำเช่นนี้ก็เพื่อให้ตารางของคุณสามารถมีจำนวนแถวได้มากเท่าที่ต้องการ และคุณจะสามารถเลื่อนขึ้นและลงเพื่อดูรูปภาพของคุณได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "ภายในตารางของคุณ ให้ใช้ [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) เพื่อ[ทำซ้ำ](glossary://iteration)แอสเซทรูปภาพในคอลเลกชั่นของคุณและสร้างมุมมองสำหรับแต่ละแอสเซท ซึ่งมุมมองเหล่านี้จะสร้างตารางของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "เนื่องจากตารางของคุณเป็นแบบยืดหยุ่น ในขณะที่คุณเลื่อนอยู่ [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) จะดำเนินการกับเแอสเซทรูปภาพที่สามารถมองเห็นได้เท่านั้น";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "สร้าง [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) สำหรับรายการตารางแต่ละรายการ ซึ่งเมื่อแตะหรือคลิกอยู่ จะแสดงแต่ละรูปในขนาดเต็มโดยใช้ `PhotoView` [ปลายทาง](glossary://destination%20view) ที่สร้างค่าเริ่มต้นด้วยแอสเซทรูปภาพ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "วิธีการ `photoItemView(asset:)` จะสร้างมุมมองที่แสดงรูปย่อภาพขนาดเล็กสำหรับแอสเซทรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "คุณจะต้องใช้มุมมองนี้เป็น[ป้าย](glossary://label)สำหรับลิงก์การนำทาง ซึ่งแสดงแต่ละลิงก์เป็นภาพขนาดย่อของรูปภาพ";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "การแสดงรูปภาพ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "ดูวิธีที่มุมมองรูปภาพโหลดและแสดงรูปภาพของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "ถ้าจะพูดถึงเรื่องการแสดงรูปภาพด้วยตัวเอง คุณจะต้องใช้ `PhotoView`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "ในมุมมองรูปภาพของคุณ ให้คุณแสดงภาพความละเอียดสูงที่คุณร้องขอมาจากรูปภาพนั้น คุณยังมีการทับซ้อนกับปุ่มต่างๆ เพื่อตั้งรูปภาพเป็นรายการโปรดหรือลบรูปภาพอีกด้วย";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "มุมมองรูปภาพของคุณมีคุณสมบัติ `photoAsset` สำหรับรูปภาพที่แสดง ให้คุณส่งผ่านสิ่งนี้เมื่อคุณสร้างค่าเริ่มต้นของ `PhotoView`";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "คุณยังต้องสร้างค่าเริ่มต้นของมุมมองด้วยคุณสมบัติ `cache` ที่มีการอ้างอิงถึงแคชภาพของคุณอีกด้วย";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "คุณสามารถร้องขอภาพในขนาดที่ระบุเฉพาะได้จากแคชภาพ หลังจากโหลดภาพจากแอสเซทรูปภาพแล้ว แคชจะส่งภาพกลับมาให้คุณ แคชภาพยังช่วยเก็บภาพที่ร้องขอล่าสุดไว้ในหน่วยความจำด้วย ดังนั้นจึงไม่จำเป็นต้องโหลดซ้ำหากคุณร้องขอภาพเหล่านั้นอีกครั้ง";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "มุมมองของคุณมี[คุณสมบัติสถานะ](glossary://state%20value) `image` ที่พร้อมสำหรับเก็บภาพหลังจากโหลด";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "มุมมองนี้เป็นประเภท[แบบตัวเลือก](glossary://optional) นั่นคือ `Image?` เนื่องจากคุณจะต้องการใช้เพื่อเริ่มต้นโดยไม่มีค่าใดๆ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "มุมมองสามารถใช้ปุ่มปรับค่า [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) เพื่อรันโค้ดบางส่วน[แบบอะซิงโครนัส](glossary://asynchronous%20process)ทุกครั้งที่มุมมองโหลดได้";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "นี่คือที่ที่คุณใส่โค้ดเพื่อร้องขอภาพความละเอียดสูงจากแคชสำหรับแอสเซทรูปภาพโดยระบุขนาดที่คุณต้องการ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "คุณยังต้องระบุแคชพร้อม[การปิด](glossary://closure)ที่มีโค้ดที่สามารถเรียกใช้ได้เมื่อมี `result`";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "การปิดผลลัพธ์ของคุณได้รับการเรียกใช้อย่างน้อยหนึ่งครั้งจากแคช ถ้าแคชมีภาพที่คุณร้องขออยู่แล้ว แคชจะเรียกใช้การปิดของคุณในทันทีพร้อมรูปภาพใน `result`";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "ถ้าแคชไม่มีภาพที่ร้องขอ ก็จะโหลดภาพจากแอสเซทรูปภาพแล้วแคช ขณะที่โหลดภาพ แคชอาจเรียกใช้การปิดของภาพความละเอียดต่ำ ก่อนที่ในท้ายที่สุดจะส่งภาพความละเอียดสูงใน `result`";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "การปิดผลลัพธ์จะค้นหาภาพในผลลัพธ์ ถ้าพบภาพ ก็จะอัปเดตคุณสมบัติ `image` ของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "เนื่องจากคุณได้ทำให้ `image` เป็นคุณสมบัติสถานะ ดังนั้น SwiftUI จะอัปเดตมุมมองของคุณเมื่อค่าเปลี่ยนแปลง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "ถ้า `image` มีค่า ให้คุณ[คลาย](glossary://unwrap)ภาพนั้นแล้วแสดงในมุมมองของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "อย่างไรก็ตาม ถ้า `image` ไม่มีค่า ให้คุณใช้ [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) เพื่อแสดงตัวสปินเนอร์เป็น[ที่พัก](glossary://placeholder%20view)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "ดูด้วยความระมัดระวังเป็นอย่างยิ่ง และคุณอาจเพิ่งเห็นตัวสปินเนอร์นี้เมื่อมุมมองของคุณโหลดในครั้งแรก ก่อนที่แคชจะมีโอกาสโหลดภาพจากแอสเซทรูปภาพ";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "ใช้ตารางแบบขนาดคงที่";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "ทดลองใช้ตารางลักษณะอื่นในแกลเลอรี่รูปภาพของคุณ";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "แกลเลอรี่ของคุณจะแสดงรูปภาพในรูปแบบตาราง โดยรูปภาพแต่ละรูปอยู่ในสี่เหลี่ยมขนาดคงที่";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "คุณกำหนดการจัดเรียงนี้โดยใช้คุณสมบัติ `columns` ซึ่งจะคืนค่าอาร์เรย์ของ [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) การใช้รายการตาราง [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) รายการเดียวหมายความว่า `LazyVGrid` ของคุณจะปรับตามความกว้างที่มีให้พอดีกับจำนวนคอลัมน์มากที่สุด";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "แต่สมมติว่าคุณต้องการจำนวนคอลัมน์ที่แน่นอนแทน โดยให้รูปภาพแต่ละรูปใช้พื้นที่มากที่สุดเท่าที่จะเป็นไปได้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "ในการทำเช่นนี้ อาร์เรย์ `columns` ของคุณควรมีรายการตาราง [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) สำหรับแต่ละคอลัมน์ที่คุณต้องการแทน";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "ด้านล่าง `columns` ให้กำหนดคุณสมบัติ `fixedColumns` ที่คืนค่าอาร์เรย์ของรายการตาราง `flexible` ในรูปแบบหนึ่งรายการต่อหนึ่งคอลัมน์:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "และแทนที่จะส่งผ่าน `columns` ให้ส่งผ่าน `fixedColumns` ไปยังตารางแบบยืดหยุ่นของคุณดังนี้:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "ในตอนนี้ให้เลือกดูแกลเลอรี่รูปภาพของคุณ แล้วดูว่ามีความแตกต่างกันอย่างไร โดยเฉพาะอย่างยิ่งเมื่อคุณปรับขนาดมุมมอง";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "คุณจะสังเกตเห็นว่าในตอนนี้มีสองคอลัมน์ตามที่คุณคาดไว้ แต่รูปภาพจะยังคงเป็นขนาดดั้งเดิม";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "คุณมีอีกสิ่งหนึ่งที่ต้องระมัดระวัง…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "ดูโค้ดบรรทัดนี้ในฟังก์ชั่นที่สร้างมุมมองรายการรูปภาพของคุณ ใช้เวลาสักครู่เพื่อพิจารณาดูว่าปัญหานั้นคืออะไร";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "ใช่ คุณไม่ต้องการขนาด[กรอบ](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:))ที่คงที่ของรูปภาพแต่ละรูปอีกต่อไป แต่ความกว้างของมุมมองและจำนวนคอลัมน์ในตารางจะกำหนดขนาดของภาพแทน";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "ทำให้บรรทัดต่อไปนี้เป็นความคิดเห็นตามที่แสดงเพื่อให้รูปภาพแต่ละรูปใช้พื้นที่ว่างได้มากเท่าที่เป็นไปได้:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "เปิดแกลเลอรี่รูปภาพของคุณอีกครั้งแล้วคุณจะเห็นว่ารูปภาพแต่ละรูปเต็มความกว้างของคอลัมน์แล้วในตอนนี้";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "ลองทำให้มุมมองของคุณกว้างขึ้น คุณสังเกตเห็นว่าเกิดอะไรขึ้นบ้าง";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "ดูคอลัมน์ใหม่ที่มีขนาดคงที่ของคุณอย่างรอบคอบ แล้วคุณจะสังเกตเห็นว่าคอลัมน์เหล่านั้นมีพื้นที่ว่างระหว่างคอลัมน์ แต่ไม่มีพื้นที่ว่างที่ด้านข้างทั้งสองข้าง ให้ดูที่โค้ด คุณเห็นไหมว่าทำไม";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "เปลี่ยนช่องว่างภายในของมุมมองเพื่อให้อยู่รอบๆ แทนที่จะอยู่เพียงแค่ในแนวตั้ง:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "สิ่งอื่นๆ ที่ควรลองเพิ่มเติม:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "เพิ่มรายการตารางมากขึ้นสำหรับคอลัมน์เพิ่มเติม";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "เปลี่ยนค่าที่คืนค่าโดยคุณสมบัติ `imageSize` ของคุณเพื่อรับภาพที่มีความละเอียดสูงขึ้นสำหรับตารางแบบขนาดคงที่ของคุณ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "ใช้ความสูงสูงสุดสำหรับมุมมองรายการรูปภาพของคุณแทนการใช้ความสูงแบบคงที่: `.frame(maxHeight: 400)`";
+

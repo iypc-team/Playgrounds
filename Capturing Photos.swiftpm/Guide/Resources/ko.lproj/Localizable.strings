@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "사진 캡처하기";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "사진 캡처하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "나만의 앱에서 카메라로 할 수 있는 신나는 일을 상상해 보세요! 이 샘플에서는 카메라 앱의 구성요소를 살펴보고 SwiftUI 기술을 사용하여 카메라와 사진 보관함에서 작업하는 방법을 알아봅니다.";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "사진 캡처하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "사진 캡처하기에 입문하신 것을 환영합니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "카메라 앱이 갖추어야 할 필수 기능에 대해 생각해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "카메라의 라이브 영상을 뷰파인더에 표시하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "셔터 버튼을 탭 또는 클릭할 때 사진 촬영하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "사진 저장";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "촬영한 사진 찾아보기 및 보기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "이러한 모든 기능을 실현하려면 어떻게 해야 하는지 알아보세요. 여기에서는 앱에서 사용하는 데이터 객체 및 객체와 앱의 사용자 인터페이스 간의 데이터 흐름을 관리하는 방법에 대해 배우게 될 거예요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "시작하기 전에 ’앱 미리보기’를 선택하고 작동 중인 카메라 앱을 잠시 살펴보고 사진을 몇 장 찍어 보세요!";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "가이드 시작하기";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "버튼에 대한 손쉬운 사용 설명";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "카메라 출력 미리보기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "카메라의 비디오 출력은 개별 이미지(비디오 프레임)의 연속 스트림을 생성합니다. 이는 뷰파인더에 표시되므로 구도를 잡고 사진을 찍기 전에 카메라가 보고 있는 것을 정확히 볼 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "이것이 어떻게 작동하는지 자세히 알아보세요. 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "카메라 사용하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "데이터 모델의 카메라에 관해 배워보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "데이터 모델에는 사용자의 기기에서 사용할 수 있는 물리적 카메라 또는 캡처 기기 중 하나를 나타내는 `camera` 속성이 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "사용자의 기기에서 여러 캡처 기기(예: iPad의 전면 및 후면 카메라)에 접근할 수 있으며 카메라의 `switchCaptureDevice()` 메소드를 사용하여 이들 간에 전환할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "[Choosing a Capture Device](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device)에서 캡처 기기에 관해 더 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "카메라 사용을 시작하려면 다음 `start()` 메소드를 호출합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "나만의 프로젝트에서 기기 카메라를 사용하려면 먼저 카메라 기능을 추가해야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "[Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)에서 더 자세한 내용을 알아보세요.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "미리보기 스트림 살펴보기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "카메라의 미리보기 이미지 스트림에 대해 배워보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "카메라의 `start()` 메소드를 호출한 후, 비디오 출력은 초당 최대 60프레임의 속도로 저해상도 미리보기 이미지의 스트림(비디오 프레임)을 생성합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)(Core Image) 객체의 [비동기 스트림](glossary://asynchronous%20stream)과 같은 `previewStream` 카메라 속성을 통해 이러한 미리보기 이미지를 수신합니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "미리보기 스트림 처리하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "뷰파인더에서 볼 수 있도록 미리보기 스트림을 처리하는 방법을 배워보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[데이터 모델](glossary://data%20model)에는 `handleCameraPreviews` 함수를 사용하여 카메라에서 미리보기 이미지의 [스트림](glossary://asynchronous%20stream)을 처리하는 전용 [작업](glossary://task)이 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "Swift 표준 라이브러리에서 [tasks](doc://com.apple.documentation/documentation/swift/task)에 관해 더 알아볼 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "`handleCameraPreviews`에서, 카메라에서 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 객체의 미리보기 스트림을 표시할 준비가 된 [Image](doc://com.apple.documentation/documentation/swiftui/image) 보기 스트림으로 변환합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream)은 시간 간격을 두고 생성되는 값 스트림입니다. 해당 값은 [시퀀스](glossary://sequence)를 만들지만 비동기식으로 도착하는데, 이를 [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence)라고 합니다. [배열](glossary://array)과 같이 다른 값 시퀀스로 할 수 있는 많은 작업을 동일하게 수행할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "이 예제에서는 스트림의 [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) 함수는 `CIImage`의 `image` 속성 확장자를 사용하여 각 요소(`$0`)를 [Image](doc://com.apple.documentation/documentation/swiftui/image) 인스턴스로 변환하는 데 사용됩니다. 이렇게 하면 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 인스턴스의 스트림이 [Image](doc://com.apple.documentation/documentation/swiftui/image) 인스턴스의 스트림으로 변환됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "`for`-`await` 루프는 변환된 `imageStream`의 각 이미지를 기다린 후, 이를 사용하여 작업을 수행합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "[Swift 프로그래밍 언어 설명서](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences)에서 비동기 시퀀스 작업이 어떻게 작동하는지 더 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "미리보기 스트림의 이미지를 사용하여 데이터 모델의 `viewfinderImage` 속성을 업데이트합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI는 `viewfinderImage` 값이 변경될 때 이 속성을 사용하는 모든 보기가 업데이트되도록 합니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "미리보기 스트림 보기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "뷰파인더 보기를 처리된 미리보기 스트림에 연결하는 방법을 확인해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView`에는 카메라의 라이브 영상을 표시하는 데 사용되는 `ViewfinderView`가 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "모델의 `viewfinderImage` 속성을 `ViewfinderView`에 [바인딩](glossary://binding)하면, 보기가 새로운 미리보기 이미지를 받을 때마다 뷰파인더가 업데이트되도록 할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "미리보기 이미지가 초당 여러 번 업데이트되기 때문에 뷰파인더에서 우리의 눈이 이것을 라이브 영상으로 인식하게 됩니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "뷰파인더를 회전하거나 흐리게 처리하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "미리보기 스트림에서 이미지를 회전하거나 흐리게 처리해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "`handleCameraPreviews` 메소드는 [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) 인스턴스의 카메라 미리보기 [스트림](glossary://asynchronous%20stream)을 `ViewfinderView`에 표시할 준비가 된 [Image](doc://com.apple.documentation/documentation/swiftui/image) 보기 스트림에 매핑합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "여기에서 미리보기 이미지를 [Image](doc://com.apple.documentation/documentation/swiftui/image) 보기에 매핑하기 전에 미리보기 이미지로 다른 유용한 작업을 수행할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "이미지를 옆으로 회전하거나 거꾸로 뒤집고 싶다면 [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented) 메소드를 호출하면 됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "`imageStream`의 정의에서 `.map { $0.image }` 위에 다음 코드 줄을 추가합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "여기에서는 `map`을 사용하여 이미지 스트림을 회전된 이미지 스트림으로 변환합니다. 이렇게 하려면 스트림의 각 요소(`$0`)에 대해 `oriented(.left)` 함수를 호출합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "아니면 미리보기 이미지를 약간 흐리게 하고 싶으신가요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "`.map { $0.image }` 위에 다음 코드를 추가하여 이미지에 다른 작업을 적용합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "하나의 `map` 작업을 [스트림](glossary://asynchronous%20stream) 또는 [연결](glossary://chaining) 작업에 차례로 적용하고 있습니다. 즉, 원하는 만큼 작업을 함께 연결할 수 있습니다. 예를 들어, 다음은 미리보기 스트림에서 입력을 가져오고, 이미지를 회전하고 흐리게 처리하며, 마지막으로 해당 이미지를 `Image`의 스트림으로 변환합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "실험해 보세요!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "다양한 방향 옵션을 적용해 보세요. 예를 들어 `.down`으로 방향을 변경하면 어떤 일이 발생할까요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "다양한 흐림 효과 값을 적용해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)는 이미지를 변환하기 위해 많은 유용한 메소드를 제공합니다.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "사진 캡처하기 및 저장하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "웃어요! 찰칵! 사진을 찍을 때 많은 일이 연달아 빠르게 일어납니다. 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "셔터 버튼을 탭 또는 클릭한 순간부터 사진이 사진 보관함에 나타날 때까지 어떤 일이 발생하는지 알아보세요.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "셔터 버튼에 응답하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "셔터 버튼 동작을 처리하는 방법을 배워보고 카메라가 사진을 찍도록 요청하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "카메라 보기에서 셔터 버튼을 탭 또는 클릭하면 여러 가지 일이 벌어집니다!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "버튼이 작동하며 모델의 `camera` 객체를 가져오고, `takePhoto()` 메소드를 호출합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "사진을 어떻게 찍는지 계속해서 알아보세요!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "사진 캡처하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "사진을 촬영할 때, 카메라는 센서에서 이미지 데이터를 캡처합니다. 이 작업을 시작하는 방법과 캡처된 사진을 처리하는 방법을 배워보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "사진을 촬영할 때 가능한 한 가장 높은 해상도의 이미지를 캡처하고자 합니다. 이에 비해 미리보기 이미지는 해상도가 낮아 뷰파인더에서 미리보기를 빠르게 업데이트할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "이 카메라는 뷰파인더에 보이는 것을 고해상도 이미지로 캡처하기 위해 `takePhoto()` 메소드에서 사용하는 특별한 사진 출력 기능을 제공합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "사진을 촬영하는 실제 작업은 사진을 캡처하기 위해 사진 출력을 요구하는 것으로 시작됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "모든 것이 계획대로 진행되면 셔터 소리가 들리며, 이로 인해 여러분과 주변 사람은 방금 사진을 촬영했음을 알게 됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "왜 `capturePhoto`에서 즉시 사진이 반환되지 않는지 궁금해할 수 있습니다. 그 이유는 경우에 따라서 초점을 맞추거나 플래시를 기다려야 하며, 그 후에는 노출 시간으로 인해 사진을 캡처하는 데 시간이 걸리기 때문입니다. `capturePhoto` 메소드는 [비동기](glossary://asynchronous%20process)이며, 일반적으로 캡처된 사진은 셔터 버튼을 탭 또는 클릭한 후 잠시 후에 나타나게 됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "사진 캡처가 완료된 후, 카메라 객체의 다른 메소드인 `photoOutput(_:didFinishProcessingPhoto:error:)`에 대한 [콜백](glossary://callback)을 받게 됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "첫 번째 인수는 캡처된 사진을 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)의 인스턴스로 수신합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "이제 사진이 캡처되었으므로 카메라의 사진 스트림에 추가합니다. 이렇게 하면 데이터 모델과 같이 사진을 기다리는 앱의 모든 객체에서 사용할 수 있습니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "사진 처리하기 및 저장하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "캡처한 사진을 압축 해제하는 방법을 알아보고 사진 보관함에 저장하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "데이터 모델은 새로 캡처한 사진을 위해 대기하고 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "미리보기 이미지의 경우와 마찬가지로, 데이터 모델에는 카메라에서 캡처한 사진 스트림을 처리하는 전용 [작업](glossary://task)이 있으며, `handleCameraPhotos` 메소드가 사용됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "Swift 표준 라이브러리에서 [tasks](doc://com.apple.documentation/documentation/swift/task)에 관해 더 알아볼 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "카메라의 `photoStream`에 있는 각각의 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) 요소는 해상도가 다양한 여러 이미지를 비롯해 이미지와 관련된 기타 [메타데이터](glossary://metadata)(예: 이미지의 크기, 이미지가 캡처된 날짜 및 시간)를 포함할 수 있습니다. 원하는 이미지 및 메타데이터를 얻으려면 사용자는 이를 압축 해제해야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "`handleCameraPhotos`에서 먼저 수행하는 작업은 `photoStream`을 더욱 유용한 `unpackedPhotoStream`으로 변환하는 것입니다. `unpackedPhotoStream`에서 각각의 요소는 사용자가 원하는 데이터를 포함하는 `PhotoData` 데이터 구조의 인스턴스입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "`photoStream`을 압축 해제하려면 `unpackPhoto(_:)` 함수를 사용합니다. 이 함수는 캡처된 사진을 가져와 다음을 포함하는 `PhotoData` 인스턴스를 반환합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "[Image](doc://com.apple.documentation/documentation/swiftui/image)로서의 저해상도 이미지 축소판";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "이미지 축소판 크기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "[Data](doc://com.apple.documentation/documentation/foundation/data)로서의 고해상도 이미지";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "고해상도 이미지 크기";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "[비동기 스트림](glossary://asynchronous%20stream)으로서 `photoStream`은 [Sequence](doc://com.apple.documentation/documentation/swift/sequence)와 매우 유사함을 기억하실 겁니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "[compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) 메소드를 사용해 스트림에 있는 각각의 사진(`$0`)을 대상으로 `unpackPhoto(_:)`를 호출할 수 있습니다. 이렇게 하면 [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) 인스턴스의 스트림이 `PhotoData` 인스턴스의 스트림으로 훨씬 더 유용하게 변환됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "이제 `for`-`await` 루프는 압축 해제된 스트림에 `photoData` 요소가 도달할 때까지 기다린 후, `photoData` 요소를 처리합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "`photoData`의 축소판 이미지를 사용해 모델의 `thumbnailImage` 속성을 업데이트하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "모델의 `savePhoto(imageData:)` 메소드를 호출해 `photoData`의 이미지 데이터를 사진 보관함의 새로운 사진으로 저장합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "`savePhoto(imageData:)` 메소드는 `addImage(_:)` 메소드를 호출해서 [작업](glossary://task)을 생성하고 `photoCollection` 객체에 사진 데이터를 저장하는 실제 작업에 들어갑니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "그래도 괜찮습니다. 데이터 모델의 역할은 앱의 데이터 객체 사이의 데이터 흐름을 조정하는 것이니까요.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "지연 모드 셔터 추가하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "셔터 버튼에 지연 기능을 추가해 카메라를 실험해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "예를 들어 카메라를 삼각대 위에 놓고 버튼을 탭하거나 클릭한 다음, 사진이 촬영되기 전에 뛰어서 프레임 안으로 들어올 충분한 시간이 있다고 상상해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "이렇게 하려면 셔터 버튼을 탭 또는 클릭한 후 카메라가 사진을 촬영하기 전까지 약간의 지연을 추가해야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "셔터 버튼 동작을 처리하기 위한 코드를 살펴보고 이것을 구현하는 방법에 대해 생각해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "구현 방법은 어렵지 않습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "사진이 촬영될 때까지 초를 카운트다운할 수 있도록 [상태 속성](glossary://state%20value) `delayCount`를 추가합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "셔터 버튼을 탭 또는 클릭할 때, 사진 촬영 전 카메라가 대기할 시간을 초 단위로 `delayCount`를 설정합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "`delayCount`를 초당 1회 [감소](glossary://decrement)하도록 [Timer](doc://com.apple.documentation/documentation/foundation/timer)를 설정합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "`delayCount`가 0이 되면 타이머를 멈추고 동시에 사진을 촬영하도록 카메라에 지시합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "먼저 `delayCount` [상태 속성](glossary://state%20value)을 `CameraView`의 상단인 `body` 속성 위에 정의하고, 초기 값을 0으로 설정합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "팁: 이것은 `CameraView` 내부에서만 사용하기 때문에 `private`으로 유지합니다. 이것은 한 유형 내부에서만 사용하려는 모든 정의에 대한 좋은 방법입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "그런 다음, 셔터의 [Button](doc://com.apple.documentation/documentation/swiftui/button) 핸들러에서 버튼을 탭 또는 클릭하면 바로 사진을 촬영하는 코드 줄을 [주석 처리](glossary://comment%20out)합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "대신 타이머 핸들러 내부에서 `takePhoto()`를 호출합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "이제 `delayCount` 변수를 카운트다운하려는 초 수로 설정합니다(예: `5`초).";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "`delayCount` 할당 아래에 설정된 [Timer](doc://com.apple.documentation/documentation/foundation/timer)를 추가하여 1초에 한 번 반복되도록 합니다. 타이머가 울리면, 내부에 배치한 핸들러 코드를 호출하여 `delayCount`를 [감소](glossary://decrement)시킵니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "이제 타이머 클로저의 마지막 단계입니다. `delayCount`가 0이 되면 타이머를 멈추고 사진을 촬영하도록 지시합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "타이머 클로저에서 `delayCount -= 1` 뒤에 아래 코드를 추가합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "타이머의 [invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) 메소드를 호출하면 타이머가 중지됩니다. 이것으로 타이머 작업이 완료되었습니다!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "버튼 핸들러는 이제 아래 코드와 같아야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "작성한 코드를 주의 깊게 확인한 후 셔터 버튼을 탭 또는 클릭하고 기다려 보세요!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "팁: 때로는 코드가 어떻게 된 것인지 궁금하지 않으신가요? 특히 코드가 예상대로 작동하지 않을 때 말입니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "`print` 구문을 추가하면 코드가 [콘솔](glossary://console)에 유용한 정보를 작성하여 정확히 무엇을 하는지 사용자에게 알려줄 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "다음과 같은 라인을 타이머 클로저 안에 추가해 보세요.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "콘솔을 열고 셔터 버튼을 탭 또는 클릭하여 지연 모드로 사진을 찍으세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "지연 모드 셔터 버튼이 정말 마음에 들지 않나요? 자, 조금 더 멋지게 만들어 보면 어떨까요? ✨ 버튼 안에 카운트다운을 표시할 수도 있습니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "두 개의 [Circle](doc://com.apple.documentation/documentation/swiftui/circle) 보기가 있는 [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) 셔터 버튼 아이콘을 찾으세요. 이 [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack)의 내부와 두 번째 [Circle](doc://com.apple.documentation/documentation/swiftui/circle) 뒤에 다음과 같은 코드를 추가합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "이제 셔터 버튼을 탭 또는 클릭하세요. 사진을 촬영하기 전에 초가 카운트다운되는 것을 보세요.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "사진 둘러보기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "사진 찍기를 즐기시나요? 우리 대부분이 그렇죠. 그러다가 보관함에 수백 장 혹은 수천 장의 사진이 쌓이게 됩니다. 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "사진을 사진 보관함에서 불러오고, 스크롤 갤러리에서 둘러볼 수 있도록 표시하는 과정을 따라 사진을 살펴보세요.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "사진 모음 사용하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "데이터 모델의 사진 모음에 관해 알아보고, 사진 모음이 갤러리에 사진을 제공하는 방법을 배워보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "데이터 모델에는 `photoCollection` 속성이 있어 사진 보관함에 있는 항목의 모음을 모두 나타낼 수 있습니다. 예를 들면, 사진 보관함 전체나 하나의 앨범, 심지어 검색 결과도 가능합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "스마트 앨범 `.smartAlbumUserLibrary`로 `photoCollection`을 초기화하여 보관함에 있는 사진을 모두 포함할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "나만의 프로젝트에서 사진 보관함에 접근하려면 먼저 사진 보관함 기능을 추가해야 합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "[Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities)에서 더 자세한 내용을 알아보세요.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "사진 항목 가져오기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "사진 모음에 있는 각각의 항목은 사진 [항목](glossary://asset)으로 알려져 있습니다. 해당 항목을 가져오는 방법을 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "데이터 모델의 `photoCollection`에는 `photoAssets` 속성이 있어 배열을 사용할 때와 마찬가지로 사진 항목 모음을 사용할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "예를 들어, 다음과 같이 해당 인덱스를 사용하여 사진 항목을 가져올 수 있습니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "또는 모음에 있는 모든 사진을 다음과 같이 계산합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "또한 루프를 사용해 `photoAssets`의 항목을 [반복](glossary://iteration)할 수 있습니다. 갤러리를 만드는 데에 이 방법이 무척 유용함을 알게 될 것입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "`photoAssets`는 `PhotoCollection`의 [게시](glossary://published%20value)된 속성으로, [관찰 가능한 객체](glossary://observable%20object)임을 확인할 수 있습니다. 즉, 사진이 추가되거나 삭제되었을 때와 같은 사진 항목의 변화에 반응할 수 있다는 것입니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "사진 갤러리로 이동하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "사진 갤러리로 이동하는 방법을 알아보고 사진 보관함과 갤러리를 연결하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "카메라 보기에서 [탐색 링크](glossary://navigation%20link)를 사용해 사진 갤러리로 이동합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "탐색 링크는 버튼과 마찬가지라서 레이블과 아이콘도 부여할 수 있습니다. 이 버튼을 셔터 버튼 왼쪽에 배치합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "탐색 링크를 탭 또는 클릭하면 SwiftUI를 통해 다른 보기로 이동합니다. 이 경우에는 사진 갤러리를 표시하는 데 사용하는 사진 모음 보기로 이동합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "[NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack) 내의 탐색 링크를 사용하면 SwiftUI는 보기 표시를 관리하여 사용자가 여러 보기를 손쉽게 탐색할 수 있도록 합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "모델을 초기화할 때 모델의 `photoCollection`을 `PhotoCollectionView`로 전달하여 갤러리에 표시하려는 사진 모음을 제공합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "갤러리를 열면 뷰파인더가 더 이상 보이지 않으므로 계속 업데이트할 필요가 없습니다. 오히려 사진을 표시하는 기기 성능에 집중하는 것이 좋습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "카메라의 미리보기 스트림 활성화 시기를 제어하려면 탐색 링크의 [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) 제어자를 사용해 갤러리가 나타날 때 미리보기 스트림을 일시 정지하고, [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) 제어자를 사용해 카메라로 돌아갈 때 미리보기 스트림을 재개합니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "사진 갤러리 만들기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "사진을 스크롤 격자에 표시하는 방법을 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "`PhotoCollectionView`를 사용해 스크롤 격자에 사진을 표시하고 가장 최근의 사진은 상단에 배치합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "`PhotoCollectionView`를 생성할 때 `photoCollection` 속성은 모델의 `photoCollection`을 참조하여 초기화됩니다. 이는 사진 갤러리를 만드는 데 필요한 모든 데이터를 제공합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "`photoCollection`을 [관찰 가능한 객체](glossary://observed%20object)로 만듦으로써 SwiftUI는 모음의 [게시된 값](glossary://published%20value)에 있는 변경 사항에 따라 사진 모음 보기를 업데이트합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "게으른(lazy) 세로 격자([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid))를 사용하면 사진을 격자 레이아웃의 항목으로 표시할 수 있습니다. 레이아웃에서 세로 격자를 사용하므로 원하는 `columns`의 개수와 각각의 항목 간 `spacing`만 결정하면 됩니다. 격자는 열 개수가 정해진 후 세로로 확장되어 모든 사진을 표시할 수 있는 충분한 행이 추가됩니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "왜 게으르다고 할까요? 격자를 포함하는 보기보다 격자가 더 큰 경우, 해당 보기는 현재 보이는 항목만 표시하기 때문입니다. 이러한 ‘게으름’ 덕분에 특히 사진 격자를 스크롤할 때 앱 성능이 실제로 향상됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "격자에 정해진 개수의 열을 사용할 수 있지만, 더욱 [반응형](glossary://responsive)인 방법은 보기의 너비에 따라 집어넣을 수 있는 최대한의 열을 표시하는 것입니다. 이렇게 하면 다른 사람이 사용자 앱의 크기를 조절할 때 더 나은 사용자 경험을 얻을 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "보기의 너비에 맞춰 격자를 생성하려면 `adaptive` [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem)을 정의하고 유지하려는 크기와 간격을 지정하십시오.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "수백 장 혹은 수천 장의 사진이 있다고 생각해 보세요. 레이아웃이 유연해도 격자가 매우 커질 수 있습니다. 즉, 격자를 표시해야 하는 공간보다 격자가 훨씬 더 커질 수 있다는 것입니다!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "격자를 [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview) 내부에 배치해 스크롤할 수 있도록 하세요. 그러면 격자에 필요한 만큼 많은 행이 생기며, 사진을 위아래로 스크롤할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "격자 내부에서는 [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach)를 사용해 모음에 있는 사진 항목을 [반복](glossary://iteration)하고 각 항목의 보기를 생성합니다. 이러한 보기는 격자를 채웁니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "격자는 게으르기(lazy) 때문에 스크롤하면 [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach)는 보이는 사진 항목에서만 작동합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "각각의 격자 항목을 대상으로 [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink)를 생성하세요. 해당 격자 항목을 탭하거나 클릭하면 사진 항목으로 초기화된 [대상](glossary://destination%20view) `PhotoView`를 사용해 개별 사진을 실제 크기로 표시합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "`photoItemView(asset:)` 메소드는 사진 항목의 작은 이미지 축소판을 표시하는 보기를 생성합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "이 보기를 탐색 링크의 [레이블](glossary://label)로 사용하고 각각의 링크를 축소판 크기의 사진 이미지로 표시합니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "사진 표시하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "사진 보기가 사진을 로드하고 표시하는 방법을 알아보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "사진 한 장을 따로 표시하려면 `PhotoView`를 사용합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "사진 보기에서는 해당 사진에 요청한 고해상도 이미지를 표시합니다. 또한 사진을 즐겨찾는 항목으로 표시하거나 삭제하는 버튼도 오버레이로 표시됩니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "사진 보기에는 표시되는 사진의 `photoAsset` 속성이 있습니다. `PhotoView`를 초기화할 때 이 속성을 전달합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "이미지 캐시 참조를 보유하는`cache` 속성으로 보기를 초기화할 수도 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "사용자는 지정된 크기의 이미지를 이미지 캐시에 요청할 수 있습니다. 사진 항목으로부터 이미지를 로드한 후에 캐시는 사용자에게 다시 해당 이미지를 전달합니다. 이미지 캐시는 또한 최근에 요청된 이미지를 메모리에 보관하므로 사용자가 해당 이미지를 다시 요청할 경우 이를 다시 로드할 필요가 없습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "보기에는 이미지를 로드한 후 보유할 준비가 된 `image` [상태 속성](glossary://state%20value)이 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "사용자가 이를 값 없이 시작하도록 하려는 이유로 이는 [선택 사항](glossary://optional) 유형(`Image?`)입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "보기는 [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) 제어자를 사용하여, 보기가 로드될 때마다 [비동기식](glossary://asynchronous%20process)으로 일부 코드를 실행할 수 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "여기에서 코드를 추가하면 사진 항목의 캐시에 고해상도 이미지를 요청하고 원하는 크기를 지정할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "사용자는 또한 [클로저](glossary://closure)를 캐시에 제공합니다. 클로저에는 캐시에 `result`가 있을 때 호출할 수 있는 코드가 포함되어 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "결과 클로저는 캐시에서 하나 이상의 호출을 받습니다. 캐시에 이미 사용자가 요청한 이미지가 있으면 캐시는 곧바로 `result`에 이미지가 있는 상태에서 클로저를 호출합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "캐시에 요청된 이미지가 없으면 캐시는 사진 항목에서 이미지를 로드하고 캐시합니다. 이미지를 로드하는 동안 캐시는 먼저 저해상도 이미지로 클로저를 호출한 다음에 고해상도 이미지를 결과에 최종적으로 전달할 수도 있습니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "결과 클로저는 결과에서 이미지를 찾습니다. 이미지를 찾으면 결과 클로저는 `image` 속성을 업데이트합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "`image` 상태 속성을 만들었으므로 SwiftUI는 해당 값이 변경되면 보기를 업데이트합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "`image`가 값을 포함하면 해당 이미지를 [래핑 해제](glossary://unwrap)하고 보기에 표시합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "하지만 `image`에 값이 없는 경우 [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview)를 사용하여 바람개비를 [위치 지정자](glossary://placeholder%20view)로 표시할 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "아주 자세히 보세요. 캐시가 사진 항목에서 이미지를 로드하기 전, 보기가 처음 로드될 때 바람개비를 볼 수도 있습니다.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "고정 격자 사용하기";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "사진 갤러리에 다른 격자 스타일을 실험하세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "갤러리는 사진을 격자로 표시하며 각각의 사진은 고정된 크기의 정사각형으로 나타납니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "[GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) 배열을 반환하는 `columns` 속성을 사용해 이러한 배열을 정의합니다. 단일한 [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) 격자 항목을 사용하면 `LazyVGrid`가 사용 가능한 너비에 맞춰 가능한 한 많은 열을 집어넣는 것입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "하지만 그 대신에, 각각의 사진이 가능한 한 많은 공간을 차지하도록 하면서 정해진 개수의 열을 넣는다고 해 봅시다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "이를 수행하려면 사용자가 원하는 각각의 열에서 `columns` 배열이 [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) 격자 항목을 포함해야 합니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "`columns` 아래에서 `flexible` 격자 항목을 반환하는 `fixedColumns` 속성을 다음과 같이 정의하세요. 각 열당 하나씩 정의합니다.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "그런 다음, 게으른(lazy) 격자에 `columns` 대신`fixedColumns`를 다음과 같이 전달하세요.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "이제 사진 갤러리를 둘러보세요. 특히 보기의 크기를 조절할 때 어떤 차이가 생기는지 알아보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "예상대로 이제 두 개의 열이 있는 것을 확인할 수 있지만, 사진은 여전히 실제 크기입니다.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "신경 쓸 일이 한 가지 더 있답니다…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "사진 항목 보기를 만드는 함수의 이 코드 라인을 보세요. 잠시 시간을 가지고 어떤 문제가 있을지 생각해 보세요.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "그렇습니다. 각각의 사진에 고정된 [frame](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:)) 크기는 필요하지 않죠. 이제 보기의 너비와 격자에 있는 열의 개수가 이미지 크기를 결정합니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "각 사진이 가능한 한 많은 공간을 차지할 수 있도록 다음 줄을 표시된 대로 주석 처리해 보세요.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "사진 갤러리를 다시 열면 각각의 사진이 이제 열 너비를 채우는 것을 볼 수 있습니다.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "보기를 더 넓게 해 보세요. 어떤 일이 생기나요?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "새로운 고정 열을 잘 살펴보면 열 사이에 공간이 있지만 양쪽 가장자리는 그렇지 않은 것을 알 수 있습니다. 코드를 보면 그 이유를 알 수 있나요?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "보기의 여백을 변경해 여백이 수직만이 아닌 주위 전체에 표시되도록 하세요.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "다음의 심화 항목을 연습해 보세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "추가된 열에 더 많은 격자 항목을 추가하세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "`imageSize` 속성이 반환한 값을 변경해 고정 격자에 고해상도 이미지를 가져오세요.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "사진 항목 보기에 고정된 높이 대신 최대 높이인 `.frame(maxHeight: 400)`를 사용하세요.";
+

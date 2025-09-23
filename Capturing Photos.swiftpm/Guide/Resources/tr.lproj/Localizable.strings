@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Fotoğrafları Yakalama";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "Fotoğrafları Yakalama";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "Kendi uygulamanda kamerayla yapabileceğin heyecan verici şeyleri hayal et! Bu örnekte, bir kamera uygulamasının yapı taşlarını öğrenecek ve kamerayla ve fotoğraf arşiviyle çalışmak için SwiftUI becerilerini nasıl kullanacağını keşfedeceksin.";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "Fotoğrafları Yakalama";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "Fotoğrafları Yakalama’ya Hoş Geldin!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "Bir kamera uygulamasının yapması gereken önemli şeyleri düşün:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "Vizörde kameradan canlı videoyu görüntüleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "Deklanşör düğmesine dokunduğunda veya tıkladığında fotoğraf çekme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "Fotoğrafını kaydetme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "Daha önce çektiğin fotoğrafları tarama ve görüntüleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "Bunların tümünün nasıl yapılacağını ve daha fazlasını öğreneceksin. Uygulamanın kullandığı veri nesneleri hakkında bilgi edinecek ve bunlarla uygulamanın kullanıcı arayüzü arasındaki veri akışını nasıl yöneteceğini öğreneceksin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "Başlamadan önce, Uygulama Önizleme’yi seç ve kamera uygulamanı keşfetmek için biraz zaman ayırıp birkaç fotoğraf çek.";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "Kılavuzu Başlat";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "Düğme için erişilebilirlik açıklaması";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "Kamera Çıktısını Önizleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "Kameranın video çıktısı, ayrı ayrı görüntülerden oluşan sürekli bir akış (video kareleri) gönderir. Çekimini oluşturup fotoğrafını çekmeden önce kameranın neye baktığını tam olarak görebilmen için bunları bir vizörde görüntülersin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "Bunun nasıl çalıştığıyla ilgili daha fazlasını keşfet. 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "Kamerayı Kullanma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "Veri modelindeki kamera hakkında bilgi edin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "Veri modelinde, aygıtının kullanabileceği fiziksel kameralardan (veya yakalama aygıtlarından) birini temsil eden bir `camera` özelliği vardır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "Aygıtının birçok yakalama aygıtına (örneğin iPad’deki ön ve arka kamera) erişimi olabilir ve kameranın `switchCaptureDevice()` metodunu kullanarak bunların arasında geçiş yapabilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "Yakalama aygıtları hakkında daha fazla bilgiyi [Yakalama Aygıtı Seçme](doc://com.apple.documentation/documentation/avfoundation/cameras_and_media_capture) bölümünde bulabilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "Kamerayı kullanmaya başlamak için `start()` metodunu çağırırsın:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "Aygıt kamerasını veya kameralarını kendi projende kullanabilmen için Kamera yeteneğini eklemen gerekir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "[Projen için yeteneklere erişim isteme](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities) bölümünde daha fazla bilgi edinebilirsin.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "Önizleme Yayınını Keşfetme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "Kamerandaki önizleme görüntülerinin akışı hakkında bilgi edin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "Kameranın `start()` metodu çağrıldıktan sonra video çıktısı saniyede 60 kareye kadar olan hızlarda düşük çözünürlüklü önizleme görüntülerinden (video karelerinden) oluşan bir yayın üretir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "Bu önizleme görüntülerini kameranın `previewStream` özelliği yoluyla [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) (Core Image) nesnelerinin [eşzamansız yayını](glossary://asynchronous%20stream) olarak alırsın.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "Önizleme Yayınını İşleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "Vizörde görüntülenmeye hazır olması için önizleme yayınını nasıl işleyeceğini öğren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[Veri modelinin](glossary://data%20model) `handleCameraPreviews` fonksiyonunu kullanarak kameradan önizleme görüntülerinin [yayınını](glossary://asynchronous%20stream) işlemeye adanmış bir [görevi](glossary://task).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "Swift’in standart kitaplığında [görevler](doc://com.apple.documentation/documentation/swift/task) hakkında daha fazla bilgi edinebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "`handleCameraPreviews`’da, [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) nesnelerinin önizleme yayınını kameradan görüntülenmeye hazır bir [Resim](doc://com.apple.documentation/documentation/swiftui/image) görüntüleri yayınına dönüştür.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream), zaman aralıklarıyla üretilen değerler akışıdır. Bu değerler bir [diziliş](glossary://sequence) oluşturur ama diziliş değerleri eşzamansız olarak ulaşır ([AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence). Diğer değer dizilişleriyle (örneğin bir [dizi](glossary://array)) yapabildiklerinin pek çoğunu aynı şekilde yapabilirsin).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "Bu durumda, `CIImage`’ın `image` özellik genişletmesini kullanarak her bir öğeyi (`$0`) bir [Görüntü](doc://com.apple.documentation/documentation/swiftui/image) örneğine dönüştürmek için yayının [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) fonksiyonunu kullanırsın. Bu, [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) örnekleri yayınını [Görüntü](doc://com.apple.documentation/documentation/swiftui/image) örnekleri yayınına dönüştürür.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "`for`-`await` döngüsü, dönüştürülmüş `imageStream`’inle bir şey yapmadan önce tüm görüntüleri bekler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "[Swift Programlama Dili Kılavuzu’nda](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences) eşzamansız dizilişlerle çalışma hakkında daha fazla bilgi edin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "Veri modelinin `viewfinderImage` özelliğini güncellemek için önizleme yayınındaki resmi kullanırsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI, bu özelliği kullanan görüntülerin `viewfinderImage` değeri değiştiğinde güncellendiğinden emin olur.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "Önizleme Yayınını Görüntüleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "Vizör görüntünü işlenen önizleme yayınına nasıl bağlayabileceğini gör.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView`’unda kameradan canlı video görüntülemek için kullandığı bir `ViewfinderView` vardır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "Modelin `viewfinderImage` özelliğini `ViewfinderView`’una [bağlayarak](glossary://binding) görüntünün her yeni önizleme görüntüsü alışında vizörün güncellenmesini sağlarsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "Önizleme görüntüsü saniyede pek çok kez güncellendiğinden gözlerin onu vizörde canlı video olarak görür.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "Vizörü Döndürme veya Bulanıklaştırma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "Önizleme yayınındaki görüntüleri döndürerek veya bulanıklaştırarak denemeler yap.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "`handleCameraPreviews` metodun kameranın [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) örneklerini önizleme [akışını](glossary://asynchronous%20stream) `ViewfinderView`’ında görüntülenmeye hazır olan bir [Resim](doc://com.apple.documentation/documentation/swiftui/image) görüntüleri akışına eşler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "Bu, önizleme görüntülerini bir [Resim](doc://com.apple.documentation/documentation/swiftui/image) görüntüsüne eşlemeden önce bunlara başka yararlı şeyler yapmak için harika bir yerdir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "Diyelim ki görüntüyü yan ya da baş aşağı çevirmek istiyorsun. Onun [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented) metodunu çağırabilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "`imageStream` tanımında, bu kod satırını `.map { $0.image }` öğesinin üstüne ekle:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "Burada, akıştaki her bir öğe (`$0`) için `oriented(.left)` fonksiyonunu çağırarak görüntü akışını döndürülen görüntü akışına dönüştürmek üzere `map`’i kullanıyorsun.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "Belki de önizleme görüntülerini biraz bulanıklaştırmak istersin?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "Bu kodu `.map { $0.image }` öğesinin üstüne ekleyerek görüntülere başka bir işlem uygula:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "Bir `map` işlemi ardından başka bir tanesini [akışa](glossary://asynchronous%20stream) uyguluyor ya da işlemleri [bağlıyorsun](glossary://chaining). Aslında, istediğin kadar çok işlemi birbirine bağlayabilirsin. Örneğin aşağıdaki kod, bir önceki akıştan girdiyi alır, görüntüleri döndürür, bulanıklaştırır ve son olarak da onları bir `Image` akışına dönüştürür.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "Biraz deneme yap!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "Farklı yön seçeneklerini dene; örneğin yönü `.down` olarak değiştirdiğinde ne olur?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "Farklı bulanıklık değerlerini dene.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage), görüntüleri dönüştürmeye yönelik pek çok yararlı metot içerir.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "Fotoğraf Yakalama ve Kaydetme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "Gülümse! Klik! Fotoğraf çekerken art arda pek çok şey olur. 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "Deklanşör düğmesine dokunma veya tıklama anından itibaren fotoğrafın fotoğraf arşivinde görünmesine kadar neler olacağını incelemek için eylemi izle.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "Deklanşör Düğmesine Yanıt Verme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "Deklanşör düğmesi eylemini nasıl işleyeceğini öğren ve kameradan fotoğraf çekmesini iste.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "Kamera görüntündeki deklanşör düğmesine dokunduğunda veya tıkladığında bir şeyler olmaya başlar!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "Düğme eyleme geçer, modelin `camera` nesnesini alır, sonra onun `takePhoto()` metodunu çağırır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "Nasıl fotoğraf çekildiğini öğrenmek için devam et!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "Fotoğraf Yakalama";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "Fotoğraf çektiğinde, kamera sensöründen resim verilerini yakalar. Bunu nasıl başlatacağını öğren ve sonuçta yakalanan fotoğrafı işle.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "Fotoğraf çekerken olabilecek en yüksek çözünürlüğe sahip bir görüntü yakalamak istersin. Bu, vizördeki önizlemelerin hızlı bir şekilde güncellenmesine yardımcı olması için çözünürlüğü daha düşük tutulan önizleme görüntüleriyle çelişir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "Kameranda, `takePhoto()` metodunu vizörde gördüklerinin yüksek çözünürlüklü görüntülerini yakalamak için kullanan özel bir fotoğraf çıktısı vardır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "Fotoğrafı yakalamak için fotoğraf çıktısını isteyerek gerçek fotoğraf çekme işine başlarsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "Her şey yolunda giderse tam bu anda senin ve yakındaki kişilerin bir fotoğraf çektiğini öğrenmenizi sağlayacak, tekrarlayan bir deklanşör sesi duyarsın.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "`capturePhoto`\'nun neden yalnızca fotoğraf döndürmediğini merak ediyor olabilirsin. Bunun nedeni, fotoğraf yakalamanın zaman almasıdır: Kameranın odaklanması veya flaşı beklemesi gerekebilir, sonra da pozlama süresi gelir. `capturePhoto`, yakalanan fotoğrafın genellikle sen deklanşör düğmesine dokunduktan veya tıkladıktan kısa bir süre sonra ulaştığı [eşzamansız](glossary://asynchronous%20process) bir metottur.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "Fotoğraf yakalama tamamlandıktan sonra kamera nesnendeki başka bir metoda [geri çağırma](glossary://callback) alırsın: `photoOutput(_:didFinishProcessingPhoto:error:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "İlk argümanı, yakalanan fotoğrafı bir [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) örneği olarak alır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "Yakalanan fotoğraf artık elinde olduğuna göre bunu kameranın fotoğraf yayınına ekle. Böylece, uygulamanda fotoğraf bekleyen tüm nesneler (veri modeli gibi) tarafından kullanılabilir.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "Fotoğrafı İşleme ve Kaydetme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "Yakalanan bir fotoğrafı nasıl açacağını ve fotoğraf arşivine kaydedeceğini keşfet.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "Veri modelin yeni yakalanan fotoğrafları sabırla bekliyor.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "Tıpkı önizleme görüntülerinde olduğu gibi, `handleCameraPhotos` metodunu kullanarak kameradan yakalanan fotoğraf yayınını işlemeye adanmış bir [görevi](glossary://task) vardır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "Swift’in standart kitaplığında [görevler](doc://com.apple.documentation/documentation/swift/task) hakkında daha fazla bilgi edinebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "Kameranın `photoStream`’indeki her [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) öğesi farklı çözünürlüklerde pek çok görüntünün yanı sıra görüntüyle ilgili büyüklüğü ve görüntünün çekildiği tarih ve saat gibi diğer [üst verileri](glossary://metadata) içerir. İstediğin görüntüleri ve üst verileri almak için bunu açman gerekir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "`handleCameraPhotos`’da yapacağın ilk şey `photoStream`’i, içindeki her öğenin istediğin verileri içeren `PhotoData` yapısının bir örneği olduğu daha yararlı bir `unpackedPhotoStream`’e dönüştürmektir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "`photoStream` paketini açmak için çekilen bir fotoğrafı alıp şunları içeren bir `PhotoData` örneği döndüren `unpackPhoto(_:)` fonksiyonunu kullanacaksın:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "[Görüntü](doc://com.apple.documentation/documentation/swiftui/image) olarak düşük çözünürlüklü bir görüntü küçük resmi";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "görüntü küçük resminin büyüklüğü";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "[Veri](doc://com.apple.documentation/documentation/foundation/data) olarak yüksek çözünürlüklü bir görüntü";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "yüksek çözünürlüklü görüntünün büyüklüğü";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "[Eşzamansız yayın](glossary://asynchronous%20stream) olarak `photoStream`\'in bir [Diziliş](doc://com.apple.documentation/documentation/swift/sequence) öğesine çok benzediğini anımsayacaksın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "Akıştaki her fotoğraf (`$0`) için `unpackPhoto(_:)`’yu çağırarak [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) metodunu kullanabilirsin. Bu, [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) örneklerinin akışını çok daha yararlı bir `PhotoData` örnekleri akışına dönüştürür.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "`for`-`await` döngüsü artık bir `photoData` öğesini işlemeden önce öğenin açılmış yayına ulaşmasını bekler.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "Modelinin `thumbnailImage` özelliğini güncellemek için `photoData`’daki küçük resim görüntüsünü kullanırsın.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "`photoData`’daki görüntü verisini fotoğraf arşivine yeni bir fotoğraf olarak kaydetmek için modelinin `savePhoto(imageData:)` metodunu çağır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "`savePhoto(imageData:)` metodu bir [görev](glossary://task) yaratır ve asıl iş olan fotoğraf verilerini `photoCollection` nesnesine kaydetme işini `addImage(_:)` metodunu çağırarak ona iletir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "Sorun değil! Veri modelinin işi, uygulamadaki veri nesneleri arasında veri akışını koordine etmektir.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "Gecikmeli Deklanşör Ekleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "Deklanşör düğmesine bir gecikme ekleyerek kameranla deneme yap.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "Kamerayı tripod gibi bir yere koyduğunu, düğmeye dokunduğunu veya tıkladığını ve fotoğraf çekilmeden önce koşup kareye girebilecek kadar zamanın olduğunu hayal et!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "Bunu yapmak için deklanşör düğmesine dokunduktan veya tıkladıktan sonra, kamera fotoğrafı çekmeden önce kısa bir gecikme eklemen gerekecek.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "Deklanşör düğmesi eylemini işlemeye yönelik koduna bak ve bunu nasıl uygulayabileceğini düşün.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "Hızlıca bir plan yapacaksın:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "Fotoğrafı çekene kadar saniyeleri geri saymak için bir [durum özelliği](glossary://state%20value) (`delayCount`) ekle.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "Deklanşör düğmesine dokunduğunda veya tıkladığında, `delayCount`’u kameranın fotoğrafı çekmeden önce beklemesini istediğin saniye sayısına ayarla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "`delayCount`’u saniyede bir kez [azaltmak](glossary://decrement) için bir [Sayaç](doc://com.apple.documentation/documentation/foundation/timer) zamanla.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "`delayCount` sıfıra ulaştığında sayacı durdur ve aynı anda kameraya bir fotoğraf çekmesini söyle.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "Öncelikle, `body` özelliğinin üstünde, ilk değerini sıfır olarak ayarlayarak `CameraView`’ın üstündeki `delayCount` [durum özelliğini](glossary://state%20value) tanımla.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "İpucu: Bunu `CameraView` içinde yalnızca sen kullandığın için gizli (`private`) tut. Bu, yalnızca bir tip içinde kullanmayı planladığın herhangi bir tanım için iyi bir uygulamadır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "Sonra, deklanşör [Düğme](doc://com.apple.documentation/documentation/swiftui/button) işleyicinde, düğmeye dokunduğunda veya tıkladığında hemen fotoğraf çeken kod satırını [dışarıda bırak](glossary://comment%20out).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "Bunun yerine sayaç işleyicinin içindeki `takePhoto()`’yu çağıracaksın.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "Sonra, `delayCount` değişkenini geri saymak istediğin saniye sayısına (`5` saniye gibi) ayarla.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "`delayCount` atamanın altına saniyede bir kez yinelenecek zamanlanmış bir [Sayaç](doc://com.apple.documentation/documentation/foundation/timer) ekle. Sayacın bittiğinde, [kapamanın](glossary://closure) içine koyduğun kod çağrılır ve `delayCount` [azaltılır](glossary://decrement).";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "Şimdi de sayaç kapamanda son adım olarak, `delayCount` sıfıra ulaştığında sayacı durdur ve kameraya fotoğraf çekme yönergesini ver.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "Aşağıdaki kodu sayaç kapamandaki `delayCount -= 1` satırından sonra ekle:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "Sayacın [geçersizleştirme](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) metodunu çağırdığında sayaç durur, işi biter!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "Şimdi düğme işleyicin aşağıdaki kod gibi görünmelidir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "Kodunu dikkatlice denetledikten sonra deklanşör düğmesine dokun veya tıkla ve bekle!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "İpucu: Bazen kodunda gerçekte neler olduğunu merak ediyor musun, özellikle de beklediklerini yapmıyorsa?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "Kodun yararlı bilgileri [konsola](glossary://console) yazarak yaptıklarını sana tam olarak söylemesini sağlamak için bir `print` ifadesi ekleyebilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "Sayaç kapamanın içine bu satırı eklemeyi dene:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "Konsolu aç, sonra gecikmeli bir fotoğraf çekmek için deklanşör düğmesine dokun veya tıkla.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "Gecikmeli deklanşör düğmenden çok memnunsun, değil mi? Peki, biraz süsleyelim o zaman! ✨ Geri sayımın tam düğmede görüntülenmesini sağlayabilirsin!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "Deklanşör düğmesinin simgesini bul: iki [Daire](doc://com.apple.documentation/documentation/swiftui/circle) görüntüsü ile bir [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack). [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack)’in içinde ve ikinci [Daire](doc://com.apple.documentation/documentation/swiftui/circle)’den sonra şu kodu ekle:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "Şimdi, deklanşör düğmesine dokun veya tıkla. Fotoğraf çekilmeden önce saniyelerin geri sayımını izle.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "Fotoğraflarına Göz Atma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "Fotoğraf çekmeyi sever misin? Çoğumuz severiz ve bir bakmışsın arşivinde yüzlerce veya binlerce fotoğraf birikmiş. 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "Fotoğraflarını, fotoğraf arşivinden alınıp göz atabileceğin bir kaydırılan galeride görüntülenene kadar izle.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "Fotoğraf Koleksiyonunu Kullanma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "Veri modelindeki fotoğraf koleksiyonu ve galerin için nasıl fotoğraf sağlayacağı hakkında bilgi edin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "Veri modelinde, fotoğraf arşivindeki herhangi bir öğe koleksiyonunu temsil edebilecek bir `photoCollection` özelliği vardır. Bu tüm fotoğraf arşivin, yalnızca bir albüm ya da hatta bir aramanın sonuçları da olabilir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "`photoCollection`’a bir `.smartAlbumUserLibrary` akıllı albümü ile ilk değer atayarak arşivindeki tüm fotoğrafları dahil edebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "Kendi projende fotoğraf arşivine erişmeden önce Fotoğraf Arşivi yeteneğini eklemen gerektiğini unutma.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "[Projen için yeteneklere erişim isteme](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities) bölümünde daha fazla bilgi edinebilirsin.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "Fotoğraf Öğelerini Alma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "Fotoğraf koleksiyonundaki her öğe bir fotoğraf [öğesi](glossary://asset) olarak bilinir. Bu öğelerin nasıl alınacağını öğren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "Veri modelinin `photoCollection`’ında tıpkı bir dizide yapacağın gibi fotoğraf öğeleri koleksiyonunun kullanılmasına izin veren bir `photoAssets` özelliği bulunur.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "Örneğin, bir fotoğraf öğesini indeksini kullanarak alabilirsin:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "Koleksiyonundaki tüm fotoğrafları da sayabilirsin:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "Ayrıca, bir Döngü kullanarak `photoAssets`’teki öğelerin [üzerinden tekrarlayabilirsin](glossary://iteration). Bu, galerini oluşturman için son derece yararlı olacak.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "`photoAssets`\'in [gözlemlenebilir nesne](glossary://observable%20object) olan `PhotoCollection`’ın [yayımlanan](glossary://published%20value) özelliği olduğunu fark edeceksin. Bu, örneğin fotoğraf eklendiğinde veya silindiğinde, fotoğraf öğelerindeki değişikliklere yanıt verebileceğin anlamına gelir.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "Fotoğraf Galerisi’ne Gitme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "Fotoğraf galerisine nasıl gideceğini ve onu fotoğraf arşivine bağlayacağını öğren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "Kamera görüntünde, fotoğraf galerine gitmek için bir [dolaşma bağlantısı](glossary://navigation%20link) kullan.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "Dolaşma bağlantısı tıpkı bir düğme gibidir, hatta ona bir etiket ve simge verebilirsin. Bu düğmeyi deklanşör düğmesinin soluna yerleştirebilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "Bir dolaşma bağlantısına dokunduğunda veya tıkladığında SwiftUI, seni fotoğraf galerini göstermek için kullandığın başka bir görüntüye götürür (bu durumda fotoğraf koleksiyonu görüntüsü).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "Bir [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack) içinde dolaşma bağlantılarını kullanırsan SwiftUI, görüntülerinin gösterimini bunlar arasında kolayca dolaşabileceğin şekilde yönetir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "Modelinin `photoCollection`’ını ilk değer atarken `PhotoCollectionView`’a geçirerek galerinde görüntülemek istediğin fotoğraf koleksiyonunu sağlarsın.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "Galeriyi açtığında artık vizörü görmezsin, bu nedenle güncellemeyi sürdürmeye gerek yok. Bunun yerine, aygıtın fotoğraflarını görüntüleme performansına yoğunlaşabilirsin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "Kameranın önizleme yayınının ne zaman etkin olacağını denetlemek istiyorsan galeri göründüğünde duraklatmak için dolaşma bağlantısının [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) niteleyicisini ve kameraya geri döndüğünde yeniden sürdürmek için [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) niteleyicisini kullan.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "Fotoğraf Galerisi’ni Oluşturma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "Fotoğraflarını kaydırılan bir kareli alanda nasıl görüntüleyeceğini keşfet.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "Fotoğraflarını kayan bir kareli alanda, en son fotoğraflar en üstte olacak şekilde göstermek için `PhotoCollectionView` kullanırsın.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "`PhotoCollectionView`’unu yaratırken `photoCollection` özelliği modelinin `photoCollection` referansı ile ilk değer atar. Fotoğraf galerini oluşturmak için gereken tüm verileri sağlar.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "SwiftUI, `photoCollection`\'ı [gözlemlenebilir nesne](glossary://observed%20object) hâline getirerek fotoğraf koleksiyonu görüntünü koleksiyonun [yayımlanan değerlerindeki](glossary://published%20value) değişikliklere yanıt olarak günceller.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "Fotoğraflarını ızgara yerleşimindeki öğeler olarak görüntülemek için tembel bir düşey ızgara ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)) kullanırsın. Yerleşim düşey bir ızgara kullandığından yalnızca kaç tane `columns` istediğine ve her öğenin arasındaki `spacing`’e karar vermen gerekir. Izgarada bu sayıda sütun olduktan sonra ızgara, fotoğraflarının tamamını görüntülemeye yetecek sayıda satır eklemek için düşey olarak genişler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "Neden tembel? Şöyle ki; ızgara, kendisini içeren görüntüden büyükse görüntü yalnızca o anda görünür olan öğeleri gösterir. Bu “tembellik” aslında uygulamanın performansını artırır, özellikle de fotoğraf ızgarası boyunca kaydırırken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "Izgaranda sabit sayıda sütun kullanabilirdin ancak görüntünün genişliğine bağlı olarak görüntüleyebildiğin kadar çok sütun görüntülemek daha [yanıt verici](glossary://responsive) bir yaklaşımdır. Bu, kişiler uygulamanın büyüklüğünü değiştirdikçe daha iyi bir deneyim yaratır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "Görüntünün genişliğine uyan bir ızgara yaratmak için bir `adaptive` [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) tanımla ve korunmasını istediğin büyüklüğü ve boşluğu belirt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "Yüzlerce veya binlerce fotoğrafın olduğunu hayal et. Uyarlanabilir yerleşimle bile ızgaran çok uzun, hatta görüntülemek için kullanabileceğin alandan çok daha uzun hâle gelebilir!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "Izgaranı bir [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview) içine yerleştirerek kaydırılabilir hâle getir. Bu, ızgaranın gerektiği kadar çok satıra sahip olmasını sağlar, sen de fotoğrafların genelinde yukarı ve aşağı kaydırabilirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "Izgaranın içinde, koleksiyonundaki fotoğraf öğelerinde [tekrarlamak](glossary://iteration) ve her bir öğe için görüntü oluşturmak amacıyla [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) kullan. Bu görüntüler ızgaranı doldurur.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "Izgaran tembel olduğu için sen kaydırdıkça [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) yalnızca görünür fotoğraf öğelerinde çalışır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "Dokunulduğunda veya tıklandığında bir fotoğrafı fotoğraf öğesi ile ilk değer atanan `PhotoView` [hedefini](glossary://destination%20view) kullanarak tek başına tam büyüklükte görüntüleyen her bir ızgara öğesi için bir [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) yarat.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "`photoItemView(asset:)` metodu, fotoğraf öğesi için görüntü küçük resmi gösteren bir görüntü yaratır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "Bu görüntüyü, her bağlantıyı fotoğrafın küçük resim boyutundaki görüntüsü olarak gösteren dolaşma bağlantısı için [etiket](glossary://label) olarak kullanacaksın.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "Fotoğrafı Görüntüleme";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "Fotoğraf görüntüsünün nasıl yükleneceğini ve fotoğrafını görüntüleyeceğini öğren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "İş fotoğrafı kendi başına görüntülemeye geldiğinde `PhotoView`’u kullanacaksın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "Fotoğraf görüntünde, fotoğraftan istediğin yüksek çözünürlüklü bir görüntü gösterirsin. Fotoğrafı favorilere eklemeye veya silmeye yönelik düğmeler içeren bir katmanın da vardır.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "Fotoğraf görüntünde, gösterdiği fotoğraf için bir `photoAsset` özelliği bulunur. `PhotoView`’a ilk değer atadığında bunu geçirirsin.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "Ayrıca, resim önbelleğinin referansını tutan bir `cache` özelliği ile görüntüye ilk değer atarsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "Resim önbelleğinden belirtilen büyüklükte bir resim isteyebilirsin. Fotoğraf öğesinden resmi yükledikten sonra önbellek bunu yeniden sana iletir. Resim önbelleği son istenen resimleri de bellekte tutar, böylece yeniden istediğinde onları yeniden yüklemesi gerekmez.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "Görüntünde, yüklendikten sonra resmi tutmaya hazır olan bir `image` [durum özelliği](glossary://state%20value) vardır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "Hiçbir değer olmadan başlamak istediğin için [isteğe bağlı](glossary://optional) bir tiptir (`Image?`).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "Bir görüntü kendi [görev(öncelik:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) niteleyicisini görüntü her yüklendiğinde bazı kodları [eşzamansız olarak](glossary://asynchronous%20process) çalıştırmak için kullanabilir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "Burası, istediğin büyüklüğü belirterek fotoğraf öğesi için önbellekten yüksek çözünürlüklü bir resim istemek için kod ekleyeceğin yerdir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "Ayrıca, önbelleğe bir sonucu (`result`) olduğunda çağırabileceği kodu içeren bir [kapama](glossary://closure) da sunarsın.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "Sonuç kapaman, önbellekten bir veya birden fazla çağrı alır. Önbellek istediğin görüntüyü zaten içeriyorsa sonucundaki (`result`) görüntü ile hemen kapamanı çağırır.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "İstenen görüntü önbellekte yoksa fotoğraf öğesinden yüklenip önbelleğe alınır. Görüntü yüklenirken önbellek önce düşük çözünürlüklü bir görüntüye sahip kapamanı çağırıp ondan sonra yüksek çözünürlüklü görüntüyü sonuç (`result`) olarak sunabilir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "Sonuç kapaman, sonuçta bir görüntü arar. Bulursa, `image` özelliğini günceller.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "`image`’ı bir durum özelliği yaptığın için değeri değiştiğinde SwiftUI görüntünü günceller.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "`image` bir değer içeriyorsa resmi [aç](glossary://unwrap) ve görüntünde göster.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "Ancak `image`’de bir değer yoksa [yer tutucu](glossary://placeholder%20view) olarak dönen daire görüntülemek için bir [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) kullanırsın.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "Çok dikkatli bak, önbelleğin fotoğraf öğesinden görüntüyü yüklemeye fırsatı olmadan, görüntün ilk yüklendiğinde bu dönen daireyi görebilirsin.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "Sabit Kareli Alan Kullanma";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "Fotoğraf galerindeki alternatif kareli alan stilleriyle deneme yap.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "Galerin, her fotoğrafın sabit büyüklükte bir karede olduğu kareli alandaki fotoğrafları görüntüler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "[GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) dizisini döndüren `columns` özelliğini kullanarak bu yerleşimi tanımlarsın. Tek bir [uyarlanabilir(minimum:maksimum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) ızgara öğesi kullanmak, `LazyVGrid`’inin uygun genişliğe uyum sağlayarak olabildiğince çok sayıda sütun sığdıracağı anlamına gelir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "Ancak bunun yerine, her fotoğrafın mümkün olabildiğince fazla yer kapladığı, sabit sayıda sütun istediğini varsayalım.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "Bunu yapmak için `columns` dizisinin istediğin her bir sütun için [esnek(minimum:maksimum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) bir ızgara öğesi içermesi gerekir.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "`columns`’ın altında, her bir sütun için bir tane olacak şekilde `flexible` kareli alan öğeleri dizisini döndüren bir `fixedColumns` özelliğini tanımla:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "`columns` yerine ise, `fixedColumns` öğesini tembel kareli alanına şu şekilde geçir:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "Şimdi, fotoğraf galerine göz at ve özellikle görüntünün büyüklüğünü değiştirdiğinde bunun nasıl bir fark yarattığını gör.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "Artık beklediğin gibi iki sütun olduğunu fark edeceksin ama fotoğraflar hâlâ özgün büyüklüklerinde.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "Bir şeyle daha ilgilenmen gerekiyor…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "Fotoğraf öğesi görüntünü oluşturan fonksiyondaki bu kod satırına bak. Biraz dur ve sorunun ne olabileceğini düşün.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "Evet, artık her fotoğraf için sabit bir [çerçeve](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:)) büyüklüğü istemiyorsun. Bunun yerine, görüntü büyüklüğünü görüntünün genişliği ve ızgaradaki sütun sayısı belirler.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "Aşağıdaki satırı gösterildiği şekilde dışarıda bırak, böylece her fotoğraf mümkün olabildiğince fazla yer kaplayabilir:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "Fotoğraf galerini yeniden aç, her bir fotoğrafın artık sütun genişliğini doldurduğunu göreceksin.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "Görüntünü daha geniş hâle getirmeyi dene. Ne olduğunu fark ettin?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "Yeni sabit sütunlarına dikkatle bak, aralarında boşluk olduğunu ancak iki yanlarda olmadığını fark edeceksin. Koda baktığında nedenini görebiliyor musun?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "Yalnızca düşey yerine her yerde olması için görüntünün boşluğunu değiştir:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "Daha fazla denenebilecekler şu şekildedir:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "Ek sütunlar için daha fazla kareli alan öğesi ekle.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "Sabit kareli alanın için daha yüksek çözünürlüklü görüntüler elde etmek için `imageSize` özelliğin tarafından döndürülen değeri değiştir.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "Fotoğraf öğesi görüntün için sabit bir yükseklik yerine maksimum yüksekliği kullan: `.frame(maxHeight: 400)`.";
+

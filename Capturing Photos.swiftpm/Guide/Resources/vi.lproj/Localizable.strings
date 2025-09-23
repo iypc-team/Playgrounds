@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Chụp ảnh";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "Chụp ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "Hãy tưởng tượng những việc phấn khích mà bạn có thể thực hiện với camera trong ứng dụng của riêng mình! Trong mẫu này, bạn khám phá quá trình xây dựng một ứng dụng camera và khám phá cách mà bạn có thể sử dụng các kỹ năng SwiftUI để làm việc với camera và thư viện ảnh.";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "Chụp ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "Chào mừng đến Chụp ảnh!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "Hãy nghĩ về những thứ thiết yếu mà một ứng dụng camera cần thực hiện:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "Hiển thị video trực tiếp từ camera trong kính ngắm";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "Chụp ảnh khi bạn chạm hoặc bấm vào nút chụp";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "Lưu ảnh của bạn";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "Duyệt và xem ảnh mà bạn đã chụp";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "Bạn sẽ tìm hiểu cách thực hiện tất cả những việc này — và nhiều hơn nữa. Bạn sẽ tìm hiểu về các đối tượng dữ liệu mà ứng dụng sử dụng, cũng như cách quản lý luồng dữ liệu giữa chúng và giao diện người dùng của ứng dụng.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "Trước khi bạn bắt đầu, hãy chọn Bản xem trước ứng dụng và dành thời gian để khám phá ứng dụng camera và chụp một vài bức ảnh.";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "Bắt đầu hướng dẫn";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "Mô tả AX cho nút";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "Xem trước Đầu ra camera";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "Đầu ra video của camera gửi một luồng liên tục gồm các hình ảnh riêng lẻ (khung hình video). Bạn hiển thị những hình ảnh này trong một kính ngắm để có thể nhìn thấy chính xác những gì mà camera đang hướng vào trước khi tạo bố cục bức ảnh và chụp ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "Khám phá thêm về cách thức hoạt động. 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "Sử dụng Camera";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "Tìm hiểu thêm về camera trong mô hình dữ liệu của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "Mô hình dữ liệu của bạn có một thuộc tính `camera` biểu thị một trong các camera thực — hoặc thiết bị chụp ảnh — khả dụng với thiết bị của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "Thiết bị của bạn có thể có quyền truy cập vào một số thiết bị ghi — ví dụ: camera mặt trước và mặt sau trên iPad — và bạn có thể chuyển đổi giữa chúng này bằng phương thức `switchCaptureDevice()` của camera.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "Tìm hiểu thêm về các thiết bị chụp ảnh trong [Chọn một thiết bị ghi](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "Để bắt đầu sử dụng camera, bạn gọi phương thức `start()`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "Lưu ý rằng trước khi bạn có thể sử dụng (các) camera của thiết bị trong dự án của riêng mình, bạn phải thêm khả năng Camera.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "Tìm hiểu thêm trong [Yêu cầu quyền truy cập vào các khả năng cho dự án của bạn](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "Khám phá Luồng xem trước";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "Tìm hiểu về luồng hình ảnh xem trước từ camera của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "Sau khi gọi phương thức `start()` của camera, đầu ra video tạo ra một luồng hình ảnh xem trước (khung hình video) độ phân giải thấp, ở tốc độ tối đa là 60 khung hình/giây.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "Bạn nhận được những hình ảnh xem trước này thông qua thuộc tính `previewStream` của camera, dưới dạng một [luồng không đồng bộ](glossary://asynchronous%20stream) gồm các đối tượng [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) (Core Image).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "Xử lý Luồng xem trước";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "Tìm hiểu cách xử lý luồng xem trước sao cho luồng đó sẵn sàng để hiển thị trong kính ngắm.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "[Mô hình dữ liệu](glossary://data%20model) của bạn có một [tác vụ](glossary://task) chuyên biệt để xử lý [luồng](glossary://asynchronous%20stream) hình ảnh xem trước từ camera, sử dụng hàm `handleCameraPreviews`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "Bạn có thể tìm hiểu thêm về [tác vụ](doc://com.apple.documentation/documentation/swift/task) trong thư viện Swift tiêu chuẩn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "Trong `handleCameraPreviews`, biến luồng xem trước của các đối tượng [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) từ camera thành một luồng các chế độ xem [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image), sẵn sàng để hiển thị.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "[AsyncStream](doc://com.apple.documentation/documentation/swift/asyncstream) là một luồng các giá trị được tạo ra vào các khoảng thời gian. Các giá trị tạo thành một [trình tự](glossary://sequence), nhưng với các giá trị xuất hiện không đồng bộ — một [AsyncSequence](doc://com.apple.documentation/documentation/swift/asyncsequence). Bạn có thể thực hiện nhiều việc giống như những gì bạn có thể làm với bất kỳ trình tự giá trị nào, ví dụ như với một [dãy](glossary://array).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "Trong trường hợp này, bạn sử dụng hàm [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) của luồng để chuyển đổi từng phần tử — `$0` — thành một thể hiện [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image) bằng một phần mở rộng thuộc tính `image` của `CIImage`. Việc này biến đổi luồng gồm các thể hiện [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) thành một luồng gồm các thể hiện [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "Vòng lặp `for`-`await` đợi từng hình ảnh trong `imageStream` được biến đổi của bạn trước khi thực hiện tác vụ nào đó.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "Tìm hiểu thêm về cách làm việc với các trình tự không đồng bộ trong [Hướng dẫn ngôn ngữ lập trình Swift](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "Bạn sử dụng hình ảnh từ luồng xem trước để cập nhật thuộc tính `viewfinderImage` của mô hình dữ liệu.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI đảm bảo rằng bất kỳ chế độ xem nào sử dụng thuộc tính này đều được cập nhật khi giá trị `viewfinderImage` thay đổi.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "Xem Luồng xem trước";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "Xem cách bạn có thể kết nối chế độ xem kính ngắm với luồng xem trước được xử lý.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "`CameraView` của bạn có một `ViewfinderView` được sử dụng để hiển thị video trực tiếp từ camera.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "Bằng việc [ràng buộc](glossary://binding) thuộc tính `viewfinderImage` của mô hình với `ViewfinderView`, bạn đảm bảo rằng kính ngắm cập nhật bất kỳ lúc nào chế độ xem nhận được một hình ảnh xem trước mới.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "Vì hình ảnh xem trước cập nhật nhiều lần mỗi giây nên mắt của bạn nhìn thấy hình ảnh giống như video trực tiếp trong kính ngắm.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "Xoay hoặc làm mờ kính ngắm";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "Thử nghiệm bằng cách xoay hoặc làm mờ hình ảnh trong luồng xem trước.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "Phương thức `handleCameraPreviews` của bạn ánh xạ [luồng](glossary://asynchronous%20stream) xem trước của camera gồm các thể hiện [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) thành một luồng gồm các chế độ xem [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image), sẵn sàng để hiển thị trong `ViewfinderView` của bạn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "Đây là nơi tuyệt vời để thực hiện những việc hữu ích khác cho các hình ảnh xem trước, trước khi ánh xạ chúng thành một chế độ xem [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "Giả sử bạn muốn lật hình ảnh sang hai bên hoặc thậm chí là lật ngược, bạn có thể gọi phương thức [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "Trong định nghĩa cho `imageStream`, hãy thêm dòng mã này phía trên `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "Tại đây, bạn đang sử dụng `map` để biến một luồng hình ảnh thành một luồng hình ảnh được xoay bằng cách gọi hàm `oriented(.left)` cho từng phần tử (`$0`) trong luồng.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "Hoặc có lẽ bạn muốn làm mờ hình ảnh xem trước một chút?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "Áp dụng một thao tác khác cho các hình ảnh bằng cách thêm mã này phía trên `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "Bạn đang áp dụng một thao tác `map` sau một thao tác khác cho [luồng](glossary://asynchronous%20stream) hay [móc nối](glossary://chaining) các thao tác. Trong thực tế, bạn có thể móc nối nhiều thao tác cùng nhau tùy thích. Ví dụ: phần sau đây sử dụng đầu vào từ luồng xem trước, xoay các hình ảnh, làm mờ chúng và cuối cùng là chuyển đổi chúng thành một luồng `Image`.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "Hãy thử nghiệm một chút!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "Thử các tùy chọn hướng khác nhau; ví dụ: điều gì xảy ra khi bạn thay đổi hướng thành `.down`?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "Thử các giá trị làm mờ khác nhau.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) có nhiều phương thức hữu ích để biến đổi các hình ảnh.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "Ghi lại và lưu một bức ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "Cười lên! Bấm! Rất nhiều thứ diễn ra trong một trình tự ngắn khi bạn chụp ảnh. 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "Theo dõi hành động sau khi bạn chạm hoặc bấm nút chụp, để kiểm tra những gì xảy ra từ thời điểm đó đến khi ảnh xuất hiện trong thư viện ảnh của bạn.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "Phản hồi nút chụp";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "Tìm hiểu cách xử lý tác vụ nút chụp và yêu cầu camera chụp ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "Khi bạn chạm hoặc bấm nút chụp trong chế độ xem camera, mọi thứ bắt đầu diễn ra!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "Nút này làm xuất hiện một tác vụ, lấy đối tượng `camera` của mô hình, sau đó gọi phương thức `takePhoto()`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "Tiếp tục để tìm hiểu cách chụp ảnh!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "Ghi lại một bức ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "Khi bạn chụp ảnh, camera ghi lại dữ liệu hình ảnh từ cảm biến. Tìm hiểu cách khởi tạo việc này và xử lý kết quả ảnh được ghi lại.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "Khi chụp một bức ảnh, bạn muốn ghi lại hình ảnh với độ phân giải cao nhất có thể. Việc này trái ngược với hình ảnh xem trước, có xu hướng có độ phân giải thấp hơn để dễ dàng cập nhật nhanh bản xem trước trong kính ngắm.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "Camera của bạn có một đầu ra ảnh đặc biệt mà phương thức `takePhoto()` sử dụng để ghi lại hình ảnh có độ phân giải cao của những gì mà bạn nhìn thấy trong kính ngắm.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "Bạn bắt đầu công việc chụp ảnh thực tế bằng cách yêu cầu đầu ra ảnh ghi lại một bức ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "Nếu mọi việc diễn ra thuận lợi, đó là khi bạn nghe thấy âm thanh chụp khẳng định để cho phép bạn — và bất kỳ người nào ở gần — biết rằng bạn vừa chụp một bức ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "Có thể bạn thắc mắc tại sao `capturePhoto` không chỉ đơn giản trả về bức ảnh. Đó là vì việc ghi lại một bức ảnh cần thời gian: camera có thể cần lấy nét hoặc đợi đèn flash và sau đó là thời gian phơi sáng. `capturePhoto` là một phương thức [không đồng bộ](glossary://asynchronous%20process), với ảnh được ghi lại thường xuất hiện sau một khoảng thời gian ngắn sau khi bạn chạm hoặc bấm nút chụp.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "Sau khi quá trình ghi lại ảnh hoàn tất, bạn nhận được một [gọi lại](glossary://callback) cho một phương thức khác trong đối tượng camera: `photoOutput(_:didFinishProcessingPhoto:error:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "Đối số đầu tiên nhận được ảnh đã ghi dưới dạng một thể hiện của [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "Bây giờ, bạn đã có ảnh được ghi, bạn thêm ảnh đó vào luồng ảnh của camera. Sau đó, ảnh khả dụng đối với bất kỳ đối tượng nào trong ứng dụng của bạn đang chờ ảnh, như mô hình dữ liệu.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "Xử lý và lưu ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "Khám phá cách giải nén một hình ảnh đã ghi lại và lưu vào thư viện ảnh của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "Mô hình dữ liệu của bạn đang kiên nhẫn đợi ảnh được ghi mới.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "Cũng giống như đối với các hình ảnh xem trước, phần này có một [tác vụ](glossary://task) chuyên biệt để xử lý luồng ảnh đã ghi từ camera, sử dụng phương thức `handleCameraPhotos`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "Bạn có thể tìm hiểu thêm về [tác vụ](doc://com.apple.documentation/documentation/swift/task) trong thư viện Swift tiêu chuẩn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "Mỗi phần tử [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) trong `photoStream` của camera có thể chứa một số hình ảnh có độ phân giải khác nhau, cũng như các [siêu dữ liệu](glossary://metadata) khác về hình ảnh, ví dụ như kích cỡ cùng với ngày và giờ mà hình ảnh được ghi. Bạn phải giải nén để lấy các hình ảnh và siêu dữ liệu mong muốn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "Việc đầu tiên mà bạn thực hiện trong `handleCameraPhotos` là chuyển đổi `photoStream` thành một `unpackedPhotoStream` hữu ích hơn, trong đó mỗi phần tử là một thể hiện của cấu trúc `PhotoData` chứa dữ liệu mà bạn muốn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "Để giải nén `photoStream`, bạn sẽ sử dụng hàm `unpackPhoto(_:)`, lấy một ảnh được ghi và trả về một thể hiện `PhotoData` chứa:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "một hình ảnh thu nhỏ có độ phân giải thấp dưới dạng một [Hình ảnh](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "kích cỡ của hình ảnh thu nhỏ";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "một hình ảnh có độ phân giải cao dưới dạng [Dữ liệu](doc://com.apple.documentation/documentation/foundation/data)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "kích cỡ của hình ảnh có độ phân giải cao";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "Bạn sẽ nhớ lại rằng, một [luồng không đồng bộ](glossary://asynchronous%20stream), `photoStream` rất giống với một [Trình tự](doc://com.apple.documentation/documentation/swift/sequence).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "Bạn có thể sử dụng phương thức [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) để gọi `unpackPhoto(_:)` cho từng ảnh (`$0`) trong luồng. Việc này biến đổi luồng gồm các thể hiện [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/) thành một luồng gồm các thể hiện `PhotoData` hữu ích hơn rất nhiều.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "Vòng lặp `for`-`await` bây giờ đợi một phần tử `photoData` xuất hiện trong luồng đã giải nén của bạn trước khi xử lý.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "Bạn sử dụng hình ảnh thu nhỏ trong `photoData` để cập nhật thuộc tính `thumbnailImage` của mô hình.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "Gọi phương thức `savePhoto(imageData:)` của mô hình để lưu dữ liệu hình ảnh từ `photoData` dưới dạng một ảnh mới trong thư viện ảnh của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "Phương thức `savePhoto(imageData:)` tạo ra một [tác vụ](glossary://task) và chuyển sang công việc lưu dữ liệu ảnh thực sự vào đối tượng `photoCollection` bằng cách gọi phương thức `addImage(_:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "Và như vậy là ổn rồi! Công việc của mô hình dữ liệu là điều phối luồng dữ liệu giữa các đối tượng dữ liệu của ứng dụng.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "Thêm nút chụp được trì hoãn";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "Thử nghiệm với camera của bạn bằng cách thêm một khoảng trễ vào nút chụp.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "Hãy tưởng tượng thiết lập camera ở một nơi nào đó — như trên một giá đỡ ba chân, chạm hoặc bấm nút và có đủ thời gian để chạy và tiến vào khung hình trước khi ảnh được chụp!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "Để thực hiện việc đó, bạn sẽ cần thêm một khoảng trễ ngắn sau khi chạm hoặc bấm nút chụp trước khi camera chụp ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "Nhìn vào mã để xử lý tác vụ nút chụp của bạn, hãy nghĩ về cách mà bạn có thể triển khai việc này.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "Bạn có một kế hoạch nhanh chóng:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "Thêm một [thuộc tính trạng thái](glossary://state%20value) `delayCount` để đếm số giây đến khi bạn chụp ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "Khi bạn chạm hoặc bấm nút chụp, hãy đặt `delayCount` thành số giây mà bạn muốn camera đợi trước khi chụp ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "Đặt lịch trình một [Hẹn giờ](doc://com.apple.documentation/documentation/foundation/timer) thành `delayCount` [giảm dần](glossary://decrement) một đơn vị mỗi giây.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "Khi `delayCount` đến 0, dừng hẹn giờ và đồng thời báo cho camera chụp ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "Trước tiên, định nghĩa [thuộc tính trạng thái](glossary://state%20value) `delayCount` ở trên cùng của `CameraView`, phía trên thuộc tính `body`, đặt giá trị ban đầu thành 0.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "Mẹo: Hãy giữ `private` vì bạn chỉ đang sử dụng trong `CameraView`. Đây là một cách làm phù hợp đối với bất kỳ định nghĩa nào mà bạn chỉ dự định sử dụng bên trong một kiểu.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "Sau đó, trong trình xử lý [Nút](doc://com.apple.documentation/documentation/swiftui/button) chụp của bạn, hãy [loại bỏ](glossary://comment%20out) dòng mã có chức năng chụp ảnh ngay khi bạn chạm hoặc bấm nút.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "Thay vào đó, bạn sẽ gọi `takePhoto()` bên trong trình xử lý hẹn giờ.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "Tiếp theo, đặt biến `delayCount` thành số giây mà bạn muốn đếm ngược, ví dụ như `5` giây.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "Bên dưới phần gán `delayCount` của bạn, hãy thêm một [Hẹn giờ](doc://com.apple.documentation/documentation/foundation/timer) theo lịch trình để lặp lại một lần mỗi giây. Khi hẹn giờ của bạn dừng, hẹn giờ gọi mã trong [bao đóng](glossary://closure) mà bạn cung cấp, [giảm dần](glossary://decrement) `delayCount`.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "Va bây giờ là bước cuối cùng trong bao đóng hẹn giờ của bạn: khi `delayCount` đến 0, dừng hẹn giờ và chỉ dẫn camera chụp ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "Thêm mã sau đây trong bao đóng hẹn giờ của bạn, phía sau `delayCount -= 1`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "Khi bạn gọi phương thức [hủy xác thực](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) của hẹn giờ, hẹn giờ dừng lại — nhiệm vụ đã hoàn thành!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "Bây giờ, trình xử lý nút của bạn sẽ trông giống mã bên dưới.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "Sau khi kiểm tra mã của bạn cẩn thận, hãy chạm hoặc bấm nút chụp và đợi!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "Mẹo: Đôi khi bạn có thắc mắc điều gì thực sự đang diễn ra trong mã của mình không, đặc biệt là nếu mã không thực hiện những gì mà bạn dự kiến?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "Bạn có thể thêm một câu lệnh `print` để yêu cầu mã cho bạn biết chính xác những gì mã đó đang làm bằng cách ghi thông tin hữu ích vào [bảng điều khiển](glossary://console).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "Thử thêm dòng này bên trong bao đóng hẹn giờ của bạn:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "Mở bảng điều khiển và sau đó chạm hoặc bấm nút chụp để chụp một ảnh được trì hoãn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "Bạn có hài lòng với nút chụp được trì hoãn không? Chà, sao không trau chuốt thêm một chút nhỉ! ✨ Bạn có thể làm cho mục đếm ngược hiển thị ngay bên trong nút!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "Tìm biểu tượng cho nút chụp: một [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) với hai chế độ xem [Hình tròn](doc://com.apple.documentation/documentation/swiftui/circle). Bên trong [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) và phía sau [Hình tròn](doc://com.apple.documentation/documentation/swiftui/circle) thứ hai, hãy thêm mã này:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "Bây giờ, hãy chạm hoặc bấm nút chụp. Xem nút đếm ngược số giây trước khi chụp ảnh.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "Duyệt ảnh của bạn";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "Bạn có thích chụp ảnh không? Hầu hết chúng ta đều thích và rất dễ đưa tới kết quả là có hàng trăm hay hàng nghìn bức ảnh trong thư viện. 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "Theo dõi ảnh của bạn khi chúng được truy xuất từ thư viện ảnh và hiển thị trong một phòng trưng bày dạng cuộn mà bạn có thể duyệt.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "Sử dụng bộ sưu tập ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "Tìm hiểu về bộ sưu tập ảnh trong mô hình dữ liệu của bạn và cách bộ sưu tập đó cung cấp ảnh cho phòng trưng bày của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "Mô hình dữ liệu của bạn có một thuộc tính `photoCollection` có thể biểu thị bất kỳ bộ sưu tập mục nào trong thư viện ảnh của bạn. Đây có thể là toàn bộ thư viện ảnh của bạn hay chỉ một album hoặc thậm chí là các kết quả từ một tìm kiếm.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "Bạn có thể bao gồm tất cả các ảnh trong thư viện của mình bằng cách khởi tạo `photoCollection` với một Album thông minh `.smartAlbumUserLibrary`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "Lưu ý rằng trước khi truy cập thư viện ảnh trong dự án của riêng mình, bạn phải thêm khả năng Thư viện ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "Tìm hiểu thêm trong [Yêu cầu quyền truy cập vào các khả năng cho dự án của bạn](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "Tìm nạp tài sản ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "Mỗi mục trong bộ sưu tập ảnh của bạn được gọi là một [tài sản](glossary://asset) ảnh. Tìm hiểu cách tìm nạp những tài sản đó.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "`photoCollection` của mô hình dữ liệu có một thuộc tính `photoAssets` cho phép sử dụng bộ sưu tập tài sản ảnh giống như cách bạn thực hiện với một dãy.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "Ví dụ như bạn có thể tìm nạp tài sản ảnh bằng cách sử dụng chỉ mục:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "Hoặc đếm tất cả ảnh trong bộ sưu tập của bạn:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "Bạn cũng có thể [lặp lại](glossary://iteration) trên các tài sản trong `photoAssets` bằng một vòng lặp. Bạn sẽ thấy cách này vô cùng hữu ích trong việc xây dựng phòng trưng bày của mình.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "Bạn sẽ nhận thấy rằng `photoAssets` là một thuộc tính [đã đăng](glossary://published%20value) của `PhotoCollection`, là một [đối tượng có thể quan sát](glossary://observable%20object). Điều này nghĩa là bạn có thể phản hồi các thay đổi trong tài sản ảnh, ví dụ như khi ảnh được thêm hoặc xóa.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "Điều hướng đến phòng trưng bày ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "Tìm hiểu cách điều hướng đến phòng trưng bày ảnh và kết nối với thư viện ảnh của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "Trong chế độ xem camera của bạn, sử dụng một [liên kết điều hướng](glossary://navigation%20link) để đưa bạn tới phòng trưng bày ảnh của mình.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "Liên kết điều hướng chính xác là giống như một nút — bạn thậm chí có thể cung cấp nhãn và biểu tượng. Bạn đặt nút này ở bên trái của nút chụp.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "Khi bạn chạm hoặc bấm vào liên kết điều hướng, SwiftUI đưa bạn đến một chế độ xem khác — trong trường hợp này là chế độ xem bộ sưu tập ảnh — mà bạn sử dụng để hiển thị phòng trưng bày ảnh của mình.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "Nếu bạn sử dụng liên kết điều hướng bên trong [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack), SwiftUI quản lý cách trình bày các chế độ xem sao cho bạn có thể dễ dàng điều hướng giữa chúng.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "Bằng việc chuyển `photoCollection` của mô hình vào `PhotoCollectionView` khi bạn khởi tạo, bạn cung cấp bộ sưu tập ảnh mà bạn muốn hiển thị trong phòng trưng bày của mình.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "Khi mở phòng trưng bày, bạn sẽ không nhìn thấy kính ngắm nữa, do đó bạn không cần tiếp tục cập nhật. Thay vào đó, bạn nên tập trung vào hiệu năng của thiết bị trong việc hiển thị các ảnh của mình.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "Để kiểm soát thời điểm luồng xem trước của camera hoạt động, hãy sử dụng trình sửa đổi [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) của liên kết điều hướng để tạm dừng luồng khi phòng trưng bày xuất hiện và [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) để tiếp tục lại luồng khi bạn điều hướng trở lại camera.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "Xây dựng phòng trưng bày ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "Khám phá cách hiển thị ảnh của bạn trong một lưới cuộn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "Bạn sử dụng một `PhotoCollectionView` để hiển thị ảnh của mình trong một lưới cuộn, với các ảnh gần đây nhất ở trên cùng.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "Khi bạn tạo ra `PhotoCollectionView`, thuộc tính `photoCollection` khởi tạo một tham chiếu đến `photoCollection` của mô hình. Tham chiếu này cung cấp tất cả dữ liệu mà bạn cần để xây dựng phòng trưng bày ảnh của mình.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "Bằng việc biến `photoCollection` thành một [đối tượng được quan sát](glossary://observed%20object), SwiftUI cập nhật chế độ xem bộ sưu tập ảnh của bạn tương ứng với các thay đổi trong các [giá trị đã đăng](glossary://published%20value) của bộ sưu tập.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "Bạn sử dụng một lưới dọc lazy ([LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid)) để hiển thị ảnh của mình dưới dạng các mục trong một bố cục lưới. Vì bố cục này sử dụng một lưới dọc nên bạn chỉ cần quyết định số lượng `columns` mong muốn và `spacing` giữa từng mục. Sau khi có số lượng cột, lưới mở rộng theo chiều dọc để thêm đủ số hàng nhằm hiển thị tất cả các ảnh của bạn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "Tại sao là lazy (lười biếng)? Chà, nếu lưới lớn hơn chế độ xem chứa đựng thì chế độ xem chỉ hiển thị các mục hiện nhìn thấy được. Tính chất “lười biếng” này thực sự cải thiện hiệu năng của ứng dụng, đặc biệt là khi bạn cuộn qua lưới ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "Bạn có thể sử dụng một số lượng cột cố định trong lưới, nhưng sử dụng một phương pháp có tính [phản hồi](glossary://responsive) cao hơn để hiển thị số lượng cột nhiều nhất có thể, tùy theo chiều rộng của chế độ xem. Việc này tạo ra một trải nghiệm tốt hơn nhiều vì mọi người định cỡ lại ứng dụng của bạn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "Để tạo ra một lưới điều chỉnh theo chiều rộng của chế độ xem, hãy định nghĩa một [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) `adaptive` và chỉ định kích cỡ cũng như khoảng cách mà bạn muốn lưới duy trì.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "Hãy tưởng tượng bạn có hàng trăm — hoặc hàng nghìn — bức ảnh. Ngay cả với bố cục thích ứng thì lưới của bạn vẫn có thể trở nên rất cao — cao hơn rất nhiều so với không gian mà bạn có để hiển thị lưới!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "Làm cho lưới của bạn có thể cuộn bằng cách đặt lưới bên trong một [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview). Việc này làm cho lưới của bạn có thể có số lượng hàng tùy ý và bạn sẽ có thể cuộn lên và xuống qua các ảnh của mình.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "Bên trong lưới của bạn, hãy sử dụng [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) để [lặp lại](glossary://iteration) trên các tài sản ảnh trong bộ sưu tập và tạo một chế độ xem cho từng tài sản — những chế độ xem này điền vào lưới của bạn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "Vì lưới của bạn là lazy nên khi bạn cuộn, [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) chỉ hoạt động trên các tài sản ảnh được hiển thị.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "Tạo ra một [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) cho từng mục lưới, khi được chạm hoặc bấm, hiển thị ảnh riêng lẻ ở kích cỡ đầy đủ bằng cách sử dụng [đích](glossary://destination%20view) `PhotoView` được khởi tạo với tài sản ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "Phương thức `photoItemView(asset:)` tạo ra một chế độ xem hiển thị một hình ảnh thu nhỏ cho một tài sản ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "Bạn sẽ sử dụng chế độ xem này dưới dạng [nhãn](glossary://label) cho liên kết điều hướng, hiển thị từng liên kết dưới dạng một hình ảnh được thu nhỏ kích cỡ của ảnh.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "Hiển thị một ảnh";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "Tìm hiểu cách chế độ xem ảnh tải và hiển thị ảnh của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "Khi cần hiển thị một ảnh độc lập, bạn sẽ sử dụng `PhotoView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "Trong chế độ xem ảnh, bạn hiển thị một hình ảnh có độ phân giải cao mà bạn yêu cầu từ ảnh. Bạn cũng có một lớp phủ với các nút để ưa thích hoặc xóa ảnh.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "Chế độ xem ảnh của bạn có một thuộc tính `photoAsset` cho ảnh mà chế độ xem đó hiển thị. Bạn chuyển thuộc tính này vào khi khởi tạo `PhotoView`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "Bạn cũng khởi tạo chế độ xem với một thuộc tính `cache` lưu giữ tham chiếu đến bộ nhớ đệm hình ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "Bạn có thể yêu cầu một hình ảnh có kích cỡ được chỉ định từ bộ nhớ đệm hình ảnh. Sau khi tải hình ảnh từ tài sản ảnh, bộ nhớ đệm cung cấp hình ảnh trở lại cho bạn. Bộ nhớ đệm hình ảnh cũng giữ lại các hình ảnh đã yêu cầu gần đây trong bộ nhớ để không phải tải lại nếu bạn yêu cầu lại.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "Chế độ xem của bạn có một [thuộc tính trạng thái](glossary://state%20value) `image` sẵn sàng lưu giữ hình ảnh sau khi tải.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "Đó là một kiểu [tùy chọn](glossary://optional) — `Image?` — vì bạn muốn bắt đầu mà không có bất kỳ giá trị nào.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "Một chế độ xem có thể sử dụng trình sửa đổi [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) của chính mình để chạy một số mã [không đồng bộ](glossary://asynchronous%20process) bất kỳ lúc nào chế độ xem tải.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "Đây là nơi mà bạn thêm mã để yêu cầu hình ảnh có độ phân giải cao từ bộ nhớ đệm cho tài sản ảnh, chỉ định kích cỡ mà bạn muốn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "Bạn cũng có thể cung cấp cho bộ nhớ đệm một [bao đóng](glossary://closure) chứa mã mà bộ nhớ đệm có thể gọi khi có `result`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "Bao đóng kết quả của bạn nhận được một hoặc nhiều lệnh gọi từ bộ nhớ đệm. Nếu bộ nhớ đệm đã chứa hình ảnh mà bạn yêu cầu thì bộ nhớ đệm gọi ngay lập tức bao đóng của bạn với hình ảnh trong `result`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "Nếu bộ nhớ đệm không có hình ảnh đã yêu cầu thì bộ nhớ đệm tải hình ảnh từ tài sản ảnh và lưu vào bộ nhớ đệm. Trong khi tải hình ảnh, trước tiên bộ nhớ đệm có thể gọi bao đóng của bạn với một hình ảnh có độ phân giải thấp, trước khi cung cấp hình ảnh có độ phân giải cao cuối cùng trong `result`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "Bao đóng kết quả của bạn tìm kiếm một hình ảnh trong kết quả. Nếu tìm thấy một kết quả thì bao đóng cập nhật thuộc tính `image` của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "Vì bạn đã biến `image` thành một thuộc tính trạng thái nên SwiftUI cập nhật chế độ xem của bạn khi giá trị thay đổi.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "Nếu `image` chứa một giá trị thì bạn nên [mở gói](glossary://unwrap) hình ảnh và hiển thị hình ảnh trong chế độ xem của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "Tuy nhiên, nếu `image` không có giá trị thì bạn sử dụng một [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) để hiển thị một con quay dưới dạng một [trình giữ chỗ](glossary://placeholder%20view).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "Hãy quan sát thật cẩn thận và có thể bạn chỉ nhìn thấy con quay này khi chế độ xem tải lần đầu tiên, trước khi bộ nhớ đệm có cơ hội tải hình ảnh từ tài sản ảnh.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "Sử dụng lưới cố định";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "Thử nghiệm với các kiểu lưới thay thế trong phòng trưng bày ảnh của bạn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "Phòng trưng bày của bạn hiển thị các ảnh trong một lưới, với mỗi ảnh trong một hình vuông có kích cỡ cố định.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "Bạn định nghĩa cách sắp xếp này bằng thuộc tính `columns` trả về một dãy [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem). Sử dụng một lưới [adaptive(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) đơn nhất nghĩa là `LazyVGrid` của bạn điều chỉnh theo chiều rộng khả dụng, đưa vào số lượng cột nhiều nhất có thể.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "Nhưng giả sử bạn muốn có số lượng cột cố định thay thế, với mỗi ảnh chiếm hữu khoảng không gian nhiều nhất có thể?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "Để thực hiện việc này, thay vào đó dãy `columns` của bạn phải chứa một mục lưới [flexible(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) cho từng cột mà bạn muốn.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "Bên dưới `columns`, hãy xác định một thuộc tính `fixedColumns` trả về một dãy gồm các mục lưới `flexible`, một mục cho mỗi cột:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "Và thay vì là `columns`, hãy chuyển `fixedColumns` vào lưới lazy của bạn giống như thế này:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "Bây giờ, hãy duyệt đến phòng trưng bày ảnh của bạn và xem sự khác biệt mà việc này tạo ra, đặc biệt là khi bạn định cỡ lại chế độ xem.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "Bạn sẽ nhận thấy rằng bây giờ có hai cột như dự kiến, nhưng các ảnh vẫn có kích cỡ nguyên bản.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "Còn một điều mà bạn cần quan tâm…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "Nhìn vào dòng mã này trong hàm có chức năng xây dựng chế độ xem mục ảnh của bạn. Hãy dành giây lát để suy nghĩ xem vấn đề đó có thể là gì?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "Đúng, bạn không muốn sử dụng kích cỡ [khung hình](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:)) cố định cho từng ảnh nữa. Thay vào đó, chiều rộng của chế độ xem và số lượng cột trong lưới xác định kích cỡ hình ảnh.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "Loại bỏ dòng sau đây, như minh họa, sao cho từng ảnh tự do chiếm hữu không gian nhiều nhất có thể:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "Mở lại phòng trưng bày ảnh và bạn sẽ thấy rằng từng ảnh bây giờ phủ kín chiều rộng cột.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "Thử làm cho chế độ xem của bạn rộng hơn. Bạn nhận thấy điều gì xảy ra?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "Hãy xem kỹ các cột có chiều rộng cố định mới và bạn sẽ nhận thấy rằng chúng có khoảng trống ở giữa, nhưng ở hai cạnh lại không có. Nhìn vào mã, bạn có thể biết tại sao không?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "Thay đổi phần đệm của chế độ xem để bao quanh toàn bộ thay vì chỉ chiều dọc:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "Một số việc khác nên thử:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "Bổ sung thêm mục lưới cho các cột bổ sung.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "Thay đổi giá trị do thuộc tính `imageSize` của bạn trả về để lấy các hình ảnh có độ phân giải cao hơn cho lưới cố định của bạn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "Sử dụng chiều cao tối đa cho chế độ xem mục ảnh của bạn thay vì chiều cao cố định: `.frame(maxHeight: 400)`.";
+

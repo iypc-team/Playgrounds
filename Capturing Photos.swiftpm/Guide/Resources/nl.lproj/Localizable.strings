@@ -1,0 +1,924 @@
+/* Title of Guidebook */
+"GuideBook..title" = "Foto\'s vastleggen";
+
+/* The title of the Welcome Message for the GuideBook */
+"GuideBook..WelcomeMessageCapturing Photos..title" = "Foto\'s vastleggen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..WelcomeMessageCapturing Photos..Paragraph0" = "Stel je eens voor welke spannende dingen je met de camera zou kunnen doen in je eigen app! In dit voorbeeld maak je kennis met de bouwstenen van een camera-app en ontdek je hoe je je SwiftUI-vaardigheden kunt gebruiken voor het werken met de camera en de fotobibliotheek.";
+
+/* Title of step named Capturing Photos */
+"GuideBook..Guide0..StepCapturing Photos..title" = "Foto\'s vastleggen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph1" = "![](intro-header.png)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph2" = "Welkom bij Foto\'s vastleggen!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph3" = "Ga na welke dingen een camera moet kunnen:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph4" = "Livevideo in de zoeker van de camera weergeven";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph5" = "Een foto maken wanneer je op de sluiterknop tikt of klikt";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph6" = "De foto bewaren";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..UnorderedList0..Paragraph7" = "Door foto\'s bladeren die je hebt gemaakt en deze foto\'s bekijken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph8" = "Je ontdekt hoe je al deze dingen kunt doen, en meer. Je leert welke gegevensobjecten je app gebruikt en hoe je de gegevensstroom tussen deze objecten en de gebruikersinterface van de app beheert.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..Paragraph9" = "Selecteer voordat je aan de slag gaat \'Appvoorvertoning\' en neem even de tijd om je camera-app te verkennen en een paar foto\'s te maken.";
+
+/* title of the guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..title" = "Start walkthrough";
+
+/* accessibility description for guide button */
+"GuideBook..Guide0..StepCapturing Photos..LearningCenterContent..GuideButtonStart Walkthrough..description" = "Toegankelijkheidsbeschrijving voor knop";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..title" = "Een voorvertoning van de camera-uitvoer bekijken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph10" = "De video-uitvoer van je camera verstuurt een ononderbroken stroom van afzonderlijke afbeeldingen (videobeelden). Je geeft deze afbeeldingen weer in een zoeker, zodat je precies kunt zien waar de camera op gericht is voordat je een compositie maakt en een foto neemt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..Paragraph11" = "Ontdek meer over hoe dit werkt. 🎞";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..title" = "De camera gebruiken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Paragraph12" = "Leer over de camera in je gegevensmodel.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page0..Paragraph13" = "Je gegevensmodel heeft een `camera`-eigenschap die een van de fysieke camera\'s, of opnameapparaten, vertegenwoordigt die beschikbaar zijn voor je apparaat.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph14" = "Je apparaat heeft mogelijk toegang tot verschillende opnameapparaten, zoals de camera\'s aan de voor- en achterkant van de iPad, en je kunt tussen deze apparaten schakelen met de methode `switchCaptureDevice()` van de camera.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page1..Paragraph15" = "Meer informatie over opnameapparaten vind je in [Choosing a Capture Device](doc://com.apple.documentation/documentation/avfoundation/capture_setup/choosing_a_capture_device).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..Paragraph16" = "Om te beginnen met het gebruik van de camera, roep je de `start()`-methode van de camera aan:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page2..CodeBlock0" = "await model.camera.start()\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph17" = "Houd er rekening mee dat je de functionaliteit \'Camera\' moet toevoegen voordat je de camera(\'s) van het apparaat in je eigen project kunt gebruiken.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskusingCamera..Page3..Paragraph18" = "In [Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities) kun je meer informatie hierover vinden.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..title" = "De voorvertoningsstroom verkennen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Paragraph19" = "Leer meer over de stream met voorvertoningsbeelden uit de camera.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page4..Paragraph20" = "Nadat je de `start()`-methode van de camera hebt aangeroepen, produceert de video-uitvoer een stream voorvertoningsbeelden met een lage resolutie (videobeelden), met snelheden tot 60 beelden per seconde.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewStream..Page5..Paragraph21" = "Je ontvangt deze voorvertoningsbeelden via de `previewStream`-eigenschap van de camera als een [asynchrone stroom](glossary://asynchronous%20stream) met [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)-objecten (Core Image).";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..title" = "De voorvertoningsstroom verwerken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Paragraph22" = "Leer hoe je de voorvertoningsstroom verwerkt zodat deze klaar is om te worden weergegeven in de zoeker.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph23" = "Je [gegevensmodel](glossary://data%20model) heeft een speciale [taak](glossary://task) om de [stroom](glossary://asynchronous%20stream) met voorvertoningsbeelden van de camera te verwerken met de functie `handleCameraPreviews`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page6..Paragraph24" = "Meer informatie over [taken](doc://com.apple.documentation/documentation/swift/task) vind je in de Swift-standaardbibliotheek.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page7..Paragraph25" = "Zet in `handleCameraPreviews` de voorvertoningsstroom met [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)-objecten van de camera om in een stroom met [Image](doc://com.apple.documentation/documentation/swiftui/image)-weergaven, klaar om te worden weergegeven.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph26" = "Een [asynchrone stroom](doc://com.apple.documentation/documentation/swift/asyncstream) is een stroom waarden die met bepaalde tijdsintervallen worden geproduceerd. De waarden vormen een [reeks](glossary://sequence), maar de waarden arriveren asynchroon, ze vormen een [asynchrone reeks](doc://com.apple.documentation/documentation/swift/asyncsequence). Je kunt er veel van dezelfde dingen mee doen als met andere waardenreeksen, zoals [arrays](glossary://array).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page8..Paragraph27" = "In dit geval gebruik je de functie [map(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814580-map) van de stream om elk element (`$0`) om te zetten in een [Image](doc://com.apple.documentation/documentation/swiftui/image)-instantie met de `image`-eigenschapsextensie van `CIImage`. Hiermee transformeer je de stream met [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)-instanties in een stream met [Image](doc://com.apple.documentation/documentation/swiftui/image)-instanties.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph28" = "Je `for`-`await`-lus wacht op elke afbeelding in je getransformeerde `imageStream` alvorens er iets mee te doen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page9..Paragraph29" = "Leer meer over het werken met asynchrone reeksen in de [Swift Programming Language Guide](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Asynchronous-Sequences).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph30" = "Je gebruikt het beeld uit de voorvertoningsstroom om de eigenschap `viewfinderImage` van je gegevensmodel bij te werken.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskprocessPreviews..Page10..Paragraph31" = "SwiftUI zorgt ervoor dat weergaven die deze eigenschap gebruiken, worden bijgewerkt wanneer de waarde van `viewfinderImage` verandert.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..title" = "De voorvertoningsstroom bekijken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Paragraph32" = "Ontdek hoe je de zoekerweergave kunt koppelen aan de verwerkte voorvertoningsstroom.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page11..Paragraph33" = "Je `CameraView` heeft een `ViewfinderView` voor het weergeven van de livevideo van de camera.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph34" = "Door de `viewfinderImage`-eigenschap van het model aan je `ViewfinderView` te [binden](glossary://binding), zorg je ervoor dat de zoeker telkens wordt bijgewerkt wanneer de weergave een nieuw voorvertoningsbeeld ontvangt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskviewPreviews..Page12..Paragraph35" = "Omdat het voorvertoningsbeeld zo vaak per seconde wordt bijgewerkt, zien je ogen het als livevideo in de zoeker.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..title" = "De zoeker roteren of vervagen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Paragraph36" = "Experimenteer door de afbeeldingen in de voorvertoningsstroom te roteren of te vervagen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph37" = "De methode `handleCameraPreviews` koppelt de voorvertonings[stroom](glossary://asynchronous%20stream) met [CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage)-instanties van de camera aan een stroom met [Image](doc://com.apple.documentation/documentation/swiftui/image)-weergaven, klaar om te worden weergegeven in de `ViewfinderView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page13..Paragraph38" = "Dit is een goede plek om andere nuttige dingen met de voorvertoningsbeelden te doen voordat je ze aan een [Image](doc://com.apple.documentation/documentation/swiftui/image)-weergave koppelt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page14..Paragraph39" = "Stel dat je de afbeelding wilt kantelen of ondersteboven wilt weergeven. Hiervoor kun je de methode [oriented(_:)](doc://com.apple.documentation/documentation/coreimage/ciimage/2919727-oriented) aanroepen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph40" = "In de definitie voor `imageStream` voeg je deze regel code toe boven `.map { $0.image }`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..CodeBlock1" = ".map { $0.oriented(.left) }\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page15..Paragraph41" = "Hier gebruik je `map` om een stream met afbeeldingen in een stream met geroteerde afbeeldingen om te zetten door de functie `oriented(.left)` aan te roepen voor elk element (`$0`) in de stream.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph42" = "Of misschien wil je de voorvertoningsbeelden een beetje vervagen?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..Paragraph43" = "Pas een andere bewerking op de afbeeldingen toe door deze code boven `.map { $0.image }` toe te voegen:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page16..CodeBlock2" = ".map { $0.applyingGaussianBlur(sigma: 5) }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..Paragraph44" = "Je past de ene na de andere `map`-bewerking op de [stroom](glossary://asynchronous%20stream) toe door de bewerkingen te [koppelen](glossary://chaining). Je kunt zoveel bewerkingen aan elkaar koppelen als je wilt. Zo ontvangt de volgende code de invoer van de voorvertoningsstroom, waarna de afbeeldingen worden geroteerd en vervaagd, en uiteindelijk worden omgezet in een `Image`-stroom.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page17..CodeBlock3" = "let imageStream = camera.previewStream\n    .map { $0.oriented(.left) }\n    .map { $0.applyingGaussianBlur(sigma: 5) }\n    .map { $0.image }\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph45" = "Probeer wat te experimenteren!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph46" = "Probeer verschillende richtingsopties; wat gebeurt er bijvoorbeeld als je de richting instelt op `.down`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..UnorderedList1..Paragraph47" = "Probeer verschillende vervagingswaarden.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup0..TaskpreviewExperiment..Page18..Paragraph48" = "[CIImage](doc://com.apple.documentation/documentation/coreimage/ciimage) bevat een groot aantal handige methoden voor het transformeren van afbeeldingen.";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..title" = "Een foto vastleggen en bewaren";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph49" = "Lach! Klik! Als je een foto maakt, gebeuren er een hoop dingen snel achterelkaar. 📸";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..Paragraph50" = "Volg de actie nadat je op de sluiterknop tikt of klikt. Onderzoek wat er vanaf dat moment gebeurt totdat de foto in je fotobibliotheek verschijnt.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..title" = "Reageren op de sluiterknop";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Paragraph51" = "Leer hoe je de sluiterknopactie verwerkt en hoe je de camera vraagt om een foto te maken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page19..Paragraph52" = "Wanneer je op de sluiterknop in de cameraweergave tikt of klikt, gebeurt er van alles!";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph53" = "De knop komt in actie, pakt het `camera`-object van het model en roept vervolgens de `takePhoto()`-methode ervan aan.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskshutterButton..Page20..Paragraph54" = "Blijf doorgaan om erachter te komen hoe er een foto wordt gemaakt!";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..title" = "Een foto vastleggen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Paragraph55" = "Wanneer je een foto maakt, legt de camera beeldgegevens uit de sensor vast. Lees hoe je dit proces start en hoe je de resulterende vastgelegde foto verwerkt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph56" = "Wanneer je een foto maakt, wil je een afbeelding met de hoogst mogelijke resolutie. Dit in tegenstelling tot de voorvertoningsbeelden die doorgaans een lagere resolutie hebben voor het snel bijwerken van voorvertoningen in de zoeker.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page21..Paragraph57" = "Je camera heeft een speciale foto-uitvoer die door de `takePhoto()`-methode van de camera wordt gebruikt om wat je in de zoeker ziet in afbeeldingen een hoge resolutie vast te leggen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph58" = "Als je daadwerkelijk een foto wilt gaan maken, vraag je om te beginnen de foto-uitvoer om een foto vast te leggen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page22..Paragraph59" = "Als alles goed gaat, hoor je nu het geruststellende geluid van de sluiter, zodat jij en anderen in de buurt weten dat je net een foto hebt gemaakt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page23..Paragraph60" = "Je vraagt je misschien af waarom `capturePhoto` niet simpelweg de foto retourneert. Dat komt omdat het maken van een foto tijd kost: de camera moet mogelijk scherpstellen, of wachten op de flitser, en dan is er nog de belichtingstijd die in aanmerking moet worden genomen. De `capturePhoto`-methode is een [asynchroon](glossary://asynchronous%20process) proces, waarbij de vastgelegde foto doorgaans een korte tijd nadat je op de sluiterknop hebt getikt of geklikt, arriveert.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph61" = "Nadat het vastleggen van de foto is voltooid, ontvang je een [callback](glossary://callback) naar een andere methode in je camera-object: `photoOutput(_:didFinishProcessingPhoto:error:)`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page24..Paragraph62" = "Het eerste argument ervan ontvangt de vastgelegde foto als een instantie van [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/).";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskcapturePhoto..Page25..Paragraph63" = "Nu je de vastgelegde foto hebt, ga je deze toevoegen aan de fotostream van de camera. De foto is dan beschikbaar voor elk object in de app dat wacht op een foto uit de stream, zoals het gegevensmodel.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..title" = "Een foto verwerken en bewaren";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Paragraph64" = "Ontdek hoe je een vastgelegde foto uitpakt en deze in je fotobibliotheek bewaart.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph65" = "Je gegevensmodel wacht geduldig op zojuist vastgelegde foto\'s.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph66" = "Net als bij voorvertoningsbeelden heeft het gegevensmodel een speciale [taak](glossary://task) om de vastgelegde fotostream van de camera te verwerken met de methode `handleCameraPhotos`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page26..Paragraph67" = "Meer informatie over [taken](doc://com.apple.documentation/documentation/swift/task) vind je in de Swift-standaardbibliotheek.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph68" = "Elk [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)-element in de `photoStream` van de camera kan meerdere afbeeldingen met verschillende resoluties bevatten, plus andere [metadata](glossary://metadata) over de afbeelding, zoals de grootte en de datum en tijd waarop de afbeelding is vastgelegd. Je moet deze uitpakken om de gewenste afbeeldingen en metadata te verkrijgen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page27..Paragraph69" = "Het eerste wat je doet in `handleCameraPhotos` is om `photoStream` om te zetten in een nuttigere `unpackedPhotoStream`, waarin elk element een instantie van de `PhotoData`-structuur is met de gewenste gegevens.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..Paragraph70" = "Om de `photoStream` uit te pakken, gebruik je die functie `unpackPhoto(_:)`, die een vastgelegde foto ontvangt en een `PhotoData`-instantie retourneert die het volgende bevat:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph71" = "een afbeeldingsminiatuur met een lage resolutie als een [Image](doc://com.apple.documentation/documentation/swiftui/image)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph72" = "de grootte van de afbeeldingsminiatuur";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph73" = "een afbeelding met een hoge resolutie als [Data](doc://com.apple.documentation/documentation/foundation/data)";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page28..UnorderedList2..Paragraph74" = "de grootte van de afbeelding met een hoge resolutie";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph75" = "Zoals je weet, is `photoStream` een [asynchrone stroom](glossary://asynchronous%20stream) en lijkt daarom erg op een [reeks](doc://com.apple.documentation/documentation/swift/sequence).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page29..Paragraph76" = "Je kunt de methode [compactMap(_:)](doc://com.apple.documentation/documentation/swift/asyncsequence/3814567-compactmap) van `photoStream` gebruiken om `unpackPhoto(_:)` aan te roepen voor elke (`$0`) in de stream. Hiermee transformeer je de stream met [AVCapturePhoto](doc://com.apple.documentation/documentation/avfoundation/avcapturephoto/)-instanties in een veel nuttigere stream met `PhotoData`-instanties.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page30..Paragraph77" = "De `for`-`await`-lus wacht nu op een `photoData`-element dat in je uitgepakte stream aankomt, en verwerkt het vervolgens.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page31..Paragraph78" = "Je gebruikt de miniatuurafbeelding in `photoData` om de `thumbnailImage`-eigenschap van je model bij te werken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page32..Paragraph79" = "Roep de `savePhoto(imageData:)`-methode van je model aan om de afbeeldingsgegevens uit `photoData` als een nieuwe foto in je fotobibliotheek te bewaren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph80" = "De `savePhoto(imageData:)`-methode maakt een [taak](glossary://task) aan en geeft het echte werk van het bewaren van de fotogegevens door aan het `photoCollection`-object door de `addImage(_:)`-methode ervan aan te roepen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskprocessPhoto..Page33..Paragraph81" = "En dat is prima: het is de taak van het gegevensmodel om de gegevensstroom tussen de gegevensobjecten van de app te coördineren.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..title" = "Een vertraagde sluiter toevoegen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Paragraph82" = "Experimenteer met je camera door een vertraging aan de sluiterknop toe te voegen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph83" = "Stel je voor dat je de camera ergens opstelt, bijvoorbeeld op een statief, en dat je voldoende tijd hebt om om de camera heen te lopen nadat je op de knop hebt getikt of geklikt zodat je in beeld bent als de foto wordt genomen!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph84" = "Om dit te kunnen doen, moet je een korte vertraging toevoegen tussen het moment dat je op de sluiterknop tikt of klikt en het moment dat de camera de foto maakt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page34..Paragraph85" = "Bekijk de code voor het verwerken van de sluiterknopactie en bedenk hoe je dit kunt implementeren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..Paragraph86" = "Je bedenkt snel een plan:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph87" = "Voeg de [statuseigenschap](glossary://state%20value) `delayCount` toe om de seconden af te tellen totdat de foto wordt gemaakt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph88" = "Stel `delayCount` in op het aantal seconden dat de camera moet wachten voor het maken van een foto nadat je op de sluiterknop hebt getikt of geklikt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph89" = "Plan een [Timer](doc://com.apple.documentation/documentation/foundation/timer) om `delayCount` eenmaal per seconde te [verlagen](glossary://decrement).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page35..OrderedList0..Paragraph90" = "Wanneer `delayCount` nul bereikt, stop je de timer en geef je tegelijk de camera opdracht om een foto te maken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph91" = "Definieer eerst de [statuseigenschap](glossary://state%20value) `delayCount` aan het begin van `CameraView`, boven de eigenschap `body`, en stel de beginwaarde ervan in op nul.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..CodeBlock4" = "@State private var delayCount = 0\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page36..Paragraph92" = "Tip: maak de definitie `private` omdat je deze alleen in `CameraView` gebruikt. Dit is een goede gewoonte voor alle definities die je alleen binnen een type wilt gaan gebruiken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph93" = "Vervolgens moet je in de [Button](doc://com.apple.documentation/documentation/swiftui/button)-handler van de sluiter de regel code [uitcommentariëren](glossary://comment%20out) die ervoor zorgt dat er onmiddellijk een foto wordt gemaakt wanneer je op de knop tikt of klikt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..Paragraph94" = "In plaats daarvan roep je `takePhoto()` aan in je timerhandler.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page37..CodeBlock5" = "Button {\n    // model.camera.takePhoto()\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..Paragraph95" = "Stel nu de variabele `delayCount` in op het aantal seconden dat je wilt aftellen, bijvoorbeeld `5` seconden.";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page38..CodeBlock6" = "// model.camera.takePhoto()\ndelayCount = 5\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..Paragraph96" = "Voeg onder de `delayCount`-toewijzing een geplande [Timer](doc://com.apple.documentation/documentation/foundation/timer) toe die elke seconde wordt herhaald. Wanneer de timer afgaat, roept deze de code aan in de [closure](glossary://closure) die je ervoor opgeeft, waardoor `delayCount` wordt [verlaagd](glossary://decrement).";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page39..CodeBlock7" = "Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n    delayCount -= 1\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph97" = "En nu ben je toe aan de laatste stap in je timerclosure: wanneer `delayCount` nul bereikt, stop je de timer en geef je de camera opdracht om een foto te maken.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph98" = "Voeg de volgende code toe aan je timerclosure, na `delayCount -= 1`:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..CodeBlock8" = "if delayCount == 0 {\n    timer.invalidate()\n    model.camera.takePhoto()\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page40..Paragraph99" = "Waneer je de methode [invalidate](doc://com.apple.documentation/documentation/foundation/timer/1415405-invalidate) van de timer aanroept, wordt de timer gestopt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph100" = "Je `Button`-handler moet er nu als de onderstaande code uitzien.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..Paragraph101" = "Lees je code grondig door. Tik of klik vervolgens op de sluiterknop en wacht!";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page41..CodeBlock9" = "Button {\n    // model.camera.takePhoto()\n    delayCount = 5\n    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in\n        delayCount -= 1\n        if delayCount == 0 {\n            timer.invalidate()\n            model.camera.takePhoto()\n        }\n    }\n}\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph102" = "Tip: vraag je je soms ook af wat er echt in je code gebeurt, met name als de code niet doet wat je verwacht?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph103" = "Je kunt een `print`-instructie toevoegen zodat je code precies laat zien wat er gebeurt door nuttige informatie naar de [console](glossary://console) te schrijven.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph104" = "Voeg deze regel toe in je timerclosure:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..CodeBlock10" = "print(\"Timer \\(delayCount) \\(Date.now)\")\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page42..Paragraph105" = "Open de console en tik of klik vervolgens op de sluiterknop om een uitgestelde foto te maken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph106" = "Ben je nog niet helemaal tevreden met de vertraagde sluiterknop? Waarom voeg je niet wat extra\'s toe! ✨ Je kunt het aftellen in de knop zelf weergeven!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph107" = "Ga naar het symbool voor de sluiterknop. Dit is een [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack) met twee [Circle](doc://com.apple.documentation/documentation/swiftui/circle)-weergaven. Voeg deze code toe in de [ZStack](doc://com.apple.documentation/documentation/swiftui/zstack), na de tweede [Circle](doc://com.apple.documentation/documentation/swiftui/circle):";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..CodeBlock11" = "if delayCount > 0 {\n    Text(\"\\(delayCount)\")\n}\n";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup1..TaskdelayedShutter..Page43..Paragraph108" = "Tik of klik nu op de sluiterknop. Zie je hoe de seconden worden afgeteld voordat de foto wordt gemaakt?";
+
+/* Title for the section of tasks to complete */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..title" = "Door je foto\'s bladeren";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph109" = "Vind je het leuk om foto\'s te maken? Veel mensen doen dit graag en hebben vaak een bibliotheek met honderden of duizenden foto\'s. 🏞";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..Paragraph110" = "Volg je foto\'s terwijl ze uit je fotobibliotheek worden opgehaald en in een galerie worden weergegeven waar je doorheen kunt scrollen.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..title" = "De fotoverzameling gebruiken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Paragraph111" = "Lees meer over de fotoverzameling in je gegevensmodel en hoe de foto\'s voor je galerie worden aangeleverd.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph112" = "Je gegevensmodel heeft een `photoCollection`-eigenschap die elke verzameling van onderdelen uit je fotobibliotheek kan representeren. Dit kan je hele fotobibliotheek, alleen een album of het resultaat van een zoekopdracht zijn.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page44..Paragraph113" = "Je kunt al je foto\'s aan je bibliotheek toevoegen door `photoCollection` te initialiseren met een slim album `.smartAlbumUserLibrary`.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph114" = "Houd er rekening mee dat je de functionaliteit \'Fotobibliotheek\' moet toevoegen voordat je de fotobibliotheek in je eigen project kunt gebruiken.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskdataModelPhotoCollection..Page45..Paragraph115" = "In [Requesting access to capabilities for your project](https://developer.apple.com/documentation/swift-playgrounds/project-capabilities) kun je meer informatie hierover vinden.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..title" = "De fotobestanden ophalen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Paragraph116" = "De onderdelen in je fotoverzameling worden fotobestanden of foto[bronbestanden](glossary://asset) genoemd. Ontdek hoe je deze fotobestanden kunt ophalen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page46..Paragraph117" = "De `photoCollection` van je gegevensmodel heeft een `photoAssets`-eigenschap waarmee je de verzameling met fotobestanden op dezelfde manier kunt gebruiken als een array.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..Paragraph118" = "Je kunt bijvoorbeeld een fotobestand ophalen via de bijbehorende index:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page47..CodeBlock12" = "let asset = photoCollection.photoAssets[4]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..Paragraph119" = "Of alle foto\'s in je verzameling tellen:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page48..CodeBlock13" = "let count = photoCollection.photoAssets.count\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page49..Paragraph120" = "Je kunt ook door de bronbestanden in `photoAssets` [itereren](glossary://iteration) met behulp van een lus. Je zult ontdekken dat dit erg handig is voor het bouwen van de galerie.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoAssets..Page50..Paragraph121" = "`photoAssets` is een [gepubliceerde](glossary://published%20value) eigenschap van het [observeerbare object](glossary://observable%20object) `PhotoCollection`. Dit betekent dat je kunt reageren op wijzigingen in de fotobestanden, bijvoorbeeld als foto\'s worden toegevoegd of verwijderd.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..title" = "Naar de fotogalerie navigeren";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Paragraph122" = "Ontdek hoe je naar de fotogalerie navigeert en hoe je deze aan je fotobibliotheek koppelt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph123" = "Gebruik in de cameraweergave een [navigatielink](glossary://navigation%20link) om naar de fotogalerie te gaan.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page51..Paragraph124" = "Een navigatielink werkt net als een knop. Je kunt er zelfs een label en een symbool aan toekennen. Je plaatst deze knop links van de sluiterknop.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph125" = "Wanneer je op een navigatielink tikt of klikt, opent SwiftUI een andere weergave. In dit geval is het de weergave met de fotoverzameling die je gebruikt om in je fotogalerie weer te geven.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page52..Paragraph126" = "Als je navigatielinks in een [NavigationStack](doc://com.apple.documentation/documentation/swiftui/navigationstack) gebruikt, beheert SwiftUI de presentatie van je weergaven, zodat je makkelijk van de ene naar de andere weergave kunt navigeren.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page53..Paragraph127" = "Door de `photoCollection` van je model aan de `PhotoCollectionView` door te geven tijdens de initialisatie, geef je de verzameling met foto\'s op die je in de galerie wilt weergeven.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph128" = "Wanneer je de galerie opent, is de zoeker niet meer zichtbaar. Je hoeft deze dus niet meer bij te werken. In plaats daarvan kun je de beschikbare bronnen van je apparaat beter gebruiken om je foto\'s weer te geven.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TasknavigateToGallery..Page54..Paragraph129" = "Je gebruikt de modifier [onAppear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/onappear(perform:)) van de navigatielink om de voorvertoningsstroom van de camera te pauzeren wanneer de galerie verschijnt en je gebruikt [onDisappear(perform:)](doc://com.apple.documentation/documentation/swiftui/view/ondisappear(perform:)) om de voorvertoningsstroom te hervatten wanneer je teruggaat naar de camera.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..title" = "De fotogalerie bouwen";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Paragraph130" = "Ontdek hoe je je foto\'s in een scrolbaar raster weergeeft.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page55..Paragraph131" = "Je gebruikt een `PhotoCollectionView` om de foto\'s in een scrolbaar raster weer te geven, met de recentste foto bovenaan.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph132" = "Wanneer je de `PhotoCollectionView` aanmaakt, wordt de eigenschap `photoCollection` geïnitialiseerd met een verwijzing naar de `photoCollection` van je model. Deze eigenschap verschaft alle gegevens die je nodig hebt om de fotogalerie te bouwen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page56..Paragraph133" = "Door van `photoCollection` een [geobserveerd object](glossary://observed%20object) te maken, werkt SwiftUI de fotoverzameling bij in reactie op wijzigingen in de [gepubliceerde waarden](glossary://published%20value) van de verzameling.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph134" = "Je gebruikt een [LazyVGrid](doc://com.apple.documentation/documentation/swiftui/lazyvgrid) om je foto\'s als onderdelen in een rasterlay-out weer te geven. Aangezien de lay-out een verticaal raster gebruikt, hoef je alleen te bepalen hoeveel `columns` je wilt gebruiken en welke `spacing` er tussen de onderdelen moet worden toegepast. Zodra het raster het aantal kolommen heeft, wordt het in verticale richting uitgebreid zodat er voldoende rijen aan het raster worden toegevoegd voor al je foto\'s.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page57..Paragraph135" = "Waarom lazy (lui)? Als het raster groter is dan de omvattende weergave, geeft de weergave alleen de onderdelen weer die op dat moment zichtbaar zijn. Deze \"luiheid\" zorgt er overigens voor dat de prestaties van je app worden verbeterd, met name als je door het raster met foto\'s scrolt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph136" = "Je kunt een vast aantal kolommen in je raster gebruiken, maar je kunt in plaats daarvan ook een [responsievere](glossary://responsive) benadering gebruiken waarbij je zoveel mogelijk kolommen inpast in de beschikbare breedte van de weergave. Zo ontstaat een veel betere gebruikerservaring als de grootte van de app wordt aangepast.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page58..Paragraph137" = "Om een raster aan te maken dat zich aanpast aan de breedte van de weergave, moet je een `adaptive` [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) definiëren en opgeven welke grootte en spacing je het raster wilt gebruiken.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph138" = "Stel je voor dat je honderden of duizenden foto\'s hebt. Zelfs met een adaptieve lay-out kan je raster hierdoor erg groot worden. Veel groter dan de ruimte die je hebt om het raster weer te geven!";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page59..Paragraph139" = "Maak het raster scrolbaar door het in een [ScrollView](doc://com.apple.documentation/documentation/swiftui/scrollview) te plaatsen. Hierdoor kan het raster zoveel rijen bevatten als nodig is en je kunt omhoog en omlaag door de foto\'s scrollen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph140" = "In het raster gebruik je [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) om door de fotobestanden in je verzameling te [itereren](glossary://iteration) en voor elk bronbestand een weergave aan te maken. Met deze weergaven wordt het raster gevuld.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page60..Paragraph141" = "Omdat je raster een LazyGrid is, bewerkt [ForEach](doc://com.apple.documentation/documentation/swiftui/foreach) tijdens het scrollen alleen de zichtbare fotobestanden.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page61..Paragraph142" = "Maak met behulp van de [doel](glossary://destination%20view)-`PhotoView` die met het fotobestand is geïnitialiseerd een [NavigationLink](doc://com.apple.documentation/documentation/swiftui/navigationlink) voor elk rasteronderdeel aan waarmee de afzonderlijke foto op volledige grootte wordt weergegeven wanneer erop wordt getikt of geklikt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph143" = "Met de methode `photoItemView(asset:)` wordt een weergave aangemaakt waarin een kleine afbeeldingsminiatuur voor een fotobestand wordt weergegeven.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoCollectionView..Page62..Paragraph144" = "Je gebruikt deze weergave als het [label](glossary://label) voor de navigatielink, waarbij elke link als een miniatuurafbeelding van de foto wordt weergegeven.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..title" = "Een foto weergeven";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Paragraph145" = "Leer hoe de fotoweergave wordt geladen en hoe je foto erin wordt weergegeven.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph146" = "Voor het weergeven van een afzonderlijke foto gebruik je `PhotoView`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page63..Paragraph147" = "Nadat je om een afbeelding met een hoge resolutie van de foto hebt gevraagd, wordt deze afbeelding weergegeven in de fotoweergave. Deze weergave bevat ook een overlay met knoppen waarmee je de foto als favoriet kunt markeren of verwijderen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page64..Paragraph148" = "De fotoweergave heeft een `photoAsset`-eigenschap voor de foto die wordt weergegeven. Je geeft deze door wanneer je de `PhotoView` initialiseert.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph149" = "Je kunt de weergave ook met een `cache`-eigenschap initialiseren, waarin een verwijzing naar je afbeeldingscache wordt bewaard.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page65..Paragraph150" = "Je kunt een afbeelding met een specifieke grootte uit de afbeeldingscache opvragen. Nadat de afbeelding uit het fotobestand is geladen, stuurt de cache de afbeelding naar je terug. De afbeeldingscache bewaart ook recent opgevraagde afbeeldingen in het geheugen, zodat deze afbeeldingen niet opnieuw hoeven te worden geladen als je ze weer opvraagt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph151" = "Je weergave heeft een `image`-[statuseigenschap](glossary://state%20value) waarin de afbeelding kan worden bewaard nadat deze is geladen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page66..Paragraph152" = "De `image`-statuseigenschap is een [optioneel](glossary://optional) type (`Image?`) omdat je wilt dat deze zonder waarde begint.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page67..Paragraph153" = "Een weergave kan de modifier [task(priority:_:)](doc://com.apple.documentation/documentation/swiftui/view/task(priority:_:)) gebruiken om code [asynchroon](glossary://asynchronous%20process) uit te voeren wanneer de weergave wordt geladen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph154" = "Hier voeg je code toe om een afbeelding met een hoge resolutie en een specifieke grootte op te vragen uit de cache voor het fotobestand.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page68..Paragraph155" = "Je geeft de cache ook een [closure](glossary://closure) met code die de cache kan aanroepen wanneer er een `result` voor je is.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph156" = "De `result`-closure ontvangt één of meer aanroepen van de cache. Als de cache de aangevraagde foto al bevat, wordt de closure onmiddellijk aangeroepen en bevindt de afbeelding zich in het `result`.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page69..Paragraph157" = "Als de cache de gevraagde afbeelding niet heeft, wordt de afbeelding uit het fotobestand geladen en in de cache bewaard. Tijdens het laden van de afbeelding is het mogelijk dat de cache eerst de closure aanroept met een afbeelding met een lage resolutie, voordat de afbeelding met de hoge resolutie in het `result` wordt afgeleverd.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page70..Paragraph158" = "De `result`-closure zoekt naar een afbeelding in het resultaat. Als de closure een afbeelding vindt, wordt de eigenschap `image` bijgewerkt.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph159" = "Omdat je van `image` een statuseigenschap hebt gemaakt, werkt SwiftUI de weergave bij wanneer de waarde van `image` verandert.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page71..Paragraph160" = "Als `image` een waarde bevat, kun je de afbeelding [uitpakken](glossary://unwrap) en in de weergave tonen.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph161" = "Als `image` echter geen waarde heeft, gebruik je een [ProgressView](doc://com.apple.documentation/documentation/swiftui/progressview) om een spinner weer te geven als een [plaatsaanduiding](glossary://placeholder%20view).";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskphotoView..Page72..Paragraph162" = "Kijk goed, want het kan zijn dat je deze spinner alleen ziet wanneer de weergave voor het eerst wordt geladen en de cache nog geen afbeelding uit het fotobestand heeft kunnen laden.";
+
+/* Title for task */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..title" = "Een vast raster gebruiken";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Paragraph163" = "Experimenteer met alternatieve rasterstijlen in je fotogalerie.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph164" = "De foto\'s in de galerie worden in een raster weergegeven waarbij elke foto zich in een vierkant met een vaste grootte bevindt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page73..Paragraph165" = "Je definieert deze rangschikking met de eigenschap `columns` die een array van [GridItem](doc://com.apple.documentation/documentation/swiftui/griditem) retourneert. Als je een afzonderlijk [adaptief(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/adaptive(minimum:maximum:)) rasteronderdeel gebruikt, past `LazyVGrid` zich aan de beschikbare breedte aan en worden zoveel mogelijk kolommen ingepast.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph166" = "Maar stel dat je in plaats daarvan een vast aantal kolommen wilt gebruiken, waarbij elke foto zoveel mogelijk ruimte in beslag neemt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page74..Paragraph167" = "Om dit te doen, moet je array `columns` een [flexibel(minimum:maximum:)](doc://com.apple.documentation/documentation/swiftui/griditem/size-swift.enum/flexible(minimum:maximum:)) rasteronderdeel voor elke gewenste kolom bevatten.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..Paragraph168" = "Definieer onder `columns` een `fixedColumns`-eigenschap die een array met `flexible`-rasteronderdelen retourneert, één voor elke kolom:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page75..CodeBlock14" = "let fixedColumns = [ \n    GridItem(.flexible(), spacing: itemSpacing),\n    GridItem(.flexible(), spacing: itemSpacing)\n]\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..Paragraph169" = "En geef in plaats van `columns` de eigenschap `fixedColumns` door aan je `LazyVGrid`. Je doet dit als volgt:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page76..CodeBlock15" = "LazyVGrid(columns: fixedColumns, spacing: Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph170" = "Ga nu naar je fotogalerie en kijk welk verschil dit maakt, met name als je de grootte van de weergave wijzigt.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page77..Paragraph171" = "Zoals je zou verwachten, zijn er nu twee kolommen, maar de foto\'s hebben nog steeds de oorspronkelijke grootte.";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph172" = "Er is nog iets dat je moet doen…";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page78..Paragraph173" = "Bekijk deze regel code in de functie waarmee de weergave voor de foto-onderdelen wordt gebouwd. Wat denk je dat het probleem zou kunnen zijn?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph174" = "Inderdaad, je wilt geen vaste [frame](doc://com.apple.documentation/documentation/swiftui/view/frame(width:height:alignment:))grootte meer voor elke foto. In plaats daarvan bepalen de breedte van de weergave en het aantal kolommen in het raster de grootte van de afbeelding.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..Paragraph175" = "Commentarieer de volgende regel zoals weergegeven uit, zodat elke foto zoveel ruimte in beslag kan nemen als nodig is:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page79..CodeBlock16" = "// .frame(width: Self.itemSize.width, height: Self.itemSize.height)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph176" = "Open de fotogalerie opnieuw. Zoals je ziet, vult elke foto nu de volledige breedte van de kolom.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page80..Paragraph177" = "Maak de weergave breder. Wat gebeurt er?";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph178" = "Bekijk de nieuwe vaste kolommen eens nauwkeurig. Zoals je ziet, is er ruimte aanwezig tussen de kolommen, maar niet aan de zijkanten van de kolommen. Kun je in de code zien waardoor dit komt?";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..Paragraph179" = "Wijzig de padding van de weergave. Zorg dat er niet alleen padding in verticale richting, maar ook in horizontale richting wordt toegepast:";
+
+/*  */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page81..CodeBlock17" = ".padding(Self.itemSpacing)\n";
+
+/* title for page */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..title" = "";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..Paragraph180" = "Andere dingen die je kunt proberen:";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph181" = "Meer rasteronderdelen toevoegen voor extra kolommen.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph182" = "De waarde wijzigen die door de eigenschap `imageSize` wordt geretourneerd om ervoor te zorgen dat je vaste raster wordt gevuld met afbeeldingen met een hogere resolutie.";
+
+/* Paragraph Content delivered to the user. The key should give context as to where this is being delivered to the user */
+"GuideBook..Guide0..StepCapturing Photos..TaskGroup2..TaskfixedGrid..Page82..UnorderedList3..Paragraph183" = "Een maximale hoogte voor de weergave van je foto-onderdelen gebruiken in plaats van een vaste hoogte: `.frame(maxHeight: 400)`.";
+

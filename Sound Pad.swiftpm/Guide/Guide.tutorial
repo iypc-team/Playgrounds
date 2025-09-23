@@ -1,0 +1,428 @@
+@GuideBook(title: "Sound Pad", icon: title.png, background: titleBackground.png, firstFile: SoundPadView.swift) {
+    @WelcomeMessage(title: "Create your own music with a sound pad") {
+        In this tutorial, you’ll explore the different sound functions and their capabilities by customizing your very own sound pad.
+        
+        Get ready to have fun and dance to your own soundtrack!
+    }
+    @Guide {
+        @Step(title: "Make your own sound pad") {
+            @ContentAndMedia {
+                ![](intro.png)
+                                
+                The sound pad app allows you to mix and match different audio components to create your own music. You can make your own musical instrument with code and record musical compositions to share with friends and family. 
+                
+                Ready to create your own jam?
+               
+            }
+            @TaskGroup(title: "Designing your sound pad") {
+                @Task(type: experiment, title: "Play different beats", id: "playSounds", file: SoundPadView.swift) {
+                    @Page(id: "1.intro", title: "") {
+                        You've just been tasked with a critical mission: your friends are having a party and they've asked you to spin some funky beats.
+                        
+                        But hey, you're not sweating it! You have a secret strategy: you can use the power of code to make jams like the world has never heard before 🧑‍🎤.
+                    }
+                    @Page(id: "1.questions", title: "") {
+                        Before you get started, look at preview on the right and play around with the sound pad app.  
+                        
+                        Some questions to consider while using the app:
+                        - What happens when you tap or click on one of the sound pad buttons?
+                        - How do you stop a sound?
+                        - What happens when you tap or click on the red Record button?
+                    
+                        Use these guiding questions to figure out how the sound pad works.
+                    }
+                    @Page(id: "1.addNewBeat", title: "") {
+                        Notice that the two buttons in the preview each correspond to a `LoopButton` in `SoundPadView`.
+                        
+                        Tapping or clicking a `LoopButton` plays a beat. Add the code snippet below to add a new `LoopButton`:
+                        ```
+                        LoopButton(beat: /*#-code-walkthrough(1.changeSound)*/<#T##BeatSounds#>/*#-code-walkthrough(1.changeSound)*/, color: .indigo)
+                        ```
+                    }
+                    @Page(id: "1.changeSound", title: "", isAddable: false) {
+                        To see other beats, select `BeatSounds` and type in a period (`.`). Select a new beat from the list of sounds such as `.GlowBeat`:
+                        ```
+                        LoopButton(beat: .GlowBeat, color: .indigo)
+                        ```
+                        Try exploring other beats in the sound library and select the beats that you vibe with. 
+
+                    }
+                    @Page(id: "1.changeColor", title: "", isAddable: false) {
+                        Nice! Changing the value of the sound [parameter](glossary://parameter) changes the beat played. Notice that each `LoopButton` also has a `color` parameter.
+
+                        You can change the color by deleting `.teal`, typing `.` then choosing from one of the new options, such as `.mint`:
+                        ```
+                        LoopButton(beat: .CosmicBeat, color: .mint)
+                        ```
+                    }
+                    @Page(id: "1.exploreLoop", title: "") {
+                        You can also try adding these ready-made buttons here! Copy and paste these sample buttons and place them in the highlighted section. 
+                        Take some time to find all of your favorite beat loops; you’ll use these to compose your music, so think about which sounds you like best:
+                        ```
+                        LoopButton(beat: .DiscoBeat1, color: .orange)
+                        ```
+                        ```
+                        LoopButton(beat: .FeverBeat, color: .yellow)
+                        ```
+                        ```
+                        LoopButton(beat: .SolarisBeat2, color: .red)
+                        ```
+                        ```
+                        LoopButton(beat: .GoTimeBeat2, color: .pink)
+                        ```
+                    }
+                    @Page(id: "1.beatsStudioSession", title: "") {
+                        It's time to jump into the recording studio! 
+                        
+                        Start by playing a beat loop and practice clapping or tapping on the table to your new beat. Can you match the beat of the loop? 
+                        
+                        Press the Record button to perform a quick sound check, then play it back and see how it sounds. You’re producing music already! 😎
+                    }
+                }
+                @Task(type: experiment, title: "Adding some bass", id: "playBass", file: SoundPadView.swift) {
+                    @Page(id: "3.introBass", title: "") {
+                        Now that you've got a set of beats on your sound pad, it's time to try layering some different sounds. 
+                        
+                        There are four types of sounds parameters that you can set in `LoopButton` - `beats`, `bass`, `melodic`, and `ambient`: 
+                        * Beats set the rhythm of your song.
+                        * Melody is what makes the song stand out and be memorable. Its the part of the song that people hum to. 
+                        * Bass is what ties the rhythm and melody of your song together.
+                        * Ambient sounds add depth to your song by setting the mood or atmosphere.
+                    }
+                    @Page(id: "3.learnBass", title: "") {
+                        Start by pairing your beats with some bass by adding a new `LoopButton` that plays a bass loop:
+                        ```
+                        /*#-code-walkthrough(3.exploreBass)*/
+                        Bass {
+                        /*#-code-walkthrough(3.editSoundLook)*/
+                        LoopButton(bass: .CosmicBass, color: .gray)
+                        /*#-code-walkthrough(3.editSoundLook)*/
+                        LoopButton(bass: .PrismaticaBass7, color: .brown)
+                        }
+                        /*#-code-walkthrough(3.exploreBass)*/
+                        ```
+                    }
+                    @Page(id: "3.exploreBass", title: "") {
+                        Notice in the preview on the right that adding `Bass { }` creates a new Bass section for the loop’s buttons. There are now two sections: Beats and Bass, which help you organize your sounds in different categories, and also by color!
+                        
+                        Try playing one loop each from the Beats and Bass sections at the same time to see how they sound together. Pretty good right?
+                    }
+                    @Page(id: "3.exploreBass", title: "") {
+                        Now try playing two loops from the same category at the same time. 
+                        
+                        Ew! 🙉 Notice how bad that sounds? That’s because loops in the same category tend to compete with each other, and this can make your music a bit chaotic.
+                        
+                        Tip: Try to use only one loop from each category at a time!
+                    }
+                    @Page(id: "3.editSoundLook", title: "") {                    
+                        Now modify your `LoopButton` so it plays a different bass loop, such as `.DreamsBass1`, and change the color of the button.
+                    }
+                    @Page(id: "3.exploreBass", title: "") {
+                        Take a moment to find and add your favorite bass loops.
+                        
+                        Place all of the bass sounds inside the `Bass` section. Categorizing them this way helps you find the right sounds to play during your performance: 🎼
+                        ```
+                        LoopButton(bass: .ParisNightsBass, color: .blue)
+                        ```                       
+                        ```
+                        LoopButton(bass: .LesInfernoBass, color: .purple)
+                        ```
+                        ```
+                        LoopButton(bass: .SaintTropezBass, color: .teal)
+                        ```
+                        ```
+                        LoopButton(bass: .PrismaticaBass7, color: .green)
+                        ```
+                    }
+                    @Page(id: "3.bassStudioSession", title: "") {
+                        Time to head back to the studio!
+                        
+                        Select a beat loop and let it play through one time. When the beat finishes playing through once, add a bass loop to by tapping or clicking one of the Bass buttons. How does that change the vibe?
+                        
+                        When you are satisfied with how the beat and bass sound together, let it play and tap or click Record. Good luck!
+                    }
+                }
+                
+                @Task(type: experiment, title: "Layering melody and ambient sounds", id: "playMelody", file: SoundPadView.swift) {
+                    @Page(id: "3.learnChords", title: "") {
+                        What about melody and ambient sounds? Melody is the component that makes your song memorable, so this is really important in making your song.
+                        
+                        Ambient sounds help you set the mood for your song, and can help you transition from one part of the song to the next.
+                        
+                        Can you guess how you add these sections to your sound pad?
+                    }
+                    @Page(id: "3.learnMelodyAmbient", title: "") {
+                        Add the Melodic and Ambient sections with the code below: 
+                        ```
+                        /*#-code-walkthrough(3.exploreMelody)*/
+                        Melodic {
+                            LoopButton(melodic: .DreamsChords3, color: .teal)
+                        }
+                        /*#-code-walkthrough(3.exploreMelody)*/
+                        /*#-code-walkthrough(3.exploreAmbient)*/
+                        Ambient {
+                            LoopButton(ambient: .DiscoSynth1, color: .red)
+                        }
+                        /*#-code-walkthrough(3.exploreAmbient)*/
+                        ```
+                    }
+                    @Page(id: "3.changeTheSounds", title: "") {
+                        Take a second to experiment with some different melodies and ambient loops by changing `.DreamsChords3` and `.DiscoSynth1`. 
+                        
+                        How do the melody and ambient sounds affect the music you’re composing?
+                    }
+                    @Page(id: "3.exploreMelody", title: "") {
+                        Find your favorite melodic loops and add your code inside the Melodic section:
+                        ```
+                        LoopButton(melodic: .ParisArpeggio, color: .indigo)
+                        ```
+                        ```
+                        LoopButton(melodic: .GlowChords, color: .orange)
+                        ```
+                        ```
+                        LoopButton(melodic: .PrismaticaChords2, color: .cyan)
+                        ```
+                    }
+                    @Page(id: "3.exploreAmbient", title: "") {
+                        Now, add a set of ambient loops to the Ambient section: 
+                        ```
+                        LoopButton(ambient: .PrismaticaSynth2, color: .yellow)          
+                        ```
+                        ```
+                        LoopButton(ambient: .SolarisString, color: .red)                     
+                        ```
+                        ```
+                        LoopButton(ambient: .GlitterSynth, color: .pink)               
+                        ```
+                    }
+                    
+                    @Page(id: "3.experiment", title: "") {
+                        Woo-hoo! Your sound pad is really coming together now. Time to jump into the studio and record first demo tape!
+                        
+                        Here's one way to structure your demo:
+                        - Start with a beat and let it play for one full loop. 
+                        - Add a bass loop and let it play for one full loop.
+                        - Choose a melodic loop and let that play for one full loop.
+                        - Finally, add an ambient sound to set the mood and let your song continue to play. 
+                        
+                        Head over to the next page for more ways to stucture your demo!
+                    }
+                    @Page(id: "3.done", title: "") {
+                        Now, try experimenting with your performance. 
+                        
+                        One way to vary how your song sounds is to switch up the order of when you introduce different loops. Start your song with the melody first, then introduce the beat, then the ambient sound, then the bass. Which version do you like better? 
+                        
+                        Record your first demo and send it to your friends to get some feedback!
+                    }
+                }
+                @Task(type: experiment, title: "Adding sound effects", id: "playSoundFX", file: SoundPadView.swift) {
+                    @Page(id: "4.SoundFXIntro", title: "") {
+                        It's time to spice things up and add some sound effects!
+                    }
+                    @Page(id: "4.learnSoundFX", title: "") {
+                        First, add a new section, SoundFX, that plays sound effects:
+                        ```
+                        /*#-code-walkthrough(4.exploreSoundFX)*/
+                        SoundFX {
+                            /*#-code-walkthrough(4.SoundFXExplain)*/
+                            SoundFXButton(sound: .PlanetariumFX3, color: .green)
+                            /*#-code-walkthrough(4.SoundFXExplain)*/
+                        }
+                        /*#-code-walkthrough(3.exploreSoundFX)*/
+                        ```
+                    }
+                    @Page(id: "4.SoundFXExplain", title: "") {
+                        Unlike tapping or clicking `LoopButton`, the `SoundFXButton` buttons only play the sound once and then stops. Go ahead, try it out.
+                        
+                        Just like `LoopButton`, you can customize the sound and color of `SoundFXButton` by changing the values for the `sound` and `color` [parameters](glossary://parameter).
+                    }
+                    @Page(id: "4.exploreSoundFX", title: "") {
+                        Add some oomph to your song with some sound effects. Build out the SoundFX section with the effects you like best:
+                        ```
+                        SoundFXButton(sound: .FirstGearFX, color: .teal)
+                        ```
+                        ```
+                        SoundFXButton(sound: .HornBassFX, color: .orange)
+                        ```
+                        ```
+                        SoundFXButton(sound: .BotTalkFX3, color: .mint)
+                        ```
+                        ```
+                        SoundFXButton(sound: .KazooFX4, color: .indigo)
+                        ```
+                        ```
+                        SoundFXButton(sound: .TromboneFX1, color: .green)
+                        ```
+                    }
+                    @Page(id: "3.done", title: "") {
+                        You know the drill…it’s studio session time! 🎉
+                        
+                        You can use sound effects in many places. You could play it at the beginning of the song to create an element of surprise, or you can add it in the middle leading up to the chorus to add some emotion to your song. Try exploring different sound effects and listen to how they affect your song.
+                        
+                        Ready? Record a second demo tape that includes different sound effects and compare it with the previous one. Which one do you vibe with most?
+                    }  
+                } 
+            }
+            @TaskGroup(title: "Modifying sounds") {
+                @Task(type: experiment, title: "Modify volume", id: "modifyVolume", file: SoundPadView.swift) {
+                    @Page(id: "4.modify", title: "") {
+                        Sometimes you want to change the volume of each sound. You can do this with a [modifier](glossary://modifier).
+                    }
+                    @Page(id: "4.volumeLow", title: "") {
+                        You can change the volume by adding a volume [modifier](glossary://modifier) to any `LoopButton` or `SoundFXButton`. 
+                        
+                        The volume modifier takes a number between `0` and `1.0`, where `0` is silent and `1.0` is full volume.
+                    }
+                    @Page(id: "4.volumeLow", title: "") {
+                        Try adding this modifier to any of the existing buttons and play it:
+                       ```
+                       .volume(0.5)
+                       ```
+                       
+                       Do you hear the difference? Setting volume to `0.5` lowers the volume by half. 
+                    }
+                    @Page(id: "4.volumeDone", title: "") {
+                        Awesome! Now you can adjust the volume of any sound in your sound pad!
+                    }
+                }
+                    
+                @Task(type: experiment, title: "Modify pitch", id: "modifyPitch", file: SoundPadView.swift) {
+                    @Page(id: "4.modify", title: "") {
+                        There are other [modifiers](glossary://modifier) that you can add to change your sounds, such as adjusting the `pitch`.
+                    }
+                    @Page(id: "4.pitchHigh", title: "") {
+                        You can change the [pitch](glossary://pitch%20audio) by adding a pitch [modifier](glossary://modifier) to any `SoundFXButton` or `LoopButton`: 
+                       ```
+                       .pitch(.E)
+                       ```
+
+                       Do you hear the difference?
+                    }
+                    @Page(id: "4.pitchDone", title: "") {
+                        Now you can customize the pitch of any sound! Try modifying pitch of the sounds that you have already added.
+                        
+                        A single button can have multiple modifiers for adjusting the pitch and volume all at the same time.
+                    }
+                }
+                @Task(type: experiment, title: "Modify speed", id: "modifySpeed", file: SoundPadView.swift) {
+                    @Page(id: "4.modifySpeed", title: "") {
+                        You can also use [modifiers](glossary://modifier) to adjust the `speed` of each sound.
+                    }
+                    @Page(id: "4.speed", title: "", isHidden: true) {
+                        To change the speed, you can add a `.speed` modifier. In this project, the speed ranges from `0` to `2.0`, with `2.0` doubling the speed. 
+                        
+                        Add the speed modifier below one of the sound effects or loops to speed it up:
+                        
+                        ```
+                        .speed(2)
+                        ```
+                    }
+                    @Page(id: "4.speedslow", title: "", isHidden: true) {                        
+                        Can you try adding a speed modifier to another sound to slow it down?
+                        ```
+                        .speed(0.5)
+                        ```
+                    }
+                    @Page(id: "4.speedDone", title: "") {
+                        Studio session time!
+                        
+                        Up for a little challenge? Select a beat sound and change the speed to `0.5`. Now try playing your song at this new speed. 
+                        
+                        Try changing another loop, such as a bass or melodic loop to `2.0` speed.
+                        
+                        What are you waiting for?! Tap or click the Record button and try playing the sounds together. What do you notice about how the song changes when you speed up or slow down loops?
+                    }
+                }
+                @Task(type: experiment, title: "Add a filter", id: "modifyfilter", file: SoundPadView.swift) {
+                    @Page(id: "5.filterIntro", title: "") {                        
+                        For that extra Wow factor, you can apply filters to your sounds!
+                    }
+                    
+                    @Page(id: "5.filterAdd", title: "", isHidden: true) {
+                        Try adding a new sound with a `filter` [modifier](glossary://modifier) and set the value to `drumsBitBrush`. 
+                        
+                        If you aren’t sure how to add a filter, here is an example:
+                        ```
+                        .filter(.drumsBitBrush)
+                        ```
+                        Whoa! Did you hear that? That sounds fun-ky!
+                    }
+                    
+                    
+                    @Page(id: "5.filterEdit", title: "") {
+                        Try these other sound effects to see how they change your sounds:
+                        ```
+                        .filter(.drumsLoFi)
+                        ```
+                        ```
+                        .filter(.multiDecimated1)
+                        ```
+                        ```
+                        .filter(.multiEcho1)
+                        ```
+                    }
+                    
+                    @Page(id: "5.ending", title: "") {
+                        Yippee! You’re almost finished.
+                        
+                        Now it’s time to put everything together. Add different sounds and fine-tune them with volume, pitch, speed, and filter. You can also use these filters to create a funky remix for your song (your new spooky jam?).
+                        
+                        Record yourself playing the song by tapping or clicking the Record button. When you finish, tap or click the button again to stop recording. Now you have a demo of your song that you can share with your friends and family and see what they think.                     
+                    }
+                }
+            }
+            @TaskGroup(title: "Making your own buttons") {
+                @Task(type: experiment, title: "Add a SwiftUI Button", id: "ownButton", file: LearnButton.swift) {
+                    @Page(id: "6.ownButtonIntro", title: "") {
+                        Time to step it up a notch. You’ll dive deeper into the code to create custom buttons for your sound pad.
+
+                    }
+                    @Page(id: "6.soundPadButton", title: "") {
+                        In preview on the left, you can see a [Button](doc://com.apple.documentation/documentation/swiftui/button) in the middle of the screen. 
+                        
+                        Tap or click the button in the preview; did you hear anything?
+                    }
+                    @Page(id: "6.soundPadButton", title: "") {
+                        When you tap or click a `Button`, the code calls the `soundPlayer.playSound(.FirstGearFX)` [function](glossary://function).
+                                                
+                        A function [call](glossary://call) asks the function to run. In this case, the function calls (or plays) the `.FirstGearFX` sound.                        
+                        Try changing the sound to something else.
+                    }
+                    @Page(id: "6.addButton", title: "") {
+                        Hmm…the button doesn’t look like a sound pad button. You should try changing the look of the button.
+                        
+                        Remove the old button and replace it with the code below:
+                        ```
+                        Button {
+                            soundPlayer.playSound(.FirstGearFX)
+                        } label: {
+                            /*#-code-walkthrough(6.buttonLabel)*/
+                            Circle()
+                            /*#-code-walkthrough(6.buttonLabel)*/
+                            //#-learning-code-snippet(6.buttonLabel)
+                        }
+                        ```
+                    }
+                    @Page(id: "6.buttonLabel", title: "") {
+                        You can add a custom `label` to the button to change how it looks. Placing `Circle()` inside `label` turns the button into a circle.
+                        
+                        Replace `Circle()` with the `ButtonView` below:
+                        ```
+                        /*#-code-walkthrough(6.colorButton)*/
+                        ButtonView(color: .orange)
+                        /*#-code-walkthrough(6.colorButton)*/
+                        ```
+                    }
+                    @Page(id: "6.colorButton", title: "") {
+                        `ButtonView` takes in a single [parameter](glossary://parameter) `color`. You can change the color of your button by replacing `.orange` with your favorite color.
+                    }
+                    
+                    @Page(id: "6.opicityExplore", title: "") {
+                        Wahoo! Now you can create your own button to play any sound!
+                    }
+                    
+                }
+            }
+        }
+    }
+}
