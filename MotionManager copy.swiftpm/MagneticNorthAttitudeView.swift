@@ -27,18 +27,34 @@ struct MagneticNorthAttitudeView: View {
                 .font(.largeTitle)
             Spacer()
         }
-        .onAppear { startUpdates() }
+//        .onAppear { startUpdates() }
         .onDisappear { stopUpdates() }
-        
-        Spacer()
-        HStack(alignment: .center, spacing: 20, content: {
-            Button(" startUpdates ", action: startUpdates)
-                .background(Color.green)
-                .foregroundColor(.black)
-            Button(" stopUpdates ", action: stopUpdates)
-                .background(Color.red)
-                .foregroundColor(.black)
+        HStack(content: {
+            Button(action: { manager.startQueuedUpdates() }, label: {
+                Text("Start\nUpdate")
+                    .frame(width: 100,height: 50)
+                    .foregroundColor(.black)
+                    .background(Color.green)
+                    .padding()
+            })
+            
+            Button(action: { manager.stopMotionUpdates() }, label: {
+                Text("Stop\nUpdate")
+                    .frame(width: 100,height: 50)
+                    .foregroundColor(.black)
+                    .background(Color.red)
+                    .padding()
+            })
         })
+//        Spacer()
+//        HStack(alignment: .center, spacing: 20, content: {
+//            Button(" startUpdates ", action: startUpdates)
+//                .background(Color.green)
+//                .foregroundColor(.black)
+//            Button(" stopUpdates ", action: stopUpdates)
+//                .background(Color.red)
+//                .foregroundColor(.black)
+//        })
         
         .padding(20)
         .font(.system(size: 22, weight: .regular, design: .default))
