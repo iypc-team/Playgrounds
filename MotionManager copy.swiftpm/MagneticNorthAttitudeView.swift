@@ -5,6 +5,7 @@ import SwiftUI
 import CoreMotion
 
 struct MagneticNorthAttitudeView: View {
+    @StateObject var mgr = MotionManager()
     @State private var roll: Double = 0.0   // radians
     @State private var pitch: Double = 0.0   // radians
     @State private var yaw: Double = 0.0   // radians
@@ -14,23 +15,25 @@ struct MagneticNorthAttitudeView: View {
     var updateInterval: TimeInterval = 1.0 / 1
     
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        VStack(alignment: .center, spacing: 8) {
+//            Spacer()
             Text("(MagneticNorthAttitudeView)")
-                .font(.headline)
                 
-            Text(String(format: "%.1f°", roll * 180 / .pi))
-                .font(.largeTitle)
-            Text(String(format: "%.1f°", pitch * 180 / .pi))
-                .font(.largeTitle)
-            Text(String(format: "%.1f°", yaw * 180 / .pi))
-                .font(.largeTitle)
-            Spacer()
+                
+            Text(String(format: "%.1f°", mgr.roll * 180 / .pi))
+                
+            Text(String(format: "%.1f°", mgr.pitch * 180 / .pi))
+                
+            Text(String(format: "%.1f°", mgr.yaw * 180 / .pi))
+                
+//            Spacer()
         }
 //        .onAppear { startUpdates() }
         .onDisappear { stopUpdates() }
-        HStack(content: {
-            Button(action: { manager.startQueuedUpdates() }, label: {
+        .font(.system(size: 18, weight: .bold, design: .default))
+        
+        HStack(alignment: .center, spacing: 20, content: {
+            Button(action: { mgr.startQueuedUpdates() }, label: {
                 Text("Start\nUpdate")
                     .frame(width: 100,height: 50)
                     .foregroundColor(.black)
@@ -38,26 +41,16 @@ struct MagneticNorthAttitudeView: View {
                     .padding()
             })
             
-            Button(action: { manager.stopMotionUpdates() }, label: {
+            Button(action: { mgr.stopMotionUpdates() }, label: {
                 Text("Stop\nUpdate")
                     .frame(width: 100,height: 50)
                     .foregroundColor(.black)
                     .background(Color.red)
                     .padding()
             })
+            .padding(20)
+            .font(.system(size: 22, weight: .bold, design: .default))
         })
-//        Spacer()
-//        HStack(alignment: .center, spacing: 20, content: {
-//            Button(" startUpdates ", action: startUpdates)
-//                .background(Color.green)
-//                .foregroundColor(.black)
-//            Button(" stopUpdates ", action: stopUpdates)
-//                .background(Color.red)
-//                .foregroundColor(.black)
-//        })
-        
-        .padding(20)
-        .font(.system(size: 22, weight: .regular, design: .default))
     }
     
     private func startUpdates() {
