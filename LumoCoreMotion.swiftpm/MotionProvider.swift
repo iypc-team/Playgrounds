@@ -1,4 +1,4 @@
-//  LumoCoreMotion  09/05/2025-1
+//  LumoCoreMotion  09/28/2025-1
 //  queue delegate
 // 
 import CoreMotion
@@ -10,7 +10,7 @@ struct MotionProvider {
     private let updateInterval: TimeInterval
     
     /// Initialise with a desired sampling rate (default 60 Hz).
-    init(updateInterval: TimeInterval = 1.0 / 1.0) {
+    init(updateInterval: TimeInterval = 1.0 / 120.0) {
         self.updateInterval = updateInterval
     }
     
