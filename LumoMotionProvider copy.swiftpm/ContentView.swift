@@ -12,12 +12,12 @@ struct ContentView: View {
         VStack {
             Text("Quaternion:")
                 .font(.headline)
-            Text(viewModel.quaternionString)
+            Text(viewModel.quat)
                 .monospacedDigit()
                 .padding()
         }
-        .onAppear { viewModel.start() }
-        .onDisappear { viewModel.stop() }
+        .onAppear { viewModel.getStream() }
+        .onDisappear { viewModel.stopStream() }
     }
 }
 
