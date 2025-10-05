@@ -1,4 +1,4 @@
-// GPTThrowingStream  10/05/2025-5
+// GPTThrowingStream  10/05/2025-6
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
@@ -6,6 +6,7 @@ import SwiftUI
 // ContentView
 struct ContentView: View {
     @StateObject var viewModel = MotionViewModel()
+    let mm = MotionModel()
     
     var body: some View {
         VStack {
@@ -16,6 +17,15 @@ struct ContentView: View {
                 Text("Waiting for motion data...")
                     .padding()
             }
+        }
+        Spacer()
+        HStack {
+            Button(action: {  }, label: {
+                Text("Start\nUpdates")
+            })
+            Button(action: {  }, label: {
+                Text("Stop\nUpdates")
+            })
         }
         .onAppear {
             // The ViewModel will start streaming as soon as the view appears

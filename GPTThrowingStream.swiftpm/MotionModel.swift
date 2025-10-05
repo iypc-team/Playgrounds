@@ -18,8 +18,9 @@ class MotionModel {
             }
             
             // Start receiving device motion data
-            motionManager.deviceMotionUpdateInterval = 1 / 60.0 // 60 Hz updates
-            motionManager.startDeviceMotionUpdates(to: .main) { (motionData, error) in
+            motionManager.deviceMotionUpdateInterval = 1.0 / 1.0 // 60 Hz updates
+            
+            motionManager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { (motionData, error) in
                 if let error = error {
                     continuation.finish(throwing: error)
                     return
