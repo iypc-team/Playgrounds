@@ -3,13 +3,14 @@
 
 import Foundation
 import Combine
+import CoreMotion
 
 class MotionViewModel: ObservableObject {
     private var model: MotionModel
     private var cancellables = Set<AnyCancellable>()
     
     // The published property for the View to observe
-    @Published var quaternion: CMQuaternion?
+    @Published var quaternion: CMQuaternion? // = CMQuaternion.init()
     
     init(model: MotionModel = MotionModel()) {
         self.model = model
