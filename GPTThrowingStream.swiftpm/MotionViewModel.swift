@@ -10,7 +10,7 @@ class MotionViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     // The published property for the View to observe
-    @Published var quaternion: CMQuaternion? // = CMQuaternion.init()
+    @Published var quaternion: CMQuaternion? 
     
     init(model: MotionModel = MotionModel()) {
         self.model = model
@@ -18,7 +18,7 @@ class MotionViewModel: ObservableObject {
         startListeningForMotionData()
     }
     
-    private func startListeningForMotionData() {
+    public func startListeningForMotionData() {
         // Launch an async task to listen to motion data
         Task {
             do {

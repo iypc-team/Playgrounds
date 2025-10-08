@@ -1,4 +1,4 @@
-// GPTThrowingStream  10/07/2025-1
+// GPTThrowingStream  10/08/2025-1
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
@@ -20,19 +20,24 @@ struct ContentView: View {
         }
         Spacer()
         HStack {
-            Button(action: {  }, label: {
+            Button(action: { viewModel. }, label: {
                 Text("Start\nUpdates")
             })
+            .frame(width: 100,height: 50)
+            .foregroundColor(.black)
+            .background(Color.green)
+            .padding()
+            
             Button(action: {  }, label: {
                 Text("Stop\nUpdates")
             })
+            .frame(width: 100,height: 50)
+            .foregroundColor(.black)
+            .background(Color.red)
+            .padding()
         }
-        .onAppear {
-            // The ViewModel will start streaming as soon as the view appears
-        }
-        .onDisappear {
-            // Optionally handle cleanup or stop streaming here
-        }
+        .onAppear { } // will start streaming as soon as the view appears 
+        .onDisappear {  } // handle cleanup or stop streaming here
     }
 }
 
