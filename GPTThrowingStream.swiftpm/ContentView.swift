@@ -1,4 +1,4 @@
-// GPTThrowingStream  10/08/2025-1
+// GPTThrowingStream  10/08/2025-2
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
@@ -20,7 +20,7 @@ struct ContentView: View {
         }
         Spacer()
         HStack {
-            Button(action: { viewModel. }, label: {
+            Button(action: { viewModel.startListeningForMotionData() }, label: {
                 Text("Start\nUpdates")
             })
             .frame(width: 100,height: 50)
