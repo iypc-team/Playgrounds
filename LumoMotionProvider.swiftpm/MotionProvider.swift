@@ -17,7 +17,8 @@ final class MotionProvider {
 extension MotionProvider {
     /// An async sequence that yields the latest attitude quaternion.
     func quaternionStream() -> AsyncStream<CMQuaternion> {
-        AsyncStream(unfolding: <#T##() async -> Element?#>, onCancel: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>) { continuation in
+        AsyncStream(unfolding: <#T##() async -> Element?#>)
+            continuation in
             // Start receiving device‑motion updates
             manager.startDeviceMotionUpdates(to: queue) { motion, error in
                 if let error = error {
