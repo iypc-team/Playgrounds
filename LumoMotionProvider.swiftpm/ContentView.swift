@@ -1,4 +1,4 @@
-// LumoMotionProvider  10/14/2025-1
+// LumoMotionProvider  10/14/2025-2
 // CoreMotion attitude quaternion AsyncThrowingStream error handling
 // 
 
