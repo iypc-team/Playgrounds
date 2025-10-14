@@ -1,4 +1,4 @@
-// GPTThrowingStream copy  10/08/2025-1
+// GPTThrowingStream copy  10/14/2025-1
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
