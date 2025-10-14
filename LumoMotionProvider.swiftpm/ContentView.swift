@@ -1,24 +1,49 @@
-// LumoMotionProvider  10/14/2025-2
+// LumoMotionProvider  10/14/2025-3
 // CoreMotion attitude quaternion AsyncThrowingStream error handling
 // 
 
 import SwiftUI
-import CoreMotion
 
 struct ContentView: View {
     @StateObject private var viewModel = MotionViewModel()
     
     var body: some View {
         VStack {
-            Text("Quaternion:")
-                .font(.headline)
-            Text(viewModel.quaternionString)
-                .monospacedDigit()
-                .padding()
+            if let quaternion = viewModel.quaternion {
+                Text("x: \(quaternion.x)")
+                Text("y: \(quaternion.y)")
+                Text("z: \(quaternion.z)")
+                Text("w: \(quaternion.w)")
+            } else {
+                Text("No data available")
+            }
         }
-        .onAppear { viewModel.start() }
-        .onDisappear { viewModel.stop() }
+        .onAppear {
+            viewModel.startUpdates()
+        }
+        .onDisappear {
+            viewModel.stopUpdates()
+        }
     }
 }
 
-
+//import SwiftUI
+//import CoreMotion
+//
+//struct ContentView: View {
+//    @StateObject private var viewModel = MotionViewModel()
+//    
+//    var body: some View {
+//        VStack {
+//            Text("Quaternion:")
+//                .font(.headline)
+//            Text(viewModel.quaternionString)
+//                .monospacedDigit()
+//                .padding()
+//        }
+//        .onAppear { viewModel.start() }
+//        .onDisappear { viewModel.stop() }
+//    }
+//}
+//
+//
