@@ -1,4 +1,7 @@
-import SwiftUI
+//   MotionProvider  10/15/2025-1
+// 
+
+
 
 struct ContentView: View {
     var body: some View {
