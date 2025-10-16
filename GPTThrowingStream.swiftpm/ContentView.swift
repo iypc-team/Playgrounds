@@ -1,4 +1,4 @@
-// GPTThrowingStream  10/15/2025-1
+// GPTThrowingStream  10/16/2025-3
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
@@ -20,22 +20,42 @@ struct ContentView: View {
         }
         Spacer()
         HStack {
-            Button(action: { mm.getAttitudeStream() }, label: {
-                Text("Start\nUpdates")
-            })
-            .padding(10)
-            .foregroundColor(.black)
-            .background(Color.green)
+            Spacer()
             
-            Button(action: { mm }, label: {
-                Text("Stop\nUpdates")
-            })
-            .padding(10)
-            .foregroundColor(.black)
-            .background(Color.red)
+            Button(action: {
+                // Your tap‑handler goes here
+                print("Start Updates tapped!")
+            }) {
+                // MARK: – Button label
+                Text("Start Updates")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)          // Text colour
+                    .padding(.vertical, 8)           // Vertical spacing inside the button
+                    .padding(.horizontal, 8)         // Horizontal spacing inside the button
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.green)         // Fill colour
+                    )
+            }
             
+            Button(action: {
+                // Your tap‑handler goes here
+                print("Stop Updates tapped!")
+            }) {
+                Text("Stop Updates")
+                    .foregroundColor(.white)          // Text colour
+                    .padding(.vertical, 8)           // Vertical spacing inside the button
+                    .padding(.horizontal, 8)         // Horizontal spacing inside the button
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.red) 
+                    )
+            }
+            
+            Spacer()
         }
-        .padding(10)
+        
+        .font(.system(size: 18, weight: .heavy, design: .default))
         .onAppear {
             // The ViewModel will start streaming as soon as the view appears
         }
@@ -46,5 +66,4 @@ struct ContentView: View {
 }
 
 //
-
 
