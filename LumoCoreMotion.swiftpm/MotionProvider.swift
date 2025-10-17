@@ -1,4 +1,4 @@
-//  LumoCoreMotion  09/28/2025-1
+//  LumoCoreMotion  10/17/2025-1
 //  queue delegate
 // 
 import CoreMotion
@@ -6,11 +6,12 @@ import Foundation
 
 /// A thin wrapper that turns CoreMotion device‑motion updates into an AsyncStream.
 struct MotionProvider {
-    private let manager = CMMotionManager()
-    private let updateInterval: TimeInterval
+    public let manager = CMMotionManager()
+    public let updateInterval: TimeInterval
+    public var queue = OperationQueue()
     
     /// Initialise with a desired sampling rate (default 60 Hz).
-    init(updateInterval: TimeInterval = 1.0 / 120.0) {
+    init(updateInterval: TimeInterval = 1.0 / 0.1) {
         self.updateInterval = updateInterval
     }
     
@@ -28,12 +29,12 @@ struct MotionProvider {
             
             // Choose a queue that matches your UI needs.
             // Using `.main` keeps UI work simple; a background queue reduces UI jitter.
-            let queue = OperationQueue()
+//            let queue = OperationQueue()
             queue.qualityOfService = .background
             queue.name = "com.example.motionQueue"
-            queue.maxConcurrentOperationCount = 1
+            queue.maxConcurrentOperationCount = 4
             
-            manager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: queue) { motion, error in
+            manager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: queue) { motion, error in
                 if let error = error {
                     // If you want to surface errors, switch to AsyncThrowingStream instead.
                     print("⚠️ Motion error: \(error.localizedDescription)")

@@ -1,4 +1,4 @@
-//  .1f
+//  LumoCoreMotion  10/17/2025-1
 // 
 // 
 import SwiftUI
