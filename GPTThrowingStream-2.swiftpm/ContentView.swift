@@ -1,4 +1,4 @@
-// GPTThrowingStream-2  10/17/2025-1
+// GPTThrowingStream-2  10/17/2025-2
 // CoreMotion attitude quaternion AsyncThrowingStream MVVM Paradigm
 //  quaternion
 
@@ -56,12 +56,12 @@ struct ContentView: View {
         }
         
         .font(.system(size: 18, weight: .heavy, design: .default))
-        .onAppear {
-            // The ViewModel will start streaming as soon as the view appears
-        }
-        .onDisappear {
-            // Optionally handle cleanup or stop streaming here
-        }
+//        .onAppear {
+//            // The ViewModel will start streaming as soon as the view appears
+//        }
+//        .onDisappear {
+//            // Optionally handle cleanup or stop streaming here
+//        }
     }
 }
 
