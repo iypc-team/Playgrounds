@@ -1,4 +1,4 @@
-// LumoCoreMotion  10/17/2025-2
+// LumoCoreMotion  10/17/2025-3
 // 
 // 
 import SwiftUI
@@ -53,8 +53,7 @@ struct MotionView: View {
         HStack(content: {
             Button(action: {
                 vm.start()
-                // Your tap‑handler goes here
-                print("Start Updates tapped!")
+                print("Start Updates tapped!\n")
             }) {
                 // MARK: – Button label
                 Text("Start Updates")
@@ -71,7 +70,7 @@ struct MotionView: View {
             Button(action: {
                 vm.stop()
                 // Your tap‑handler goes here
-                print("Stop Updates tapped!")
+                print("Stop Updates tapped!\n")
             }) {
                 Text("Stop Updates")
                     .foregroundColor(.white)          // Text colour
@@ -82,25 +81,8 @@ struct MotionView: View {
                             .fill(Color.red) 
                     )
             }
-            
-            
-//            Button(action: { vm.start() }, label: {
-//                Text("Start\nUpdate")
-//                    .frame(width: 100,height: 50)
-//                    .foregroundColor(.black)
-//                    .background(Color.green)
-//                    .padding()
-//            })
-//            
-//            Button(action: { vm.stop() }, label: {
-//                Text("Stop\nUpdate")
-//                    .frame(width: 100,height: 50)
-//                    .cornerRadius(20)
-//                    .foregroundColor(.black)
-//                    .background(Color.red)
-//                    .padding()
-//            })
         })
+        .padding()
         .font(.system(size: 18, weight: .regular, design: .default))
     }
 }
