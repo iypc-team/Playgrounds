@@ -1,4 +1,4 @@
-//  LumoCoreMotion  10/17/2025-1
+// LumoCoreMotion  10/17/2025-2
 // 
 // 
 import SwiftUI
@@ -51,26 +51,58 @@ struct MotionView: View {
         .font(.system(size: 18, weight: .regular, design: .default))
         Spacer()
         HStack(content: {
-            Button(action: { vm.start() }, label: {
-                Text("Start\nUpdate")
-                    .frame(width: 100,height: 50)
-                    .foregroundColor(.black)
-                    .background(Color.green)
-                    .padding()
-            })
+            Button(action: {
+                vm.start()
+                // Your tap‑handler goes here
+                print("Start Updates tapped!")
+            }) {
+                // MARK: – Button label
+                Text("Start Updates")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)          // Text colour
+                    .padding(.vertical, 8)           // Vertical spacing inside the button
+                    .padding(.horizontal, 8)         // Horizontal spacing inside the button
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.green)         // Fill colour
+                    )
+            }
             
-            Button(action: { vm.stop() }, label: {
-                Text("Stop\nUpdate")
-                    .frame(width: 100,height: 50)
-                    .cornerRadius(20)
-                    .foregroundColor(.black)
-                    .background(Color.red)
-                    .padding()
-            })
+            Button(action: {
+                vm.stop()
+                // Your tap‑handler goes here
+                print("Stop Updates tapped!")
+            }) {
+                Text("Stop Updates")
+                    .foregroundColor(.white)          // Text colour
+                    .padding(.vertical, 8)           // Vertical spacing inside the button
+                    .padding(.horizontal, 8)         // Horizontal spacing inside the button
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.red) 
+                    )
+            }
+            
+            
+//            Button(action: { vm.start() }, label: {
+//                Text("Start\nUpdate")
+//                    .frame(width: 100,height: 50)
+//                    .foregroundColor(.black)
+//                    .background(Color.green)
+//                    .padding()
+//            })
+//            
+//            Button(action: { vm.stop() }, label: {
+//                Text("Stop\nUpdate")
+//                    .frame(width: 100,height: 50)
+//                    .cornerRadius(20)
+//                    .foregroundColor(.black)
+//                    .background(Color.red)
+//                    .padding()
+//            })
         })
         .font(.system(size: 18, weight: .regular, design: .default))
     }
 }
 
 //
-

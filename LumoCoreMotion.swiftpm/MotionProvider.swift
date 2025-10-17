@@ -1,6 +1,7 @@
-//  LumoCoreMotion  10/17/2025-1
+// 
 //  queue delegate
 // 
+
 import CoreMotion
 import Foundation
 
