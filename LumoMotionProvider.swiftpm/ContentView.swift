@@ -1,4 +1,4 @@
-// LumoMotionProvider  10/14/2025-3
+// LumoMotionProvider  10/14/2025-1
 // CoreMotion attitude quaternion AsyncThrowingStream error handling
 // 
 
@@ -9,6 +9,8 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Text(".  \(viewModel)")
+            Spacer()
             if let quaternion = viewModel.quaternion {
                 Text("x: \(quaternion.x)")
                 Text("y: \(quaternion.y)")
@@ -17,6 +19,7 @@ struct ContentView: View {
             } else {
                 Text("No data available")
             }
+            Spacer()
         }
         .onAppear {
             viewModel.startUpdates()

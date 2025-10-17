@@ -12,16 +12,16 @@ class MotionViewModel: ObservableObject {
     
     func startUpdates() {
         guard motionManager.isDeviceMotionAvailable else { return }
-        motionManager.deviceMotionUpdateInterval = 1.0 / 1.0 // 50 Hz
+        motionManager.deviceMotionUpdateInterval = 1.0 / 0.25 // 50 Hz
         
         let stream = AsyncThrowingStream<Quaternion, Error> { continuation in
-            motionManager.startDeviceMotionUpdates(to: .main) { (deviceMotion, error) in
+            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
                 if let error = error {
                     continuation.finish(throwing: error)
                     return
                 }
                 
-                guard let attitude = deviceMotion?.attitude else { return }
+                guard let attitude = motion?.attitude else { return }
                 let quaternion = Quaternion(x: attitude.quaternion.x,
                                             y: attitude.quaternion.y,
                                             z: attitude.quaternion.z,
