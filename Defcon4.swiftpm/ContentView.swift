@@ -1,3 +1,5 @@
+//  Defcon4  10/18/2025-1
+// 
 import SwiftUI
 import UIKit
 import Dispatch
@@ -54,7 +56,7 @@ struct SceneKitView : UIViewRepresentable {
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
-        ambientLightNode.light!.intensity = 1000
+        ambientLightNode.light!.intensity = 10
         scene.rootNode.addChildNode(ambientLightNode)
         
         let shipLightNode = SCNNode()
