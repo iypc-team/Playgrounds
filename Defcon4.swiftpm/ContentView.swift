@@ -1,12 +1,13 @@
-//  Defcon4  10/18/2025-1
-// 
+//  Defcon4  10/18/2025-2
+//  green
+
 import SwiftUI
 import UIKit
 import Dispatch
 import SceneKit
 import GameKit
 import Foundation
-import RealityKit
+//import RealityKit
 
 //struct Universe: UIViewRepresentable {
 //        typealias UV = Universe
@@ -37,20 +38,21 @@ struct SceneKitView : UIViewRepresentable {
         cameraNode.camera?.wantsHDR = true
         scene.rootNode.addChildNode(cameraNode)
         
-//        let lightNode = SCNNode()
-//        lightNode.light = SCNLight()
-//        lightNode.light!.type = .ambient
-//        lightNode.position = SCNVector3(x: 0, y: 10, z: 100)
-//        lightNode.light!.intensity = 1000
-//        scene.rootNode.addChildNode(lightNode)
-//        
-//        let lightNode_2 = SCNNode()
-//        lightNode_2.light = SCNLight()
-//        lightNode_2.light!.type = .ambient
-//        lightNode_2.position = SCNVector3(x: 0, y: 0, z: -100)
-//        lightNode_2.light!.color = UIColor.darkGray
-//        lightNode_2.light!.intensity = 100
-//        scene.rootNode.addChildNode(lightNode_2)
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight()
+        lightNode.light!.color = UIColor.darkGray
+        lightNode.light!.type = .ambient
+        lightNode.position = SCNVector3(x: 0, y: 10, z: 100)
+        lightNode.light!.intensity = 500
+        scene.rootNode.addChildNode(lightNode)
+        
+        let lightNode_2 = SCNNode()
+        lightNode_2.light = SCNLight()
+        lightNode_2.light!.type = .ambient
+        lightNode_2.position = SCNVector3(x: 0, y: 0, z: -100)
+        lightNode_2.light!.color = UIColor.darkGray
+        lightNode_2.light!.intensity = 100
+        scene.rootNode.addChildNode(lightNode_2)
         
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
@@ -60,11 +62,89 @@ struct SceneKitView : UIViewRepresentable {
         scene.rootNode.addChildNode(ambientLightNode)
         
         let shipLightNode = SCNNode()
+        shipLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         shipLightNode.light = SCNLight()
         shipLightNode.light!.type = .omni
         shipLightNode.light!.intensity = 1000
         shipLightNode.light!.color =  UIColor.green
-        shipLightNode.light!.type = .omni
+        scene.rootNode.addChildNode(shipLightNode)
+        
+        let shipLightNode2 = SCNNode()
+        shipLightNode2.position = SCNVector3(x: 0, y: 0, z: 0)
+        shipLightNode2.light = SCNLight()
+        shipLightNode2.light!.type = .omni
+        shipLightNode2.light!.intensity = 1000
+        shipLightNode2.light!.color =  UIColor.green
+        scene.rootNode.addChildNode(shipLightNode2)
+        
+      /////////////////////////  
+        // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
+        var tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
+        
+        // Optional: increase segment counts for smoother geometry
+        tube.radialSegmentCount = 4
+        tube.heightSegmentCount = 4
+        
+        // Apply a material (e.g., a metallic look)
+        var material = SCNMaterial()
+        material.diffuse.contents = UIColor.yellow
+        material.metalness.contents = 0.8
+        tube.materials = [material]
+        
+        // Wrap the geometry in a node
+        let yAxis = SCNNode(geometry: tube)
+        
+        // Position the node in the scene
+        yAxis.position = SCNVector3(x: 0, y: 0, z: 0)
+        scene.rootNode.addChildNode(yAxis)        
+        
+        /////////////////////////  
+        // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
+        tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
+        
+        // Optional: increase segment counts for smoother geometry
+        tube.radialSegmentCount = 4
+        tube.heightSegmentCount = 4
+        
+        // Apply a material (e.g., a metallic look)
+        material = SCNMaterial()
+        material.diffuse.contents = UIColor.blue
+        material.metalness.contents = 0.8
+        tube.materials = [material]
+        
+        // Wrap the geometry in a node
+        var xAxis = SCNNode(geometry: tube)
+        
+        // Position the node in the scene
+        xAxis.position = SCNVector3(x: 0, y: 0, z: 0)
+        xAxis.eulerAngles.x = .pi / 2 
+        
+        // Add to your scene’s root node (or any parent node)
+        scene.rootNode.addChildNode(xAxis)
+        
+        /////////////////////////  
+        // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
+        tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
+        
+        // Optional: increase segment counts for smoother geometry
+        tube.radialSegmentCount = 4
+        tube.heightSegmentCount = 4
+        
+        // Apply a material (e.g., a metallic look)
+        material = SCNMaterial()
+        material.diffuse.contents = UIColor.red
+        material.metalness.contents = 0.8
+        tube.materials = [material]
+        
+        // Wrap the geometry in a node
+        var zAxis = SCNNode(geometry: tube)
+        
+        // Position the node in the scene
+        zAxis.position = SCNVector3(x: 0, y: 0, z: 0)
+        zAxis.eulerAngles.z = .pi / 2 
+        
+        // Add to your scene’s root node (or any parent node)
+        scene.rootNode.addChildNode(zAxis)
         
         // retrieve the shipNode node
         let shipNode: SCNNode? = scene.rootNode.childNode(withName: "fighter.scn", recursively: true)
@@ -74,20 +154,20 @@ struct SceneKitView : UIViewRepresentable {
         let scnView = SCNView()
         return scnView
     }
-    
+
     func updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
-        scnView.backgroundColor = UIColor.black
+        scnView.backgroundColor = UIColor.darkGray
     }
 }
 
-struct SceneKitView_Previews: PreviewProvider {
-    static var previews: some View {
-        SceneKitView()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct SceneKitView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SceneKitView()
+//            .preferredColorScheme(.dark)
+//    }
+//}
 
