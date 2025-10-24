@@ -1,13 +1,15 @@
-//  
-//  
+// 
+// 
 
 import Foundation
 import CoreMotion
 import Combine
 
 class MotionViewModel: ObservableObject {
-    @Published var quaternion: CMQuaternion?
     private var motionService = MotionService()
+    @Published var quaternion: CMQuaternion?
+    @Published var motionActive = false
+    
     
     func start() {
         print("func start()  ")

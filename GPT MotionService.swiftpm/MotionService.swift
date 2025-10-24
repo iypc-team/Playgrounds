@@ -1,19 +1,21 @@
-//  
+//  Encapsulate CoreMotion
 //  
 
 import CoreMotion
 
 class MotionService {
-    private let motionManager = CMMotionManager()
+    public let motionManager = CMMotionManager()
+    
+    
     
     func startMotionUpdates(handler: @escaping (CMQuaternion?) -> Void) {
-        print("func startMotionUpdates() ")
+        print("func startMotionUpdates()\n ")
         guard motionManager.isDeviceMotionAvailable else {
             handler(nil)
             return
         }
         motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
-        motionManager.deviceMotionUpdateInterval = 5.0
+        motionManager.deviceMotionUpdateInterval = 2.0
         motionManager.startDeviceMotionUpdates(
             using: .xMagneticNorthZVertical,
             to: .main
@@ -23,7 +25,7 @@ class MotionService {
     }
     
     func stopMotionUpdates() {
-        print("func stopDeviceMotionUpdates() ")
+        print("func stopDeviceMotionUpdates()\n ")
         motionManager.stopDeviceMotionUpdates()
     }
 }
