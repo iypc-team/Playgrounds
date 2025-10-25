@@ -19,7 +19,7 @@ final class MotionService {
         queue.name = "MotionQueue"
         queue.maxConcurrentOperationCount = 8
         queue.qualityOfService = .background
-        print(queue.underlyingQueue!)
+        print(queue.underlyingQueue as Any)
     }
     
     // MARK: – Async stream of quaternions
