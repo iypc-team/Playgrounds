@@ -1,4 +1,4 @@
-//  GPT MotionService 10/24/2025-1
+//  GPT MotionService 10/25/2025-1
 //  GPT4.1 
 //  How to implement  startDeviceMotionUpdates(using: .xMagneticNorthZVertical MVVM paradigm
 
@@ -11,20 +11,17 @@ struct ContentView: View {
     var body: some View {
         Spacer()
         VStack {
-            Text("deviceMotionActive:  \(viewModel.motionActive)")
-              .padding(.vertical, 16)
             if let q = viewModel.quaternion
             {
                 Text("x: \(q.x)")                    
                 Text("y: \(q.y)")
-//                    .padding()
                 Text("z: \(q.z)")
                 Text("w: \(q.w)")
             } else {
                 Text("Waiting for motion data...")
             }
         }
-        .onAppear { viewModel.start() }
+//        .onAppear { viewModel.start() }
         .onDisappear { viewModel.stop() }
         
         Spacer()
@@ -64,3 +61,5 @@ struct ContentView: View {
     }
     
 }
+
+//

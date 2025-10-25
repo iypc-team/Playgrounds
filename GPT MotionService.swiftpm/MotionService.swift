@@ -6,7 +6,10 @@ import CoreMotion
 class MotionService {
     public let motionManager = CMMotionManager()
     
-    
+    func isMotionActive() -> Bool {
+        print("func isMotionActive()")
+        return self.motionManager.isDeviceMotionActive
+    }
     
     func startMotionUpdates(handler: @escaping (CMQuaternion?) -> Void) {
         print("func startMotionUpdates()\n ")
