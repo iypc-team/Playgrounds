@@ -10,7 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "Defcon4",
     platforms: [
-        .iOS("16.7")
+        .iOS("16.6")
     ],
     products: [
         .iOSApplication(
@@ -18,7 +18,7 @@ let package = Package(
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .asset("AppIcon"),
+            appIcon: .placeholder(icon: .plane),
             accentColor: .presetColor(.orange),
             supportedDeviceFamilies: [
                 .pad,
@@ -29,6 +29,9 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+            ],
+            capabilities: [
+                .motion(purposeString: "Expose device motion sensors.")
             ]
         )
     ],
