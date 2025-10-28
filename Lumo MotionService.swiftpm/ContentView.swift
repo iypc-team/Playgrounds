@@ -1,4 +1,4 @@
-// Lumo MotionService 10/27/2025-1
+// Lumo MotionService 10/28/2025-1
 // CoreMotion attitude quaternion Implementing xMagneticNorthZVertical AsyncThrowingStream MVVM paradigm
 // 1f
 
@@ -46,6 +46,9 @@ struct MotionView: View {
             .padding()
         }
         .padding()
+        .onAppear(perform: {
+            vm.start()
+        })
         .onDisappear { vm.stop() }   // Clean up when view goes away
     }
 }

@@ -9,9 +9,41 @@ enum MotionError: Error {
     case failed(Error)
 }
 
+enum CMMagneticFieldCalibrationAccuracy : Int {
+    case uncalibrated = -1
+    case low = 0
+    case medium = 1
+    case high = 2
+}
+
 final class MotionService {
     private let manager = CMMotionManager()
     private let queue = OperationQueue()
+    
+    init() {
+        queue.name = "MotionQueue"
+        queue.maxConcurrentOperationCount = 8
+        queue.qualityOfService = .background
+        print("\(queue.debugDescription)")
+    }
+    
+    func deviceCalibration() {
+        if let deviceMotion = manager.deviceMotion {
+            let magAccuracy = deviceMotion.magneticField.accuracy
+            switch magAccuracy {
+            case .high:
+                print("High magnetic field accuracy")
+            case .medium:
+                print("Medium magnetic field accuracy")
+            case .low:
+                print("Low magnetic field accuracy")
+            case .uncalibrated:
+                print("Uncalibrated magnetic field")
+            @unknown default:
+                print("Unknown accuracy")
+            }
+        }
+    }
     
     // MARK: Public API
     /// Async stream of quaternions expressed in the xMagneticNorthZVertical reference frame.
@@ -42,7 +74,7 @@ final class MotionService {
                 }
                 
                 guard let quat = motion?.attitude.quaternion else { return }
-                
+                print("\(quat)\n")
                 continuation.yield(quat)
             }
             
