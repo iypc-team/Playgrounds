@@ -1,5 +1,6 @@
-// LumoMotionProvider  10/25/2025-2
-// CoreMotion attitude quaternion AsyncThrowingStream error handling
+// LumoMotionProvider  10/27/2025-1
+// CoreMotion attitude quaternion Implementing xMagneticNorthZVertical AsyncThrowingStream
+
 // rad * 180 / .pi
 //   °
 
