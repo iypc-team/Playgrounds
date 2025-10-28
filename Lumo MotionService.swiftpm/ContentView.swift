@@ -1,4 +1,4 @@
-// Lumo MotionService 10/27/2025-initial commit
+// Lumo MotionService 10/27/2025-1
 // CoreMotion attitude quaternion Implementing xMagneticNorthZVertical AsyncThrowingStream MVVM paradigm
 // 1f
 
@@ -9,10 +9,18 @@ struct MotionView: View {
     @StateObject private var vm = MotionViewModel()
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Quaternion")
+        VStack(spacing: 5) {
+            Text("Degrees")
                 .font(.headline)
             
+            Text("x: \(vm.quaternion.x * 180 / .pi, specifier: "%.1f")°")
+            Text("y: \(vm.quaternion.y * 180 / .pi, specifier: "%.1f")°")
+            Text("z: \(vm.quaternion.z * 180 / .pi, specifier: "%.1f")°")
+            Text("w: \(vm.quaternion.w * 180 / .pi, specifier: "%.1f")°")
+            
+            Spacer()
+            Text("Radians")
+                .font(.headline)
             // Show the components nicely
             Text("""
                  x: \(vm.quaternion.x, specifier: "%.1f")
@@ -26,11 +34,16 @@ struct MotionView: View {
             HStack {
                 Button("Start") { vm.start() }
                     .buttonStyle(.borderedProminent)
+                    .foregroundColor(.black)
+//                    .background(Color.green)
                 
                 Button("Stop") { vm.stop() }
                     .buttonStyle(.bordered)
+                    .foregroundColor(.black)
+//                    .background(Color.red)
+                    
             }
-            
+            .padding()
         }
         .padding()
         .onDisappear { vm.stop() }   // Clean up when view goes away
