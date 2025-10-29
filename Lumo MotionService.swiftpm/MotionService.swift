@@ -16,7 +16,46 @@ enum CMMagneticFieldCalibrationAccuracy : Int {
     case high = 2
 }
 
-import Foundation
+extension OperationQueue {
+    // Lumo Extension NSOperationQueue running count total
+    /// Returns the number of operations that are currently executing.
+    var runningCount: Int {
+        // `operations` contains all queued operations (executing, pending, finished).
+        // We only count those where `isExecuting` is true.
+        return operations.filter { $0.isExecuting }.count
+    }
+    
+    /// Returns the total number of operations ever added to the queue,
+    /// including those that have already finished.
+    var totalAddedCount: Int {
+        // `operationCount` reflects only the *current* number of operations
+        // (executing + pending). To keep a running total you need to track it yourself.
+        // One simple approach is to increment a counter each time you add an operation.
+        return _totalAddedCount
+    }
+    
+    // MARK: – Private bookkeeping
+    
+    private static var totalKey = "Lumo_OperationQueue_TotalAdded"
+    
+    private var _totalAddedCount: Int {
+        get {
+            // Store the count in the queue’s associated object dictionary.
+            // This persists for the lifetime of the queue instance.
+            return objc_getAssociatedObject(self, &Self.totalKey) as? Int ?? 0
+        }
+        set {
+            objc_setAssociatedObject(self, &Self.totalKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    /// Override `addOperation(_:)` to update the total‑added counter.
+    public override func addOperation(_ op: Operation) {
+        // Increment our total before delegating to the superclass implementation.
+        _totalAddedCount += 1
+        super.addOperation(op)
+    }
+}
 
 extension OperationQueue {
     /// Returns the number of operations that are still waiting to be executed.
