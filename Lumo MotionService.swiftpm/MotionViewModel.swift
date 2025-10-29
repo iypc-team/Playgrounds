@@ -5,9 +5,9 @@ import Combine
 import CoreMotion
 import SwiftUI
 
-@MainActor
+@MainActor  // Published for SwiftUI views
 final class MotionViewModel: ObservableObject {
-    // Published for SwiftUI views
+    
     @Published var quaternion: CMQuaternion = CMQuaternion(x: 0, y: 0, z: 0, w: 1)
     
     private let service = MotionService()
@@ -15,6 +15,7 @@ final class MotionViewModel: ObservableObject {
     
     // MARK: Public API
     func start() {
+        print("func start()")
         // Cancel any existing task first
         task?.cancel()
         
@@ -27,12 +28,13 @@ final class MotionViewModel: ObservableObject {
                 }
             } catch {
                 // Handle errors (e.g., show an alert)
-                print("Motion error:", error)
+                print("Motion error:", error.localizedDescription)
             }
         }
     }
     
     func stop() {
+        print("func stop()")
         task?.cancel()
         task = nil
     }

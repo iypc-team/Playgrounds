@@ -16,6 +16,24 @@ enum CMMagneticFieldCalibrationAccuracy : Int {
     case high = 2
 }
 
+import Foundation
+
+extension OperationQueue {
+    /// Returns the number of operations that are still waiting to be executed.
+    var waitingCount: Int {
+        // `operations` gives you all operations that are either executing,
+        // pending, or have finished but haven’t been removed yet.
+        // Filtering out the ones that are already finished gives a true “queue length”.
+        return operations.filter { !$0.isFinished }.count
+    }
+    var count: Int {
+        // `operations` gives you all operations that are either executing,
+        // pending, or have finished but haven’t been removed yet.
+        // Filtering out the ones that are already finished gives a true “queue length”.
+        return operations.filter { $0.isFinished }.count
+    }
+}
+
 final class MotionService {
     private let manager = CMMotionManager()
     private let queue = OperationQueue()
@@ -75,6 +93,8 @@ final class MotionService {
                 
                 guard let quat = motion?.attitude.quaternion else { return }
                 print("\(quat)\n")
+                print("waitingCount: \(queue.waitingCount)")
+                print("count: \(queue.count)")
                 continuation.yield(quat)
             }
             

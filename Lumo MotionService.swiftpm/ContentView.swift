@@ -1,4 +1,4 @@
-// Lumo MotionService 10/28/2025-1
+// Lumo MotionService 10/28/2025-2
 // CoreMotion attitude quaternion Implementing xMagneticNorthZVertical AsyncThrowingStream MVVM paradigm
 // 1f
 
@@ -37,8 +37,7 @@ struct MotionView: View {
                     .foregroundColor(.black)
 //                    .background(Color.green)
                 
-                Button("Stop") { vm.stop() }
-                    .buttonStyle(.bordered)
+                Button("Stop") { vm.stop() }       .buttonStyle(.bordered)
                     .foregroundColor(.black)
 //                    .background(Color.red)
                     
@@ -46,27 +45,32 @@ struct MotionView: View {
             .padding()
         }
         .padding()
-        .onAppear(perform: {
-            vm.start()
+//        .onAppear(perform: {
+//            vm.start()
+//        })
+        .onDisappear(perform: {
+            vm.stop()
         })
-        .onDisappear { vm.stop() }   // Clean up when view goes away
     }
 }
 
-protocol MotionProviding {
-    func quaternionStream(updateInterval: TimeInterval) -> AsyncThrowingStream<CMQuaternion, Error>
-}
+//protocol MotionProviding {
+//    func quaternionStream(updateInterval: TimeInterval) -> AsyncThrowingStream<CMQuaternion, Error>
+//}
+//
+//// Conform MotionService to the protocol
+//extension MotionService: MotionProviding {}
+//
+//final class MockMotionService: MotionProviding {
+//    func quaternionStream(updateInterval: TimeInterval) -> AsyncThrowingStream<CMQuaternion, Error> {
+//        AsyncThrowingStream { continuation in
+//            // Emit a few deterministic quaternions then finish
+//            continuation.yield(CMQuaternion(x: 0, y: 0, z: 0, w: 1))
+//            continuation.yield(CMQuaternion(x: 0.1, y: 0, z: 0, w: 0.995))
+//            continuation.finish()
+//        }
+//    }
+//}
 
-// Conform MotionService to the protocol
-extension MotionService: MotionProviding {}
+//
 
-final class MockMotionService: MotionProviding {
-    func quaternionStream(updateInterval: TimeInterval) -> AsyncThrowingStream<CMQuaternion, Error> {
-        AsyncThrowingStream { continuation in
-            // Emit a few deterministic quaternions then finish
-            continuation.yield(CMQuaternion(x: 0, y: 0, z: 0, w: 1))
-            continuation.yield(CMQuaternion(x: 0.1, y: 0, z: 0, w: 0.995))
-            continuation.finish()
-        }
-    }
-}
