@@ -6,21 +6,21 @@ import UIKit
 import SceneKit
 import Foundation
 
-struct Universe: UIViewRepresentable {
-        typealias UV = Universe
-        var universeScene: SCNScene? = SCNScene(named: "universe")
-        var universe: SCNSphere? = SCNNode(geometry: .sphere)
-        var universeNode: SCNNode? = SCNNode.init(geometry: universe)
-        
-        let globe = SCNSphere(radius: 1.0) 
-        let earthTexture = UIImage(named: "earth_texture")
-        let material: SCNMaterial = SCNMaterial()
-        material.diffuse.contents = earthTexture 
-        material.isDoubleSided = true 
-        material.diffuse.wrapS = .repeat 
-        material.diffuse.wrapT = .clamp 
-        globe.firstMaterial = material 
-    }
+//struct Universe: UIViewRepresentable {
+//    typealias UV = Universe
+//    var universeScene: SCNScene? = SCNScene(named: "universe")
+//    var universe: SCNSphere? = SCNNode(geometry: .sphere)
+//    var universeNode: SCNNode? = SCNNode.init(geometry: universe)
+//    
+//    let globe = SCNSphere(radius: 1.0) 
+//    let earthTexture = UIImage(named: "earth_texture")
+//    let material: SCNMaterial = SCNMaterial()
+//    material.diffuse.contents = earthTexture 
+//    material.isDoubleSided = true 
+//    material.diffuse.wrapS = .repeat 
+//    material.diffuse.wrapT = .clamp 
+//    globe.firstMaterial = material 
+//}
 
 struct SceneKitView : UIViewRepresentable {
     var universeScene: SCNScene? = SCNScene(named: "universe")
