@@ -1,8 +1,8 @@
-//  Defcon4 10/31/2025-2
+//  Defcon4 10/31/2025-3
 //  green
 
 import SwiftUI
-import UIKit
+//import UIKit
 import SceneKit
 import Foundation
 
@@ -32,7 +32,7 @@ struct SceneKitView : UIViewRepresentable {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.automaticallyAdjustsZRange = true
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 25)
         cameraNode.camera?.wantsHDR = true
         scene.rootNode.addChildNode(cameraNode)
         
@@ -40,7 +40,7 @@ struct SceneKitView : UIViewRepresentable {
         lightNode.light = SCNLight()
         lightNode.light!.color = UIColor.clear
         lightNode.light!.type = .ambient
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 100)
+        lightNode.position = SCNVector3(x: 0, y: 100, z: 100)
         lightNode.light!.intensity = 500
         scene.rootNode.addChildNode(lightNode)
         
@@ -48,22 +48,22 @@ struct SceneKitView : UIViewRepresentable {
         lightNode_2.light = SCNLight()
         lightNode_2.light!.type = .ambient
         lightNode_2.position = SCNVector3(x: 0, y: 0, z: -100)
-        lightNode_2.light!.color = UIColor.clear
+        lightNode_2.light!.color = UIColor.white
         lightNode_2.light!.intensity = 100
         scene.rootNode.addChildNode(lightNode_2)
         
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.clear
-        ambientLightNode.light!.intensity = 10
+        ambientLightNode.light!.color = UIColor.white
+        ambientLightNode.light!.intensity = 1000
         scene.rootNode.addChildNode(ambientLightNode)
         
         let shipLightNode = SCNNode()
         shipLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         shipLightNode.light = SCNLight()
         shipLightNode.light!.type = .omni
-        shipLightNode.light!.intensity = 500
+        shipLightNode.light!.intensity = 1000
         shipLightNode.light!.color =  UIColor.green
         scene.rootNode.addChildNode(shipLightNode)
         
@@ -71,11 +71,11 @@ struct SceneKitView : UIViewRepresentable {
         shipLightNode2.position = SCNVector3(x: 0, y: 0, z: 0)
         shipLightNode2.light = SCNLight()
         shipLightNode2.light!.type = .omni
-        shipLightNode2.light!.intensity = 500
+        shipLightNode2.light!.intensity = 2500
         shipLightNode2.light!.color =  UIColor.green
         scene.rootNode.addChildNode(shipLightNode2)
         
-      /////////////////////////  
+        /////////////////////////  
         // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
         var tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
         
@@ -152,13 +152,13 @@ struct SceneKitView : UIViewRepresentable {
         let scnView = SCNView()
         return scnView
     }
-
+    
     func updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
-        scnView.backgroundColor = UIColor.clear
+        scnView.backgroundColor = UIColor.lightGray
     }
 }
 
@@ -168,4 +168,3 @@ struct SceneKitView : UIViewRepresentable {
 //            .preferredColorScheme(.dark)
 //    }
 //}
-
