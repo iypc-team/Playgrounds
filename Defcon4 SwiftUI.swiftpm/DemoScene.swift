@@ -1,7 +1,30 @@
 //  
-//  
+//  SceneKit SCNSphere SCNMaterial UIImage
 
 import SceneKit
+import UIKit
+
+func createUniverse(thisScene: SCNScene) -> SCNScene {
+    // 1. Create a SceneKit sphere
+    let sphere = SCNSphere(radius: 10.0)
+    // 2. Create a material and load an image (UIImage)
+    let material = SCNMaterial()
+    if let image = UIImage(named: "JWST1") {
+        material.diffuse.contents = image
+        material.isDoubleSided = true
+        material.diffuse.wrapS = .repeat 
+        material.diffuse.wrapT = .clamp 
+    }
+    // 3. Assign the material to the sphere
+    sphere.materials = [material]
+    // 4. Create a node to hold the sphere
+    let sphereNode = SCNNode(geometry: sphere)
+    // 5. Optionally, add the sphereNode to a scene
+//    let scene = SCNScene()
+    thisScene.rootNode.addChildNode(sphereNode)
+    
+    return thisScene
+}
 
 func makeDemoScene() -> SCNScene {
     let scene = SCNScene()
@@ -12,13 +35,26 @@ func makeDemoScene() -> SCNScene {
     boxNode.name = "box"
     scene.rootNode.addChildNode(boxNode)
     
-    let material: SCNMaterial = SCNMaterial()
-    material.diffuse.contents = UIColor.blue 
-    material.isDoubleSided = true 
-    material.diffuse.wrapS = .repeat 
-    material.diffuse.wrapT = .clamp 
+    // 1. Create a SceneKit sphere
+    let sphere = SCNSphere(radius: 3.0)
+    // 2. Create a material and load an image (UIImage)
+    let material = SCNMaterial()
+    if let image = UIImage(named: "JWST1") {
+        material.diffuse.contents = image
+        material.isDoubleSided = true
+        material.diffuse.wrapS = .repeat 
+        material.diffuse.wrapT = .clamp 
+    }
+    
+    sphere.materials = [material] // 3. Assign the material to the sphere
+    // 4. Create a node to hold the sphere
+    let sphereNode = SCNNode(geometry: sphere)
+    // 5. Optionally, add the sphereNode to a scene
+    scene.rootNode.addChildNode(sphereNode)
+    
     
     let universeSphere = SCNSphere(radius: 2)
+    universeSphere.firstMaterial?.diffuse.contents = UIColor.blue
     universeSphere.isGeodesic = true
     let universeNode = SCNNode(geometry: universeSphere)
     universeNode.name = "universe"
@@ -52,6 +88,7 @@ func makeDemoScene() -> SCNScene {
     camNode.position = SCNVector3(x: 0, y: 0, z: 10)
     scene.rootNode.addChildNode(camNode)
     
+    print(scene.rootNode.childNodes)
     return scene
 }
    
