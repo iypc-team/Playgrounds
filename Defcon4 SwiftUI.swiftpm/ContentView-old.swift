@@ -76,10 +76,7 @@
 //        scene.rootNode.addChildNode(shipLightNode2)
 //        
 //        /////////////////////////  
-//        // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
-//        var tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
-//        
-//        // Optional: increase segment counts for smoother geometry
+       // Optional: increase segment counts for smoother geometry
 //        tube.radialSegmentCount = 4
 //        tube.heightSegmentCount = 4
 //        

@@ -12,12 +12,46 @@ func makeDemoScene() -> SCNScene {
     boxNode.name = "box"
     scene.rootNode.addChildNode(boxNode)
     
+    let material: SCNMaterial = SCNMaterial()
+    material.diffuse.contents = UIColor.blue 
+    material.isDoubleSided = true 
+    material.diffuse.wrapS = .repeat 
+    material.diffuse.wrapT = .clamp 
+    
+    let universeSphere = SCNSphere(radius: 2)
+    universeSphere.isGeodesic = true
+    let universeNode = SCNNode(geometry: universeSphere)
+    universeNode.name = "universe"
+    scene.rootNode.addChildNode(universeNode)
+    
+    let xAxis = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 100.0)
+    xAxis.firstMaterial?.diffuse.contents = UIColor.red
+    let xAxisNode = SCNNode(geometry: xAxis)
+    xAxisNode.position = SCNVector3(0, 0, 0)
+    xAxisNode.eulerAngles = SCNVector3(0.0, 0.0, .pi / 2)
+    scene.rootNode.addChildNode(xAxisNode)
+    
+    let yAxis = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 100)
+    yAxis.firstMaterial?.diffuse.contents = UIColor.yellow
+    let yAxisNode = SCNNode(geometry: yAxis)
+    yAxisNode.position = SCNVector3(0, 0, 0)
+    scene.rootNode.addChildNode(yAxisNode)
+    
+    let zAxis = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 100.0)
+    zAxis.firstMaterial?.diffuse.contents = UIColor.blue
+    let zAxisNode = SCNNode(geometry: zAxis)
+    zAxisNode.position = SCNVector3(0, 0, 0)
+    zAxisNode.eulerAngles = SCNVector3(.pi / 2, 0.0, 0.0)
+    scene.rootNode.addChildNode(zAxisNode)
+    
     // Simple camera
     let camera = SCNCamera()
     let camNode = SCNNode()
     camNode.camera = camera
-    camNode.position = SCNVector3(x: 0, y: 0, z: 5)
+    camNode.camera?.automaticallyAdjustsZRange = true
+    camNode.position = SCNVector3(x: 0, y: 0, z: 10)
     scene.rootNode.addChildNode(camNode)
     
     return scene
 }
+   
