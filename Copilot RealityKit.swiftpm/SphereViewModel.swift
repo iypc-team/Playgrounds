@@ -20,19 +20,19 @@ class SphereViewModel: ObservableObject {
     }
     
     func loadUSDZEntity() -> Entity? {
-        let bs = Bundle.allBundles.description
-        
-        
-        for bundle in Bundle.allBundles {
-//            print(bundle.bundleIdentifier)
-            print(bundle.bundlePath)
+        let bs = Bundle.allFrameworks
+        print("allFrameworks.count:  \(bs.count)\n")
+        for bundle in Bundle.allFrameworks {
+//            print("\(String(describing: bundle.bundleIdentifier))")
+//            print("\(bundle.bundlePath)\n")
         }
-        print()
         
         guard let modelURL = Bundle.main.url(forResource: sphereModel.childUSDZFileName, withExtension: "usdz") else {
-            print("Failed to load USDZ file")
+            print("Failed to load USDZ file\n")
             return nil
         }
+        
+        print("modelURL: \(modelURL)")
         
         if let usdzEntity = try? Entity.loadModel(contentsOf: modelURL) {
             usdzEntity.position = sphereModel.childPosition
