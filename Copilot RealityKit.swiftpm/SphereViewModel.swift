@@ -15,13 +15,19 @@ class SphereViewModel: ObservableObject {
     }
     
     func createSphereEntity() -> Entity {
-        let sphere = ModelEntity(mesh: .generateSphere(radius: 0.5), materials: [SimpleMaterial(color: sphereModel.sphereColor, isMetallic: false)])
+        let sphere = ModelEntity(mesh: .generateSphere(radius: 0.25), materials: [SimpleMaterial(color: sphereModel.sphereColor, isMetallic: false)])
         return sphere
     }
     
     func loadUSDZEntity() -> Entity? {
         let bs = Bundle.allBundles.description
-        print("\(bs)")
+        
+        
+        for bundle in Bundle.allBundles {
+//            print(bundle.bundleIdentifier)
+            print(bundle.bundlePath)
+        }
+        print()
         
         guard let modelURL = Bundle.main.url(forResource: sphereModel.childUSDZFileName, withExtension: "usdz") else {
             print("Failed to load USDZ file")

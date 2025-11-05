@@ -1,4 +1,4 @@
-// Copilot RealityKit 11/04/2025-1
+// Copilot RealityKit 11/05/2025-1
 // RealityKit sphere with child .usdz MVVM paradigm
 // 
 
@@ -36,7 +36,7 @@ struct RealityKitContainer: UIViewRepresentable {
 // MARK: - Preview
 struct ContentView: View {
     var body: some View {
-        let sphereModel = SphereModel(sphereColor: .blue, childUSDZFileName: "childModel")
+        let sphereModel = SphereModel(sphereColor: .red, childUSDZFileName: "childModel")
         let viewModel = SphereViewModel(sphereModel: sphereModel)
         RealityKitView(viewModel: viewModel)
     }
