@@ -1,4 +1,4 @@
-// Copliot RealityKit  11/12/2025-1
+// Copliot RealityKit  11/13/2025-1
 // iOS 16 RealityKit model Airplane.usdz I do not require ARView. MVVM paradigm implementation skeleton
 // 
 
@@ -11,6 +11,7 @@ struct AirplaneView: View {
     var body: some View {
         VStack {
             if let modelEntity = viewModel.modelEntity {
+                RealityKit.Model
                 Model3DView(entity: modelEntity)                 // Display the 3D model
                     .frame(width: 300, height: 300)
                     .background(Color.gray.opacity(0.2))         // Background placeholder
