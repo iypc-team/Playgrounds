@@ -20,7 +20,7 @@ struct ContentViewReality: View {
                     scale = Float(newVal)
                     vm.scaleModel(to: scale)
                 }
-            ), in: 0.1...3.0)
+            ), in: 1.0...4.0)
             .padding()
         }
         .onAppear { vm.loadModel(named: "Airplane.usdz") }
