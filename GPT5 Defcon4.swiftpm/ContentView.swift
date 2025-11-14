@@ -23,8 +23,8 @@ struct ContentView: View {
                 if let node = viewModel.selectedNode {
                     viewModel.updateNodeColor(node: node, color: .blue)
                 }
-                    .background(UIColor(.black))
-                    .foregroundColor(UIColor(.white))
+//                    .background(UIColor(.black))
+//                    .foregroundColor(UIColor(.white))
             }
         }
     }
