@@ -5,15 +5,21 @@ import Combine
 import RealityKit
 
 class CombinedModelsViewModel: ObservableObject {
-    @Published var airplaneEntity: Entity? = nil
-    @Published var spaceshipEntity: Entity? = nil
+    @Published var airplaneEntity: Entity?
+    @Published var spaceshipEntity: Entity?
+    
+    private var modelLoader = RealityModelLoader()
     
     func loadAirplane() {
-        airplaneEntity = RealityModelLoader.loadModel(named: "Airplane.usdz")
+        modelLoader.loadModel(named: "Airplane.usdz") { [weak self] entity in
+            self?.airplaneEntity = entity
+        }
     }
     
     func loadSpaceship() {
-        spaceshipEntity = RealityModelLoader.loadModel(named: "Spaceship.usdz")
+        modelLoader.loadModel(named: "Spaceship.usdz") { [weak self] entity in
+            self?.spaceshipEntity = entity
+        }
     }
     
     func loadBothModels() {
