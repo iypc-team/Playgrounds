@@ -1,4 +1,4 @@
-// Copilot Spaceship  11/18/2025-1
+// Copilot Spaceship  11/18/2025-2
 // RealityKit Entity.load model Spaceship.usdz no arView MVVM paradigm iOS 16
 
 import SwiftUI
