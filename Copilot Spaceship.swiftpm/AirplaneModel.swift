@@ -1,6 +1,7 @@
 // 
 // 
 
+import SwiftUI
 import RealityKit
 
 class AirplaneModel: ObservableObject {
