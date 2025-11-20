@@ -1,0 +1,10 @@
+
+/Models
+    ModelEntityLoader.swift
+/ViewModels
+    SpaceshipViewModel.swift
+/Views
+    Spaceship3DView.swift
+    ContentView.swift
+Assets/
+    Spaceship.usdz

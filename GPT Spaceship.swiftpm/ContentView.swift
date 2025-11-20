@@ -1,14 +1,11 @@
-// GPT Spaceship  11/18/2025- initial commit
-// 
+// GPT Spaceship  11/19/2025-1
+// SwiftUI + RealityKit, loadModel(Spaceship.usdz), iOS 16, no ARView, MVVM 
 
+// File: ContentView.swift
 import SwiftUI
-import RealityKit
 
-struct SpaceshipView: View {
-    @StateObject private var viewModel = SpaceshipViewModel()
-    
+struct ContentView: View {
     var body: some View {
-        RealityViewRepresentable(entity: viewModel.modelEntity)
-//            .onAppear { viewModel.loadModel() }
+        Spaceship3DView()
     }
 }
