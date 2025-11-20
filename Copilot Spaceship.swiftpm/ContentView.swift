@@ -10,7 +10,7 @@ struct ContentView: View {
         VStack {
             if let entity = model.entity {
                 RealityKitView(entity: entity)
-                    .frame(width: 300, height: 300)
+                    .frame(width: 500, height: 500)
             } else {
                 Text("Loading model...")
                     .onAppear {

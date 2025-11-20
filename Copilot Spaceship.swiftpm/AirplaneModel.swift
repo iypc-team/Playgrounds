@@ -12,11 +12,12 @@ class AirplaneModel: ObservableObject {
             do {
                 // "Airplane" is your .usdz file in the Bundle
                 let loadedEntity = try await Entity.load(named: "Airplane")
+                
                 DispatchQueue.main.async {
                     self.entity = loadedEntity
                 }
             } catch {
-                print("Error loading model: \(error)")
+                print("Error loading model: \(error.localizedDescription)")
             }
         }
     }
