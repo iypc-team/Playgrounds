@@ -1,6 +1,6 @@
 // GPT RealityKit  11/10/2025-3
-// RealityKit model Airplane.usdz MVVM
-// iOS 16 RealityKit model Airplane.usdz I do not require ARView. MVVM paradigm
+// RealityKit model Spaceship.usdz MVVM with gesture support
+// iOS 16 RealityKit model Spaceship.usdz I do not require ARView. MVVM paradigm
 
 // ContentViewReality.swift
 import SwiftUI
@@ -23,6 +23,6 @@ struct ContentViewReality: View {
             ), in: 1.0...4.0)
             .padding()
         }
-        .onAppear { vm.loadModel(named: "Airplane.usdz") }
+        .onAppear { vm.loadModel(named: "Spaceship.usdz") }
     }
 }

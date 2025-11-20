@@ -29,9 +29,18 @@ struct RealityKitView: UIViewRepresentable {
         guard let model = vm.modelEntity else { return }
         
         let anchor = AnchorEntity(world: SIMD3<Float>(0, 0, 0))
-        model.generateCollisionShapes(recursive: true) // optional
+        
+        // Generate collision shapes for gesture interactions
+        model.generateCollisionShapes(recursive: true)
+        
+        // Enable gesture support using RealityKit's built-in components
+        model.components.set(InputTargetComponent())
+        
         anchor.addChild(model)
         uiView.scene.addAnchor(anchor)
+        
+        // Install gestures for translation, rotation, and scale
+        uiView.installGestures([.translation, .rotation, .scale], for: model)
         
         // Position / scale tweaks as needed:
         model.transform.scale = SIMD3<Float>(repeating: 0.5)
