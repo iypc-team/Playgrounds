@@ -1,11 +1,11 @@
-// GPT Spaceship  11/19/2025-1
-// SwiftUI + RealityKit, loadModel(Spaceship.usdz), iOS 16, no ARView, MVVM 
+// GPT Spaceship  11/21/2025-1
+// SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
-// File: ContentView.swift
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Spaceship3DView()
+        AirplaneRealityView()
+            .edgesIgnoringSafeArea(.all)
     }
 }
