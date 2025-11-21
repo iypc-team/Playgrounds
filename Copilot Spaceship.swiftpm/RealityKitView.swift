@@ -11,11 +11,11 @@ struct RealityKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
-//        print(arView)
+//        arView.installGestures([.translation, .rotation, .scale], for: model?)
         
         if let model = entity {
             model.scale = SIMD3<Float>(5.0, 5.0, 5.0)
-            print("model: \(model. )")
+            
             let anchor = AnchorEntity(world: .zero)
             anchor.addChild(model)
             arView.scene.addAnchor(anchor)
