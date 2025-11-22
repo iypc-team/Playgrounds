@@ -1,19 +1,14 @@
-// Grok Spaceship  11/21/2025-2
+// Grok Spaceship  11/22/2025-1
 // SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = AirplaneViewModel()
-    
+    @StateObject var viewModel = RealityKitViewModel()
     var body: some View {
-        AirplaneARView(viewModel: viewModel)
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        viewModel.updateTransform(with: gesture)
-                    }
-            )
-            .edgesIgnoringSafeArea(.all)
+        RealityKitView(modelName: "YourModel.usdz", rotation: $viewModel.rotation)
+            .frame(width: 500, height: 500)
     }
 }
+
+
