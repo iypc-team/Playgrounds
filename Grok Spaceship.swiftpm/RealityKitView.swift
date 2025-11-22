@@ -30,6 +30,8 @@ struct RealityKitView: UIViewRepresentable {
         let anchor = AnchorEntity(world: .zero)
         if let modelEntity = try? ModelEntity.load(named: modelName) {
             modelEntity.name = modelName
+            modelEntity.transform.scale = SIMD3<Float>(5.0, 5.0, 5.0) // Scale the model
+            print("\tmodelEntity.scale: \(modelEntity.scale)")
             anchor.addChild(modelEntity)
             arView.scene.addAnchor(anchor)
         }
