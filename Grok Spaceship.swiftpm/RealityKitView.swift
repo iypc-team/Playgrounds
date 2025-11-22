@@ -9,7 +9,9 @@ struct RealityKitView: UIViewRepresentable {
     @Binding var rotation: Float
     
     func makeUIView(context: Context) -> ARView {
+        print("func makeUIView")
         let arView = ARView(frame: .zero)
+        arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
         loadModel(into: arView)
         addLighting(to: arView)
         addRotationGesture(to: arView, context: context)
@@ -17,12 +19,14 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
+        print("func updateUIView")
         if let modelEntity = uiView.scene.findEntity(named: modelName) as? ModelEntity {
             modelEntity.transform.rotation = simd_quatf(angle: rotation, axis: [0,1,0])
         }
     }
     
     private func loadModel(into arView: ARView) {
+        print("private func loadModel")
         let anchor = AnchorEntity(world: .zero)
         if let modelEntity = try? ModelEntity.load(named: modelName) {
             modelEntity.name = modelName
@@ -32,6 +36,7 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     private func addLighting(to arView: ARView) {
+        print("private func addLighting")
         let light = DirectionalLight()
         light.light.intensity = 10000
         light.light.color = .white
@@ -41,12 +46,14 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     private func addRotationGesture(to arView: ARView, context: Context) {
+        print("private func addRotationGesture")
         let rotationGesture = UIRotationGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleRotation(_:)))
         arView.addGestureRecognizer(rotationGesture)
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(rotation: $rotation)
+        print("func makeCoordinator")
+        return Coordinator(rotation: $rotation)
     }
     
     class Coordinator: NSObject {
