@@ -1,5 +1,5 @@
 // 
-// 
+// RealityKitViewModel
 
 import SwiftUI
 
