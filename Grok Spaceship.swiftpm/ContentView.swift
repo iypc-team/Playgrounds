@@ -8,7 +8,8 @@ struct ContentView: View {
     
     var body: some View {
         RealityKitView(modelName: "Spaceship.usdz", rotation: $viewModel.rotation)
-            .frame(width: 500, height: 500)
+//            .frame(width: 500, height: 500)
+            .frame(maxWidth: .infinity, maxHeight: .infinity) // Use all available space
     }
 }
 
