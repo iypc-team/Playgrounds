@@ -11,7 +11,7 @@ class AirplaneModel: ObservableObject {
         Task {
             do {
                 // "Airplane" is your .usdz file in the Bundle
-                let loadedEntity = try await Entity.load(named: "Airplane")
+                let loadedEntity = try await Entity.load(named: "Spaceship")
                 
                 DispatchQueue.main.async {
                     self.entity = loadedEntity

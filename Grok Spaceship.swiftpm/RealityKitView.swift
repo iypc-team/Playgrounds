@@ -9,7 +9,7 @@ struct RealityKitView: UIViewRepresentable {
     @Binding var rotation: Float
     
     func makeUIView(context: Context) -> ARView {
-        print("func makeUIView")
+        print("\nfunc makeUIView")
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
         loadModel(into: arView)
@@ -37,11 +37,12 @@ struct RealityKitView: UIViewRepresentable {
         }
     }
     
+    
     private func addLighting(to arView: ARView) {
         print("private func addLighting")
         let light = DirectionalLight()
         light.light.intensity = 10000
-        light.light.color = .white
+        light.light.color = .lightGray
         let lightAnchor = AnchorEntity(world: SIMD3<Float>(0, 1, 0))
         lightAnchor.addChild(light)
         arView.scene.addAnchor(lightAnchor)
