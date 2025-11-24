@@ -1,4 +1,4 @@
-// Grok Spaceship  11/23/2025-1
+// Grok Spaceship  11/24/2025-1
 // SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
 import SwiftUI
@@ -7,10 +7,18 @@ struct ContentView: View {
     @StateObject var viewModel = RealityKitViewModel()
     
     var body: some View {
-        RealityKitView(modelName: "Spaceship.usdz", rotation: $viewModel.rotation)
-//            .frame(width: 500, height: 500)
-            .frame(maxWidth: .infinity, maxHeight: .infinity) // Use all available space
+        VStack {
+            RealityKitView(modelName: "Spaceship.usdz", rotation: $viewModel.rotation)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        HStack {
+            Button(action: { print("Rotate pressed" )}, label: {
+                Text("Rotate")
+            })
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.red)
+        }
     }
 }
-
 
