@@ -1,5 +1,6 @@
 // 
 // RealityKitView
+// modelEntity
 
 import SwiftUI
 import RealityKit
@@ -7,6 +8,8 @@ import RealityKit
 struct RealityKitView: UIViewRepresentable {
     let modelName: String
     static var arView = ARView(frame: .zero)
+    static var modelEntity: ModelEntity = ModelEntity()
+    
     @Binding var rotation: Float
     
     func makeUIView(context: Context) -> ARView {
@@ -20,8 +23,8 @@ struct RealityKitView: UIViewRepresentable {
     
     func updateUIView(_ uiView: ARView, context: Context) {
         print("func updateUIView")
-        if let modelEntity = uiView.scene.findEntity(named: modelName) as? ModelEntity {
-            modelEntity.transform.rotation = simd_quatf(angle: rotation, axis: [0,1,0])
+        if RealityKitView.modelEntity == uiView.scene.findEntity(named: modelName) as? ModelEntity {
+            RealityKitView.modelEntity.transform.rotation = simd_quatf(angle: rotation, axis: [0,1,0])
         }
     }
     
@@ -48,26 +51,26 @@ struct RealityKitView: UIViewRepresentable {
         arView.scene.addAnchor(lightAnchor)
     }
     
-    private func addRotationGesture(to arView: ARView, context: Context) {
-        print("private func addRotationGesture")
-        let rotationGesture = UIRotationGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleRotation(_:)))
-        arView.addGestureRecognizer(rotationGesture)
-    }
+//    private func addRotationGesture(to arView: ARView, context: Context) {
+//        print("private func addRotationGesture")
+//        let rotationGesture = UIRotationGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleRotation(_:)))
+//        arView.addGestureRecognizer(rotationGesture)
+//    }
     
-    func makeCoordinator() -> Coordinator {
-        print("func makeCoordinator")
-        return Coordinator(rotation: $rotation)
-    }
+//    func makeCoordinator() -> Coordinator {
+//        print("func makeCoordinator")
+//        return Coordinator(rotation: $rotation)
+//    }
     
-    class Coordinator: NSObject {
-        var rotation: Binding<Float>
-        init(rotation: Binding<Float>) {
-            self.rotation = rotation
-        }
-        
-        @objc func handleRotation(_ gesture: UIRotationGestureRecognizer) {
-            rotation.wrappedValue += Float(gesture.rotation)
-            gesture.rotation = 0
-        }
-    }
+//    class Coordinator: NSObject {
+//        var rotation: Binding<Float>
+//        init(rotation: Binding<Float>) {
+//            self.rotation = rotation
+//        }
+//        
+//        @objc func handleRotation(_ gesture: UIRotationGestureRecognizer) {
+//            rotation.wrappedValue += Float(gesture.rotation)
+//            gesture.rotation = 0
+//        }
+//    }
 }

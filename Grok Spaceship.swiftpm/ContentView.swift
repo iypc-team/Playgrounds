@@ -1,4 +1,4 @@
-// Grok Spaceship  11/24/2025-2
+// Grok Spaceship  11/24/2025-3
 // SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
 import SwiftUI
@@ -17,11 +17,12 @@ struct ContentView: View {
             }, label: {
                 Text("Rotate")
             })
-            .foregroundColor(.white)
+            .foregroundColor(.black)
             .background(Color.green)
             .font(.largeTitle)
+            .padding(20)
         }
-        .padding(10)
+        
     }
 }
 
