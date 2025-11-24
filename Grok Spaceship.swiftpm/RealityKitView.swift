@@ -9,8 +9,12 @@ struct RealityKitView: UIViewRepresentable {
     let modelName: String
     static var arView = ARView(frame: .zero)
     static var modelEntity: ModelEntity = ModelEntity()
+    var bullshit = "bullshit"
     
-//    @Binding var rotation: Float
+    func rotateModel() {
+        print("func rotateModel()")
+    }
+    
     
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
