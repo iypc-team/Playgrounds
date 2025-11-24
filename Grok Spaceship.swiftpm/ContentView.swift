@@ -1,4 +1,4 @@
-// Grok Spaceship  11/24/2025-1
+// Grok Spaceship  11/24/2025-2
 // SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
 import SwiftUI
@@ -12,13 +12,16 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         HStack {
-            Button(action: { print("Rotate pressed" )}, label: {
+            Button(action: {
+                print("Rotate pressed" )
+            }, label: {
                 Text("Rotate")
             })
-            .padding()
             .foregroundColor(.white)
-            .background(Color.red)
+            .background(Color.green)
+            .font(.largeTitle)
         }
+        .padding(10)
     }
 }
 

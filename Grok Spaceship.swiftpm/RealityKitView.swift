@@ -6,16 +6,16 @@ import RealityKit
 
 struct RealityKitView: UIViewRepresentable {
     let modelName: String
+    static var arView = ARView(frame: .zero)
     @Binding var rotation: Float
     
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
-        let arView = ARView(frame: .zero)
-        arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
-        loadModel(into: arView)
-        addLighting(to: arView)
-        addRotationGesture(to: arView, context: context)
-        return arView
+        RealityKitView.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
+        loadModel(into: RealityKitView.arView)
+        addLighting(to: RealityKitView.arView)
+//        addRotationGesture(to: arView, context: context)
+        return RealityKitView.arView
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
