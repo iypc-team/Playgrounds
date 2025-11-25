@@ -8,7 +8,7 @@ import RealityKit
 struct RealityKitView: UIViewRepresentable {
     let modelName: String
     static var arView = ARView(frame: .zero)
-    static var modelEntity:  = ModelEntity()
+    static var modelEntity:ModelEntity  = ModelEntity()
     
     func rotateModel() {
         print("func rotateModel()")
@@ -19,7 +19,7 @@ struct RealityKitView: UIViewRepresentable {
         RealityKitView.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
         loadModel(into: RealityKitView.arView)
         addLighting(to: RealityKitView.arView)
-        //        addRotationGesture(to: arView, context: context)
+        addAmbientLikeLighting(to: RealityKitView.arView)  // This is the new ambient light
         return RealityKitView.arView
     }
     
@@ -36,12 +36,25 @@ struct RealityKitView: UIViewRepresentable {
         if let modelEntity = try? ModelEntity.load(named: modelName) {
             modelEntity.name = modelName
             modelEntity.transform.scale = SIMD3<Float>(5.0, 5.0, 5.0) // Scale the model
-            print("\tmodelEntity.scale: \(modelEntity.scale)")
+            modelEntity.transform.rotation = simd_quatf(angle: .pi/2, axis: [0, 0, 0]) // Rotate 90° around Y axis
             anchor.addChild(modelEntity)
             arView.scene.addAnchor(anchor)
         }
     }
     
+    private func addAmbientLikeLighting(to arView: ARView) {
+        // Add a soft directional light as ambient substitute
+        let lightAnchor = AnchorEntity(world: .zero)
+        let light = DirectionalLight()
+        light.light.intensity = 700   // Lower intensity
+        light.light.color = .white
+        light.shadow = nil            // No shadow (more ambient feeling)
+        lightAnchor.addChild(light)
+        arView.scene.addAnchor(lightAnchor)
+        
+        // Optionally set the environment color to a light gray
+        arView.environment.background = .color(.init(white: 0.8, alpha: 1.0))
+    }
     
     private func addLighting(to arView: ARView) {
         print("private func addLighting")
@@ -52,27 +65,4 @@ struct RealityKitView: UIViewRepresentable {
         lightAnchor.addChild(light)
         arView.scene.addAnchor(lightAnchor)
     }
-    
-    //    private func addRotationGesture(to arView: ARView, context: Context) {
-    //        print("private func addRotationGesture")
-    //        let rotationGesture = UIRotationGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleRotation(_:)))
-    //        arView.addGestureRecognizer(rotationGesture)
-    //    }
-    
-    //    func makeCoordinator() -> Coordinator {
-    //        print("func makeCoordinator")
-    //        return Coordinator(rotation: $rotation)
-    //    }
-    
-    //    class Coordinator: NSObject {
-    //        var rotation: Binding<Float>
-    //        init(rotation: Binding<Float>) {
-    //            self.rotation = rotation
-    //        }
-    //        
-    //        @objc func handleRotation(_ gesture: UIRotationGestureRecognizer) {
-    //            rotation.wrappedValue += Float(gesture.rotation)
-    //            gesture.rotation = 0
-    //        }
-    //    }
 }
