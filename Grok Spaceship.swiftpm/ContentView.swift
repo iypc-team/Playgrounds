@@ -1,4 +1,4 @@
-// Grok Spaceship  11/24/2025-5
+// Grok Spaceship  11/25/2025-1
 // SwiftUI + RealityKit, MVVM, iOS 16, loadModel(Airplane.usdz), lighting, gesture, recognizers, 
 
 import SwiftUI
@@ -8,7 +8,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            RealityKitView(modelName: "Spaceship.usdz")
+            RealityKitView(modelName: "Airplane.usdz")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         HStack {
