@@ -1,12 +1,16 @@
 // 
 // RealityKitView
-// modelEntity
+// quaternion 
 
 
 import SwiftUI
 import RealityKit
 
 struct RealityKitView: UIViewRepresentable {
+    typealias RKV = RealityKitView
+    static let motionProvider = MotionProvider()
+    static var quaternion: simd_quatf?
+    
     let modelName: String
     static var arView = ARView(frame: .zero)
     static var modelEntity:ModelEntity  = ModelEntity()
@@ -15,17 +19,22 @@ struct RealityKitView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
+        
+        _ = RealityKitView.arView
+        startStreamingRotation()
+        
         RealityKitView.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
         loadModel(into: RealityKitView.arView)
         addLighting(to: RealityKitView.arView)
         addAmbientLikeLighting(to: RealityKitView.arView)  // This is the new ambient light
+        
         return RealityKitView.arView
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
         print("func updateUIView")
         if RealityKitView.modelEntity == uiView.scene.findEntity(named: modelName) as? ModelEntity {
-            
+            RealityKitView.modelEntity.transform.rotation *= RealityKitView.quaternion!
         }
     }
     
@@ -37,6 +46,21 @@ struct RealityKitView: UIViewRepresentable {
             modelEntity.transform.scale = SIMD3<Float>(4.0, 4.0, 4.0) // Scale the model
             anchor.addChild(modelEntity)
             arView.scene.addAnchor(anchor)
+        }
+    }
+    
+    func startStreamingRotation() {
+//        let motionProvider = MotionProvider()
+        
+        Task {
+            do {
+                for try await quaternion in RealityKitView.motionProvider.quaternionStream() {
+                    RealityKitView.modelEntity.transform.rotation = quaternion
+                    await RealityKitView.arView.setNeedsDisplay()
+                }
+            } catch {
+                print("Error streaming quaternion: \(error.localizedDescription)")
+            }
         }
     }
     
@@ -55,7 +79,7 @@ struct RealityKitView: UIViewRepresentable {
         print("func rotateModel()")
         // Rotate the model by 45 degrees around the Y-axis
         RealityKitView.modelEntity.transform.rotation *= simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
-        
+        print("rotation: \(RKV.modelEntity.transform.rotation)")
         RealityKitView.arView.setNeedsDisplay()
     }
     
@@ -65,7 +89,7 @@ struct RealityKitView: UIViewRepresentable {
         let light = DirectionalLight()
         light.light.intensity = 700   // Lower intensity
         light.light.color = .white
-        light.shadow = nil            // No shadow (more ambient feeling)
+        light.shadow = nil     // No shadow (more ambient feeling)
         lightAnchor.addChild(light)
         arView.scene.addAnchor(lightAnchor)
         
