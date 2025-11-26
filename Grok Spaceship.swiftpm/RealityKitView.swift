@@ -10,10 +10,6 @@ struct RealityKitView: UIViewRepresentable {
     static var arView = ARView(frame: .zero)
     static var modelEntity:ModelEntity  = ModelEntity()
     
-    func rotateModel() {
-        print("func rotateModel()")
-    }
-    
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
         RealityKitView.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
@@ -35,11 +31,17 @@ struct RealityKitView: UIViewRepresentable {
         let anchor = AnchorEntity(world: .zero)
         if let modelEntity = try? ModelEntity.load(named: modelName) {
             modelEntity.name = modelName
-            modelEntity.transform.scale = SIMD3<Float>(5.0, 5.0, 5.0) // Scale the model
-            modelEntity.transform.rotation = simd_quatf(angle: .pi/2, axis: [0, 0, 0]) // Rotate 90° around Y axis
+            modelEntity.transform.scale = SIMD3<Float>(4.0, 4.0, 4.0) // Scale the model
+//            modelEntity.transform.rotation = simd_quatf(angle: .pi/2, axis: [0, 0, 0]) // Rotate 90° around Y axis
             anchor.addChild(modelEntity)
             arView.scene.addAnchor(anchor)
         }
+    }
+    
+    func rotateModel() {
+        print("func rotateModel()")
+        // Rotate the model by 45 degrees around the Y-axis
+        RealityKitView.modelEntity.transform.rotation *= simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
     }
     
     private func addAmbientLikeLighting(to arView: ARView) {
