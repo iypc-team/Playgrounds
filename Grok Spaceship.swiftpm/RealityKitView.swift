@@ -20,22 +20,22 @@ struct RealityKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
         
-        _ = RealityKitView.arView
+        _ = RKV.arView
         startStreamingRotation()
         
-        RealityKitView.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
-        loadModel(into: RealityKitView.arView)
-        addLighting(to: RealityKitView.arView)
-        addAmbientLikeLighting(to: RealityKitView.arView)  // This is the new ambient light
+        RKV.arView.cameraMode = .nonAR  // Disable AR tracking for non-AR 3D display
+        loadModel(into: RKV.arView)
+        addLighting(to: RKV.arView)
+        addAmbientLikeLighting(to: RKV.arView)  // This is the new ambient light
         
-        return RealityKitView.arView
+        return RKV.arView
     }
     
     @MainActor
     func updateUIView(_ uiView: ARView, context: Context) {
         print("func updateUIView")
-        if RealityKitView.modelEntity == uiView.scene.findEntity(named: modelName) as? ModelEntity {
-            RealityKitView.modelEntity.transform.rotation *= RealityKitView.quaternion!
+        if RKV.modelEntity == uiView.scene.findEntity(named: modelName) as? ModelEntity {
+            RKV.modelEntity.transform.rotation *= RKV.quaternion!
         }
     }
     
@@ -53,10 +53,10 @@ struct RealityKitView: UIViewRepresentable {
     func startStreamingRotation() {
         Task {
             do {
-                for try await quaternion in RealityKitView.motionProvider.quaternionStream() {
+                for try await quaternion in RKV.motionProvider.quaternionStream() {
                     Task { @MainActor in
-                        RealityKitView.modelEntity.transform.rotation = quaternion
-                        RealityKitView.arView.setNeedsDisplay()
+                        RKV.modelEntity.transform.rotation = quaternion
+                        RKV.arView.setNeedsDisplay()
                     }
                 }
             } catch {
@@ -69,19 +69,19 @@ struct RealityKitView: UIViewRepresentable {
     func cumulativeRotateModel(by angle: Float) {
         print("Cumulative rotate by \(angle) radians")
         // Accumulate the angle, but limit to 360° by wrapping around
-        RealityKitView.cumulativeRotationAngle = (RealityKitView.cumulativeRotationAngle + angle).truncatingRemainder(dividingBy: 2 * .pi)
+        RKV.cumulativeRotationAngle = (RKV.cumulativeRotationAngle + angle).truncatingRemainder(dividingBy: 2 * .pi)
         // Apply the cumulative rotation to the model
-        RealityKitView.modelEntity.transform.rotation = simd_quatf(angle: RealityKitView.cumulativeRotationAngle, axis: [0, 1, 0])
+        RKV.modelEntity.transform.rotation = simd_quatf(angle: RKV.cumulativeRotationAngle, axis: [0, 1, 0])
         // Force a UI refresh if needed (though RealityKit usually handles this automatically)
-        RealityKitView.arView.setNeedsDisplay()
+        RKV.arView.setNeedsDisplay()
     }
     
     func rotateModel() {
         print("func rotateModel()")
         // Rotate the model by 45 degrees around the Y-axis
-        RealityKitView.modelEntity.transform.rotation *= simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
+        RKV.modelEntity.transform.rotation *= simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
         print("rotation: \(RKV.modelEntity.transform.rotation)")
-        RealityKitView.arView.setNeedsDisplay()
+        RKV.arView.setNeedsDisplay()
     }
     
     private func addAmbientLikeLighting(to arView: ARView) {
