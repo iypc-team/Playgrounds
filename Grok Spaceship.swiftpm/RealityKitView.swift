@@ -31,6 +31,7 @@ struct RealityKitView: UIViewRepresentable {
         return RealityKitView.arView
     }
     
+    @MainActor
     func updateUIView(_ uiView: ARView, context: Context) {
         print("func updateUIView")
         if RealityKitView.modelEntity == uiView.scene.findEntity(named: modelName) as? ModelEntity {
@@ -50,13 +51,13 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     func startStreamingRotation() {
-//        let motionProvider = MotionProvider()
-        
         Task {
             do {
                 for try await quaternion in RealityKitView.motionProvider.quaternionStream() {
-                    RealityKitView.modelEntity.transform.rotation = quaternion
-                    await RealityKitView.arView.setNeedsDisplay()
+                    Task { @MainActor in
+                        RealityKitView.modelEntity.transform.rotation = quaternion
+                        RealityKitView.arView.setNeedsDisplay()
+                    }
                 }
             } catch {
                 print("Error streaming quaternion: \(error.localizedDescription)")
