@@ -2,6 +2,7 @@
 // RealityKitView
 // modelEntity
 
+
 import SwiftUI
 import RealityKit
 
@@ -9,6 +10,8 @@ struct RealityKitView: UIViewRepresentable {
     let modelName: String
     static var arView = ARView(frame: .zero)
     static var modelEntity:ModelEntity  = ModelEntity()
+    // Static variable to track cumulative rotation angle
+    static var cumulativeRotationAngle: Float = 0
     
     func makeUIView(context: Context) -> ARView {
         print("\nfunc makeUIView")
@@ -32,16 +35,28 @@ struct RealityKitView: UIViewRepresentable {
         if let modelEntity = try? ModelEntity.load(named: modelName) {
             modelEntity.name = modelName
             modelEntity.transform.scale = SIMD3<Float>(4.0, 4.0, 4.0) // Scale the model
-//            modelEntity.transform.rotation = simd_quatf(angle: .pi/2, axis: [0, 0, 0]) // Rotate 90° around Y axis
             anchor.addChild(modelEntity)
             arView.scene.addAnchor(anchor)
         }
+    }
+    
+    // Cumulative rotation function, limited to 360° (2π radians)
+    func cumulativeRotateModel(by angle: Float) {
+        print("Cumulative rotate by \(angle) radians")
+        // Accumulate the angle, but limit to 360° by wrapping around
+        RealityKitView.cumulativeRotationAngle = (RealityKitView.cumulativeRotationAngle + angle).truncatingRemainder(dividingBy: 2 * .pi)
+        // Apply the cumulative rotation to the model
+        RealityKitView.modelEntity.transform.rotation = simd_quatf(angle: RealityKitView.cumulativeRotationAngle, axis: [0, 1, 0])
+        // Force a UI refresh if needed (though RealityKit usually handles this automatically)
+        RealityKitView.arView.setNeedsDisplay()
     }
     
     func rotateModel() {
         print("func rotateModel()")
         // Rotate the model by 45 degrees around the Y-axis
         RealityKitView.modelEntity.transform.rotation *= simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
+        
+        RealityKitView.arView.setNeedsDisplay()
     }
     
     private func addAmbientLikeLighting(to arView: ARView) {
