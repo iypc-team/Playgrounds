@@ -11,8 +11,8 @@ final class MotionProvider {
     
     init() {
         queue.name = "MotionQueue"
-//        queue.qualityOfService = 
-        manager.deviceMotionUpdateInterval = 1.0 / 60.0  // Update at 60 Hz
+        queue.qualityOfService.self = .background
+        manager.deviceMotionUpdateInterval = 1.0 / 1.0  // Update at 60 Hz
     }
 }
 
@@ -29,6 +29,7 @@ extension MotionProvider {
             manager.startDeviceMotionUpdates(to: queue) { motion, error in
                 if let error = error {
                     continuation.finish(throwing: error)
+                    print("Error: \(error.localizedDescription)")
                 } else if let quaternion = motion?.attitude.quaternion {
                     // Convert CMQuaternion to simd_quatf
                     let simdQuaternion = simd_quatf(
