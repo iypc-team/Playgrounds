@@ -1,11 +1,20 @@
+// 
+// 
+
+// 1️⃣ App entry point
 import SwiftUI
 
 @main
-struct MyApp: App {
+struct AirplaneDemoApp: App {
     var body: some Scene {
         WindowGroup {
             AirplaneView()
-//            ContentView()
         }
     }
 }
+
+// 2️⃣ Files
+// ├─ AirplaneModel.swift      (Model)
+// ├─ AirplaneViewModel.swift  (View‑Model)
+// ├─ ARViewContainer.swift    (UIViewRepresentable bridge)
+// └─ AirplaneView.swift       (SwiftUI View)
