@@ -1,4 +1,4 @@
-//  Lumo Airplane  11/29/2025-2
+//  Lumo Airplane  11/30/2025-1
 // 
 
 import SwiftUI
@@ -13,7 +13,8 @@ struct AirplaneView: View {
             if let model = airplaneModel {
                 ARViewContainer(airplaneEntity: model.entity) { quat in
                     // Forward the newest quaternion from the VM.
-                    vm.orientation   // forces a read so the compiler sees the dependency
+                    vm.orientation   
+                    // forces a read so the compiler sees the dependency
                     // Update the coordinator's copy – the ARView's per‑frame block reads it.
                     // (The closure captures `vm` directly, so we just assign.)
                     // The coordinator will pick it up on the next frame.
@@ -35,8 +36,8 @@ struct AirplaneView: View {
                 
                 // Example: change axis with a picker
                 Picker("Axis", selection: $vm.rotationAxis) {
-                    Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
                     Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
+                    Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
                     Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
                 }
                 .pickerStyle(.segmented)
