@@ -37,5 +37,6 @@ final class AirplaneViewModel: ObservableObject {
         let elapsed = Float(Date().timeIntervalSince(startDate))
         let angle = elapsed * .pi * 2 * revolutionsPerSecond
         orientation = simd_quaternion(angle, normalize(rotationAxis))
+        print("orientation: \(orientation)")
     }
 }

@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/01/2025-1
+//  Lumo Airplane  12/01/2025-2
 // 
 
 import SwiftUI
@@ -18,11 +18,11 @@ struct AirplaneView: View {
                     // Update the coordinator's copy – the ARView's per‑frame block reads it.
                     // (The closure captures `vm` directly, so we just assign.)
                     // The coordinator will pick it up on the next frame.
-                    print("quat.angle: \(quat.angle)")
-                    
-                    print("quat.axis: \(quat.axis.x)")
-                    print("quat.axis: \(quat.axis.y)")
-                    print("quat.axis: \(quat.axis.z)\n")
+//                    print("quat.angle: \(quat.angle)")
+//                    
+//                    print("quat.axis: \(quat.axis.x)")
+//                    print("quat.axis: \(quat.axis.y)")
+//                    print("quat.axis: \(quat.axis.z)\n")
                 }
                 .ignoresSafeArea()
             } else {
@@ -33,6 +33,8 @@ struct AirplaneView: View {
             // ---------- UI overlay (optional) ----------
             VStack {
                 Spacer()
+                Text("scale: \(String(describing: airplaneModel?.entity.scale)) ")
+                    .foregroundColor(.white)
                 Slider(value: Binding(
                     get: { Double(vm.revolutionsPerSecond) },
                     set: { vm.revolutionsPerSecond = Float($0) }
@@ -45,7 +47,7 @@ struct AirplaneView: View {
                     Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
                     Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
                 }
-                .pickerStyle(.segmented)
+                .pickerStyle(.menu)
                 .padding()
             }
         }

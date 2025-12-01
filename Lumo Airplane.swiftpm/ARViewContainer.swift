@@ -22,7 +22,9 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
-        print(arView)
+        arView.scene.synchronizationService
+        print(arView.scene.synchronizationService)
+        print("scene: \(arView.scene)")
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)

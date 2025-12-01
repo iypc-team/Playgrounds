@@ -25,8 +25,8 @@ struct AirplaneModel {
                 },
                 receiveValue: { modelEntity in
                     // Optional: centre the model, set an initial scale, etc.
-//                    modelEntity.scale = SIMD3<Float>(repeating: 0.5)
-                    
+                    modelEntity.scale = SIMD3<Float>(repeating: 2.0)
+                    // Main actor-isolated propertycan not be mutated from non-isolated context
                     continuation.resume(returning: AirplaneModel(entity: modelEntity))
                 }
             ))
