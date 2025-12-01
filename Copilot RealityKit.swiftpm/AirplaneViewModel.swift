@@ -21,7 +21,7 @@ final class AirplaneViewModel: ObservableObject {
     }
     
     /// Load the USDZ from the app bundle (synchronous SceneKit method)
-    func loadForSceneKit(named fileName: String = "Airplane.usdz") {
+    func loadForSceneKit(named fileName: String = "Spaceship.usdz") {
         // Loads SCNScene directly from bundle; SCNScene can load usdz
         if let url = Bundle.main.url(forResource: fileName, withExtension: nil) {
             do {
