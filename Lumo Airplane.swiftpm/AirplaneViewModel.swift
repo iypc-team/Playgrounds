@@ -7,14 +7,14 @@ import simd
 
 final class AirplaneViewModel: ObservableObject {
     @Published private(set) var orientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
-    @Published var revolutionsPerSecond: Float = 0.2
+    @Published var revolutionsPerSecond: Float = 2.0 // 0.2
     @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
     
     private var timerCancellable: AnyCancellable?
     private var startDate = Date()
     
     init() {
-        startClock()               // Auto‑start when created
+        startClock()       // Auto‑start when created
     }
     
     deinit {
@@ -28,10 +28,7 @@ final class AirplaneViewModel: ObservableObject {
     
     // PRIVATE implementation detail
     private func startClock() {
-        timerCancellable = Timer.publish(every: 1.0/60.0,
-                                         tolerance: 0.001,
-                                         on: .main,
-                                         in: .common)
+        timerCancellable = Timer.publish(every: 1.0/1.0, tolerance: 0.001, on: .main, in: .common)
         .autoconnect()
         .sink { [weak self] _ in self?.tick() }
     }

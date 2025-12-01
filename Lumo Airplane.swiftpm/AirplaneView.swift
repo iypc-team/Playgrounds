@@ -1,4 +1,4 @@
-//  Lumo Airplane  11/30/2025-1
+//  Lumo Airplane  12/01/2025-1
 // 
 
 import SwiftUI
@@ -18,6 +18,11 @@ struct AirplaneView: View {
                     // Update the coordinator's copy – the ARView's per‑frame block reads it.
                     // (The closure captures `vm` directly, so we just assign.)
                     // The coordinator will pick it up on the next frame.
+                    print("quat.angle: \(quat.angle)")
+                    
+                    print("quat.axis: \(quat.axis.x)")
+                    print("quat.axis: \(quat.axis.y)")
+                    print("quat.axis: \(quat.axis.z)\n")
                 }
                 .ignoresSafeArea()
             } else {
