@@ -40,20 +40,23 @@ struct RealityKitView: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         // Update logic here if needed
     }
+    
+    public func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 22.5) async {
+        await MainActor.run {
+            let axes: [[Float]] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+            let axis = SIMD3<Float>(axes[currentAxisIndex])
+            let angleRadians = angleDegrees * .pi / 180
+            let rotation = simd_quatf(angle: angleRadians, axis: axis)
+            model.transform.rotation *= rotation  // Apply cumulatively on main actor
+            currentAxisIndex = (currentAxisIndex + 1) % 3  // Cycle through x, y, z
+        }
+        try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
+    }
 }
 
 // Rotation function (call this from a button or gesture in your SwiftUI view)
-func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 22.5) async {
-    await MainActor.run {
-        let axes: [[Float]] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-        let axis = SIMD3<Float>(axes[currentAxisIndex])
-        let angleRadians = angleDegrees * .pi / 180
-        let rotation = simd_quatf(angle: angleRadians, axis: axis)
-        model.transform.rotation *= rotation  // Apply cumulatively on main actor
-        currentAxisIndex = (currentAxisIndex + 1) % 3  // Cycle through x, y, z
-    }
-    try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
-}
+
+
 
 //class RealityKitView2: UIViewRepresentable {
 //    var entity: Entity?

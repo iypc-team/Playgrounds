@@ -1,4 +1,4 @@
-// Copilot Spaceship  12/03/2025-4
+// Copilot Spaceship  12/03/2025-5
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
 import SwiftUI
@@ -17,6 +17,13 @@ struct ContentView: View {
                         model.loadModel()
                     }
             }
+            
+            Button("Rotate", action: {
+                model.rotateModel()
+            })
+            .padding(10)
+            .foregroundColor(.white)
+            .background(Color.green)
         }
     }
 }
