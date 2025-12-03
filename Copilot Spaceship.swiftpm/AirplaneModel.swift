@@ -21,5 +21,9 @@ class AirplaneModel: ObservableObject {
             }
         }
     }
+    
+    func rotateModel() {
+        rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 22.5)
+    }
 }
 
