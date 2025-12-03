@@ -23,6 +23,15 @@ struct RealityKitView: UIViewRepresentable {
             
             // Add this line here to enable gestures
 //            arView.installGestures([.translation, .rotation, .scale], for: model)
+            
+            // Add a directional light to illuminate the scene
+            let directionalLight = DirectionalLight()
+            directionalLight.light.intensity = 5000  // Adjust intensity as needed
+            directionalLight.orientation = simd_quatf(angle: -.pi / 4, axis: [1, 0, 0])  // Point downward slightly
+            
+            let lightAnchor = AnchorEntity(world: .zero)
+            lightAnchor.addChild(directionalLight)
+            arView.scene.addAnchor(lightAnchor)
         }
         return arView
     }
