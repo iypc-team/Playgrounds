@@ -24,6 +24,10 @@ class AirplaneModel: ObservableObject {
     
     func rotateModel() {
         print("func rotateModel() called")
+        let realityKitView = RealityKitView(entity: self.entity)
+        Task {
+            await realityKitView.rotateModelCumulatively(self.entity!, by: 22.5) // Adjust angle as needed
+        }
 //        RealityKitView.rotateModelCumulatively(model: Entity, by angleDegrees: Float = 22.5)
     }
 }
