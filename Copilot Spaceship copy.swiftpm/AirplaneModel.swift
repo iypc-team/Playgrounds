@@ -1,4 +1,4 @@
-// 
+//  
 // bullshit
 // 
 
@@ -7,11 +7,11 @@ import RealityKit
 
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
+    @Published var scale: Float = 1.0  // Add for scaling
     
     func loadModel() {
         Task {
             do {
-                // "Airplane" is your .usdz file in the Bundle
                 let loadedEntity = try await Entity.load(named: "Airplane")
                 DispatchQueue.main.async {
                     self.entity = loadedEntity
@@ -22,11 +22,18 @@ class AirplaneModel: ObservableObject {
         }
     }
     
-    func rotateModel() {
-        print("func rotateModel() called")
-        let realityKitView = RealityKitView(entity: self.entity)
-        Task {
-            await realityKitView.rotateModelCumulatively(self.entity!, by: 45.0) // Adjust angle as needed
+    func rotateModel() async {
+        guard let entity = entity else { return }
+        await MainActor.run {
+            let axis = SIMD3<Float>(1, 0, 0)
+            if totalRotationAngle + 45.0 <= 360.0 {
+                let angleRadians = 45.0 * .pi / 180
+                let rotation = simd_quatf(angle: Float(angleRadians), axis: axis)
+                entity.transform.rotation *= rotation
+                totalRotationAngle += 45.0
+                print("totalRotationAngle: \(totalRotationAngle)")
+            }
         }
     }
 }
+

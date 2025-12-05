@@ -1,4 +1,4 @@
-// 
+//  
 // bullshit
 // 
 
@@ -10,21 +10,18 @@ import ARKit
 var totalRotationAngle: Float = 0
 
 struct RealityKitView: UIViewRepresentable {
-    var entity: Entity?
+    @ObservedObject var model: AirplaneModel  // Change to AirplaneModel
     
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR
         
-        if let model = entity {
-            model.scale = SIMD3<Float>(5.0, 5.0, 5.0)
+        if let entity = model.entity {
+            entity.scale = SIMD3<Float>(5.0 * model.scale, 5.0 * model.scale, 5.0 * model.scale)  // Apply scale
             
             let anchor = AnchorEntity(world: .zero)
-            anchor.addChild(model)
+            anchor.addChild(entity)
             arView.scene.addAnchor(anchor)
-            
-            // Add gestures if needed
-            // arView.installGestures([.translation, .rotation, .scale], for: model)
             
             // Add light
             let directionalLight = DirectionalLight()
@@ -39,24 +36,12 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        // Update logic here if needed
+        if let entity = model.entity {
+            entity.scale = SIMD3<Float>(5.0 * model.scale, 5.0 * model.scale, 5.0 * model.scale)  // Update scale
+        }
     }
     
-    public func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 45.0) async {
-        await MainActor.run {
-//            print("totalRotationAngle: \(totalRotationAngle)")
-            let axis = SIMD3<Float>(1, 0, 0)  // Rotate only on the x-axis
-            if totalRotationAngle + angleDegrees <= 360.0 {
-                let angleRadians = angleDegrees * .pi / 180
-                let rotation = simd_quatf(angle: angleRadians, axis: axis)
-                model.transform.rotation *= rotation  // Apply cumulatively on main actor
-                print("totalRotationAngle: \(totalRotationAngle)")
-                totalRotationAngle += angleDegrees
-                
-            }
-            // No rotation if total exceeds 360°
-        }
-//        try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
-    }
+    
 }
+
 
