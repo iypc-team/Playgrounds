@@ -1,12 +1,13 @@
 // 
 // bullshit
+// 
 
 import SwiftUI
 import RealityKit
 import ARKit
 
-// Global variable to track axis (can be moved to a shared model if needed)
-var currentAxisIndex = 0
+// Global variable to track total rotation angle
+var totalRotationAngle: Float = 0
 
 struct RealityKitView: UIViewRepresentable {
     var entity: Entity?
@@ -41,20 +42,20 @@ struct RealityKitView: UIViewRepresentable {
         // Update logic here if needed
     }
     
-    public func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 22.5) async {
+    public func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 45.0) async {
         await MainActor.run {
-            print("func rotateModelCumulatively()")
-            let axes: [[Float]] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-            let axis = SIMD3<Float>(axes[currentAxisIndex])
-            print(axis)
-            let angleRadians = angleDegrees * .pi / 180
-            print("angleRadians: \(angleRadians)\n")
-            let rotation = simd_quatf(angle: angleRadians, axis: axis)
-            model.transform.rotation *= rotation  // Apply cumulatively on main actor
-            currentAxisIndex = (currentAxisIndex + 1) % 3  // Cycle through x, y, z
+            let axis = SIMD3<Float>(1, 0, 0)  // Rotate only on the x-axis
+            if totalRotationAngle + angleDegrees <= 360 {
+                let angleRadians = angleDegrees * .pi / 180
+                let rotation = simd_quatf(angle: angleRadians, axis: axis)
+                model.transform.rotation *= rotation  // Apply cumulatively on main actor
+                totalRotationAngle += angleDegrees
+            }
+            // No rotation if total exceeds 360°
         }
         try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
     }
+    
 }
 
 // Rotation function (call this from a button or gesture in your SwiftUI view)
