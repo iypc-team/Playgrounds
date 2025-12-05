@@ -1,4 +1,4 @@
-// Copilot Spaceship copy 12/04/2025-3
+// Copilot Spaceship copy 12/04/2025-4
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 // 
 
@@ -17,9 +17,10 @@ struct ContentView: View {
                             model.rotateModel()
                         })
                         .padding(10)
+                        .font(.largeTitle)
                         .foregroundColor(.white)
-                        .background(Color.green)
-                        , alignment: .bottom // Adjust alignment as needed
+                        .background(Color.black)
+                        ,alignment: .bottom // Adjust alignment as needed
                     )
             } else {
                 Text("Loading model...")

@@ -44,41 +44,19 @@ struct RealityKitView: UIViewRepresentable {
     
     public func rotateModelCumulatively(_ model: Entity, by angleDegrees: Float = 45.0) async {
         await MainActor.run {
+//            print("totalRotationAngle: \(totalRotationAngle)")
             let axis = SIMD3<Float>(1, 0, 0)  // Rotate only on the x-axis
-            if totalRotationAngle + angleDegrees <= 360 {
+            if totalRotationAngle + angleDegrees <= 360.0 {
                 let angleRadians = angleDegrees * .pi / 180
                 let rotation = simd_quatf(angle: angleRadians, axis: axis)
                 model.transform.rotation *= rotation  // Apply cumulatively on main actor
+                print("totalRotationAngle: \(totalRotationAngle)")
                 totalRotationAngle += angleDegrees
+                
             }
             // No rotation if total exceeds 360°
         }
-        try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
+//        try? await Task.sleep(for: .seconds(1))  // Wait 1 second after rotation
     }
-    
 }
 
-// Rotation function (call this from a button or gesture in your SwiftUI view)
-
-
-
-//class RealityKitView2: UIViewRepresentable {
-//    var entity: Entity?
-//    var currentAxisIndex = 0  // Now mutable since it's a class
-//    
-//    // ... rest of the code ...
-//    
-//    func rotateModelCumulatively(by angleDegrees: Float = 22.5) async {
-//        await MainActor.run {
-//            let axes: [[Float]] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-//            let axis = SIMD3<Float>(axes[currentAxisIndex])
-//            let angleRadians = angleDegrees * .pi / 180
-//            let rotation = simd_quatf(angle: angleRadians, axis: axis)
-//            if let model = entity {
-//                model.transform.rotation *= rotation
-//            }
-//            currentAxisIndex = (currentAxisIndex + 1) % 3
-//        }
-//        try? await Task.sleep(for: .seconds(1))
-//    }
-//}

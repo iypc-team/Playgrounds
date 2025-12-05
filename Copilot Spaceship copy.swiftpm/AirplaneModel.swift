@@ -12,8 +12,7 @@ class AirplaneModel: ObservableObject {
         Task {
             do {
                 // "Airplane" is your .usdz file in the Bundle
-                let loadedEntity = try await Entity.load(named: "Spaceship")
-                
+                let loadedEntity = try await Entity.load(named: "Airplane")
                 DispatchQueue.main.async {
                     self.entity = loadedEntity
                 }
@@ -27,8 +26,7 @@ class AirplaneModel: ObservableObject {
         print("func rotateModel() called")
         let realityKitView = RealityKitView(entity: self.entity)
         Task {
-            await realityKitView.rotateModelCumulatively(self.entity!, by: 22.5) // Adjust angle as needed
+            await realityKitView.rotateModelCumulatively(self.entity!, by: 45.0) // Adjust angle as needed
         }
-        //        RealityKitView.rotateModelCumulatively(model: Entity, by angleDegrees: Float = 22.5)
     }
 }
