@@ -1,7 +1,9 @@
-// Copilot Spaceship copy 12/06/2025-1
+// Copilot Spaceship copy 12/06/2025-2
+//  https://github.com/iypc-team/Playgrounds/tree/main/Copilot%20Spaceship%20copy.swiftpm 
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
 import SwiftUI
+
 struct ContentView: View {
     @StateObject private var model = AirplaneModel()
     
@@ -25,7 +27,7 @@ struct ContentView: View {
                             .padding(10)
                             .font(.largeTitle)
                             .foregroundColor(.white)
-                            .background(Color.black)
+//                            .background(Color.black)
                         , alignment: .bottom
                     )
             } else {

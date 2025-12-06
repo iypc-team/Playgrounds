@@ -1,9 +1,8 @@
 //  
-// bullshit
+// 
 
 import SwiftUI
 import RealityKit
-import ARKit
 
 //var totalRotationAngle: Float = 0
 
