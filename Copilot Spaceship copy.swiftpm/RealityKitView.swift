@@ -1,13 +1,11 @@
 //  
 // bullshit
-// 
 
 import SwiftUI
 import RealityKit
 import ARKit
 
-// Global variable to track total rotation angle
-var totalRotationAngle: Float = 0
+//var totalRotationAngle: Float = 0
 
 struct RealityKitView: UIViewRepresentable {
     @ObservedObject var model: AirplaneModel  // Change to AirplaneModel
@@ -17,7 +15,7 @@ struct RealityKitView: UIViewRepresentable {
         arView.cameraMode = .nonAR
         
         if let entity = model.entity {
-            entity.scale = SIMD3<Float>(5.0 * model.scale, 5.0 * model.scale, 5.0 * model.scale)  // Apply scale
+            entity.scale = SIMD3<Float>(4.0 * model.scale, 4.0 * model.scale, 4.0 * model.scale)  // Apply scale
             
             let anchor = AnchorEntity(world: .zero)
             anchor.addChild(entity)
@@ -37,11 +35,9 @@ struct RealityKitView: UIViewRepresentable {
     
     func updateUIView(_ uiView: ARView, context: Context) {
         if let entity = model.entity {
-            entity.scale = SIMD3<Float>(5.0 * model.scale, 5.0 * model.scale, 5.0 * model.scale)  // Update scale
+            entity.scale = SIMD3<Float>(4.0 * model.scale, 4.0 * model.scale, 4.0 * model.scale)  // Update scale
         }
     }
-    
-    
 }
 
 
