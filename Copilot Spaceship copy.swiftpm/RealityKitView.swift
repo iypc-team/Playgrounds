@@ -7,7 +7,7 @@ import RealityKit
 //var totalRotationAngle: Float = 0
 
 struct RealityKitView: UIViewRepresentable {
-    @ObservedObject var model: AirplaneModel  // Change to AirplaneModel
+    @ObservedObject var model: AirplaneModel  
     
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
