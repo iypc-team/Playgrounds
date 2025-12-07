@@ -49,7 +49,4 @@ class AirplaneModel: ObservableObject {
             print("Rotation reset")
         }
     }
-//    if totalRotationAngle == 360.0 {
-//        resetRotation()
-//    }
 }
