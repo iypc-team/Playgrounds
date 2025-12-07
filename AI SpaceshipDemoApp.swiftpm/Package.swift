@@ -30,6 +30,9 @@ let package = Package(
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
+            capabilities: [
+                .motion(purposeString: "Monitor device motion updates in real time.")
+            ],
             appCategory: .simulationGames
         )
     ],
