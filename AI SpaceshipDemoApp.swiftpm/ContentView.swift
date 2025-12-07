@@ -1,5 +1,5 @@
-// Copilot Spaceship copy 12/07/2025-1
-//  https://github.com/iypc-team/Playgrounds/tree/main/Copilot%20Spaceship%20copy.swiftpm 
+// AI SpaceshipDemoApp 12/07/2025-2
+//  
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
 import SwiftUI
