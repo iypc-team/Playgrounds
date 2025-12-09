@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/08/2025-1
+// AI SpaceshipDemoApp 12/08/2025-3
 //  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
@@ -24,6 +24,16 @@ struct ContentView: View {
                             .onChanged { value in
                                 model.scale = Float(value)
                             }
+                            .simultaneously(with: DragGesture()
+                                .onChanged { value in
+                                    // Calculate rotation based on horizontal drag (adjust 0.01 for sensitivity)
+                                    let dragAngle = Angle(degrees: Double(value.translation.width) * 0.01)
+                                    model.rotation = dragAngle
+                                }
+                                .onEnded { _ in
+                                    // Optional: Reset or persist rotation; currently keeps the last angle
+                                }
+                            )
                     )
                     .overlay(
                         Button("Rotate") {

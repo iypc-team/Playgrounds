@@ -8,6 +8,7 @@ class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 2.0
     @Published var rotationAngle: Float = 22.5  // New configurable property
+    @Published var rotation: Angle = .zero
     
     var totalRotationAngle: Float = 0  // Still track for reference, but not limit
     
