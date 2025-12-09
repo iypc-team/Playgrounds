@@ -90,6 +90,7 @@ class AirplaneModel: ObservableObject {
             totalRotationAngle = 0
             print("\ntotalRotationAngle: \(totalRotationAngle)")
             print("Rotation reset\n")
+            self.loadModel()
         }
     }
 }

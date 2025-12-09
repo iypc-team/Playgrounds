@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/08/2025-3
+// AI SpaceshipDemoApp 12/09/2025-1
 //  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
@@ -14,15 +14,25 @@ struct ContentView: View {
     @StateObject private var model = AirplaneModel()
     let pi = printInfo() 
     
+    func printModelScale() -> Float {
+        let scale = model.scale
+        print("Model scale: \(scale)")
+        return scale
+    }
+    
     var body: some View {
         VStack {
             if let _ = model.entity {
                 RealityKitView(model: model)  // Pass model, not entity
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    .frame(maxWidth: 200, maxHeight: 200)
                     .gesture(
                         MagnificationGesture()
                             .onChanged { value in
                                 model.scale = Float(value)
+                            }
+                            .onEnded { value in
+                                print("Magnification value: \(value)")  // Add this line
                             }
                             .simultaneously(with: DragGesture()
                                 .onChanged { value in
@@ -31,7 +41,7 @@ struct ContentView: View {
                                     model.rotation = dragAngle
                                 }
                                 .onEnded { _ in
-                                    // Optional: Reset or persist rotation; currently keeps the last angle
+//                                    print("dragAngle: \(dragAngle)")
                                 }
                             )
                     )
