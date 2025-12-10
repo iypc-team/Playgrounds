@@ -1,11 +1,4 @@
-// A corrected version based on code review:
-// - Removed debug prints.
-// - Used constants for magic numbers.
-// - Improved rotation with smooth animations instead of loops and sleeps.
-// - Completed resetRotation method.
-// - Added basic documentation.
-
-//  
+// 
 // 
 
 import SwiftUI
@@ -14,13 +7,20 @@ import RealityKit
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 1.0
-    @Published var rotationAngle: Float = 45.0  // New configurable property
-    @Published var rotation: Angle = .zero
+    @Published var rotationAngle: Float = 45.0  // Configurable rotation step angle in degrees
+    @Published var rotation: Angle = .zero  // Current rotation angle for Y-axis (used by gestures and animations)
     
-    var totalRotationAngle: Float = 0  // Still track for reference, but not limit
+    // Constants for axis vectors and animation settings
+    private let axisX = SIMD3<Float>(1, 0, 0)
+    private let axisY = SIMD3<Float>(0, 1, 0)
+    private let axisZ = SIMD3<Float>(0, 0, 1)
+    private let fullRotationDegrees: Float = 360.0
+    private let animationDuration: TimeInterval = 2.0  // Total duration for each axis rotation
     
+    private var rotationTask: Task<Void, Never>?  // For cancellable rotation task
+    
+    /// Loads the airplane model asynchronously.
     func loadModel() {
-        print("func loadModel()")
         Task {
             do {
                 let loadedEntity = try await Entity.load(named: "Airplane-2")
@@ -28,75 +28,73 @@ class AirplaneModel: ObservableObject {
                     self.entity = loadedEntity
                 }
             } catch {
+                // Handle error (e.g., show alert in UI)
                 print("Error loading model: \(error.localizedDescription)")
             }
         }
     }
     
-    func rotateModel() async {
-        print("func rotateModel()")
-        guard let entity = entity else { return }
+    /// Starts a smooth, cancellable rotation animation on X, Y, and Z axes sequentially.
+    func rotateModel() {
+        // Cancel any existing rotation task
+        rotationTask?.cancel()
         
-        let stepAngle = rotationAngle  // Use configurable angle as step size
-        var currentRotationAngle: Float = 0  // Local tracker for each axis
-        
-        // X-axis rotation
-        print()
-        let axisX = SIMD3<Float>(1, 0, 0)
-        while currentRotationAngle < 360.0 {
-            let angleRadians = stepAngle * .pi / 180
-            await MainActor.run {
-                let rotation = simd_quatf(angle: Float(angleRadians), axis: axisX)
-                entity.transform.rotation *= rotation
+        rotationTask = Task {
+            guard let _ = entity else { return }
+            
+            let stepAngle = rotationAngle
+            let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
+            let delayPerStep = animationDuration / Double(stepsPerAxis)
+            
+            // Rotate on X-axis
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: axisX, delay: delayPerStep)
             }
-            currentRotationAngle += stepAngle
-            print("X-axis rotation angle: \(currentRotationAngle)")
-            // Add a small delay to make the rotation visible over time (adjust as needed)
-            try? await Task.sleep(nanoseconds: 2000000000)  // 0.2 seconds
-        }
-        
-        // Y-axis rotation
-        print()
-        let axisY = SIMD3<Float>(0, 1, 0)
-        currentRotationAngle = 0
-        while currentRotationAngle < 360.0 {
-            let angleRadians = stepAngle * .pi / 180
-            await MainActor.run {
-                let rotation = simd_quatf(angle: Float(angleRadians), axis: axisY)
-                entity.transform.rotation *= rotation
+            
+            // Rotate on Y-axis
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: axisY, delay: delayPerStep)
             }
-            currentRotationAngle += stepAngle
-            print("Y-axis rotation angle: \(currentRotationAngle)")
-            // Add a small delay to make the rotation visible over time (adjust as needed)
-            try? await Task.sleep(nanoseconds: 2000000000)  // 0.2 seconds
-        }
-        
-        // Z-axis rotation
-        print()
-        let axisZ = SIMD3<Float>(0, 0, 1)
-        currentRotationAngle = 0
-        while currentRotationAngle < 360.0 {
-            let angleRadians = stepAngle * .pi / 180
-            await MainActor.run {
-                let rotation = simd_quatf(angle: Float(angleRadians), axis: axisZ)
-                entity.transform.rotation *= rotation
+            
+            // Rotate on Z-axis
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: axisZ, delay: delayPerStep)
             }
-            currentRotationAngle += stepAngle
-            print("Z-axis rotation angle: \(currentRotationAngle)")
-            // Add a small delay to make the rotation visible over time (adjust as needed)
-            try? await Task.sleep(nanoseconds: 3000000000)  // 0.2 seconds
+            
+            // Reset rotation after sequence
+            await resetRotation()
         }
-        await self.resetRotation()
     }
     
-    // New method: Reset rotation to initial state
-    func resetRotation() async {
-        guard let entity = entity else { return }
+    /// Cancels the ongoing rotation animation if active.
+    func cancelRotation() {
+        rotationTask?.cancel()
+        rotationTask = nil
+    }
+    
+    /// Resets the rotation state to zero.
+    @MainActor
+    func resetRotation() {
+        rotation = .zero
+    }
+    
+    /// Helper to animate a small rotation increment on the specified axis by updating model.rotation or entity.
+    private func animateRotationIncrement(by angleDegrees: Float, axis: SIMD3<Float>, delay: TimeInterval) async {
+        let increment = Angle(degrees: Double(angleDegrees))
         await MainActor.run {
-            entity.transform.rotation = .init()  // Reset to identity quaternion
-            totalRotationAngle = 0
-            print("\ntotalRotationAngle: \(totalRotationAngle)")
-            print("Rotation reset\n")
+            if axis == axisY {  // Update Y-axis via model for consistency with gestures
+                rotation += increment
+            } else {
+                // For X and Z axes, apply directly to entity
+                if let entity = entity {
+                    let quaternion = simd_quatf(angle: angleDegrees * .pi / 180, axis: axis)
+                    entity.transform.rotation *= quaternion
+                }
+            }
         }
+        try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
     }
 }

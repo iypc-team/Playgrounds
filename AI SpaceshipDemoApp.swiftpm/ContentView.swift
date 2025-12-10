@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/09/2025-3
+// AI SpaceshipDemoApp 12/09/2025-4
 //  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
@@ -50,6 +50,7 @@ struct ContentView: View {
                             print("\nRotate pressed")
                             Task {
                                 await model.rotateModel()
+                                // no 'async'operations occur within 'await' expression
                             }
                         }
                             .padding(10)
