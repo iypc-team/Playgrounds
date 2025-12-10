@@ -14,7 +14,7 @@ struct RealityKitView: UIViewRepresentable {
         // Create and position a custom camera for non-AR mode
         let camera = PerspectiveCamera()
         camera.transform.translation = SIMD3<Float>(0, 0, 5)  // Adjust position as needed (e.g., 10 units back)
-        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 10.0), relativeTo: nil)  // Look at origin
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 5.0), relativeTo: nil)  // Look at origin
         
         let cameraAnchor = AnchorEntity(world: .zero)
         cameraAnchor.addChild(camera)

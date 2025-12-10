@@ -15,7 +15,7 @@ class AirplaneModel: ObservableObject {
     private let axisY = SIMD3<Float>(0, 1, 0)
     private let axisZ = SIMD3<Float>(0, 0, 1)
     private let fullRotationDegrees: Float = 360.0
-    private let animationDuration: TimeInterval = 3.0  // Total duration for each axis rotation
+    private let animationDuration: TimeInterval = 1.0  // Total duration for each axis rotation
     
     private var rotationTask: Task<Void, Never>?  // For cancellable rotation task
     
@@ -36,6 +36,7 @@ class AirplaneModel: ObservableObject {
     
     /// Starts a smooth, cancellable rotation animation on X, Y, and Z axes sequentially.
     func rotateModel() {
+        print("funk rotateModel()")
         // Cancel any existing rotation task
         rotationTask?.cancel()
         
@@ -49,7 +50,7 @@ class AirplaneModel: ObservableObject {
             
             // Rotate on X-axis
             for _ in 0..<stepsPerAxis {
-                print("delayPerStep: \(delayPerStep)")
+                print("stepAngle: \(stepAngle)")
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: axisX, delay: delayPerStep)
             }
@@ -85,6 +86,7 @@ class AirplaneModel: ObservableObject {
     
     /// Helper to animate a small rotation increment on the specified axis by updating model.rotation or entity.
     private func animateRotationIncrement(by angleDegrees: Float, axis: SIMD3<Float>, delay: TimeInterval) async {
+        print("private func animateRotationIncrement()")
         let increment = Angle(degrees: Double(angleDegrees))
         await MainActor.run {
             if axis == axisY {  // Update Y-axis via model for consistency with gestures
@@ -100,3 +102,4 @@ class AirplaneModel: ObservableObject {
         try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
     }
 }
+

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct SpaceShipDemoApp: App {
+struct AISpaceshipDemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
