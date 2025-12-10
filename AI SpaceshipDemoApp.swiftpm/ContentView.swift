@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/09/2025-4
+// AI SpaceshipDemoApp 12/10/2025-1
 //  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
@@ -25,7 +25,7 @@ struct ContentView: View {
             if let _ = model.entity {
                 RealityKitView(model: model)  // Pass model, not entity
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .frame(maxWidth: 200, maxHeight: 200)
+                //                    .frame(maxWidth: 200, maxHeight: 200)
                     .gesture(
                         MagnificationGesture()
                             .onChanged { value in
@@ -41,7 +41,7 @@ struct ContentView: View {
                                     model.rotation = dragAngle
                                 }
                                 .onEnded { _ in
-//                                    print("dragAngle: \(dragAngle)")
+                                    //                                    print("dragAngle: \(dragAngle)")
                                 }
                             )
                     )
@@ -49,7 +49,7 @@ struct ContentView: View {
                         Button("Rotate") {
                             print("\nRotate pressed")
                             Task {
-                                await model.rotateModel()
+                                model.rotateModel()
                                 // no 'async'operations occur within 'await' expression
                             }
                         }

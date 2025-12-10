@@ -6,7 +6,7 @@ import RealityKit
 
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
-    @Published var scale: Float = 1.0
+    @Published var scale: Float = 2.0
     @Published var rotationAngle: Float = 45.0  // Configurable rotation step angle in degrees
     @Published var rotation: Angle = .zero  // Current rotation angle for Y-axis (used by gestures and animations)
     
@@ -15,7 +15,7 @@ class AirplaneModel: ObservableObject {
     private let axisY = SIMD3<Float>(0, 1, 0)
     private let axisZ = SIMD3<Float>(0, 0, 1)
     private let fullRotationDegrees: Float = 360.0
-    private let animationDuration: TimeInterval = 2.0  // Total duration for each axis rotation
+    private let animationDuration: TimeInterval = 3.0  // Total duration for each axis rotation
     
     private var rotationTask: Task<Void, Never>?  // For cancellable rotation task
     
@@ -44,10 +44,12 @@ class AirplaneModel: ObservableObject {
             
             let stepAngle = rotationAngle
             let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
-            let delayPerStep = animationDuration / Double(stepsPerAxis)
+            var delayPerStep = animationDuration / Double(stepsPerAxis)
+            delayPerStep = animationDuration
             
             // Rotate on X-axis
             for _ in 0..<stepsPerAxis {
+                print("delayPerStep: \(delayPerStep)")
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: axisX, delay: delayPerStep)
             }
