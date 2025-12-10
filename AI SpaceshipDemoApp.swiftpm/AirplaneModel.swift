@@ -50,7 +50,6 @@ class AirplaneModel: ObservableObject {
             
             // Rotate on X-axis
             for _ in 0..<stepsPerAxis {
-                print("stepAngle: \(stepAngle)")
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: axisX, delay: delayPerStep)
             }
@@ -74,6 +73,7 @@ class AirplaneModel: ObservableObject {
     
     /// Cancels the ongoing rotation animation if active.
     func cancelRotation() {
+        print("func cancelRotation()")
         rotationTask?.cancel()
         rotationTask = nil
     }
@@ -81,6 +81,7 @@ class AirplaneModel: ObservableObject {
     /// Resets the rotation state to zero.
     @MainActor
     func resetRotation() {
+        print("func resetRotation()")
         rotation = .zero
     }
     

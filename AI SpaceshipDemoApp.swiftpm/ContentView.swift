@@ -1,6 +1,6 @@
-// AI SpaceshipDemoApp 12/10/2025-2
+// AI SpaceshipDemoApp 12/10/2025-3
 /* https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
-*/
+ */
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
 import SwiftUI
@@ -47,17 +47,29 @@ struct ContentView: View {
                             )
                     )
                     .overlay(
-                        Button("Rotate") {
-                            print("\nRotate pressed")
-                            Task {
-                                model.rotateModel()
-                                // no 'async'operations occur within 'await' expression
+                        HStack(spacing: 20) {  // Changed to HStack for horizontal stacking
+                            Button("Rotate") {
+                                print("\nRotate pressed")
+                                Task {
+                                    model.rotateModel()
+                                    // no 'async'operations occur within 'await' expression
+                                }
                             }
-                        }
                             .padding(10)
-                            .font(.largeTitle)
+                            .font(.system(size: 22, weight: .heavy, design: .default))
                             .foregroundColor(.white)
                             .background(Color.black)
+                            
+                            Button("Cancel Rotation") {
+                                print("\nCancel Rotation pressed")
+                                model.cancelRotation()
+                                model.resetRotation()
+                            }
+                            .padding(10)
+                            .font(.system(size: 22, weight: .heavy, design: .default))  // Slightly smaller for hierarchy
+                            .foregroundColor(.white)
+                            .background(Color.black)
+                        }
                         , alignment: .bottom
                     )
             } else {
