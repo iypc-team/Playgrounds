@@ -1,5 +1,7 @@
-// MVVM Defcon4  12/12/2025-InitalCommit
-// 
+// MVVM Defcon4  12/12/2025-1
+/*
+ https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
+ */
 
 import SwiftUI
 import SceneKit
