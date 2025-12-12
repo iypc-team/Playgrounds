@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/11/2025-3
+// AI SpaceshipDemoApp 12/12/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
  */
@@ -48,13 +48,21 @@ struct ContentView: View {
                                 print("\nRotate pressed")
                                 Task {
                                     model.rotateModel()
-                                    // no 'async'operations occur within 'await' expression
                                 }
                             }
                             .padding(15)
                             .font(.system(size: 18, weight: .heavy, design: .default))
                             .foregroundColor(.green)
                             .background(Color.black)
+                            
+                            Spacer()
+                            
+                            let thisAngle = model.rotation
+                            Text(" Rotation: \(thisAngle)")
+                                .padding(15)
+                                .font(.system(size: 18, weight: .heavy, design: .default))
+                                .foregroundColor(.white)
+                                .background(Color.red)
                             
                             Spacer()
                             

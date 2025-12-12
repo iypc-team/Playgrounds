@@ -7,7 +7,7 @@ import RealityKit
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 2.0
-    @Published var rotationAngle: Float = 45.0  // Configurable rotation step angle in degrees
+    @Published var rotationAngle: Float = 45.0 / 4 // Configurable rotation step angle in degrees
     @Published var rotation: Angle = .zero  // Current rotation angle for Y-axis (used by gestures and animations)
     
     // Constants for axis vectors and animation settings
@@ -23,13 +23,13 @@ class AirplaneModel: ObservableObject {
     func loadModel() {
         Task {
             do {
-                let loadedEntity = try await Entity.load(named: "Airplane-2")
+                let loadedEntity = try await Entity.load(named: "Airplane")
                 DispatchQueue.main.async {
                     self.entity = loadedEntity
                 }
             } catch {
                 // Handle error (e.g., show alert in UI)
-                print("Error loading model: \(error.localizedDescription)")
+                print("Error loading model: \(error)")
             }
         }
     }
@@ -51,6 +51,7 @@ class AirplaneModel: ObservableObject {
             // Rotate on X-axis
             for _ in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
+                print("rotationAngle: \(rotationAngle)")
                 await animateRotationIncrement(by: stepAngle, axis: axisX, delay: delayPerStep)
             }
             
