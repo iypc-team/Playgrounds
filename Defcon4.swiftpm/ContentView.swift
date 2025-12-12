@@ -1,5 +1,7 @@
-//  Defcon4 12/12/2025-1
-//  green
+//  Defcon4 12/12/2025-2
+/*
+ https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
+ */
 
 import SwiftUI
 //import UIKit
