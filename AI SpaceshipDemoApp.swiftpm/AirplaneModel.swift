@@ -103,4 +103,3 @@ class AirplaneModel: ObservableObject {
         try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
     }
 }
-
