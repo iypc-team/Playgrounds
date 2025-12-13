@@ -1,10 +1,8 @@
 //  Value of type 'LoadRequest<ModelEntity>' has no member 'value'
 // cannot convert valur of type 'LoadRequest<ModelEntity> to expected argument type 'ModelEntity'
 
-import SwiftUI
 import RealityKit
-import Combine   // Ensure Combine is imported
-import simd
+import Combine
 
 struct AirplaneModel {
     let entity: ModelEntity
@@ -20,14 +18,16 @@ struct AirplaneModel {
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     case .finished:
-                        break  // Handled in receiveValue
+                        break
                     }
                 },
                 receiveValue: { modelEntity in
-                    // Optional: centre the model, set an initial scale, etc.
-                    //                    modelEntity.scale = SIMD3<Float>(repeating: 0.5)
-                    
-                    continuation.resume(returning: AirplaneModel(entity: modelEntity))
+                    Task {
+                        await MainActor.run {
+                            modelEntity.scale = SIMD3<Float>(repeating: 3.0)
+                        }
+                        continuation.resume(returning: AirplaneModel(entity: modelEntity))
+                    }
                 }
             ))
         }
