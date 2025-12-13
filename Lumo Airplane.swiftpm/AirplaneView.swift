@@ -1,7 +1,8 @@
-//  Lumo Airplane  12/13/2025-3
+//  Lumo Airplane  12/13/2025-4
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
-*/
+ */
+// 
 
 import SwiftUI
 

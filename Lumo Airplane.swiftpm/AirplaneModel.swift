@@ -1,5 +1,5 @@
-//  Value of type 'LoadRequest<ModelEntity>' has no member 'value'
-// cannot convert valur of type 'LoadRequest<ModelEntity> to expected argument type 'ModelEntity'
+// 
+// 
 
 import RealityKit
 import Combine

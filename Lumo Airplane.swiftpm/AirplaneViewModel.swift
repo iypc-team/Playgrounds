@@ -1,5 +1,6 @@
 //  'identity' is inaccessable due to 'internal' protection level
 // 
+// orientation:
 
 import Foundation
 import Combine
@@ -13,7 +14,7 @@ final class AirplaneViewModel: ObservableObject {
     private var timerCancellable: AnyCancellable?
     private var startDate = Date()
     
-    init() {
+    init() { 
         startClock()       // Auto‑start when created
     }
     
@@ -28,7 +29,7 @@ final class AirplaneViewModel: ObservableObject {
     
     // PRIVATE implementation detail
     private func startClock() {
-        timerCancellable = Timer.publish(every: 1.0/1.0, tolerance: 0.001, on: .main, in: .common)
+        timerCancellable = Timer.publish(every: 2.0, tolerance: 0.001, on: .main, in: .common)
         .autoconnect()
         .sink { [weak self] _ in self?.tick() }
     }
@@ -37,6 +38,7 @@ final class AirplaneViewModel: ObservableObject {
         let elapsed = Float(Date().timeIntervalSince(startDate))
         let angle = elapsed * .pi * 2 * revolutionsPerSecond
         orientation = simd_quaternion(angle, normalize(rotationAxis))
-        print("orientation: \(orientation)")
+//        orientation.debugDescription
+//        print("orientation: \(orientation.debugDescription)")
     }
 }
