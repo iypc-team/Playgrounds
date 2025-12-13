@@ -1,7 +1,4 @@
-//
-// Type 'ARViewContainer' does not conform to protocol 'UIViewRepresentable'
-
-//
+// 
 //  ARViewContainer.swift
 //
 
@@ -16,22 +13,22 @@ struct ARViewContainer: UIViewRepresentable {
     typealias UIViewType = ARView
     /// The entity that should be displayed.
     let airplaneEntity: ModelEntity
-    /// Closure called on every render pass – supplies the latest quaternion.
-    let perFrameUpdate: (simd_quatf) -> Void
+    /// The view model to read orientation from.
+    let viewModel: AirplaneViewModel
     
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
-        arView.scene.synchronizationService
-        print(arView.scene.synchronizationService)
+//        arView.scene.synchronizationService
+        print(arView.scene.synchronizationService as Any)
         print("scene: \(arView.scene)")
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)
         arView.scene.addAnchor(anchor)
-        // Subscribe to per‑frame updates and forward the latest quaternion.
+        // Subscribe to per‑frame updates and apply the latest orientation from the view model.
         arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
-            perFrameUpdate(context.coordinator.currentOrientation)
+            airplaneEntity.transform.rotation = viewModel.orientation
         }.store(in: &context.coordinator.cancellables)
         
         return arView
@@ -43,8 +40,6 @@ struct ARViewContainer: UIViewRepresentable {
     
     class Coordinator {
         var cancellables = Set<AnyCancellable>()
-        // Start with a neutral orientation (identity quaternion).
-        var currentOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     }
     
     func makeCoordinator() -> Coordinator {
