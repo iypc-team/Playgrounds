@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/14/2025-1
+//  Lumo Airplane  12/14/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
  */
@@ -27,7 +27,7 @@ struct AirplaneView: View {
                 Slider(value: Binding(
                     get: { Double(vm.revolutionsPerSecond) },
                     set: { vm.revolutionsPerSecond = Float($0) }
-                ), in: 0...1, label: { Text("Speed") })
+                ), in: 0...5, label: { Text("Speed") })
                 .padding(.horizontal)
                 
                 // Example: change axis with a picker
@@ -35,8 +35,9 @@ struct AirplaneView: View {
                     Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
                     Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
                     Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
+                    Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                 }
-                .pickerStyle(.segmented)
+                .pickerStyle(.automatic)
                 .padding()
             }
         }
