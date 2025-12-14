@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/14/2025-2
+//  Lumo Airplane  12/14/2025-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
  */
@@ -9,6 +9,7 @@ import SwiftUI
 struct AirplaneView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
+    @State private var sliderTimer: DispatchWorkItem?  // Timer for debouncing slider prints
     
     var body: some View {
         ZStack {
@@ -20,15 +21,30 @@ struct AirplaneView: View {
                 // Loading placeholder
                 ProgressView("Loading airplane…")
             }
-            
+            // print
             // ---------- UI overlay (optional) ----------
             VStack {
                 Spacer()
                 Slider(value: Binding(
                     get: { Double(vm.revolutionsPerSecond) },
-                    set: { vm.revolutionsPerSecond = Float($0) }
-                ), in: 0...5, label: { Text("Speed") })
+                    set: { newValue in
+                        // Cancel any pending print
+                        sliderTimer?.cancel()
+                        
+                        // Schedule a new print after 0.5 seconds of inactivity
+                        let workItem = DispatchWorkItem {
+                            print("Final slider value: \(Int(newValue))")  // Print as integer
+                        }
+                        sliderTimer = workItem
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: workItem)
+                        
+                        // Update the view model
+                        vm.revolutionsPerSecond = Float(newValue)
+                    }
+                ), in: 0...5, step: 1, label: { Text("Speed") })  // Added step: 1 for integer snapping
                 .padding(.horizontal)
+                
+                Text("vm.revolutionsPerSecond: \(vm.revolutionsPerSecond) ")
                 
                 // Example: change axis with a picker
                 Picker("Axis", selection: $vm.rotationAxis) {

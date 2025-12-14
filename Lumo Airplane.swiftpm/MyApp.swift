@@ -13,7 +13,6 @@ struct AirplaneDemoApp: App {
     }
 }
 
-// 2️⃣ Files
 // ├─ AirplaneModel.swift      (Model)
 // ├─ AirplaneViewModel.swift  (View‑Model)
 // ├─ ARViewContainer.swift    (UIViewRepresentable bridge)
