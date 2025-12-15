@@ -1,8 +1,23 @@
 // 
-// 
+// animateRotationIncrement
 
 import SwiftUI
 import RealityKit
+
+// Extend AirplaneModel with DRY gesture updates
+extension AirplaneModel {
+    func updateScale(with value: Float) {
+        self.scale = value
+        print("scale: \(self.scale)")
+    }
+    
+    func updateRotation(from translation: CGSize) -> Angle {
+        let dragAngle = Angle(degrees: Double(translation.height) * 1.0) // 0.01 default
+        self.rotation = dragAngle
+        print("dragAngle: \(dragAngle)")
+        return dragAngle
+    }
+}
 
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?

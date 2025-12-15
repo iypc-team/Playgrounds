@@ -1,89 +1,71 @@
-// AI SpaceshipDemoApp 12/12/2025-1
+// AI SpaceshipDemoApp 12/15/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
  */
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
 import SwiftUI
+import OSLog
+
+private let conversionFactor = (Float.pi / 180)
+private let logger = Logger(subsystem: "com.iypc.AISpaceshipDemoApp", category: "ContentView")
+
+// Example usage:
+//logger.debug("Scale: \(value)")
+//logger.error("Failed to load model.")
 
 struct printInfo {
     init() { print("ContentView()") }
 }
 
+struct HighlightedButtonStyle: ButtonStyle {
+    let borderColor: Color
+    let backgroundColor: Color
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(15)
+            .font(.system(size: 18, weight: .heavy))
+            .foregroundColor(borderColor)
+            .background(backgroundColor)
+            .cornerRadius(8)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
+}
+
 struct ContentView: View {
     @StateObject private var model = AirplaneModel()
-    let pi = printInfo() 
     
     var body: some View {
-        VStack {
+        Group {
             if let _ = model.entity {
-                RealityKitView(model: model)  // Pass model, not entity
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                //                    .frame(maxWidth: 200, maxHeight: 200)
-                
+                RealityKitView(model: model)
                     .gesture(
                         MagnificationGesture()
-                            .onChanged { value in
-                                model.scale = Float(value)
-                            }
-                            .onEnded { value in
-                                print("Magnification value: \(value)")  // Add this line
-                            }
+                            .onChanged { model.updateScale(with: Float($0)) }
                             .simultaneously(with: DragGesture()
-                                .onChanged { value in
-                                    // Calculate rotation based on horizontal drag (adjust 0.01 for sensitivity)
-                                    let dragAngle = Angle(degrees: Double(value.translation.height) * 1.0) // 0.01 default
-                                    
-                                    model.rotation = dragAngle
-                                }
-                                .onEnded { _ in
-                                    //                                    print("dragAngle: \(dragAngle)")
-                                }
+                                .onChanged { let _ = model.updateRotation(from: $0.translation) }
                             )
                     )
-                    .overlay(
-                        HStack(spacing: 20) {  // Changed to HStack for horizontal stacking
-                            Spacer()
-                            Button("Start Rotation") {
-                                print("\nRotate pressed")
-                                Task {
-                                    model.rotateModel()
-                                }
-                            }
-                            .padding(15)
-                            .font(.system(size: 18, weight: .heavy, design: .default))
-                            .foregroundColor(.green)
-                            .background(Color.black)
-                            
-                            Spacer()
-                            
-                            let thisAngle = model.rotation
-                            Text(" Rotation: \(thisAngle)")
-                                .padding(15)
-                                .font(.system(size: 18, weight: .heavy, design: .default))
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                            
-                            Spacer()
-                            
-                            Button("Cancel Rotation") {
-                                print("\nCancel Rotation pressed")
-                                model.cancelRotation()
-                                model.resetRotation()
-                            }
-                            .padding(15)
-                            .font(.system(size: 18, weight: .heavy, design: .default))  // Slightly smaller for hierarchy
-                            .foregroundColor(.red)
-                            .background(Color.black)
-                            
-                            Spacer()
-                        }
-                        , alignment: .bottom
-                    )
+                    .overlay(overlayButtons, alignment: .bottom)
             } else {
-                Text("Loading model...")
+                ProgressView("Loading model…")
                     .onAppear { model.loadModel() }
             }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    private var overlayButtons: some View {
+        HStack(spacing: 20) {
+            Button("Start Rotation") {
+                Task { model.rotateModel() }
+            }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .black))
+            
+            Button("Cancel Rotation") {
+                model.cancelRotation()
+                model.resetRotation()
+            }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .black))
         }
     }
 }

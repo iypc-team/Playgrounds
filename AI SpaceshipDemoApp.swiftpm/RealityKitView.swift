@@ -31,8 +31,8 @@ struct RealityKitView: UIViewRepresentable {
             let directionalLight = DirectionalLight()
             directionalLight.light.intensity = 5000
             directionalLight.orientation = simd_quatf(angle: -.pi / 4, axis: [1, 0, 0])
-            
             let lightAnchor = AnchorEntity(world: .zero)
+            print("lightAnchor: \(lightAnchor.orientation.debugDescription )")
             lightAnchor.addChild(directionalLight)
             arView.scene.addAnchor(lightAnchor)
         }
