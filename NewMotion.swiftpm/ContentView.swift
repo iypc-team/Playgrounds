@@ -1,5 +1,7 @@
-// MotionView
-//  
+// NewMotion 12/15/2025-1
+/*
+ https://github.com/iypc-team/Playgrounds/tree/main/NewMotion.swiftpm
+ */
 
 import SwiftUI
 import CoreMotion
