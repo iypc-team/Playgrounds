@@ -2,6 +2,10 @@
 //  ARViewContainer.swift
 //
 
+// 
+//  ARViewContainer.swift
+//
+
 import SwiftUI
 import RealityKit
 import ARKit
@@ -19,12 +23,21 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
-//        arView.scene.synchronizationService
+        //        arView.scene.synchronizationService
         print(arView.scene.synchronizationService as Any)
         print("scene: \(arView.scene)")
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)
+        
+        // Add a directional light to illuminate the airplane
+        let light = DirectionalLight()
+        light.light.intensity = 4000  // Adjust intensity as needed
+        light.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(1, 1, 1), relativeTo: nil)  // Position and orient the light
+        anchor.addChild(light)
+        
+        print("orientation: \(String(describing:light.anchor?.orientation))")
+        
         arView.scene.addAnchor(anchor)
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
         arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
@@ -46,3 +59,4 @@ struct ARViewContainer: UIViewRepresentable {
         Coordinator()
     }
 }
+

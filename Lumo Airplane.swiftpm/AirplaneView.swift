@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/14/2025-5
+//  Lumo Airplane  12/14/2025-6
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
@@ -48,7 +48,7 @@ struct AirplaneView: View {
                 .pickerStyle(.automatic)
                 .padding()
             }
-            .font(.system(size: 18, weight: .bold, design: .default))
+            .font(.system(size: 16, weight: .bold, design: .default))
         }
         .task {
             // Load the USDZ model once when the view appears.
