@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/14/2025-7
+//  Lumo Airplane  12/14/2025-8
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
@@ -12,11 +12,16 @@ import SwiftUI
 struct AirplaneView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
+    @State private var loadError: String?
     
     var body: some View {
         ZStack {
             // ---------- RealityKit scene ----------
-            if let model = airplaneModel {
+            if let error = loadError {
+                Text("Failed to load airplane: \(error)")
+                    .foregroundColor(.red)
+                    .padding()
+            } else if let model = airplaneModel {
                 ARViewContainer(airplaneEntity: model.entity, viewModel: vm)
                     .ignoresSafeArea()
             } else {
@@ -55,6 +60,7 @@ struct AirplaneView: View {
             do {
                 airplaneModel = try await AirplaneModel.load()
             } catch {
+                loadError = error.localizedDescription
                 print("❌ Failed to load Airplane.usdz – \(error)")
             }
         }
