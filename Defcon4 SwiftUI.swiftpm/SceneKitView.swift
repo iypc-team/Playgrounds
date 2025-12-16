@@ -1,5 +1,7 @@
-// 
-// 
+//  Defcon4 SwiftUI 12/16/2025-1
+/*  
+ https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20SwiftUI.swiftpm
+ */
 
 import SwiftUI
 import SceneKit

@@ -7,7 +7,7 @@ import UIKit
 func makeDemoScene() -> SCNScene {
     let scene = SCNScene()
     
-    let sphere = SCNSphere(radius: 100.0)
+    let sphere = SCNSphere(radius: 0.65)
     // 2. Create a material and load an image (UIImage)
     let material = SCNMaterial()
     if let image = UIImage(named: "JWST1") {
@@ -20,13 +20,11 @@ func makeDemoScene() -> SCNScene {
     let sphereNode = SCNNode(geometry: sphere)
     scene.rootNode.addChildNode(sphereNode)
     
-    
     // Example geometry – a spinning box
     let box = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
     let boxNode = SCNNode(geometry: box)
     boxNode.name = "box"
     scene.rootNode.addChildNode(boxNode)
-    
     
     
     let xAxis = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 100.0)
