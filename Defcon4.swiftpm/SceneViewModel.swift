@@ -20,6 +20,7 @@ class SceneViewModel: ObservableObject {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = sceneModel.cameraPosition
+//        print("cameraNode.position: \(cameraNode.position) ")
         scene.rootNode.addChildNode(cameraNode)
         
         // Setup lights
@@ -32,8 +33,8 @@ class SceneViewModel: ObservableObject {
         
     }
     
-    func updateNodeColor(node: SCNNode, color: UIColor) {
-        node.geometry?.firstMaterial?.diffuse.contents = color
-        objectWillChange.send()  // Ensure UI updates for non-@Published changes
-    }
+//    func updateNodeColor(node: SCNNode, color: UIColor) {
+//        node.geometry?.firstMaterial?.diffuse.contents = color
+//        objectWillChange.send()  // Ensure UI updates for non-@Published changes
+//    }
 }
