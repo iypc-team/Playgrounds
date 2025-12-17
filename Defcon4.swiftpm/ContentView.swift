@@ -1,10 +1,10 @@
-//  Defcon4 12/16/2025-1
+//  Defcon4 12/16/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
+// 
 
 import SwiftUI
-//import UIKit
 import SceneKit
 import Foundation
 
@@ -58,7 +58,7 @@ struct SceneKitView : UIViewRepresentable {
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.white
-        ambientLightNode.light!.intensity = 200
+        ambientLightNode.light!.intensity = 50
         scene.rootNode.addChildNode(ambientLightNode)
         
 //        let shipLightNode = SCNNode()
@@ -120,7 +120,6 @@ struct SceneKitView : UIViewRepresentable {
         // Add to your scene’s root node (or any parent node)
         scene.rootNode.addChildNode(xAxis)
         
-        /////////////////////////  
         // Create a tube with a 0.5 m outer radius, 0.3 m inner radius, and 1 m height
         tube = SCNTube(innerRadius: 0.0, outerRadius: 0.0625, height: 50.0)
         // Optional: increase segment counts for smoother geometry
