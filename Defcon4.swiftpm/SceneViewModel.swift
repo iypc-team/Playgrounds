@@ -1,26 +1,20 @@
-// 
-// 
-
 import SwiftUI
 import SceneKit
 
 class SceneViewModel: ObservableObject {
-    @Published var sceneModel = SceneModel()
+    @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
-    
-    @Published var scene: SCNScene  // Will be initialized in init
+    @Published var scene: SCNScene
     
     init() {
-        self.sceneModel = SceneModel()  // Initialize here first
-        
-        guard let loadedScene = SCNScene(named: sceneModel.sceneName) else {
-            //  'self' used in access 'sceneModel' before all stored properties are initialized
-            // Fallback to an empty scene if the named scene fails to load
+        self.sceneModel = SceneModel()
+        self.selectedNode = nil
+        //  'self' used in property access 'sceneModel' before all stored properties are initialized
+        if let loadedScene = SCNScene(named: sceneModel.sceneName) {
+            self.scene = loadedScene
+        } else {
             self.scene = SCNScene()
-            setupScene()  // Setup even for empty scene
-            return
         }
-        self.scene = loadedScene
         setupScene()
     }
     
