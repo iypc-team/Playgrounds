@@ -7,21 +7,15 @@ class SceneViewModel: ObservableObject {
     @Published var scene: SCNScene
     
     init() {
-        self.sceneModel = SceneModel()
-        self.selectedNode = nil
-        //  'self' used in property access 'sceneModel' before all stored properties are initialized
+        self.scene = SCNScene()  // Initialize with default empty scene
+        self.sceneModel = SceneModel()  // Initialize SceneModel
+        
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
-            self.scene = loadedScene
-        } else {
-            self.scene = SCNScene()
+            self.scene = loadedScene  // Update to loaded scene if available
         }
-        setupScene()
     }
     
     public func setupScene() {
-        // Clear existing nodes to avoid duplicates on re-setup
-        scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
-        
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -35,6 +29,7 @@ class SceneViewModel: ObservableObject {
         ambientLightNode.light!.color = UIColor.white
         ambientLightNode.light!.intensity = sceneModel.lightIntensity
         scene.rootNode.addChildNode(ambientLightNode)
+        
     }
     
     func updateNodeColor(node: SCNNode, color: UIColor) {

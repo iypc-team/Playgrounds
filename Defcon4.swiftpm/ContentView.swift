@@ -1,4 +1,4 @@
-//  Defcon4 12/17/2025-1
+//  Defcon4 12/17/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -47,6 +47,9 @@ struct SceneKitView: UIViewRepresentable {
         let scnView = SCNView()
         scnView.scene = scene
         scnView.allowsCameraControl = true  // Enable user interaction if desired
+        scnView.autoenablesDefaultLighting = true
+        scnView.antialiasingMode = .multisampling2X
+        
         return scnView
     }
     
