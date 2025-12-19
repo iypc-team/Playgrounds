@@ -1,4 +1,4 @@
-//  Defcon4 12/19/2025-4
+//  Defcon4 12/19/2025-5
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -34,6 +34,15 @@ struct SceneKitView: UIViewRepresentable {
         // Add this to scale the fighter node
         if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
             fighterNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)  // Adjust scale as needed
+            
+            // Add this inside the if let fighterNode block, after the scale assignment
+            let lightNode = SCNNode()
+            lightNode.light = SCNLight()
+            lightNode.light?.type = .omni  // Optional: Set light type (e.g., omni for point light)
+            lightNode.light?.color = UIColor.green
+            lightNode.light?.intensity = 2000.0  // Adjust the value as needed (e.g., higher for brighter light)
+            
+            fighterNode.addChildNode(lightNode)
         }
         
         return scnView
