@@ -1,4 +1,4 @@
-//  Lumo Airplane  12/15/2025-3
+//  Lumo Airplane  12/19/2025-1
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
@@ -50,7 +50,8 @@ struct AirplaneView: View {
                     Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                 }
-                .pickerStyle(.automatic)
+                .pickerStyle(.segmented)
+                
                 .padding()
             }
             .font(.system(size: 16, weight: .bold, design: .default))
