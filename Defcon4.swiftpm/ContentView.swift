@@ -1,4 +1,4 @@
-//  Defcon4 12/17/2025-3
+//  Defcon4 12/19/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -14,26 +14,26 @@ struct ContentView: View {
             SceneKitView(scene: viewModel.scene)
             // 'scene' is inaccessable due to 'private' protection level
                 .frame(height: 400)
-//            Spacer()
-//            HStack {
-//                Button("Change Light Intensity") {
-//                    viewModel.sceneModel.lightIntensity = 500.0
-//                    viewModel.setupScene()  // Re-setup if needed
-//                }
-//                
-//                Button("Select Node") {
-//                    // Simulate selecting a node (extend ViewModel for tap gestures)
-//                    if let node = viewModel.scene.rootNode.childNodes.first {
-//                        viewModel.selectedNode = node
-//                    }
-//                }
-//                
-//                if viewModel.selectedNode != nil {
-//                    Button("Change Color") {
-//                        viewModel.updateNodeColor(node: viewModel.selectedNode!, color: .blue)
-//                    }
-//                }
-//            }
+            //            Spacer()
+            //            HStack {
+            //                Button("Change Light Intensity") {
+            //                    viewModel.sceneModel.lightIntensity = 500.0
+            //                    viewModel.setupScene()  // Re-setup if needed
+            //                }
+            //                
+            //                Button("Select Node") {
+            //                    // Simulate selecting a node (extend ViewModel for tap gestures)
+            //                    if let node = viewModel.scene.rootNode.childNodes.first {
+            //                        viewModel.selectedNode = node
+            //                    }
+            //                }
+            //                
+            //                if viewModel.selectedNode != nil {
+            //                    Button("Change Color") {
+            //                        viewModel.updateNodeColor(node: viewModel.selectedNode!, color: .blue)
+            //                    }
+            //                }
+            //            }
         }
     }
 }

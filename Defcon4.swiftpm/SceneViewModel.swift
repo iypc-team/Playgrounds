@@ -1,5 +1,6 @@
 import SwiftUI
 import SceneKit
+import Foundation
 
 class SceneViewModel: ObservableObject {
     @Published var sceneModel: SceneModel
@@ -20,7 +21,7 @@ class SceneViewModel: ObservableObject {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = sceneModel.cameraPosition
-//        print("cameraNode.position: \(cameraNode.position) ")
+        print("cameraNode.position: \(cameraNode.position) ")
         scene.rootNode.addChildNode(cameraNode)
         
         // Setup lights
@@ -29,12 +30,7 @@ class SceneViewModel: ObservableObject {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.white
         ambientLightNode.light!.intensity = sceneModel.lightIntensity
-        scene.rootNode.addChildNode(ambientLightNode)
         
+        scene.rootNode.addChildNode(ambientLightNode)
     }
-    
-//    func updateNodeColor(node: SCNNode, color: UIColor) {
-//        node.geometry?.firstMaterial?.diffuse.contents = color
-//        objectWillChange.send()  // Ensure UI updates for non-@Published changes
-//    }
 }
