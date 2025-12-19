@@ -1,4 +1,4 @@
-//  Defcon4 12/19/2025-1
+//  Defcon4 12/19/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -12,28 +12,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SceneKitView(scene: viewModel.scene)
-            // 'scene' is inaccessable due to 'private' protection level
-                .frame(height: 400)
-            //            Spacer()
-            //            HStack {
-            //                Button("Change Light Intensity") {
-            //                    viewModel.sceneModel.lightIntensity = 500.0
-            //                    viewModel.setupScene()  // Re-setup if needed
-            //                }
-            //                
-            //                Button("Select Node") {
-            //                    // Simulate selecting a node (extend ViewModel for tap gestures)
-            //                    if let node = viewModel.scene.rootNode.childNodes.first {
-            //                        viewModel.selectedNode = node
-            //                    }
-            //                }
-            //                
-            //                if viewModel.selectedNode != nil {
-            //                    Button("Change Color") {
-            //                        viewModel.updateNodeColor(node: viewModel.selectedNode!, color: .blue)
-            //                    }
-            //                }
-            //            }
+//                .frame(height: 400)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -46,7 +26,8 @@ struct SceneKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = scene
-        scnView.allowsCameraControl = true  // Enable user interaction if desired
+        scnView.scene?.background.contents = UIColor.lightGray
+        scnView.allowsCameraControl = true  
         scnView.autoenablesDefaultLighting = true
         scnView.antialiasingMode = .multisampling2X
         
