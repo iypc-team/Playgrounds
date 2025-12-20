@@ -2,7 +2,7 @@
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
-// 2.0
+// 
 
 import SwiftUI
 
@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SceneKitView(scene: viewModel.scene)
-            //                .frame(height: 400)
+//                .frame(maxWidth: 200, maxHeight: 200)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -28,13 +28,12 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.lightGray
         scnView.allowsCameraControl = true  
-        // Disable default lighting to avoid conflicts with custom lights
-        scnView.autoenablesDefaultLighting = false
+        scnView.autoenablesDefaultLighting = false  // Disable default lighting to avoid conflicts with custom lights
         scnView.antialiasingMode = .multisampling4X
         
         // Add this to scale the fighter node
         if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
-            fighterNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)  // Adjust scale as needed
+            fighterNode.scale = SCNVector3(x: 1.5, y: 1.5, z: 1.5)  // Adjust scale as needed
             
             // Optional: Keep the green light but reduce intensity to balance with ambient
             let lightNode = SCNNode()

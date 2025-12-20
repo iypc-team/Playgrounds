@@ -13,14 +13,12 @@ class SceneViewModel: ObservableObject {
     init() {
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
-        print(sceneModel.lightIntensity)
         
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
         }
         
-        // Call setupScene to configure camera and lights
-        setupScene()
+        setupScene()  // Call setupScene to configure camera and lights
     }
     
     public func setupScene() {
