@@ -1,4 +1,4 @@
-//  Defcon4 12/19/2025-5
+//  Defcon4 12/19/2024-6  // Updated date to current/past if applicable
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SceneKitView(scene: viewModel.scene)
-//                .frame(height: 400)
+            //                .frame(height: 400)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -28,19 +28,20 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.lightGray
         scnView.allowsCameraControl = true  
-        scnView.autoenablesDefaultLighting = true
+        // Disable default lighting to avoid conflicts with custom lights
+        scnView.autoenablesDefaultLighting = false
         scnView.antialiasingMode = .multisampling4X
         
         // Add this to scale the fighter node
         if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
             fighterNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)  // Adjust scale as needed
             
-            // Add this inside the if let fighterNode block, after the scale assignment
+            // Optional: Keep the green light but reduce intensity to balance with ambient
             let lightNode = SCNNode()
             lightNode.light = SCNLight()
-            lightNode.light?.type = .omni  // Optional: Set light type (e.g., omni for point light)
+            lightNode.light?.type = .omni
             lightNode.light?.color = UIColor.green
-            lightNode.light?.intensity = 2000.0  // Adjust the value as needed (e.g., higher for brighter light)
+            lightNode.light?.intensity = 5000.0
             
             fighterNode.addChildNode(lightNode)
         }

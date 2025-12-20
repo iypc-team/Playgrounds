@@ -1,3 +1,6 @@
+// 
+// 
+
 import SwiftUI
 import SceneKit
 import Foundation
@@ -15,6 +18,9 @@ class SceneViewModel: ObservableObject {
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
         }
+        
+        // Call setupScene to configure camera and lights
+        setupScene()
     }
     
     public func setupScene() {
