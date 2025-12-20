@@ -13,12 +13,12 @@ class SceneViewModel: ObservableObject {
     init() {
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
-        
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
+            print(scene.physicsWorld.allBehaviors)
         }
         
-        setupScene()  // Call setupScene to configure camera and lights
+        setupScene()  //  configure camera and lights
     }
     
     public func setupScene() {
@@ -35,6 +35,7 @@ class SceneViewModel: ObservableObject {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.white
         ambientLightNode.light!.intensity = sceneModel.lightIntensity
+        print("ambientLightNode.position: \(ambientLightNode.position)")
         
         scene.rootNode.addChildNode(ambientLightNode)
     }
