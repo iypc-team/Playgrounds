@@ -30,13 +30,6 @@ class SceneViewModel: ObservableObject {
         print("cameraNode.position: \(cameraNode.position) ")
         scene.rootNode.addChildNode(cameraNode)
         
-        
-        let radarNode = SCNNode()
-        radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
-        radarNode.position = SCNVector3(x: 0, y: 0, z: -200)  // Move it farther in front of the camera
-        radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red  // Add a red material for visibility
-        scene.rootNode.addChildNode(radarNode)
-        
         // Setup lights
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
@@ -44,7 +37,14 @@ class SceneViewModel: ObservableObject {
         ambientLightNode.light!.color = UIColor.white
         ambientLightNode.light!.intensity = sceneModel.lightIntensity
         print("ambientLightNode.position: \(ambientLightNode.position)")
-        
         scene.rootNode.addChildNode(ambientLightNode)
+        
+        
+        let radarNode = SCNNode()
+        radarNode.geometry = SCNCone(topRadius: 3, bottomRadius: 0.5, height: 25)
+        radarNode.position = SCNVector3(x: -2.5, y: 16.5, z: 0)  // Move it farther in front of the camera
+        radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        print("radarNode.position: \(radarNode.position)")
+        scene.rootNode.addChildNode(radarNode)
     }
 }
