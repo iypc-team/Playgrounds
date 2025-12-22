@@ -1,10 +1,11 @@
-//  Defcon4 copy 12/22/2024-1
+//  Defcon4 copy 12/22/2024-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20copy.swiftpm
  */
 // ContentView.swift
 
 import SwiftUI
+import SceneKit
 
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
@@ -17,7 +18,6 @@ struct ContentView: View {
     }
 }
 
-import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
@@ -27,23 +27,24 @@ struct SceneKitView: UIViewRepresentable {
         let scnView = SCNView()
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.lightGray
-        scnView.allowsCameraControl = true  
-        scnView.autoenablesDefaultLighting = false  // Disable default lighting to avoid conflicts with custom lights
+        scnView.allowsCameraControl = true
+        scnView.autoenablesDefaultLighting = false
         scnView.antialiasingMode = .multisampling4X
         
-        // Add this to scale the fighter node
-        if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
-            fighterNode.scale = sceneModel.fighterScale  // Use model value
-            
-            // Optional: Keep the green light but reduce intensity to balance with ambient
-            let lightNode = SCNNode()
-            lightNode.light = SCNLight()
-            lightNode.light?.type = .omni
-            lightNode.light?.color = UIColor.green
-            lightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model value
-            
-            fighterNode.addChildNode(lightNode)
+        guard let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
+            print("Warning: Fighter node not found in scene.")
+            return scnView
         }
+        
+        fighterNode.scale = sceneModel.fighterScale
+        
+        // Configure and add light
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight()
+        lightNode.light?.type = .omni
+        lightNode.light?.color = UIColor.green
+        lightNode.light?.intensity = sceneModel.omniLightIntensity
+        fighterNode.addChildNode(lightNode)
         
         return scnView
     }

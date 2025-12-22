@@ -30,8 +30,9 @@ class SceneViewModel: ObservableObject {
         print("cameraNode.position: \(cameraNode.position) ")
         scene.rootNode.addChildNode(cameraNode)
         
+        
+        
         let radarNode = SCNNode()
-        radarNode.position 
         radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
         
         scene.rootNode.addChildNode(radarNode)
