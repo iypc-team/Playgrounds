@@ -1,8 +1,8 @@
-//  Defcon4 12/20/2024-1
+//  Defcon4 12/21/2024-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
-// 
+// ContentView.swift
 
 import SwiftUI
 
@@ -11,8 +11,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            SceneKitView(scene: viewModel.scene)
-//                .frame(maxWidth: 200, maxHeight: 200)
+            SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -22,6 +21,7 @@ import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
+    var sceneModel: SceneModel  // Added to access model properties
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -33,14 +33,14 @@ struct SceneKitView: UIViewRepresentable {
         
         // Add this to scale the fighter node
         if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
-            fighterNode.scale = SCNVector3(x: 1.5, y: 1.5, z: 1.5)  // Adjust scale as needed
+            fighterNode.scale = sceneModel.fighterScale  // Use model value
             
             // Optional: Keep the green light but reduce intensity to balance with ambient
             let lightNode = SCNNode()
             lightNode.light = SCNLight()
             lightNode.light?.type = .omni
             lightNode.light?.color = UIColor.green
-            lightNode.light?.intensity = 5000.0
+            lightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model value
             
             fighterNode.addChildNode(lightNode)
         }
