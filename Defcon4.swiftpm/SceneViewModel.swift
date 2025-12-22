@@ -31,10 +31,10 @@ class SceneViewModel: ObservableObject {
         scene.rootNode.addChildNode(cameraNode)
         
         
-        
         let radarNode = SCNNode()
         radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
-        
+        radarNode.position = SCNVector3(x: 0, y: -100, z: 0)  // Position below the scene (adjust as needed)
+        radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue  // Add a material for visibility
         scene.rootNode.addChildNode(radarNode)
         
         // Setup lights
