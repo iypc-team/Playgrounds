@@ -13,7 +13,8 @@ class SceneViewModel: ObservableObject {
         self.sceneModel = SceneModel()  // Initialize SceneModel
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
-            print(scene.physicsWorld.allBehaviors)
+            print(" loadedScene: \(loadedScene)")
+            print("scene.physicsWorld.allBehaviors: \(scene.physicsWorld.allBehaviors )")
         }
         
         setupScene()  //  configure camera and lights
@@ -29,7 +30,7 @@ class SceneViewModel: ObservableObject {
         
         // Setup radar node with dynamic positioning
         let radarNode = SCNNode()
-        radarNode.geometry = SCNCone(topRadius: 3, bottomRadius: 0.5, height: 25)
+        radarNode.geometry = SCNCone(topRadius: 3, bottomRadius: 0.5, height: 50)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
         positionRadarNode(radarNode)
         radarNode.position = sceneModel.radarPosition
@@ -51,7 +52,7 @@ class SceneViewModel: ObservableObject {
         
         let boundingBox = geometry.boundingBox
         var length = boundingBox.max.y - boundingBox.min.y  // Operate on y-axis only
-        length += length
+        length += length / 2.5
         print("length: \(length)")
         sceneModel.radarPosition = SCNVector3(x: 0.0, y: length / 2.0, z: 0) 
     }

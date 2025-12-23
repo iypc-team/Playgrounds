@@ -1,4 +1,4 @@
-//  Defcon4 12/22/2024-9
+//  Defcon4 12/23/2024-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -21,7 +21,7 @@ struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
     var sceneModel: SceneModel
     
-    private let lightColor = UIColor.green
+    private let lightColor = UIColor.red
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -40,6 +40,7 @@ struct SceneKitView: UIViewRepresentable {
         guard let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
             print("Warning: Fighter node not found in scene.")
             // Optional: Add a fallback UI element here
+            print("fighterNode: \(fighterNode  )")
             return
         }
         
