@@ -1,4 +1,4 @@
-//  Defcon4 12/23/2024-2
+//  Defcon4 12/23/2024-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -20,7 +20,6 @@ struct ContentView: View {
 struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
     var sceneModel: SceneModel
-    var fighterNode: SCNNode? 
     
     private let lightColor = UIColor.red
     
@@ -42,21 +41,17 @@ struct SceneKitView: UIViewRepresentable {
             print("Warning: Fighter node not found in scene.")
             return
         }
-        fighterNode = node  // Assign to the property
-        fighterNode!.scale = sceneModel.fighterScale
+        node.scale = sceneModel.fighterScale
         
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light?.type = .omni
         lightNode.light?.color = lightColor
         lightNode.light?.intensity = sceneModel.omniLightIntensity
-        fighterNode!.addChildNode(lightNode)
+        node.addChildNode(lightNode)
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {
         // Implement updates if needed, e.g., reconfigure based on new sceneModel
     }
 }
-
-
-
