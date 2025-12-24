@@ -1,4 +1,4 @@
-//  Defcon4 12/24/2024-1
+//  Defcon4 12/24/2024-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
@@ -7,9 +7,13 @@
 
 import SwiftUI
 import SceneKit
+import os  // Add this import for logging
 
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
+    
+    // Initialize a logger for this view
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Defcon4", category: "ContentView")
     
     var body: some View {
         SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
@@ -39,7 +43,8 @@ struct SceneKitView: UIViewRepresentable {
     
     private func configureFighterNode(in scnView: SCNView) {
         guard let node = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
-            print("Warning: Fighter node not found in scene.")
+            // Use logger instead of print for warnings
+            Logger().warning("Fighter node not found in scene.")
             return
         }
         node.scale = sceneModel.fighterScale
@@ -53,7 +58,8 @@ struct SceneKitView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {
-        print("func updateUIView")
+        // Use logger for info-level logging instead of print
+        Logger().info("Updating SceneKitView with sceneModel changes.")
         // Re-scale fighter and update light if sceneModel changed
         configureFighterNode(in: uiView)
     }
