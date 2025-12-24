@@ -1,7 +1,8 @@
-//  Defcon4 12/23/2024-3
+//  Defcon4 12/23/2024-4
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
+// red
 // ContentView.swift
 
 import SwiftUI
@@ -21,7 +22,7 @@ struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
     var sceneModel: SceneModel
     
-    private let lightColor = UIColor.red
+    private let lightColor = UIColor.green
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -46,12 +47,18 @@ struct SceneKitView: UIViewRepresentable {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light?.type = .omni
-        lightNode.light?.color = lightColor
+        lightNode.light?.color = sceneModel.omniLightColor
         lightNode.light?.intensity = sceneModel.omniLightIntensity
         node.addChildNode(lightNode)
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {
-        // Implement updates if needed, e.g., reconfigure based on new sceneModel
+        print("func updateUIView")
+        // Re-scale fighter and update light if sceneModel changed
+        configureFighterNode(in: uiView)
     }
+}
+
+#Preview {
+    ContentView()
 }

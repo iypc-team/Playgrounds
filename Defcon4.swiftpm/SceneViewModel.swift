@@ -1,3 +1,6 @@
+// 
+// length:
+
 // Updated SceneViewModel.swift
 import SwiftUI
 import SceneKit
@@ -43,7 +46,7 @@ class SceneViewModel: ObservableObject {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.white
         ambientLightNode.light!.intensity = sceneModel.lightIntensity
-        print("ambientLightNode.position: \(ambientLightNode.position)")
+        print("ambientLightNode.position: \(ambientLightNode.position)\n")
         scene.rootNode.addChildNode(ambientLightNode)
     }
     

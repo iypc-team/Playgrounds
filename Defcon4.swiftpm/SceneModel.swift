@@ -16,7 +16,9 @@ class SceneModel: ObservableObject {
     
     // properties for lighting
     var lightIntensity: CGFloat = 200
-    var omniLightIntensity: CGFloat = 3000
+    var omniLightIntensity: CGFloat = 2500
+    var omniLightColor: UIColor = UIColor.green
     
     // Add more properties as needed
 }
+
