@@ -33,12 +33,9 @@ class SceneViewModel: ObservableObject {
         
         // Setup radar node with dynamic positioning
         let radarNode = SCNNode()
+        radarNode.name = "radar"  // Add this line to name the node
         radarNode.geometry = SCNCone(topRadius: 3, bottomRadius: 0.5, height: 50)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        positionRadarNode(radarNode)
-        radarNode.position = sceneModel.radarPosition
-        print("radarNode.position: \(radarNode.position)")
-        scene.rootNode.addChildNode(radarNode)
         
         // Setup lights
         let ambientLightNode = SCNNode()
