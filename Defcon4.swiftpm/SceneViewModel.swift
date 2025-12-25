@@ -19,8 +19,8 @@ class SceneViewModel: ObservableObject {
         self.sceneModel = SceneModel()  // Initialize SceneModel
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
-            logger.info("Loaded scene: \(loadedScene.description)")
-            logger.debug("Scene physics behaviors: \(self.scene.physicsWorld.allBehaviors)")
+            logger.info("Loaded scene: \(loadedScene.description, privacy: .public)")
+            logger.debug("Scene physics behaviors: \(self.scene.physicsWorld.allBehaviors, privacy: .public)")
         } else {
             logger.warning("Failed to load scene named '\(self.sceneModel.sceneName)'")
         }
@@ -40,7 +40,6 @@ class SceneViewModel: ObservableObject {
         radarNode.position = sceneModel.radarPosition  // Fix: Assign position from model
         radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        
         scene.rootNode.addChildNode(radarNode)
         
         // Setup lights
@@ -61,7 +60,7 @@ class SceneViewModel: ObservableObject {
         let boundingBox = geometry.boundingBox
         var length = boundingBox.max.y - boundingBox.min.y  // Operate on y-axis only
         length += length / 2.5
-        logger.info("Calculated radar length: \(length)")
+        logger.info("Calculated radar length: \(length, privacy: .public)")
         sceneModel.radarPosition = SCNVector3(x: 0.0, y: length / 2.0, z: 0)
     }
 }
