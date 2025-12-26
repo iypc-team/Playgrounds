@@ -4,12 +4,13 @@
 import SwiftUI
 import SceneKit
 import Foundation
-import os  // Add this import for logging
+import os  // need this import for logging
 
 class SceneViewModel: ObservableObject {
     @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
     @Published var scene: SCNScene
+    
     
     // Initialize a logger for this view model
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Defcon4", category: "SceneViewModel")

@@ -1,8 +1,8 @@
-//  Defcon4 12/25/2024-2
+//  Defcon4 12/26/2024-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4.swiftpm
  */
-// red
+
 // ContentView.swift
 
 import SwiftUI
