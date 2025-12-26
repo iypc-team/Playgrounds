@@ -10,7 +10,7 @@ class SceneViewModel: ObservableObject {
     
     init(sceneName: String) {
         // Initialize SceneModel
-        self.sceneModel = SceneModel(sceneName: sceneName, cameraPosition: SCNVector3(x: 0, y: 0, z: 25))
+        self.sceneModel = SceneModel(sceneName: sceneName, cameraPosition: SCNVector3(x: 0, y: 0, z: 20))
     }
     
     // Functions to manipulate the SceneModel or interact with the view

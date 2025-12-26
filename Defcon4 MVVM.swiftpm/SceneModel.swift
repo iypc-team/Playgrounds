@@ -4,7 +4,7 @@
 import SceneKit
 import UIKit
 
-class SceneModel {
+class SceneModel  {
     // 3D Scene
     var scene: SCNScene?
     var cameraNode: SCNNode?
@@ -34,7 +34,7 @@ class SceneModel {
         lightNode.light = SCNLight()
         lightNode.light!.type = .ambient
         lightNode.light!.color = UIColor.white
-        lightNode.light!.intensity = 1000
+        lightNode.light!.intensity = 100
         lightNodes.append(lightNode)
         
         lightNode.position = SCNVector3(x: 0, y: 100, z: 100)
