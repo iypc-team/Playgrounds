@@ -1,4 +1,4 @@
-// Defcon4 MVVM  12/26/2025-2
+// Defcon4 MVVM  12/26/2025-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SceneView(scene: viewModel.sceneModel.scene)
-//                .frame(width: 300, height: 300)
-                .frame(width: .infinity, height: .infinity)
-                .cornerRadius(10)
+//                .frame(width: 200, height: 200)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
                 .overlay(
                     Text("SceneKit View")
                         .foregroundColor(.white)
@@ -24,19 +24,9 @@ struct ContentView: View {
                         .cornerRadius(5),
                     alignment: .top
                 )
+                
             
-            Button(action: {
-                // Example: Update the camera position on button click
-                viewModel.updateCameraPosition(SCNVector3(x: 0, y: 0, z: 50))
-            }) {
-                Text("Update Camera Position")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
         }
-        .padding()
     }
 }
 
@@ -47,10 +37,10 @@ struct SceneView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = scene
-        scnView.autoenablesDefaultLighting = true
+        scnView.autoenablesDefaultLighting = false
         scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        scnView.backgroundColor = UIColor.lightGray
+        scnView.showsStatistics = false
+        scnView.backgroundColor = UIColor.black
         return scnView
     }
     
@@ -59,8 +49,8 @@ struct SceneView: UIViewRepresentable {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
