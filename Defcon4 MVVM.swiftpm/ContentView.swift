@@ -1,4 +1,4 @@
-// Defcon4 MVVM  12/27/2025-2
+// Defcon4 MVVM  12/27/2025-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -17,8 +17,8 @@ struct ContentView: View {
                 .overlay(
                     Text("SceneKit View")
                         .foregroundColor(.white)
+                        .background(Color.red.opacity(0.1))
                         .padding(4)
-                        .background(Color.red.opacity(0.5))
                         .cornerRadius(5),
                     alignment: .top
                 )
@@ -58,25 +58,6 @@ struct ContentView: View {
                 .padding(.bottom, 5),
             alignment: .bottom
         )
-    }
-}
-
-// SCNView as a SwiftUI View
-struct SceneView: UIViewRepresentable {
-    var scene: SCNScene?
-    
-    func makeUIView(context: Context) -> SCNView {
-        let scnView = SCNView()
-        scnView.scene = scene
-        scnView.autoenablesDefaultLighting = false
-        scnView.allowsCameraControl = true
-        scnView.showsStatistics = false
-        scnView.backgroundColor = UIColor.black
-        return scnView
-    }
-    
-    func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = scene
     }
 }
 
