@@ -1,4 +1,4 @@
-// Defcon4 MVVM  12/27/2025-1
+// Defcon4 MVVM  12/27/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -13,9 +13,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SceneView(scene: viewModel.sceneModel.scene)
-            //                .frame(width: 200, height: 200)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
                 .overlay(
                     Text("SceneKit View")
                         .foregroundColor(.white)
@@ -24,25 +22,42 @@ struct ContentView: View {
                         .cornerRadius(5),
                     alignment: .top
                 )
-            
-            // Added overlay button aligned to the bottom
-                .overlay(
-                    Button(action: {
-                        viewModel.updateCameraPosition(SCNVector3(x: 0, y: 0, z: 50))
-                        // Cannot find 'sceneModel' in scope
-                        print("Update Camera Position tapped!")
-                    }) {
-                        Text("Update Camera Position")
-                        // .font(.headline) removed to match the top text's default font
-                            .padding()
-                            .background(Color.red.opacity(0.5))
-                            .foregroundColor(.white)
-                            .cornerRadius(5)
-                    }
-                        .padding(.bottom, 5),  // Adjust spacing from bottom edge
-                    alignment: .bottom
-                )
         }
+        .overlay(
+            HStack {
+                Button(action: {
+                    if let currentPosition = viewModel.sceneModel.cameraNode?.position {
+                        let newPosition = SCNVector3(x: currentPosition.x, y: currentPosition.y, z: currentPosition.z - 10)
+                        viewModel.updateCameraPosition(newPosition)
+                        print("Added 10 to camera Z position!")
+                        print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position ))")
+                    }
+                }) {
+                    Text("Plus Camera Position")
+                        .padding()
+                        .background(Color.red.opacity(0.3))
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
+                
+                Button(action: {
+                    if let currentPosition = viewModel.sceneModel.cameraNode?.position {
+                        let newPosition = SCNVector3(x: currentPosition.x, y: currentPosition.y, z: currentPosition.z + 10)
+                        viewModel.updateCameraPosition(newPosition)
+                        print("Added 10 to camera Z position!")
+                        print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position ))")
+                    }
+                }) {
+                    Text("Minus Camera Position")
+                        .padding()
+                        .background(Color.blue.opacity(0.3))
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
+            }
+                .padding(.bottom, 5),
+            alignment: .bottom
+        )
     }
 }
 
