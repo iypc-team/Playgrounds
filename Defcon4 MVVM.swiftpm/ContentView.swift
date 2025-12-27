@@ -1,4 +1,4 @@
-// Defcon4 MVVM  12/26/2025-4
+// Defcon4 MVVM  12/27/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -33,11 +33,11 @@ struct ContentView: View {
                         print("Update Camera Position tapped!")
                     }) {
                         Text("Update Camera Position")
-                            .font(.headline)
+                        // .font(.headline) removed to match the top text's default font
                             .padding()
                             .background(Color.red.opacity(0.5))
                             .foregroundColor(.white)
-                            .cornerRadius(12)
+                            .cornerRadius(5)
                     }
                         .padding(.bottom, 5),  // Adjust spacing from bottom edge
                     alignment: .bottom
