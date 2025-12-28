@@ -22,4 +22,24 @@ class SceneViewModel: ObservableObject {
         sceneModel.lightNodes.append(light)
         sceneModel.scene?.rootNode.addChildNode(light)
     }
+    
+    func cameraPositionPlus(_ delta: SCNVector3) {
+        if let currentPosition = sceneModel.cameraNode?.position {
+            sceneModel.cameraNode?.position = SCNVector3(
+                x: currentPosition.x + delta.x,
+                y: currentPosition.y + delta.y,
+                z: currentPosition.z + delta.z
+            )
+        }
+    }
+    
+    func cameraPositionMinus(_ delta: SCNVector3) {
+        if let currentPosition = sceneModel.cameraNode?.position {
+            sceneModel.cameraNode?.position = SCNVector3(
+                x: currentPosition.x + delta.x,
+                y: currentPosition.y + delta.y,
+                z: currentPosition.z + delta.z
+            )
+        }
+    }
 }

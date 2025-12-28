@@ -1,4 +1,4 @@
-// Defcon4 MVVM  12/27/2025-3
+// Defcon4 MVVM  12/28/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -26,12 +26,9 @@ struct ContentView: View {
         .overlay(
             HStack {
                 Button(action: {
-                    if let currentPosition = viewModel.sceneModel.cameraNode?.position {
-                        let newPosition = SCNVector3(x: currentPosition.x, y: currentPosition.y, z: currentPosition.z - 10)
-                        viewModel.updateCameraPosition(newPosition)
-                        print("Added 10 to camera Z position!")
-                        print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position ))")
-                    }
+                    viewModel.cameraPositionPlus(SCNVector3(x: 0, y: 0, z: -10))
+                    print("Added 10 to camera Z position!")
+                    print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position))")
                 }) {
                     Text("Plus Camera Position")
                         .padding()
@@ -41,12 +38,9 @@ struct ContentView: View {
                 }
                 
                 Button(action: {
-                    if let currentPosition = viewModel.sceneModel.cameraNode?.position {
-                        let newPosition = SCNVector3(x: currentPosition.x, y: currentPosition.y, z: currentPosition.z + 10)
-                        viewModel.updateCameraPosition(newPosition)
-                        print("Added 10 to camera Z position!")
-                        print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position ))")
-                    }
+                    viewModel.cameraPositionMinus(SCNVector3(x: 0, y: 0, z: 10))
+                    print("Added 10 to camera Z position!")
+                    print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position))")
                 }) {
                     Text("Minus Camera Position")
                         .padding()
