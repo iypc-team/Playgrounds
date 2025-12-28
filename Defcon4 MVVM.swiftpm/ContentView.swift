@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/28/2025-3
+//  Defcon4 MVVM  12/28/2025-4
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -27,30 +27,6 @@ struct ContentView: View {
         }
         .overlay(
             HStack {
-//                Button(action: {
-//                    viewModel.cameraPositionPlus(SCNVector3(x: 0, y: 0, z: -10))
-//                    print("Moved camera closer!")
-//                    print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position))")
-//                }) {
-//                    Text("Plus Camera Position")
-//                        .padding()
-//                        .background(Color.red.opacity(0.3))
-//                        .foregroundColor(.white)
-//                        .cornerRadius(5)
-//                }
-//                
-//                Button(action: {
-//                    viewModel.cameraPositionMinus(SCNVector3(x: 0, y: 0, z: 10))
-//                    print("Moved camera away!")
-//                    print("Camera.position: \(String(describing: viewModel.sceneModel.cameraNode?.position))")
-//                }) {
-//                    Text("Minus Camera Position")
-//                        .padding()
-//                        .background(Color.blue.opacity(0.3))
-//                        .foregroundColor(.white)
-//                        .cornerRadius(5)
-//                }
-                
                 Button(action: {
                     viewModel.rotateModelOnXAxis()
                     print("Started rotating model on X axis incrementally to 360°")

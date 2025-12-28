@@ -1,4 +1,5 @@
-// Updated SceneViewModel.swift (added cameraPosition as @Published, and updated functions)
+// 
+// 
 
 import Foundation
 import SceneKit
@@ -6,7 +7,6 @@ import SceneKit
 class SceneViewModel: ObservableObject {
     // Observable property to notify the view of changes
     @Published var sceneModel: SceneModel
-    @Published var cameraPosition: SCNVector3
     @Published var currentRotationX: Float = 0
     @Published var isRotatingX = false
     var timerX: Timer?
@@ -19,42 +19,14 @@ class SceneViewModel: ObservableObject {
     
     init(sceneName: String) {
         let initialCameraPosition = SCNVector3(x: 0, y: 0, z: 20)
-        self.cameraPosition = initialCameraPosition
+//        self.cameraPosition = initialCameraPosition
         // Initialize SceneModel
         self.sceneModel = SceneModel(sceneName: sceneName, cameraPosition: initialCameraPosition)
-    }
-    
-    // Functions to manipulate the SceneModel or interact with the view
-    func updateCameraPosition(_ position: SCNVector3) {
-        self.cameraPosition = position
-        sceneModel.cameraNode?.position = position
     }
     
     func addLightNode(light: SCNNode) {
         sceneModel.lightNodes.append(light)
         sceneModel.scene?.rootNode.addChildNode(light)
-    }
-    
-    func cameraPositionPlus(_ delta: SCNVector3) {
-        if let currentPosition = sceneModel.cameraNode?.position {
-            let newPosition = SCNVector3(
-                x: currentPosition.x + delta.x,
-                y: currentPosition.y + delta.y,
-                z: currentPosition.z + delta.z
-            )
-            updateCameraPosition(newPosition)
-        }
-    }
-    
-    func cameraPositionMinus(_ delta: SCNVector3) {
-        if let currentPosition = sceneModel.cameraNode?.position {
-            let newPosition = SCNVector3(
-                x: currentPosition.x + delta.x,
-                y: currentPosition.y + delta.y,
-                z: currentPosition.z + delta.z
-            )
-            updateCameraPosition(newPosition)
-        }
     }
     
     func rotateModelOnXAxis() {
