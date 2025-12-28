@@ -1,9 +1,7 @@
-//  Defcon4 MVVM  12/28/2025-4
+//  Defcon4 MVVM  12/28/2025-5
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
-
-// Updated ContentView.swift (removed the extra 'cameraPosition' argument to fix the error)
 
 import SwiftUI
 import SceneKit
