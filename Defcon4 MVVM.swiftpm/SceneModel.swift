@@ -1,10 +1,12 @@
 // 
 // 
 
+// Updated SceneModel.swift (removed cameraPosition, as it's now in SceneViewModel)
+
 import SceneKit
 import UIKit
 
-class SceneModel  {
+class SceneModel {
     // 3D Scene
     var scene: SCNScene?
     var cameraNode: SCNNode?
@@ -43,4 +45,3 @@ class SceneModel  {
         // Additional lights can be added here
     }
 }
-
