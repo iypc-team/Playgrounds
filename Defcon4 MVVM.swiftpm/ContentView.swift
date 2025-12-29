@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/28/2025-9
+//  Defcon4 MVVM  12/29/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
