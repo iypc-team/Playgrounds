@@ -69,5 +69,31 @@ class SceneViewModel: ObservableObject {
             isRotatingZ = false
         }
     }
+    
+    func listPNGFiles() {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            let pngFiles = files.filter { $0.pathExtension == "png" }
+            print("PNG files in Documents: \(pngFiles.map { $0.lastPathComponent })")
+        } catch {
+            print("Error listing files: \(error)")
+        }
+    }
+    
+    func deleteAllPNGFiles() {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            let pngFiles = files.filter { $0.pathExtension == "png" }
+            for fileURL in pngFiles {
+                try FileManager.default.removeItem(at: fileURL)
+                print("Deleted: \(fileURL.lastPathComponent)")
+            }
+            print("All PNG files deleted.")
+        } catch {
+            print("Error deleting files: \(error)")
+        }
+    }
 }
 
