@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/28/2025-8
+//  Defcon4 MVVM  12/28/2025-9
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/MVVM%20Defcon4.swiftpm
  */
@@ -34,29 +34,7 @@ struct ContentView: View {
             
             // Section to display PNG files
             if !pngFileURLs.isEmpty {
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))], spacing: 10) {
-                        ForEach(pngFileURLs, id: \.self) { url in
-                            if let uiImage = UIImage(contentsOfFile: url.path) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .border(Color.gray, width: 1)
-                                    .overlay(
-                                        Text(url.lastPathComponent)
-                                            .font(.caption)
-                                            .foregroundColor(.white)
-                                            .background(Color.black.opacity(0.7))
-                                            .padding(2),
-                                        alignment: .bottom
-                                    )
-                            }
-                        }
-                    }
-                    .padding()
-                }
-                .frame(height: 300)  // Adjust height as needed
+                ImageGridView(pngFileURLs: pngFileURLs)
             }
         }
         .overlay(
