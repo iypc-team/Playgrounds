@@ -9,17 +9,13 @@ class SceneViewModel: ObservableObject {
     @Published var sceneModel: SceneModel
     @Published var currentRotationX: Float = 0
     @Published var isRotatingX = false
-    var timerX: Timer?
     @Published var currentRotationY: Float = 0
     @Published var isRotatingY = false
-    var timerY: Timer?
     @Published var currentRotationZ: Float = 0
     @Published var isRotatingZ = false
-    var timerZ: Timer?
     
     init(sceneName: String) {
         let initialCameraPosition = SCNVector3(x: 0, y: 0, z: 20)
-//        self.cameraPosition = initialCameraPosition
         // Initialize SceneModel
         self.sceneModel = SceneModel(sceneName: sceneName, cameraPosition: initialCameraPosition)
     }
@@ -30,47 +26,48 @@ class SceneViewModel: ObservableObject {
     }
     
     func rotateModelOnXAxis() {
-        if !isRotatingX {
-            isRotatingX = true
-            timerX = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                self.currentRotationX += 22.5
-                if self.currentRotationX >= 360 {
-                    self.currentRotationX = 360
-                    self.timerX?.invalidate()
-                    self.isRotatingX = false
+        guard !isRotatingX else { return }
+        isRotatingX = true
+        Task {
+            while currentRotationX < 360 {
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                currentRotationX += 22.5
+                if currentRotationX >= 360 {
+                    currentRotationX = 360
                 }
             }
+            isRotatingX = false
         }
     }
     
     func rotateModelOnYAxis() {
-        if !isRotatingY {
-            isRotatingY = true
-            timerY = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                self.currentRotationY += 22.5
-                if self.currentRotationY >= 360 {
-                    self.currentRotationY = 360
-                    self.timerY?.invalidate()
-                    self.isRotatingY = false
+        guard !isRotatingY else { return }
+        isRotatingY = true
+        Task {
+            while currentRotationY < 360 {
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                currentRotationY += 22.5
+                if currentRotationY >= 360 {
+                    currentRotationY = 360
                 }
             }
+            isRotatingY = false
         }
     }
     
     func rotateModelOnZAxis() {
-        if !isRotatingZ {
-            isRotatingZ = true
-            timerZ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                self.currentRotationZ += 22.5
-                if self.currentRotationZ >= 360 {
-                    self.currentRotationZ = 360
-                    self.timerZ?.invalidate()
-                    self.isRotatingZ = false
+        guard !isRotatingZ else { return }
+        isRotatingZ = true
+        Task {
+            while currentRotationZ < 360 {
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                currentRotationZ += 22.5
+                if currentRotationZ >= 360 {
+                    currentRotationZ = 360
                 }
             }
+            isRotatingZ = false
         }
     }
 }
+
