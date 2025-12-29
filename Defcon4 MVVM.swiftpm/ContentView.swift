@@ -1,7 +1,7 @@
-//  Defcon4 MVVM  12/29/2025-4
+//  Defcon4 MVVM  12/29/2025-5
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
-*/
+ */
 
 import SwiftUI
 import SceneKit
@@ -12,108 +12,214 @@ struct ContentView: View {
     @State private var pngFileURLs: [URL] = []  // To store the URLs of PNG files
     
     var body: some View {
-        NavigationView {
-            VStack {
-                SceneView(
-                    scene: viewModel.sceneModel.scene,
-                    rotationX: $viewModel.currentRotationX,
-                    rotationY: $viewModel.currentRotationY,
-                    rotationZ: $viewModel.currentRotationZ,
-                    isRotatingX: $viewModel.isRotatingX,
-                    isRotatingY: $viewModel.isRotatingY,
-                    isRotatingZ: $viewModel.isRotatingZ
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay(
-                    Text("SceneKit View")
-                        .foregroundColor(.white)
-                        .background(Color.red.opacity(0.1))
-                        .padding(4)
-                        .cornerRadius(5),
-                    alignment: .top
-                )
-                
-                // Section to display PNG files
-                if !pngFileURLs.isEmpty {
-                    ImageGridView(pngFileURLs: pngFileURLs)
-                }
-            }
-            .overlay(
+        if #available(iOS 16.0, *) {
+            NavigationStack {
                 VStack {
-                    HStack {
-                        Button(action: {
-                            viewModel.rotateModelOnXAxis()
-                            print("Started rotating model on X axis incrementally to 360°")
-                        }) {
-                            Text("Rotate X")
-                                .padding()
-                                .background(Color.green.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        Button(action: {
-                            viewModel.rotateModelOnYAxis()
-                            print("Started rotating model on Y axis incrementally to 360°")
-                        }) {
-                            Text("Rotate Y")
-                                .padding()
-                                .background(Color.purple.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        Button(action: {
-                            viewModel.rotateModelOnZAxis()
-                            print("Started rotating model on Z axis incrementally to 360°")
-                        }) {
-                            Text("Rotate Z")
-                                .padding()
-                                .background(Color.orange.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                    }
+                    SceneView(
+                        scene: viewModel.sceneModel.scene,
+                        rotationX: $viewModel.currentRotationX,
+                        rotationY: $viewModel.currentRotationY,
+                        rotationZ: $viewModel.currentRotationZ,
+                        isRotatingX: $viewModel.isRotatingX,
+                        isRotatingY: $viewModel.isRotatingY,
+                        isRotatingZ: $viewModel.isRotatingZ
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay(
+                        Text("SceneKit View")
+                            .foregroundColor(.white)
+                            .background(Color.red.opacity(0.1))
+                            .padding(4)
+                            .cornerRadius(5),
+                        alignment: .top
+                    )
                     
-                    HStack {
-                        Button(action: {
-                            deleteAllPNGFiles()
-                            loadPNGFiles()  // Refresh the list after deleting
-                        }) {
-                            Text("Delete All PNGs")
-                                .padding()
-                                .background(Color.red.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        Button(action: {
-                            loadPNGFiles()
-                        }) {
-                            Text("Load PNGs")
-                                .padding()
-                                .background(Color.blue.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        // NavigationLink to transition to ImageGridPresentationView
-                        NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
-                            Text("View Image Grid")
-                                .padding()
-                                .background(Color.teal.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
+                    // Section to display PNG files
+                    if !pngFileURLs.isEmpty {
+                        ImageGridView(pngFileURLs: pngFileURLs)
                     }
                 }
-                    .padding(.bottom, 5),
-                alignment: .bottom
-            )
-            .navigationTitle("Content View")  // Optional: Add a title to the navigation bar
-        }
-        .onAppear {
-            loadPNGFiles()  // Load PNGs when the view appears
+                .overlay(
+                    VStack {
+                        HStack {
+                            Button(action: {
+                                viewModel.rotateModelOnXAxis()
+                                print("Started rotating model on X axis incrementally to 360°")
+                            }) {
+                                Text("Rotate X")
+                                    .padding()
+                                    .background(Color.green.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                viewModel.rotateModelOnYAxis()
+                                print("Started rotating model on Y axis incrementally to 360°")
+                            }) {
+                                Text("Rotate Y")
+                                    .padding()
+                                    .background(Color.purple.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                viewModel.rotateModelOnZAxis()
+                                print("Started rotating model on Z axis incrementally to 360°")
+                            }) {
+                                Text("Rotate Z")
+                                    .padding()
+                                    .background(Color.orange.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                        }
+                        
+                        HStack {
+                            Button(action: {
+                                deleteAllPNGFiles()
+                                loadPNGFiles()  // Refresh the list after deleting
+                            }) {
+                                Text("Delete All PNGs")
+                                    .padding()
+                                    .background(Color.red.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                loadPNGFiles()
+                            }) {
+                                Text("Load PNGs")
+                                    .padding()
+                                    .background(Color.blue.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            // NavigationLink to transition to ImageGridPresentationView
+                            NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
+                                Text("View Image Grid")
+                                    .padding()
+                                    .background(Color.teal.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                        }
+                    }
+                        .padding(.bottom, 5),
+                    alignment: .bottom
+                )
+                .navigationTitle("Content View")  // Optional: Add a title to the navigation bar
+            }
+            .onAppear {
+                loadPNGFiles()  // Load PNGs when the view appears
+            }
+        } else {
+            NavigationView {
+                VStack {
+                    SceneView(
+                        scene: viewModel.sceneModel.scene,
+                        rotationX: $viewModel.currentRotationX,
+                        rotationY: $viewModel.currentRotationY,
+                        rotationZ: $viewModel.currentRotationZ,
+                        isRotatingX: $viewModel.isRotatingX,
+                        isRotatingY: $viewModel.isRotatingY,
+                        isRotatingZ: $viewModel.isRotatingZ
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay(
+                        Text("SceneKit View")
+                            .foregroundColor(.white)
+                            .background(Color.red.opacity(0.1))
+                            .padding(4)
+                            .cornerRadius(5),
+                        alignment: .top
+                    )
+                    
+                    // Section to display PNG files
+                    if !pngFileURLs.isEmpty {
+                        ImageGridView(pngFileURLs: pngFileURLs)
+                    }
+                }
+                .overlay(
+                    VStack {
+                        HStack {
+                            Button(action: {
+                                viewModel.rotateModelOnXAxis()
+                                print("Started rotating model on X axis incrementally to 360°")
+                            }) {
+                                Text("Rotate X")
+                                    .padding()
+                                    .background(Color.green.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                viewModel.rotateModelOnYAxis()
+                                print("Started rotating model on Y axis incrementally to 360°")
+                            }) {
+                                Text("Rotate Y")
+                                    .padding()
+                                    .background(Color.purple.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                viewModel.rotateModelOnZAxis()
+                                print("Started rotating model on Z axis incrementally to 360°")
+                            }) {
+                                Text("Rotate Z")
+                                    .padding()
+                                    .background(Color.orange.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                        }
+                        
+                        HStack {
+                            Button(action: {
+                                deleteAllPNGFiles()
+                                loadPNGFiles()  // Refresh the list after deleting
+                            }) {
+                                Text("Delete All PNGs")
+                                    .padding()
+                                    .background(Color.red.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            Button(action: {
+                                loadPNGFiles()
+                            }) {
+                                Text("Load PNGs")
+                                    .padding()
+                                    .background(Color.blue.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                            
+                            // NavigationLink to transition to ImageGridPresentationView
+                            NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
+                                Text("View Image Grid")
+                                    .padding()
+                                    .background(Color.teal.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
+                        }
+                    }
+                        .padding(.bottom, 5),
+                    alignment: .bottom
+                )
+                /*.navigationTitle("Content View")*/  // Optional: Add a title to the navigation bar
+            }
+            .onAppear {
+                loadPNGFiles()  // Load PNGs when the view appears
+            }
         }
     }
     
