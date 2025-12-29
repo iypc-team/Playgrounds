@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/29/2025-3
+//  Defcon4 MVVM  12/29/2025-4
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
 */
@@ -98,8 +98,7 @@ struct ContentView: View {
                         }
                         
                         // NavigationLink to transition to ImageGridPresentationView
-                        NavigationLink(destination: ()) {
-                            // Type '()' cannot conform to 'View'
+                        NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
                             Text("View Image Grid")
                                 .padding()
                                 .background(Color.teal.opacity(0.3))

@@ -13,7 +13,7 @@ struct ImageGridView: View {
                     if let uiImage = UIImage(contentsOfFile: url.path) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 200, height: 200)
                             .border(Color.gray, width: 1)
                             .overlay(
@@ -29,6 +29,6 @@ struct ImageGridView: View {
             }
             .padding()
         }
-        .frame(height: 300)  // Adjust height as needed
+        .frame(width: 200, height: 200)  // Adjust height as needed
     }
 }
