@@ -1,4 +1,5 @@
 // Updated SceneView.swift
+// 
 
 import SwiftUI
 import SceneKit
@@ -12,6 +13,9 @@ struct SceneView: UIViewRepresentable {
     @Binding var isRotatingX: Bool
     @Binding var isRotatingY: Bool
     @Binding var isRotatingZ: Bool
+    
+    // Add viewModel property to access SceneViewModel methods
+    var viewModel: SceneViewModel
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -44,39 +48,10 @@ struct SceneView: UIViewRepresentable {
     
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
         let snapshot = scnView.snapshot()
-        let resizedImage = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
         let filename = "rotation\(axis)_\(Int(rotation)).png"
-        savePNG(image: resizedImage, filename: filename)
-    }
-    
-    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { context in
-            // Calculate the rect to draw the image proportionally within the target size
-            let aspectRatio = min(targetSize.width / image.size.width, targetSize.height / image.size.height)
-            let scaledSize = CGSize(width: image.size.width * aspectRatio, height: image.size.height * aspectRatio)
-            let origin = CGPoint(x: (targetSize.width - scaledSize.width) / 2, y: (targetSize.height - scaledSize.height) / 2)
-            let rect = CGRect(origin: origin, size: scaledSize)
-            
-            // Clear the context (transparent background)
-            UIColor.clear.setFill()
-            context.fill(CGRect(origin: .zero, size: targetSize))
-            
-            // Draw the scaled image
-            image.draw(in: rect)
-        }
-    }
-    
-    private func savePNG(image: UIImage, filename: String) {
-        guard let data = image.pngData() else { return }
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileURL = documentsURL.appendingPathComponent(filename)
-        do {
-            try data.write(to: fileURL)
-            print("Saved PNG: \(filename) at \(fileURL.path)")
-        } catch {
-            print("Failed to save PNG: \(error)")
-        }
+        // Use viewModel to resize and save the PNG
+        viewModel.resizeAndSavePNG(image: snapshot, filename: filename)
+        // Value of type 'SceneViewModel' has no member 'resizeAndSavePNG'
     }
     
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {

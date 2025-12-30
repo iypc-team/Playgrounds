@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/29/2025-8
+//  Defcon4 MVVM  12/30/2025-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
@@ -39,7 +39,8 @@ struct ContentView: View {
                 rotationZ: $viewModel.currentRotationZ,
                 isRotatingX: $viewModel.isRotatingX,
                 isRotatingY: $viewModel.isRotatingY,
-                isRotatingZ: $viewModel.isRotatingZ
+                isRotatingZ: $viewModel.isRotatingZ, viewModel: SceneViewModel
+                // Cannot convert value of type 'SceneViewModel' to expected argument type 'SceneViewModel'
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(
