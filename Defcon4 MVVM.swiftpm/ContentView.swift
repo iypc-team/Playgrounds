@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/29/2025-7
+//  Defcon4 MVVM  12/29/2025-8
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
@@ -9,7 +9,6 @@ import SceneKit
 struct ContentView: View {
     // Observes changes in the ViewModel
     @StateObject var viewModel = SceneViewModel(sceneName: "newFighter.scn")
-    @State private var pngFileURLs: [URL] = []  // To store the URLs of PNG files
     
     var body: some View {
         Group {
@@ -26,7 +25,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            loadPNGFiles()  // Load PNGs when the view appears
+            viewModel.loadPNGFiles()  // Load PNGs when the view appears
             // print("loadPNGFiles()")
         }
     }
@@ -91,8 +90,8 @@ struct ContentView: View {
                 
                 HStack {
                     Button(action: {
-                        deleteAllPNGFiles()
-                        loadPNGFiles()  // Refresh the list after deleting
+                        viewModel.deleteAllPNGFiles()
+                        // Note: loadPNGFiles() is now called internally in deleteAllPNGFiles()
                     }) {
                         Text("Delete All PNGs")
                             .padding()
@@ -102,7 +101,7 @@ struct ContentView: View {
                     }
                     
                     Button(action: {
-                        loadPNGFiles()
+                        viewModel.loadPNGFiles()
                     }) {
                         Text("Load PNGs")
                             .padding()
@@ -112,7 +111,7 @@ struct ContentView: View {
                     }
                     
                     // NavigationLink to transition to ImageGridPresentationView
-                    NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
+                    NavigationLink(destination: ImageGridView(pngFileURLs: viewModel.pngFileURLs)) {
                         Text("View Image Grid")
                             .padding()
                             .background(Color.teal.opacity(0.3))
@@ -126,20 +125,7 @@ struct ContentView: View {
         )
     }
     
-    func deleteAllPNGFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        do {
-            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            let pngFiles = files.filter { $0.pathExtension == "png" }
-            for fileURL in pngFiles {
-                try FileManager.default.removeItem(at: fileURL)
-                print("Deleted: \(fileURL.lastPathComponent)")
-            }
-            print("All PNG files deleted.")
-        } catch {
-            print("Error deleting files: \(error)")
-        }
-    }
+    // Removed: deleteAllPNGFiles() and loadPNGFiles() - now in ViewModel
     
     func listAllFiles() {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -151,18 +137,6 @@ struct ContentView: View {
             }
         } catch {
             print("Error listing files: \(error)")
-        }
-    }
-    
-    func loadPNGFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        do {
-            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            pngFileURLs = files.filter { $0.pathExtension == "png" }
-            print("Loaded \(pngFileURLs.count) PNG files.")
-        } catch {
-            print("Error loading PNG files: \(error)")
-            pngFileURLs = []
         }
     }
 }

@@ -14,6 +14,9 @@ class SceneViewModel: ObservableObject {
     @Published var currentRotationZ: Float = 0
     @Published var isRotatingZ = false
     
+    // New: Observable for PNG file URLs
+    @Published var pngFileURLs: [URL] = []
+    
     init(sceneName: String) {
         let initialCameraPosition = SCNVector3(x: 0, y: 0, z: 20)
         // Initialize SceneModel
@@ -91,9 +94,22 @@ class SceneViewModel: ObservableObject {
                 print("Deleted: \(fileURL.lastPathComponent)")
             }
             print("All PNG files deleted.")
+            loadPNGFiles()  // Reload after deletion
         } catch {
             print("Error deleting files: \(error)")
         }
     }
+    
+    // New: Centralized PNG loading
+    func loadPNGFiles() {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            pngFileURLs = files.filter { $0.pathExtension == "png" }
+            print("Loaded \(pngFileURLs.count) PNG files.")
+        } catch {
+            print("Error loading PNG files: \(error)")
+            pngFileURLs = []
+        }
+    }
 }
-
