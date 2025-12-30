@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/29/2025-5
+//  Defcon4 MVVM  12/29/2025-6
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
@@ -33,11 +33,6 @@ struct ContentView: View {
                             .cornerRadius(5),
                         alignment: .top
                     )
-                    
-                    // Section to display PNG files
-                    if !pngFileURLs.isEmpty {
-                        ImageGridView(pngFileURLs: pngFileURLs)
-                    }
                 }
                 .overlay(
                     VStack {
@@ -115,6 +110,7 @@ struct ContentView: View {
             }
             .onAppear {
                 loadPNGFiles()  // Load PNGs when the view appears
+//                print("loadPNGFiles()")
             }
         } else {
             NavigationView {
@@ -137,11 +133,6 @@ struct ContentView: View {
                             .cornerRadius(5),
                         alignment: .top
                     )
-                    
-                    // Section to display PNG files
-                    if !pngFileURLs.isEmpty {
-                        ImageGridView(pngFileURLs: pngFileURLs)
-                    }
                 }
                 .overlay(
                     VStack {
@@ -185,7 +176,7 @@ struct ContentView: View {
                                 deleteAllPNGFiles()
                                 loadPNGFiles()  // Refresh the list after deleting
                             }) {
-                                Text("Delete All PNGs")
+                                Text("Delete PNGs")
                                     .padding()
                                     .background(Color.red.opacity(0.3))
                                     .foregroundColor(.white)
@@ -206,7 +197,7 @@ struct ContentView: View {
                             NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
                                 Text("View Image Grid")
                                     .padding()
-                                    .background(Color.teal.opacity(0.3))
+                                    .background(Color.green.opacity(0.3))
                                     .foregroundColor(.white)
                                     .cornerRadius(5)
                             }
