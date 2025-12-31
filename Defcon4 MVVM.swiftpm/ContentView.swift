@@ -1,7 +1,9 @@
-//  Defcon4 MVVM  12/31/2025-1
+//  Defcon4 MVVM  12/31/2025-2
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
+//  ContentView.swift
+//  opacity(0.3)
 
 import SwiftUI
 import SceneKit
@@ -21,13 +23,14 @@ struct ContentView: View {
                     rotationZ: $viewModel.currentRotationZ,
                     isRotatingX: $viewModel.isRotatingX,
                     isRotatingY: $viewModel.isRotatingY,
-                    isRotatingZ: $viewModel.isRotatingZ
+                    isRotatingZ: $viewModel.isRotatingZ,
+                    viewModel: viewModel  // Added this parameter to pass the viewModel to SceneView
                 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .overlay(
                     Text("SceneKit View")
                         .foregroundColor(.white)
-                        .background(Color.red.opacity(0.1))
+                        .background(Color.red.opacity(0.3))
                         .padding(4)
                         .cornerRadius(5),
                     alignment: .top

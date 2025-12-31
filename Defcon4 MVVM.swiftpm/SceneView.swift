@@ -50,7 +50,7 @@ struct SceneView: UIViewRepresentable {
         let snapshot = scnView.snapshot()
         let filename = "rotation\(axis)_\(Int(rotation)).png"
         // Use viewModel to resize and save the PNG
-        viewModel.resizeAndSavePNG(image: snapshot, filename: filename)
+//        viewModel.resizeAndSavePNG(image: snapshot, filename: filename)
         // Value of type 'SceneViewModel' has no member 'resizeAndSavePNG'
     }
     
