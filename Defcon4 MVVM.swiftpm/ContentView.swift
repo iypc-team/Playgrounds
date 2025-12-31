@@ -1,4 +1,4 @@
-//  Defcon4 MVVM  12/31/2025-2
+//  Defcon4 MVVM  12/31/2025-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
@@ -36,10 +36,7 @@ struct ContentView: View {
                     alignment: .top
                 )
                 
-                // Section to display PNG files
-                if !pngFileURLs.isEmpty {
-                    ImageGridView(pngFileURLs: pngFileURLs)
-                }
+                // Removed: Section to display PNG files inline (to avoid showing ScrollView here)
             }
             .overlay(
                 VStack {
@@ -113,7 +110,7 @@ struct ContentView: View {
                     .padding(.bottom, 5),
                 alignment: .bottom
             )
-            .navigationTitle("Content View")  // Optional: Add a title to the navigation bar
+            // Removed: .navigationTitle("Content View")  // This was displaying "Content View" in the navigation bar
         }
         .onAppear {
             loadPNGFiles()  // Load PNGs when the view appears
