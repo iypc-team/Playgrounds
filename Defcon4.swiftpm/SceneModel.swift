@@ -6,7 +6,7 @@ import Foundation
 
 // Updated SceneModel.swift
 class SceneModel: ObservableObject {
-    var sceneName: String = "fighter.scn"
+    var sceneName: String = "newFighter.scn"
     var enenyName: String = "smooth_ship.scn"
     
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
