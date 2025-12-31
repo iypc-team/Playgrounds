@@ -14,8 +14,8 @@ struct SceneView: UIViewRepresentable {
     @Binding var isRotatingY: Bool
     @Binding var isRotatingZ: Bool
     
-    // Add viewModel property to access SceneViewModel methods
-    var viewModel: SceneViewModel
+    // Add viewModelAlternate property to access SceneViewModel methods
+    var viewModelAlternate: SceneViewModel
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -49,8 +49,8 @@ struct SceneView: UIViewRepresentable {
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
         let snapshot = scnView.snapshot()
         let filename = "rotation\(axis)_\(Int(rotation)).png"
-        // Use viewModel to resize and save the PNG
-        viewModel.resizeAndSavePNG(image: snapshot, filename: filename)
+        // Use viewModelAlternate to resize and save the PNG
+        viewModelAlternate.resizeAndSavePNG(image: snapshot, filename: filename)
         // Value of type 'SceneViewModel' has no member 'resizeAndSavePNG'
     }
     

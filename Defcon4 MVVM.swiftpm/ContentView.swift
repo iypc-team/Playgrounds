@@ -2,6 +2,7 @@
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
+// 
 
 import SwiftUI
 import SceneKit
@@ -39,7 +40,7 @@ struct ContentView: View {
                 rotationZ: $viewModel.currentRotationZ,
                 isRotatingX: $viewModel.isRotatingX,
                 isRotatingY: $viewModel.isRotatingY,
-                isRotatingZ: $viewModel.isRotatingZ, viewModel: SceneViewModel
+                isRotatingZ: $viewModel.isRotatingZ, viewModelAlternate: SceneViewModel
                 // Cannot convert value of type 'SceneViewModel' to expected argument type 'SceneViewModel'
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)

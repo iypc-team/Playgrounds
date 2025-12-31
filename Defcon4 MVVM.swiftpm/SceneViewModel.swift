@@ -74,6 +74,10 @@ class SceneViewModel: ObservableObject {
         }
     }
     
+    func resizeAndSavePNG(image: UIImage, filename: String) {
+        
+    }
+    
     func listPNGFiles() {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         do {
