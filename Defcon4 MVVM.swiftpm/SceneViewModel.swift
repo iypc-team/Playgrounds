@@ -1,8 +1,12 @@
 // 
 // 
 
+//
+// 
+
 import Foundation
 import SceneKit
+import UIKit
 
 class SceneViewModel: ObservableObject {
     // Observable property to notify the view of changes
@@ -110,6 +114,33 @@ class SceneViewModel: ObservableObject {
         } catch {
             print("Error loading PNG files: \(error)")
             pngFileURLs = []
+        }
+    }
+    
+    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { context in
+            // Calculate the scale to fill the target size (aspect fill)
+            let scale = max(targetSize.width / image.size.width, targetSize.height / image.size.height)
+            let scaledSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            
+            // Calculate the origin to crop the center
+            let origin = CGPoint(
+                x: (scaledSize.width - targetSize.width) / 2,
+                y: (scaledSize.height - targetSize.height) / 2
+            )
+            let cropRect = CGRect(origin: origin, size: targetSize)
+            
+            // Draw the cropped and scaled portion
+            if let cgImage = image.cgImage?.cropping(to: CGRect(
+                x: origin.x / scale,
+                y: origin.y / scale,
+                width: targetSize.width / scale,
+                height: targetSize.height / scale
+            )) {
+                let croppedImage = UIImage(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
+                croppedImage.draw(in: CGRect(origin: .zero, size: targetSize))
+            }
         }
     }
 }
