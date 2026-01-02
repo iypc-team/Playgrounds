@@ -14,7 +14,7 @@ struct SceneView: UIViewRepresentable {
     @Binding var isRotatingY: Bool
     @Binding var isRotatingZ: Bool
     
-    var viewModel: SceneViewModel  // Add viewModel property to access SceneViewModel methods
+    var viewModel: SceneViewModel 
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -46,16 +46,19 @@ struct SceneView: UIViewRepresentable {
     }
     
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
+        print("\nfunc captureAndSavePNG()")
         var snapshot = scnView.snapshot()
+        snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
+        print("snapshot.size: \(snapshot.size)")
+        
         let filename = "rotation\(axis)_\(Int(rotation)).png"
         print("FileName: \(filename) ")
         
-        snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
         let imageToSave: UIImage = snapshot  // your image here
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!  // Get the Documents directory URL
         
         // Create a file URL for the image (e.g., "savedImage.png")
-        let fileURL = documentsDirectory.appendingPathComponent("savedImage.png")
+        let fileURL = documentsDirectory.appendingPathComponent(filename)
         
         // Convert the image to PNG data (or JPEG if preferred)
         if let imageData = imageToSave.pngData() {
@@ -70,20 +73,16 @@ struct SceneView: UIViewRepresentable {
     }
     
     private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        print("func resizeImage()")
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         return renderer.image { context in
-            // Calculate the scale to fill the target size (aspect fill)
             let scale = max(targetSize.width / image.size.width, targetSize.height / image.size.height)
             let scaledSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-            
-            // Calculate the origin to crop the center
             let origin = CGPoint(
                 x: (scaledSize.width - targetSize.width) / 2,
                 y: (scaledSize.height - targetSize.height) / 2
             )
-            let cropRect = CGRect(origin: origin, size: targetSize)
-            
-            // Draw the cropped and scaled portion
+//            let cropRect = CGRect(origin: origin, size: targetSize)
             if let cgImage = image.cgImage?.cropping(to: CGRect(
                 x: origin.x / scale,
                 y: origin.y / scale,
@@ -98,7 +97,7 @@ struct SceneView: UIViewRepresentable {
     
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {
         guard let node = node else { return nil }
-        if node.geometry != nil {
+        if node.geometry != nil { 
             return node
         }
         for child in node.childNodes {

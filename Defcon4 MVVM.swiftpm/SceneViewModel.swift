@@ -1,7 +1,5 @@
 // 
 // 
-
-//
 // 
 
 import Foundation
@@ -129,7 +127,7 @@ class SceneViewModel: ObservableObject {
                 x: (scaledSize.width - targetSize.width) / 2,
                 y: (scaledSize.height - targetSize.height) / 2
             )
-            let cropRect = CGRect(origin: origin, size: targetSize)
+//            let cropRect = CGRect(origin: origin, size: targetSize)
             
             // Draw the cropped and scaled portion
             if let cgImage = image.cgImage?.cropping(to: CGRect(
