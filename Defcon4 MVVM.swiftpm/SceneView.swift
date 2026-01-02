@@ -46,14 +46,15 @@ struct SceneView: UIViewRepresentable {
     }
     
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
-        print("\nfunc captureAndSavePNG()")
         var snapshot = scnView.snapshot()
 //        snapshot = SceneViewModel
         snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
-        print("snapshot.size: \(snapshot.size)")
+//        print("snapshot.size: \(snapshot.size)")
         
-        let filename = "rotation\(axis)_\(Int(rotation)).png"
+        let filename = "\(axis)_\(Int(rotation))°.png"
         print("FileName: \(filename) ")
+//        let filename = "rotation\(axis)_\(Int(rotation)).png"
+//        print("FileName: \(filename) ")
         
         let imageToSave: UIImage = snapshot  // your image here
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!  // Get the Documents directory URL

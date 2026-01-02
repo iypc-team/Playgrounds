@@ -7,28 +7,31 @@ struct ImageGridView: View {
     let pngFileURLs: [URL]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))], spacing: 10) {
-                ForEach(pngFileURLs, id: \.self) { url in
-                    if let uiImage = UIImage(contentsOfFile: url.path) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 200, height: 200)
-                            .border(Color.gray, width: 1)
-                            .overlay(
-                                Text(url.lastPathComponent)
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                    .background(Color.black.opacity(0.7))
-                                    .padding(2),
-                                alignment: .bottom
-                            )
+        GeometryReader { geometry in
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: geometry.size.width / 3))], spacing: 10) {
+                    ForEach(pngFileURLs, id: \.self) { url in
+                        if let uiImage = UIImage(contentsOfFile: url.path) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: geometry.size.width / 3, height: geometry.size.width / 3)
+                                .border(Color.gray, width: 1)
+                                .overlay(
+                                    Text(url.lastPathComponent)
+                                        .font(.caption)
+                                        .foregroundColor(.white)
+                                        .background(Color.black.opacity(0.7))
+                                        .padding(2),
+                                    alignment: .bottom
+                                )
+                        }
                     }
                 }
+                .padding()
             }
-            .padding()
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .frame(width: 200, height: 200)  // Adjust height as needed
+        .edgesIgnoringSafeArea(.all) // Optional for fullscreen without safe area padding
     }
 }
