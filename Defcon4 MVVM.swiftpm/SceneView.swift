@@ -48,6 +48,7 @@ struct SceneView: UIViewRepresentable {
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
         print("\nfunc captureAndSavePNG()")
         var snapshot = scnView.snapshot()
+//        snapshot = SceneViewModel
         snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
         print("snapshot.size: \(snapshot.size)")
         

@@ -115,7 +115,7 @@ class SceneViewModel: ObservableObject {
         }
     }
     
-    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    public func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         return renderer.image { context in
             // Calculate the scale to fill the target size (aspect fill)
