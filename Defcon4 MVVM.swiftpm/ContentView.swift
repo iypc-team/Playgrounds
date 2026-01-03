@@ -1,20 +1,18 @@
-//  Defcon4 MVVM  01/03/2026-2
+//  Defcon4 MVVM  01/03/2026-3
 /*
- https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
+https://github.com/iypc-team/Playgrounds/tree/main/Defcon4%20MVVM.swiftpm
  */
-//  ContentView.swift
-//  opacity(0.3)
-
 import SwiftUI
 import SceneKit
 
 struct ContentView: View {
-    // Observes changes in the ViewModel
     @StateObject var viewModel = SceneViewModel(sceneName: "newFighter.scn")
-    @State private var pngFileURLs: [URL] = []  // To store the URLs of PNG files
+    @State private var pngFileURLs: [URL] = []
+    @State private var showError: Bool = false
+    @State private var errorMessage: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {  // Updated from NavigationView
             VStack {
                 SceneView(
                     scene: viewModel.sceneModel.scene,
@@ -24,7 +22,7 @@ struct ContentView: View {
                     isRotatingX: $viewModel.isRotatingX,
                     isRotatingY: $viewModel.isRotatingY,
                     isRotatingZ: $viewModel.isRotatingZ,
-                    viewModel: viewModel  // Added this parameter to pass the viewModel to SceneView
+                    viewModel: viewModel
                 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .overlay(
@@ -35,69 +33,34 @@ struct ContentView: View {
                         .cornerRadius(5),
                     alignment: .top
                 )
-                
-                // Removed: Section to display PNG files inline (to avoid showing ScrollView here)
             }
             .overlay(
                 VStack {
                     HStack {
-                        Button(action: {
-                            viewModel.rotateModelOnXAxis()
-                            print("Started rotating model on X axis incrementally to 360°")
-                        }) {
-                            Text("Rotate X")
-                                .padding()
-                                .background(Color.green.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        Button(action: {
-                            viewModel.rotateModelOnYAxis()
-                            print("Started rotating model on Y axis incrementally to 360°")
-                        }) {
-                            Text("Rotate Y")
-                                .padding()
-                                .background(Color.purple.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
-                        
-                        Button(action: {
-                            viewModel.rotateModelOnZAxis()
-                            print("Started rotating model on Z axis incrementally to 360°")
-                        }) {
-                            Text("Rotate Z")
-                                .padding()
-                                .background(Color.orange.opacity(0.3))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
+                        RotateButton(action: { viewModel.rotateModelOnXAxis() }, label: "Rotate X", color: .green)
+                        RotateButton(action: { viewModel.rotateModelOnYAxis() }, label: "Rotate Y", color: .purple)
+                        RotateButton(action: { viewModel.rotateModelOnZAxis() }, label: "Rotate Z", color: .orange)
                     }
                     
                     HStack {
-                        Button(action: {
-                            deleteAllPNGFiles()
-                            loadPNGFiles()  // Refresh the list after deleting
-                        }) {
+                        Button(action: { deleteAllPNGFiles() }) {
                             Text("Delete All PNGs")
                                 .padding()
                                 .background(Color.red.opacity(0.3))
                                 .foregroundColor(.white)
                                 .cornerRadius(5)
                         }
+                        .accessibilityLabel("Delete all PNG files")
                         
-                        Button(action: {
-                            loadPNGFiles()
-                        }) {
+                        Button(action: { loadPNGFiles() }) {
                             Text("Load PNGs")
                                 .padding()
                                 .background(Color.blue.opacity(0.3))
                                 .foregroundColor(.white)
                                 .cornerRadius(5)
                         }
+                        .accessibilityLabel("Load PNG files")
                         
-                        // NavigationLink to transition to ImageGridPresentationView
                         NavigationLink(destination: ImageGridView(pngFileURLs: pngFileURLs)) {
                             Text("View Image Grid")
                                 .padding()
@@ -105,56 +68,61 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(5)
                         }
+                        .accessibilityLabel("Navigate to image grid view")
                     }
                 }
                     .padding(.bottom, 5),
                 alignment: .bottom
             )
-            // Removed: .navigationTitle("Content View")  // This was displaying "Content View" in the navigation bar
         }
-        .onAppear {
-            loadPNGFiles()  // Load PNGs when the view appears
+        .onAppear { loadPNGFiles() }
+        .alert("Error", isPresented: $showError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
         }
     }
     
-    func deleteAllPNGFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        do {
-            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            let pngFiles = files.filter { $0.pathExtension == "png" }
-            for fileURL in pngFiles {
-                try FileManager.default.removeItem(at: fileURL)
-                print("Deleted: \(fileURL.lastPathComponent)")
+    private func deleteAllPNGFiles() {
+        Task {
+            do {
+                try await viewModel.deleteAllPNGFilesAsync()
+                await MainActor.run { loadPNGFiles() }
+            } catch {
+                await MainActor.run {
+                    errorMessage = "Failed to delete PNGs: \(error.localizedDescription)"
+                    showError = true
+                }
             }
-            print("All PNG files deleted.")
-        } catch {
-            print("Error deleting files: \(error)")
         }
     }
     
-    func listAllFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        do {
-            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            print("All files in Documents directory:")
-            for fileURL in files {
-                print("- \(fileURL.lastPathComponent)")
+    private func loadPNGFiles() {
+        Task {
+            do {
+                pngFileURLs = try await viewModel.loadPNGFilesAsync()
+            } catch {
+                errorMessage = "Failed to load PNGs: \(error.localizedDescription)"
+                showError = true
             }
-        } catch {
-            print("Error listing files: \(error)")
         }
     }
+}
+
+struct RotateButton: View {
+    let action: () -> Void
+    let label: String
+    let color: Color
     
-    func loadPNGFiles() {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        do {
-            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            pngFileURLs = files.filter { $0.pathExtension == "png" }
-            print("Loaded \(pngFileURLs.count) PNG files.")
-        } catch {
-            print("Error loading PNG files: \(error)")
-            pngFileURLs = []
+    var body: some View {
+        Button(action: action) {
+            Text(label)
+                .padding()
+                .background(color.opacity(0.3))
+                .foregroundColor(.white)
+                .cornerRadius(5)
         }
+        .accessibilityLabel("Rotate model on \(label.lowercased()) axis")
     }
 }
 

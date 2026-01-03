@@ -14,7 +14,7 @@ struct SceneView: UIViewRepresentable {
     @Binding var isRotatingY: Bool
     @Binding var isRotatingZ: Bool
     
-    var viewModel: SceneViewModel 
+    var viewModel: SceneViewModel
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -34,61 +34,14 @@ struct SceneView: UIViewRepresentable {
             node.eulerAngles.z = rotationZ * .pi / 180
             scnView.setNeedsDisplay()
             
-            // Capture and save PNG if rotating on a specific axis
-            if isRotatingX {
-                captureAndSavePNG(scnView: scnView, axis: "X", rotation: rotationX)
-            } else if isRotatingY {
-                captureAndSavePNG(scnView: scnView, axis: "Y", rotation: rotationY)
-            } else if isRotatingZ {
-                captureAndSavePNG(scnView: scnView, axis: "Z", rotation: rotationZ)
-            }
-        }
-    }
-    
-    private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
-        var snapshot = scnView.snapshot()
-        snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
-        
-        let filename = "\(axis)_\(Float(rotation))°.png"
-        print("FileName: \(filename) ")
-        
-        let imageToSave: UIImage = snapshot  // your image here
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!  // Get the Documents directory URL
-        
-        // Create a file URL for the image
-        let fileURL = documentsDirectory.appendingPathComponent(filename)
-        
-        // Convert the image to PNG data (or JPEG if preferred)
-        if let imageData = imageToSave.pngData() {
-            do {
-                // Write the data to the file
-                try imageData.write(to: fileURL)
-                print("\nImage saved successfully at: \(fileURL)")
-            } catch {
-                print("\nError saving image: \(error)")
-            }
-        }
-    }
-    
-    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        print("func resizeImage()")
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { context in
-            let scale = max(targetSize.width / image.size.width, targetSize.height / image.size.height)
-            let scaledSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-            let origin = CGPoint(
-                x: (scaledSize.width - targetSize.width) / 2,
-                y: (scaledSize.height - targetSize.height) / 2
-            )
-            
-            if let cgImage = image.cgImage?.cropping(to: CGRect(
-                x: origin.x / scale,
-                y: origin.y / scale,
-                width: targetSize.width / scale,
-                height: targetSize.height / scale
-            )) {
-                let croppedImage = UIImage(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
-                croppedImage.draw(in: CGRect(origin: .zero, size: targetSize))
+            if isRotatingX || isRotatingY || isRotatingZ {
+                do {
+                    try viewModel.captureAndSavePNG(scnView: scnView, axis: isRotatingX ? "X" : isRotatingY ? "Y" : "Z", rotation: isRotatingX ? rotationX : isRotatingY ? rotationY : rotationZ)
+                    // Value of type 'SceneViewModel' has no member 'captureAndSavePNG'
+                } catch {
+                    // Handle error, e.g., log or alert (propagate to View if needed)
+                    print("Error saving PNG: \(error)")
+                }
             }
         }
     }
@@ -96,7 +49,6 @@ struct SceneView: UIViewRepresentable {
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {
         guard let node = node else { return nil }
         if node.geometry != nil {
-            print("")
             return node
         }
         for child in node.childNodes {

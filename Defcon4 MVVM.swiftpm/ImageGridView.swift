@@ -25,6 +25,12 @@ struct ImageGridView: View {
                                         .padding(2),
                                     alignment: .bottom
                                 )
+                        } else {
+                            // Placeholder for failed loads
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: geometry.size.width / 3, height: geometry.size.width / 3)
+                                .overlay(Text("Failed to load").font(.caption))
                         }
                     }
                 }
@@ -32,6 +38,6 @@ struct ImageGridView: View {
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .edgesIgnoringSafeArea(.all) // Optional for fullscreen without safe area padding
+        // Removed edgesIgnoringSafeArea for better layout
     }
 }
