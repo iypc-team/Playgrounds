@@ -47,19 +47,15 @@ struct SceneView: UIViewRepresentable {
     
     private func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) {
         var snapshot = scnView.snapshot()
-//        snapshot = SceneViewModel
         snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
-//        print("snapshot.size: \(snapshot.size)")
         
-        let filename = "\(axis)_\(Int(rotation))°.png"
+        let filename = "\(axis)_\(Float(rotation))°.png"
         print("FileName: \(filename) ")
-//        let filename = "rotation\(axis)_\(Int(rotation)).png"
-//        print("FileName: \(filename) ")
         
         let imageToSave: UIImage = snapshot  // your image here
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!  // Get the Documents directory URL
         
-        // Create a file URL for the image (e.g., "savedImage.png")
+        // Create a file URL for the image
         let fileURL = documentsDirectory.appendingPathComponent(filename)
         
         // Convert the image to PNG data (or JPEG if preferred)
@@ -67,9 +63,9 @@ struct SceneView: UIViewRepresentable {
             do {
                 // Write the data to the file
                 try imageData.write(to: fileURL)
-                print("Image saved successfully at: \(fileURL)")
+                print("\nImage saved successfully at: \(fileURL)")
             } catch {
-                print("Error saving image: \(error)")
+                print("\nError saving image: \(error)")
             }
         }
     }
@@ -84,7 +80,7 @@ struct SceneView: UIViewRepresentable {
                 x: (scaledSize.width - targetSize.width) / 2,
                 y: (scaledSize.height - targetSize.height) / 2
             )
-//            let cropRect = CGRect(origin: origin, size: targetSize)
+            
             if let cgImage = image.cgImage?.cropping(to: CGRect(
                 x: origin.x / scale,
                 y: origin.y / scale,
@@ -99,7 +95,8 @@ struct SceneView: UIViewRepresentable {
     
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {
         guard let node = node else { return nil }
-        if node.geometry != nil { 
+        if node.geometry != nil {
+            print("")
             return node
         }
         for child in node.childNodes {

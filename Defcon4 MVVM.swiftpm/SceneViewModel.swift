@@ -1,6 +1,5 @@
 // 
-// 
-// 
+// Loaded 17 PNG files.
 
 import Foundation
 import SceneKit
@@ -95,7 +94,7 @@ class SceneViewModel: ObservableObject {
                 try FileManager.default.removeItem(at: fileURL)
                 print("Deleted: \(fileURL.lastPathComponent)")
             }
-            print("All PNG files deleted.")
+            print("\nAll PNG files deleted.")
             loadPNGFiles()  // Reload after deletion
         } catch {
             print("Error deleting files: \(error)")
@@ -108,7 +107,7 @@ class SceneViewModel: ObservableObject {
         do {
             let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
             pngFileURLs = files.filter { $0.pathExtension == "png" }
-            print("Loaded \(pngFileURLs.count) PNG files.")
+            print("\nLoaded \(pngFileURLs.count) PNG files.")
         } catch {
             print("Error loading PNG files: \(error)")
             pngFileURLs = []
