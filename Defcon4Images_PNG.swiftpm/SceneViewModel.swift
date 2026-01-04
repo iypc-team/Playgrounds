@@ -52,10 +52,7 @@ class SceneViewModel: ObservableObject {
             while accumulatedRotation < fullRotationDegrees {
                 try? await Task.sleep(nanoseconds: UInt64(sleepDurationSeconds * 1_000_000_000))
                 accumulatedRotation += rotationStep
-                if accumulatedRotation >= fullRotationDegrees {
-                    accumulatedRotation = 0.0  // Wrap-around to 0 for clean reset
-                }
-                self[keyPath: current] = accumulatedRotation
+                self[keyPath: current] = accumulatedRotation.truncatingRemainder(dividingBy: fullRotationDegrees)
             }
             self[keyPath: isRotating] = false
         }
