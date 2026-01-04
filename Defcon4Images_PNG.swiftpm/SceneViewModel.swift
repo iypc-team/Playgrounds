@@ -1,11 +1,18 @@
 // 
-// 
+//  
 
 import Foundation
 import SceneKit
 import UIKit
 
 class SceneViewModel: ObservableObject {
+    // Constants for rotation, timing, and snapshot settings
+    private let rotationStep: Float = 22.5
+    private let fullRotationDegrees: Float = 360.0
+    private let sleepDurationSeconds: Double = 0.5
+    private let snapshotWidth: CGFloat = 200.0
+    private let snapshotHeight: CGFloat = 200.0
+    
     @Published var sceneModel: SceneModel
     @Published var currentRotationX: Float = 0
     @Published var isRotatingX = false
@@ -41,11 +48,11 @@ class SceneViewModel: ObservableObject {
         guard !self[keyPath: isRotating] else { return }
         self[keyPath: isRotating] = true
         Task {
-            while self[keyPath: current] < 360 {
-                try? await Task.sleep(nanoseconds: 500_000_000)
-                self[keyPath: current] += 22.5
-                if self[keyPath: current] >= 360 {
-                    self[keyPath: current] = 360
+            while self[keyPath: current] < fullRotationDegrees {
+                try? await Task.sleep(nanoseconds: UInt64(sleepDurationSeconds * 1_000_000_000))
+                self[keyPath: current] += rotationStep
+                if self[keyPath: current] >= fullRotationDegrees {
+                    self[keyPath: current] = fullRotationDegrees
                 }
             }
             self[keyPath: isRotating] = false
@@ -54,7 +61,7 @@ class SceneViewModel: ObservableObject {
     
     func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) throws {
         var snapshot = scnView.snapshot()
-        snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: 200, height: 200))
+        snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: snapshotWidth, height: snapshotHeight))
         
         let filename = "\(axis)_\(Float(rotation))°.png"
         let imageToSave: UIImage = snapshot
