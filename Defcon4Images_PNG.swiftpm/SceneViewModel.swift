@@ -65,7 +65,7 @@ class SceneViewModel: ObservableObject {
         var snapshot = scnView.snapshot()
         snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: snapshotWidth, height: snapshotHeight))
         
-        let filename = "\(axis)_\(Float(rotation))°.png"
+        let filename = "\(axis)_\(Float(rotation)).png"
         let imageToSave: UIImage = snapshot
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileURL = documentsDirectory.appendingPathComponent(filename)
