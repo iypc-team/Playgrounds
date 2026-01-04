@@ -1,5 +1,5 @@
 // Updated SceneView.swift
-// 
+// found
 
 import SwiftUI
 import SceneKit
@@ -49,13 +49,18 @@ struct SceneView: UIViewRepresentable {
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {
         guard let node = node else { return nil }
         if node.geometry != nil {
+            print("")
+            print("node: \(node) ")
             return node
         }
         for child in node.childNodes {
-            if let found = findNodeWithGeometry(in: child) {
-                return found
+            if let childNodes = findNodeWithGeometry(in: child) {
+//                print("")
+//                print("childNodes: \(childNodes) ")
+                return childNodes
             }
         }
         return nil
     }
+    
 }

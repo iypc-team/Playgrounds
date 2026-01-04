@@ -16,7 +16,7 @@ class SceneViewModel: ObservableObject {
     @Published var pngFileURLs: [URL] = []
     
     init(sceneName: String) {
-        let initialCameraPosition = SCNVector3(x: 0, y: 0, z: 20)
+        let initialCameraPosition = SCNVector3(x: 0, y: 0, z: 25)
         self.sceneModel = SceneModel(sceneName: sceneName, cameraPosition: initialCameraPosition)
     }
     
