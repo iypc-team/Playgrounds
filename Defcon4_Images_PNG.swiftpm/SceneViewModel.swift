@@ -1,5 +1,7 @@
 // 
 //  
+// 
+//  
 
 import Foundation
 import SceneKit
@@ -7,7 +9,7 @@ import UIKit
 
 class SceneViewModel: ObservableObject {
     // Constants for rotation, timing, and snapshot settings
-    private let rotationStep: Float = 1.0
+    private let rotationStep: Float = 90.0
     private let fullRotationDegrees: Float = 360.0
     private let sleepDurationSeconds: Double = 0.0
     private let snapshotWidth: CGFloat = 200.0
@@ -110,6 +112,19 @@ class SceneViewModel: ObservableObject {
                 let croppedImage = UIImage(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
                 croppedImage.draw(in: CGRect(origin: .zero, size: targetSize))
             }
+        }
+    }
+    
+    func listAllFilesInDocumentsDirectory() {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            print("Files in documents directory:")
+            for file in files {
+                print(file.lastPathComponent)
+            }
+        } catch {
+            print("Error listing files: \(error)")
         }
     }
 }
