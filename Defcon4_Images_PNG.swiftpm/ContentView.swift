@@ -1,4 +1,4 @@
-//  Defcon4_Images_PNG  01/05/2026-4
+//  Defcon4_Images_PNG  01/05/2026-5
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4_Images_PNG.swiftpm
@@ -47,7 +47,7 @@ struct ContentView: View {
                     }
                     
                     HStack {
-                        Button(action: { viewModel.deleteAllPNGFilesAsync() }) {
+                        Button(action: { deleteAllPNGFiles() }) {
                             Text("Delete All PNGs")
                                 .padding()
                                 .background(Color.red.opacity(0.3))

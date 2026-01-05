@@ -11,7 +11,7 @@ class SceneViewModel: ObservableObject {
     // Constants for rotation, timing, and snapshot settings
     private let rotationStep: Float = 90.0
     private let fullRotationDegrees: Float = 360.0
-    private let sleepDurationSeconds: Double = 0.0
+    private let sleepDurationSeconds: Double = 0.5
     private let snapshotWidth: CGFloat = 200.0
     private let snapshotHeight: CGFloat = 200.0
     
