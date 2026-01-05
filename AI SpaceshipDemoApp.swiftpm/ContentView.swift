@@ -1,4 +1,4 @@
-// AI SpaceshipDemoApp 12/15/2025-1
+// AI SpaceshipDemoApp 01/05/2026-1
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
  */
@@ -67,5 +67,11 @@ struct ContentView: View {
                 model.resetRotation()
             }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .black))
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
