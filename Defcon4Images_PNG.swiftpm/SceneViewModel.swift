@@ -7,9 +7,9 @@ import UIKit
 
 class SceneViewModel: ObservableObject {
     // Constants for rotation, timing, and snapshot settings
-    private let rotationStep: Float = 22.5
+    private let rotationStep: Float = 1.0
     private let fullRotationDegrees: Float = 360.0
-    private let sleepDurationSeconds: Double = 0.5
+    private let sleepDurationSeconds: Double = 0.0
     private let snapshotWidth: CGFloat = 200.0
     private let snapshotHeight: CGFloat = 200.0
     
@@ -70,7 +70,6 @@ class SceneViewModel: ObservableObject {
         guard let imageData = imageToSave.pngData() else {
             throw NSError(domain: "SceneViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to PNG data"])
         }
-        
         try imageData.write(to: fileURL)
     }
     

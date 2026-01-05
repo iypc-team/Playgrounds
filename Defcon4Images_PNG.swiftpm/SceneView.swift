@@ -49,8 +49,8 @@ struct SceneView: UIViewRepresentable {
     private func findNodeWithGeometry(in node: SCNNode?) -> SCNNode? {
         guard let node = node else { return nil }
         if node.geometry != nil {
-            print("")
-            print("node: \(node) ")
+//            print("")
+//            print("node: \(node) ")
             return node
         }
         for child in node.childNodes {

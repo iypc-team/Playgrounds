@@ -1,5 +1,5 @@
 // 
-// geometry.size.width / 4
+// geometry.size.width / 3
 
 import SwiftUI
 
@@ -9,13 +9,13 @@ struct ImageGridView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: geometry.size.width / 4))], spacing: 5) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: geometry.size.width / 3))], spacing: 5) {
                     ForEach(pngFileURLs, id: \.self) { url in
                         if let uiImage = UIImage(contentsOfFile: url.path) {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: geometry.size.width / 4, height: geometry.size.width / 4)
+                                .frame(width: geometry.size.width / 3, height: geometry.size.width / 3)
                                 .border(Color.gray, width: 1)
                                 .overlay(
                                     Text(url.lastPathComponent)
