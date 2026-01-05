@@ -35,12 +35,13 @@ struct SceneView: UIViewRepresentable {
             scnView.setNeedsDisplay()
             
             if isRotatingX || isRotatingY || isRotatingZ {
-                do {
-                    try viewModel.captureAndSavePNG(scnView: scnView, axis: isRotatingX ? "X" : isRotatingY ? "Y" : "Z", rotation: isRotatingX ? rotationX : isRotatingY ? rotationY : rotationZ)
-                    // Value of type 'SceneViewModel' has no member 'captureAndSavePNG'
-                } catch {
-                    // Handle error, e.g., log or alert (propagate to View if needed)
-                    print("Error saving PNG: \(error)")
+                Task {
+                    do {
+                        try await viewModel.captureAndSavePNG(scnView: scnView, axis: isRotatingX ? "X" : isRotatingY ? "Y" : "Z", rotation: isRotatingX ? rotationX : isRotatingY ? rotationY : rotationZ)
+                    } catch {
+                        // Handle error, e.g., log or alert (propagate to View if needed)
+                        print("Error saving PNG: \(error)")
+                    }
                 }
             }
         }

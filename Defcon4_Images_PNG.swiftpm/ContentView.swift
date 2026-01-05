@@ -1,9 +1,10 @@
-//  Defcon4_Images_PNG  01/05/2026-3
+//  Defcon4_Images_PNG  01/05/2026-4
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/Defcon4_Images_PNG.swiftpm
  
  */
+//  'async' call in a function that does not support concurrency
 
 import SwiftUI
 import SceneKit
@@ -46,7 +47,7 @@ struct ContentView: View {
                     }
                     
                     HStack {
-                        Button(action: { deleteAllPNGFiles() }) {
+                        Button(action: { viewModel.deleteAllPNGFilesAsync() }) {
                             Text("Delete All PNGs")
                                 .padding()
                                 .background(Color.red.opacity(0.3))

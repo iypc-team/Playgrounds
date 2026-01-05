@@ -60,8 +60,8 @@ class SceneViewModel: ObservableObject {
         }
     }
     
-    func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) throws {
-        var snapshot = scnView.snapshot()
+    func captureAndSavePNG(scnView: SCNView, axis: String, rotation: Float) async throws {
+        var snapshot = await scnView.snapshot()
         snapshot = resizeImage(image: snapshot, targetSize: CGSize(width: snapshotWidth, height: snapshotHeight))
         
         let filename = "\(axis)_\(Float(rotation)).png"
@@ -72,7 +72,9 @@ class SceneViewModel: ObservableObject {
         guard let imageData = imageToSave.pngData() else {
             throw NSError(domain: "SceneViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to PNG data"])
         }
-        try imageData.write(to: fileURL)
+        try await Task.detached {
+            try imageData.write(to: fileURL)
+        }.value
     }
     
     func deleteAllPNGFilesAsync() async throws {
