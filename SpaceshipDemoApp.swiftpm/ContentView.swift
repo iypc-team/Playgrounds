@@ -1,8 +1,8 @@
-// SpaceshipDemoApp 01/06/2026-1
+// SpaceshipDemoApp 01/06/2026-2
 /*
- 
+
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipDemoApp.swiftpm
- 
+
  */
 // font
 
@@ -10,7 +10,7 @@ import SwiftUI
 import OSLog
 
 private let conversionFactor = (Float.pi / 180)
-private let logger = Logger(subsystem: "com.iypc.AISpaceshipDemoApp", category: "ContentView")
+private let logger = Logger(subsystem: "com.iypc.SpaceshipDemoApp", category: "SpaceshipDemoApp")
 
 // Example usage:
 //logger.debug("Scale: \(value)")
