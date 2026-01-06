@@ -1,24 +1,13 @@
-// SpaceshipDemoApp 01/06/2026-3
+// SpaceshipDemoApp 01/06/2026-4
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipDemoApp.swiftpm
  
  */
-// logger
 
 import SwiftUI
-import OSLog
 
 private let conversionFactor = (Float.pi / 180)
-public let logger = Logger(subsystem: "com.iypc.SpaceshipDemoApp", category: "SpaceshipDemoApp")
-
-// Example usage:
-//logger.debug("Scale: \(value)")
-//logger.error("Failed to load model.")
-
-struct printInfo {
-    init() { print("ContentView()") }
-}
 
 struct HighlightedButtonStyle: ButtonStyle {
     let borderColor: Color
@@ -46,12 +35,16 @@ struct ContentView: View {
                         MagnificationGesture()
                             .onChanged { 
                                 model.updateScale(with: Float($0))
-                                logger.debug("Magnification gesture: scale updated to \(Float($0))")
+                            }
+                            .onEnded {
+                                print("Magnification gesture: final scale \(Float($0))")
                             }
                             .simultaneously(with: DragGesture()
                                 .onChanged { 
                                     let _ = model.updateRotation(from: $0.translation)
-                                    logger.debug("Drag gesture: translation \(String(describing: $0.translation))")
+                                }
+                                .onEnded {
+                                    print("Drag gesture: final translation \(String(describing: $0.translation))")
                                 }
                             )
                     )
@@ -59,7 +52,7 @@ struct ContentView: View {
             } else {
                 ProgressView("Loading model…")
                     .onAppear { 
-                        logger.info("Starting model load")
+                        print("Starting model load")
                         model.loadModel()
                     }
             }
@@ -70,12 +63,12 @@ struct ContentView: View {
     private var overlayButtons: some View {
         HStack {
             Button("Start Rotation") {
-                logger.info("Start Rotation button pressed")
+                print("Start Rotation button pressed")
                 Task { model.rotateModel() }
             }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
             
             Button("Cancel Rotation") {
-                logger.info("Cancel Rotation button pressed")
+                print("Cancel Rotation button pressed")
                 model.cancelRotation()
                 model.resetRotation()
             }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
