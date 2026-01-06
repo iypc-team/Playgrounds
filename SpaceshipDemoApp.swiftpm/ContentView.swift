@@ -1,10 +1,10 @@
-// SpaceshipDemoApp 01/05/2026-5
+// SpaceshipDemoApp 01/06/2026-1
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipDemoApp.swiftpm
  
  */
-// SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
+// font
 
 import SwiftUI
 import OSLog
@@ -27,7 +27,7 @@ struct HighlightedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(15)
-            .font(.system(size: 18, weight: .heavy))
+            .font(.system(size: 18, weight: .regular))
             .foregroundColor(borderColor)
             .background(backgroundColor)
             .cornerRadius(8)
@@ -60,14 +60,14 @@ struct ContentView: View {
     
     private var overlayButtons: some View {
         HStack {
-            Button("Start\nRotation") {
+            Button("Start Rotation") {
                 Task { model.rotateModel() }
-            }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .black))
+            }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
             
-            Button("Cancel\nRotation") {
+            Button("Cancel Rotation") {
                 model.cancelRotation()
                 model.resetRotation()
-            }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .black))
+            }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
         }
     }
 }
