@@ -1,16 +1,16 @@
-// SpaceshipDemoApp 01/06/2026-2
+// SpaceshipDemoApp 01/06/2026-3
 /*
-
+ 
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipDemoApp.swiftpm
-
+ 
  */
-// font
+// logger
 
 import SwiftUI
 import OSLog
 
 private let conversionFactor = (Float.pi / 180)
-private let logger = Logger(subsystem: "com.iypc.SpaceshipDemoApp", category: "SpaceshipDemoApp")
+public let logger = Logger(subsystem: "com.iypc.SpaceshipDemoApp", category: "SpaceshipDemoApp")
 
 // Example usage:
 //logger.debug("Scale: \(value)")
@@ -44,15 +44,24 @@ struct ContentView: View {
                 RealityKitView(model: model)
                     .gesture(
                         MagnificationGesture()
-                            .onChanged { model.updateScale(with: Float($0)) }
+                            .onChanged { 
+                                model.updateScale(with: Float($0))
+                                logger.debug("Magnification gesture: scale updated to \(Float($0))")
+                            }
                             .simultaneously(with: DragGesture()
-                                .onChanged { let _ = model.updateRotation(from: $0.translation) }
+                                .onChanged { 
+                                    let _ = model.updateRotation(from: $0.translation)
+                                    logger.debug("Drag gesture: translation \(String(describing: $0.translation))")
+                                }
                             )
                     )
                     .overlay(overlayButtons, alignment: .bottom)
             } else {
                 ProgressView("Loading model…")
-                    .onAppear { model.loadModel() }
+                    .onAppear { 
+                        logger.info("Starting model load")
+                        model.loadModel()
+                    }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -61,10 +70,12 @@ struct ContentView: View {
     private var overlayButtons: some View {
         HStack {
             Button("Start Rotation") {
+                logger.info("Start Rotation button pressed")
                 Task { model.rotateModel() }
             }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
             
             Button("Cancel Rotation") {
+                logger.info("Cancel Rotation button pressed")
                 model.cancelRotation()
                 model.resetRotation()
             }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
