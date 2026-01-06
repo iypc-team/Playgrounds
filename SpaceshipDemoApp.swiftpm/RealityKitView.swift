@@ -1,5 +1,5 @@
-//
-// print
+// 
+// 
 
 import SwiftUI
 import RealityKit
@@ -11,28 +11,26 @@ struct RealityKitView: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR
         
-        // Create and position a custom camera for non-AR mode
         let camera = PerspectiveCamera()
-        camera.transform.translation = SIMD3<Float>(0, 0, 5)  // Adjust position as needed (e.g., 10 units back)
-        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 5.0), relativeTo: nil)  // Look at origin
+        camera.transform.translation = SIMD3<Float>(0, 0, 5)
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 5.0), relativeTo: nil)
         
         let cameraAnchor = AnchorEntity(world: .zero)
         cameraAnchor.addChild(camera)
         arView.scene.addAnchor(cameraAnchor)
         
         if let entity = model.entity {
-            entity.scale = SIMD3<Float>(4.0 * model.scale, 4.0 * model.scale, 4.0 * model.scale)  // Apply scale
+            let scaleFactor: Float = 4.0  // Define as Float to avoid type issues
+            entity.scale = SIMD3<Float>(scaleFactor * model.scale, scaleFactor * model.scale, scaleFactor * model.scale)
             
             let anchor = AnchorEntity(world: .zero)
             anchor.addChild(entity)
             arView.scene.addAnchor(anchor)
             
-            // Add light
             let directionalLight = DirectionalLight()
             directionalLight.light.intensity = 5000
-            directionalLight.orientation = simd_quatf(angle: -.pi / 4, axis: [1, 0, 0])
+            directionalLight.orientation = simd_quatf(angle: -.pi / 4, axis: [1, 0, 0])  // Note: .pi is Double, but this works in context
             let lightAnchor = AnchorEntity(world: .zero)
-            print("lightAnchor: \(lightAnchor.orientation.debugDescription )")
             lightAnchor.addChild(directionalLight)
             arView.scene.addAnchor(lightAnchor)
         }
@@ -41,8 +39,15 @@ struct RealityKitView: UIViewRepresentable {
     
     func updateUIView(_ uiView: ARView, context: Context) {
         if let entity = model.entity {
-            entity.scale = SIMD3<Float>(4.0 * model.scale, 4.0 * model.scale, 4.0 * model.scale)  // Update scale
-            entity.transform.rotation = simd_quatf(angle: Float(model.rotation.radians), axis: SIMD3<Float>(0, 1, 0))  // Update rotation
+            let scaleFactor: Float = 4.0
+            entity.scale = SIMD3<Float>(scaleFactor * model.scale, scaleFactor * model.scale, scaleFactor * model.scale)
+            
+            // Unified rotation: Combine yaw, pitch, roll into a quaternion
+            let yawQuat = simd_quatf(angle: Float(model.yaw.radians), axis: SIMD3<Float>(0, 1, 0))
+            let pitchQuat = simd_quatf(angle: Float(model.pitch.radians), axis: SIMD3<Float>(1, 0, 0))
+            let rollQuat = simd_quatf(angle: Float(model.roll.radians), axis: SIMD3<Float>(0, 0, 1))
+            entity.transform.rotation = yawQuat * pitchQuat * rollQuat  // Order: yaw first, then pitch, then roll
         }
     }
 }
+
