@@ -1,6 +1,8 @@
-// AI SpaceshipDemoApp 01/05/2026-1
+// SpaceshipDemoApp 01/05/2026-1
 /*
+ 
  https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
+ 
  */
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
 
@@ -57,12 +59,12 @@ struct ContentView: View {
     }
     
     private var overlayButtons: some View {
-        HStack(spacing: 20) {
-            Button("Start Rotation") {
+        HStack {
+            Button("Start\nRotation") {
                 Task { model.rotateModel() }
             }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .black))
             
-            Button("Cancel Rotation") {
+            Button("Cancel\nRotation") {
                 model.cancelRotation()
                 model.resetRotation()
             }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .black))
