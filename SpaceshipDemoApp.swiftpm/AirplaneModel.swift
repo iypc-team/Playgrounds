@@ -60,8 +60,7 @@ class AirplaneModel: ObservableObject {
             
             let stepAngle = rotationAngle
             let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
-            var delayPerStep = animationDuration / Double(stepsPerAxis)
-            delayPerStep = animationDuration
+            let delayPerStep = animationDuration / Double(stepsPerAxis)
             
             // Rotate on X-axis
             for _ in 0..<stepsPerAxis {
