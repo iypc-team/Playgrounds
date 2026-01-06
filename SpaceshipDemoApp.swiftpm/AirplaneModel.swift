@@ -1,4 +1,5 @@
 // 
+//
 // 
 
 import SwiftUI
@@ -50,7 +51,7 @@ class AirplaneModel: ObservableObject {
             
             let stepAngle: Float = 22.5  // Use a constant for clarity
             let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
-            let delayPerStep = animationDuration / Double(stepsPerAxis)
+            let delayPerStep: TimeInterval = 0.5  // Set delay to 0.5 seconds between each rotation step
             
             // Rotate on X-axis (pitch)
             for _ in 0..<stepsPerAxis {
