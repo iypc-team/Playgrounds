@@ -1,7 +1,7 @@
-// SpaceshipDemoApp 01/05/2026-1
+// SpaceshipDemoApp 01/05/2026-2
 /*
  
- https://github.com/iypc-team/Playgrounds/tree/main/AI%20SpaceshipDemoApp.swiftpm
+ https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipDemoApp.swiftpm
  
  */
 // SwiftUI + RealityKit, loadModel(Airplane.usdz), no ArView, iOS 16, MVVM paradigm
