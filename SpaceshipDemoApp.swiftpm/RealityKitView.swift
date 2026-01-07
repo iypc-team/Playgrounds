@@ -50,4 +50,3 @@ struct RealityKitView: UIViewRepresentable {
         }
     }
 }
-
