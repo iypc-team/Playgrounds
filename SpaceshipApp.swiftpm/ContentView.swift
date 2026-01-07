@@ -1,4 +1,4 @@
-// SpaceshipApp 01/07/2026-3
+// SpaceshipApp 01/07/2026-4
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
@@ -7,7 +7,13 @@
 
 import SwiftUI
 
-private let conversionFactor = (Float.pi / 180)
+// Define constants for design consistency
+private enum Dimensions {
+    static let buttonPadding: CGFloat = 15
+    static let fontSize: CGFloat = 18
+    static let cornerRadius: CGFloat = 8
+    static let scaleFactor: CGFloat = 0.9
+}
 
 struct HighlightedButtonStyle: ButtonStyle {
     let borderColor: Color
@@ -15,12 +21,12 @@ struct HighlightedButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(15)
-            .font(.system(size: 18, weight: .regular))
+            .padding(Dimensions.buttonPadding)
+            .font(.system(size: Dimensions.fontSize, weight: .regular))
             .foregroundColor(borderColor)
             .background(backgroundColor)
-            .cornerRadius(8)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .cornerRadius(Dimensions.cornerRadius)
+            .scaleEffect(configuration.isPressed ? Dimensions.scaleFactor : 1.0)
     }
 }
 
@@ -33,16 +39,12 @@ struct ContentView: View {
                 RealityKitView(model: model)
                     .gesture(
                         MagnificationGesture()
-                            .onChanged { 
-                                model.updateScale(with: Float($0))
-                            }
+                            .onChanged { model.updateScale(with: Float($0)) }
                             .onEnded {
                                 print("Magnification gesture: final scale \(Float($0))")
                             }
                             .simultaneously(with: DragGesture()
-                                .onChanged { 
-                                    let _ = model.updateRotation(from: $0.translation)
-                                }
+                                .onChanged { model.updateRotation(from: $0.translation) }
                                 .onEnded {
                                     print("Drag gesture: final translation \(String(describing: $0.translation))")
                                 }
@@ -51,7 +53,7 @@ struct ContentView: View {
                     .overlay(overlayButtons, alignment: .bottom)
             } else {
                 ProgressView("Loading model…")
-                    .onAppear { 
+                    .onAppear {
                         print("Starting model load")
                         model.loadModel()
                     }
@@ -65,13 +67,15 @@ struct ContentView: View {
             Button("Start Rotation") {
                 print("Start Rotation button pressed")
                 Task { model.rotateModel() }
-            }.buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
+            }
+            .buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
             
             Button("Cancel Rotation") {
                 print("Cancel Rotation button pressed")
                 model.cancelRotation()
                 model.resetRotation()
-            }.buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
+            }
+            .buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
         }
     }
 }
