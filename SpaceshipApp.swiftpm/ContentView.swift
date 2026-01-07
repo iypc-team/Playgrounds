@@ -1,4 +1,4 @@
-// SpaceshipApp 01/07/2026-4
+// SpaceshipApp 01/07/2026-5
 /*
  
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
@@ -12,7 +12,7 @@ private enum Dimensions {
     static let buttonPadding: CGFloat = 15
     static let fontSize: CGFloat = 18
     static let cornerRadius: CGFloat = 8
-    static let scaleFactor: CGFloat = 0.9
+    static let scaleFactor: CGFloat = 1.0
 }
 
 struct HighlightedButtonStyle: ButtonStyle {
@@ -43,12 +43,6 @@ struct ContentView: View {
                             .onEnded {
                                 print("Magnification gesture: final scale \(Float($0))")
                             }
-                            .simultaneously(with: DragGesture()
-                                .onChanged { model.updateRotation(from: $0.translation) }
-                                .onEnded {
-                                    print("Drag gesture: final translation \(String(describing: $0.translation))")
-                                }
-                            )
                     )
                     .overlay(overlayButtons, alignment: .bottom)
             } else {
