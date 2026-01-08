@@ -1,4 +1,4 @@
-// DF2-Enemy  01/08/2026-2
+// DF2-Enemy  01/08/2026-3
 /*
  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
  */
@@ -76,8 +76,8 @@ struct ScenekitView : UIViewRepresentable {
         sleep(2)
         
         enemyShip.runAction(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
-     
-//        enemyShip.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 0, z: 0, duration: 2)))
+        
+        //        enemyShip.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 0, z: 0, duration: 2)))
         
         // retrieve the SCNView
         let scnView = SCNView()
