@@ -17,7 +17,7 @@ struct ScenekitView: UIViewRepresentable {
     func updateUIView(_ scnView: SCNView, context: Context) {
         // Configure view properties
         scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
+        scnView.showsStatistics = false
         scnView.backgroundColor = UIColor.gray
         scnView.antialiasingMode = .multisampling4X
         scnView.autoenablesDefaultLighting = false

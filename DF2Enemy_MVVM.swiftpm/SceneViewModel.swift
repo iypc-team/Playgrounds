@@ -7,12 +7,16 @@ import SceneKit
 
 class SceneViewModel: ObservableObject {
     @Published var enemyShip: EnemyShipModel = EnemyShipModel()
+    @Published var isAnimating: Bool = false
+    private var enemyShipNode: SCNNode?
+    private var rotationAction: SCNAction?
     private let scene = SCNScene(named: "smooth_ship.scn")!
     
     func setupScene() -> SCNScene {
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
+        cameraNode.camera?.automaticallyAdjustsZRange = true
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
         scene.rootNode.addChildNode(cameraNode)
         
@@ -43,6 +47,7 @@ class SceneViewModel: ObservableObject {
     
     private func configureShip() {
         guard let enemyShipNode = scene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
+        self.enemyShipNode = enemyShipNode
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
@@ -72,8 +77,22 @@ class SceneViewModel: ObservableObject {
         
         enemyShipNode.addChildNode(engineLightNode)
         
-        // Start animation
+        // Prepare animation
         let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
-        enemyShipNode.runAction(SCNAction.repeatForever(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)))
+        self.rotationAction = SCNAction.repeatForever(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
+        if isAnimating {
+            enemyShipNode.runAction(rotationAction!)
+        }
+    }
+    
+    func startAnimation() {
+        guard let node = enemyShipNode, let action = rotationAction, !isAnimating else { return }
+        node.runAction(action)
+        isAnimating = true
+    }
+    
+    func stopAnimation() {
+        enemyShipNode?.removeAllActions()
+        isAnimating = false
     }
 }
