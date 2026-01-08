@@ -1,4 +1,8 @@
-// DF2-Enemy  12/19/2025-1
+// DF2-Enemy  01/08/2026-1
+/*
+ 
+ */
+
 import SwiftUI
 import SceneKit
 
@@ -38,7 +42,7 @@ struct ScenekitView : UIViewRepresentable {
         engineLightNode.light = SCNLight()
         engineLightNode.light!.type = .omni
         engineLightNode.light!.color = UIColor.red
-        engineLightNode.light!.intensity = 7000*2
+        engineLightNode.light!.intensity = 7000 * 4
         engineLightNode.light!.castsShadow = true
         engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
