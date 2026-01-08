@@ -1,6 +1,6 @@
-// DF2Enemy_MVVM 01/08/2026
+// DF2Enemy_MVVM 01/08/2026-2
 /*   https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm   */
-// 
+//   
 
 import SwiftUI
 
