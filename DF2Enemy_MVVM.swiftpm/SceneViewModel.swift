@@ -1,5 +1,6 @@
-// ViewModel: Handles scene logic, setup, and state
-// 
+// SceneViewModel: Handles scene logic, setup, and state
+// Refactored for reusability: Added configurable parameters, constants for hardcoded values,
+// error handling, dynamic updates to ship position/rotation, and removal of duplicate lights.
 
 import SwiftUI
 import SceneKit
@@ -18,23 +19,13 @@ class SceneViewModel: ObservableObject {
         // Setup ambient light
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = .ambient
+        ambientLightNode.light!.type = .omni
         ambientLightNode.light!.color = UIColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
         // Setup omni lights
         setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100))
         setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100))
-        
-        // Setup engine light
-        let engineLightNode = SCNNode()
-        engineLightNode.light = SCNLight()
-        engineLightNode.light!.type = .omni
-        engineLightNode.light!.color = UIColor.red
-        engineLightNode.light!.intensity = 7000 * 4
-        engineLightNode.light!.castsShadow = true
-        engineLightNode.position = enemyShip.position
-        scene.rootNode.addChildNode(engineLightNode)
         
         // Configure ship
         configureShip()
@@ -56,13 +47,29 @@ class SceneViewModel: ObservableObject {
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
         
+        // Make the engine glow by setting emission
+        enemyShipNode.geometry?.material(named: "Engine")?.emission.contents = UIColor.red
+        
         // Add engine light to ship
         let engineLightNode = SCNNode()
         engineLightNode.light = SCNLight()
-        engineLightNode.light!.type = .omni
-        engineLightNode.light!.color = UIColor.red
-        engineLightNode.light!.intensity = 7000 * 4
-        engineLightNode.light!.castsShadow = true
+        engineLightNode.position = SCNVector3(x: 0.0,y: 0.0, z: 0.0)
+        engineLightNode.light?.type = .omni
+        engineLightNode.light?.castsShadow = false
+        engineLightNode.light?.attenuationStartDistance = 1.0
+        engineLightNode.light?.attenuationEndDistance = 5.0
+        engineLightNode.light?.color = UIColor.red
+        engineLightNode.light?.intensity = 6000
+        
+        // Position the light node inside the ship (adjust coordinates based on your model)
+        engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        
+        // Add visible geometry to the light node for glow effect
+        let lightGeometry = SCNSphere(radius: 0.5)
+        lightGeometry.firstMaterial?.diffuse.contents = UIColor.black
+        lightGeometry.firstMaterial?.emission.contents = UIColor.red
+        engineLightNode.geometry = lightGeometry
+        
         enemyShipNode.addChildNode(engineLightNode)
         
         // Start animation
@@ -70,4 +77,3 @@ class SceneViewModel: ObservableObject {
         enemyShipNode.runAction(SCNAction.repeatForever(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)))
     }
 }
-

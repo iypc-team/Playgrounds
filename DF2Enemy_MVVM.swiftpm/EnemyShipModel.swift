@@ -1,4 +1,4 @@
-// Model: Represents the ship data
+// EnemyShipModel: Represents the ship data
 // 
 
 import SwiftUI
