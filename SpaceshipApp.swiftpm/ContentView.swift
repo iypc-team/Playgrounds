@@ -1,15 +1,13 @@
-// SpaceshipApp 01/07/2026-5
+// SpaceshipApp 01/07/2026-6
 /*
- 
  https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
- 
  */
 
 import SwiftUI
 
 // Define constants for design consistency
 private enum Dimensions {
-    static let buttonPadding: CGFloat = 15
+    static let buttonPadding: CGFloat = 10
     static let fontSize: CGFloat = 18
     static let cornerRadius: CGFloat = 8
     static let scaleFactor: CGFloat = 1.0
@@ -22,7 +20,7 @@ struct HighlightedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(Dimensions.buttonPadding)
-            .font(.system(size: Dimensions.fontSize, weight: .regular))
+            .font(.system(size: Dimensions.fontSize, weight: .medium))
             .foregroundColor(borderColor)
             .background(backgroundColor)
             .cornerRadius(Dimensions.cornerRadius)
