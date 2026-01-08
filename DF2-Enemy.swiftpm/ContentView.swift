@@ -1,7 +1,8 @@
-// DF2-Enemy  01/08/2026-1
+// DF2-Enemy  01/08/2026-2
 /*
- 
+ https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
  */
+//   rotationDegrees
 
 import SwiftUI
 import SceneKit
@@ -67,14 +68,14 @@ struct ScenekitView : UIViewRepresentable {
         
         
         // animate the 3d object
-        let radianConversion = CGFloat(GLKMathDegreesToRadians(45.0))
-        print("radianConversion: ",radianConversion)
+        let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
+        print("rotationDegrees: ",rotationDegrees)
         
-        enemyShip.runAction(SCNAction.rotate(by: radianConversion, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
+        enemyShip.runAction(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
         
         sleep(2)
         
-        enemyShip.runAction(SCNAction.rotate(by: radianConversion, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
+        enemyShip.runAction(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
      
 //        enemyShip.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 0, z: 0, duration: 2)))
         
