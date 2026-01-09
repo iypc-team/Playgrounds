@@ -11,48 +11,53 @@ class SceneViewModel: ObservableObject {
     private var enemyShipNode: SCNNode?
     private var rotationAction: SCNAction?
     private var universeScene: SCNScene = SCNScene()
-    private var scene = SCNScene(named: "smooth_ship.scn")!
+    private var scene = SCNScene(named: "smooth_ship.scn")!  // Keep this if needed for loading the ship model
     
     func setupUniverse() -> SCNScene {
         let universe = SCNSphere(radius: 2048.0)
-        print(universe)
+        let universeNode = SCNNode(geometry: universe)
+        universeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black  // Example: make it a starry background
+        universeScene.rootNode.addChildNode(universeNode)
         
-        print("universeScene: \(universeScene.rootNode ) ")
+        print("universeScene: \(universeScene.rootNode)")
         return universeScene
     }
     
-    func setupScene() -> SCNScene {
+    func setupScene(baseScene: SCNScene) -> SCNScene {
         guard let scene = SCNScene(named: "smooth_ship.scn") else {
             fatalError("Error: Could not load the SceneKit asset 'smooth_ship.scn'. Verify the file exists in the project's resources.")
         }
         
-        self.scene = scene
+        // Copy nodes from the loaded scene to the base scene
+        for child in scene.rootNode.childNodes {
+            baseScene.rootNode.addChildNode(child)
+        }
         
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.automaticallyAdjustsZRange = true
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
-        scene.rootNode.addChildNode(cameraNode)
+        baseScene.rootNode.addChildNode(cameraNode)
         
         // Setup ambient light
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .omni
         ambientLightNode.light!.color = UIColor.darkGray
-        scene.rootNode.addChildNode(ambientLightNode)
+        baseScene.rootNode.addChildNode(ambientLightNode)
         
         // Setup omni lights
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100))
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100))
+        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100), in: baseScene)
+        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100), in: baseScene)
         
         // Configure ship
-        configureShip()
+        configureShip(in: baseScene)
         
-        return scene
+        return baseScene
     }
     
-    private func setupOmniLight(at position: SCNVector3) {
+    private func setupOmniLight(at position: SCNVector3, in scene: SCNScene) {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
@@ -60,7 +65,7 @@ class SceneViewModel: ObservableObject {
         scene.rootNode.addChildNode(lightNode)
     }
     
-    private func configureShip() {
+    private func configureShip(in scene: SCNScene) {
         guard let enemyShipNode = scene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
         self.enemyShipNode = enemyShipNode
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray

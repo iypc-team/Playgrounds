@@ -1,8 +1,7 @@
-// DF2Enemy_MVVM 01/08/2026-5
+// DF2Enemy_MVVM 01/08/2026-6
 /*   
  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
  */
-
 
 import SwiftUI
 
@@ -18,6 +17,7 @@ struct ContentView: View {
                 }
                 .onDisappear {
                     viewModel.stopAnimation()
+                    // value of type 'SceneViewModel' has no dynamic member 'stopAnimation' using key path from root type 'SceneViewModel'
                 }
             VStack {
                 Spacer()

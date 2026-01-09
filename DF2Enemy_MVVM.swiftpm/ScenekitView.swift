@@ -10,7 +10,8 @@ struct ScenekitView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        scnView.scene = viewModel.setupScene()
+        let baseScene = viewModel.setupUniverse()
+        scnView.scene = viewModel.setupScene(baseScene: baseScene)
         return scnView
     }
     
