@@ -1,4 +1,4 @@
-// DF2Enemy_MVVM 01/08/2026-3
+// DF2Enemy_MVVM 01/08/2026-5
 /*   
  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
  */
@@ -12,7 +12,8 @@ struct ContentView: View {
         ZStack {
             ScenekitView(viewModel: viewModel)
                 .onAppear {
-                    print("enemyShip.position: \( viewModel.enemyShip.position)")
+//                    print(viewModel.enemyShip.orientation)
+//                    print("enemyShip.position: \( viewModel.enemyShip.position)")
                 }
                 .onDisappear {
                     viewModel.stopAnimation()
@@ -30,7 +31,7 @@ struct ContentView: View {
                 }
             }
             .font(.system(size: 20, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(.white)
             .background(Color.clear)
             .padding(15)
         }

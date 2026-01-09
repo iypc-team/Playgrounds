@@ -10,9 +10,24 @@ class SceneViewModel: ObservableObject {
     @Published var isAnimating: Bool = false
     private var enemyShipNode: SCNNode?
     private var rotationAction: SCNAction?
-    private let scene = SCNScene(named: "smooth_ship.scn")!
+    private var universeScene: SCNScene = SCNScene()
+    private var scene = SCNScene(named: "smooth_ship.scn")!
+    
+    func setupUniverse() -> SCNScene {
+        let universe = SCNSphere(radius: 2048.0)
+        print(universe)
+        
+        print("universeScene: \(universeScene.rootNode ) ")
+        return universeScene
+    }
     
     func setupScene() -> SCNScene {
+        guard let scene = SCNScene(named: "smooth_ship.scn") else {
+            fatalError("Error: Could not load the SceneKit asset 'smooth_ship.scn'. Verify the file exists in the project's resources.")
+        }
+        
+        self.scene = scene
+        
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -48,7 +63,7 @@ class SceneViewModel: ObservableObject {
     private func configureShip() {
         guard let enemyShipNode = scene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
         self.enemyShipNode = enemyShipNode
-        enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
+        enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
         
@@ -58,7 +73,7 @@ class SceneViewModel: ObservableObject {
         // Add engine light to ship
         let engineLightNode = SCNNode()
         engineLightNode.light = SCNLight()
-        engineLightNode.position = SCNVector3(x: 0.0,y: 0.0, z: 0.0)
+        engineLightNode.position = enemyShipNode.position  // SCNVector3(x: 0.0,y: 0.0, z: 0.0)
         engineLightNode.light?.type = .omni
         engineLightNode.light?.castsShadow = false
         //        engineLightNode.light?.attenuationStartDistance = 1.0
