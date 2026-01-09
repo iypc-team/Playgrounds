@@ -1,4 +1,4 @@
-// DF2Enemy_MVVM 01/08/2026-4
+// DF2Enemy_MVVM 01/08/2026-1
 /*   
  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm  
  */
@@ -23,15 +23,16 @@ struct ContentView: View {
                     Button("Start Animate") {
                         viewModel.startAnimation()
                     }
+                    
                     Button("Stop Animate") {
                         viewModel.stopAnimation()
                     }
                 }
             }
-            .font(.title3)
-            .foregroundColor(.white)
+            .font(.system(size: 20, weight: .regular, design: .default))
+            .foregroundColor(.black)
             .background(Color.clear)
-            .padding(20)
+            .padding(15)
         }
     }
 }

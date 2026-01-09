@@ -61,8 +61,8 @@ class SceneViewModel: ObservableObject {
         engineLightNode.position = SCNVector3(x: 0.0,y: 0.0, z: 0.0)
         engineLightNode.light?.type = .omni
         engineLightNode.light?.castsShadow = false
-        engineLightNode.light?.attenuationStartDistance = 1.0
-        engineLightNode.light?.attenuationEndDistance = 5.0
+//        engineLightNode.light?.attenuationStartDistance = 1.0
+//        engineLightNode.light?.attenuationEndDistance = 5.0
         engineLightNode.light?.color = UIColor.red
         engineLightNode.light?.intensity = 6000
         
