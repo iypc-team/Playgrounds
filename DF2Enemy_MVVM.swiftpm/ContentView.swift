@@ -3,6 +3,7 @@
  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
  */
 
+
 import SwiftUI
 
 struct ContentView: View {
