@@ -24,4 +24,3 @@ struct ScenekitView: UIViewRepresentable {
         scnView.isTemporalAntialiasingEnabled = true
     }
 }
-
