@@ -1,17 +1,12 @@
-// Framework Helper  01/10/2026-2
+// Framework Helper  01/10/2026-3
 // 
 // https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
-// 
-
-import SwiftUI
-
-//
-// 
+//  
 
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = FrameworksViewModel()
+    @StateObject private var viewModel = LibraryListView()
     @State private var searchText = ""
     
     var filteredFrameworks: [Framework] {
@@ -36,18 +31,9 @@ struct ContentView: View {
     }
 }
 
-//struct ContentView: View {
-//    @StateObject private var viewModel = FrameworksViewModel()
-//    
-//    var body: some View {
-//        NavigationView {
-//            List(viewModel.frameworks) { framework in
-//                Text(framework.name)
-//            }
-//            .navigationTitle("Frameworks")
-//            .onAppear {
-//                viewModel.fetchFrameworks()
-//            }
-//        }
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+

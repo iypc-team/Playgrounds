@@ -8,7 +8,7 @@ import Foundation
 
 import Foundation
 
-class FrameworksViewModel: ObservableObject {
+class LibraryListView: ObservableObject {
     @Published var frameworks: [Framework] = []
     
     // Complete list of known Apple frameworks for iOS development
