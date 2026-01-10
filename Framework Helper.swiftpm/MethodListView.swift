@@ -15,6 +15,13 @@ struct MethodListView: View {
             Spacer()
         }
         .navigationTitle(framework.name)
+        .onAppear() {
+            print(framework.name.description)
+            print(framework.name.count)
+            print(framework.name.components(separatedBy: ","))
+            print("publisher: \( framework.name.publisher)")
+            print(framework.name.startIndex)
+        }
     }
 }
 
