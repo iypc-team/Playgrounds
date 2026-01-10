@@ -1,4 +1,4 @@
-// Framework Helper  01/10/2026-7
+// Framework Helper  01/10/2026-8
 // 
 // https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
