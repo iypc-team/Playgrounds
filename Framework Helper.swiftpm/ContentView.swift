@@ -1,4 +1,4 @@
-// Framework Helper  01/10/2026-5
+// Framework Helper  01/10/2026-6
 // 
 // https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
@@ -22,7 +22,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(filteredFrameworks) { framework in
-                Text(framework.name)
+                NavigationLink(destination: MethodListView(framework: framework)) {
+                    Text(framework.name)
+                }
             }
             .navigationTitle("Libraries")
             .searchable(text: $searchText, prompt: "Search frameworks")
@@ -38,5 +40,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
