@@ -1,6 +1,7 @@
 // SceneViewModel: Handles scene logic, setup, and state
 // Refactored for reusability: Added configurable parameters, constants for hardcoded values,
 // error handling, dynamic updates to ship position/rotation, and removal of duplicate lights.
+//
 
 import SwiftUI
 import SceneKit
