@@ -1,4 +1,4 @@
-// Framework Helper  01/10/2026-3
+// Framework Helper  01/10/2026-4
 // 
 // https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
@@ -13,7 +13,9 @@ struct ContentView: View {
         if searchText.isEmpty {
             return viewModel.frameworks
         } else {
-            return viewModel.frameworks.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return viewModel.frameworks.filter { 
+                $0.name.localizedCaseInsensitiveContains(searchText) 
+            }
         }
     }
     
@@ -36,4 +38,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
