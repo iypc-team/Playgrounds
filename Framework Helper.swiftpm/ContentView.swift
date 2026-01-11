@@ -1,4 +1,4 @@
-// Framework Helper  01/11/2026-7
+// Framework Helper  01/11/2026-8
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
@@ -11,6 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(frameworks) { framework in
+                //  initializer 'init(value:label:)' requires that 'Framework' conform to 'Hashable'
                 NavigationLink(value: framework) {
                     Text(framework.name)
                 }
