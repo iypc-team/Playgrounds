@@ -19,6 +19,7 @@ struct MethodListView: View {
             .navigationTitle(viewModel.framework.name)
         }
         .onAppear {
+            print("struct MethodListView: View")
             print(".onAppear")
         }
     }
