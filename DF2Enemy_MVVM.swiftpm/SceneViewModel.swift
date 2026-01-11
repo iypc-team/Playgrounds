@@ -18,7 +18,7 @@ class SceneViewModel: ObservableObject {
         let universe = SCNSphere(radius: 2048.0)
         let universeNode = SCNNode(geometry: universe)
 //        universeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
-        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_1.png")
+        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_2.png")
         universeNode.geometry?.firstMaterial?.isDoubleSided = true  // Make visible from inside
         universeScene.rootNode.addChildNode(universeNode)
         

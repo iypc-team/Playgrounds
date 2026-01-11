@@ -15,13 +15,6 @@ struct ScenekitView: UIViewRepresentable {
         return scnView
     }
     
-//    func makeUIView(context: Context) -> SCNView {
-//        let scnView = SCNView()
-//        let baseScene = viewModel.setupUniverse()
-//        scnView.scene = viewModel.setupScene(baseScene: baseScene)
-//        return scnView
-//    }
-    
     func updateUIView(_ scnView: SCNView, context: Context) {
         // Configure view properties
         scnView.allowsCameraControl = true
