@@ -1,5 +1,6 @@
 // 
 // 
+//  print
 
 import SwiftUI
 
@@ -13,8 +14,10 @@ class MethodViewModel: ObservableObject {
     }
     
     func fetchMethods() {
+        let currentLibrary = framework.name
         // Example: Placeholder for fetching methods for the framework
         // Replace with actual logic, e.g., reflection or API calls
+        print(currentLibrary)
         methods = [
             "init()",
             "deinit()",

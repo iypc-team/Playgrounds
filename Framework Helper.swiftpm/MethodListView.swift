@@ -1,5 +1,6 @@
 // 
 // 
+//  print
 
 import SwiftUI
 
@@ -18,10 +19,7 @@ struct MethodListView: View {
             .navigationTitle(viewModel.framework.name)
         }
         .onAppear {
-            print("\(viewModel.framework.name)")
-            print("framework.name.count: \(viewModel.framework.name.count)")
-            print("framework.id: \(viewModel.framework.id)")
-            print()
+            print(".onAppear")
         }
     }
 }

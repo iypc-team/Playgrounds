@@ -10,7 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "Framework Helper",
     platforms: [
-        .iOS("16.7")
+        .iOS("16.6")
     ],
     products: [
         .iOSApplication(
