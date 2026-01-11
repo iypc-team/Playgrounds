@@ -5,7 +5,11 @@
 import SwiftUI
 
 struct MethodListView: View {
-    @ObservedObject var viewModel: MethodViewModel
+    @StateObject private var viewModel: MethodViewModel
+    
+    init(framework: Framework) {
+        _viewModel = StateObject(wrappedValue: MethodViewModel(framework: framework))
+    }
     
     var body: some View {
         VStack {
@@ -19,8 +23,9 @@ struct MethodListView: View {
             .navigationTitle(viewModel.framework.name)
         }
         .onAppear {
-            print("struct MethodListView: View")
-            print(".onAppear")
+            // Remove debug prints or gate them behind a debug flag
+            // print("struct MethodListView: View")
+            // print(".onAppear")
         }
     }
 }

@@ -1,4 +1,4 @@
-// Framework Helper  01/11/2026-6
+// Framework Helper  01/11/2026-7
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
@@ -9,9 +9,9 @@ struct ContentView: View {
     private let frameworks: [Framework] = FrameworksConstants.sortedFrameworks()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List(frameworks) { framework in
-                NavigationLink(destination: MethodListView(viewModel: MethodViewModel(framework: framework))) {
+                NavigationLink(value: framework) {
                     Text(framework.name)
                 }
             }
