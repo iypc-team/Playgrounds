@@ -10,7 +10,7 @@ struct MethodListView: View {
     var body: some View {
         VStack {
             
-            Text("Methods for \(framework.name)")
+            Text("Classes for \(framework.name)")
                 .font(.largeTitle)
                 .padding()
             // Add your method listing logic here, e.g., a List of methods
