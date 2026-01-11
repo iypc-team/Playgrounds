@@ -4,24 +4,23 @@
 import SwiftUI
 
 struct MethodListView: View {
-    let framework: Framework
-    //    var libraryName: String = ""
+    @ObservedObject var viewModel: MethodViewModel
     
     var body: some View {
         VStack {
-            
-            Text("Classes for \(framework.name)")
+            Text("Methods for \(viewModel.framework.name)")
                 .font(.largeTitle)
                 .padding()
-            // Add your method listing logic here, e.g., a List of methods
-            Spacer()
-        }
-        .navigationTitle(framework.name)
-        .onAppear() {
-            print("\(framework.name)")
-            print("framework.name.count: \(framework.name.count)")
-            print("framework.id: \(framework.id)")
             
+            List(viewModel.methods, id: \.self) { method in
+                Text(method)
+            }
+            .navigationTitle(viewModel.framework.name)
+        }
+        .onAppear {
+            print("\(viewModel.framework.name)")
+            print("framework.name.count: \(viewModel.framework.name.count)")
+            print("framework.id: \(viewModel.framework.id)")
             print()
         }
     }
