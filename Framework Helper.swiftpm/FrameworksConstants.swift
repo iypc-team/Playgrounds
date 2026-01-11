@@ -13,4 +13,11 @@ struct FrameworksConstants {
         "EventKit", "HomeKit", "UserNotifications", "Contacts", "MetricKit", 
         "CreateML", "RealityKit", "NetworkExtension"
     ]
+    
+    // Shared utility to create and sort frameworks
+    static func sortedFrameworks() -> [Framework] {
+        return knownFrameworks
+            .map { Framework(name: $0) }
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+    }
 }

@@ -1,14 +1,12 @@
-// Framework Helper  01/11/2026-5
+// Framework Helper  01/11/2026-6
 // 
-//  print https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
 //  
 
 import SwiftUI
 
 struct ContentView: View {
-    private let frameworks: [Framework] = FrameworksConstants.knownFrameworks
-        .map { Framework(name: $0) }
-        .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+    private let frameworks: [Framework] = FrameworksConstants.sortedFrameworks()
     
     var body: some View {
         NavigationView {

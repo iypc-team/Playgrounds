@@ -1,6 +1,5 @@
 // 
 // 
-//  print
 
 import SwiftUI
 
@@ -23,10 +22,7 @@ class LibraryViewModel: ObservableObject {
     }
     
     func fetchFrameworks() {
-        // Sort the frameworks alphabetically
-        self.frameworks = FrameworksConstants.knownFrameworks
-            .map { Framework(name: $0) }
-            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        self.frameworks = FrameworksConstants.sortedFrameworks()
     }
 }
 
