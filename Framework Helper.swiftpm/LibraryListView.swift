@@ -14,3 +14,4 @@ class LibraryListView: ObservableObject {
             .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
     }
 }
+

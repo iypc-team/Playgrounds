@@ -36,18 +36,4 @@ class MethodViewModel: ObservableObject {
         // Optional: Log the library for debugging
         print("Fetching methods for \(currentLibrary)")
     }
-    
-//    func fetchMethods() {
-//        let currentLibrary = framework.name
-//        // Example: Placeholder for fetching methods for the framework
-//        // Replace with actual logic, e.g., reflection or API calls
-//        print(currentLibrary)
-//        methods = [
-//            "init()",
-//            "deinit()",
-//            "someMethod(param:)",
-//            // Add more as needed
-//        ]
-//    }
 }
-
