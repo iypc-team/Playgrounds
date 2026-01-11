@@ -5,7 +5,7 @@ import SwiftUI
 
 struct MethodListView: View {
     let framework: Framework
-    var libraryName: String = "" 
+    //    var libraryName: String = ""
     
     var body: some View {
         VStack {
@@ -18,23 +18,11 @@ struct MethodListView: View {
         }
         .navigationTitle(framework.name)
         .onAppear() {
-            libraryName = framework.name
-            print("libraryName: \(libraryName)")
-            print(framework.name.description)
-            print(framework.name.count)
-            print(framework.name.components(separatedBy: ","))
-            print("publisher: \( framework.name.publisher)")
-            print(framework.name.startIndex)
+            print("\(framework.name)")
+            print("framework.name.count: \(framework.name.count)")
+            print("framework.id: \(framework.id)")
+            
+            print()
         }
-    }
-    
-    func listAllClasses() -> [String] {
-        return ["AppDelegate", "EarthNode", "GameViewController", "ManagerClass", "MotionDataProvider", "MotionManager", "MotionViewModel", "MVVMBootcampViewModel", "SceneModel", "Starfield"]
-    }
-}
-
-struct MethodListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MethodListView(framework: Framework(name: "SwiftUI"))
     }
 }
