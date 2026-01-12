@@ -1,10 +1,8 @@
 // Framework Helper copy  01/12/2026-1
 //  for Grok Code Fast
-//  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  for GPT-5.1
 //  
-
-import SwiftUI
 
 import SwiftUI
 
@@ -52,7 +50,7 @@ struct ContentView: View {
                 .navigationDestination(for: Framework.self) { framework in
                     FrameworkDetailView(framework: framework)
                 }
-                .searchable(text: $query)
+                .searchable(text: $query, prompt: "Search frameworks")
             }
             
         case .empty:
@@ -85,13 +83,8 @@ struct ContentView: View {
     
     private func loadData() async {
         state = .loading
-        do {
-            // Replace with real async fetch if needed
-            let frameworks = FrameworksConstants.sortedFrameworks()
-            state = frameworks.isEmpty ? .empty : .loaded(frameworks)
-        } catch {
-            state = .error(error.localizedDescription)
-        }
+        let frameworks = FrameworksConstants.sortedFrameworks()
+        state = frameworks.isEmpty ? .empty : .loaded(frameworks)
     }
 }
 
