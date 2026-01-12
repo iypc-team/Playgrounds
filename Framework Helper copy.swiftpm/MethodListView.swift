@@ -24,8 +24,7 @@ struct MethodListView: View {
         }
         .onAppear {
             // Remove debug prints or gate them behind a debug flag
-            // print("struct MethodListView: View")
-            // print(".onAppear")
+            print("struct MethodListView: View")
         }
     }
 }

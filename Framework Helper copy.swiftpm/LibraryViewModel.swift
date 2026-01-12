@@ -5,9 +5,11 @@ import SwiftUI
 
 class LibraryViewModel: ObservableObject {
     @Published var frameworks: [Framework] = []
+    
     @Published var searchText: String = ""
     
     var filteredFrameworks: [Framework] {
+        print("var filteredFrameworks: [Framework]")
         if searchText.isEmpty {
             return frameworks
         } else {
@@ -18,6 +20,7 @@ class LibraryViewModel: ObservableObject {
     }
     
     init() {
+        print("class LibraryViewModel: ObservableObject")
         fetchFrameworks()
     }
     

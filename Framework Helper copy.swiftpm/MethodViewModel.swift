@@ -6,6 +6,7 @@ import SwiftUI
 
 class MethodViewModel: ObservableObject {
     @Published var methods: [String] = []
+    
     let framework: Framework
     
     init(framework: Framework) {
