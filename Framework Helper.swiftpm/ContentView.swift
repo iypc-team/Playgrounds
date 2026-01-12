@@ -1,12 +1,8 @@
-// Framework Helper  01/11/2026-9
-// 
+// Framework Helper  01/12/2026-1
+//  for Grok Code Fast
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
-/*  
-A NavigationLink is presenting a value of type “Framework” but there is no matching navigationDestination declaration visible from the location of the link. The link cannot be activated.
- 
- Note: Links search for destinations in any surrounding NavigationStack, then within the same column of a NavigationSplitView.
- */
-
+//  for GPT-5.1
+//  
 
 import SwiftUI
 
@@ -16,16 +12,29 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(frameworks) { framework in
-                //  initializer 'init(value:label:)' requires that 'Framework' conform to 'Hashable'
                 NavigationLink(value: framework) {
                     Text(framework.name)
                 }
             }
             .navigationTitle("Libraries")
+            // IMPORTANT: destination attached to the same NavigationStack
+            .navigationDestination(for: Framework.self) { framework in
+                FrameworkDetailView(framework: framework)
+            }
         }
-        .navigationDestination(for: Framework.self) { framework in 
-            Text("Details for \(framework.name)")
+    }
+}
+
+struct FrameworkDetailView: View {
+    let framework: Framework
+    
+    var body: some View {
+        VStack {
+            Text(framework.name)
+                .font(.largeTitle)
+            // more detail UI here
         }
+        .padding()
     }
 }
 
