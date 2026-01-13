@@ -1,4 +1,4 @@
-// Framework Helper copy  01/12/2026-4
+// Framework Helper copy  01/13/2026-1
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
@@ -100,8 +100,8 @@ struct FrameworkDetailView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
