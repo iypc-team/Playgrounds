@@ -1,4 +1,4 @@
-// Framework Helper copy  01/13/2026-1
+// Framework Helper copy  01/14/2026-1
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
@@ -49,7 +49,7 @@ struct ContentView: View {
                 .navigationDestination(for: Framework.self) { framework in
                     FrameworkDetailView(framework: framework)
                 }
-                .searchable(text: $query, prompt: "Search frameworks")
+                // .searchable(text: $query, prompt: "Search frameworks")
             }
             
         case .empty:

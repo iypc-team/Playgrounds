@@ -23,7 +23,7 @@ struct MethodListView: View {
             .navigationTitle(viewModel.framework.name)
         }
         .onAppear {
-            // Remove debug prints or gate them behind a debug flag
+//            viewModel.fetchClassesAndFunctions(for: viewModel.framework.name)
             print("struct MethodListView: View")
         }
     }
