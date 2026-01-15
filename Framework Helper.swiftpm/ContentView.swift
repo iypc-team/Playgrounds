@@ -1,7 +1,8 @@
-// Framework Helper  01/15/2026-1
-//  for Grok Code Fast
+// Framework Helper  01/15/2026-2
+// 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
-//  for GPT-5.1
+//
+//  for Grok Code Fast
 //  
 
 import SwiftUI

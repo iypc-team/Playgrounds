@@ -1,9 +1,6 @@
 // 
 // 
 
-// 
-// 
-
 import Foundation
 import SwiftUI
 
@@ -13,5 +10,4 @@ struct Framework: Identifiable, Hashable {
     let name: String
     
 }
-
 

@@ -25,4 +25,3 @@ class LibraryViewModel: ObservableObject {
         self.frameworks = FrameworksConstants.sortedFrameworks()
     }
 }
-
