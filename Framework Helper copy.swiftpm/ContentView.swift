@@ -1,8 +1,7 @@
-// Framework Helper copy  01/14/2026-4
+// Framework Helper copy  01/14/2026-5
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
-
 
 import SwiftUI
 
@@ -17,7 +16,7 @@ enum LoadState {
 struct ContentView: View {
     @State private var state: LoadState = .idle
     @State private var query = ""
-    @State private var tappedItemName = ""   // store last tapped name
+    @State private var tappedItemName = ""
     
     var body: some View {
         NavigationStack {
@@ -46,7 +45,7 @@ struct ContentView: View {
                         Text(framework.name)
                     }
                     .simultaneousGesture(TapGesture().onEnded {
-                        tappedItemName = framework.name   // capture tap
+                        tappedItemName = framework.name
                         print("tappedItemName: \(tappedItemName)")
                     })
                 }
@@ -92,9 +91,7 @@ struct FrameworkDetailView: View {
     var body: some View {
         VStack {
             Text(framework.name).font(.largeTitle)
-            // more detail UI here
         }
         .padding()
     }
 }
-
