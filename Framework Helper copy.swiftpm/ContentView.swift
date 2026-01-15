@@ -1,4 +1,4 @@
-// Framework Helper copy  01/14/2026-5
+// Framework Helper copy  01/15/2026-1
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
@@ -16,7 +16,7 @@ enum LoadState {
 struct ContentView: View {
     @State private var state: LoadState = .idle
     @State private var query = ""
-    @State private var tappedItemName = ""
+    @State public var tappedItemName = ""
     
     var body: some View {
         NavigationStack {
