@@ -1,4 +1,4 @@
-// Framework Helper copy  01/14/2026-1
+// Framework Helper copy  01/14/2026-2
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
@@ -16,14 +16,13 @@ enum LoadState {
 struct ContentView: View {
     @State private var state: LoadState = .idle
     @State private var query = ""
+    @State private var tappedItemName = ""   // store last tapped name
     
     var body: some View {
         NavigationStack {
             content
                 .navigationTitle("Libraries")
-                .task {
-                    await loadData()
-                }
+                .task { await loadData() }
         }
     }
     
@@ -45,11 +44,14 @@ struct ContentView: View {
                     NavigationLink(value: framework) {
                         Text(framework.name)
                     }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        tappedItemName = framework.name   // capture tap
+                        print("tappedItemName: \(tappedItemName)")
+                    })
                 }
                 .navigationDestination(for: Framework.self) { framework in
                     FrameworkDetailView(framework: framework)
                 }
-                // .searchable(text: $query, prompt: "Search frameworks")
             }
             
         case .empty:
@@ -59,9 +61,7 @@ struct ContentView: View {
             VStack(spacing: 12) {
                 Text("Something went wrong").font(.headline)
                 Text(message).font(.subheadline)
-                Button("Retry") {
-                    Task { await loadData() }
-                }
+                Button("Retry") { Task { await loadData() } }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .padding()
@@ -71,9 +71,7 @@ struct ContentView: View {
     @ViewBuilder
     private func emptyStateView(text: String) -> some View {
         VStack(spacing: 8) {
-            Image(systemName: "tray")
-                .font(.largeTitle)
-                .foregroundColor(.secondary)
+            Image(systemName: "tray").font(.largeTitle).foregroundColor(.secondary)
             Text(text).font(.headline)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -92,16 +90,113 @@ struct FrameworkDetailView: View {
     
     var body: some View {
         VStack {
-            Text(framework.name)
-                .font(.largeTitle)
+            Text(framework.name).font(.largeTitle)
             // more detail UI here
         }
         .padding()
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
+
+//import SwiftUI
+//
+//enum LoadState {
+//    case idle
+//    case loading
+//    case loaded([Framework])
+//    case empty
+//    case error(String)
+//}
+//
+//struct ContentView: View {
+//    @State private var state: LoadState = .idle
+////    @State private var query = ""
+//    
+//    var body: some View {
+//        NavigationStack {
+//            content
+//                .navigationTitle("Libraries")
+//                .task {
+//                    await loadData()
+//                }
+//        }
+//    }
+//    
+//    @ViewBuilder
+//    private var content: some View {
+//        switch state {
+//        case .idle, .loading:
+//            ProgressView("Loading…")
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+//            
+//        case .loaded(let frameworks):
+//            let filtered = frameworks.filter {
+//                query.isEmpty || $0.name.localizedCaseInsensitiveContains(query)
+//            }
+//            if filtered.isEmpty {
+//                emptyStateView(text: "No matches")
+//            } else {
+//                List(filtered) { framework in
+//                    NavigationLink(value: framework) {
+//                        Text(framework.name)
+//                    }
+//                }
+//                .navigationDestination(for: Framework.self) { framework in
+//                    FrameworkDetailView(framework: framework)
+//                }
+//                // .searchable(text: $query, prompt: "Search frameworks")
+//            }
+//            
+//        case .empty:
+//            emptyStateView(text: "No frameworks available")
+//            
+//        case .error(let message):
+//            VStack(spacing: 12) {
+//                Text("Something went wrong").font(.headline)
+//                Text(message).font(.subheadline)
+//                Button("Retry") {
+//                    Task { await loadData() }
+//                }
+//            }
+//            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+//            .padding()
+//        }
+//    }
+//    
+//    @ViewBuilder
+//    private func emptyStateView(text: String) -> some View {
+//        VStack(spacing: 8) {
+//            Image(systemName: "tray")
+//                .font(.largeTitle)
+//                .foregroundColor(.secondary)
+//            Text(text).font(.headline)
+//        }
+//        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+//        .padding()
+//    }
+//    
+//    private func loadData() async {
+//        state = .loading
+//        let frameworks = FrameworksConstants.sortedFrameworks()
+//        state = frameworks.isEmpty ? .empty : .loaded(frameworks)
 //    }
 //}
+//
+//struct FrameworkDetailView: View {
+//    let framework: Framework
+//    
+//    var body: some View {
+//        VStack {
+//            Text(framework.name)
+//                .font(.largeTitle)
+//            // more detail UI here
+//        }
+//        .padding()
+//    }
+//}
+//
+////struct ContentView_Previews: PreviewProvider {
+////    static var previews: some View {
+////        ContentView()
+////    }
+////}
