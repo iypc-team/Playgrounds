@@ -1,6 +1,5 @@
 // 
 // 
-//  print
 
 import SwiftUI
 
@@ -19,6 +18,10 @@ struct MethodListView: View {
             
             List(viewModel.methods, id: \.self) { method in
                 Text(method)
+            }
+            .refreshable {
+                
+                await viewModel.fetchMethods()
             }
             .navigationTitle(viewModel.framework.name)
         }

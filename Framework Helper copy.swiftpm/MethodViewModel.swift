@@ -9,22 +9,19 @@ class MethodViewModel: ObservableObject {
     
     init(framework: Framework) {
         self.framework = framework
-        fetchMethods()
+        
     }
     
-    func fetchMethods() {
+    func fetchMethods() async {
+        // Your existing code here, but if it involves I/O, consider using async alternatives like URLSession
         let currentLibrary = framework.name
         print("currentLibrary: \(currentLibrary)")
         
-        // Attempt to load methods from a bundled JSON file (e.g., methods.json in the app bundle)
-        // JSON structure: {"SwiftUI": ["Text(_: String)", "Image(_: String)", ...], "UIKit": [...], ...}
         if let url = Bundle.main.url(forResource: "methods", withExtension: "json"),
            let data = try? Data(contentsOf: url),
            let json = try? JSONSerialization.jsonObject(with: data) as? [String: [String]] {
-            // Retrieve only methods for the current library
             methods = json[currentLibrary] ?? ["No methods available for this framework"]
         } else {
-            // Fallback to hardcoded placeholders if JSON loading fails
             methods = [
                 "init()",
                 "deinit()",
@@ -32,7 +29,6 @@ class MethodViewModel: ObservableObject {
             ]
         }
         
-        // Optional: Log the library for debugging
         print("Fetching methods for \(currentLibrary)")
     }
 }
