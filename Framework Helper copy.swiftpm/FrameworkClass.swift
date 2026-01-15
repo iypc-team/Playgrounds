@@ -12,13 +12,6 @@ struct FrameworkClass: Identifiable, Hashable, Decodable {
 
 private struct MethodsPayload: Decodable {
     let frameworks: [String: [FrameworkClass]]
-    // JSON shape:
-    // {
-    //   "frameworks": {
-    //     "RealityKit": [ { "name": "Entity", "methods": ["move(to:)", ...] } ],
-    //     "UIKit":     [ { "name": "UIView", "methods": ["init(frame:)", ...] } ]
-    //   }
-    // }
 }
 
 class MethodViewModel: ObservableObject {
@@ -52,17 +45,6 @@ class MethodViewModel: ObservableObject {
         }
         return payload.frameworks[frameworkName] ?? []
     }
-    
-    // alternative one file per framework
-//    func fetchClassesAndFunctions(for frameworkName: String) -> [FrameworkClass] {
-//        let fileName = frameworkName.lowercased() + "_methods" // e.g., "realitykit_methods"
-//        guard
-//            let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
-//            let data = try? Data(contentsOf: url),
-//            let classes = try? JSONDecoder().decode([FrameworkClass].self, from: data)
-//        else { return [] }
-//        return classes
-//    }
 }
 
 
