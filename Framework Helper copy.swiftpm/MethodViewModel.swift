@@ -8,16 +8,15 @@ class MethodViewModel: ObservableObject {
     let framework: Framework
     
     init(framework: Framework) {
-        print("init(framework: Framework)")
         self.framework = framework
         Task { await fetchMethods() }
     }
     
     @MainActor
     func fetchMethods() async {
-        print("func fetchMethods()")
+//        print("func fetchMethods()")
         let currentLibrary = framework.name
-        print("currentLibrary: \(currentLibrary)")
+//        print("currentLibrary: \(currentLibrary)")
         
         if let url = Bundle.main.url(forResource: "methods", withExtension: "json"),
            let data = try? Data(contentsOf: url),
@@ -27,5 +26,6 @@ class MethodViewModel: ObservableObject {
             methods = ["init()", "deinit()", "someMethod(param:)"]
         }
         print("Fetching methods for \(currentLibrary)")
+        print("methodsArray: \(methods)")
     }
 }

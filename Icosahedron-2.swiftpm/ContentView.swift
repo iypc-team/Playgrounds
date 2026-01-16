@@ -1,4 +1,8 @@
-
+//  Icosahedron-2  01/16/2026-1
+//  Copyright © 2018 IYPC Software. All rights reserved.
+// 
+//  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
+// 
 
 import SwiftUI
 import SceneKit
@@ -8,10 +12,10 @@ import GLKit
 
 //
 //  GameViewController.swift
-//  Icosahedron
+//  
 //
 //  Created by Ralph Admin on 10/7/18.
-//  Copyright © 2018 IYPC Software. All rights reserved.
+
 //
 
 import UIKit
