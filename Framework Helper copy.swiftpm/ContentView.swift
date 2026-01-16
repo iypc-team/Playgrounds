@@ -1,4 +1,4 @@
-// Framework Helper copy initial commit 01/16/2026-1
+// Framework Helper copy initial commit 01/16/2026-2
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //
@@ -20,22 +20,9 @@ struct ContentView: View {
             .navigationTitle("Libraries")
             // IMPORTANT: destination attached to the same NavigationStack
             .navigationDestination(for: Framework.self) { framework in
-                FrameworkDetailView(framework: framework)
+                MethodListView(framework: framework)
             }
         }
-    }
-}
-
-struct FrameworkDetailView: View {
-    let framework: Framework
-    
-    var body: some View {
-        VStack {
-            Text(framework.name)
-                .font(.largeTitle)
-            // more detail UI here
-        }
-        .padding()
     }
 }
 
