@@ -1,4 +1,5 @@
-//  Icosahedron  01/16/2026-1
+//  Icosahedron  01/16/2026-2
+//  Copyright © 2018 IYPC Software. All rights reserved.
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron.swiftpm
 // 
 
