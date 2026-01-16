@@ -8,12 +8,14 @@ class MethodViewModel: ObservableObject {
     let framework: Framework
     
     init(framework: Framework) {
+        print("init(framework: Framework)")
         self.framework = framework
         Task { await fetchMethods() }
     }
     
     @MainActor
     func fetchMethods() async {
+        print("func fetchMethods()")
         let currentLibrary = framework.name
         print("currentLibrary: \(currentLibrary)")
         
