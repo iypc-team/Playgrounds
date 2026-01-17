@@ -1,4 +1,4 @@
-//  Icosahedron-2  01/17/2026-1
+//  Icosahedron-2  01/17/2026-2
 //  Copyright © 2018 IYPC Software. All rights reserved.
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
@@ -15,16 +15,16 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController  {
-    var primaryScene: SCNScene!
-    var scnView: SCNView!
+    var primaryScene: SCNScene = SCNScene.init()
+    var scnView: SCNView = SCNView.init()
     
-    var octahedronNode: SCNNode!
-    var tetrahedronNode_1: SCNNode!
-    var tetrahedronNode_2: SCNNode!
+    var octahedronNode: SCNNode = SCNNode.init()
+    var tetrahedronNode_1: SCNNode = SCNNode.init()
+    var tetrahedronNode_2: SCNNode = SCNNode.init()
     
-    var redMaterial: SCNMaterial!
-    var darkGrayMaterial: SCNMaterial!
-    var blueMaterial: SCNMaterial!
+    var redMaterial: SCNMaterial = SCNMaterial.init()
+    var darkGrayMaterial: SCNMaterial = SCNMaterial.init()
+    var blueMaterial: SCNMaterial = SCNMaterial.init()
     
     override func viewDidLoad()
     {
@@ -52,7 +52,7 @@ class GameViewController: UIViewController  {
         blueMaterial.diffuse.contents = UIColor.blue
         
         
-        scnView = self.view as? SCNView
+        scnView = self.view as! SCNView
         scnView.scene = primaryScene
         scnView.antialiasingMode = .multisampling4X
         scnView.allowsCameraControl = true
@@ -112,10 +112,10 @@ class GameViewController: UIViewController  {
         
         
         // An implictly nuwrapped optional was found in ContentView.swift at line 113
-        tetrahedronNode_2 = tetrahedronNode_1.copy() as? SCNNode
-        tetrahedronNode_2.position = SCNVector3Make(1.5, 0, 0)
-        tetrahedronNode_2.scale = SCNVector3Make(1, 1, 1)
-        tetrahedronNode_2.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 1, z: 0, duration: 2)))
+//        tetrahedronNode_2 = tetrahedronNode_1.copy() as SCNNode
+//        tetrahedronNode_2.position = SCNVector3Make(1.5, 0, 0)
+//        tetrahedronNode_2.scale = SCNVector3Make(1, 1, 1)
+//        tetrahedronNode_2.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 1, z: 0, duration: 2)))
         
         //        primaryScene.rootNode.addChildNode(tetrahedronNode_2)
         return tetrahedronNode_2
