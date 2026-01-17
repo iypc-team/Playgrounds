@@ -1,5 +1,5 @@
 //  GameViewController.swift
-// 
+// SCNSphere 
 
 import SwiftUI
 import SceneKit
@@ -9,7 +9,7 @@ class GameViewController: UIViewController  {
     var scnView: SCNView = SCNView.init()
     
     var octahedronNode: SCNNode = SCNNode.init()
-    var tetrahedronNode_1: SCNNode = SCNNode.init()
+    var tetrahedronNode: SCNNode = SCNNode.init()
     var tetrahedronNode_2: SCNNode = SCNNode.init()
     
     var redMaterial: SCNMaterial = SCNMaterial.init()
@@ -50,21 +50,17 @@ class GameViewController: UIViewController  {
         scnView.backgroundColor = UIColor.clear
         scnView.debugOptions = .showWireframe
         
-        //        generateTetrahedron()
-        generateOctahedron()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) { 
         
     }
     
     
-    func generateTetrahedron() -> SCNNode
-    {
+    func generateTetrahedron() -> SCNNode {
+        print("generateTetrahedron()")
         let vertices: [SCNVector3] = [
             SCNVector3(sqrt(8/9), 0, -1/3),
             SCNVector3(-sqrt(2/9), sqrt(2/3), -1/3.0),
@@ -83,36 +79,23 @@ class GameViewController: UIViewController  {
             1, 2, 3
         ]
         
+//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.materials = []
-        tetrahedronNode_1 = SCNNode(geometry: geometry)
-        tetrahedronNode_1.position = SCNVector3Make(-1.5, 0, 0)
-        tetrahedronNode_1.position = SCNVector3Zero
-        tetrahedronNode_1.scale = SCNVector3Make(1, 1, 1)
+        geometry.firstMaterial?.diffuse.contents = UIColor.blue
+        tetrahedronNode = SCNNode(geometry: geometry)
+        tetrahedronNode.position = SCNVector3Make(-1.5, 0, 0)
+        tetrahedronNode.position = SCNVector3Zero
+        tetrahedronNode.scale = SCNVector3Make(1, 1, 1)
         
-        let pointGeometry = SCNSphere(radius: 0.25)
-        pointGeometry.materials = [darkGrayMaterial]
-        let pointNode = SCNNode(geometry: pointGeometry)
-        pointNode.position = SCNVector3Make(-1.5, 2, 0)
-        pointNode.position = tetrahedronNode_1.position
-        pointNode.position.y += 1.5
-        tetrahedronNode_1.addChildNode(pointNode)
-        scnView.scene?.rootNode.addChildNode(tetrahedronNode_1)
+//        scnView.scene?.rootNode.addChildNode(tetrahedronNode)
         
-        
-        // An implictly nuwrapped optional was found in ContentView.swift at line 113
-        //        tetrahedronNode_2 = tetrahedronNode_1.copy() as SCNNode
-        //        tetrahedronNode_2.position = SCNVector3Make(1.5, 0, 0)
-        //        tetrahedronNode_2.scale = SCNVector3Make(1, 1, 1)
-        //        tetrahedronNode_2.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 1, z: 0, duration: 2)))
-        
-        //        primaryScene.rootNode.addChildNode(tetrahedronNode_2)
-        return tetrahedronNode_2
+        primaryScene.rootNode.addChildNode(tetrahedronNode)
+        return tetrahedronNode
     }
     
-    func generateOctahedron()
-    {
+    func generateOctahedron() -> SCNNode {
+        print("generateOctahedron()")
         let vertices: [SCNVector3] = [
             SCNVector3(0, 1, 0),
             SCNVector3(-0.5, 0, 0.5),
@@ -135,6 +118,7 @@ class GameViewController: UIViewController  {
             4, 5, 1
         ]
         
+//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         
         let geometry = SCNGeometry(sources: [source], elements: [element])
@@ -143,17 +127,11 @@ class GameViewController: UIViewController  {
         octahedronNode = SCNNode(geometry: geometry)
         octahedronNode.geometry?.materials = [blueMaterial]
         octahedronNode.scale = SCNVector3Make(1, 1, 1)
-        let pointGeometry = SCNSphere(radius: 0.5)
-        pointGeometry.materials = [redMaterial]
-        let pointNode = SCNNode(geometry: pointGeometry)
-        pointNode.position = SCNVector3Make(-1.5, 2, 0)
-        pointNode.position = octahedronNode.position
-        pointNode.position.y += 1.5
-        octahedronNode.addChildNode(pointNode)
-        scnView.scene?.rootNode.addChildNode(octahedronNode)
         
         let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
         octahedronNode.runAction(rotateAction)
+        
+        return octahedronNode
     }
     
     
