@@ -1,4 +1,4 @@
-//  Icosahedron-2  01/16/2026-1
+//  Icosahedron-2  01/17/2026-1
 //  Copyright © 2018 IYPC Software. All rights reserved.
 // 
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
@@ -9,14 +9,6 @@ import SceneKit
 import Dispatch
 import QuartzCore
 import GLKit
-
-//
-//  GameViewController.swift
-//  
-//
-//  Created by Ralph Admin on 10/7/18.
-
-//
 
 import UIKit
 import QuartzCore
@@ -119,6 +111,7 @@ class GameViewController: UIViewController  {
         scnView.scene?.rootNode.addChildNode(tetrahedronNode_1)
         
         
+        // An implictly nuwrapped optional was found in ContentView.swift at line 113
         tetrahedronNode_2 = tetrahedronNode_1.copy() as? SCNNode
         tetrahedronNode_2.position = SCNVector3Make(1.5, 0, 0)
         tetrahedronNode_2.scale = SCNVector3Make(1, 1, 1)
