@@ -1,22 +1,21 @@
-//  Icosahedron-2  01/17/2026-5
+//  Icosahedron-2  01/17/2026-6
 //  Copyright © 2018 IYPC Software. All rights reserved.
-// 
+//
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
 //  fighter.scn
 
 import SwiftUI
 import SceneKit
-import GLKit
 import UIKit
 
-struct SceneKitView : UIViewRepresentable {
-    let gvc = GameViewController()
-    let radianConversion = CGFloat(GLKMathDegreesToRadians(360.0))
-    
-    var primaryScene = SCNScene()
-    
+struct SceneKitView: UIViewRepresentable {
+    private let gameViewController = GameViewController()
     
     func makeUIView(context: Context) -> SCNView {
+        let scnView = SCNView()
+        let primaryScene = SCNScene()
+        
+        // Set up camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
@@ -24,7 +23,7 @@ struct SceneKitView : UIViewRepresentable {
         cameraNode.camera?.automaticallyAdjustsZRange = true
         primaryScene.rootNode.addChildNode(cameraNode)
         
-        // create and add a light to the scene
+        // Create and add lights to the scene
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
@@ -39,40 +38,36 @@ struct SceneKitView : UIViewRepresentable {
         lightNode2.position = SCNVector3(x: 0, y: 0, z: -100)
         primaryScene.rootNode.addChildNode(lightNode2)
         
-        
-        // create and add an ambient light to the scene
+        // Create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.gray
         primaryScene.rootNode.addChildNode(ambientLightNode)
         
-//        let ship = gvc.generateTetrahedron()
-        let ship = gvc.generateOctahedron()
-        primaryScene.rootNode.addChildNode(ship)
+        // Generate and add octahedron, handling potential nil
+        // Initializer for conditional binding must have Optional type, not 'SCNNode'
+        if let ship = gameViewController.generateOctahedron() {
+            primaryScene.rootNode.addChildNode(ship)
+        } else {
+            // Fallback: Could add a default shape or log an error
+            print("Failed to generate octahedron")
+        }
         
+        scnView.scene = primaryScene
         return scnView
     }
     
-    let scnView = SCNView()
-    
     func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = primaryScene
-        // allows the user to manipulate the camera
+        // Configure the view
         scnView.allowsCameraControl = true
-        // show statistics such as fps and timing information
         scnView.showsStatistics = false
-        // configure the view
         scnView.backgroundColor = UIColor.black
-        
-        // other items
         scnView.antialiasingMode = .multisampling4X
-        scnView.autoenablesDefaultLighting = true
+        scnView.autoenablesDefaultLighting = false  // Disabled to avoid conflict with custom lights
         scnView.isTemporalAntialiasingEnabled = true
-        
     }
 }
-
 
 struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
