@@ -20,7 +20,7 @@ class GeometryGenerator {
         
         blueMaterial = SCNMaterial()
         blueMaterial.lightingModel = .constant
-        blueMaterial.diffuse.contents = UIColor.blue
+        blueMaterial.diffuse.contents = UIColor.clear
     }
     
     func generateTetrahedron() -> SCNNode {
@@ -100,7 +100,7 @@ class GeometryGenerator {
         // Golden ratio
         let phi = (1.0 + sqrt(5.0)) / 2.0
         
-        // The 20 vertices of a dodecahedron (centered at origin, unit edges)
+        // The 20 vertices of a dodecahedron (centered at origin, scaled for better visibility)
         let vertices: [SCNVector3] = [
             SCNVector3(-1, -1, -1),
             SCNVector3(-1, -1,  1),
@@ -142,12 +142,12 @@ class GeometryGenerator {
             [3, 15, 7, 19, 13]
         ]
         
-        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,b,c], [a,c,d], [a,d,e]
+        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,c,b], [a,d,c], [a,e,d] to flip winding
         var indices: [UInt16] = []
         for face in faces {
-            indices.append(contentsOf: [face[0], face[1], face[2]])
-            indices.append(contentsOf: [face[0], face[2], face[3]])
-            indices.append(contentsOf: [face[0], face[3], face[4]])
+            indices.append(contentsOf: [face[0], face[2], face[1]])
+            indices.append(contentsOf: [face[0], face[3], face[2]])
+            indices.append(contentsOf: [face[0], face[4], face[3]])
         }
         
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
@@ -159,10 +159,12 @@ class GeometryGenerator {
         
         let dodecahedronNode = SCNNode(geometry: geometry)
         dodecahedronNode.position = SCNVector3Zero
-        dodecahedronNode.scale = SCNVector3(1, 1, 1)
+        dodecahedronNode.scale = SCNVector3(1, 1, 1)  // Increased scale for better visibility
+        
+        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
+        dodecahedronNode.runAction(rotateAction)
         
         return dodecahedronNode
     }
-    
-    // If tap interaction is needed, add handleTap method and integrate into ContentView's SCNView
 }
+

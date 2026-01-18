@@ -53,7 +53,7 @@ class GameViewController: UIViewController  {
         scnView.antialiasingMode = .multisampling4X
         scnView.allowsCameraControl = true
         scnView.showsStatistics = false
-        scnView.backgroundColor = UIColor.clear
+        scnView.backgroundColor = UIColor.black
         scnView.debugOptions = .showWireframe
         
         let octahedron = geometryGenerator.generateDodecahedron()
