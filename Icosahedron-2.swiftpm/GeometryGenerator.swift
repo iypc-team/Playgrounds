@@ -57,37 +57,6 @@ class GeometryGenerator {
         return tetrahedronNode
     }
     
-//    func generateTetrahedron() -> SCNNode {
-//        print("generateTetrahedron()")
-//        let vertices: [SCNVector3] = [
-//            SCNVector3(sqrt(8/9), 0, -1/3),
-//            SCNVector3(-sqrt(2/9), sqrt(2/3), -1/3.0),
-//            SCNVector3(-sqrt(2/9), -sqrt(2/3), -1/3),
-//            SCNVector3(0, 0, 1)
-//        ]
-//        
-//        print("tetrahedron edge length: \(sqrt(8/3.0))")
-//        
-//        let source = SCNGeometrySource(vertices: vertices)
-//        
-//        let indices: [UInt16] = [
-//            0, 1, 2,
-//            2, 0, 3,
-//            3, 0, 1,
-//            1, 2, 3
-//        ]
-//        
-//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-//        let geometry = SCNGeometry(sources: [source], elements: [element])
-//        geometry.materials = [blueMaterial]
-//        
-//        let tetrahedronNode = SCNNode(geometry: geometry)
-//        tetrahedronNode.position = SCNVector3Zero
-//        tetrahedronNode.scale = SCNVector3(1, 1, 1)
-//        
-//        return tetrahedronNode
-//    }
-    
     func generateOctahedron() -> SCNNode {
         print("generateOctahedron()")
         let vertices: [SCNVector3] = [
@@ -157,25 +126,36 @@ class GeometryGenerator {
         
         let source = SCNGeometrySource(vertices: vertices)
         
-        // Indices for each of the 12 faces, subdivided into triangles
-        let indices: [UInt16] = [
-            0, 8, 9, 0, 9, 1,
-            0, 12, 8, 0, 1, 13,
-            0, 13, 12, 1, 9, 11,
-            1, 11, 13, 2, 10, 8,
-            2, 8, 12, 2, 12, 14,
-            2, 14, 10, 3, 11, 9,
-            3, 9, 8, 3, 8, 10,
-            3, 10, 15, 3, 15, 11,
-            4, 14, 12, 4, 12, 13,
-            4, 13, 11, 4, 11, 15,
-            4, 15, 14, 5, 15, 10,
-            5, 10, 14, 5, 14, 15
+        // The 12 pentagonal faces, each as an array of 5 vertex indices
+        let faces: [[UInt16]] = [
+            [0, 8, 10, 2, 16],
+            [0, 16, 18, 1, 12],
+            [0, 12, 14, 4, 8],
+            [8, 4, 17, 6, 10],
+            [10, 6, 15, 3, 2],
+            [2, 3, 13, 18, 16],
+            [1, 18, 13, 11, 9],
+            [1, 9, 5, 14, 12],
+            [4, 14, 5, 17, 8],
+            [5, 9, 19, 7, 17],
+            [6, 17, 7, 15, 10],
+            [3, 15, 7, 19, 13]
         ]
+        
+        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,b,c], [a,c,d], [a,d,e]
+        var indices: [UInt16] = []
+        for face in faces {
+            indices.append(contentsOf: [face[0], face[1], face[2]])
+            indices.append(contentsOf: [face[0], face[2], face[3]])
+            indices.append(contentsOf: [face[0], face[3], face[4]])
+        }
         
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.materials = [blueMaterial]
+        
+        // Fix: Enable double-sided rendering to avoid backface culling issues
+        geometry.firstMaterial?.isDoubleSided = true
         
         let dodecahedronNode = SCNNode(geometry: geometry)
         dodecahedronNode.position = SCNVector3Zero
