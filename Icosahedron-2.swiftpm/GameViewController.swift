@@ -1,26 +1,19 @@
 //  GameViewController.swift
-// SCNSphere 
+//   
 
 import SwiftUI
 import SceneKit
 
 class GameViewController: UIViewController  {
-    var primaryScene: SCNScene = SCNScene.init()
-    var scnView: SCNView = SCNView.init()
+    // ...
     
-    var octahedronNode: SCNNode = SCNNode.init()
-    var tetrahedronNode: SCNNode = SCNNode.init()
-    var tetrahedronNode_2: SCNNode = SCNNode.init()
+    override func loadView() {
+        // Make sure our view is an SCNView to avoid cast crashes
+        self.view = SCNView(frame: .zero)
+    }
     
-    var redMaterial: SCNMaterial = SCNMaterial.init()
-    var darkGrayMaterial: SCNMaterial = SCNMaterial.init()
-    var blueMaterial: SCNMaterial = SCNMaterial.init()
-    
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print()
         
         primaryScene = SCNScene()
         
@@ -41,8 +34,13 @@ class GameViewController: UIViewController  {
         blueMaterial.lightingModel = .constant
         blueMaterial.diffuse.contents = UIColor.blue
         
+        // Safely grab the SCNView
+        guard let scnView = self.view as? SCNView else {
+            assertionFailure("Expected SCNView")
+            return
+        }
+        self.scnView = scnView
         
-        scnView = self.view as! SCNView
         scnView.scene = primaryScene
         scnView.antialiasingMode = .multisampling4X
         scnView.allowsCameraControl = true
@@ -53,135 +51,138 @@ class GameViewController: UIViewController  {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
     }
-    
-    override func viewDidAppear(_ animated: Bool) { 
-        
-    }
-    
-    
-    func generateTetrahedron() -> SCNNode {
-        print("generateTetrahedron()")
-        let vertices: [SCNVector3] = [
-            SCNVector3(sqrt(8/9), 0, -1/3),
-            SCNVector3(-sqrt(2/9), sqrt(2/3), -1/3.0),
-            SCNVector3(-sqrt(2/9), -sqrt(2/3), -1/3),
-            SCNVector3( 0, 0, 1)
-        ]
-        
-        print("tetrahedron edge length: \(String(describing: sqrt(8/3.0)))")
-        
-        let source = SCNGeometrySource(vertices: vertices)
-        
-        let indices: [UInt16] = [
-            0, 1, 2,
-            2, 0, 3,
-            3, 0, 1,
-            1, 2, 3
-        ]
-        
-        //        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.firstMaterial?.diffuse.contents = UIColor.blue
-        tetrahedronNode = SCNNode(geometry: geometry)
-        tetrahedronNode.position = SCNVector3Make(-1.5, 0, 0)
-        tetrahedronNode.position = SCNVector3Zero
-        tetrahedronNode.scale = SCNVector3Make(1, 1, 1)
-        
-        //        scnView.scene?.rootNode.addChildNode(tetrahedronNode)
-        
-        primaryScene.rootNode.addChildNode(tetrahedronNode)
-        return tetrahedronNode
-    }
-    
-    func generateOctahedron() -> SCNNode {
-        print("generateOctahedron()")
-        let vertices: [SCNVector3] = [
-            SCNVector3(0, 1, 0),
-            SCNVector3(-0.5, 0, 0.5),
-            SCNVector3(0.5, 0, 0.5),
-            SCNVector3(0.5, 0, -0.5),
-            SCNVector3(-0.5, 0, -0.5),
-            SCNVector3(0, -1, 0),
-        ]
-        
-        let source = SCNGeometrySource(vertices: vertices)
-        
-        let indices: [UInt16] = [
-            0, 1, 2,
-            2, 3, 0,
-            3, 4, 0,
-            4, 1, 0,
-            1, 5, 2,
-            2, 5, 3,
-            3, 5, 4,
-            4, 5, 1
-        ]
-        
-        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        
-        // Initialize material properties here
-        blueMaterial.diffuse.contents = UIColor.blue
-        blueMaterial.lightingModel = .constant
-        
-        geometry.materials = [blueMaterial]
-        
-        octahedronNode = SCNNode(geometry: geometry)
-        octahedronNode.scale = SCNVector3Make(1, 1, 1)
-        
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
-        octahedronNode.runAction(rotateAction)
-        
-        return octahedronNode
-    }
-    
-    
-    @objc
-    func handleTap(_ gestureRecognize: UIGestureRecognizer)
-    {
-        // retrieve the SCNView
-        let scnView = self.view as! SCNView
-        
-        // check what nodes are tapped
-        let p = gestureRecognize.location(in: scnView)
-        let hitResults = scnView.hitTest(p, options: [:])
-        // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result = hitResults[0]
-            
-            // get its material
-            let material = result.node.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 2.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.0
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = UIColor.red
-            
-            SCNTransaction.commit()
-        }
-    }
-    
-    override var shouldAutorotate: Bool { return true }
-    
-    override var prefersStatusBarHidden: Bool { return true }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
-    {
-        if UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad { return .allButUpsideDown }
-        else { return .all }
-    }
+    // ...
 }
+
+//class GameViewController: UIViewController  {
+//    var primaryScene: SCNScene = SCNScene.init()
+//    var scnView: SCNView = SCNView.init()
+//    
+//    var octahedronNode: SCNNode = SCNNode.init()
+//    var tetrahedronNode: SCNNode = SCNNode.init()
+//    var tetrahedronNode_2: SCNNode = SCNNode.init()
+//    
+//    var geometryGenerator: GeometryGenerator!
+//    
+//    override func loadView() {
+//        view = SCNView()
+//    }
+//    
+//    override func viewDidLoad()
+//    {
+//        super.viewDidLoad()
+//        
+//        print()
+//        
+//        primaryScene = SCNScene()
+//        
+//        // Set up camera
+//        let cameraNode = SCNNode()
+//        cameraNode.camera = SCNCamera()
+//        cameraNode.position = SCNVector3(x: 0, y: 0, z: 5)
+//        cameraNode.look(at: SCNVector3(0, 0, 0))
+//        cameraNode.camera?.automaticallyAdjustsZRange = true
+//        primaryScene.rootNode.addChildNode(cameraNode)
+//        
+//        // Create and add lights to the scene
+//        let lightNode = SCNNode()
+//        lightNode.light = SCNLight()
+//        lightNode.light!.type = .omni
+//        lightNode.light!.color = UIColor.white
+//        lightNode.position = SCNVector3(x: 0, y: 0, z: 100)
+//        primaryScene.rootNode.addChildNode(lightNode)
+//        
+//        let lightNode2 = SCNNode()
+//        lightNode2.light = SCNLight()
+//        lightNode2.light!.type = .omni
+//        lightNode2.light!.color = UIColor.white
+//        lightNode2.position = SCNVector3(x: 0, y: 0, z: -100)
+//        primaryScene.rootNode.addChildNode(lightNode2)
+//        
+//        // Create and add an ambient light to the scene
+//        let ambientLightNode = SCNNode()
+//        ambientLightNode.light = SCNLight()
+//        ambientLightNode.light!.type = .ambient
+//        ambientLightNode.light!.color = UIColor.gray
+//        primaryScene.rootNode.addChildNode(ambientLightNode)
+//        
+//        geometryGenerator = GeometryGenerator()
+//        
+//        scnView = self.view as! SCNView
+//        scnView.scene = primaryScene
+//        scnView.antialiasingMode = .multisampling4X
+//        scnView.allowsCameraControl = true
+//        scnView.showsStatistics = false
+//        scnView.backgroundColor = UIColor.black
+//        scnView.autoenablesDefaultLighting = false  // Disabled to avoid conflict with custom lights
+//        scnView.isTemporalAntialiasingEnabled = true
+//        
+//        // Generate and add octahedron
+//        let octahedron = geometryGenerator.generateOctahedron()
+//        primaryScene.rootNode.addChildNode(octahedron)
+//        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//        scnView.addGestureRecognizer(tapGesture)
+//    }
+//    
+//    override func viewDidAppear(_ animated: Bool) { 
+//        
+//    }
+//    
+//    
+//    func generateTetrahedron() -> SCNNode {
+//        return geometryGenerator.generateTetrahedron()
+//    }
+//    
+//    func generateOctahedron() -> SCNNode {
+//        return geometryGenerator.generateOctahedron()
+//    }
+//    
+//    
+//    @objc
+//    func handleTap(_ gestureRecognize: UIGestureRecognizer)
+//    {
+//        // retrieve the SCNView
+//        let scnView = self.view as! SCNView
+//        
+//        // check what nodes are tapped
+//        let p = gestureRecognize.location(in: scnView)
+//        let hitResults = scnView.hitTest(p, options: [:])
+//        // check that we clicked on at least one object
+//        if hitResults.count > 0 {
+//            // retrieved the first clicked object
+//            let result = hitResults[0]
+//            
+//            // get its material
+//            let material = result.node.geometry!.firstMaterial!
+//            
+//            // highlight it
+//            SCNTransaction.begin()
+//            SCNTransaction.animationDuration = 2.5
+//            
+//            // on completion - unhighlight
+//            SCNTransaction.completionBlock = {
+//                SCNTransaction.begin()
+//                SCNTransaction.animationDuration = 0.0
+//                
+//                material.emission.contents = UIColor.black
+//                
+//                SCNTransaction.commit()
+//            }
+//            
+//            material.emission.contents = UIColor.red
+//            
+//            SCNTransaction.commit()
+//        }
+//    }
+//    
+//    override var shouldAutorotate: Bool { return true }
+//    
+//    override var prefersStatusBarHidden: Bool { return true }
+//    
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
+//    {
+//        if UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad { return .allButUpsideDown }
+//        else { return .all }
+//    }
+//}
