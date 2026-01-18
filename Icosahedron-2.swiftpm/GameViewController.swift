@@ -79,7 +79,7 @@ class GameViewController: UIViewController  {
             1, 2, 3
         ]
         
-//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        //        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.firstMaterial?.diffuse.contents = UIColor.blue
@@ -88,7 +88,7 @@ class GameViewController: UIViewController  {
         tetrahedronNode.position = SCNVector3Zero
         tetrahedronNode.scale = SCNVector3Make(1, 1, 1)
         
-//        scnView.scene?.rootNode.addChildNode(tetrahedronNode)
+        //        scnView.scene?.rootNode.addChildNode(tetrahedronNode)
         
         primaryScene.rootNode.addChildNode(tetrahedronNode)
         return tetrahedronNode
@@ -118,14 +118,17 @@ class GameViewController: UIViewController  {
             4, 5, 1
         ]
         
-//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         
         let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.firstMaterial?.diffuse.contents = UIColor.blue
+        
+        // Initialize material properties here
+        blueMaterial.diffuse.contents = UIColor.blue
+        blueMaterial.lightingModel = .constant
+        
+        geometry.materials = [blueMaterial]
         
         octahedronNode = SCNNode(geometry: geometry)
-        octahedronNode.geometry?.materials = [blueMaterial]
         octahedronNode.scale = SCNVector3Make(1, 1, 1)
         
         let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))

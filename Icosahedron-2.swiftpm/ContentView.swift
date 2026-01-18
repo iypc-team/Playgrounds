@@ -1,4 +1,4 @@
-//  Icosahedron-2  01/18/2026-1
+//  Icosahedron-2  01/18/2026-2
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
@@ -19,7 +19,7 @@ struct SceneKitView: UIViewRepresentable {
         // Set up camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 5)
         cameraNode.look(at: SCNVector3(0, 0, 0))
         cameraNode.camera?.automaticallyAdjustsZRange = true
         primaryScene.rootNode.addChildNode(cameraNode)
@@ -46,14 +46,9 @@ struct SceneKitView: UIViewRepresentable {
         ambientLightNode.light!.color = UIColor.gray
         primaryScene.rootNode.addChildNode(ambientLightNode)
         
-        // Generate and add octahedron, handling potential nil
-        // Initializer for conditional binding must have Optional type, not 'SCNNode'
-        if let ship = gameViewController.generateOctahedron() {
-            primaryScene.rootNode.addChildNode(ship)
-        } else {
-            // Fallback: Could add a default shape or log an error
-            print("Failed to generate octahedron")
-        }
+        // Generate and add octahedron
+        let ship = gameViewController.generateOctahedron()
+        primaryScene.rootNode.addChildNode(ship)
         
         scnView.scene = primaryScene
         return scnView
