@@ -13,8 +13,6 @@ class GameViewController: UIViewController  {
     
     var geometryGenerator: GeometryGenerator!
     
-    // ...
-    
     override func loadView() {
         // Make sure our view is an SCNView to avoid cast crashes
         self.view = SCNView(frame: .zero)
@@ -58,7 +56,7 @@ class GameViewController: UIViewController  {
         scnView.backgroundColor = UIColor.clear
         scnView.debugOptions = .showWireframe
         
-        let octahedron = geometryGenerator.generateTetrahedron()
+        let octahedron = geometryGenerator.generateDodecahedron()
         primaryScene.rootNode.addChildNode(octahedron)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))

@@ -47,12 +47,46 @@ class GeometryGenerator {
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.materials = [blueMaterial]
         
+        // Fix: Enable double-sided rendering to avoid backface culling issues
+        geometry.firstMaterial?.isDoubleSided = true
+        
         let tetrahedronNode = SCNNode(geometry: geometry)
         tetrahedronNode.position = SCNVector3Zero
         tetrahedronNode.scale = SCNVector3(1, 1, 1)
         
         return tetrahedronNode
     }
+    
+//    func generateTetrahedron() -> SCNNode {
+//        print("generateTetrahedron()")
+//        let vertices: [SCNVector3] = [
+//            SCNVector3(sqrt(8/9), 0, -1/3),
+//            SCNVector3(-sqrt(2/9), sqrt(2/3), -1/3.0),
+//            SCNVector3(-sqrt(2/9), -sqrt(2/3), -1/3),
+//            SCNVector3(0, 0, 1)
+//        ]
+//        
+//        print("tetrahedron edge length: \(sqrt(8/3.0))")
+//        
+//        let source = SCNGeometrySource(vertices: vertices)
+//        
+//        let indices: [UInt16] = [
+//            0, 1, 2,
+//            2, 0, 3,
+//            3, 0, 1,
+//            1, 2, 3
+//        ]
+//        
+//        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+//        let geometry = SCNGeometry(sources: [source], elements: [element])
+//        geometry.materials = [blueMaterial]
+//        
+//        let tetrahedronNode = SCNNode(geometry: geometry)
+//        tetrahedronNode.position = SCNVector3Zero
+//        tetrahedronNode.scale = SCNVector3(1, 1, 1)
+//        
+//        return tetrahedronNode
+//    }
     
     func generateOctahedron() -> SCNNode {
         print("generateOctahedron()")
