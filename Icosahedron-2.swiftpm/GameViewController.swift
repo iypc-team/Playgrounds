@@ -5,6 +5,12 @@ import SwiftUI
 import SceneKit
 
 class GameViewController: UIViewController  {
+    var primaryScene: SCNScene!
+    var scnView: SCNView!
+    var redMaterial: SCNMaterial!
+    var darkGrayMaterial: SCNMaterial!
+    var blueMaterial: SCNMaterial!
+    
     // ...
     
     override func loadView() {
