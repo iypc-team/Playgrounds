@@ -92,5 +92,63 @@ class GeometryGenerator {
         return octahedronNode
     }
     
+    func generateDodecahedron() -> SCNNode {
+        print("generateDodecahedron()")
+        // Golden ratio
+        let phi = (1.0 + sqrt(5.0)) / 2.0
+        
+        // The 20 vertices of a dodecahedron (centered at origin, unit edges)
+        let vertices: [SCNVector3] = [
+            SCNVector3(-1, -1, -1),
+            SCNVector3(-1, -1,  1),
+            SCNVector3(-1,  1, -1),
+            SCNVector3(-1,  1,  1),
+            SCNVector3( 1, -1, -1),
+            SCNVector3( 1, -1,  1),
+            SCNVector3( 1,  1, -1),
+            SCNVector3( 1,  1,  1),
+            SCNVector3(0, -1/phi, -phi),
+            SCNVector3(0, -1/phi,  phi),
+            SCNVector3(0,  1/phi, -phi),
+            SCNVector3(0,  1/phi,  phi),
+            SCNVector3(-1/phi, -phi, 0),
+            SCNVector3(-1/phi,  phi, 0),
+            SCNVector3( 1/phi, -phi, 0),
+            SCNVector3( 1/phi,  phi, 0),
+            SCNVector3(-phi, 0, -1/phi),
+            SCNVector3( phi, 0, -1/phi),
+            SCNVector3(-phi, 0,  1/phi),
+            SCNVector3( phi, 0,  1/phi)
+        ]
+        
+        let source = SCNGeometrySource(vertices: vertices)
+        
+        // Indices for each of the 12 faces, subdivided into triangles
+        let indices: [UInt16] = [
+            0, 8, 9, 0, 9, 1,
+            0, 12, 8, 0, 1, 13,
+            0, 13, 12, 1, 9, 11,
+            1, 11, 13, 2, 10, 8,
+            2, 8, 12, 2, 12, 14,
+            2, 14, 10, 3, 11, 9,
+            3, 9, 8, 3, 8, 10,
+            3, 10, 15, 3, 15, 11,
+            4, 14, 12, 4, 12, 13,
+            4, 13, 11, 4, 11, 15,
+            4, 15, 14, 5, 15, 10,
+            5, 10, 14, 5, 14, 15
+        ]
+        
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        geometry.materials = [blueMaterial]
+        
+        let dodecahedronNode = SCNNode(geometry: geometry)
+        dodecahedronNode.position = SCNVector3Zero
+        dodecahedronNode.scale = SCNVector3(1, 1, 1)
+        
+        return dodecahedronNode
+    }
+    
     // If tap interaction is needed, add handleTap method and integrate into ContentView's SCNView
 }
