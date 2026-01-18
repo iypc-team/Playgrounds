@@ -58,7 +58,7 @@ class GameViewController: UIViewController  {
         scnView.backgroundColor = UIColor.clear
         scnView.debugOptions = .showWireframe
         
-        let octahedron = geometryGenerator.generateOctahedron()
+        let octahedron = geometryGenerator.generateTetrahedron()
         primaryScene.rootNode.addChildNode(octahedron)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -66,6 +66,7 @@ class GameViewController: UIViewController  {
     }
     
     @objc func handleTap(_ gestureRecognize: UITapGestureRecognizer) {
+        print("UITapGestureRecognizer ")
         // Retrieve the SCNView from the gesture
         let scnView = self.view as! SCNView
         
@@ -77,9 +78,11 @@ class GameViewController: UIViewController  {
         if hitResults.count > 0 {
             // Retrieved the first clicked object
             let result = hitResults[0]
-            
+            print("result: \(result)")
+                  
             // Get its material
             let material = result.node.geometry!.firstMaterial!
+            print("material: \(material )\n")
             
             // Highlight it
             SCNTransaction.begin()
@@ -104,4 +107,3 @@ class GameViewController: UIViewController  {
     // ...
 }
 
-// ... (commented code remains unchanged)
