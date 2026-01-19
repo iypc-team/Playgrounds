@@ -1,5 +1,5 @@
 //  GameViewController.swift
-//   
+//   polyhedron
 
 import SwiftUI
 import SceneKit
@@ -56,7 +56,7 @@ class GameViewController: UIViewController  {
         scnView.backgroundColor = UIColor.black
         scnView.debugOptions = .showWireframe
         
-        let polyhedron = geometryGenerator.generateTetrahedron()
+        let polyhedron = geometryGenerator.generateDodecahedron()
         primaryScene.rootNode.addChildNode(polyhedron)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -102,6 +102,5 @@ class GameViewController: UIViewController  {
         }
     }
     
-    // ...
 }
 

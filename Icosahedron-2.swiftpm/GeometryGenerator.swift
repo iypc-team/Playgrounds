@@ -37,7 +37,7 @@ class GeometryGenerator {
             SCNVector3(0, 0, 1)
         ]
         
-        print("tetrahedron edge length: \(sqrt(8/3.0))")
+//        print("tetrahedron edge length: \(sqrt(8/3.0))")
         
         let source = SCNGeometrySource(vertices: vertices)
         
@@ -94,6 +94,9 @@ class GeometryGenerator {
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.materials = [blueMaterial]
         
+        // Fix: Enable double-sided rendering to avoid backface culling issues
+        geometry.firstMaterial?.isDoubleSided = true
+        
         let octahedronNode = SCNNode(geometry: geometry)
         octahedronNode.scale = SCNVector3(1, 1, 1)
         
@@ -105,10 +108,10 @@ class GeometryGenerator {
     
     func generateDodecahedron() -> SCNNode {
         print("generateDodecahedron()")
-        // Golden ratio
+        
         let phi = (1.0 + sqrt(5.0)) / 2.0
         
-        // The 20 vertices of a dodecahedron (centered at origin, scaled for better visibility)
+        // 20 vertices of a regular dodecahedron (centered at origin)
         let vertices: [SCNVector3] = [
             SCNVector3(-1, -1, -1),
             SCNVector3(-1, -1,  1),
@@ -134,7 +137,7 @@ class GeometryGenerator {
         
         let source = SCNGeometrySource(vertices: vertices)
         
-        // The 12 pentagonal faces, each as an array of 5 vertex indices
+        // 12 pentagonal faces (vertex indices)
         let faces: [[UInt16]] = [
             [0, 8, 10, 2, 16],
             [0, 16, 18, 1, 12],
@@ -150,29 +153,28 @@ class GeometryGenerator {
             [3, 15, 7, 19, 13]
         ]
         
-        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,b,c], [a,c,d], [a,d,e]
+        // Triangulate each pentagon with flipped winding for outward normals
         var indices: [UInt16] = []
         for face in faces {
-            indices.append(contentsOf: [face[0], face[1], face[2]])
-            indices.append(contentsOf: [face[0], face[2], face[3]])
-            indices.append(contentsOf: [face[0], face[3], face[4]])
+            print("face: \(face )")
+            indices.append(contentsOf: [face[0], face[2], face[1]])
+            indices.append(contentsOf: [face[0], face[3], face[2]])
+            indices.append(contentsOf: [face[0], face[4], face[3]])
         }
         
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.materials = [blueMaterial]
-        
-        // Fix: Enable double-sided rendering to avoid backface culling issues
         geometry.firstMaterial?.isDoubleSided = true
         
-        let dodecahedronNode = SCNNode(geometry: geometry)
-        dodecahedronNode.position = SCNVector3Zero
-        dodecahedronNode.scale = SCNVector3(1, 1, 1)  // Increased scale for better visibility
+        let node = SCNNode(geometry: geometry)
+        node.position = SCNVector3Zero
+        node.scale = SCNVector3(1, 1, 1)
+//        node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
         
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
-        dodecahedronNode.runAction(rotateAction)
+        print()
         
-        return dodecahedronNode
+        return node
     }
     
 }
