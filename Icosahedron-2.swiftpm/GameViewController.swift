@@ -56,8 +56,8 @@ class GameViewController: UIViewController  {
         scnView.backgroundColor = UIColor.black
         scnView.debugOptions = .showWireframe
         
-        let octahedron = geometryGenerator.generateDodecahedron()
-        primaryScene.rootNode.addChildNode(octahedron)
+        let polyhedron = geometryGenerator.generateTetrahedron()
+        primaryScene.rootNode.addChildNode(polyhedron)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)

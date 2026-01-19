@@ -8,6 +8,7 @@ class GeometryGenerator {
     var redMaterial: SCNMaterial
     var darkGrayMaterial: SCNMaterial
     var blueMaterial: SCNMaterial
+    var wireframeMaterial: SCNMaterial
     
     init() {
         redMaterial = SCNMaterial()
@@ -20,7 +21,11 @@ class GeometryGenerator {
         
         blueMaterial = SCNMaterial()
         blueMaterial.lightingModel = .constant
-        blueMaterial.diffuse.contents = UIColor.clear
+        blueMaterial.diffuse.contents = UIColor.blue
+        
+        wireframeMaterial = SCNMaterial()
+        wireframeMaterial.lightingModel = .constant
+        wireframeMaterial.diffuse.contents = UIColor.clear
     }
     
     func generateTetrahedron() -> SCNNode {
@@ -53,6 +58,9 @@ class GeometryGenerator {
         let tetrahedronNode = SCNNode(geometry: geometry)
         tetrahedronNode.position = SCNVector3Zero
         tetrahedronNode.scale = SCNVector3(1, 1, 1)
+        
+        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
+        tetrahedronNode.runAction(rotateAction)
         
         return tetrahedronNode
     }
@@ -142,12 +150,12 @@ class GeometryGenerator {
             [3, 15, 7, 19, 13]
         ]
         
-        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,c,b], [a,d,c], [a,e,d] to flip winding
+        // Triangulate each pentagon: for each face [a,b,c,d,e], add [a,b,c], [a,c,d], [a,d,e]
         var indices: [UInt16] = []
         for face in faces {
-            indices.append(contentsOf: [face[0], face[2], face[1]])
-            indices.append(contentsOf: [face[0], face[3], face[2]])
-            indices.append(contentsOf: [face[0], face[4], face[3]])
+            indices.append(contentsOf: [face[0], face[1], face[2]])
+            indices.append(contentsOf: [face[0], face[2], face[3]])
+            indices.append(contentsOf: [face[0], face[3], face[4]])
         }
         
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
@@ -166,5 +174,6 @@ class GeometryGenerator {
         
         return dodecahedronNode
     }
+    
 }
 
