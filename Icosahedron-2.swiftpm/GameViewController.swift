@@ -28,18 +28,6 @@ class GameViewController: UIViewController  {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 6)
         primaryScene.rootNode.addChildNode(cameraNode)
         
-        redMaterial = SCNMaterial()
-        redMaterial.lightingModel = .constant
-        redMaterial.diffuse.contents = UIColor.red
-        
-        darkGrayMaterial = SCNMaterial()
-        darkGrayMaterial.lightingModel = .constant
-        darkGrayMaterial.diffuse.contents = UIColor.darkGray
-        
-        blueMaterial = SCNMaterial()
-        blueMaterial.lightingModel = .constant
-        blueMaterial.diffuse.contents = UIColor.blue
-        
         geometryGenerator = GeometryGenerator()
         
         // Safely grab the SCNView

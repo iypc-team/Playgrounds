@@ -14,6 +14,7 @@ class GeometryGenerator {
         redMaterial = SCNMaterial()
         redMaterial.lightingModel = .constant
         redMaterial.diffuse.contents = UIColor.red
+        print("redMaterial: \(redMaterial )")
         
         darkGrayMaterial = SCNMaterial()
         darkGrayMaterial.lightingModel = .constant
