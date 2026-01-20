@@ -28,6 +28,10 @@ class GeometryGenerator {
         wireframeMaterial.diffuse.contents = UIColor.clear
     }
     
+    func toggleMaterial() -> SCNMaterial  {
+        return wireframeMaterial 
+    }
+    
     func generateTetrahedron() -> SCNNode {
         print("generateTetrahedron()")
         let vertices: [SCNVector3] = [
@@ -37,7 +41,7 @@ class GeometryGenerator {
             SCNVector3(0, 0, 1)
         ]
         
-//        print("tetrahedron edge length: \(sqrt(8/3.0))")
+        //        print("tetrahedron edge length: \(sqrt(8/3.0))")
         
         let source = SCNGeometrySource(vertices: vertices)
         
@@ -167,15 +171,14 @@ class GeometryGenerator {
         geometry.materials = [blueMaterial]
         geometry.firstMaterial?.isDoubleSided = true
         
-        let node = SCNNode(geometry: geometry)
-        node.position = SCNVector3Zero
-        node.scale = SCNVector3(1, 1, 1)
-//        node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
+        let dodecahedronNode = SCNNode(geometry: geometry)
+        dodecahedronNode.position = SCNVector3Zero
+        dodecahedronNode.scale = SCNVector3(1, 1, 1)
+        //        dodecahedronNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
         
         print()
         
-        return node
+        return dodecahedronNode
     }
     
 }
-
