@@ -7,14 +7,9 @@ import SceneKit
 class GameViewController: UIViewController  {
     var primaryScene: SCNScene!
     var scnView: SCNView!
-    var redMaterial: SCNMaterial!
-    var darkGrayMaterial: SCNMaterial!
-    var blueMaterial: SCNMaterial!
-    
     var geometryGenerator: GeometryGenerator!
     
     override func loadView() {
-        // Make sure our view is an SCNView to avoid cast crashes
         self.view = SCNView(frame: .zero)
     }
     
@@ -72,12 +67,12 @@ class GameViewController: UIViewController  {
             
             // Highlight it
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
+            SCNTransaction.animationDuration = 5.5
             
             // On completion - unhighlight
             SCNTransaction.completionBlock = {
                 SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
+                SCNTransaction.animationDuration = 5.5
                 
                 material.emission.contents = UIColor.black
                 

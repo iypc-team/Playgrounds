@@ -14,15 +14,14 @@ class GeometryGenerator {
         redMaterial = SCNMaterial()
         redMaterial.lightingModel = .constant
         redMaterial.diffuse.contents = UIColor.red
-        print("redMaterial: \(redMaterial )")
         
         darkGrayMaterial = SCNMaterial()
         darkGrayMaterial.lightingModel = .constant
-        darkGrayMaterial.diffuse.contents = UIColor.darkGray
+        darkGrayMaterial.diffuse.contents = UIColor.systemGray
         
         blueMaterial = SCNMaterial()
         blueMaterial.lightingModel = .constant
-        blueMaterial.diffuse.contents = UIColor.blue
+        blueMaterial.diffuse.contents = UIColor.systemBlue
         
         wireframeMaterial = SCNMaterial()
         wireframeMaterial.lightingModel = .constant
@@ -98,8 +97,6 @@ class GeometryGenerator {
         
         let geometry = SCNGeometry(sources: [source], elements: [element])
         geometry.materials = [blueMaterial]
-        
-        // Fix: Enable double-sided rendering to avoid backface culling issues
         geometry.firstMaterial?.isDoubleSided = true
         
         let octahedronNode = SCNNode(geometry: geometry)
@@ -169,7 +166,7 @@ class GeometryGenerator {
         
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.materials = [blueMaterial]
+        geometry.materials = [darkGrayMaterial]
         geometry.firstMaterial?.isDoubleSided = true
         
         let dodecahedronNode = SCNNode(geometry: geometry)
