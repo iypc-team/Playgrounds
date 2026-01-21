@@ -1,15 +1,28 @@
-// 
+//
 //  GeometryGenerator.swift
 //  Icosahedron-2
+//
+//  Refactored by Code GPT 🧠
+//
 
 import SceneKit
+import UIKit
+
+enum PlatonicSolid {
+    case tetrahedron
+    case octahedron
+    case dodecahedron
+}
 
 class GeometryGenerator {
-    var redMaterial: SCNMaterial
-    var darkGrayMaterial: SCNMaterial
-    var blueMaterial: SCNMaterial
-    var wireframeMaterial: SCNMaterial
     
+    // MARK: - Materials
+    private var redMaterial: SCNMaterial
+    private var darkGrayMaterial: SCNMaterial
+    private var blueMaterial: SCNMaterial
+    private var wireframeMaterial: SCNMaterial
+    
+    // MARK: - Init
     init() {
         redMaterial = SCNMaterial()
         redMaterial.lightingModel = .constant
@@ -25,25 +38,43 @@ class GeometryGenerator {
         
         wireframeMaterial = SCNMaterial()
         wireframeMaterial.lightingModel = .constant
-        wireframeMaterial.diffuse.contents = UIColor.clear
+        wireframeMaterial.diffuse.contents = UIColor.white
+        wireframeMaterial.fillMode = .lines
     }
     
-    func toggleMaterial() -> SCNMaterial  {
-        return wireframeMaterial 
+    // MARK: - Public API
+    func generateSolid(_ type: PlatonicSolid, wireframe: Bool = false) -> SCNNode {
+        let geometry: SCNGeometry
+        
+        switch type {
+        case .tetrahedron:
+            geometry = generateTetrahedronGeometry()
+            geometry.materials = [blueMaterial]
+        case .octahedron:
+            geometry = generateOctahedronGeometry()
+            geometry.materials = [blueMaterial]
+        case .dodecahedron:
+            geometry = generateDodecahedronGeometry()
+            geometry.materials = [blueMaterial]
+        }
+        
+        geometry.firstMaterial?.isDoubleSided = true
+        
+        // Wireframe toggle
+        if wireframe { toggleWireframe(for: geometry, enable: true) }
+        
+        // Return rotating node
+        return rotatingNode(with: geometry)
     }
     
-    func generateTetrahedron() -> SCNNode {
-        print("generateTetrahedron()")
+    // MARK: - Geometry Generators
+    private func generateTetrahedronGeometry() -> SCNGeometry {
         let vertices: [SCNVector3] = [
-            SCNVector3(sqrt(8/9), 0, -1/3),
-            SCNVector3(-sqrt(2/9), sqrt(2/3), -1/3.0),
-            SCNVector3(-sqrt(2/9), -sqrt(2/3), -1/3),
+            SCNVector3(sqrt(8.0/9.0), 0, -1.0/3.0),
+            SCNVector3(-sqrt(2.0/9.0), sqrt(2.0/3.0), -1.0/3.0),
+            SCNVector3(-sqrt(2.0/9.0), -sqrt(2.0/3.0), -1.0/3.0),
             SCNVector3(0, 0, 1)
         ]
-        
-        //        print("tetrahedron edge length: \(sqrt(8/3.0))")
-        
-        let source = SCNGeometrySource(vertices: vertices)
         
         let indices: [UInt16] = [
             0, 1, 2,
@@ -52,35 +83,20 @@ class GeometryGenerator {
             1, 2, 3
         ]
         
+        let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.materials = [blueMaterial]
-        
-        // Fix: Enable double-sided rendering to avoid backface culling issues
-        geometry.firstMaterial?.isDoubleSided = true
-        
-        let tetrahedronNode = SCNNode(geometry: geometry)
-        tetrahedronNode.position = SCNVector3Zero
-        tetrahedronNode.scale = SCNVector3(1, 1, 1)
-        
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
-        tetrahedronNode.runAction(rotateAction)
-        
-        return tetrahedronNode
+        return SCNGeometry(sources: [source], elements: [element])
     }
     
-    func generateOctahedron() -> SCNNode {
-        print("generateOctahedron()")
+    private func generateOctahedronGeometry() -> SCNGeometry {
         let vertices: [SCNVector3] = [
             SCNVector3(0, 1, 0),
             SCNVector3(-0.5, 0, 0.5),
             SCNVector3(0.5, 0, 0.5),
             SCNVector3(0.5, 0, -0.5),
             SCNVector3(-0.5, 0, -0.5),
-            SCNVector3(0, -1, 0),
+            SCNVector3(0, -1, 0)
         ]
-        
-        let source = SCNGeometrySource(vertices: vertices)
         
         let indices: [UInt16] = [
             0, 1, 2,
@@ -93,27 +109,14 @@ class GeometryGenerator {
             4, 5, 1
         ]
         
+        let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.materials = [blueMaterial]
-        geometry.firstMaterial?.isDoubleSided = true
-        
-        let octahedronNode = SCNNode(geometry: geometry)
-        octahedronNode.scale = SCNVector3(1, 1, 1)
-        
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
-        octahedronNode.runAction(rotateAction)
-        
-        return octahedronNode
+        return SCNGeometry(sources: [source], elements: [element])
     }
     
-    func generateDodecahedron() -> SCNNode {
-        print("generateDodecahedron()")
-        
+    private func generateDodecahedronGeometry() -> SCNGeometry {
         let phi = (1.0 + sqrt(5.0)) / 2.0
         
-        // 20 vertices of a regular dodecahedron (centered at origin)
         let vertices: [SCNVector3] = [
             SCNVector3(-1, -1, -1),
             SCNVector3(-1, -1,  1),
@@ -137,9 +140,6 @@ class GeometryGenerator {
             SCNVector3( phi, 0,  1/phi)
         ]
         
-        let source = SCNGeometrySource(vertices: vertices)
-        
-        // 12 pentagonal faces (vertex indices)
         let faces: [[UInt16]] = [
             [0, 8, 10, 2, 16],
             [0, 16, 18, 1, 12],
@@ -155,28 +155,27 @@ class GeometryGenerator {
             [3, 15, 7, 19, 13]
         ]
         
-        // Triangulate each pentagon with flipped winding for outward normals
         var indices: [UInt16] = []
         for face in faces {
-            print("face: \(face )")
             indices.append(contentsOf: [face[0], face[2], face[1]])
             indices.append(contentsOf: [face[0], face[3], face[2]])
             indices.append(contentsOf: [face[0], face[4], face[3]])
         }
         
+        let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        geometry.materials = [darkGrayMaterial]
-        geometry.firstMaterial?.isDoubleSided = true
-        
-        let dodecahedronNode = SCNNode(geometry: geometry)
-        dodecahedronNode.position = SCNVector3Zero
-        dodecahedronNode.scale = SCNVector3(1, 1, 1)
-        //        dodecahedronNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
-        
-        print()
-        
-        return dodecahedronNode
+        return SCNGeometry(sources: [source], elements: [element])
     }
     
+    // MARK: - Helpers
+    private func rotatingNode(with geometry: SCNGeometry) -> SCNNode {
+        let node = SCNNode(geometry: geometry)
+        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
+        node.runAction(rotateAction)
+        return node
+    }
+    
+    private func toggleWireframe(for geometry: SCNGeometry, enable: Bool) {
+        geometry.firstMaterial?.fillMode = enable ? .lines : .fill
+    }
 }
