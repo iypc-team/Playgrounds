@@ -1,16 +1,14 @@
-//
 //  GameViewController.swift
 //  Icosahedron-2
 //
 //  Fixed by Code GPT 🧠 on 01/21/2026
-//
+//  scnView
 
 import UIKit
 import SceneKit
 import SwiftUI
 
 class GameViewController: UIViewController {
-    
     // MARK: - Scene Properties
     private var primaryScene = SCNScene()
     private var scnView: SCNView!
