@@ -1,4 +1,4 @@
-//  Polyhedron Viewer  01/21/2026-3
+//  Polyhedron Viewer  01/22/2026-1
 //  
 //  PolyhedronViewer.swift
 //  Created by Code GPT 🧠 on 01/21/2026.
@@ -50,7 +50,7 @@ struct PolyhedronViewer: View {
                 HStack(spacing: 12) {
                     Button("Tetrahedron") { currentSolid = .tetrahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .tetrahedron))
-                    Button("Tetrahedron") { currentSolid = .cube }
+                    Button("Cube") { currentSolid = .cube }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .cube))
                     Button("Octahedron") { currentSolid = .octahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .octahedron))
