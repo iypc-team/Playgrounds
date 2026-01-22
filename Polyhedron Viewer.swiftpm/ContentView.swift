@@ -1,10 +1,10 @@
-//  Polyhedron Viewer  01/21/2026- initial commit
+//  Polyhedron Viewer  01/21/2026-1
 //  
 //  PolyhedronViewer.swift
 //  Created by Code GPT 🧠 on 01/21/2026.
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //  
-//  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/Polyhedron%20Viewer.swiftpm
 //
 //  
 
@@ -50,10 +50,14 @@ struct PolyhedronViewer: View {
                 HStack(spacing: 12) {
                     Button("Tetrahedron") { currentSolid = .tetrahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .tetrahedron))
+                    Button("Tetrahedron") { currentSolid = .cube }
+                        .buttonStyle(PolyButtonStyle(selected: currentSolid == .cube))
                     Button("Octahedron") { currentSolid = .octahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .octahedron))
                     Button("Dodecahedron") { currentSolid = .dodecahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .dodecahedron))
+                    Button("Icosahedron") { currentSolid = .icosahedron }
+                        .buttonStyle(PolyButtonStyle(selected: currentSolid == .icosahedron))
                 }
                 
                 Toggle("Wireframe Mode", isOn: $wireframeMode)

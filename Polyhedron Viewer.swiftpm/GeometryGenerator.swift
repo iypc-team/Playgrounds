@@ -7,8 +7,10 @@ import UIKit
 
 enum PlatonicSolid {
     case tetrahedron
+    case cube
     case octahedron
     case dodecahedron
+    case icosahedron
 }
 
 class GeometryGenerator {
@@ -47,11 +49,17 @@ class GeometryGenerator {
         case .tetrahedron:
             geometry = generateTetrahedronGeometry()
             geometry.materials = [blueMaterial]
+        case .cube:
+            geometry = generateCubeGeometry()
+            geometry.materials = [blueMaterial]
         case .octahedron:
             geometry = generateOctahedronGeometry()
             geometry.materials = [blueMaterial]
         case .dodecahedron:
             geometry = generateDodecahedronGeometry()
+            geometry.materials = [blueMaterial]
+        case .icosahedron: 
+            geometry = generateIcosahedronGeometry()
             geometry.materials = [blueMaterial]
         }
         
@@ -83,6 +91,11 @@ class GeometryGenerator {
         let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         return SCNGeometry(sources: [source], elements: [element])
+    }
+    
+    private func generateCubeGeometry() -> SCNGeometry  {
+        
+        return SCNGeometry(sources: [], elements: [])
     }
     
     private func generateOctahedronGeometry() -> SCNGeometry {
@@ -162,6 +175,11 @@ class GeometryGenerator {
         let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         return SCNGeometry(sources: [source], elements: [element])
+    }
+    
+    private func generateIcosahedronGeometry() -> SCNGeometry {
+        
+        return SCNGeometry(sources: [], elements: [])
     }
     
     // MARK: - Helpers

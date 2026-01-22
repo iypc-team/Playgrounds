@@ -9,7 +9,6 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             PolyhedronViewer() // ✅ Use the interactive viewer
-                .preferredColorScheme(.dark)
         }
     }
 }
