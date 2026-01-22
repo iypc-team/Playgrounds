@@ -1,4 +1,4 @@
-//  Polyhedron Viewer  01/21/2026-1
+//  Polyhedron Viewer  01/21/2026-2
 //  
 //  PolyhedronViewer.swift
 //  Created by Code GPT 🧠 on 01/21/2026.

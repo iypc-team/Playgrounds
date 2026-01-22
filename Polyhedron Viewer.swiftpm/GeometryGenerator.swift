@@ -93,9 +93,38 @@ class GeometryGenerator {
         return SCNGeometry(sources: [source], elements: [element])
     }
     
-    private func generateCubeGeometry() -> SCNGeometry  {
+    private func generateCubeGeometry() -> SCNGeometry {
+        let vertices: [SCNVector3] = [
+            // Front
+            SCNVector3(-0.5, -0.5,  0.5),
+            SCNVector3( 0.5, -0.5,  0.5),
+            SCNVector3( 0.5,  0.5,  0.5),
+            SCNVector3(-0.5,  0.5,  0.5),
+            // Back
+            SCNVector3(-0.5, -0.5, -0.5),
+            SCNVector3( 0.5, -0.5, -0.5),
+            SCNVector3( 0.5,  0.5, -0.5),
+            SCNVector3(-0.5,  0.5, -0.5)
+        ]
         
-        return SCNGeometry(sources: [], elements: [])
+        let indices: [UInt16] = [
+            // Front
+            0, 1, 2,  2, 3, 0,
+            // Right
+            1, 5, 6,  6, 2, 1,
+            // Back
+            5, 4, 7,  7, 6, 5,
+            // Left
+            4, 0, 3,  3, 7, 4,
+            // Top
+            3, 2, 6,  6, 7, 3,
+            // Bottom
+            4, 5, 1,  1, 0, 4
+        ]
+        
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        return SCNGeometry(sources: [source], elements: [element])
     }
     
     private func generateOctahedronGeometry() -> SCNGeometry {
@@ -178,8 +207,29 @@ class GeometryGenerator {
     }
     
     private func generateIcosahedronGeometry() -> SCNGeometry {
+        let phi = (1.0 + sqrt(5.0)) / 2.0
+        let a = 1.0
+        let b = 1.0 / phi
         
-        return SCNGeometry(sources: [], elements: [])
+        let vertices: [SCNVector3] = [
+            SCNVector3( 0,  b, -a), SCNVector3( b,  a,  0),
+            SCNVector3(-b,  a,  0), SCNVector3( 0,  b,  a),
+            SCNVector3( 0, -b,  a), SCNVector3(-a,  0,  b),
+            SCNVector3( 0, -b, -a), SCNVector3( a,  0, -b),
+            SCNVector3( a,  0,  b), SCNVector3(-a,  0, -b),
+            SCNVector3( b, -a,  0), SCNVector3(-b, -a,  0)
+        ]
+        
+        let indices: [UInt16] = [
+            0,1,2,  3,2,1,  3,4,5,  3,8,4,  0,6,7,
+            0,9,6,  4,10,11, 6,11,10, 2,5,9, 11,9,5,
+            1,7,8, 10,8,7,  3,5,2,  3,1,8,  0,2,9,
+            0,7,1,  6,9,11, 6,10,7,  4,11,5,  4,8,10
+        ]
+        
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        return SCNGeometry(sources: [source], elements: [element])
     }
     
     // MARK: - Helpers
