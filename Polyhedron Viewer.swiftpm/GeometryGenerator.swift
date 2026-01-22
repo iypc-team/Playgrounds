@@ -16,7 +16,6 @@ enum PlatonicSolid {
 final class GeometryGenerator {
     
     // MARK: - Materials
-    
     private let blueMaterial: SCNMaterial = {
         let m = SCNMaterial()
         m.lightingModel = .lambert
@@ -33,6 +32,26 @@ final class GeometryGenerator {
     }()
     
     // MARK: - Public API
+    private func angleAroundAxis(
+        v: SCNVector3,
+        center: SCNVector3,
+        ref: SCNVector3,
+        axis: SCNVector3
+    ) -> Float {
+        
+        let px = v.x - center.x
+        let py = v.y - center.y
+        let pz = v.z - center.z
+        
+        let dot = ref.x * px + ref.y * py + ref.z * pz
+        
+        let cx = ref.y * pz - ref.z * py
+        let cy = ref.z * px - ref.x * pz
+        let cz = ref.x * py - ref.y * px
+        
+        let det = axis.x * cx + axis.y * cy + axis.z * cz
+        return atan2(det, dot)
+    }
     
     func generateSolid(_ type: PlatonicSolid, wireframe: Bool = false) -> SCNNode {
         let geometry: SCNGeometry
@@ -175,34 +194,101 @@ final class GeometryGenerator {
     }
     
     private func generateDodecahedronGeometry() -> SCNGeometry {
-        let phi = (1.0 + sqrt(5.0)) / 2.0
         
-        let vertices = normalizeVertices([
-            SCNVector3(-1,-1,-1), SCNVector3(-1,-1, 1),
-            SCNVector3(-1, 1,-1), SCNVector3(-1, 1, 1),
-            SCNVector3( 1,-1,-1), SCNVector3( 1,-1, 1),
-            SCNVector3( 1, 1,-1), SCNVector3( 1, 1, 1),
-            SCNVector3(0,-1/phi,-phi), SCNVector3(0,-1/phi, phi),
-            SCNVector3(0, 1/phi,-phi), SCNVector3(0, 1/phi, phi),
-            SCNVector3(-1/phi,-phi,0), SCNVector3(-1/phi, phi,0),
-            SCNVector3( 1/phi,-phi,0), SCNVector3( 1/phi, phi,0),
-            SCNVector3(-phi,0,-1/phi), SCNVector3( phi,0,-1/phi),
-            SCNVector3(-phi,0, 1/phi), SCNVector3( phi,0, 1/phi)
+        let phi: Float = (1.0 + sqrt(5.0)) / 2.0
+        let a: Float = 1.0
+        let b: Float = 1.0 / phi
+        
+        // ---- Icosahedron vertices ----
+        let icoVertices: [SCNVector3] = normalizeVertices([
+            SCNVector3( 0,  b, -a), SCNVector3( b,  a,  0),
+            SCNVector3(-b,  a,  0), SCNVector3( 0,  b,  a),
+            SCNVector3( 0, -b,  a), SCNVector3(-a,  0,  b),
+            SCNVector3( 0, -b, -a), SCNVector3( a,  0, -b),
+            SCNVector3( a,  0,  b), SCNVector3(-a,  0, -b),
+            SCNVector3( b, -a,  0), SCNVector3(-b, -a,  0)
         ])
         
-        let faces: [[UInt16]] = [
-            [0,8,10,2,16], [0,16,18,1,12], [0,12,14,4,8],
-            [8,4,17,6,10], [10,6,15,3,2], [2,3,13,18,16],
-            [1,18,13,11,9], [1,9,5,14,12], [4,14,5,17,8],
-            [5,9,19,7,17], [6,17,7,15,10], [3,15,7,19,13]
+        let icoFaces: [[Int]] = [
+            [0,1,2],[3,2,1],[3,4,5],[3,8,4],[0,6,7],
+            [0,9,6],[4,10,11],[6,11,10],[2,5,9],[11,9,5],
+            [1,7,8],[10,8,7],[3,5,2],[3,1,8],[0,2,9],
+            [0,7,1],[6,9,11],[6,10,7],[4,11,5],[4,8,10]
         ]
         
-        var indices: [UInt16] = []
-        for f in faces {
-            indices += [f[0],f[2],f[1], f[0],f[3],f[2], f[0],f[4],f[3]]
+        // ---- Dodecahedron vertices = face centers ----
+        var dodecaVertices: [SCNVector3] = []
+        dodecaVertices.reserveCapacity(icoFaces.count)
+        
+        for face in icoFaces {
+            let v0 = icoVertices[face[0]]
+            let v1 = icoVertices[face[1]]
+            let v2 = icoVertices[face[2]]
+            
+            let cx = (v0.x + v1.x + v2.x) / 3.0
+            let cy = (v0.y + v1.y + v2.y) / 3.0
+            let cz = (v0.z + v1.z + v2.z) / 3.0
+            
+            dodecaVertices.append(normalize(SCNVector3(cx, cy, cz)))
         }
         
-        return buildFlatShadedGeometry(baseVertices: vertices, indices: indices)
+        // ---- Build adjacency (each ico vertex → 5 faces) ----
+        var facesAtVertex: [[Int]] = Array(repeating: [], count: icoVertices.count)
+        for i in 0..<icoFaces.count {
+            let f = icoFaces[i]
+            facesAtVertex[f[0]].append(i)
+            facesAtVertex[f[1]].append(i)
+            facesAtVertex[f[2]].append(i)
+        }
+        
+        var indices: [UInt16] = []
+        
+        // ---- Build pentagons with angle sorting ----
+        for faceList in facesAtVertex {
+            
+            // Compute face center
+            var cx: Float = 0
+            var cy: Float = 0
+            var cz: Float = 0
+            
+            for idx in faceList {
+                let v = dodecaVertices[idx]
+                cx += v.x
+                cy += v.y
+                cz += v.z
+            }
+            
+            let count = Float(faceList.count)
+            let center = SCNVector3(cx / count, cy / count, cz / count)
+            let normal = normalize(center)
+            
+            let ref = normalize(SCNVector3(
+                dodecaVertices[faceList[0]].x - center.x,
+                dodecaVertices[faceList[0]].y - center.y,
+                dodecaVertices[faceList[0]].z - center.z
+            ))
+            
+            let sorted = faceList.sorted { i0, i1 in
+                let v0 = dodecaVertices[i0]
+                let v1 = dodecaVertices[i1]
+                
+                let a0 = angleAroundAxis(v: v0, center: center, ref: ref, axis: normal)
+                let a1 = angleAroundAxis(v: v1, center: center, ref: ref, axis: normal)
+                return a0 < a1
+            }
+            
+            // Fan triangulation
+            for i in 1..<(sorted.count - 1) {
+                indices.append(UInt16(sorted[0]))
+                indices.append(UInt16(sorted[i]))
+                indices.append(UInt16(sorted[i + 1]))
+            }
+        }
+        
+        return buildFlatShadedGeometry(
+            baseVertices: dodecaVertices,
+            indices: indices
+        )
     }
     
     private func generateIcosahedronGeometry() -> SCNGeometry {

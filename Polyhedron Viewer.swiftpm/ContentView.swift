@@ -1,4 +1,4 @@
-//  Polyhedron Viewer  01/22/2026-2
+//  Polyhedron Viewer  01/22/2026-3
 //  
 //  PolyhedronViewer.swift
 //  Copyright © 2018 IYPC Software. All rights reserved.
@@ -49,7 +49,7 @@ struct PolyhedronViewer: View {
                 HStack(spacing: 12) {
                     Button("Tetrahedron") { currentSolid = .tetrahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .tetrahedron))
-                    Button("Cube") { currentSolid = .cube }
+                    Button("      Cube      ") { currentSolid = .cube }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .cube))
                     Button("Octahedron") { currentSolid = .octahedron }
                         .buttonStyle(PolyButtonStyle(selected: currentSolid == .octahedron))
