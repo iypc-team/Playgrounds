@@ -1,6 +1,5 @@
 //  GeometryGenerator.swift
 //
-//  GeometryGenerator.swift
 //
 
 import SceneKit
@@ -117,17 +116,24 @@ final class GeometryGenerator {
     
     private func generateTetrahedronGeometry() -> SCNGeometry {
         let vertices = normalizeVertices([
-            SCNVector3( sqrt(8.0/9.0), 0, -1.0/3.0),
-            SCNVector3(-sqrt(2.0/9.0),  sqrt(2.0/3.0), -1.0/3.0),
-            SCNVector3(-sqrt(2.0/9.0), -sqrt(2.0/3.0), -1.0/3.0),
-            SCNVector3(0, 0, 1)
+            SCNVector3( 1,  1,  1),
+            SCNVector3(-1, -1,  1),
+            SCNVector3(-1,  1, -1),
+            SCNVector3( 1, -1, -1)
         ])
         
+        // IMPORTANT: CCW winding when viewed from outside
         let indices: [UInt16] = [
-            0,1,2, 2,0,3, 3,0,1, 1,2,3
+            0, 2, 1,
+            0, 1, 3,
+            0, 3, 2,
+            1, 2, 3
         ]
         
-        return buildFlatShadedGeometry(baseVertices: vertices, indices: indices)
+        return buildFlatShadedGeometry(
+            baseVertices: vertices,
+            indices: indices
+        )
     }
     
     private func generateCubeGeometry() -> SCNGeometry {

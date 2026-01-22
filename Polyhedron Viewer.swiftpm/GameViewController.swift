@@ -1,5 +1,4 @@
 //  GameViewController.swift
-//  Fixed by Code GPT 🧠 on 01/21/2026
 //  
 
 import UIKit

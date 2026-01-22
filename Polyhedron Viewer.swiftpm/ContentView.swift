@@ -1,7 +1,6 @@
-//  Polyhedron Viewer  01/22/2026-1
+//  Polyhedron Viewer  01/22/2026-2
 //  
 //  PolyhedronViewer.swift
-//  Created by Code GPT 🧠 on 01/21/2026.
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Polyhedron%20Viewer.swiftpm
