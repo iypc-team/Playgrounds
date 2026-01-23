@@ -1,4 +1,4 @@
-//  Polyhedron Viewer  01/22/2026-3
+//  Polyhedron Viewer  01/23/2026-4
 //  
 //  PolyhedronViewer.swift
 //  Copyright © 2018 IYPC Software. All rights reserved.
@@ -33,7 +33,7 @@ struct SceneKitView: UIViewControllerRepresentable {
 // MARK: - Main SwiftUI Viewer
 struct PolyhedronViewer: View {
     @State private var currentSolid: PlatonicSolid = .dodecahedron
-    @State private var wireframeMode: Bool = false
+    @State private var wireframeMode: Bool = true
     @State private var rotationEnabled: Bool = true
     
     var body: some View {
