@@ -7,7 +7,7 @@ import SwiftUI
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            PolyhedronViewer() // ✅ Use the interactive viewer
+            PolyhedronViewer()  // Use the interactive viewer
         }
     }
 }
