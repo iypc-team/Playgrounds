@@ -1,4 +1,4 @@
-//  Lumo Airplane  01/23/2026-1
+//  Lumo Airplane  01/23/2026-2
 //  AirplaneView.swift
 //  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
 // 
@@ -12,7 +12,6 @@ struct AirplaneView: View {
     
     var body: some View {
         ZStack {
-            // ---------- RealityKit scene ----------
             if let error = loadError {
                 Text("Failed to load airplane: \(error)")
                     .foregroundColor(.red)
@@ -46,8 +45,8 @@ struct AirplaneView: View {
                     Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                 }
-//                .pickerStyle(.segmented)
-                .pickerStyle(.menu)
+                //                .pickerStyle(.segmented)
+                .pickerStyle(.automatic)
                 
                 .padding()
             }
@@ -64,4 +63,3 @@ struct AirplaneView: View {
         }
     }
 }
-

@@ -8,7 +8,7 @@ import simd
 final class AirplaneViewModel: ObservableObject {
     @Published private(set) var orientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     @Published var revolutionsPerSecond: Float = 1.0  // Adjusted for step timing (1 step per second by default)
-    @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
+    @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)
     
     private let stepDegrees: Float = 22.5
     private let totalDegrees: Float = 360.0
@@ -17,7 +17,7 @@ final class AirplaneViewModel: ObservableObject {
     private var startDate = Date()
     
     init() { 
-        startClock()       // Auto‑start when created
+//        startClock()     // Auto‑start when created
     }
     
     deinit {

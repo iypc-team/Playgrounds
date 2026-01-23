@@ -19,10 +19,9 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
-        //        arView.scene.synchronizationService
+//        print(arView.scene.synchronizationService)
 //        print(arView.scene.synchronizationService as Any)
 //        print("scene: \(arView.scene)")
-        
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)
@@ -41,7 +40,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(light2)
         
         // Optionally, if you want to print its coordinates too, add to the subscribe block:
-//        print("Light2 position (coordinates): \(light2.position)\n")
+        print("Light2 position (coordinates): \(light2.position)\n")
         
         arView.scene.addAnchor(anchor)
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
