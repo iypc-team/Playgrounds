@@ -1,6 +1,6 @@
-// 
 //  ARViewContainer.swift
 //
+// print
 
 import SwiftUI
 import RealityKit
@@ -21,19 +21,19 @@ struct ARViewContainer: UIViewRepresentable {
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
         //        arView.scene.synchronizationService
 //        print(arView.scene.synchronizationService as Any)
-        print("scene: \(arView.scene)")
+//        print("scene: \(arView.scene)")
         
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)
-        print("Airplane position (coordinates): \(airplaneEntity.position)")
+//        print("Airplane position (coordinates): \(airplaneEntity.position)")
         
         // Add a directional light to illuminate the airplane
         let light = DirectionalLight()
         light.light.intensity = 4000  // Adjust intensity as needed
         light.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(1, 1, 1), relativeTo: nil)  // Position and orient the light
         anchor.addChild(light)
-        print("Light position (coordinates): \(light.position)")
+//        print("Light position (coordinates): \(light.position)")
         
         let light2 = DirectionalLight()
         light2.light.intensity = 4000  // Adjust intensity as needed
@@ -41,7 +41,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(light2)
         
         // Optionally, if you want to print its coordinates too, add to the subscribe block:
-        print("Light2 position (coordinates): \(light2.position)\n")
+//        print("Light2 position (coordinates): \(light2.position)\n")
         
         arView.scene.addAnchor(anchor)
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.

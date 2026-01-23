@@ -1,11 +1,7 @@
-//  Lumo Airplane  12/19/2025-1
-/*
- 
- https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
- 
- */
+//  Lumo Airplane  01/23/2026-1
+//  AirplaneView.swift
+//  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
 // 
-
 
 import SwiftUI
 
@@ -50,7 +46,8 @@ struct AirplaneView: View {
                     Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                 }
-                .pickerStyle(.segmented)
+//                .pickerStyle(.segmented)
+                .pickerStyle(.menu)
                 
                 .padding()
             }
@@ -67,3 +64,4 @@ struct AirplaneView: View {
         }
     }
 }
+

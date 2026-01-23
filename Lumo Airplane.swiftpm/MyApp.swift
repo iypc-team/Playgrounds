@@ -1,7 +1,6 @@
-// 
+//   MyApp.swift
 // 
 
-// 1️⃣ App entry point
 import SwiftUI
 
 @main
