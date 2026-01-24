@@ -1,4 +1,4 @@
-//  Lumo Airplane  01/23/2026-2
+//  Lumo Airplane  01/24/2026-1
 //  AirplaneView.swift
 //  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
 // 
@@ -45,12 +45,12 @@ struct AirplaneView: View {
                     Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                 }
-                //                .pickerStyle(.segmented)
+                .font(.system(size: 40, weight: .bold, design: .default))
                 .pickerStyle(.automatic)
                 
                 .padding()
             }
-            .font(.system(size: 16, weight: .bold, design: .default))
+            .font(.system(size: 18, weight: .bold, design: .default))
         }
         .task {
             // Load the USDZ model once when the view appears.
