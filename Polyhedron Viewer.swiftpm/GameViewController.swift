@@ -45,7 +45,7 @@ class GameViewController: UIViewController {
     private func setupCamera() {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 6)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 4)
         primaryScene.rootNode.addChildNode(cameraNode)
     }
     
@@ -127,5 +127,24 @@ extension GameViewController {
             let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8))
             node.runAction(rotateAction)
         }
+    }
+}
+
+// MARK: - Cleanup for SwiftUI lifecycle
+extension GameViewController {
+    /// Stops rotation and removes all SceneKit nodes for memory cleanup
+    func cleanup() {
+        // Stop rotation actions
+        currentNode?.removeAllActions()
+        // Remove the current polyhedron node
+        currentNode?.removeFromParentNode()
+        currentNode = nil
+        // Remove any remaining children in the scene
+        primaryScene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
+    }
+    
+    /// Show or hide wireframe overlay (if implemented as child node)
+    func setWireframeVisible(_ visible: Bool) {
+        currentNode?.childNode(withName: "wireframe", recursively: false)?.isHidden = !visible
     }
 }

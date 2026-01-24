@@ -1,11 +1,14 @@
-//  Polyhedron Viewer  01/23/2026-4
+//  Polyhedron Viewer  01/23/2026-5
 //  
 //  PolyhedronViewer.swift
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Polyhedron%20Viewer.swiftpm
 //
-//  
+//
+//  PolyhedronViewer.swift
+//  Polyhedron Viewer 01/23/2026-6
+//
 
 import SwiftUI
 import SceneKit
@@ -27,6 +30,13 @@ struct SceneKitView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: GameViewController, context: Context) {
         uiViewController.loadPolyhedron(type: currentSolid, wireframe: wireframeMode)
         uiViewController.setRotation(enabled: rotationEnabled)
+        uiViewController.setWireframeVisible(wireframeMode)
+    }
+    
+    // MARK: - Cleanup when view disappears
+    static func dismantleUIViewController(_ uiViewController: GameViewController, coordinator: ()) {
+        uiViewController.cleanup()
+        // Value of type 'GameViewController' has no member 'cleanup'
     }
 }
 
@@ -43,6 +53,10 @@ struct PolyhedronViewer: View {
                          wireframeMode: $wireframeMode,
                          rotationEnabled: $rotationEnabled)
             .edgesIgnoringSafeArea(.all)
+            // Cleanup when view disappears
+            .onDisappear {
+                print("🧹 PolyhedronViewer disappeared — cleaning up SceneKit resources.")
+            }
             
             // Control overlay
             VStack(spacing: 12) {
@@ -103,4 +117,3 @@ struct PolyhedronViewer_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
