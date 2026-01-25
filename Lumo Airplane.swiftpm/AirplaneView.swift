@@ -1,6 +1,7 @@
-//  Lumo Airplane  01/24/2026-2
+//  Lumo Airplane  01/24/2026-3
 //  AirplaneView.swift
 //  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
+// 
 // 
 
 import SwiftUI
@@ -9,6 +10,8 @@ struct AirplaneView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
+    
+    let fontSize: CGFloat = CGFloat(22)
     
     var body: some View {
         ZStack {
@@ -24,7 +27,6 @@ struct AirplaneView: View {
                 ProgressView("Loading airplane…")
             }
             
-            // ---------- UI overlay (optional) ----------
             VStack {
                 Spacer()
                 
@@ -40,18 +42,25 @@ struct AirplaneView: View {
                 // Example: change axis with a picker
                 Picker("Axis", selection: $vm.rotationAxis) {
                     Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
+                    Text("Minus X‑axis").tag(SIMD3<Float>(-1, 0, 0))
+                    
                     Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
+                    Text("Minus Y‑axis").tag(SIMD3<Float>(0, -1, 0))
+                    
                     Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
+                    Text("Minus Z‑axis").tag(SIMD3<Float>(0, 0, -1))
+                    
                     Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
+                    Text("Minus XY‑axis").tag(SIMD3<Float>(-1, -1, 0))
+                    
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
-                    Text("Reverse All‑axis").tag(SIMD3<Float>(-1, -1, -1))
+                    Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
                 }
-                .font(.system(size: 40, weight: .bold, design: .default))
+                .font(.system(size: fontSize, weight: .bold, design: .default))
                 .pickerStyle(.automatic)
-                
                 .padding()
             }
-            .font(.system(size: 18, weight: .bold, design: .default))
+            .font(.system(size: fontSize, weight: .bold, design: .default))
         }
         .task {
             // Load the USDZ model once when the view appears.
