@@ -1,7 +1,7 @@
-//  Lumo Airplane  01/25/2026-3
+//  Airplane  01/25/2026-4
 //  AirplaneView.swift
 // 
-//  https://github.com/iypc-team/Playgrounds/tree/main/Lumo%20Airplane.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 // 
 // 
 
