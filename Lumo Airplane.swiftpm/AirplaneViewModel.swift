@@ -1,6 +1,6 @@
 //  AirplaneViewModel.swift
 // 
-
+// 
 
 import Foundation
 import Combine
@@ -18,7 +18,7 @@ final class AirplaneViewModel: ObservableObject {
     private var startDate = Date()
     
     init() { 
-//        startClock()     // Auto‑start when created
+        //        startClock()     // Auto‑start when created
     }
     
     deinit {
@@ -56,4 +56,3 @@ final class AirplaneViewModel: ObservableObject {
         orientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     }
 }
-
