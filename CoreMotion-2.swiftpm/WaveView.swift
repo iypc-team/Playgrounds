@@ -1,55 +1,33 @@
-//  CoreMotion-2 01/25/2026-1
+//  CoreMotion-2 01/25/2026-2
 //  WaveView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion-2.swiftpm
-// 
+//  
+//. 
 
 import SwiftUI
-import CoreMotion
-
-let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
 struct WaveView: View {
-    var motionManager = CMMotionManager()
     
-    @State private var attitudeX : Double = 0
-    @State private var attitudeY : Double = 0
-    @State private var attitudeZ : Double = 0
+    @StateObject private var viewModel = MotionViewModel()
     
-    var body : some View {
-        VStack{
+    var body: some View {
+        VStack(spacing: 12) {
             Text("Attitude XYZ")
-            Text("")
-            Text("Roll  \(attitudeX)")
-            Text("Pitch  \(attitudeY)")
-            Text("Yaw  \(attitudeX)")
+                .font(.headline)
             
+            Text("Roll:  \(viewModel.roll, specifier: "%.3f")")
+            Text("Pitch: \(viewModel.pitch, specifier: "%.3f")")
+            Text("Yaw:   \(viewModel.yaw, specifier: "%.3f")")
         }
-        .onReceive(timer) { input in
-            print(motionManager.isDeviceMotionAvailable)
-            if motionManager.isDeviceMotionAvailable {
-                motionManager.deviceMotionUpdateInterval = 2.0
-                
-                motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { data,error in
-                    print("Attitude XYZ")
- 
-
-                    print("\nAttitude")
-                    print(data?.attitude.debugDescription ?? 0)
-                    print(data?.attitude.pitch ?? 0)
-                    print(data?.attitude.roll ?? 0)
-                    print(data?.attitude.yaw ?? 0)
-
-                }
-            }
+        .padding()
+        .onAppear {
+            viewModel.startUpdates()
         }
-    }
-}                
-
-struct WaveView_Previews: PreviewProvider {
-    static var previews: some View {
-        WaveView()
-            .preferredColorScheme(.dark)
+        .onDisappear {
+            viewModel.stopUpdates()
+        }
     }
 }
+
 

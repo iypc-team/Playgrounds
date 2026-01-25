@@ -8,3 +8,8 @@ struct MyApp: App {
         }
     }
 }
+
+//CoreMotionApp/
+//├── MotionViewModel.swift
+//├── WaveView.swift
+//└── CoreMotionApp.swift
