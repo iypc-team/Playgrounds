@@ -1,3 +1,9 @@
+//  CoreMotion-2 01/25/2026-1
+//  WaveView.swift
+//  
+//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion-2.swiftpm
+// 
+
 import SwiftUI
 import CoreMotion
 
@@ -43,6 +49,7 @@ struct WaveView: View {
 struct WaveView_Previews: PreviewProvider {
     static var previews: some View {
         WaveView()
+            .preferredColorScheme(.dark)
     }
 }
 
