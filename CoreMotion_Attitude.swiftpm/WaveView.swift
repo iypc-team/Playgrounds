@@ -1,7 +1,7 @@
-//  CoreMotion-2 01/26/2026-2
+//  CoreMotion-2 01/26/2026-3
 //  WaveView.swift
 //  
-//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion-2.swiftpm
+//  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
 //  
 //  1f  0.0f
 
