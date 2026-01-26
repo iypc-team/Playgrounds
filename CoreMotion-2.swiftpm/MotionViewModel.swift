@@ -7,13 +7,15 @@ import CoreMotion
 final class MotionViewModel: ObservableObject {
     
     private let motionManager = CMMotionManager()
+    private let updateInterval: Double = 1 / 60  // frames per second
     
     @Published var roll: Double = 0.0
     @Published var pitch: Double = 0.0
     @Published var yaw: Double = 0.0
     
     init() {
-        motionManager.deviceMotionUpdateInterval = 0.5 / 20
+//        print("updateInterval: \(updateInterval)")
+        motionManager.deviceMotionUpdateInterval = updateInterval  
     }
     
     private func radiansToDegrees(_ radians: Double) -> Double {
@@ -21,15 +23,18 @@ final class MotionViewModel: ObservableObject {
     }
     
     func recalibrate() {
+        print("\nrecalibrate()")
         stopUpdates()
         
         // Reset the reference attitude to current orientation
-        motionManager.deviceMotion?.attitude.multiply(byInverseOf: motionManager.deviceMotion?.attitude ?? CMAttitude())
+        motionManager.deviceMotion?.attitude
+            .multiply(byInverseOf: motionManager.deviceMotion?.attitude ?? CMAttitude())
         
         startUpdates()
     }
     
     func startUpdates() {
+        print("startUpdates()")
         guard motionManager.isDeviceMotionAvailable else {
             print("❌ Device motion not available")
             return
@@ -42,7 +47,7 @@ final class MotionViewModel: ObservableObject {
             return
         }
         
-        motionManager.deviceMotionUpdateInterval = 0.5
+        motionManager.deviceMotionUpdateInterval = updateInterval
         
         motionManager.startDeviceMotionUpdates(using: referenceFrame, to: .main) { [weak self] data, error in
             guard let self,
@@ -56,24 +61,8 @@ final class MotionViewModel: ObservableObject {
         }
     }
     
-//    func startUpdates() {
-//        guard motionManager.isDeviceMotionAvailable else {
-//            print("❌ Device motion not available")
-//            return
-//        }
-//        
-//        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] data, error in
-//            guard let self,
-//                  let attitude = data?.attitude,
-//                  error == nil else { return }
-//            
-//            self.roll = attitude.roll
-//            self.pitch = attitude.pitch
-//            self.yaw = attitude.yaw
-//        }
-//    }
-    
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
+        print("stopUpdates()")
     }
 }

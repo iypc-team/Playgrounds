@@ -1,34 +1,31 @@
-//  CoreMotion-2 01/25/2026-4
+//  CoreMotion-2 01/26/2026-1
 //  WaveView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion-2.swiftpm
 //  
-//. 
+//  1f  0.0f
 
 import SwiftUI
 
 struct WaveView: View {
-    
     @StateObject private var viewModel = MotionViewModel()
     
     var body: some View {
         ZStack {
-            
             // Main content
             VStack(spacing: 12) {
                 Text("Attitude XYZ")
                     .font(.headline)
                 
-                Text("Roll:  \(viewModel.roll, specifier: "%.1f")°")
-                Text("Pitch: \(viewModel.pitch, specifier: "%.1f")°")
-                Text("Yaw:   \(viewModel.yaw, specifier: "%.1f")°")
+                Text("Roll:  \(viewModel.roll, specifier: "%.0.0f")°")
+                Text("Pitch: \(viewModel.pitch, specifier: "%.0.0f")°")
+                Text("Yaw:   \(viewModel.yaw, specifier: "%.0.0f")°")
             }
             .padding()
             
             // Overlay controls
             VStack {
                 Spacer()
-                
                 HStack(spacing: 12) {
                     
                     // Start Button
@@ -38,14 +35,16 @@ struct WaveView: View {
                         Label("Start", systemImage: "play.fill")
                             .frame(maxWidth: .infinity)
                     }
+                    .foregroundColor(.green)
                     
                     // Re-Calibrate Button
                     Button {
                         viewModel.recalibrate()
                     } label: {
-                        Label("Re-Calibrate", systemImage: "location.north.fill")
+                        Label("Re-Cal", systemImage: "location.north.fill")
                             .frame(maxWidth: .infinity)
                     }
+                    .foregroundColor(.yellow)
                     
                     // Stop Button
                     Button {
@@ -54,7 +53,7 @@ struct WaveView: View {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
                     }
-                    
+                    .foregroundColor(.red)
                 }
                 .padding()
                 .background(.ultraThinMaterial)
