@@ -1,5 +1,5 @@
-//  CoreMotion-2 01/26/2026-4
-//  WaveView.swift
+//  CoreMotion-2 01/26/2026-5
+//  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
 //  
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WaveView: View {
+struct ContentView: View {
     @StateObject private var viewModel = MotionViewModel()
     
     var body: some View {
@@ -66,7 +66,7 @@ struct WaveView: View {
 
 struct WaveView_Previews: PreviewProvider {
     static var previews: some View {
-        WaveView()
+        ContentView()
             .preferredColorScheme(.dark)
     }
 }
