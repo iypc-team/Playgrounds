@@ -1,4 +1,4 @@
-//  CoreMotion-2 01/25/2026-3
+//  CoreMotion-2 01/25/2026-4
 //  WaveView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion-2.swiftpm
@@ -19,9 +19,9 @@ struct WaveView: View {
                 Text("Attitude XYZ")
                     .font(.headline)
                 
-                Text("Roll:  \(viewModel.roll, specifier: "%.3f")")
-                Text("Pitch: \(viewModel.pitch, specifier: "%.3f")")
-                Text("Yaw:   \(viewModel.yaw, specifier: "%.3f")")
+                Text("Roll:  \(viewModel.roll, specifier: "%.1f")°")
+                Text("Pitch: \(viewModel.pitch, specifier: "%.1f")°")
+                Text("Yaw:   \(viewModel.yaw, specifier: "%.1f")°")
             }
             .padding()
             
@@ -29,7 +29,9 @@ struct WaveView: View {
             VStack {
                 Spacer()
                 
-                HStack(spacing: 16) {
+                HStack(spacing: 12) {
+                    
+                    // Start Button
                     Button {
                         viewModel.startUpdates()
                     } label: {
@@ -37,12 +39,22 @@ struct WaveView: View {
                             .frame(maxWidth: .infinity)
                     }
                     
+                    // Re-Calibrate Button
+                    Button {
+                        viewModel.recalibrate()
+                    } label: {
+                        Label("Re-Calibrate", systemImage: "location.north.fill")
+                            .frame(maxWidth: .infinity)
+                    }
+                    
+                    // Stop Button
                     Button {
                         viewModel.stopUpdates()
                     } label: {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
                     }
+                    
                 }
                 .padding()
                 .background(.ultraThinMaterial)
@@ -53,4 +65,10 @@ struct WaveView: View {
     }
 }
 
+struct WaveView_Previews: PreviewProvider {
+    static var previews: some View {
+        WaveView()
+            .preferredColorScheme(.dark)
+    }
+}
 
