@@ -1,17 +1,15 @@
 //  MotionViewModel.swift
-//  
+//    
 
 import Foundation
 import CoreMotion
 import simd
 
 final class MotionViewModel: ObservableObject {
-    
     private let motionManager = CMMotionManager()
     private let updateInterval: Double = 1.0 / 60.0
     
     // MARK: - Quaternion State
-    
     private var referenceQuat: simd_quatd?
     private var filteredQuat: simd_quatd?
     private var lastQuat: simd_quatd?
@@ -19,20 +17,17 @@ final class MotionViewModel: ObservableObject {
     private var lastAngularVelocity: Double = 0
     
     // MARK: - Stabilization Tuning
-    
     private let deadZoneOmega: Double = 0.02        // rad/s
     private let minAlpha: Double = 0.04
     private let maxAlpha: Double = 0.4
     private let jerkGain: Double = 0.35
     
     // MARK: - Published Euler (UI Only)
-    
     @Published var roll: Double = 0
     @Published var pitch: Double = 0
     @Published var yaw: Double = 0
     
     // MARK: - Exported Rotation Matrix
-    
     @Published var rotationMatrix: simd_double3x3 = matrix_identity_double3x3
     
     init() {
@@ -40,8 +35,8 @@ final class MotionViewModel: ObservableObject {
     }
     
     // MARK: - Public API
-    
     func startUpdates() {
+        print("startUpdates()")
         guard motionManager.isDeviceMotionAvailable else { return }
         guard !motionManager.isDeviceMotionActive else { return }
         
@@ -56,12 +51,14 @@ final class MotionViewModel: ObservableObject {
     }
     
     func stopUpdates() {
+        print("stopUpdates()")
         motionManager.stopDeviceMotionUpdates()
         filteredQuat = nil
         lastQuat = nil
     }
     
     func recalibrate() {
+        print("recalibrate()")
         guard let motion = motionManager.deviceMotion else { return }
         referenceQuat = motion.simdQuaternion
         filteredQuat = nil
@@ -70,9 +67,7 @@ final class MotionViewModel: ObservableObject {
     }
     
     // MARK: - Quaternion Pipeline
-    
     private func process(motion: CMDeviceMotion) {
-        
         let currentQuat = motion.simdQuaternion
         let relativeQuat = referenceQuat != nil
         ? currentQuat * referenceQuat!.inverse
@@ -104,10 +99,9 @@ final class MotionViewModel: ObservableObject {
     }
     
     // MARK: - Publish
-    
     private func publish(quaternion q: simd_quatd) {
-        
         rotationMatrix = simd_double3x3(q)
+        print("rotationMatrix\n\(rotationMatrix )\n")
         
         let euler = q.eulerAngles
         roll  = radiansToDegrees(euler.z)
@@ -116,7 +110,6 @@ final class MotionViewModel: ObservableObject {
     }
     
     // MARK: - Math
-    
     private func angularVelocity(from q1: simd_quatd, to q2: simd_quatd) -> Double {
         let dot = abs(simd_dot(q1.vector, q2.vector))
         let clamped = min(1.0, max(-1.0, dot))
@@ -142,7 +135,6 @@ final class MotionViewModel: ObservableObject {
 }
 
 // MARK: - CoreMotion → SIMD
-
 private extension CMDeviceMotion {
     var simdQuaternion: simd_quatd {
         simd_quatd(
@@ -155,12 +147,9 @@ private extension CMDeviceMotion {
 }
 
 // MARK: - Quaternion → Euler
-
 private extension simd_quatd {
-    
     /// (x: pitch, y: yaw, z: roll) in radians
     var eulerAngles: SIMD3<Double> {
-        
         let q = normalized
         
         let sinp = 2 * (q.real * q.imag.x - q.imag.y * q.imag.z)

@@ -1,4 +1,4 @@
-//  CoreMotion-2 01/26/2026-5
+//  CoreMotion-2 01/27/2026-1
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
@@ -64,7 +64,7 @@ struct ContentView: View {
     }
 }
 
-struct WaveView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
