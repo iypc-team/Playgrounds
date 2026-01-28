@@ -1,4 +1,4 @@
-//  CoreMotion_Attitude  01/27/2026-2
+//  CoreMotion_Attitude  01/27/2026-3
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
@@ -30,7 +30,7 @@ struct ContentView: View {
                     
                     // Start Button
                     Button {
-                        viewModel.startUpdates()
+                        viewModel.startStream()
                     } label: {
                         Label("Start", systemImage: "play.fill")
                             .frame(maxWidth: .infinity)
@@ -48,7 +48,7 @@ struct ContentView: View {
                     
                     // Stop Button
                     Button {
-                        viewModel.stopUpdates()
+                        viewModel.stopStream()
                     } label: {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
