@@ -1,9 +1,12 @@
-//  CoreMotion_Attitude  01/28/2026-1
+//  CoreMotion_Attitude  01/28/2026-2
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
 //  
 //  1f  0.0f
+//  ContentView.swift
+//  CoreMotion_Attitude
+//  Updated – 2026-01-28
 
 import SwiftUI
 
@@ -57,6 +60,15 @@ struct ContentView: View {
                 .background(.ultraThinMaterial)
                 .cornerRadius(16)
                 .padding()
+            }
+        }
+        .task {
+            // Why: ties CoreMotion lifetime to the view’s visibility
+            viewModel.startStream()
+        }
+        .onDisappear {
+            Task {
+                await viewModel.stopStream()
             }
         }
     }
