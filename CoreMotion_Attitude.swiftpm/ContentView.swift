@@ -1,12 +1,9 @@
-//  CoreMotion_Attitude  01/28/2026-2
+//  CoreMotion_Attitude  01/28/2026-3
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
 //  
 //  1f  0.0f
-//  ContentView.swift
-//  CoreMotion_Attitude
-//  Updated – 2026-01-28
 
 import SwiftUI
 
