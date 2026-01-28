@@ -1,43 +1,77 @@
 //  MotionViewModel.swift
 //    
 //  recalibrate()
+//
+//  MotionViewModel.swift
+//  Updated – 2026‑01‑28
+//
+//  Provides a CoreMotion‑driven orientation stream that publishes
+//  roll / pitch / yaw (degrees), a rotation matrix, and a raw‑quaternion
+//  publisher. The implementation now includes:
+//
+//  • Defensive normalisation of incoming quaternions
+//  • Explicit logging (os.Logger) instead of `print`
+//  • Safe termination of the CoreMotion queue
+//  • A returning‑value `recalibrate()` for clearer error handling
+//  • Finite‑value guards for angular‑velocity calculations
+//  • Minimal UI updates (assign only when the value changes)
+//  • Read‑only exposure of the quaternion publisher
+//  • Comprehensive inline documentation
+//
 
 import Foundation
 import CoreMotion
 import Combine
-import Dispatch
+import os.log               // Structured logging
 import simd
 
-// MARK: - MotionSample Abstraction
+// MARK: – MotionSample abstraction
+
+/// Minimal protocol exposing a SIMD quaternion representation of a motion sample.
 protocol MotionSample {
     var simdQuaternion: simd_quatd { get }
 }
 
+/// Makes `CMDeviceMotion` conform to `MotionSample`.
 extension CMDeviceMotion: MotionSample {
+    
+    @inline(__always)
     var simdQuaternion: simd_quatd {
-        simd_quatd(
-            ix: attitude.quaternion.x,
-            iy: attitude.quaternion.y,
-            iz: attitude.quaternion.z,
-            r:  attitude.quaternion.w
-        )
+        let q = attitude.quaternion
+        guard q.x.isFinite, q.y.isFinite, q.z.isFinite, q.w.isFinite else {
+            // Why: guarantees a valid unit quaternion even on sensor corruption
+            return simd_quatd(ix: 0, iy: 0, iz: 0, r: 1)
+        }
+        
+        return simd_quatd(ix: q.x, iy: q.y, iz: q.z, r: q.w).normalized
     }
 }
 
-// MARK: - Motion Stream Provider
+// MARK: – Motion stream provider
+/// Supplies an `AsyncStream` of `MotionSample`s using CoreMotion.
 final class MotionStreamProvider {
     
     private let manager = CMMotionManager()
-    private let interval: TimeInterval = 1.0 / 60.0
+    private let interval: TimeInterval = 1.0 / 60.0          // Nominal 60 Hz
     
+    /// Serial queue for CoreMotion callbacks.
     private let motionQueue: OperationQueue = {
         let q = OperationQueue()
         q.name = "MotionStreamProvider.CoreMotionQueue"
         q.qualityOfService = .userInitiated
-        q.maxConcurrentOperationCount = 1   // preserve ordering
+        q.maxConcurrentOperationCount = 1                 // Preserve order
         return q
     }()
     
+    deinit {
+        // Defensive clean‑up if the provider is released unexpectedly.
+        manager.stopDeviceMotionUpdates()
+        motionQueue.cancelAllOperations()
+    }
+    
+    /// Returns an `AsyncStream` that yields `MotionSample`s.
+    /// The stream finishes automatically when device motion is unavailable
+    /// or when the consumer cancels the continuation.
     func stream() -> AsyncStream<MotionSample> {
         AsyncStream { continuation in
             guard manager.isDeviceMotionAvailable else {
@@ -51,121 +85,132 @@ final class MotionStreamProvider {
                 to: motionQueue
             ) { motion, _ in
                 if let motion {
-                    continuation.yield(motion)
+                    continuation.yield(motion)               // Bridge to consumer
                 }
             }
             
-            continuation.onTermination = { _ in
+            continuation.onTermination = { @Sendable _ in
+                // Ensure no further callbacks are delivered.
                 self.manager.stopDeviceMotionUpdates()
+                self.motionQueue.isSuspended = true
             }
         }
     }
 }
 
-// MARK: - MotionViewModel
+// MARK: – Motion view model
 
+/// Publishes device orientation data for SwiftUI views.
 @MainActor
 final class MotionViewModel: ObservableObject {
     
-    // MARK: Published UI Values
+    // MARK: Published UI values (degrees / matrix)
     
-    @Published var roll:  Double = 0
-    @Published var pitch: Double = 0
-    @Published var yaw:   Double = 0
-    @Published var rotationMatrix = matrix_identity_double3x3
+    @Published private(set) var roll:  Double = 0
+    @Published private(set) var pitch: Double = 0
+    @Published private(set) var yaw:   Double = 0
+    @Published private(set) var rotationMatrix = matrix_identity_double3x3
     
-    // MARK: Combine Publisher
+    // MARK: Raw quaternion publisher (read‑only)
     
-    let motionPublisher = PassthroughSubject<simd_quatd, Never>()
-    
-    // MARK: Internal State
-    
-    private let provider = MotionStreamProvider()
-    private var task: Task<Void, Never>?
-    
-    private var referenceQuat: simd_quatd?
-    private var filteredQuat: simd_quatd?
-    private var lastRawQuat: simd_quatd?
-    private var lastAngularVelocity: Double = 0
-    
-    private let updateInterval = 1.0 / 60.0
-    
-    // MARK: Constants
-    
-    private enum Constants {
-        static let deadZoneOmega = 0.02
-        static let minAlpha = 0.04
-        static let maxAlpha = 0.40
-        static let jerkGain = 0.35
-        static let convergenceEpsilon = 0.01
-        static let maxJerk = 1_000.0
+    private let motionSubject = PassthroughSubject<simd_quatd, Never>()
+    var motionPublisher: AnyPublisher<simd_quatd, Never> {
+        motionSubject.eraseToAnyPublisher()
     }
     
-    // MARK: Lifecycle
+    // MARK: Internal state
     
+    private let provider = MotionStreamProvider()
+    private var streamingTask: Task<Void, Never>?
+    
+    private var referenceQuat: simd_quatd?          // Current reference frame
+    private var filteredQuat:  simd_quatd?          // Smoothed orientation
+    private var lastRawQuat:   simd_quatd?          // Most recent raw sample
+    private var lastAngularVelocity: Double = 0     // For jerk calculation
+    
+    private let updateInterval = 1.0 / 60.0         // Seconds per frame
+    
+    // MARK: Constants (tuned for 60 Hz)
+    
+    private enum Constants {
+        static let deadZoneOmega      = 0.02
+        static let minAlpha           = 0.04
+        static let maxAlpha           = 0.40
+        static let jerkGain           = 0.35
+        static let convergenceEpsilon = 0.01
+        static let maxJerk            = 1_000.0
+    }
+    
+    // MARK: – Lifecycle
+    
+    /// Starts the motion stream. Subsequent calls are ignored until `stopStream()` is invoked.
     func startStream() {
-        print("startStream()")
-        guard task == nil else { return }
+        guard streamingTask == nil else { return }
         
-        task = Task {
+        streamingTask = Task {
             for await sample in provider.stream() {
                 process(sample: sample)
             }
         }
     }
     
-    func stopStream() {
-        print("stop()")
-        task?.cancel()
-        task = nil
+    /// Stops the stream and clears all internal state.
+    func stopStream() async {
+        streamingTask?.cancel()
+        // Await termination to avoid a race where the cancelled task writes stale data.
+        await streamingTask?.value
+        streamingTask = nil
+        
         filteredQuat = nil
         lastRawQuat = nil
         lastAngularVelocity = 0
+        referenceQuat = nil
     }
     
-    func recalibrate() {
-        print("recalibrate()")
-        
-        // 1. Choose the most stable available reference (RAW preferred)
+    /// Re‑bases the orientation reference to the most stable recent sample.
+    ///
+    /// - Returns: `true` if a new reference was installed, `false` otherwise.
+    @discardableResult
+    func recalibrate() -> Bool {
+        // Prefer the raw quaternion; fall back to the filtered one.
         let newReference: simd_quatd
-        if let lrq = lastRawQuat {
-            print("lrq: \(lrq) ")
-            newReference = lrq.normalized
-        } else if let fq = filteredQuat {
-            print("fq: \(fq )")
-            newReference = fq.normalized
+        if let raw = lastRawQuat {
+            newReference = raw.normalized
+        } else if let filtered = filteredQuat {
+            newReference = filtered.normalized
         } else {
-            print("No valid reference, nothing to do here")
+            Logger.motion.debug("recalibrate(): no valid reference – aborting")
             referenceQuat = nil
-            return
+            return false
         }
         
-        let refInv = newReference.inverse
-        print("refInv: \( refInv)")
+        let inv = newReference.inverse
         
-        // 2. Rebase filtered state into the new reference frame (PRESERVE continuity)
-        if let fq = filteredQuat {
-            filteredQuat = (fq * refInv).normalized
+        // Re‑base filtered and raw quaternions to preserve continuity.
+        if let filtered = filteredQuat {
+            filteredQuat = (filtered * inv).normalized
+        }
+        if let raw = lastRawQuat {
+            lastRawQuat = (raw * inv).normalized
         }
         
-        // 3. Rebase last raw sample so angular velocity remains continuous
-        if let lrq = lastRawQuat {
-            lastRawQuat = (lrq * refInv).normalized
-        }
-        
-        // 4. Update reference
         referenceQuat = newReference
-        
-        // 5. DO NOT reset lastAngularVelocity (critical for jerk stability)
-        
-        print("recalibration complete\n")
+        Logger.motion.debug("recalibrate(): new reference installed")
+        // Intentionally do **not** reset `lastAngularVelocity` – this keeps
+        // jerk‑based smoothing stable across the transition.
+        return true
     }
     
-    // MARK: Processing Pipeline
+    // MARK: – Processing pipeline
+    
     private func process(sample: MotionSample) {
-        let currentQuat = sample.simdQuaternion
+        // Normalise the incoming quaternion (defensive safety).
+        let currentQuat = sample.simdQuaternion.normalized
+        
+        // Apply the current reference frame, if any.
         let relativeQuat = referenceQuat.map { currentQuat * $0.inverse } ?? currentQuat
         
+        // First sample – initialise state.
         guard let previous = lastRawQuat else {
             filteredQuat = relativeQuat
             lastRawQuat = relativeQuat
@@ -173,24 +218,39 @@ final class MotionViewModel: ObservableObject {
             return
         }
         
+        // --------------------------------------------------------------
+        // Angular velocity & jerk computation
+        // --------------------------------------------------------------
         let omega = angularVelocity(from: previous, to: relativeQuat)
+        
+        // Guard against non‑finite results (sensor glitches).
+        guard omega.isFinite else {
+            Logger.motion.error("process(): non‑finite angular velocity – sample dropped")
+            return
+        }
+        
         let jerk = min(
             abs(omega - lastAngularVelocity) / updateInterval,
             Constants.maxJerk
         )
-        
         lastAngularVelocity = omega
         
+        // --------------------------------------------------------------
+        // Adaptive smoothing
+        // --------------------------------------------------------------
         if omega < Constants.deadZoneOmega {
+            // Very slow motion – converge quickly.
             filteredQuat = simd_slerp(
                 filteredQuat ?? relativeQuat,
                 relativeQuat,
                 Constants.convergenceEpsilon
             )
         } else {
+            // Faster motion – adapt smoothing based on jerk.
             let alpha = min(
                 Constants.maxAlpha,
-                max(Constants.minAlpha, Constants.minAlpha + Constants.jerkGain * jerk)
+                max(Constants.minAlpha,
+                    Constants.minAlpha + Constants.jerkGain * jerk)
             )
             filteredQuat = simd_slerp(
                 filteredQuat ?? relativeQuat,
@@ -199,63 +259,92 @@ final class MotionViewModel: ObservableObject {
             )
         }
         
+        // --------------------------------------------------------------
+        // Publish the new orientation.
+        // --------------------------------------------------------------
         lastRawQuat = relativeQuat
         if let fq = filteredQuat {
             publish(fq)
         }
     }
     
-    // MARK: Publishing
+    // MARK: – Publishing
     
-    private func publish(_ q: simd_quatd) {
-        rotationMatrix = simd_double3x3(q)
+    private func publish(_ quat: simd_quatd) {
+        // Update the rotation matrix.
+        rotationMatrix = simd_double3x3(quat)
         
-        let e = q.eulerAngles
-        pitch = radiansToDegrees(e.x)
-        yaw   = wrapDegrees(radiansToDegrees(e.y))
-        roll  = radiansToDegrees(e.z)
+        // Convert quaternion → Euler angles (radians → degrees).
+        let e = quat.eulerAngles
+        let newPitch = radiansToDegrees(e.x)
+        let newYaw   = wrapDegrees(radiansToDegrees(e.y))
+        let newRoll  = radiansToDegrees(e.z)
         
-        motionPublisher.send(q)
+        // Assign only when the value actually changes – reduces UI churn.
+        if pitch != newPitch { pitch = newPitch }
+        if yaw   != newYaw   { yaw   = newYaw   }
+        if roll  != newRoll  { roll  = newRoll  }
+        
+        // Forward the raw quaternion to any external subscribers.
+        motionSubject.send(quat)
     }
     
-    // MARK: Math
+    // MARK: – Math helpers
     
+    /// Computes angular velocity (rad / s) between two unit quaternions.
     private func angularVelocity(from q1: simd_quatd, to q2: simd_quatd) -> Double {
-        let dot = min(1, max(-1, simd_dot(q1.vector, q2.vector)))
-        let angle = 2 * acos(abs(dot))
+        let dot = simd_dot(q1.vector, q2.vector)
+        // Clamp to [-1, 1] and guard against NaN.
+        let clamped = min(1.0, max(-1.0, dot))
+        guard clamped.isFinite else { return 0 }
+        let angle = 2.0 * acos(abs(clamped))          // Shortest‑arc angle
         return angle / updateInterval
     }
     
+    @inline(__always)
     private func radiansToDegrees(_ r: Double) -> Double {
-        r * 180 / .pi
+        r * 180.0 / .pi
     }
     
+    /// Normalises a degree value to the range (‑180°, +180°].
+    @inline(__always)
     private func wrapDegrees(_ d: Double) -> Double {
-        var x = d.truncatingRemainder(dividingBy: 360)
-        if x > 180 { x -= 360 }
-        if x < -180 { x += 360 }
+        var x = d.truncatingRemainder(dividingBy: 360.0)
+        if x > 180.0 { x -= 360.0 }
+        if x < -180.0 { x += 360.0 }
         return x
     }
 }
 
-// MARK: - Quaternion → Euler
+// MARK: – Quaternion → Euler (right‑handed, pitch‑yaw‑roll order)
 
 private extension simd_quatd {
+    /// Returns the Euler angles (pitch, yaw, roll) in radians.
     var eulerAngles: SIMD3<Double> {
+        // Normalise to avoid drift‑induced scaling errors.
         let q = normalized
-        let sinp = 2 * (q.real * q.imag.x - q.imag.y * q.imag.z)
-        let pitch = abs(sinp) >= 1 ? copysign(.pi / 2, sinp) : asin(sinp)
+        let sinp = 2.0 * (q.real * q.imag.x - q.imag.y * q.imag.z)
+        let pitch = abs(sinp) >= 1.0
+        ? copysign(.pi / 2.0, sinp)          // Gimbal lock
+        : asin(sinp)
         
         let yaw = atan2(
-            2 * (q.real * q.imag.y + q.imag.z * q.imag.x),
-            1 - 2 * (q.imag.x * q.imag.x + q.imag.y * q.imag.y)
+            2.0 * (q.real * q.imag.y + q.imag.z * q.imag.x),
+            1.0 - 2.0 * (q.imag.x * q.imag.x + q.imag.y * q.imag.y)
         )
         
         let roll = atan2(
-            2 * (q.real * q.imag.z + q.imag.x * q.imag.y),
-            1 - 2 * (q.imag.y * q.imag.y + q.imag.z * q.imag.z)
+            2.0 * (q.real * q.imag.z + q.imag.x * q.imag.y),
+            1.0 - 2.0 * (q.imag.y * q.imag.y + q.imag.z * q.imag.z)
         )
         
         return SIMD3(pitch, yaw, roll)
     }
+}
+
+// MARK: – Logging namespace
+
+private extension Logger {
+    static let motion = Logger(subsystem: "com.proton.lumo.motion",
+                               category: "viewmodel")
 }

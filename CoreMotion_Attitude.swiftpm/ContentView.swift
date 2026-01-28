@@ -1,4 +1,4 @@
-//  CoreMotion_Attitude  01/27/2026-3
+//  CoreMotion_Attitude  01/28/2026-1
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
@@ -12,23 +12,21 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Main content
             VStack(spacing: 12) {
                 Text("Attitude XYZ")
                     .font(.headline)
                 
-                Text("Roll:  \(viewModel.roll, specifier: "%.0.0f")°")
-                Text("Pitch: \(viewModel.pitch, specifier: "%.0.0f")°")
-                Text("Yaw:   \(viewModel.yaw, specifier: "%.0.0f")°")
+                Text("Roll:  \(viewModel.roll,  specifier: "%.0f")°")
+                Text("Pitch: \(viewModel.pitch, specifier: "%.0f")°")
+                Text("Yaw:   \(viewModel.yaw,   specifier: "%.0f")°")
             }
             .padding()
             
-            // Overlay controls
             VStack {
                 Spacer()
+                
                 HStack(spacing: 12) {
                     
-                    // Start Button
                     Button {
                         viewModel.startStream()
                     } label: {
@@ -37,7 +35,6 @@ struct ContentView: View {
                     }
                     .foregroundColor(.green)
                     
-                    // Re-Calibrate Button
                     Button {
                         viewModel.recalibrate()
                     } label: {
@@ -46,9 +43,10 @@ struct ContentView: View {
                     }
                     .foregroundColor(.yellow)
                     
-                    // Stop Button
                     Button {
-                        viewModel.stopStream()
+                        Task {
+                            await viewModel.stopStream()
+                        }
                     } label: {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
@@ -70,4 +68,3 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
