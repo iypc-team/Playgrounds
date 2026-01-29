@@ -1,9 +1,9 @@
-//  RealityKit Scene  01/29/2026-1
+//  RealityKit Scene  01/29/2026-2
 //  ContentView.swift
 //  
 //  
 //  [0.08, 0.15, 0.3, 0.6]
-//  toggle
+//  rotationSpeed
 
 import SwiftUI
 import RealityKit
@@ -13,7 +13,7 @@ struct ContentView: View {
     
     @State private var rotationSpeed: Float = 0.0
     
-//    private let speeds: [Float] = [0.08, 0.15, 0.3]
+    //    private let speeds: [Float] = [0.08, 0.15, 0.3]
     private let speeds: [Float] = [0.0, 0.075, 0.15, 0.25, 0.5 ]
     
     var body: some View {
@@ -38,7 +38,7 @@ struct ContentView: View {
             rotationSpeed = speeds[0]
             return
         }
-        print("index: \(index )")
+        print("index: \(index ) rotationSpeed: \(rotationSpeed)")
         rotationSpeed = speeds[(index + 1) % speeds.count]
     }
 }
@@ -120,7 +120,7 @@ struct RealityKitView: UIViewRepresentable {
     
     final class Coordinator {
         var angle: Float = 0
-        var rotationSpeed: Float = 0.15
+        var rotationSpeed: Float = 0.0
         var subscription: Cancellable?
     }
 }
