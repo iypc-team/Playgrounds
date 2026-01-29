@@ -1,4 +1,4 @@
-//  RealityKit Scene  01/28/2026-1
+//  RealityKit Scene  01/29/2026-1
 //  ContentView.swift
 //  
 //  
@@ -11,7 +11,7 @@ import Combine
 
 struct ContentView: View {
     
-    @State private var rotationSpeed: Float = 0.15
+    @State private var rotationSpeed: Float = 0.0
     
 //    private let speeds: [Float] = [0.08, 0.15, 0.3]
     private let speeds: [Float] = [0.0, 0.075, 0.15, 0.25, 0.5 ]
