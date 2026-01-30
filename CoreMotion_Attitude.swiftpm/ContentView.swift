@@ -1,4 +1,4 @@
-//  CoreMotion_Attitude  01/28/2026-3
+//  CoreMotion_Attitude  01/30/2026-1
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject private var viewModel = MotionViewModel()
     
     var body: some View {
+        
         ZStack {
             VStack(spacing: 12) {
                 Text("Attitude XYZ")
@@ -77,3 +78,4 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
