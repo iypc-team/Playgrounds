@@ -1,5 +1,5 @@
 //  RealityKitView.swift
-//  
+//  0.6
 
 import SwiftUI
 import RealityKit
@@ -27,12 +27,21 @@ struct RealityKitView: UIViewRepresentable {
         // MARK: - Airplane
         let airplane = try! Entity.load(named: "Airplane")
         normalize(airplane)
-        airplane.position = SIMD3<Float>(-0.8, 0, 0)
+        airplane.position = SIMD3<Float>(-0.6, 0, 0)
         
         // MARK: - Spaceship
         let spaceship = try! Entity.load(named: "Spaceship")
+        
+        // Corrected initial orientation (valid axes)
+        let spaceshipInitialOrientation =
+        simd_quatf(angle: .pi / 2, axis: SIMD3<Float>(1, 0, 0)) *   // X
+        simd_quatf(angle: .pi, axis: SIMD3<Float>(0, 1, 0)) *   // Y
+        simd_quatf(angle: 0.0, axis: SIMD3<Float>(0, 0, 1)) // Z
+        
+        spaceship.orientation = spaceshipInitialOrientation
+        
         normalize(spaceship)
-        spaceship.position = SIMD3<Float>(0.8, 0, 0)
+        spaceship.position = SIMD3<Float>(0.6, 0, 0)
         
         // MARK: - Lighting
         let sun = DirectionalLight()
