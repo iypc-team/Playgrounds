@@ -1,13 +1,10 @@
-//  Polyhedron Viewer  01/23/2026-5
+//  Polyhedron Viewer  01/31/2026-1
 //  
 //  PolyhedronViewer.swift
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Polyhedron%20Viewer.swiftpm
 //
-//
-//  PolyhedronViewer.swift
-//  Polyhedron Viewer 01/23/2026-6
 //
 
 import SwiftUI
