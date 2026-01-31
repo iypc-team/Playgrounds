@@ -1,28 +1,30 @@
+//  Date Time  01/30/2026-1
+//  ContentView.swift
+//  
+//  
+//  
+//  
+
 import SwiftUI
-import Foundation
-
-let df = Foundation.Date()
-let fullDate = df.formatted() // example: "6/7/2021, 9:42 AM"
-let onlyDate = df.formatted(date: .long, time: .omitted) // "6/7/2021"
-let onlyTime = df.formatted(date: .omitted, time: .shortened) // "9:42AM"
-
 
 struct ContentView: View {
+    let fdt =  FormatDateTime()
+    
     var body: some View {
         VStack {
             Image(systemName: "apple.logo")
+                .padding(20)
                 .imageScale(.large)
-                // .foregroundColor(.accentColor)
-                .font(.largeTitle)
+                .foregroundColor(.red)
+                .font(.system(size: 98, weight: .black, design: .default))
             
-            Text(("Created on"))
-            Text(onlyDate)
-            Text(onlyTime)
-//            Text("at ", onlyTime)
+            Text(("Created on \(fdt.fullDate() )"))
+//            Text(fdt.onlyTime())
+            Text("at: \(fdt.onlyTime() )")
             Text("")
-            Text("")
-            Text("Took \(time.components.seconds)")
-                 
+            
+//            Text("Took \(time.components.seconds)")
+            //  
         }
     }
 }
