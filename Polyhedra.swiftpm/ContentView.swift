@@ -1,6 +1,5 @@
-//  Icosahedron-2  02/01/2026-3
-//  Icosahedron-2.swift
-//  Copyright © 2018 IYPC Software. All rights reserved.
+//  Polyhedra  02/01/2026-4
+//  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
 //
