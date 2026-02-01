@@ -1,7 +1,7 @@
-//  Polyhedra  02/01/2026-4
+//  Polyhedra  02/01/2026-5
 //  ContentView.swift
 //  
-//  https://github.com/iypc-team/Playgrounds/tree/main/Icosahedron-2.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/Polyhedra.swiftpm
 //
 //  
 
