@@ -1,10 +1,9 @@
-// 
+//  SceneModel.swift
 // 
 
 import SceneKit
 import Foundation
 
-// Updated SceneModel.swift
 class SceneModel: ObservableObject {
     var sceneName: String = "newFighter.scn"
     var enenyName: String = "smooth_ship.scn"
