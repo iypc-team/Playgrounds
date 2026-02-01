@@ -1,9 +1,5 @@
-//
 //  GeometryGenerator.swift
-//  Icosahedron-2
-//
-//  Refactored by Code GPT 🧠
-//
+//  
 
 import SceneKit
 import UIKit
@@ -74,7 +70,7 @@ class GeometryGenerator {
             SCNVector3(-sqrt(2.0/9.0), sqrt(2.0/3.0), -1.0/3.0),
             SCNVector3(-sqrt(2.0/9.0), -sqrt(2.0/3.0), -1.0/3.0),
             SCNVector3(0, 0, 1)
-        ]
+        ].map { normalize($0) }
         
         let indices: [UInt16] = [
             0, 1, 2,
@@ -96,7 +92,7 @@ class GeometryGenerator {
             SCNVector3(0.5, 0, -0.5),
             SCNVector3(-0.5, 0, -0.5),
             SCNVector3(0, -1, 0)
-        ]
+        ].map { normalize($0) }
         
         let indices: [UInt16] = [
             0, 1, 2,
@@ -116,54 +112,55 @@ class GeometryGenerator {
     
     private func generateDodecahedronGeometry() -> SCNGeometry {
         let phi = (1.0 + sqrt(5.0)) / 2.0
+        let a = 1.0
+        let b = 1.0 / phi
+        let c = phi
         
         let vertices: [SCNVector3] = [
-            SCNVector3(-1, -1, -1),
-            SCNVector3(-1, -1,  1),
-            SCNVector3(-1,  1, -1),
-            SCNVector3(-1,  1,  1),
-            SCNVector3( 1, -1, -1),
-            SCNVector3( 1, -1,  1),
-            SCNVector3( 1,  1, -1),
-            SCNVector3( 1,  1,  1),
-            SCNVector3(0, -1/phi, -phi),
-            SCNVector3(0, -1/phi,  phi),
-            SCNVector3(0,  1/phi, -phi),
-            SCNVector3(0,  1/phi,  phi),
-            SCNVector3(-1/phi, -phi, 0),
-            SCNVector3(-1/phi,  phi, 0),
-            SCNVector3( 1/phi, -phi, 0),
-            SCNVector3( 1/phi,  phi, 0),
-            SCNVector3(-phi, 0, -1/phi),
-            SCNVector3( phi, 0, -1/phi),
-            SCNVector3(-phi, 0,  1/phi),
-            SCNVector3( phi, 0,  1/phi)
-        ]
+            SCNVector3( a,  a,  a), SCNVector3( a,  a, -a),
+            SCNVector3( a, -a,  a), SCNVector3( a, -a, -a),
+            SCNVector3(-a,  a,  a), SCNVector3(-a,  a, -a),
+            SCNVector3(-a, -a,  a), SCNVector3(-a, -a, -a),
+            
+            SCNVector3( 0,  b,  c), SCNVector3( 0,  b, -c),
+            SCNVector3( 0, -b,  c), SCNVector3( 0, -b, -c),
+            
+            SCNVector3( b,  c,  0), SCNVector3( b, -c,  0),
+            SCNVector3(-b,  c,  0), SCNVector3(-b, -c,  0),
+            
+            SCNVector3( c,  0,  b), SCNVector3(-c,  0,  b),
+            SCNVector3( c,  0, -b), SCNVector3(-c,  0, -b)
+        ].map { normalize($0) }
         
         let faces: [[UInt16]] = [
             [0, 8, 10, 2, 16],
             [0, 16, 18, 1, 12],
             [0, 12, 14, 4, 8],
             [8, 4, 17, 6, 10],
-            [10, 6, 15, 3, 2],
-            [2, 3, 13, 18, 16],
-            [1, 18, 13, 11, 9],
-            [1, 9, 5, 14, 12],
-            [4, 14, 5, 17, 8],
-            [5, 9, 19, 7, 17],
-            [6, 17, 7, 15, 10],
-            [3, 15, 7, 19, 13]
+            [10, 6, 15, 13, 2],
+            [2, 13, 3, 18, 16],
+            [1, 9, 11, 3, 18],
+            [1, 12, 14, 5, 9],
+            [4, 14, 5, 19, 17],
+            [6, 17, 19, 7, 15],
+            [3, 11, 7, 15, 13],
+            [5, 14, 12, 1, 9]
         ]
         
         var indices: [UInt16] = []
+        
+        // Triangulate pentagons using fan method
         for face in faces {
-            indices.append(contentsOf: [face[0], face[2], face[1]])
-            indices.append(contentsOf: [face[0], face[3], face[2]])
-            indices.append(contentsOf: [face[0], face[4], face[3]])
+            for i in 1..<(face.count - 1) {
+                indices.append(face[0])
+                indices.append(face[i])
+                indices.append(face[i + 1])
+            }
         }
         
         let source = SCNGeometrySource(vertices: vertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        
         return SCNGeometry(sources: [source], elements: [element])
     }
     
@@ -177,5 +174,11 @@ class GeometryGenerator {
     
     private func toggleWireframe(for geometry: SCNGeometry, enable: Bool) {
         geometry.firstMaterial?.fillMode = enable ? .lines : .fill
+    }
+    
+    private func normalize(_ vector: SCNVector3) -> SCNVector3 {
+        let length = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+        guard length > 0 else { return vector }
+        return SCNVector3(vector.x / length, vector.y / length, vector.z / length)
     }
 }
