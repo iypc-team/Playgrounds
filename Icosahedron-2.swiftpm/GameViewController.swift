@@ -1,8 +1,5 @@
 //  GameViewController.swift
-//  Icosahedron-2
-//
-//  Fixed by Code GPT 🧠 on 01/21/2026
-//  scnView
+//  
 
 import UIKit
 import SceneKit

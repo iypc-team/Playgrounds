@@ -1,4 +1,4 @@
-//  Icosahedron-2  02/01/2026-2
+//  Icosahedron-2  02/01/2026-3
 //  Icosahedron-2.swift
 //  Copyright © 2018 IYPC Software. All rights reserved.
 //  
@@ -14,7 +14,7 @@ import UIKit
 struct SceneKitView: UIViewControllerRepresentable {
     @Binding var currentSolid: PlatonicSolid
     @Binding var wireframeMode: Bool
-    @Binding var rotationEnabled: Bool
+    @Binding var rotationEnabled: Bool 
     
     func makeUIViewController(context: Context) -> GameViewController {
         let controller = GameViewController()
