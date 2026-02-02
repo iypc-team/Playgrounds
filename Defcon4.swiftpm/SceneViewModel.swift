@@ -4,26 +4,19 @@
 import SwiftUI
 import SceneKit
 import Foundation
-import os  // need this import for logging
 
 class SceneViewModel: ObservableObject {
     @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
     @Published var scene: SCNScene
     
-    
-    // Initialize a logger for this view model
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Defcon4", category: "SceneViewModel")
-    
     init() {
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
-            logger.info("Loaded scene: \(loadedScene.description, privacy: .public)")
-            logger.debug("Scene physics behaviors: \(self.scene.physicsWorld.allBehaviors, privacy: .public)")
         } else {
-            logger.warning("Failed to load scene named '\(self.sceneModel.sceneName)'")
+            print("loadedScene did not")
         }
         
         setupScene()  // Configure camera and lights
@@ -54,14 +47,16 @@ class SceneViewModel: ObservableObject {
     
     private func positionRadarNode(_ radarNode: SCNNode) {
         guard let geometry = radarNode.geometry else { 
-            logger.error("Radar node has no geometry.")
+            print("Radar node has no geometry.")
+            
             return 
         }
         
         let boundingBox = geometry.boundingBox
         var length = boundingBox.max.y - boundingBox.min.y  // Operate on y-axis only
         length += length / 2.5
-        logger.info("Calculated radar length: \(length, privacy: .public)")
+        
         sceneModel.radarPosition = SCNVector3(x: 0.0, y: length / 2.0, z: 0)
+        print("sceneModel.radarPosition: \(sceneModel.radarPosition)")
     }
 }
