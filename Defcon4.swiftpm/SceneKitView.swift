@@ -28,19 +28,31 @@ struct SceneKitView: UIViewRepresentable {
         }
         node.scale = sceneModel.fighterScale
         
-        let cone = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 512)
+        let sphere = SCNSphere(radius: 2.5)
+        sphere
         
+        let targetMaterial = SCNMaterial()
+        targetMaterial.diffuse.contents = UIColor.red
+        targetMaterial.lightingModel = .constant
+        
+        let targetNode = SCNNode()
+        targetNode.geometry = sphere
+        targetNode.position = SCNVector3(0, 50, 0)
+        scene.rootNode.addChildNode(targetNode)
+        
+        let cone = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 1024)
         let radarOffset = ((cone.height / 2) + 8.0)
         
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.white
-        material.lightingModel = .constant
-        cone.materials = [material]
+        let radarMatreial = SCNMaterial()
+        radarMatreial.diffuse.contents = UIColor.white
+        radarMatreial.transparency = 0.1  // Sets opacity to 10%
+        radarMatreial.lightingModel = .constant
+        cone.materials = [radarMatreial]
         
         let radarNode = SCNNode(geometry: cone)
         radarNode.position = SCNVector3(0, -radarOffset, 0.25)
-//        radarNode.eulerAngles.x = -.pi / 2
-        
+        // Add physics body (e.g., static for collision detection without movement)
+        radarNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: cone, options: nil))
         node.addChildNode(radarNode)
         
         let cabinLightNode = SCNNode()
