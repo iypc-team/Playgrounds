@@ -6,11 +6,13 @@ import SceneKit
 import Foundation
 
 class SceneViewModel: ObservableObject {
+    
     @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
     @Published var scene: SCNScene
     
     init() {
+        
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
