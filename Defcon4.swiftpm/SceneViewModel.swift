@@ -136,14 +136,12 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
             (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
             print("Radar node is no longer in contact with target node!")
-            // Custom logic here if needed
         }
     }
     
     private func positionRadarNode(_ radarNode: SCNNode) {
         guard let geometry = radarNode.geometry else { 
             print("Radar node has no geometry.")
-            
             return 
         }
         
