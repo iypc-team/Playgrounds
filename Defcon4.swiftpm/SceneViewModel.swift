@@ -5,7 +5,7 @@ import SwiftUI
 import SceneKit
 import Foundation
 
-class SceneViewModel: ObservableObject {
+class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     
     @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
@@ -13,19 +13,26 @@ class SceneViewModel: ObservableObject {
     @Published var isRotating: Bool = false
     @Published var isFighterRotating: Bool = false
     @Published var fighterNode: SCNNode?
+    private var radarNode: SCNNode?
     private var rotationAction: SCNAction?
     private var fighterRotationAction: SCNAction?
     
-    init() {
+    override init() {
+        self.scene = SCNScene()  // Initialize scene first
+        self.sceneModel = SceneModel()  // Initialize SceneModel first
+        super.init()  // Call super.init() after initializing properties
         
-        self.scene = SCNScene()  // Initialize with default empty scene
-        self.sceneModel = SceneModel()  // Initialize SceneModel
+        // Now proceed with loading the scene
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene  // Update to loaded scene if available
             // Find and store the fighter node
             if let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) {
                 self.fighterNode = fighter
                 fighterRotationAction = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 20)
+                // Set up physics body for targetNode (fighterNode) as kinematic
+                fighter.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(node: fighter, options: nil))
+                fighter.physicsBody?.categoryBitMask = 1 << 1  // Target category
+                fighter.physicsBody?.contactTestBitMask = 1 << 0  // Radar category
             }
         } else {
             print("loadedScene did not")
@@ -34,6 +41,9 @@ class SceneViewModel: ObservableObject {
     }
     
     public func setupScene() {
+        // Set physics world delegate
+        scene.physicsWorld.contactDelegate = self
+        
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -45,7 +55,12 @@ class SceneViewModel: ObservableObject {
         radarNode.position = sceneModel.radarPosition  // Fix: Assign position from model
         radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        // Set up physics body for radarNode as kinematic
+        radarNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: radarNode.geometry!, options: nil))
+        radarNode.physicsBody?.categoryBitMask = 1 << 0  // Radar category
+        radarNode.physicsBody?.contactTestBitMask = 1 << 1  // Target category
         scene.rootNode.addChildNode(radarNode)
+        self.radarNode = radarNode  // Store reference
         
         // Prepare rotation action for later use
         rotationAction = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 2.0)
@@ -62,14 +77,14 @@ class SceneViewModel: ObservableObject {
     func startRotation() {
         guard !isRotating, let action = rotationAction else { return }
         let repeatRotation = SCNAction.repeatForever(action)
-        if let radarNode = scene.rootNode.childNodes.first(where: { $0.geometry is SCNCone }) {
+        if let radarNode = self.radarNode {
             radarNode.runAction(repeatRotation)
             isRotating = true
         }
     }
     
     func stopRotation() {
-        if let radarNode = scene.rootNode.childNodes.first(where: { $0.geometry is SCNCone }) {
+        if let radarNode = self.radarNode {
             radarNode.removeAllActions()
             isRotating = false
         }
@@ -86,6 +101,26 @@ class SceneViewModel: ObservableObject {
         if let node = fighterNode {
             node.removeAllActions()
             isFighterRotating = false
+        }
+    }
+    
+    // SCNPhysicsContactDelegate method to detect start of contact
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        // Check if radarNode and targetNode (fighterNode) are in contact
+        if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
+            (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
+            print("Radar node is in contact with target node!")
+            // Add your custom logic here, e.g., trigger an action, update UI, etc.
+        }
+    }
+    
+    // SCNPhysicsContactDelegate method to detect end of contact
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        // Check if radarNode and targetNode (fighterNode) are no longer in contact
+        if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
+            (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
+            print("Radar node is no longer in contact with target node!")
+            // Add your custom logic here, e.g., reset state, update UI, etc.
         }
     }
     
