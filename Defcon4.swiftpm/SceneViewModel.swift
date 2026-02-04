@@ -123,7 +123,10 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
             (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
             print("Radar node is in contact with target node!")
-            // Custom logic here if needed (e.g., no rotation trigger)
+            // Print targetNode.position (assuming fighterNode is targetNode)
+            if let targetNode = contact.nodeA == fighterNode ? contact.nodeA : contact.nodeB == fighterNode ? contact.nodeB : nil {
+                print("targetNode.position: \(targetNode.position)")
+            }
         }
     }
     
