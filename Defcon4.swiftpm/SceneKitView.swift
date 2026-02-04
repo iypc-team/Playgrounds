@@ -28,16 +28,17 @@ struct SceneKitView: UIViewRepresentable {
         }
         node.scale = sceneModel.fighterScale
         
-        let sphere = SCNSphere(radius: 2.5)
-        sphere
+        let sphere = SCNSphere(radius: 5.0)
         
         let targetMaterial = SCNMaterial()
         targetMaterial.diffuse.contents = UIColor.red
         targetMaterial.lightingModel = .constant
+        sphere.materials = [targetMaterial]
         
         let targetNode = SCNNode()
         targetNode.geometry = sphere
         targetNode.position = SCNVector3(0, 50, 0)
+        targetNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: sphere, options: nil))
         scene.rootNode.addChildNode(targetNode)
         
         let cone = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 1024)

@@ -1,6 +1,5 @@
-// Defcon4 02/02/2026-5
+// Defcon4 02/03/2026-1
 // ContentView.swift
-// Created: 2026-02-02
 // Repository: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm/ContentView.swift
 
 import SwiftUI
