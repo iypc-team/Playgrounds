@@ -25,12 +25,11 @@ class SceneViewModel: ObservableObject {
             // Find and store the fighter node
             if let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) {
                 self.fighterNode = fighter
-                fighterRotationAction = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 2.0)
+                fighterRotationAction = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 20)
             }
         } else {
             print("loadedScene did not")
         }
-        
         setupScene()  // Configure camera and lights
     }
     
