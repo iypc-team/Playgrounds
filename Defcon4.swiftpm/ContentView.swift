@@ -1,4 +1,4 @@
-// Defcon4 02/03/2026-1
+// Defcon4 02/03/2026-2
 // ContentView.swift
 // Repository: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm/ContentView.swift
 
@@ -8,10 +8,33 @@ import SceneKit
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
     //  Initializer for conditional binding must have Optional type, not 'SCNScene'
+    
     var body: some View {
-        SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .accessibilityLabel("3D Fighter Scene")
+        ZStack {
+            SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .accessibilityLabel("3D Fighter Scene")
+            
+            // Button overlay for controlling fighter rotation
+            VStack {
+                Spacer()
+                Button(action: {
+//  Value of type 'SceneViewModel' has no dynamic member 'isFighterRotating' using key path from root type 'SceneViewModel'
+                    if viewModel.isFighterRotating {
+                        viewModel.stopFighterRotation()
+                    } else {
+                        viewModel.startFighterRotation()
+                    }
+                }) {
+                    Text(viewModel.isFighterRotating ? "Stop Rotation" : "Start Rotation")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue.opacity(0.7))
+                        .cornerRadius(8)
+                }
+                .padding(.bottom, 50)  // Adjust padding as needed
+            }
+        }
     }
 }
 

@@ -74,26 +74,14 @@ struct SceneKitView: UIViewRepresentable {
         engineLightNode.light?.castsShadow = false
         engineLightNode.light?.attenuationStartDistance = 1.0
         engineLightNode.light?.attenuationEndDistance = 5.0
-        engineLightNode.light?.color = UIColor.green
+        engineLightNode.light?.color = sceneModel.engineLightColor
         engineLightNode.light?.intensity = sceneModel.engineLightIntensity
         node.addChildNode(engineLightNode)
         
-        let engineLightNode2 = SCNNode()
-        engineLightNode2.position = SCNVector3(x: 0.0, y: 3.0, z: 0.0)
-        engineLightNode2.light = SCNLight()
-        engineLightNode2.light?.type = .omni
-        engineLightNode2.light?.castsShadow = false
-        engineLightNode2.light?.attenuationStartDistance = 1.0
-        engineLightNode2.light?.attenuationEndDistance = 5.0
-        engineLightNode2.light?.color = UIColor.green
-        engineLightNode2.light?.intensity = sceneModel.engineLightIntensity
-        node.addChildNode(engineLightNode2)
-        
+        // Fighter rotation code removed (now handled in SceneViewModel for toggle control)
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {
-        // Re-scale fighter and update light if sceneModel changed
-        configureFighterNode(in: uiView)
+        // Update logic if needed
     }
 }
-
