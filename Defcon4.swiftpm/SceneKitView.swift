@@ -41,20 +41,7 @@ struct SceneKitView: UIViewRepresentable {
         targetNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: sphere, options: nil))
         scene.rootNode.addChildNode(targetNode)
         
-        let cone = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 1024)
-        let radarOffset = ((cone.height / 2) + 8.0)
-        
-        let radarMatreial = SCNMaterial()
-        radarMatreial.diffuse.contents = UIColor.white
-        radarMatreial.transparency = 0.1  // Sets opacity to 10%
-        radarMatreial.lightingModel = .constant
-        cone.materials = [radarMatreial]
-        
-        let radarNode = SCNNode(geometry: cone)
-        radarNode.position = SCNVector3(0, -radarOffset, 0.25)
-        // Add physics body (e.g., static for collision detection without movement)
-        radarNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: cone, options: nil))
-        node.addChildNode(radarNode)
+        // REMOVED: Duplicate radarNode creation (now handled in SceneViewModel to avoid conflicts and ensure it's a child of fighterNode)
         
         let cabinLightNode = SCNNode()
         cabinLightNode.light = SCNLight()

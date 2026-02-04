@@ -28,7 +28,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
             // Find and store the fighter node
             if let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) {
                 self.fighterNode = fighter
-                fighterRotationAction = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 20)
                 // Set up physics body for targetNode (fighterNode) as kinematic
                 fighter.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(node: fighter, options: nil))
                 fighter.physicsBody?.categoryBitMask = 1 << 1  // Target category
@@ -50,16 +49,28 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         cameraNode.position = sceneModel.cameraPosition
         scene.rootNode.addChildNode(cameraNode)
         
-        // Setup radar node
+        // Setup radar node as child of fighterNode (if available)
         let radarNode = SCNNode()
-        radarNode.position = sceneModel.radarPosition  // Fix: Assign position from model
-        radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
+        // Match geometry from SceneKitView
+        radarNode.geometry = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 1024)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        radarNode.geometry?.firstMaterial?.transparency = 0.1  // Match transparency
+        radarNode.geometry?.firstMaterial?.lightingModel = .constant  // Match lighting model
+        // Match position from SceneKitView
+        let radarOffset = ((radarNode.geometry!.boundingBox.max.y - radarNode.geometry!.boundingBox.min.y) / 2) + 8.0  // ~520
+        radarNode.position = SCNVector3(0, -radarOffset, 0.25)
+        
         // Set up physics body for radarNode as kinematic
         radarNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: radarNode.geometry!, options: nil))
         radarNode.physicsBody?.categoryBitMask = 1 << 0  // Radar category
         radarNode.physicsBody?.contactTestBitMask = 1 << 1  // Target category
-        scene.rootNode.addChildNode(radarNode)
+        
+        // Add as child of fighterNode if available, otherwise to root
+        if let fighter = self.fighterNode {
+            fighter.addChildNode(radarNode)
+        } else {
+            scene.rootNode.addChildNode(radarNode)
+        }
         self.radarNode = radarNode  // Store reference
         
         // Prepare rotation action for later use
@@ -90,8 +101,10 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         }
     }
     
+    // Public methods to start and stop fighter (node) rotation
     func startFighterRotation() {
-        guard let node = fighterNode, let action = fighterRotationAction, !isFighterRotating else { return }
+        guard let node = fighterNode, !isFighterRotating else { return }
+        let action = SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 20)
         let repeatAction = SCNAction.repeatForever(action)
         node.runAction(repeatAction)
         isFighterRotating = true
@@ -110,7 +123,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
             (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
             print("Radar node is in contact with target node!")
-            // Add your custom logic here, e.g., trigger an action, update UI, etc.
+            // Custom logic here if needed (e.g., no rotation trigger)
         }
     }
     
@@ -120,7 +133,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         if (contact.nodeA == radarNode && contact.nodeB == fighterNode) ||
             (contact.nodeA == fighterNode && contact.nodeB == radarNode) {
             print("Radar node is no longer in contact with target node!")
-            // Add your custom logic here, e.g., reset state, update UI, etc.
+            // Custom logic here if needed
         }
     }
     
