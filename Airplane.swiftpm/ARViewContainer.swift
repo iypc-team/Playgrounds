@@ -40,10 +40,16 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(light2)
         
         // Optionally, if you want to print its coordinates too, add to the subscribe block:
-//        print("Light2 position (coordinates): \(light2.position)\n")
+        //        print("Light2 position (coordinates): \(light2.position)\n")
         
-        // Position the anchor to make the scene visible (pull back from fixed camera)
-        anchor.position = SIMD3<Float>(0, 0, -5)
+        // Create a custom camera oriented to look down the negative Y-axis
+        let camera = PerspectiveCamera()
+        camera.transform.translation = SIMD3<Float>(0, 5, 0)  // Position camera above the scene
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 5, 0), relativeTo: nil)  // Orient to look down the negative Y-axis
+        anchor.addChild(camera)
+        
+        // Position the anchor to center the airplane at the origin
+        anchor.position = SIMD3<Float>(0, 0, 0)
         
         arView.scene.addAnchor(anchor)
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
