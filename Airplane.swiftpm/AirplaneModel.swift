@@ -29,11 +29,13 @@ struct AirplaneModel {
                             
                             // Create and attach the cone
                             let coneMesh = generateConeMesh(radius: 0.2, height: 0.5, segments: 36)
-                            let coneMaterial = SimpleMaterial(color: .red, isMetallic: false)
+                            let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
                             let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
                             
                             // Position the cone relative to the airplane (e.g., above it)
-                            coneEntity.position = SIMD3<Float>(0, 1.0, 0)  // Offset in Y-axis
+                            coneEntity.position = SIMD3<Float>(0, 0.0, 1.0)  // Offset in Z-axis
+                            
+                            coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
                             
                             // Add as a child
                             modelEntity.addChild(coneEntity)
@@ -96,36 +98,3 @@ struct AirplaneModel {
     }
 }
 
-
-//import RealityKit
-//import Combine
-//
-//struct AirplaneModel {
-//    let entity: ModelEntity
-//    let rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
-//    
-//    static func load() async throws -> AirplaneModel {
-//        let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
-//        
-//        return try await withCheckedThrowingContinuation { continuation in
-//            loadRequest.subscribe(Subscribers.Sink(
-//                receiveCompletion: { completion in
-//                    switch completion {
-//                    case .failure(let error):
-//                        continuation.resume(throwing: error)
-//                    case .finished:
-//                        break
-//                    }
-//                },
-//                receiveValue: { modelEntity in
-//                    Task {
-//                        await MainActor.run {
-//                            modelEntity.scale = SIMD3<Float>(repeating: 3.0)
-//                        }
-//                        continuation.resume(returning: AirplaneModel(entity: modelEntity))
-//                    }
-//                }
-//            ))
-//        }
-//    }
-//}
