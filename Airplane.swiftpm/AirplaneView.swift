@@ -1,10 +1,10 @@
-//  Airplane  02/05/2026-1
+//  Airplane  02/05/2026-2
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
 import SwiftUI
 
-struct AirplaneView: View {
+struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
@@ -73,5 +73,5 @@ struct AirplaneView: View {
 }
 
 #Preview {
-    AirplaneView()
+    ContentView()
 }

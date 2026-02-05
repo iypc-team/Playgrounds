@@ -40,7 +40,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(light2)
         
         // Optionally, if you want to print its coordinates too, add to the subscribe block:
-        print("Light2 position (coordinates): \(light2.position)\n")
+//        print("Light2 position (coordinates): \(light2.position)\n")
         
         // Position the anchor to make the scene visible (pull back from fixed camera)
         anchor.position = SIMD3<Float>(0, 0, -5)

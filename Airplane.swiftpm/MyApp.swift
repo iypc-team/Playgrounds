@@ -8,7 +8,7 @@ import SwiftUI
 struct AirplaneDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            AirplaneView()
+            ContentView()
         }
     }
 }
