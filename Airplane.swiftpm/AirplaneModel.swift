@@ -1,6 +1,6 @@
 //  AirplaneModel.swift
 // 
-
+//  
 
 import RealityKit
 import Combine
@@ -26,6 +26,17 @@ struct AirplaneModel {
                     Task {
                         await MainActor.run {
                             modelEntity.scale = SIMD3<Float>(repeating: 3.0)
+                            
+                            // Create and attach the cone
+                            let coneMesh = generateConeMesh(radius: 0.2, height: 0.5, segments: 36)
+                            let coneMaterial = SimpleMaterial(color: .red, isMetallic: false)
+                            let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
+                            
+                            // Position the cone relative to the airplane (e.g., above it)
+                            coneEntity.position = SIMD3<Float>(0, 1.0, 0)  // Offset in Y-axis
+                            
+                            // Add as a child
+                            modelEntity.addChild(coneEntity)
                         }
                         continuation.resume(returning: AirplaneModel(entity: modelEntity))
                     }
@@ -33,4 +44,88 @@ struct AirplaneModel {
             ))
         }
     }
+    
+    // Custom cone mesh generator
+    private static func generateConeMesh(radius: Float, height: Float, segments: Int) -> MeshResource {
+        var positions: [SIMD3<Float>] = []
+        var normals: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        
+        // Apex (top point)
+        let apex = SIMD3<Float>(0, height / 2, 0)
+        positions.append(apex)
+        normals.append(normalize(SIMD3<Float>(0, 1, 0)))  // Pointing up
+        
+        // Base circle vertices
+        for i in 0..<segments {
+            let angle = Float(i) * (2.0 * .pi / Float(segments))
+            let x = radius * cos(angle)
+            let z = radius * sin(angle)
+            positions.append(SIMD3<Float>(x, -height / 2, z))
+            normals.append(normalize(SIMD3<Float>(x, 0, z)))  // Radial normals
+        }
+        
+        // Base center for the bottom cap
+        let baseCenterIndex = UInt32(positions.count)
+        positions.append(SIMD3<Float>(0, -height / 2, 0))
+        normals.append(SIMD3<Float>(0, -1, 0))  // Downward
+        
+        // Side triangles (cone surface)
+        for i in 0..<segments {
+            let next = (i + 1) % segments
+            indices.append(0)  // Apex
+            indices.append(UInt32(i + 1))
+            indices.append(UInt32(next + 1))
+        }
+        
+        // Base triangles (flat bottom)
+        for i in 0..<segments {
+            let next = (i + 1) % segments
+            indices.append(baseCenterIndex)
+            indices.append(UInt32(next + 1))
+            indices.append(UInt32(i + 1))
+        }
+        
+        var meshDesc = MeshDescriptor()
+        meshDesc.positions = MeshBuffers.Positions(positions)
+        meshDesc.normals = MeshBuffers.Normals(normals)
+        meshDesc.primitives = .triangles(indices)
+        
+        let mesh = try! MeshResource.generate(from: [meshDesc])
+        return mesh
+    }
 }
+
+
+//import RealityKit
+//import Combine
+//
+//struct AirplaneModel {
+//    let entity: ModelEntity
+//    let rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
+//    
+//    static func load() async throws -> AirplaneModel {
+//        let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
+//        
+//        return try await withCheckedThrowingContinuation { continuation in
+//            loadRequest.subscribe(Subscribers.Sink(
+//                receiveCompletion: { completion in
+//                    switch completion {
+//                    case .failure(let error):
+//                        continuation.resume(throwing: error)
+//                    case .finished:
+//                        break
+//                    }
+//                },
+//                receiveValue: { modelEntity in
+//                    Task {
+//                        await MainActor.run {
+//                            modelEntity.scale = SIMD3<Float>(repeating: 3.0)
+//                        }
+//                        continuation.resume(returning: AirplaneModel(entity: modelEntity))
+//                    }
+//                }
+//            ))
+//        }
+//    }
+//}

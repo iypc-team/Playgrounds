@@ -1,10 +1,6 @@
-//  Airplane  01/31/2026-1
+//  Airplane  02/05/2026-1
 //  AirplaneView.swift
-// 
-//  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
-// 
-// 
-
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
 import SwiftUI
 
@@ -74,4 +70,8 @@ struct AirplaneView: View {
             }
         }
     }
+}
+
+#Preview {
+    AirplaneView()
 }
