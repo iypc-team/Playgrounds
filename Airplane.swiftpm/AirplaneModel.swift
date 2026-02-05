@@ -8,6 +8,7 @@ import Combine
 struct AirplaneModel {
     let entity: ModelEntity
     let rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
+    private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(0, 0.0, 0.4)
     
     static func load() async throws -> AirplaneModel {
         let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
@@ -33,7 +34,8 @@ struct AirplaneModel {
                             let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
                             
                             // Position the cone relative to the airplane (e.g., above it)
-                            coneEntity.position = SIMD3<Float>(0, 0.0, 1.0)  // Offset in Z-axis
+//                            coneEntity.position = SIMD3<Float>(0, 0.0, 1.0)  // Offset in Z-axis
+                            coneEntity.position = conePositionOffset
                             
                             coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
                             
