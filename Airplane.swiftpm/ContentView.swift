@@ -1,4 +1,4 @@
-//  Airplane  02/06/2026-8
+//  Airplane  02/06/2026-9
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -10,6 +10,7 @@ struct ContentView: View {
     @State private var loadError: String?
     @State private var scale: CGFloat = 1.0  // New state for entity scaling
     @State private var isContinuousRotating: Bool = false  // New state for toggle
+    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)  // New state for continuous axis (default to Y)
     
     let fontSize: CGFloat = CGFloat(22)
     
@@ -31,13 +32,12 @@ struct ContentView: View {
             
             VStack {
                 Spacer()
-                
-                // New toggle button for continuous rotation (now above "Start Rotation")
+                // Toggle button for continuous rotation
                 Button(isContinuousRotating ? "Stop Continuous" : "Start Continuous") {
                     if isContinuousRotating {
                         vm.stopContinuousRotation()
                     } else {
-                        vm.startContinuousRotation(axis: SIMD3<Float>(0, 1, 0), speed: 0.25)  // Reduced speed for slower rotation
+                        vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)  // Use selected axis
                     }
                     isContinuousRotating.toggle()
                 }
@@ -45,6 +45,17 @@ struct ContentView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(8)
+                
+                // Another picker for continuous rotation axis (X, Y, or Z)
+                Picker("Continuous Axis", selection: $continuousAxis) {
+                    Text("X-axis").tag(SIMD3<Float>(1, 0, 0))
+                    Text("Y-axis").tag(SIMD3<Float>(0, 1, 0))
+                    Text("Z-axis").tag(SIMD3<Float>(0, 0, 1))
+                }
+                .font(.system(size: fontSize, weight: .bold, design: .default))
+                .pickerStyle(.automatic)
+                .padding()
+                
                 
                 // Button to start the stepped rotation
                 Button("Start Rotation") {
@@ -55,7 +66,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .cornerRadius(8)
                 
-                // Example: change axis with a picker
+                // Existing picker for stepped rotation axis
                 Picker("Axis", selection: $vm.rotationAxis) {
                     Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
                     Text("Minus X‑axis").tag(SIMD3<Float>(-1, 0, 0))
