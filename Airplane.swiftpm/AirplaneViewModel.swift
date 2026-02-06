@@ -10,18 +10,21 @@ final class AirplaneViewModel: ObservableObject {
     @Published private(set) var orientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     @Published var revolutionsPerSecond: Float = 1.0  // Adjusted for step timing (1 step per second by default)
     @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)
+    @Published var continuousOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)  // New for continuous rotation
     
-    private let stepDegrees: Float = 22.5 * 4
+    private let stepDegrees: Float = 22.5
     private let totalDegrees: Float = 360.0
     private var currentDegrees: Float = 0.0
     private var timerCancellable: AnyCancellable?
+    private var continuousTimerCancellable: AnyCancellable?  // New timer for continuous
     private var startDate = Date()
     
     init() {
-//        startClock()     // Auto‑start Rotation when created
+        //        startClock()     // Auto‑start Rotation when created
     }
     
     deinit {
+        stopContinuousRotation()  // New cleanup
         timerCancellable?.cancel()
     }
     
@@ -29,6 +32,25 @@ final class AirplaneViewModel: ObservableObject {
     func beginTiming() {
         resetRotation()
         startClock()
+    }
+    
+    // New method to start continuous rotation
+    func startContinuousRotation(axis: SIMD3<Float> = SIMD3<Float>(0, 1, 0), speed: Float = 1.0) {
+        stopContinuousRotation()  // Stop any existing continuous timer
+        continuousTimerCancellable = Timer.publish(every: 0.016, tolerance: 0.001, on: .main, in: .common)
+            .autoconnect()
+            .scan(0.0) { (accum, _) in accum + 0.016 * speed }  // Accumulate time
+            .sink { [weak self] time in
+                let radians = Float(time) * .pi * 2 * speed  // Full rotations over time
+                self?.continuousOrientation = simd_quaternion(radians, normalize(axis))
+            }
+    }
+    
+    // New method to stop continuous rotation
+    func stopContinuousRotation() {
+        continuousTimerCancellable?.cancel()
+        continuousTimerCancellable = nil
+        continuousOrientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)  // Reset
     }
     
     // PRIVATE implementation detail

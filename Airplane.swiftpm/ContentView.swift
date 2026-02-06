@@ -1,18 +1,17 @@
 //  Airplane  02/06/2026-4
-//  ContentView.swift  (Updated file name for consistency)
+//  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
 import SwiftUI
-
-extension ContentView {
-    static let defaultFontSize: CGFloat = 20
-}
 
 struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
     @State private var scale: CGFloat = 1.0  // New state for entity scaling
+    @State private var isContinuousRotating: Bool = false  // New state for toggle
+    
+    let fontSize: CGFloat = CGFloat(22)
     
     var body: some View {
         ZStack {
@@ -26,12 +25,24 @@ struct ContentView: View {
             } else {
                 // Loading placeholder
                 ProgressView("Loading airplane…")
-                    .foregroundColor(.blue)
-                    .tint(.blue)  
             }
             
             VStack {
                 Spacer()
+                
+                // New toggle button for continuous rotation (now above "Start Rotation")
+                Button(isContinuousRotating ? "Stop Continuous" : "Start Continuous") {
+                    if isContinuousRotating {
+                        vm.stopContinuousRotation()
+                    } else {
+                        vm.startContinuousRotation(axis: vm.rotationAxis, speed: 1.0)  // Use selected axis
+                    }
+                    isContinuousRotating.toggle()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
                 
                 // Button to start the stepped rotation
                 Button("Start Rotation") {
@@ -59,11 +70,11 @@ struct ContentView: View {
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                     Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
                 }
-                .font(.system(size: Self.defaultFontSize, weight: .semibold, design: .default))
+                .font(.system(size: fontSize, weight: .bold, design: .default))
                 .pickerStyle(.automatic)
                 .padding()
             }
-            .font(.system(size: Self.defaultFontSize, weight: .bold, design: .default))
+            .font(.system(size: fontSize, weight: .bold, design: .default))
         }
         .gesture(  // Attach pinch gesture to the ZStack
             MagnificationGesture()
