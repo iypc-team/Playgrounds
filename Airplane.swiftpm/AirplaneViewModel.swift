@@ -11,7 +11,7 @@ final class AirplaneViewModel: ObservableObject {
     @Published var revolutionsPerSecond: Float = 1.0  // Adjusted for step timing (1 step per second by default)
     @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)
     
-    private let stepDegrees: Float = 22.5
+    private let stepDegrees: Float = 22.5 * 4
     private let totalDegrees: Float = 360.0
     private var currentDegrees: Float = 0.0
     private var timerCancellable: AnyCancellable?

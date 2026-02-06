@@ -1,16 +1,18 @@
-//  Airplane  02/06/2026-3
-//  AirplaneView.swift
+//  Airplane  02/06/2026-4
+//  ContentView.swift  (Updated file name for consistency)
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
 import SwiftUI
+
+extension ContentView {
+    static let defaultFontSize: CGFloat = 20
+}
 
 struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
     @State private var scale: CGFloat = 1.0  // New state for entity scaling
-    
-    let fontSize: CGFloat = CGFloat(22)
     
     var body: some View {
         ZStack {
@@ -24,6 +26,8 @@ struct ContentView: View {
             } else {
                 // Loading placeholder
                 ProgressView("Loading airplane…")
+                    .foregroundColor(.blue)
+                    .tint(.blue)  
             }
             
             VStack {
@@ -55,11 +59,11 @@ struct ContentView: View {
                     Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
                     Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
                 }
-                .font(.system(size: fontSize, weight: .bold, design: .default))
+                .font(.system(size: Self.defaultFontSize, weight: .semibold, design: .default))
                 .pickerStyle(.automatic)
                 .padding()
             }
-            .font(.system(size: fontSize, weight: .bold, design: .default))
+            .font(.system(size: Self.defaultFontSize, weight: .bold, design: .default))
         }
         .gesture(  // Attach pinch gesture to the ZStack
             MagnificationGesture()
