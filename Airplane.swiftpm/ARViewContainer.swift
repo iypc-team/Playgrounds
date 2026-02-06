@@ -48,7 +48,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.scene.addAnchor(anchor)
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
         arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
-            airplaneEntity.transform.rotation = viewModel.orientation
+            airplaneEntity.transform.rotation = viewModel.currentOrientation
         }.store(in: &context.coordinator.cancellables)
         
         return arView
@@ -67,4 +67,3 @@ struct ARViewContainer: UIViewRepresentable {
         Coordinator()
     }
 }
-

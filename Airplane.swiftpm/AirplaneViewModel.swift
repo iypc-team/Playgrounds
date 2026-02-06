@@ -11,6 +11,7 @@ final class AirplaneViewModel: ObservableObject {
     @Published var revolutionsPerSecond: Float = 1.0  // Adjusted for step timing (1 step per second by default)
     @Published var rotationAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)
     @Published var continuousOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)  // New for continuous rotation
+    @Published var currentOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)  // Combined orientation for ARView
     
     private let stepDegrees: Float = 22.5
     private let totalDegrees: Float = 360.0
@@ -43,6 +44,7 @@ final class AirplaneViewModel: ObservableObject {
             .sink { [weak self] time in
                 let radians = Float(time) * .pi * 2 * speed  // Full rotations over time
                 self?.continuousOrientation = simd_quaternion(radians, normalize(axis))
+                self?.currentOrientation = self?.continuousOrientation ?? simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
             }
     }
     
@@ -51,6 +53,7 @@ final class AirplaneViewModel: ObservableObject {
         continuousTimerCancellable?.cancel()
         continuousTimerCancellable = nil
         continuousOrientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)  // Reset
+        currentOrientation = orientation
     }
     
     // PRIVATE implementation detail
@@ -67,6 +70,7 @@ final class AirplaneViewModel: ObservableObject {
             currentDegrees += stepDegrees
             let radians = currentDegrees * .pi / 180.0
             orientation = simd_quaternion(radians, normalize(rotationAxis))
+            currentOrientation = orientation
         } else {
             // Stop at 360°
             timerCancellable?.cancel()
@@ -76,5 +80,6 @@ final class AirplaneViewModel: ObservableObject {
     private func resetRotation() {
         currentDegrees = 0.0
         orientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+        currentOrientation = orientation
     }
 }

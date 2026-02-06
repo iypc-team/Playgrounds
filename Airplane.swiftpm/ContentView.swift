@@ -1,4 +1,4 @@
-//  Airplane  02/06/2026-5
+//  Airplane  02/06/2026-6
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -20,7 +20,8 @@ struct ContentView: View {
                     .foregroundColor(.red)
                     .padding()
             } else if let model = airplaneModel {
-                ARViewContainer(airplaneEntity: model.entity, viewModel: vm, scale: $scale)  // Pass scale binding
+                ARViewContainer(airplaneEntity: model.entity, viewModel: vm, scale: $scale, isContinuous: isContinuousRotating)  // Pass scale binding and continuous state
+                // Extra argument 'isContinuous' in call
                     .ignoresSafeArea()
             } else {
                 // Loading placeholder
