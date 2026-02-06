@@ -1,4 +1,4 @@
-//  Airplane  02/05/2026-6
+//  Airplane  02/06/2026-1
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -8,6 +8,7 @@ struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
+    @State private var scale: CGFloat = 1.0  // New state for entity scaling
     
     let fontSize: CGFloat = CGFloat(22)
     
@@ -18,7 +19,7 @@ struct ContentView: View {
                     .foregroundColor(.red)
                     .padding()
             } else if let model = airplaneModel {
-                ARViewContainer(airplaneEntity: model.entity, viewModel: vm)
+                ARViewContainer(airplaneEntity: model.entity, viewModel: vm, scale: $scale)  // Pass scale binding
                     .ignoresSafeArea()
             } else {
                 // Loading placeholder
@@ -60,6 +61,12 @@ struct ContentView: View {
             }
             .font(.system(size: fontSize, weight: .bold, design: .default))
         }
+        .gesture(  // Attach pinch gesture to the ZStack
+            MagnificationGesture()
+                .onChanged { value in
+                    scale = value  // Update scale during pinch
+                }
+        )
         .task {
             // Load the USDZ model once when the view appears.
             do {
@@ -75,3 +82,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
