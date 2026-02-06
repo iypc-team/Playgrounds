@@ -1,4 +1,4 @@
-//  Airplane  02/06/2026-9
+//  Airplane  02/06/2026-10
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -10,7 +10,7 @@ struct ContentView: View {
     @State private var loadError: String?
     @State private var scale: CGFloat = 1.0  // New state for entity scaling
     @State private var isContinuousRotating: Bool = false  // New state for toggle
-    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0)  // New state for continuous axis (default to Y)
+    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)  // New state for continuous axis (default to Y)
     
     let fontSize: CGFloat = CGFloat(22)
     
@@ -18,7 +18,7 @@ struct ContentView: View {
         ZStack {
             if let error = loadError {
                 Text("Failed to load airplane: \(error)")
-                    .foregroundColor(.red)
+                    .foregroundColor(.blue)
                     .padding()
             } else if let model = airplaneModel {
                 ARViewContainer(airplaneEntity: model.entity, viewModel: vm, scale: $scale)
@@ -27,7 +27,7 @@ struct ContentView: View {
                 // Loading placeholder
                 ProgressView("Loading airplane…")
                     .foregroundColor(.black)
-                    .tint(.black)
+                    .tint(.blue)
             }
             
             VStack {
