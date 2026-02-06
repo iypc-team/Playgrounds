@@ -1,4 +1,4 @@
-//  Airplane  02/06/2026-7
+//  Airplane  02/06/2026-8
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -37,7 +37,7 @@ struct ContentView: View {
                     if isContinuousRotating {
                         vm.stopContinuousRotation()
                     } else {
-                        vm.startContinuousRotation(axis: SIMD3<Float>(0, 1, 0), speed: 1.0)  // Always rotate about Y-axis
+                        vm.startContinuousRotation(axis: SIMD3<Float>(0, 1, 0), speed: 0.25)  // Reduced speed for slower rotation
                     }
                     isContinuousRotating.toggle()
                 }
