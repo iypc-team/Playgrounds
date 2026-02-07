@@ -1,4 +1,4 @@
-//  Airplane  02/07/2026-3
+//  Airplane  02/07/2026-4
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -8,11 +8,20 @@ struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
-    @State private var scale: CGFloat = 1.0  // New state for entity scaling
-    @State private var isContinuousRotating: Bool = false  // New state for toggle
-    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(1, 0, 0)  // New state for continuous axis (default to Y)
     
-    let fontSize: CGFloat = CGFloat(22)
+    // Incremental pinch-to-scale (no snapping each new gesture)
+    @State private var baseScale: CGFloat = 1.0
+    @GestureState private var pinchScale: CGFloat = 1.0
+    
+    @State private var isContinuousRotating: Bool = false
+    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y axis
+    
+    private let fontSize: CGFloat = 22
+    private let scaleRange: ClosedRange<CGFloat> = 0.25...3.0
+    
+    private var effectiveScale: CGFloat {
+        (baseScale * pinchScale).clamped(to: scaleRange)
+    }
     
     var body: some View {
         ZStack {
@@ -21,10 +30,13 @@ struct ContentView: View {
                     .foregroundColor(.blue)
                     .padding()
             } else if let model = airplaneModel {
-                ARViewContainer(airplaneEntity: model.entity, viewModel: vm, scale: $scale)
-                    .ignoresSafeArea()
+                ARViewContainer(
+                    airplaneEntity: model.entity,
+                    viewModel: vm,
+                    scale: .constant(effectiveScale)
+                )
+                .ignoresSafeArea()
             } else {
-                // Loading placeholder
                 ProgressView("Loading airplane…")
                     .foregroundColor(.black)
                     .tint(.blue)
@@ -32,12 +44,12 @@ struct ContentView: View {
             
             VStack {
                 Spacer()
-                // Toggle button for continuous rotation
+                
                 Button(isContinuousRotating ? "Stop Continuous" : "Start Continuous") {
                     if isContinuousRotating {
                         vm.stopContinuousRotation()
                     } else {
-                        vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)  // Use selected axis
+                        vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)
                     }
                     isContinuousRotating.toggle()
                 }
@@ -46,57 +58,28 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .cornerRadius(8)
                 
-                // Another picker for continuous rotation axis (X, Y, or Z)
                 Picker("Continuous Axis", selection: $continuousAxis) {
                     Text("X-axis").tag(SIMD3<Float>(1, 0, 0))
                     Text("Y-axis").tag(SIMD3<Float>(0, 1, 0))
                     Text("Z-axis").tag(SIMD3<Float>(0, 0, 1))
+                    Text("XY-axis").tag(SIMD3<Float>(1, 1, 0))
                 }
-                .font(.system(size: fontSize, weight: .bold, design: .default))
+                .font(.system(size: fontSize, weight: .bold))
                 .pickerStyle(.automatic)
                 .padding()
-                
-                
-                // Button to start the stepped rotation
-//                Button("Start Rotation") {
-//                    vm.beginTiming()
-//                }
-//                .padding()
-//                .background(Color.black)
-//                .foregroundColor(.white)
-//                .cornerRadius(8)
-//                
-//                // Existing picker for stepped rotation axis
-//                Picker("Axis", selection: $vm.rotationAxis) {
-//                    Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
-//                    Text("Minus X‑axis").tag(SIMD3<Float>(-1, 0, 0))
-//                    
-//                    Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
-//                    Text("Minus Y‑axis").tag(SIMD3<Float>(0, -1, 0))
-//                    
-//                    Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
-//                    Text("Minus Z‑axis").tag(SIMD3<Float>(0, 0, -1))
-//                    
-//                    Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
-//                    Text("Minus XY‑axis").tag(SIMD3<Float>(-1, -1, 0))
-//                    
-//                    Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
-//                    Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
-//                }
-//                .font(.system(size: fontSize, weight: .bold, design: .default))
-//                .pickerStyle(.automatic)
-//                .padding()
             }
-            .font(.system(size: fontSize, weight: .bold, design: .default))
+            .font(.system(size: fontSize, weight: .bold))
         }
-        .gesture(  // Attach pinch gesture to the ZStack
+        .gesture(
             MagnificationGesture()
-                .onChanged { value in
-                    scale = value  // Update scale during pinch
+                .updating($pinchScale) { value, state, _ in
+                    state = value
+                }
+                .onEnded { value in
+                    baseScale = (baseScale * value).clamped(to: scaleRange)
                 }
         )
         .task {
-            // Load the USDZ model once when the view appears.
             do {
                 airplaneModel = try await AirplaneModel.load()
             } catch {
@@ -107,6 +90,8 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
+private extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        min(max(self, range.lowerBound), range.upperBound)
+    }
 }
