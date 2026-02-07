@@ -1,5 +1,5 @@
 //  ARViewContainer.swift
-//
+//  .dynamic
 
 import SwiftUI
 import RealityKit
@@ -38,7 +38,7 @@ struct ARViewContainer: UIViewRepresentable {
             shapes: [.generateSphere(radius: 1.0)],
             mass: 1.0,
             material: .default,
-            mode: .dynamic
+            mode: .kinematic
         )
         targetEntity.components.set(physicsBody)
         
@@ -73,7 +73,8 @@ struct ARViewContainer: UIViewRepresentable {
         let camera = PerspectiveCamera()
         camera.transform.translation = SIMD3<Float>(0, 5, 0)  // Position camera above the scene
         camera.look(at: SIMD3<Float>(0, 0, 0),
-                    from: SIMD3<Float>(0, 5, 0),
+//                    from: SIMD3<Float>(-8, 8, 0),
+                    from: SIMD3<Float>(0, 12, 0),
                     relativeTo: nil)
         anchor.addChild(camera)
         
