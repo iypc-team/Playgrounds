@@ -84,9 +84,9 @@ struct AirplaneModel {
         // Base center for the bottom cap
         let baseCenterIndex = UInt32(positions.count)
         positions.append(SIMD3<Float>(0, -height / 2, 0))
-        normals.append(SIMD3<Float>(0, -1, 0))  // Downward
+        normals.append(SIMD3<Float>(0, -1, 0))  // Pointing down
         
-        // Side triangles (cone surface)
+        // Generate indices for sides
         for i in 0..<segments {
             let next = (i + 1) % segments
             indices.append(0)  // Apex
@@ -94,20 +94,16 @@ struct AirplaneModel {
             indices.append(UInt32(next + 1))
         }
         
-        // Base triangles (flat bottom)
+        // Generate indices for base
         for i in 0..<segments {
             let next = (i + 1) % segments
             indices.append(baseCenterIndex)
             indices.append(UInt32(next + 1))
             indices.append(UInt32(i + 1))
         }
-        
-        var meshDesc = MeshDescriptor()
-        meshDesc.positions = MeshBuffers.Positions(positions)
-        meshDesc.normals = MeshBuffers.Normals(normals)
-        meshDesc.primitives = .triangles(indices)
-        
-        let mesh = try! MeshResource.generate(from: [meshDesc])
-        return mesh
+        // 'Any' cannot be constructed because it has no accessible initializers
+        return try! MeshResource.generate(from: [
+            .init(positions: positions, normals: normals, textureCoordinates: [], indices: indices)
+        ])
     }
 }

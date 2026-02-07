@@ -23,6 +23,7 @@ struct ARViewContainer: UIViewRepresentable {
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
+        airplaneEntity.name = "airplane"  // Set name for identification
         anchor.addChild(airplaneEntity)
         
         // Create the targetEntity as a sphere with radius 1
@@ -39,6 +40,7 @@ struct ARViewContainer: UIViewRepresentable {
         // Position the targetEntity (e.g., at (2, 0, 0))
         targetEntity.position = SIMD3<Float>(2, 0, 0)
         
+        targetEntity.name = "target"  // Set name for identification
         // Add the targetEntity to the anchor
         anchor.addChild(targetEntity)
         
@@ -67,6 +69,22 @@ struct ARViewContainer: UIViewRepresentable {
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
         arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
             airplaneEntity.transform.rotation = viewModel.currentOrientation
+        }.store(in: &context.coordinator.cancellables)
+        
+        // Subscribe to collision began events and check for cone-target contact
+        arView.scene.subscribe(to: CollisionEvents.Began.self) { event in
+            if (event.entityA.name == "cone" && event.entityB.name == "target") || 
+                (event.entityA.name == "target" && event.entityB.name == "cone") {
+                print("Cone entity made contact with target entity")
+            }
+        }.store(in: &context.coordinator.cancellables)
+        
+        // Optional: Subscribe to collision ended events
+        arView.scene.subscribe(to: CollisionEvents.Ended.self) { event in
+            if (event.entityA.name == "cone" && event.entityB.name == "target") || 
+                (event.entityA.name == "target" && event.entityB.name == "cone") {
+                print("Cone entity ended contact with target entity")
+            }
         }.store(in: &context.coordinator.cancellables)
         
         return arView

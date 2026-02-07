@@ -2,6 +2,7 @@
 // 
 //  
 
+
 import Foundation
 import Combine
 import simd
@@ -72,8 +73,7 @@ final class AirplaneViewModel: ObservableObject {
             orientation = simd_quaternion(radians, normalize(rotationAxis))
             currentOrientation = orientation
         } else {
-            // Stop at 360°
-            timerCancellable?.cancel()
+            resetRotation()
         }
     }
     
