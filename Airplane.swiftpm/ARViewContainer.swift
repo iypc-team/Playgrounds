@@ -46,6 +46,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.position = SIMD3<Float>(0, 0, 0)
         
         arView.scene.addAnchor(anchor)
+        
         // Subscribe to per‑frame updates and apply the latest orientation from the view model.
         arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
             airplaneEntity.transform.rotation = viewModel.currentOrientation

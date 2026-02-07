@@ -39,6 +39,13 @@ struct AirplaneModel {
                             
                             coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
                             
+                            // Add physics properties to the cone
+                            coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
+                                massProperties: PhysicsMassProperties(shape: .generateConvex(from: coneMesh), mass: 1.0),
+                                material: .generate(friction: 0.8, restitution: 0.5),
+                                mode: .dynamic
+                            )
+                            
                             // Add as a child
                             modelEntity.addChild(coneEntity)
                         }

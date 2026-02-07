@@ -1,4 +1,4 @@
-//  Airplane  02/07/2026-1
+//  Airplane  02/07/2026-2
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -58,34 +58,34 @@ struct ContentView: View {
                 
                 
                 // Button to start the stepped rotation
-                Button("Start Rotation") {
-                    vm.beginTiming()
-                }
-                .padding()
-                .background(Color.black)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                
-                // Existing picker for stepped rotation axis
-                Picker("Axis", selection: $vm.rotationAxis) {
-                    Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
-                    Text("Minus X‑axis").tag(SIMD3<Float>(-1, 0, 0))
-                    
-                    Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
-                    Text("Minus Y‑axis").tag(SIMD3<Float>(0, -1, 0))
-                    
-                    Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
-                    Text("Minus Z‑axis").tag(SIMD3<Float>(0, 0, -1))
-                    
-                    Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
-                    Text("Minus XY‑axis").tag(SIMD3<Float>(-1, -1, 0))
-                    
-                    Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
-                    Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
-                }
-                .font(.system(size: fontSize, weight: .bold, design: .default))
-                .pickerStyle(.automatic)
-                .padding()
+//                Button("Start Rotation") {
+//                    vm.beginTiming()
+//                }
+//                .padding()
+//                .background(Color.black)
+//                .foregroundColor(.white)
+//                .cornerRadius(8)
+//                
+//                // Existing picker for stepped rotation axis
+//                Picker("Axis", selection: $vm.rotationAxis) {
+//                    Text("X‑axis").tag(SIMD3<Float>(1, 0, 0))
+//                    Text("Minus X‑axis").tag(SIMD3<Float>(-1, 0, 0))
+//                    
+//                    Text("Y‑axis").tag(SIMD3<Float>(0, 1, 0))
+//                    Text("Minus Y‑axis").tag(SIMD3<Float>(0, -1, 0))
+//                    
+//                    Text("Z‑axis").tag(SIMD3<Float>(0, 0, 1))
+//                    Text("Minus Z‑axis").tag(SIMD3<Float>(0, 0, -1))
+//                    
+//                    Text("XY‑axis").tag(SIMD3<Float>(1, 1, 0))
+//                    Text("Minus XY‑axis").tag(SIMD3<Float>(-1, -1, 0))
+//                    
+//                    Text("All‑axis").tag(SIMD3<Float>(1, 1, 1))
+//                    Text("Minus All‑axis").tag(SIMD3<Float>(-1, -1, -1))
+//                }
+//                .font(.system(size: fontSize, weight: .bold, design: .default))
+//                .pickerStyle(.automatic)
+//                .padding()
             }
             .font(.system(size: fontSize, weight: .bold, design: .default))
         }
