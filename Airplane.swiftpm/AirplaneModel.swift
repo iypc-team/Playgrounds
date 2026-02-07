@@ -101,9 +101,21 @@ struct AirplaneModel {
             indices.append(UInt32(next + 1))
             indices.append(UInt32(i + 1))
         }
-        // 'Any' cannot be constructed because it has no accessible initializers
+        /*
+         Extra argument 'primative' in call
+         Cannot find 'MeshPrimitive' in scope
+         Cannot find contextual in reference to member 'triangle'
+         */
         return try! MeshResource.generate(from: [
-            .init(positions: positions, normals: normals, textureCoordinates: [], indices: indices)
+            MeshDescriptor(
+                primitive: MeshPrimitive(
+                    topology: .triangle,
+                    indices: indices,
+                    positions: positions,
+                    normals: normals,
+                    textureCoordinates: [SIMD2<Float>]()
+                )
+            )
         ])
     }
 }
