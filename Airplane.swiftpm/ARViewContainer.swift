@@ -25,6 +25,23 @@ struct ARViewContainer: UIViewRepresentable {
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         anchor.addChild(airplaneEntity)
         
+        // Create the targetEntity as a sphere with radius 1
+        let targetEntity = ModelEntity(mesh: .generateSphere(radius: 1.0))
+        
+        // Create a red material for the targetEntity
+        let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
+        targetEntity.model?.materials = [targetEntityMaterial]
+        
+        // Add physics properties to the targetEntity (dynamic sphere)
+        let physicsBody = PhysicsBodyComponent(shapes: [.generateSphere(radius: 1.0)], mass: 1.0, material: .default, mode: .dynamic)
+        targetEntity.components.set(physicsBody)
+        
+        // Position the targetEntity (e.g., at (2, 0, 0))
+        targetEntity.position = SIMD3<Float>(2, 0, 0)
+        
+        // Add the targetEntity to the anchor
+        anchor.addChild(targetEntity)
+        
         // Add a directional light to illuminate the airplane
         let light = DirectionalLight()
         light.light.intensity = 4000  // Adjust intensity as needed
