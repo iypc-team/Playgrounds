@@ -1,5 +1,5 @@
 //  AirplaneModel.swift
-// 
+//
 //  white
 
 import RealityKit
@@ -101,21 +101,13 @@ struct AirplaneModel {
             indices.append(UInt32(next + 1))
             indices.append(UInt32(i + 1))
         }
-        /*
-         Extra argument 'primative' in call
-         Cannot find 'MeshPrimitive' in scope
-         Cannot find contextual in reference to member 'triangle'
-         */
-        return try! MeshResource.generate(from: [
-            MeshDescriptor(
-                primitive: MeshPrimitive(
-                    topology: .triangle,
-                    indices: indices,
-                    positions: positions,
-                    normals: normals,
-                    textureCoordinates: [SIMD2<Float>]()
-                )
-            )
-        ])
+        
+        // Build RealityKit mesh descriptor (updated API usage)
+        var desc = MeshDescriptor()
+        desc.positions = MeshBuffer(positions)
+        desc.normals = MeshBuffer(normals)
+        desc.primitives = .triangles(indices)
+        
+        return try! MeshResource.generate(from: [desc])
     }
 }

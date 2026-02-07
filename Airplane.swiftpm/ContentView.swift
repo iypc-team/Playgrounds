@@ -1,4 +1,4 @@
-//  Airplane  02/07/2026-9
+//  Airplane  02/07/2026-10
 //  AirplaneView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -38,8 +38,9 @@ struct ContentView: View {
                 .ignoresSafeArea()
             } else {
                 ProgressView("Loading airplane…")
+                    .tint(.black)
                     .foregroundColor(.black)
-                    .tint(.blue)
+                    .font(.system(size: 22, weight: .medium, design: .default))
             }
             
             VStack {
@@ -94,4 +95,8 @@ private extension Comparable {
     func clamped(to range: ClosedRange<Self>) -> Self {
         min(max(self, range.lowerBound), range.upperBound)
     }
+}
+
+#Preview {
+    ContentView()
 }
