@@ -30,14 +30,16 @@ struct AirplaneModel {
                             
                             // Create and attach the cone
                             let coneMesh = generateConeMesh(radius: 0.2, height: 0.5, segments: 36)
-                            let coneMaterial = SimpleMaterial(color: .clear, isMetallic: false)
+                            let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
                             let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
                             
-                            // Position the cone relative to the airplane (e.g., above it)
-                            //                            coneEntity.position = SIMD3<Float>(0, 0.0, 1.0)  // Offset in Z-axis
+                            // Position the cone relative to the airplane
                             coneEntity.position = conePositionOffset
                             
                             coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
+                            
+                            // Set name for collision detection
+                            coneEntity.name = "cone"
                             
                             // Add physics properties to the cone
                             coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
@@ -45,6 +47,9 @@ struct AirplaneModel {
                                 material: .generate(friction: 0.8, restitution: 0.5),
                                 mode: .dynamic
                             )
+                            
+                            // Add collision component for collision events
+                            coneEntity.components.set(CollisionComponent(shapes: [.generateConvex(from: coneMesh)]))
                             
                             // Add as a child
                             modelEntity.addChild(coneEntity)
