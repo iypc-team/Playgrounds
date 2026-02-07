@@ -1,6 +1,6 @@
 //  AirplaneModel.swift
 // 
-//  
+//  white
 
 import RealityKit
 import Combine
@@ -30,7 +30,7 @@ struct AirplaneModel {
                             
                             // Create and attach the cone
                             let coneMesh = generateConeMesh(radius: 0.2, height: 0.5, segments: 36)
-                            let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
+                            let coneMaterial = SimpleMaterial(color: .clear, isMetallic: false)
                             let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
                             
                             // Position the cone relative to the airplane (e.g., above it)
