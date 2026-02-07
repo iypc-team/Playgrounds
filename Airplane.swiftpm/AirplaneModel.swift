@@ -2,7 +2,6 @@
 // 
 //  white
 
-
 import RealityKit
 import Combine
 
@@ -46,7 +45,7 @@ struct AirplaneModel {
                             coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
                                 massProperties: PhysicsMassProperties(shape: .generateConvex(from: coneMesh), mass: 1.0),
                                 material: .generate(friction: 0.8, restitution: 0.5),
-                                mode: .dynamic
+                                mode: .static  // Updated from .dynamic to prevent falling
                             )
                             
                             // Add collision component for collision events
