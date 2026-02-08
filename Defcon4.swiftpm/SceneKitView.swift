@@ -13,7 +13,7 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.black
         scnView.allowsCameraControl = true
-        scnView.autoenablesDefaultLighting = false
+        scnView.autoenablesDefaultLighting = true
         scnView.antialiasingMode = .multisampling4X
         
         configureFighterNode(in: scnView)
