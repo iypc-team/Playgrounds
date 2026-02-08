@@ -1,4 +1,4 @@
-//  Airplane  02/08/2026-2
+//  Airplane  02/08/2026-3
 //  AirplaneView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 
@@ -17,6 +17,8 @@ struct ContentView: View {
     @State private var isContinuousRotating: Bool = false
     @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y axis
     
+    @State private var contactText: String = "No contacts yet"
+    
     private let fontSize: CGFloat = 22
     private let scaleRange: ClosedRange<CGFloat> = 0.25...3.0
     
@@ -34,7 +36,10 @@ struct ContentView: View {
                 ARViewContainer(
                     airplaneEntity: model.entity,
                     viewModel: vm,
-                    scale: .constant(effectiveScale)
+                    scale: .constant(effectiveScale),
+                    onContactEvent: { text in
+                        contactText = text
+                    }
                 )
                 .ignoresSafeArea()
             } else {
@@ -71,6 +76,18 @@ struct ContentView: View {
                 .padding()
             }
             .font(.system(size: fontSize, weight: .bold))
+            
+            // Contact overlay
+            VStack {
+                Text(contactText)
+                    .font(.system(size: 14, weight: .semibold))
+                    .padding(8)
+                    .background(.black.opacity(0.6))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .padding(.top, 12)
+                Spacer()
+            }
         }
         .gesture(
             MagnificationGesture()

@@ -17,6 +17,8 @@ struct ARViewContainer: UIViewRepresentable {
     let viewModel: AirplaneViewModel
     /// Binding for scaling the entities.
     @Binding var scale: CGFloat
+    /// Contact callback
+    let onContactEvent: (String) -> Void
     
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
@@ -33,23 +35,27 @@ struct ARViewContainer: UIViewRepresentable {
         let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
         targetEntity.model?.materials = [targetEntityMaterial]
         
-        // Add physics properties to the targetEntity (dynamic sphere)
-        let physicsBody = PhysicsBodyComponent(
+        // Add physics properties to the targetEntity (static sphere)
+        let targetPhysicsBody = PhysicsBodyComponent(
             shapes: [.generateSphere(radius: 1.0)],
             mass: 1.0,
             material: .default,
-            mode: .kinematic
+            mode: .static
         )
-        targetEntity.components.set(physicsBody)
+        targetEntity.components.set(targetPhysicsBody)
         
         // Position the targetEntity (e.g., at (2, 0, 0))
         targetEntity.position = SIMD3<Float>(2, 0, 0)
         
         targetEntity.name = "target"  // Set name for identification
         
-        // NOTE: Collision shapes are required for CollisionEvents.
-        // The PhysicsBodyComponent created above generally implies shapes, but being explicit is fine:
-        targetEntity.components.set(CollisionComponent(shapes: [.generateSphere(radius: 1.0)]))
+        // Collision shapes required for CollisionEvents (trigger = event only)
+        targetEntity.components.set(
+            CollisionComponent(
+                shapes: [.generateSphere(radius: 1.0)],
+                mode: .trigger
+            )
+        )
         
         // Add the targetEntity to the anchor
         anchor.addChild(targetEntity)
@@ -73,7 +79,7 @@ struct ARViewContainer: UIViewRepresentable {
         let camera = PerspectiveCamera()
         camera.transform.translation = SIMD3<Float>(0, 5, 0)  // Position camera above the scene
         camera.look(at: SIMD3<Float>(0, 0, 0),
-//                    from: SIMD3<Float>(-8, 8, 0),
+                    //                    from: SIMD3<Float>(-8, 8, 0),
                     from: SIMD3<Float>(0, 12, 0),
                     relativeTo: nil)
         anchor.addChild(camera)
@@ -90,8 +96,11 @@ struct ARViewContainer: UIViewRepresentable {
             }
             .store(in: &context.coordinator.cancellables)
         
-        // Hook up physics/contact handling (no console printing).
-        context.coordinator.physics.setup(in: arView)
+        // Hook up physics/contact handling with callback
+        context.coordinator.onContactEvent = onContactEvent
+        context.coordinator.physics.setup(in: arView) { text in
+            context.coordinator.onContactEvent?(text)
+        }
         
         return arView
     }
@@ -104,6 +113,7 @@ struct ARViewContainer: UIViewRepresentable {
     class Coordinator {
         var cancellables = Set<AnyCancellable>()
         let physics = PhysicsCoordinator()
+        var onContactEvent: ((String) -> Void)?
     }
     
     func makeCoordinator() -> Coordinator {

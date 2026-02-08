@@ -45,11 +45,16 @@ struct AirplaneModel {
                             coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
                                 massProperties: PhysicsMassProperties(shape: .generateConvex(from: coneMesh), mass: 1.0),
                                 material: .generate(friction: 0.8, restitution: 0.5),
-                                mode: .static  // Updated from .dynamic to prevent falling
+                                mode: .kinematic // was .static
                             )
                             
-                            // Add collision component for collision events
-                            coneEntity.components.set(CollisionComponent(shapes: [.generateConvex(from: coneMesh)]))
+                            // Add collision component for collision events (trigger)
+                            coneEntity.components.set(
+                                CollisionComponent(
+                                    shapes: [.generateConvex(from: coneMesh)],
+                                    mode: .trigger
+                                )
+                            )
                             
                             // Add as a child
                             modelEntity.addChild(coneEntity)

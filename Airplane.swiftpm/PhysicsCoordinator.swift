@@ -1,6 +1,8 @@
 //  PhysicsCoordinator.swift
-// 
+//  
+//  
 
+import Foundation
 import RealityKit
 import Combine
 
@@ -17,29 +19,32 @@ final class PhysicsCoordinator {
     
     
     /// Call once after entities are added to the scene/anchor.
-    func setup(in arView: ARView) {
+    func setup(in arView: ARView, onEvent: @escaping (String) -> Void) {
         arView.scene
             .subscribe(to: CollisionEvents.Began.self) { [coneName, targetName] event in
-                // Debug: log everything so you can verify events are firing at all.
-                print("Collision BEGAN: \(event.entityA.name) <-> \(event.entityB.name)")
+                let a = event.entityA.name
+                let b = event.entityB.name
+                print("Collision BEGAN: \(a) <-> \(b)")
                 
-                // Focused: coneEntity <-> targetEntity
-                guard self.isConeTargetPair(event.entityA.name, event.entityB.name,
-                                       coneName: coneName, targetName: targetName) else { return }
+                guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
                 
-                print(">>> CONE hit TARGET (began)")
-                // record collision here (increment counter, set flag, etc.)
+                DispatchQueue.main.async {
+                    onEvent("✅ Contact: \(a) ↔︎ \(b)")
+                }
             }
             .store(in: &cancellables)
         
         arView.scene
             .subscribe(to: CollisionEvents.Ended.self) { [coneName, targetName] event in
-                print("Collision ENDED: \(event.entityA.name) <-> \(event.entityB.name)")
+                let a = event.entityA.name
+                let b = event.entityB.name
+                print("Collision ENDED: \(a) <-> \(b)")
                 
-                guard self.isConeTargetPair(event.entityA.name, event.entityB.name,
-                                       coneName: coneName, targetName: targetName) else { return }
+                guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
                 
-                print("<<< CONE hit TARGET (ended)")
+                DispatchQueue.main.async {
+                    onEvent("⛔️ Ended: \(a) ↔︎ \(b)")
+                }
             }
             .store(in: &cancellables)
     }
