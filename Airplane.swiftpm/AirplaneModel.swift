@@ -8,7 +8,7 @@ import Combine
 struct AirplaneModel {
     let entity: ModelEntity
     let rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 0, 0)
-//    private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(1.5, 0, 0)
+    //    private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(1.5, 0, 0)
     private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(0, 0, 0.4)
     
     static func load() async throws -> AirplaneModel {
