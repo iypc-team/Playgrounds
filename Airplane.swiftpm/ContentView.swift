@@ -1,7 +1,6 @@
-//  Airplane  02/08/2026-3
+//  Airplane  02/08/2026-4
 //  AirplaneView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
-
 
 import SwiftUI
 
@@ -20,7 +19,7 @@ struct ContentView: View {
     @State private var contactText: String = "No contacts yet"
     
     private let fontSize: CGFloat = 22
-    private let scaleRange: ClosedRange<CGFloat> = 0.25...3.0
+    private let scaleRange: ClosedRange<CGFloat> = 0.25...5.0
     
     private var effectiveScale: CGFloat {
         (baseScale * pinchScale).clamped(to: scaleRange)
@@ -46,7 +45,7 @@ struct ContentView: View {
                 ProgressView("Loading airplane…")
                     .tint(.black)
                     .foregroundColor(.black)
-                    .font(.system(size: 22, weight: .medium, design: .default))
+                    .font(.system(size: fontSize, weight: .medium, design: .default))
             }
             
             VStack {
@@ -80,7 +79,7 @@ struct ContentView: View {
             // Contact overlay
             VStack {
                 Text(contactText)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: fontSize, weight: .semibold))
                     .padding(8)
                     .background(.black.opacity(0.6))
                     .foregroundColor(.white)

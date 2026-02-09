@@ -26,9 +26,12 @@ final class PhysicsCoordinator {
                 let b = event.entityB.name
                 print("Collision BEGAN: \(a) <-> \(b)")
                 
-                guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
+                guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else {
+                    return
+                }
                 
                 DispatchQueue.main.async {
+                    print("✅ Contact: \(a) ↔︎ \(b)")
                     onEvent("✅ Contact: \(a) ↔︎ \(b)")
                 }
             }
