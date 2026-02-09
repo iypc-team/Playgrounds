@@ -1,5 +1,5 @@
 //  ARViewContainer.swift
-//  .dynamic
+//  
 
 import SwiftUI
 import RealityKit
@@ -77,7 +77,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         // Create a custom camera oriented to look down the negative Y-axis
         let camera = PerspectiveCamera()
-        camera.transform.translation = SIMD3<Float>(0, 5, 0)  // Position camera above the scene
+        camera.transform.translation = SIMD3<Float>(-5, 0, 0)  // Position camera above the scene
         camera.look(at: SIMD3<Float>(0, 0, 0),
                     //                    from: SIMD3<Float>(-8, 8, 0),
                     from: SIMD3<Float>(0, 12, 0),
