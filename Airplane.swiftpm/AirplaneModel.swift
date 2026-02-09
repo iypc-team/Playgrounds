@@ -1,6 +1,6 @@
 //  AirplaneModel.swift
 //
-//  white
+//  
 
 import RealityKit
 import Combine

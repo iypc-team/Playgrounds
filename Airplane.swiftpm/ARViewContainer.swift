@@ -6,7 +6,7 @@ import RealityKit
 import ARKit
 import Combine
 
-/// A thin wrapper that gives SwiftUI access to an ARView.
+
 struct ARViewContainer: UIViewRepresentable {
     // Explicitly tell UIViewRepresentable that the wrapped view is an ARView.
     typealias UIViewType = ARView
@@ -35,12 +35,12 @@ struct ARViewContainer: UIViewRepresentable {
         let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
         targetEntity.model?.materials = [targetEntityMaterial]
         
-        // Add physics properties to the targetEntity (static sphere)
+        // Add physics properties to the targetEntity (dynamic sphere with high mass)
         let targetPhysicsBody = PhysicsBodyComponent(
             shapes: [.generateSphere(radius: 1.0)],
-            mass: 1.0,
+            mass: 1000000,
             material: .default,
-            mode: .static
+            mode: .dynamic
         )
         targetEntity.components.set(targetPhysicsBody)
         
@@ -93,6 +93,8 @@ struct ARViewContainer: UIViewRepresentable {
         arView.scene
             .subscribe(to: SceneEvents.Update.self) { _ in
                 airplaneEntity.transform.rotation = viewModel.currentOrientation
+                // Keep targetEntity in place by resetting position
+                targetEntity.position = SIMD3<Float>(2, 0, 0)
             }
             .store(in: &context.coordinator.cancellables)
         
