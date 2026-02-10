@@ -90,7 +90,7 @@ struct ARViewContainer: UIViewRepresentable {
         camera.transform.translation = SIMD3<Float>(-5, 0, 0)  // Position camera above the scene
         camera.look(at: SIMD3<Float>(0, 0, 0),
                     //                    from: SIMD3<Float>(-8, 8, 0),
-                    from: SIMD3<Float>(0, 12, 0),
+                    from: SIMD3<Float>(-6, 12, 0),
                     relativeTo: nil)
         anchor.addChild(camera)
         

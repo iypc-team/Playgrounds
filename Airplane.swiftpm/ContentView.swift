@@ -1,4 +1,4 @@
-//  Airplane  02/10/2026-2
+//  Airplane  02/10/2026-3
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -13,20 +13,19 @@ struct ContentView: View {
     // Incremental pinch-to-scale (no snapping each new gesture)
     @State private var baseScale: CGFloat = 1.0
     @GestureState private var pinchScale: CGFloat = 1.0
-    
     @State private var isContinuousRotating: Bool = false
-    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y axis
-    
+    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y
     @State private var contactText: String = "No contacts yet"
     
     private let fontSize: CGFloat = 22
-    private let scaleRange: ClosedRange<CGFloat> = 0.25...5.0
+    private let scaleRange: ClosedRange<CGFloat> = 0.125...10.1
     
     private var effectiveScale: CGFloat {
         (baseScale * pinchScale).clamped(to: scaleRange)
     }
     
     var body: some View {
+//        print("ContentView body called")
         ZStack {
             if let error = loadError {
                 Text("Failed to load airplane: \(error)")
@@ -44,9 +43,9 @@ struct ContentView: View {
                 .ignoresSafeArea()
             } else {
                 ProgressView("Loading airplane…")
+                    .font(.system(size: fontSize, weight: .medium, design: .default))
                     .tint(.black)
                     .foregroundColor(.black)
-                    .font(.system(size: fontSize, weight: .medium, design: .default))
             }
             
             VStack {

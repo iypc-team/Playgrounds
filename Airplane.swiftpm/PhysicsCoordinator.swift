@@ -31,6 +31,7 @@ final class PhysicsCoordinator {
                 }
                 
                 DispatchQueue.main.async {
+                    print("DispatchQueue.main.async")
                     print("✅ Contact: \(a) ↔︎ \(b)")
                     onEvent("✅ Contact: \(a) ↔︎ \(b)")
                 }
@@ -46,6 +47,8 @@ final class PhysicsCoordinator {
                 guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
                 
                 DispatchQueue.main.async {
+                    print("DispatchQueue.main.async")
+                    print( "⛔️ Ended: \(a) ↔︎ \(b)")
                     onEvent("⛔️ Ended: \(a) ↔︎ \(b)")
                 }
             }
