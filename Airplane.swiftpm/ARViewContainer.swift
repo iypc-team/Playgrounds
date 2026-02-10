@@ -1,5 +1,6 @@
 //  ARViewContainer.swift
 //  
+//  
 
 import SwiftUI
 import RealityKit
@@ -30,8 +31,7 @@ struct ARViewContainer: UIViewRepresentable {
         // Add collision component to airplaneEntity for collision detection
         airplaneEntity.components.set(
             CollisionComponent(
-                shapes: [ShapeResource.generateConvexHull(from: airplaneEntity.model!.mesh)],
-                //  Type 'ShapeResource' has no member 'generateConvexHull'
+                shapes: [ShapeResource.generateConvex(from: airplaneEntity.model!.mesh)],
                 mode: .default
             )
         )
