@@ -26,6 +26,16 @@ struct ARViewContainer: UIViewRepresentable {
         
         let anchor = AnchorEntity(world: .zero) // Add the airplane model to the scene.
         airplaneEntity.name = "airplane"  // Set name for identification
+        
+        // Add collision component to airplaneEntity for collision detection
+        airplaneEntity.components.set(
+            CollisionComponent(
+                shapes: [ShapeResource.generateConvexHull(from: airplaneEntity.model!.mesh)],
+                //  Type 'ShapeResource' has no member 'generateConvexHull'
+                mode: .default
+            )
+        )
+        
         anchor.addChild(airplaneEntity)
         
         // Create the targetEntity as a sphere with radius 1
@@ -35,12 +45,12 @@ struct ARViewContainer: UIViewRepresentable {
         let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
         targetEntity.model?.materials = [targetEntityMaterial]
         
-        // Add physics properties to the targetEntity (dynamic sphere with high mass)
+        // Add physics properties to the targetEntity (static sphere to prevent movement)
         let targetPhysicsBody = PhysicsBodyComponent(
             shapes: [.generateSphere(radius: 1.0)],
             mass: 1000000,
             material: .default,
-            mode: .dynamic
+            mode: .static  // Changed from .dynamic to .static for stability
         )
         targetEntity.components.set(targetPhysicsBody)
         
@@ -93,8 +103,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.scene
             .subscribe(to: SceneEvents.Update.self) { _ in
                 airplaneEntity.transform.rotation = viewModel.currentOrientation
-                // Keep targetEntity in place by resetting position
-                targetEntity.position = SIMD3<Float>(2, 0, 0)
+                // Removed position reset for targetEntity since it's now static
             }
             .store(in: &context.coordinator.cancellables)
         
