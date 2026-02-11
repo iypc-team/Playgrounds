@@ -1,6 +1,6 @@
 //  PhysicsCoordinator.swift
 //  
-//  
+//  Ended
 
 import Foundation
 import RealityKit
@@ -54,7 +54,7 @@ final class PhysicsCoordinator {
                 DispatchQueue.main.async {
                     let message = "⛔️ Ended: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
                     print(message)
-                    print("worldPos: \(worldPos)")
+                    print("worldPos: \(worldPos)\n")
                     onEvent(message)
                 }
             }

@@ -17,6 +17,8 @@ struct ARViewContainer: UIViewRepresentable {
     let viewModel: AirplaneViewModel
     /// Binding for scaling the entities.
     @Binding var scale: CGFloat
+    /// Binding for toggling target rotation.
+    @Binding var isTargetRotating: Bool
     /// Contact callback
     let onContactEvent: (String) -> Void
     
@@ -92,7 +94,18 @@ struct ARViewContainer: UIViewRepresentable {
         arView.scene
             .subscribe(to: SceneEvents.Update.self) { _ in
                 airplaneEntity.transform.rotation = viewModel.currentOrientation
-                // Removed position reset for targetEntity since it's now static
+                
+                // Update targetEntity position for orbiting if enabled
+                if context.coordinator.isTargetRotating {
+                    context.coordinator.targetAngle += 0.016 * context.coordinator.targetSpeed
+                    let radius: Float = 2.0  // Distance from the orbit center; adjust as needed
+                    let center = SIMD3<Float>(0, 0, 0)  // Point to orbit about; change if needed
+                    targetEntity.transform.translation = center + SIMD3<Float>(
+                        radius * cos(context.coordinator.targetAngle),
+                        0,
+                        radius * sin(context.coordinator.targetAngle)
+                    )
+                }
             }
             .store(in: &context.coordinator.cancellables)
         
@@ -108,12 +121,18 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         // Apply scaling to the airplane entity (including its cone child)
         airplaneEntity.transform.scale = SIMD3<Float>(repeating: 3.0 * Float(scale))  // Multiply by initial scale
+        
+        // Update the coordinator's rotation state
+        context.coordinator.isTargetRotating = isTargetRotating
     }
     
     class Coordinator {
         var cancellables = Set<AnyCancellable>()
         let physics = PhysicsCoordinator()
         var onContactEvent: ((String) -> Void)?
+        var targetAngle: Float = 0
+        let targetSpeed: Float = 0.5  // Radians per second; adjust for speed
+        var isTargetRotating: Bool = false
     }
     
     func makeCoordinator() -> Coordinator {

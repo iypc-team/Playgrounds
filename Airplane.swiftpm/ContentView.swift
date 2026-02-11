@@ -1,4 +1,4 @@
-//  Airplane  02/11/2026-3
+//  Airplane  02/11/2026-4
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -15,6 +15,7 @@ struct ContentView: View {
     @GestureState private var pinchScale: CGFloat = 1.0
     @State private var isContinuousRotating: Bool = false
     @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y
+    @State private var isTargetRotating: Bool = false
     @State private var contactText: String = "No contacts yet"
     
     private let fontSize: CGFloat = 22
@@ -36,6 +37,7 @@ struct ContentView: View {
                     airplaneEntity: model.entity,
                     viewModel: vm,
                     scale: .constant(effectiveScale),
+                    isTargetRotating: $isTargetRotating,
                     onContactEvent: { text in
                         contactText = text
                     }
@@ -51,18 +53,28 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 
-                Button(isContinuousRotating ? "Stop Continuous" : "Start Continuous") {
-                    if isContinuousRotating {
-                        vm.stopContinuousRotation()
-                    } else {
-                        vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)
+                HStack {
+                    Button(isContinuousRotating ? "Stop Airplane Continuous" : "Start Airplane Continuous") {
+                        if isContinuousRotating {
+                            vm.stopContinuousRotation()
+                        } else {
+                            vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)
+                        }
+                        isContinuousRotating.toggle()
                     }
-                    isContinuousRotating.toggle()
+                    .padding()
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    
+                    Button(isTargetRotating ? "Stop Target Rotation" : "Start Target Rotation") {
+                        isTargetRotating.toggle()
+                    }
+                    .padding()
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
                 
                 Picker("Continuous Axis", selection: $continuousAxis) {
                     Text("X-axis").tag(SIMD3<Float>(1, 0, 0))
