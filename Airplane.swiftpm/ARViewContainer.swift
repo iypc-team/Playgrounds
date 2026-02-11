@@ -7,7 +7,6 @@ import RealityKit
 import ARKit
 import Combine
 
-
 struct ARViewContainer: UIViewRepresentable {
     // Explicitly tell UIViewRepresentable that the wrapped view is an ARView.
     typealias UIViewType = ARView
@@ -45,21 +44,11 @@ struct ARViewContainer: UIViewRepresentable {
         let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
         targetEntity.model?.materials = [targetEntityMaterial]
         
-        // Add physics properties to the targetEntity (static sphere to prevent movement)
-        let targetPhysicsBody = PhysicsBodyComponent(
-            shapes: [.generateSphere(radius: 1.0)],
-            mass: 1000000,
-            material: .default,
-            mode: .static  // Changed from .dynamic to .static for stability
-        )
-        targetEntity.components.set(targetPhysicsBody)
-        
         // Position the targetEntity (e.g., at (2, 0, 0))
         targetEntity.position = SIMD3<Float>(2, 0, 0)
-        
         targetEntity.name = "target"  // Set name for identification
         
-        // Collision shapes required for CollisionEvents (trigger = event only)
+        // Trigger-only collision for presence detection (no physical response)
         targetEntity.components.set(
             CollisionComponent(
                 shapes: [.generateSphere(radius: 1.0)],

@@ -17,7 +17,6 @@ final class PhysicsCoordinator {
     private let coneName = "cone"
     private let targetName = "target"
     
-    
     /// Call once after entities are added to the scene/anchor.
     func setup(in arView: ARView, onEvent: @escaping (String) -> Void) {
         arView.scene
@@ -30,10 +29,14 @@ final class PhysicsCoordinator {
                     return
                 }
                 
+                // Identify the other entity and capture its world position
+                let other = (event.entityA.name == coneName) ? event.entityB : event.entityA
+                let worldPos = other.position(relativeTo: nil)
+                
                 DispatchQueue.main.async {
-                    print("DispatchQueue.main.async")
-                    print("✅ Contact: \(a) ↔︎ \(b)")
-                    onEvent("✅ Contact: \(a) ↔︎ \(b)")
+                    let message = "✅ Contact: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
+                    print(message)
+                    onEvent(message)
                 }
             }
             .store(in: &cancellables)
@@ -46,10 +49,13 @@ final class PhysicsCoordinator {
                 
                 guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
                 
+                let other = (event.entityA.name == coneName) ? event.entityB : event.entityA
+                let worldPos = other.position(relativeTo: nil)
+                
                 DispatchQueue.main.async {
-                    print("DispatchQueue.main.async")
-                    print( "⛔️ Ended: \(a) ↔︎ \(b)")
-                    onEvent("⛔️ Ended: \(a) ↔︎ \(b)")
+                    let message = "⛔️ Ended: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
+                    print(message)
+                    onEvent(message)
                 }
             }
             .store(in: &cancellables)
