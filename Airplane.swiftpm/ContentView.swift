@@ -1,4 +1,4 @@
-//  Airplane  02/10/2026-3
+//  Airplane  02/11/2026-1
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -25,7 +25,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-//        print("ContentView body called")
+        //        print("ContentView body called")
         ZStack {
             if let error = loadError {
                 Text("Failed to load airplane: \(error)")
