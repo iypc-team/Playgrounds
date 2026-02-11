@@ -23,7 +23,6 @@ final class PhysicsCoordinator {
             .subscribe(to: CollisionEvents.Began.self) { [coneName, targetName] event in
                 let a = event.entityA.name
                 let b = event.entityB.name
-                print("Collision BEGAN: \(a) <-> \(b)")
                 
                 guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else {
                     return
@@ -36,6 +35,7 @@ final class PhysicsCoordinator {
                 DispatchQueue.main.async {
                     let message = "✅ Contact: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
                     print(message)
+                    print("worldPos: \(worldPos)")
                     onEvent(message)
                 }
             }
@@ -45,7 +45,6 @@ final class PhysicsCoordinator {
             .subscribe(to: CollisionEvents.Ended.self) { [coneName, targetName] event in
                 let a = event.entityA.name
                 let b = event.entityB.name
-                print("Collision ENDED: \(a) <-> \(b)")
                 
                 guard self.isConeTargetPair(a, b, coneName: coneName, targetName: targetName) else { return }
                 
@@ -55,6 +54,7 @@ final class PhysicsCoordinator {
                 DispatchQueue.main.async {
                     let message = "⛔️ Ended: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
                     print(message)
+                    print("worldPos: \(worldPos)")
                     onEvent(message)
                 }
             }
