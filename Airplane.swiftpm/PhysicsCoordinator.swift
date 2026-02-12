@@ -33,11 +33,13 @@ final class PhysicsCoordinator {
                 let worldPos = other.position(relativeTo: nil)
                 
                 DispatchQueue.main.async {
-                    let message = "✅ Contact: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
+                    let message = "✅ Contact: \(a) ↔︎ \(b))"
+                    // let message = "✅ Contact: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
                     print(message)
                     print("worldPos: \(worldPos)")
                     onEvent(message)
                 }
+                print()
             }
             .store(in: &cancellables)
         
@@ -52,11 +54,13 @@ final class PhysicsCoordinator {
                 let worldPos = other.position(relativeTo: nil)
                 
                 DispatchQueue.main.async {
-                    let message = "⛔️ Ended: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
+                    let message = "⛔️ Ended: \(a) ↔︎ \(b))"
+                    // let message = "⛔️ Ended: \(a) ↔︎ \(b) @ world(\(worldPos.x), \(worldPos.y), \(worldPos.z))"
                     print(message)
-                    print("worldPos: \(worldPos)\n")
+                    print("worldPos: \(worldPos)")
                     onEvent(message)
                 }
+                print()
             }
             .store(in: &cancellables)
     }
