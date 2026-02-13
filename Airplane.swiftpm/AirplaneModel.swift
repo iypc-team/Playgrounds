@@ -7,11 +7,8 @@ import Combine
 
 struct AirplaneModel {
     let entity: ModelEntity
-    let rotationAxis: SIMD3<Float> = SIMD3<Float>(0, 0, 0)
-    //    private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(1.5, 0, 0)
-    private static let conePositionOffset: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.4)
     
-    static func load() async throws -> AirplaneModel {
+    static func load(conePositionOffset: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.4), airplaneScale: Float = 3.0, coneRadius: Float = 0.2, coneHeight: Float = 0.5, coneSegments: Int = 36) async throws -> AirplaneModel {
         let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
         
         return try await withCheckedThrowingContinuation { continuation in
@@ -27,40 +24,44 @@ struct AirplaneModel {
                 receiveValue: { modelEntity in
                     Task {
                         await MainActor.run {
-                            modelEntity.scale = SIMD3<Float>(repeating: 3.0)
+                            modelEntity.scale = SIMD3<Float>(repeating: airplaneScale)
                             
                             // Create and attach the cone
-                            let coneMesh = generateConeMesh(radius: 0.2, height: 0.5, segments: 36)
-                            let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
-                            let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
-                            
-                            // Position the cone relative to the airplane
-                            coneEntity.position = conePositionOffset
-                            
-                            coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
-                            
-                            // Set name for collision detection
-                            coneEntity.name = "cone"
-                            
-                            // Add physics properties to the cone
-                            coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
-                                massProperties: PhysicsMassProperties(shape: .generateConvex(from: coneMesh), mass: 1.0),
-                                material: .generate(friction: 0.8, restitution: 0.5),
-                                mode: .kinematic // was .static
-                            )
-                            
-                            // Add collision component for collision events (trigger)
-                            coneEntity.components.set(
-                                CollisionComponent(
-                                    shapes: [.generateConvex(from: coneMesh)],
-                                    mode: .trigger
+                            do {
+                                let coneMesh = try generateConeMesh(radius: coneRadius, height: coneHeight, segments: coneSegments)
+                                let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
+                                let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
+                                
+                                // Position the cone relative to the airplane
+                                coneEntity.position = conePositionOffset
+                                
+                                coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
+                                
+                                // Set name for collision detection
+                                coneEntity.name = "cone"
+                                
+                                // Add physics properties to the cone
+                                coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
+                                    massProperties: PhysicsMassProperties(shape: .generateConvex(from: coneMesh), mass: 1.0),
+                                    material: .generate(friction: 0.8, restitution: 0.5),
+                                    mode: .kinematic // was .static
                                 )
-                            )
-                            
-                            // Add as a child
-                            modelEntity.addChild(coneEntity)
+                                
+                                // Add collision component for collision events (trigger)
+                                coneEntity.components.set(
+                                    CollisionComponent(
+                                        shapes: [.generateConvex(from: coneMesh)],
+                                        mode: .trigger
+                                    )
+                                )
+                                
+                                // Add as a child
+                                modelEntity.addChild(coneEntity)
+                                continuation.resume(returning: AirplaneModel(entity: modelEntity))
+                            } catch {
+                                continuation.resume(throwing: error)
+                            }
                         }
-                        continuation.resume(returning: AirplaneModel(entity: modelEntity))
                     }
                 }
             ))
@@ -68,7 +69,7 @@ struct AirplaneModel {
     }
     
     // Custom cone mesh generator
-    private static func generateConeMesh(radius: Float, height: Float, segments: Int) -> MeshResource {
+    private static func generateConeMesh(radius: Float, height: Float, segments: Int) throws -> MeshResource {
         var positions: [SIMD3<Float>] = []
         var normals: [SIMD3<Float>] = []
         var indices: [UInt32] = []
@@ -114,6 +115,6 @@ struct AirplaneModel {
         desc.normals = MeshBuffer(normals)
         desc.primitives = .triangles(indices)
         
-        return try! MeshResource.generate(from: [desc])
+        return try MeshResource.generate(from: [desc])
     }
 }
