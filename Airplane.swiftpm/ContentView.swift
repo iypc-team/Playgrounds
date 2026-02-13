@@ -1,4 +1,4 @@
-//  Airplane  02/12/2026-1
+//  Airplane  02/12/2026-2
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -106,7 +106,9 @@ struct ContentView: View {
                     state = value
                 }
                 .onEnded { value in
+                    print("value: \(value)")
                     baseScale = (baseScale * value).clamped(to: scaleRange)
+                    print("baseScale: \(baseScale)")
                 }
         )
         .task {
