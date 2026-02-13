@@ -2,6 +2,7 @@
 //  
 //  
 
+
 import SwiftUI
 import RealityKit
 import ARKit
@@ -21,6 +22,25 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var isTargetRotating: Bool
     /// Contact callback
     let onContactEvent: (String) -> Void
+    
+    /// Configurable camera translation (position offset).
+    let cameraTranslation: SIMD3<Float>
+    
+    /// Configurable look-at target position.
+    let lookAtTarget: SIMD3<Float>
+    /// Configurable camera "from" position for look-at.
+    let cameraFromPosition: SIMD3<Float>
+    
+    init(airplaneEntity: ModelEntity, viewModel: AirplaneViewModel, scale: Binding<CGFloat>, isTargetRotating: Binding<Bool>, onContactEvent: @escaping (String) -> Void, cameraTranslation: SIMD3<Float> = SIMD3<Float>(-5, 0, 0), lookAtTarget: SIMD3<Float> = SIMD3<Float>(0, 0, 0), cameraFromPosition: SIMD3<Float> = SIMD3<Float>(-6, 12, 0)) {
+        self.airplaneEntity = airplaneEntity
+        self.viewModel = viewModel
+        self._scale = scale
+        self._isTargetRotating = isTargetRotating
+        self.onContactEvent = onContactEvent
+        self.cameraTranslation = cameraTranslation
+        self.lookAtTarget = lookAtTarget
+        self.cameraFromPosition = cameraFromPosition
+    }
     
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
@@ -78,10 +98,9 @@ struct ARViewContainer: UIViewRepresentable {
         
         // Create a custom camera oriented to look down the negative Y-axis
         let camera = PerspectiveCamera()
-        camera.transform.translation = SIMD3<Float>(-5, 0, 0)  // Position camera above the scene
-        camera.look(at: SIMD3<Float>(0, 0, 0),
-                    //                    from: SIMD3<Float>(-8, 8, 0),
-                    from: SIMD3<Float>(-6, 12, 0),
+        camera.transform.translation = cameraTranslation  // Configurable
+        camera.look(at: lookAtTarget,  // Configurable
+                    from: cameraFromPosition,  // Configurable
                     relativeTo: nil)
         anchor.addChild(camera)
         
