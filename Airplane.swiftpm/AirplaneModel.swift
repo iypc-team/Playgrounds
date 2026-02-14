@@ -5,10 +5,23 @@
 import RealityKit
 import Combine
 
+/// Configuration for airplane model loading and cone generation.
+/// Configuration for airplane model loading and cone generation.
+struct AirplaneModelConfig {
+    var airplaneScale: Float = 3.0
+    var coneRadius: Float = 256.0  //  default 0.2
+    var coneHeight: Float = 1024.0  //  default 0.5
+    var coneSegments: Int = 36
+    
+    var conePositionOffset: SIMD3<Float> {
+        SIMD3<Float>(0.0, 0.0, coneHeight / 2.0 + 0.4)
+    }
+}
+
 struct AirplaneModel {
     let entity: ModelEntity
     
-    static func load(conePositionOffset: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.4), airplaneScale: Float = 3.0, coneRadius: Float = 0.2, coneHeight: Float = 0.5, coneSegments: Int = 36) async throws -> AirplaneModel {
+    static func load(config: AirplaneModelConfig = AirplaneModelConfig()) async throws -> AirplaneModel {
         let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
         
         return try await withCheckedThrowingContinuation { continuation in
@@ -24,16 +37,16 @@ struct AirplaneModel {
                 receiveValue: { modelEntity in
                     Task {
                         await MainActor.run {
-                            modelEntity.scale = SIMD3<Float>(repeating: airplaneScale)
+                            modelEntity.scale = SIMD3<Float>(repeating: config.airplaneScale)
                             
                             // Create and attach the cone
                             do {
-                                let coneMesh = try generateConeMesh(radius: coneRadius, height: coneHeight, segments: coneSegments)
+                                let coneMesh = try generateConeMesh(radius: config.coneRadius, height: config.coneHeight, segments: config.coneSegments)
                                 let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
                                 let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
                                 
                                 // Position the cone relative to the airplane
-                                coneEntity.position = conePositionOffset
+                                coneEntity.position = config.conePositionOffset
                                 
                                 coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
                                 
@@ -70,6 +83,17 @@ struct AirplaneModel {
     
     // Custom cone mesh generator
     private static func generateConeMesh(radius: Float, height: Float, segments: Int) throws -> MeshResource {
+        // Validate parameters
+        guard radius > 0 else {
+            throw MeshGenerationError.invalidRadius("Radius must be greater than 0")
+        }
+        guard height > 0 else {
+            throw MeshGenerationError.invalidHeight("Height must be greater than 0")
+        }
+        guard segments >= 3 else {
+            throw MeshGenerationError.invalidSegments("Segments must be at least 3")
+        }
+        
         var positions: [SIMD3<Float>] = []
         var normals: [SIMD3<Float>] = []
         var indices: [UInt32] = []
@@ -117,4 +141,11 @@ struct AirplaneModel {
         
         return try MeshResource.generate(from: [desc])
     }
+}
+
+// Custom error types for mesh generation
+enum MeshGenerationError: Error {
+    case invalidRadius(String)
+    case invalidHeight(String)
+    case invalidSegments(String)
 }
