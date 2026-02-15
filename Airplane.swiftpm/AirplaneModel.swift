@@ -9,7 +9,7 @@ import Combine
 
 /// Configuration for airplane model loading and cone generation.
 struct AirplaneModelConfig {
-    var airplaneScale: Float = 3.0
+    var airplaneScale: Float = 5.0  //  default 3.0
     var coneRadius: Float = 256.0  // Default radius
     var coneHeight: Float = 1024.0 // Default height
     var coneSegments: Int = 36
@@ -128,9 +128,11 @@ struct AirplaneModel {
             let next = (i + 1) % segments
             indices.append(contentsOf: [0, UInt32(i + 1), UInt32(next + 1)])
             
-            // Normals for side triangles: average of apex and base normals
-            let sideNormal = normalize(SIMD3<Float>(cos(Float(i) * 2 * .pi / Float(segments)), 0.5, sin(Float(i) * 2 * .pi / Float(segments))))
-            normals[0] = sideNormal  // Update apex normal (approximation)
+            // Improved normals for side triangles: average of apex and base normals for better lighting
+            let baseNormal = normals[i + 1]
+            let sideNormal = normalize((SIMD3<Float>(0, 1, 0) + baseNormal) * 0.5)
+            normals[i + 1] = sideNormal  // Update base vertex normal
+            // Apex normal remains as is for flat apex
         }
         
         // Indices for the base (triangles from center to edges)
@@ -140,16 +142,13 @@ struct AirplaneModel {
             indices.append(contentsOf: [baseCenterIndex, UInt32(next + 1), UInt32(i + 1)])
         }
         
-        // Create the descriptor
-        let descriptor = LowLevelMesh.Descriptor(
-            // Cannot find 'LowLevelMesh' in scope
-            positions: positions,
-            normals: normals,
-            indices: indices,
-            textureCoordinates: nil
-        )
+        // Create the descriptor using MeshDescriptor (modern API)
+        var descriptor = MeshDescriptor()
+        descriptor.positions = MeshBuffers.Positions(positions)
+        descriptor.normals = MeshBuffers.Normals(normals)
+        descriptor.primitives = .triangles(indices)
         
-        return try MeshResource.generate(from: [LowLevelMesh(descriptor: descriptor)])
+        return try MeshResource.generate(from: [descriptor])
     }
     
     // Helper function for adding physics and collision logic to the cone

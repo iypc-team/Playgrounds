@@ -67,7 +67,7 @@ struct ARViewContainer: UIViewRepresentable {
         targetEntity.model?.materials = [targetEntityMaterial]
         
         // Position the targetEntity (e.g., at (2, 0, 0))
-        targetEntity.position = SIMD3<Float>(2, 0, 0)
+        targetEntity.position = SIMD3<Float>(4, 0, 0)  //  default SIMD3<Float>(2, 0, 0)
         targetEntity.name = "target"  // Set name for identification
         
         // Trigger-only collision for presence detection (no physical response)
