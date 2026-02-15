@@ -103,7 +103,7 @@ struct AirplaneModel {
         // (The actual mesh generation code can be implemented for realistic cones.)
         
         return try MeshResource.generate(from: .init(positions: positions, indices: indices))
-        //  No exact matches in call to initializer
+        //  No exact matches in call to in initializer
     }
     
     // Helper function for adding physics and collision logic to the cone
