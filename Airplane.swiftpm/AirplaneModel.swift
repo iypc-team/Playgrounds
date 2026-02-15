@@ -2,6 +2,7 @@
 //
 //  
 
+import RealityFoundation
 import RealityKit
 import Foundation
 import Combine
@@ -39,7 +40,6 @@ struct AirplaneModel {
                         DispatchQueue.main.async {
                             // UI-level actions on errors can be added here
                         }
-                        //  Cannot find 'DispatchQueue' in scope
                         continuation.resume(throwing: error)
                     case .finished:
                         break
@@ -97,13 +97,59 @@ struct AirplaneModel {
         }
         
         var positions: [SIMD3<Float>] = []
+        var normals: [SIMD3<Float>] = []
         var indices: [UInt32] = []
         
-        // Generate cone vertices and indices here...
-        // (The actual mesh generation code can be implemented for realistic cones.)
+        // Apex of the cone
+        let apex = SIMD3<Float>(0, height / 2, 0)
+        positions.append(apex)
+        normals.append(SIMD3<Float>(0, 1, 0))  // Normal pointing up
         
-        return try MeshResource.generate(from: .init(positions: positions, indices: indices))
-        //  No exact matches in call to in initializer
+        // Base circle vertices
+        for i in 0..<segments {
+            let angle = Float(i) * 2 * .pi / Float(segments)
+            let x = radius * cos(angle)
+            let z = radius * sin(angle)
+            let basePoint = SIMD3<Float>(x, -height / 2, z)
+            positions.append(basePoint)
+            
+            // Normal for base edges: outward in XZ plane
+            let baseNormal = SIMD3<Float>(cos(angle), 0, sin(angle))
+            normals.append(baseNormal)
+        }
+        
+        // Center of the base
+        let baseCenter = SIMD3<Float>(0, -height / 2, 0)
+        positions.append(baseCenter)
+        normals.append(SIMD3<Float>(0, -1, 0))  // Normal pointing down
+        
+        // Indices for the sides (triangles from apex to base edges)
+        for i in 0..<segments {
+            let next = (i + 1) % segments
+            indices.append(contentsOf: [0, UInt32(i + 1), UInt32(next + 1)])
+            
+            // Normals for side triangles: average of apex and base normals
+            let sideNormal = normalize(SIMD3<Float>(cos(Float(i) * 2 * .pi / Float(segments)), 0.5, sin(Float(i) * 2 * .pi / Float(segments))))
+            normals[0] = sideNormal  // Update apex normal (approximation)
+        }
+        
+        // Indices for the base (triangles from center to edges)
+        let baseCenterIndex = UInt32(positions.count - 1)
+        for i in 0..<segments {
+            let next = (i + 1) % segments
+            indices.append(contentsOf: [baseCenterIndex, UInt32(next + 1), UInt32(i + 1)])
+        }
+        
+        // Create the descriptor
+        let descriptor = LowLevelMesh.Descriptor(
+            // Cannot find 'LowLevelMesh' in scope
+            positions: positions,
+            normals: normals,
+            indices: indices,
+            textureCoordinates: nil
+        )
+        
+        return try MeshResource.generate(from: [LowLevelMesh(descriptor: descriptor)])
     }
     
     // Helper function for adding physics and collision logic to the cone

@@ -1,9 +1,22 @@
-//  Airplane  02/15/2026-2
+//  Airplane  02/15/2026-3
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
 
 import SwiftUI
+
+enum Axis: Hashable {
+    case x, y, z, xy
+    
+    var vector: SIMD3<Float> {
+        switch self {
+        case .x: return SIMD3<Float>(1, 0, 0)
+        case .y: return SIMD3<Float>(0, 1, 0)
+        case .z: return SIMD3<Float>(0, 0, 1)
+        case .xy: return SIMD3<Float>(1, 1, 0)
+        }
+    }
+}
 
 struct ContentView: View {
     @StateObject private var vm = AirplaneViewModel()
@@ -14,7 +27,7 @@ struct ContentView: View {
     @State private var baseScale: CGFloat = 1.0
     @GestureState private var pinchScale: CGFloat = 1.0
     @State private var isContinuousRotating: Bool = false
-    @State private var continuousAxis: SIMD3<Float> = SIMD3<Float>(0, 1, 0) // default Y
+    @State private var continuousAxis: Axis = .y  // Updated to use enum
     @State private var isTargetRotating: Bool = false
     @State private var contactText: String = "No contacts yet"
     
@@ -58,7 +71,7 @@ struct ContentView: View {
                         if isContinuousRotating {
                             vm.stopContinuousRotation()
                         } else {
-                            vm.startContinuousRotation(axis: continuousAxis, speed: 0.25)
+                            vm.startContinuousRotation(axis: continuousAxis.vector, speed: 0.25)  // Updated to use .vector
                         }
                         isContinuousRotating.toggle()
                     }
@@ -76,11 +89,11 @@ struct ContentView: View {
                     .cornerRadius(8)
                 }
                 
-                Picker("Continuous Axis", selection: $continuousAxis) {
-                    Text("X-axis").tag(SIMD3<Float>(1, 0, 0))
-                    Text("Y-axis").tag(SIMD3<Float>(0, 1, 0))
-                    Text("Z-axis").tag(SIMD3<Float>(0, 0, 1))
-                    Text("XY-axis").tag(SIMD3<Float>(1, 1, 0))
+                Picker("Continuous Axis", selection: $continuousAxis) {  // Updated selection type
+                    Text("X-axis").tag(Axis.x)
+                    Text("Y-axis").tag(Axis.y)
+                    Text("Z-axis").tag(Axis.z)
+                    Text("XY-axis").tag(Axis.xy)
                 }
                 .font(.system(size: fontSize, weight: .bold))
                 .pickerStyle(.automatic)
