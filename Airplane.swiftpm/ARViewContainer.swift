@@ -15,8 +15,6 @@ struct ARViewContainer: UIViewRepresentable {
     let airplaneEntity: ModelEntity
     /// The view model to read orientation from.
     let viewModel: AirplaneViewModel
-    /// Binding for scaling the entities.
-    @Binding var scale: CGFloat
     /// Binding for toggling target rotation.
     @Binding var isTargetRotating: Bool
     /// Contact callback
@@ -30,10 +28,9 @@ struct ARViewContainer: UIViewRepresentable {
     /// Configurable camera "from" position for look-at.
     let cameraFromPosition: SIMD3<Float>
     
-    init(airplaneEntity: ModelEntity, viewModel: AirplaneViewModel, scale: Binding<CGFloat>, isTargetRotating: Binding<Bool>, onContactEvent: @escaping (String) -> Void, cameraTranslation: SIMD3<Float> = SIMD3<Float>(-5, 0, 0), lookAtTarget: SIMD3<Float> = SIMD3<Float>(0, 0, 0), cameraFromPosition: SIMD3<Float> = SIMD3<Float>(-12, 12, 0)) {
+    init(airplaneEntity: ModelEntity, viewModel: AirplaneViewModel, isTargetRotating: Binding<Bool>, onContactEvent: @escaping (String) -> Void, cameraTranslation: SIMD3<Float> = SIMD3<Float>(-5, 0, 0), lookAtTarget: SIMD3<Float> = SIMD3<Float>(0, 0, 0), cameraFromPosition: SIMD3<Float> = SIMD3<Float>(-12, 12, 0)) {
         self.airplaneEntity = airplaneEntity
         self.viewModel = viewModel
-        self._scale = scale
         self._isTargetRotating = isTargetRotating
         self.onContactEvent = onContactEvent
         self.cameraTranslation = cameraTranslation
@@ -145,10 +142,6 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        // Apply scaling to the airplane entity (including its cone child)
-        print("scale: \(scale)")
-        airplaneEntity.transform.scale = SIMD3<Float>(repeating: 3.0 * Float(scale))  // Multiply by initial scale
-        print("airplaneEntity.transform.scale: \(airplaneEntity.transform.scale)")
         // Update the coordinator's rotation state
         context.coordinator.isTargetRotating = isTargetRotating
     }

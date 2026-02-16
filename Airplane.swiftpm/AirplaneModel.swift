@@ -7,16 +7,9 @@ import RealityKit
 import Foundation
 import Combine
 
-/// Configuration for airplane model loading and cone generation.
+/// Configuration for airplane model loading.
 struct AirplaneModelConfig {
-    var airplaneScale: Float = 5.0  //  default 3.0
-    var coneRadius: Float = 256.0  // Default radius
-    var coneHeight: Float = 1024.0 // Default height
-    var coneSegments: Int = 36
-    
-    var conePositionOffset: SIMD3<Float> {
-        SIMD3<Float>(0.0, 0.0, coneHeight / 2.0 + 0.4)
-    }
+    var airplaneScale: Float = 5.0
 }
 
 struct AirplaneModel {
@@ -30,16 +23,7 @@ struct AirplaneModel {
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
-                        // Error logging and potential notifications
                         print("❌ Failed to load airplane model: \(error)")
-                        
-                        // Optional: Send error to remote logging (e.g., Firebase, Sentry).
-                        // LoggerService.logError(error)
-                        
-                        // Provide optional UI feedback
-                        DispatchQueue.main.async {
-                            // UI-level actions on errors can be added here
-                        }
                         continuation.resume(throwing: error)
                     case .finished:
                         break
@@ -47,133 +31,20 @@ struct AirplaneModel {
                 },
                 receiveValue: { modelEntity in
                     Task {
-                        do {
-                            try await MainActor.run {
-                                modelEntity.scale = SIMD3<Float>(repeating: config.airplaneScale)
-                                
-                                // Create and attach the cone
-                                let coneMesh = try generateConeMesh(
-                                    radius: config.coneRadius,
-                                    height: config.coneHeight,
-                                    segments: config.coneSegments
-                                )
-                                let coneMaterial = SimpleMaterial(color: .white, isMetallic: false)
-                                let coneEntity = ModelEntity(mesh: coneMesh, materials: [coneMaterial])
-                                
-                                // Position the cone relative to the airplane
-                                coneEntity.position = config.conePositionOffset
-                                coneEntity.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
-                                coneEntity.name = "cone"
-                                
-                                // Add physics and collision properties
-                                addPhysicsAndCollision(to: coneEntity, coneMesh: coneMesh)
-                                
-                                // Add as a child and finish
-                                modelEntity.addChild(coneEntity)
-                                continuation.resume(returning: AirplaneModel(entity: modelEntity))
-                            }
-                        } catch {
-                            // Handle errors during cone generation
-                            print("❌ Error during model processing: \(error)")
-                            continuation.resume(throwing: error)
+                        await MainActor.run {
+                            print("Loaded airplane model: \(modelEntity)")
+                            print("Model mesh: \(String(describing: modelEntity.model?.mesh))")
+                            print("Model materials: \(String(describing: modelEntity.model?.materials))")
+                            
+                            modelEntity.scale = SIMD3<Float>(repeating: config.airplaneScale)
+                            print("Applied airplaneScale: \(config.airplaneScale), resulting scale: \(modelEntity.scale)")
+                            
+                            // Removed cone generation to avoid mesh API errors
+                            continuation.resume(returning: AirplaneModel(entity: modelEntity))
                         }
                     }
                 }
             ))
         }
     }
-    
-    // Custom cone mesh generator
-    private static func generateConeMesh(radius: Float, height: Float, segments: Int) throws -> MeshResource {
-        // Validate parameters
-        guard radius > 0 else {
-            throw MeshGenerationError.invalidRadius("Radius must be greater than 0")
-        }
-        guard height > 0 else {
-            throw MeshGenerationError.invalidHeight("Height must be greater than 0")
-        }
-        guard segments >= 3 else {
-            throw MeshGenerationError.invalidSegments("Segments must be at least 3")
-        }
-        
-        var positions: [SIMD3<Float>] = []
-        var normals: [SIMD3<Float>] = []
-        var indices: [UInt32] = []
-        
-        // Apex of the cone
-        let apex = SIMD3<Float>(0, height / 2, 0)
-        positions.append(apex)
-        normals.append(SIMD3<Float>(0, 1, 0))  // Normal pointing up
-        
-        // Base circle vertices
-        for i in 0..<segments {
-            let angle = Float(i) * 2 * .pi / Float(segments)
-            let x = radius * cos(angle)
-            let z = radius * sin(angle)
-            let basePoint = SIMD3<Float>(x, -height / 2, z)
-            positions.append(basePoint)
-            
-            // Normal for base edges: outward in XZ plane
-            let baseNormal = SIMD3<Float>(cos(angle), 0, sin(angle))
-            normals.append(baseNormal)
-        }
-        
-        // Center of the base
-        let baseCenter = SIMD3<Float>(0, -height / 2, 0)
-        positions.append(baseCenter)
-        normals.append(SIMD3<Float>(0, -1, 0))  // Normal pointing down
-        
-        // Indices for the sides (triangles from apex to base edges)
-        for i in 0..<segments {
-            let next = (i + 1) % segments
-            indices.append(contentsOf: [0, UInt32(i + 1), UInt32(next + 1)])
-            
-            // Improved normals for side triangles: average of apex and base normals for better lighting
-            let baseNormal = normals[i + 1]
-            let sideNormal = normalize((SIMD3<Float>(0, 1, 0) + baseNormal) * 0.5)
-            normals[i + 1] = sideNormal  // Update base vertex normal
-            // Apex normal remains as is for flat apex
-        }
-        
-        // Indices for the base (triangles from center to edges)
-        let baseCenterIndex = UInt32(positions.count - 1)
-        for i in 0..<segments {
-            let next = (i + 1) % segments
-            indices.append(contentsOf: [baseCenterIndex, UInt32(next + 1), UInt32(i + 1)])
-        }
-        
-        // Create the descriptor using MeshDescriptor (modern API)
-        var descriptor = MeshDescriptor()
-        descriptor.positions = MeshBuffers.Positions(positions)
-        descriptor.normals = MeshBuffers.Normals(normals)
-        descriptor.primitives = .triangles(indices)
-        
-        return try MeshResource.generate(from: [descriptor])
-    }
-    
-    // Helper function for adding physics and collision logic to the cone
-    private static func addPhysicsAndCollision(to coneEntity: ModelEntity, coneMesh: MeshResource) {
-        coneEntity.components[PhysicsBodyComponent.self] = PhysicsBodyComponent(
-            massProperties: PhysicsMassProperties(
-                shape: .generateConvex(from: coneMesh),
-                mass: 1.0
-            ),
-            material: .generate(friction: 0.8, restitution: 0.5),
-            mode: .kinematic
-        )
-        
-        coneEntity.components.set(
-            CollisionComponent(
-                shapes: [.generateConvex(from: coneMesh)],
-                mode: .trigger
-            )
-        )
-    }
-}
-
-// Custom error definitions for mesh generation
-enum MeshGenerationError: Error {
-    case invalidRadius(String)
-    case invalidHeight(String)
-    case invalidSegments(String)
 }

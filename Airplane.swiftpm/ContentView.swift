@@ -1,4 +1,4 @@
-//  Airplane  02/15/2026-5
+//  Airplane  02/16/2026-1
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -23,20 +23,12 @@ struct ContentView: View {
     @State private var airplaneModel: AirplaneModel?
     @State private var loadError: String?
     
-    // Incremental pinch-to-scale (no snapping each new gesture)
-    @State private var baseScale: CGFloat = 1.0
-    @GestureState private var pinchScale: CGFloat = 1.0
     @State private var isContinuousRotating: Bool = false
     @State private var continuousAxis: Axis = .y  // Updated to use enum
     @State private var isTargetRotating: Bool = false
     @State private var contactText: String = "No contacts yet"
     
     private let fontSize: CGFloat = 22
-    private let scaleRange: ClosedRange<CGFloat> = 0.125...10.1
-    
-    private var effectiveScale: CGFloat {
-        (baseScale * pinchScale).clamped(to: scaleRange)
-    }
     
     var body: some View {
         //        print("ContentView body called")
@@ -49,7 +41,6 @@ struct ContentView: View {
                 ARViewContainer(
                     airplaneEntity: model.entity,
                     viewModel: vm,
-                    scale: .constant(effectiveScale),
                     isTargetRotating: $isTargetRotating,
                     onContactEvent: { text in
                         contactText = text
@@ -113,17 +104,6 @@ struct ContentView: View {
                 Spacer()
             }
         }
-        .gesture(
-            MagnificationGesture()
-                .updating($pinchScale) { value, state, _ in
-                    state = value
-                }
-                .onEnded { value in
-                    print("value: \(value)")
-                    baseScale = (baseScale * value).clamped(to: scaleRange)
-                    print("baseScale: \(baseScale)")
-                }
-        )
         .task {
             do {
                 airplaneModel = try await AirplaneModel.load()
