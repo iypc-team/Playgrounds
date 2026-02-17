@@ -1,4 +1,4 @@
-//  Airplane  02/16/2026-3
+//  Airplane  02/16/2026-4
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -24,14 +24,13 @@ struct ContentView: View {
     @State private var loadError: String?
     
     @State private var isContinuousRotating: Bool = false
-    @State private var continuousAxis: Axis = .y  // Updated to use enum
+    @State private var continuousAxis: Axis = .y
     @State private var isTargetRotating: Bool = false
     @State private var contactText: String = "No contacts yet"
     
     private let fontSize: CGFloat = 22
     
     var body: some View {
-        //        print("ContentView body called")
         ZStack {
             if let error = loadError {
                 Text("Failed to load airplane: \(error)")
@@ -50,7 +49,7 @@ struct ContentView: View {
             } else {
                 ProgressView("Loading airplane…")
                     .font(.system(size: fontSize, weight: .medium, design: .default))
-                    .tint(.black)
+                    .accentColor(.black)   // ✅ iOS 16-safe
                     .foregroundColor(.black)
             }
             
@@ -62,7 +61,7 @@ struct ContentView: View {
                         if isContinuousRotating {
                             vm.stopContinuousRotation()
                         } else {
-                            vm.startContinuousRotation(axis: continuousAxis.vector, speed: 0.25)  // Updated to use .vector
+                            vm.startContinuousRotation(axis: continuousAxis.vector, speed: 0.25)
                         }
                         isContinuousRotating.toggle()
                     }
@@ -80,7 +79,7 @@ struct ContentView: View {
                     .cornerRadius(8)
                 }
                 
-                Picker("Continuous Axis", selection: $continuousAxis) {  // Updated selection type
+                Picker("Continuous Axis", selection: $continuousAxis) {
                     Text("X-axis").tag(Axis.x)
                     Text("Y-axis").tag(Axis.y)
                     Text("Z-axis").tag(Axis.z)
@@ -92,7 +91,6 @@ struct ContentView: View {
             }
             .font(.system(size: fontSize, weight: .bold))
             
-            // Contact overlay
             VStack {
                 Text(contactText)
                     .font(.system(size: fontSize, weight: .semibold))
