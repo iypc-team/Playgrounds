@@ -2,6 +2,7 @@
 //
 //
 //
+//
 
 import SwiftUI
 import RealityKit
@@ -58,12 +59,10 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(airplaneEntity)
         
         // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16.7-compatible)
-        // Fixes: "Argument passed to call that takes no arguments"
+        // Note: Entity.loadModel(named:) is synchronous (throws), so no `await`.
         Task {
             do {
-                // If Cone.usdz is in the package resources, this works on iOS 16
-                let radarEntity = try await Entity.loadModel(named: "Cone")
-                //  No 'async' operations occur within 'await' expression
+                let radarEntity = try Entity.loadModel(named: "Cone")
                 
                 let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
