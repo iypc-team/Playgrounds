@@ -1,6 +1,7 @@
 //  ARViewContainer.swift
 //  
-//. 
+
+//.
 
 import SwiftUI
 import RealityKit
@@ -55,8 +56,7 @@ struct ARViewContainer: UIViewRepresentable {
         Task {
             do {
                 let radarEntity = try await ModelEntity(named: "Cone")
-                // Argument passed to call that takes no arguments
-                let radarMaterial = SimpleMaterial(color: .red, isMetallic: false)
+                let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
                 
                 radarEntity.position = SIMD3<Float>(0, 1, 0)
@@ -83,7 +83,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         // Target entity
         let targetEntity = ModelEntity(mesh: .generateSphere(radius: 1.0))
-        let targetEntityMaterial = SimpleMaterial(color: .red, isMetallic: false)
+        let targetEntityMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
         targetEntity.model?.materials = [targetEntityMaterial]
         
         let targetEntityPosition = SIMD3<Float>(4, 0, 0)
