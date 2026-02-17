@@ -54,13 +54,12 @@ struct ARViewContainer: UIViewRepresentable {
         // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16-compatible)
         Task {
             do {
-                let radarEntity = try await Entity(named: "Cone") as! ModelEntity
-//                let radarEntity = try await ModelEntity(named: "Cone")
+                let radarEntity = try await ModelEntity(named: "Cone")
                 let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
                 
                 radarEntity.position = SIMD3<Float>(0, 1, 0)
-                radarEntity.name = "radar"
+                radarEntity.name = "cone"  // Updated to match PhysicsCoordinator expectations
                 
                 radarEntity.components.set(PhysicsBodyComponent(
                     massProperties: .default,
