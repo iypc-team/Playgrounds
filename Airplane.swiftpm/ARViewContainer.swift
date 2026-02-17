@@ -1,6 +1,7 @@
 //  ARViewContainer.swift
-//  
-//  
+//
+//
+//
 
 import SwiftUI
 import RealityKit
@@ -56,39 +57,39 @@ struct ARViewContainer: UIViewRepresentable {
         )
         anchor.addChild(airplaneEntity)
         
-        // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16-compatible)
+        // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16.7-compatible)
+        // Fixes: "Argument passed to call that takes no arguments"
         Task {
             do {
-                if let radarEntity = try await Entity(named: "Cone") as? ModelEntity {
-                    //  Argument passed to call that takes no arguments
-                    let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
-                    radarEntity.model?.materials = [radarMaterial]
-                    
-                    radarEntity.position = SIMD3<Float>(0, 1, 0)
-                    radarEntity.name = "cone"  // Updated to match PhysicsCoordinator expectations
-                    
-                    guard radarEntity.model != nil else {
-                        print("❌ Cone entity has no model component")
-                        return
-                    }
-                    
-                    radarEntity.components.set(PhysicsBodyComponent(
-                        massProperties: .default,
-                        material: .default,
-                        mode: .kinematic
-                    ))
-                    
-                    radarEntity.components.set(
-                        CollisionComponent(
-                            shapes: [ShapeResource.generateConvex(from: radarEntity.model!.mesh)],
-                            mode: .default
-                        )
-                    )
-                    
-                    airplaneEntity.addChild(radarEntity)
-                } else {
-                    print("❌ Failed to load Cone.usdz as ModelEntity")
+                // If Cone.usdz is in the package resources, this works on iOS 16
+                let radarEntity = try await Entity.loadModel(named: "Cone")
+                //  No 'async' operations occur within 'await' expression
+                
+                let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
+                radarEntity.model?.materials = [radarMaterial]
+                
+                radarEntity.position = SIMD3<Float>(0, 1, 0)
+                radarEntity.name = "cone"  // match PhysicsCoordinator expectations
+                
+                guard radarEntity.model != nil else {
+                    print("❌ Cone entity has no model component")
+                    return
                 }
+                
+                radarEntity.components.set(PhysicsBodyComponent(
+                    massProperties: .default,
+                    material: .default,
+                    mode: .kinematic
+                ))
+                
+                radarEntity.components.set(
+                    CollisionComponent(
+                        shapes: [ShapeResource.generateConvex(from: radarEntity.model!.mesh)],
+                        mode: .default
+                    )
+                )
+                
+                airplaneEntity.addChild(radarEntity)
             } catch {
                 print("❌ Failed to load Cone.usdz: \(error)")
             }
