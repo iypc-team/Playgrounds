@@ -9,7 +9,7 @@ import Combine
 
 /// Configuration for airplane model loading.
 struct AirplaneModelConfig {
-    var airplaneScale: Float = 5.0
+    var airplaneScale: Float = 9.5  // default 5.0
 }
 
 struct AirplaneModel {
