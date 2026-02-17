@@ -1,4 +1,4 @@
-//  Airplane  02/16/2026-2
+//  Airplane  02/16/2026-3
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -121,6 +121,8 @@ private extension Comparable {
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

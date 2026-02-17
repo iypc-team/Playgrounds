@@ -38,6 +38,46 @@ struct ARViewContainer: UIViewRepresentable {
         self.cameraFromPosition = cameraFromPosition
     }
     
+    func generateConeMesh(height: Float, radius: Float, segments: Int = 16) -> MeshResource {
+        var positions: [SIMD3<Float>] = []
+        var normals: [SIMD3<Float>] = []
+        var triangles: [UInt32] = []
+        
+        // Apex
+        positions.append(SIMD3<Float>(0, height / 2, 0))
+        normals.append(SIMD3<Float>(0, 1, 0))
+        
+        // Base vertices
+        for i in 0..<segments {
+            let angle = Float(i) / Float(segments) * 2 * .pi
+            let x = radius * cos(angle)
+            let z = radius * sin(angle)
+            positions.append(SIMD3<Float>(x, -height / 2, z))
+            normals.append(SIMD3<Float>(x / radius, 0, z / radius))  // Outward normal for sides
+        }
+        
+        // Side triangles
+        for i in 0..<segments {
+            let apexIndex: UInt32 = 0
+            let base1: UInt32 = UInt32(i + 1)
+            let base2: UInt32 = UInt32((i + 1) % segments + 1)
+            triangles.append(contentsOf: [apexIndex, base1, base2])
+        }
+        
+        let descriptor = MeshDescriptor(
+            positions: .init(positions),
+            normals: .init(normals),
+            textureCoordinates: nil,
+            primitives: MeshDescriptor.Primitives.triangles(triangles)
+        )
+        
+        do {
+            return try .generate(from: [descriptor])
+        } catch {
+            fatalError("Failed to generate cone mesh: \(error)")
+        }
+    }
+    
     func makeUIView(context: Context) -> ARView {
         // Create an ARView that does **not** start an AR session (cameraMode .nonAR).
         let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
@@ -55,6 +95,36 @@ struct ARViewContainer: UIViewRepresentable {
         )
         
         anchor.addChild(airplaneEntity)
+        
+        // Create the radarEntity as a cone (generated in code)
+        let coneMesh = generateConeMesh(height: 1.0, radius: 0.5)
+        let radarEntity = ModelEntity(mesh: coneMesh)
+        
+        // Create a basic red material for the radarEntity (changed to red for visibility testing)
+        let radarMaterial = SimpleMaterial(color: .red, isMetallic: false)
+        radarEntity.model?.materials = [radarMaterial]
+        
+        // Position the radarEntity (e.g., on top of the airplane)
+        radarEntity.position = SIMD3<Float>(0, 1, 0)  // Lowered slightly
+        radarEntity.name = "radar"  // Set name for identification
+        
+        // Add physics properties to the radarEntity
+        radarEntity.components.set(PhysicsBodyComponent(
+            massProperties: .default,
+            material: .default,
+            mode: .kinematic  // Kinematic mode since it's attached to the airplane
+        ))
+        
+        // Add collision component for the radarEntity
+        radarEntity.components.set(
+            CollisionComponent(
+                shapes: [ShapeResource.generateConvex(from: radarEntity.model!.mesh)],
+                mode: .default
+            )
+        )
+        
+        // Add the radarEntity as a child of the airplaneEntity (modelEntity)
+        airplaneEntity.addChild(radarEntity)
         
         // Create the targetEntity as a sphere with radius 1
         let targetEntity = ModelEntity(mesh: .generateSphere(radius: 1.0))
