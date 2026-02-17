@@ -1,5 +1,5 @@
 //  AirplaneModel.swift
-//
+//  
 //  
 
 import RealityFoundation
@@ -16,7 +16,7 @@ struct AirplaneModel {
     let entity: ModelEntity
     
     static func load(config: AirplaneModelConfig = AirplaneModelConfig()) async throws -> AirplaneModel {
-        let loadRequest = await ModelEntity.loadModelAsync(named: "Airplane")
+        let loadRequest = await Entity.loadModelAsync(named: "Airplane")
         
         return try await withCheckedThrowingContinuation { continuation in
             loadRequest.subscribe(Subscribers.Sink(
@@ -29,18 +29,21 @@ struct AirplaneModel {
                         break
                     }
                 },
-                receiveValue: { modelEntity in
+                receiveValue: { entity in
                     Task {
                         await MainActor.run {
-                            print("Loaded airplane model: \(modelEntity)")
-                            print("Model mesh: \(String(describing: modelEntity.model?.mesh))")
-                            print("Model materials: \(String(describing: modelEntity.model?.materials))")
-                            
-                            modelEntity.scale = SIMD3<Float>(repeating: config.airplaneScale)
-                            print("Applied airplaneScale: \(config.airplaneScale), resulting scale: \(modelEntity.scale)")
-                            
-                            // Removed cone generation to avoid mesh API errors
-                            continuation.resume(returning: AirplaneModel(entity: modelEntity))
+                            print("Loaded airplane model: \(entity)")
+                            if let modelEntity = entity as? ModelEntity {
+                                print("Model mesh: \(String(describing: modelEntity.model?.mesh))")
+                                print("Model materials: \(String(describing: modelEntity.model?.materials))")
+                                
+                                modelEntity.transform.scale = SIMD3<Float>(repeating: config.airplaneScale)
+                                print("Applied airplaneScale: \(config.airplaneScale), resulting scale: \(modelEntity.transform.scale)")
+                                
+                                continuation.resume(returning: AirplaneModel(entity: modelEntity))
+                            } else {
+                                continuation.resume(throwing: NSError(domain: "LoadError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Loaded entity is not a ModelEntity"]))
+                            }
                         }
                     }
                 }

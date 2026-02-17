@@ -1,7 +1,6 @@
 //  ARViewContainer.swift
 //  
-
-//.
+//  
 
 import SwiftUI
 import RealityKit
@@ -55,7 +54,8 @@ struct ARViewContainer: UIViewRepresentable {
         // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16-compatible)
         Task {
             do {
-                let radarEntity = try await ModelEntity(named: "Cone")
+                let radarEntity = try await Entity(named: "Cone") as! ModelEntity
+//                let radarEntity = try await ModelEntity(named: "Cone")
                 let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
                 
