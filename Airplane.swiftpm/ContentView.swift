@@ -1,4 +1,4 @@
-//  Airplane  02/17/2026-4
+//  Airplane  02/17/2026-5
 //  ContentView.swift 
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Airplane.swiftpm
 //  
@@ -49,7 +49,7 @@ struct ContentView: View {
             } else {
                 ProgressView("Loading airplane…")
                     .font(.system(size: fontSize, weight: .medium, design: .default))
-                    .accentColor(.black)   // ✅ iOS 16-safe
+                    .tint(.black)   // Updated for better compatibility
                     .foregroundColor(.black)
             }
             

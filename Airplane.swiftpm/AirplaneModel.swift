@@ -37,6 +37,11 @@ struct AirplaneModel {
                                 print("Model mesh: \(String(describing: modelEntity.model?.mesh))")
                                 print("Model materials: \(String(describing: modelEntity.model?.materials))")
                                 
+                                guard modelEntity.model != nil else {
+                                    continuation.resume(throwing: NSError(domain: "LoadError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Loaded ModelEntity has no model component"]))
+                                    return
+                                }
+                                
                                 modelEntity.transform.scale = SIMD3<Float>(repeating: config.airplaneScale)
                                 print("Applied airplaneScale: \(config.airplaneScale), resulting scale: \(modelEntity.transform.scale)")
                                 

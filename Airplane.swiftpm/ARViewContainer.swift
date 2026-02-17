@@ -43,6 +43,11 @@ struct ARViewContainer: UIViewRepresentable {
         let anchor = AnchorEntity(world: .zero)
         airplaneEntity.name = "airplane"
         
+        guard airplaneEntity.model != nil else {
+            print("❌ Airplane entity has no model component")
+            return arView
+        }
+        
         airplaneEntity.components.set(
             CollisionComponent(
                 shapes: [ShapeResource.generateConvex(from: airplaneEntity.model!.mesh)],
@@ -54,27 +59,36 @@ struct ARViewContainer: UIViewRepresentable {
         // ✅ Radar entity: load a Cone.usdz from Resources (iOS 16-compatible)
         Task {
             do {
-                let radarEntity = try await ModelEntity(named: "Cone")
-                let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
-                radarEntity.model?.materials = [radarMaterial]
-                
-                radarEntity.position = SIMD3<Float>(0, 1, 0)
-                radarEntity.name = "cone"  // Updated to match PhysicsCoordinator expectations
-                
-                radarEntity.components.set(PhysicsBodyComponent(
-                    massProperties: .default,
-                    material: .default,
-                    mode: .kinematic
-                ))
-                
-                radarEntity.components.set(
-                    CollisionComponent(
-                        shapes: [ShapeResource.generateConvex(from: radarEntity.model!.mesh)],
-                        mode: .default
+                if let radarEntity = try await Entity(named: "Cone") as? ModelEntity {
+                    //  Argument passed to call that takes no arguments
+                    let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
+                    radarEntity.model?.materials = [radarMaterial]
+                    
+                    radarEntity.position = SIMD3<Float>(0, 1, 0)
+                    radarEntity.name = "cone"  // Updated to match PhysicsCoordinator expectations
+                    
+                    guard radarEntity.model != nil else {
+                        print("❌ Cone entity has no model component")
+                        return
+                    }
+                    
+                    radarEntity.components.set(PhysicsBodyComponent(
+                        massProperties: .default,
+                        material: .default,
+                        mode: .kinematic
+                    ))
+                    
+                    radarEntity.components.set(
+                        CollisionComponent(
+                            shapes: [ShapeResource.generateConvex(from: radarEntity.model!.mesh)],
+                            mode: .default
+                        )
                     )
-                )
-                
-                airplaneEntity.addChild(radarEntity)
+                    
+                    airplaneEntity.addChild(radarEntity)
+                } else {
+                    print("❌ Failed to load Cone.usdz as ModelEntity")
+                }
             } catch {
                 print("❌ Failed to load Cone.usdz: \(error)")
             }
