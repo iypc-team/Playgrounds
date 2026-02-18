@@ -1,6 +1,14 @@
-// 
+//  ParticleSystem.swift
+//  
+
 import SwiftUI
 import Swift
+
+struct Particle: Hashable {
+    let x: Double
+    let y: Double
+    let creationDate = Date.now.timeIntervalSinceReferenceDate
+}
 
 class ParticleSystem: Sequence, IteratorProtocol {
     let image = Image("star.png")

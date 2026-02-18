@@ -1,5 +1,7 @@
-// 04/05/2023
-// https://www.youtube.com/watch?v=raR-hDgzoFg
+//  ParticleSystem 02/18/2026-1
+//  ContentView.swift
+//  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
+//  https://www.youtube.com/watch?v=raR-hDgzoFg
 
 import SwiftUI
 
@@ -31,5 +33,4 @@ struct ContentView_Preview: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
 
