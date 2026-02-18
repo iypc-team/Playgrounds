@@ -1,6 +1,6 @@
 //  AirplaneModel.swift
 //
-//
+//  Model materials
 
 import RealityFoundation
 import RealityKit
@@ -9,7 +9,7 @@ import Combine
 
 /// Configuration for airplane model loading.
 struct AirplaneModelConfig {
-    var airplaneScale: Float = 9.5  // default 5.0
+    var airplaneScale: Float = 9.0  // default 5.0
 }
 
 struct AirplaneModel {
@@ -35,7 +35,7 @@ struct AirplaneModel {
                             print("Loaded airplane model: \(modelEntity)")
                             print("Model mesh: \(String(describing: modelEntity.model?.mesh))")
                             print("Model materials: \(String(describing: modelEntity.model?.materials))")
-                            
+                            print()
                             guard modelEntity.model != nil else {
                                 continuation.resume(throwing: NSError(
                                     domain: "LoadError",

@@ -2,7 +2,6 @@
 //
 //
 //
-//
 
 import SwiftUI
 import RealityKit
@@ -67,7 +66,8 @@ struct ARViewContainer: UIViewRepresentable {
                 let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
                 
-                radarEntity.position = SIMD3<Float>(0, 1, 0)
+                radarEntity.position = airplaneEntity.position
+//                radarEntity.position = SIMD3<Float>(0, 1, 0)
                 radarEntity.name = "cone"  // match PhysicsCoordinator expectations
                 
                 guard radarEntity.model != nil else {
