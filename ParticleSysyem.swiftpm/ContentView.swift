@@ -1,7 +1,9 @@
-//  ParticleSystem 02/18/2026-1
+//  ParticleSystem 02/18/2026-2
 //  ContentView.swift
-//  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
-//  https://www.youtube.com/watch?v=raR-hDgzoFg
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
+//  
+//  WTF:  https://www.youtube.com/watch?v=raR-hDgzoFg
+//  
 
 import SwiftUI
 
