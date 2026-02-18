@@ -65,10 +65,12 @@ struct ARViewContainer: UIViewRepresentable {
                 
                 let radarMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: false)
                 radarEntity.model?.materials = [radarMaterial]
-                
-                radarEntity.position = airplaneEntity.position
+                print("airplaneEntity.position: \(airplaneEntity.position)")
+                radarEntity.position = SIMD3<Float>(0, 1, 0)
 //                radarEntity.position = SIMD3<Float>(0, 1, 0)
                 radarEntity.name = "cone"  // match PhysicsCoordinator expectations
+                
+                radarEntity.orientation = simd_quatf(angle: .pi, axis: SIMD3<Float>(1, 0, 0))
                 
                 guard radarEntity.model != nil else {
                     print("❌ Cone entity has no model component")
