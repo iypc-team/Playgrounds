@@ -1,4 +1,4 @@
-//  ParticleSystem 02/18/2026-4
+//  ParticleSystem 02/19/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
 //  
@@ -16,7 +16,8 @@ struct ContentView: View {
                 particleSystem.update(date: timelineDate)
                 
                 // Use additive blending for a nice glow when sparks overlap
-                context.blendMode = .plusLighter
+                context.blendMode = .plusLighter  // default .plusLighter
+//                print("context.blendMode: \(context.blendMode)")
                 
                 for particle in particleSystem {
                     let xPos = particle.x * size.width
@@ -25,6 +26,7 @@ struct ContentView: View {
                     // Age-based shrinking / fading
                     let age = timelineDate - particle.creationDate
                     let t = CGFloat(max(0, min(1, age / particleSystem.lifespan))) // 0..1
+//                    print("t: \(t)")
                     let radius = CGFloat(particle.size) * (1 - t) // shrinks to 0
                     guard radius > 0 else { continue }
                     
@@ -33,7 +35,8 @@ struct ContentView: View {
                                           width: radius * 2, height: radius * 2)
                     context.fill(Path(ellipseIn: coreRect),
                                  with: .color(Color.white.opacity(Double(1 - t))))
-                    
+                    print("coreRect: \(coreRect)")
+                    q
                     // Soft glow (larger, lower-opacity circle)
                     let glowRadius = radius * 2.0
                     if glowRadius > 0.5 {
