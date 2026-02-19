@@ -1,7 +1,9 @@
-//  ParticleSystem 02/18/2026-3
+//  ParticleSystem 02/18/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
+//  
 
+// Draw shrinking, additive-blended circles for sparks
 import SwiftUI
 
 struct ContentView: View {
@@ -13,11 +15,33 @@ struct ContentView: View {
                 let timelineDate = timeline.date.timeIntervalSinceReferenceDate
                 particleSystem.update(date: timelineDate)
                 
-                let image = particleSystem.image
+                // Use additive blending for a nice glow when sparks overlap
+                context.blendMode = .plusLighter
+                
                 for particle in particleSystem {
                     let xPos = particle.x * size.width
                     let yPos = particle.y * size.height
-                    context.draw(image, at: CGPoint(x: xPos, y: yPos))
+                    
+                    // Age-based shrinking / fading
+                    let age = timelineDate - particle.creationDate
+                    let t = CGFloat(max(0, min(1, age / particleSystem.lifespan))) // 0..1
+                    let radius = CGFloat(particle.size) * (1 - t) // shrinks to 0
+                    guard radius > 0 else { continue }
+                    
+                    // Core circle
+                    let coreRect = CGRect(x: xPos - radius, y: yPos - radius,
+                                          width: radius * 2, height: radius * 2)
+                    context.fill(Path(ellipseIn: coreRect),
+                                 with: .color(Color.white.opacity(Double(1 - t))))
+                    
+                    // Soft glow (larger, lower-opacity circle)
+                    let glowRadius = radius * 2.0
+                    if glowRadius > 0.5 {
+                        let glowRect = CGRect(x: xPos - glowRadius, y: yPos - glowRadius,
+                                              width: glowRadius * 2, height: glowRadius * 2)
+                        context.fill(Path(ellipseIn: glowRect),
+                                     with: .color(Color.white.opacity(Double((1 - t) * 0.25))))
+                    }
                 }
             }
         }
