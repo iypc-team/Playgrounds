@@ -1,4 +1,4 @@
-//  ParticleSystem 02/19/2026-3
+//  ParticleSystem 02/19/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
 
@@ -6,6 +6,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var particleSystem = ParticleSystem()
+    @State private var isEngineRunning = true
+    @State private var savedEmissionRate: Double? = nil
     
     var body: some View {
         TimelineView(.animation) { timeline in
@@ -45,10 +47,51 @@ struct ContentView: View {
                     }
                 }
             }
-            .drawingGroup() // rasterize/composite this Canvas on the GPU
+            .drawingGroup()  // rasterize/composite this Canvas on the GPU
         }
         .ignoresSafeArea()
         .background(Color.black)
+        .overlay(alignment: .top) {
+            Button(action: toggleEngine) {
+                Text(isEngineRunning ? "stopEngine" : "startEngine")
+                    .font(.system(size: 22, weight: .semibold, design: .default))
+                    .foregroundColor(.white)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+                    .background(Color.black.opacity(0.5))
+                    .clipShape(Capsule())
+            }
+            .padding()
+        }
+        .onAppear {
+            // Ensure emission state is applied when the view appears
+            if isEngineRunning {
+                particleSystem.emissionRate = savedEmissionRate ?? 600
+                savedEmissionRate = nil
+            } else {
+                // keep previously stored emission rate and ensure emission is stopped
+                savedEmissionRate = particleSystem.emissionRate
+                particleSystem.emissionRate = 0
+            }
+        }
+        .onDisappear {
+            // Stop emission when view disappears to avoid unnecessary work
+            savedEmissionRate = particleSystem.emissionRate
+            particleSystem.emissionRate = 0
+        }
+    }
+    
+    private func toggleEngine() {
+        if isEngineRunning {
+            // stop emission: save current rate and set to zero
+            savedEmissionRate = particleSystem.emissionRate
+            particleSystem.emissionRate = 0
+        } else {
+            // restore previously saved emission rate (or default)
+            particleSystem.emissionRate = savedEmissionRate ?? 600
+            savedEmissionRate = nil
+        }
+        isEngineRunning.toggle()
     }
 }
 
