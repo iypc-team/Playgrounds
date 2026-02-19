@@ -1,9 +1,7 @@
-//  ParticleSystem 02/19/2026-1
+//  ParticleSystem 02/19/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
-//  
 
-// Draw shrinking, additive-blended circles for sparks
 import SwiftUI
 
 struct ContentView: View {
@@ -16,8 +14,10 @@ struct ContentView: View {
                 particleSystem.update(date: timelineDate)
                 
                 // Use additive blending for a nice glow when sparks overlap
-                context.blendMode = .plusLighter  // default .plusLighter
-//                print("context.blendMode: \(context.blendMode)")
+                context.blendMode = .plusLighter
+                
+                // Guard against invalid lifespan
+                guard particleSystem.lifespan > 0 else { return }
                 
                 for particle in particleSystem {
                     let xPos = particle.x * size.width
@@ -26,27 +26,26 @@ struct ContentView: View {
                     // Age-based shrinking / fading
                     let age = timelineDate - particle.creationDate
                     let t = CGFloat(max(0, min(1, age / particleSystem.lifespan))) // 0..1
-//                    print("t: \(t)")
                     let radius = CGFloat(particle.size) * (1 - t) // shrinks to 0
-                    guard radius > 0 else { continue }
+                    guard radius > 0.01 else { continue }
                     
                     // Core circle
                     let coreRect = CGRect(x: xPos - radius, y: yPos - radius,
                                           width: radius * 2, height: radius * 2)
-                    context.fill(Path(ellipseIn: coreRect),
-                                 with: .color(Color.white.opacity(Double(1 - t))))
-                    print("coreRect: \(coreRect)")
-                    q
+                    let corePath = Path(ellipseIn: coreRect)
+                    context.fill(corePath, with: .color(Color.white.opacity(Double(1 - t))))
+                    
                     // Soft glow (larger, lower-opacity circle)
                     let glowRadius = radius * 2.0
                     if glowRadius > 0.5 {
                         let glowRect = CGRect(x: xPos - glowRadius, y: yPos - glowRadius,
                                               width: glowRadius * 2, height: glowRadius * 2)
-                        context.fill(Path(ellipseIn: glowRect),
-                                     with: .color(Color.white.opacity(Double((1 - t) * 0.25))))
+                        let glowPath = Path(ellipseIn: glowRect)
+                        context.fill(glowPath, with: .color(Color.blue.opacity(Double((1 - t) * 0.25))))
                     }
                 }
             }
+            .drawingGroup() // rasterize/composite this Canvas on the GPU
         }
         .ignoresSafeArea()
         .background(Color.black)
