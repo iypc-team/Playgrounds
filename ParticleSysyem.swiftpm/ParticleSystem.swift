@@ -1,6 +1,5 @@
 // ParticleSystem.swift
-// Updated: many-particle flowing emitter (jet-engine exhaust style)
-// Fixes: avoid "Ambiguous use of 'cos'/'sin'" by calling Darwin.cos / Darwin.sin explicitly.
+// Updated: tuned for narrow, high-speed exhaust (afterburner style)
 
 import SwiftUI
 import Foundation
@@ -18,7 +17,7 @@ struct Particle {
     // initial size in points (used by drawing code)
     let size: Double
     
-    // hue (0..1) for color mapping (optional - e.g. orange -> yellow hues)
+    // hue (0..1) for color mapping
     let hue: Double
     
     // creation timestamp
@@ -29,21 +28,24 @@ final class ParticleSystem: Sequence {
     // Particles
     private(set) var particles: [Particle] = []
     
-    // Where particles originate (unit coordinates)
-    var center: UnitPoint = .center
-//    var center: UnitPoint = .init(x: 0.5, y: 0.9) // bottom-center (engine outlet)
+    // Where particles originate (unit coordinates) - nozzle near bottom center
+    var center: UnitPoint = .init(x: 0.5, y: 0.85)
     
     // How long a particle lives (seconds)
-    var lifespan: TimeInterval = 1.6
+    var lifespan: TimeInterval = 0.35
     
-    // Emission properties
-    var emissionRate: Double = 600                    // particles per second
-    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // default: up (-y)
-    var spread: Double = .pi * 0.35                   // angular spread (radians)
-    var speedRange: ClosedRange<Double> = 0.25...1.2  // unit-space per second
-    var sizeRange: ClosedRange<Double> = 2.0...6.0    // points
-    var hueRange: ClosedRange<Double> = 0.08...0.12   // color hue range
-    var maxParticles: Int = 6000                      // safety cap
+    // Emission properties tuned for narrow, fast exhaust
+    var emissionRate: Double = 900                    // particles per second (bursty/high flux)
+    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
+    var spread: Double = .pi * 0.08                   // narrow cone (~9° half-angle)
+    var speedRange: ClosedRange<Double> = 1.8...3.6   // unit-space per second (fast)
+    var sizeRange: ClosedRange<Double> = 1.5...3.5    // smaller core sizes
+    var hueRange: ClosedRange<Double> = 0.58...0.66   // bluish tint (adjust for orange if desired)
+    var maxParticles: Int = 12000                     // safety cap
+    
+    // Motion tuning
+    var lateralBoost: Double = 0.05   // reduced lateral spreading (keeps plume narrow)
+    var buoyancy: Double = 0.0        // disable upward billowing for exhaust
     
     // internal bookkeeping
     private var lastUpdateDate: TimeInterval?
@@ -103,23 +105,20 @@ final class ParticleSystem: Sequence {
         
         // integrate particle motion and apply simple effects (drag, slight turbulence)
         if dt > 0 {
-            // drag coefficient per frame (smaller -> heavier damping)
-            let dragFactor = pow(0.85, dt * 60.0) // frame-rate-normalized-ish damping
+            // much lighter damping so streaks persist longer
+            let dragFactor = pow(0.98, dt * 60.0) // frame-rate-normalized-ish damping
             let cx = Double(center.x)
-//            let cy = Double(center.y)
             
             for i in particles.indices {
                 // basic Euler integration
                 particles[i].x += particles[i].vx * dt
                 particles[i].y += particles[i].vy * dt
                 
-                // slight turbulence / lateral spreading to mimic exhaust mixing:
+                // reduced lateral spreading to keep the exhaust narrow
                 let dx = particles[i].x - cx
-                let lateralBoost = 0.25
                 particles[i].vx += dx * lateralBoost * dt
                 
-                // optional upward buoyancy effect (helps the plume rise)
-                let buoyancy: Double = -0.3
+                // optional buoyancy (disabled by default for exhaust)
                 particles[i].vy += buoyancy * dt * abs(particles[i].size / sizeRange.upperBound)
                 
                 // apply drag
