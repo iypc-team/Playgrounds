@@ -30,7 +30,8 @@ final class ParticleSystem: Sequence {
     private(set) var particles: [Particle] = []
     
     // Where particles originate (unit coordinates)
-    var center: UnitPoint = .init(x: 0.5, y: 0.9) // bottom-center (engine outlet)
+    var center: UnitPoint = .center
+//    var center: UnitPoint = .init(x: 0.5, y: 0.9) // bottom-center (engine outlet)
     
     // How long a particle lives (seconds)
     var lifespan: TimeInterval = 1.6
