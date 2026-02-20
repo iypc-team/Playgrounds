@@ -1,5 +1,6 @@
 // ParticleSystem.swift
-// Updated: tuned for narrow, high-speed exhaust (afterburner style)
+// Updated: focused, pencil-shaped exhaust (sharpened pencil)
+//. print
 
 import SwiftUI
 import Foundation
@@ -29,23 +30,25 @@ final class ParticleSystem: Sequence {
     private(set) var particles: [Particle] = []
     
     // Where particles originate (unit coordinates) - nozzle near bottom center
-    var center: UnitPoint = .init(x: 0.5, y: 0.85)
+    var center: UnitPoint = .init(x: 0.5, y: 0.88)
     
     // How long a particle lives (seconds)
-    var lifespan: TimeInterval = 0.35
+    var lifespan: TimeInterval = 0.9
     
-    // Emission properties tuned for narrow, fast exhaust
-    var emissionRate: Double = 900                    // particles per second (bursty/high flux)
+    // Emission properties tuned for a tight focused beam
+    var emissionRate: Double = 1400                    // particles per second (dense line)
     var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
-    var spread: Double = .pi * 0.08                   // narrow cone (~9° half-angle)
-    var speedRange: ClosedRange<Double> = 1.8...3.6   // unit-space per second (fast)
-    var sizeRange: ClosedRange<Double> = 1.5...3.5    // smaller core sizes
-    var hueRange: ClosedRange<Double> = 0.58...0.66   // bluish tint (adjust for orange if desired)
-    var maxParticles: Int = 12000                     // safety cap
+    var spread: Double = .pi * 0.02                    // very narrow cone
+    var speedRange: ClosedRange<Double> = 3.0...6.0    // fast particles
+    var sizeRange: ClosedRange<Double> = 0.8...1.6     // small cores
+    var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
+    var maxParticles: Int = 20000                      // safety cap
     
-    // Motion tuning
-    var lateralBoost: Double = 0.05   // reduced lateral spreading (keeps plume narrow)
-    var buoyancy: Double = 0.0        // disable upward billowing for exhaust
+    // Emission geometry & motion tuning
+    var radialEmissionRadius: Double = 0.006 // small nozzle radius in unit-space
+    var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
+    var lateralBoost: Double = 0.0           // no lateral spreading
+    var buoyancy: Double = 0.0               // disable upward billow
     
     // internal bookkeeping
     private var lastUpdateDate: TimeInterval?
@@ -64,6 +67,7 @@ final class ParticleSystem: Sequence {
         
         let dt = Swift.max(0, date - last)
         lastUpdateDate = date
+        print("lastUpdateDate: \(String(describing: lastUpdateDate))")
         
         // spawn particles according to emissionRate (supports fractional particles via accumulator)
         let toEmit = emissionRate * dt + emissionAccumulator
@@ -73,10 +77,18 @@ final class ParticleSystem: Sequence {
         // compute angle base using Double values to avoid overload ambiguity
         let angleBase = Darwin.atan2(Double(emissionDirection.dy), Double(emissionDirection.dx))
         
+        // compute normalized emission axis and perpendicular in unit-space
+        let axisLen = sqrt(Double(emissionDirection.dx * emissionDirection.dx + emissionDirection.dy * emissionDirection.dy))
+        let axisX = axisLen > 0 ? Double(emissionDirection.dx) / axisLen : 0.0
+        let axisY = axisLen > 0 ? Double(emissionDirection.dy) / axisLen : -1.0
+        // perpendicular: rotate by 90deg
+        let perpX = -axisY
+        let perpY = axisX
+        
         for _ in 0..<count {
             if particles.count >= maxParticles { break }
             
-            // randomize angle within spread
+            // randomize angle within spread (small jitter only)
             let halfSpread = spread / 2.0
             let angle = angleBase + Double.random(in: -halfSpread...halfSpread)
             
@@ -87,13 +99,18 @@ final class ParticleSystem: Sequence {
             let vx = Darwin.cos(angle) * speed
             let vy = Darwin.sin(angle) * speed
             
+            // small radial offset in nozzle plane to form base width
+            let r = Double.random(in: -radialEmissionRadius...radialEmissionRadius)
+            let offsetX = perpX * r
+            let offsetY = perpY * r
+            
             // random size and hue
             let size = Double.random(in: sizeRange)
             let hue = Double.random(in: hueRange)
             
             let p = Particle(
-                x: Double(center.x),
-                y: Double(center.y),
+                x: Double(center.x) + offsetX,
+                y: Double(center.y) + offsetY,
                 vx: vx,
                 vy: vy,
                 size: size,
@@ -103,25 +120,38 @@ final class ParticleSystem: Sequence {
             particles.append(p)
         }
         
-        // integrate particle motion and apply simple effects (drag, slight turbulence)
+        // integrate particle motion and apply effects (axis attraction, light drag)
         if dt > 0 {
-            // much lighter damping so streaks persist longer
-            let dragFactor = pow(0.98, dt * 60.0) // frame-rate-normalized-ish damping
+            // extremely light damping so streaks persist and beam reads continuous
+            let dragFactor = pow(0.995, dt * 60.0)
             let cx = Double(center.x)
+            let cy = Double(center.y)
+            
+            // normalized axis for projection
+//            let axis = (x: axisX, y: axisY)
             
             for i in particles.indices {
                 // basic Euler integration
                 particles[i].x += particles[i].vx * dt
                 particles[i].y += particles[i].vy * dt
                 
-                // reduced lateral spreading to keep the exhaust narrow
-                let dx = particles[i].x - cx
-                particles[i].vx += dx * lateralBoost * dt
+                // project particle position onto axis relative to center to compute lateral offset
+                let relX = particles[i].x - cx
+                let relY = particles[i].y - cy
+                // lateral offset (signed) from axis: compute perpendicular component
+                // perpendicular vector (perpX, perpY) defined above
+                let lateral = relX * perpX + relY * perpY
                 
-                // optional buoyancy (disabled by default for exhaust)
+                // attract toward axis (pull lateral velocity back toward centerline)
+                particles[i].vx -= lateral * axisAttraction * dt * perpX
+                particles[i].vy -= lateral * axisAttraction * dt * perpY
+                
+                // optional small cohesion along axis (no-op here; axisAttraction handles focus)
+                
+                // buoyancy (disabled for focused exhaust)
                 particles[i].vy += buoyancy * dt * abs(particles[i].size / sizeRange.upperBound)
                 
-                // apply drag
+                // apply light drag
                 particles[i].vx *= dragFactor
                 particles[i].vy *= dragFactor
             }

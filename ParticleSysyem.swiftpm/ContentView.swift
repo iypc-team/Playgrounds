@@ -1,4 +1,4 @@
-//  ParticleSystem 02/19/2026-5
+//  ParticleSystem 02/20/2026-1
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
