@@ -1,13 +1,11 @@
 //  ParticleShaders.metal
 //  
-// #include <metal_stdlib>
-// using namespace metal;
-
-#include <metal_stdlib>; 
+// ParticleShaders.metal
+#include <metal_stdlib>
+#include <metal_atomic>
 using namespace metal;
 
-
-
+// Particle state (matches Swift layout)
 struct Particle {
     float2 pos;    // unit-space (0..1)
     float2 vel;    // unit-space/sec
@@ -62,13 +60,13 @@ kernel void emitKernel(device Particle *particles         [[buffer(0)]],
     uint idx = atomic_fetch_add_explicit(globalHead, 1u, memory_order_relaxed);
     idx = idx % params.maxParticles;
     
-    uint seed = seeds[gid];
+    thread uint seed = seeds[gid] + params.seedBase + gid;
     float r1 = rand01(seed);
     float r2 = rand01(seed);
     float r3 = rand01(seed);
     
     float baseAngle = atan2(params.emissionDirectionY, params.emissionDirectionX);
-    float halfSpread = params.spread * 0.5;
+    float halfSpread = params.spread * 0.5f;
     float angle = baseAngle + (r1 * 2.0f - 1.0f) * halfSpread;
     
     float speed = mix(params.speedMin, params.speedMax, r2);
@@ -78,24 +76,24 @@ kernel void emitKernel(device Particle *particles         [[buffer(0)]],
     // small radial nozzle jitter
     float axisX = params.emissionDirectionX;
     float axisY = params.emissionDirectionY;
-    float axisLen = sqrt(axisX*axisX + axisY*axisY);
-    if (axisLen == 0.0) { axisX = 0.0; axisY = -1.0; axisLen = 1.0; }
+    float axisLen = sqrt(axisX * axisX + axisY * axisY);
+    if (axisLen == 0.0f) { axisX = 0.0f; axisY = -1.0f; axisLen = 1.0f; }
     axisX /= axisLen; axisY /= axisLen;
     float perpX = -axisY;
     float perpY = axisX;
     
-    float radialR = (r3 * 2.0f - 1.0f) * 0.006; // matches CPU default radialEmissionRadius
+    float radialR = (r3 * 2.0f - 1.0f) * 0.006f; // matches CPU default radialEmissionRadius
     float px = params.center.x + perpX * radialR;
     float py = params.center.y + perpY * radialR;
     
     float size = mix(params.sizeMin, params.sizeMax, rand01(seed));
-    float hue = mix(params.hueMin, params.hueMax, rand01(seed));
+    float hue  = mix(params.hueMin, params.hueMax, rand01(seed));
     
     particles[idx].pos = float2(px, py);
     particles[idx].vel = float2(vx, vy);
     particles[idx].size = size;
     particles[idx].hue = hue;
-    particles[idx].age = 0.0;
+    particles[idx].age = 0.0f;
     particles[idx].alive = 1u;
 }
 
@@ -113,16 +111,16 @@ kernel void integrateKernel(device Particle *particles     [[buffer(0)]],
     p.age += params.dt;
     
     // light drag
-    const float drag = pow(0.995, params.dt * 60.0);
+    const float drag = pow(0.995f, params.dt * 60.0f);
     p.vel *= drag;
     
     // lifespan
     if (p.age >= params.lifespan) {
         p.alive = 0u;
-    } else {
-        // clamp position if desired (optional)
-        particles[gid] = p;
     }
+    
+    // always write back
+    particles[gid] = p;
 }
 
 // Vertex input: a simple unit quad vertex attribute
@@ -157,22 +155,21 @@ vertex VSOut particleVertex(VertexIn vin [[stage_in]],
     
     // convert unit-space pos to clip space [-1,1]
     float2 posClip;
-    posClip.x = p.pos.x * 2.0 - 1.0;
-    posClip.y = 1.0 - p.pos.y * 2.0; // flip y
+    posClip.x = p.pos.x * 2.0f - 1.0f;
+    posClip.y = 1.0f - p.pos.y * 2.0f; // flip y
     
     // convert size in points -> clip-space extents
     float2 vp = params.viewportSize; // width, height in pixels
-    // half-size in clip for each axis
-    float halfX = (p.size * 0.5) / vp.x * 2.0;
-    float halfY = (p.size * 0.5) / vp.y * 2.0;
+    float halfX = (p.size * 0.5f) / vp.x * 2.0f;
+    float halfY = (p.size * 0.5f) / vp.y * 2.0f;
     
     // vin.position is in [-1..1] quad-space; scale by half extents
     float2 offset = float2(vin.position.x * halfX, vin.position.y * halfY);
     float2 vertexPos = posClip + offset;
     
-    out.position = float4(vertexPos, 0.0, 1.0);
+    out.position = float4(vertexPos, 0.0f, 1.0f);
     // uv from vertex coords: map [-1..1] -> [0..1]
-    out.uv = vin.position * 0.5 + 0.5;
+    out.uv = vin.position * 0.5f + 0.5f;
     out.hue = p.hue;
     out.alive = 1.0;
     return out;
@@ -182,7 +179,7 @@ fragment float4 particleFragment(VSOut in [[stage_in]],
                                  texture2d<float> glowTex [[texture(0)]],
                                  sampler smp [[sampler(0)]])
 {
-    if (in.alive < 0.5) return float4(0.0);
+    if (in.alive < 0.5f) return float4(0.0);
     
     const float4 t = glowTex.sample(smp, in.uv);
     float alpha = t.a;
@@ -191,23 +188,22 @@ fragment float4 particleFragment(VSOut in [[stage_in]],
     
     // simple HSV -> RGB (approx) using in.hue
     float h = in.hue;
-    float s = 0.95;
-    float v = 0.95;
+    float s = 0.95f;
+    float v = 0.95f;
     float c = v * s;
-    float hp = h * 6.0;
-    float x = c * (1.0 - fabs(fmod(hp, 2.0) - 1.0));
+    float hp = h * 6.0f;
+    float x = c * (1.0f - fabs(fmod(hp, 2.0f) - 1.0f));
     float3 rgb;
-    if (0.0 <= hp && hp < 1.0) rgb = float3(c, x, 0);
-    else if (1.0 <= hp && hp < 2.0) rgb = float3(x, c, 0);
-    else if (2.0 <= hp && hp < 3.0) rgb = float3(0, c, x);
-    else if (3.0 <= hp && hp < 4.0) rgb = float3(0, x, c);
-    else if (4.0 <= hp && hp < 5.0) rgb = float3(x, 0, c);
+    if (0.0f <= hp && hp < 1.0f) rgb = float3(c, x, 0);
+    else if (1.0f <= hp && hp < 2.0f) rgb = float3(x, c, 0);
+    else if (2.0f <= hp && hp < 3.0f) rgb = float3(0, c, x);
+    else if (3.0f <= hp && hp < 4.0f) rgb = float3(0, x, c);
+    else if (4.0f <= hp && hp < 5.0f) rgb = float3(x, 0, c);
     else rgb = float3(c, 0, x);
     float m = v - c;
     rgb += float3(m);
     
     // mix white core and colored glow
-    float3 color = mix(rgb * glow, float3(1.0, 1.0, 1.0) * core, 0.7);
+    float3 color = mix(rgb * glow, float3(1.0f, 1.0f, 1.0f) * core, 0.7f);
     return float4(color, alpha);
 }
-

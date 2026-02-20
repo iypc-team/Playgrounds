@@ -1,4 +1,4 @@
-//  ParticleSystem-Metal 02/20/2026-3
+//  ParticleSystem-Metal 02/20/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSystem-Metal.swiftpm
 
@@ -76,7 +76,7 @@ struct MetalParticleHost: UIViewRepresentable {
     
     // MARK: - Helpers (best-effort, non-fatal)
     private func configureIfPossible(_ view: UIView, maxParticles: Int, isRunning: Bool) {
-        guard let nsobj = view as? NSObject else { return }
+        let nsobj: NSObject = view  // UIView already conforms; no conditional cast needed
         
         // Try common setter selectors for an Int property named "maxParticles".
         performSetterIfPossible(nsobj, selectorName: "setMaxParticles:", value: NSNumber(value: maxParticles))
