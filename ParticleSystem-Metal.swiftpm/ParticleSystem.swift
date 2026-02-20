@@ -7,7 +7,8 @@ import SwiftUI
 import Foundation
 import Darwin
 
-struct Particle {
+// Renamed from `Particle` to `PSParticle` to avoid collision with shader-side `Particle` type.
+struct PSParticle {
     // unit-space coordinates (0..1) relative to drawing container
     var x: Double
     var y: Double
@@ -28,10 +29,10 @@ struct Particle {
 
 final class ParticleSystem: Sequence {
     // Particles
-    private(set) var particles: [Particle] = []
+    private(set) var particles: [PSParticle] = []
     
     // Where particles originate (unit coordinates) - nozzle near bottom center
-    var center: UnitPoint = .init(x: 0.5, y: 0.88)
+    var center: UnitPoint = UnitPoint(x: 0.5, y: 0.88)
     
     // How long a particle lives (seconds)
     var lifespan: TimeInterval = 0.9
@@ -83,7 +84,6 @@ final class ParticleSystem: Sequence {
         let maxDt: TimeInterval = 1.0 / 15.0   // clamp to ~66ms to keep simulation stable
         let dt = Swift.min(rawDt, maxDt)
         lastUpdateDate = date
-//        print("lastUpdateDate: \(lastUpdateDate!)")
         
         // spawn particles according to emissionRate (supports fractional particles via accumulator)
         let toEmit = emissionRate * dt + emissionAccumulator
@@ -124,7 +124,7 @@ final class ParticleSystem: Sequence {
             let size = Double.random(in: sizeRange)
             let hue = Double.random(in: hueRange)
             
-            let p = Particle(
+            let p = PSParticle(
                 x: Double(center.x) + offsetX,
                 y: Double(center.y) + offsetY,
                 vx: vx,
@@ -191,22 +191,22 @@ final class ParticleSystem: Sequence {
     }
     
     // Sequence conformance: iterate over a stable snapshot
-    struct Iterator: IteratorProtocol {
+    struct ParticleIterator: IteratorProtocol {
         private var index = 0
-        private let snapshot: [Particle]
+        private let snapshot: [PSParticle]
         
-        init(_ particles: [Particle]) {
-            self.snapshot = particles
+        init(snapshot: [PSParticle]) {
+            self.snapshot = snapshot
         }
         
-        mutating func next() -> Particle? {
+        mutating func next() -> PSParticle? {
             guard index < snapshot.count else { return nil }
             defer { index += 1 }
             return snapshot[index]
         }
     }
     
-    func makeIterator() -> Iterator {
-        return Iterator(particles)
+    func makeIterator() -> ParticleIterator {
+        return ParticleIterator(snapshot: particles)
     }
 }

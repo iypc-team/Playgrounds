@@ -1,63 +1,21 @@
-//  ParticleSystem-Metal 02/20/2026-2
-//  ContentView.swift
-//  Updated: use a safe cross-platform SwiftUI host for the Metal-backed view (MetalParticleHost)
-
 import SwiftUI
 
 #if os(iOS)
 import UIKit
 #endif
 
-struct ContentView: View {
-    @State private var isEngineRunning = true
-    @State private var maxParticles: Int = 8000
-    
-    var body: some View {
-        ZStack {
-            // Host the native Metal-backed view on iOS, fallback on other platforms
-            MetalParticleHost(isRunning: $isEngineRunning, maxParticles: maxParticles)
-                .ignoresSafeArea()
-            
-            // Overlay controls
-            VStack {
-                HStack {
-                    Spacer()
-                    Button(action: toggleEngine) {
-                        Text(isEngineRunning ? "stopEngine" : "startEngine")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 12)
-                            .background(Color.black.opacity(0.5))
-                            .clipShape(Capsule())
-                    }
-                    .padding()
-                }
-                Spacer()
-            }
-        }
-        .background(Color.black)
-    }
-    
-    private func toggleEngine() {
-        isEngineRunning.toggle()
-    }
-}
-
 #if os(iOS)
-// Host name chosen to avoid collisions with other wrapper types in the project.
-struct MetalParticleHost: UIViewRepresentable {
+struct MetalParticleContainer: UIViewRepresentable {
     @Binding var isRunning: Bool
     var maxParticles: Int
     
     func makeUIView(context: Context) -> UIView {
-        // Try both unqualified and module-qualified class names for the native view.
         let bundleName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
         let candidates = ["MetalParticleView", "\(bundleName).MetalParticleView"]
         
         for name in candidates {
             if let cls = NSClassFromString(name) as? UIView.Type {
-                // Use explicit CGRect.zero to avoid inference issues.
+                // Use explicit CGRect.zero to avoid "Cannot infer contextual base" errors
                 let view = cls.init(frame: CGRect.zero)
                 configureIfPossible(view, maxParticles: maxParticles, isRunning: isRunning)
                 return view
@@ -74,19 +32,17 @@ struct MetalParticleHost: UIViewRepresentable {
         configureIfPossible(uiView, maxParticles: maxParticles, isRunning: isRunning)
     }
     
-    // MARK: - Helpers (best-effort, non-fatal)
+    // MARK: - Helpers
+    
     private func configureIfPossible(_ view: UIView, maxParticles: Int, isRunning: Bool) {
-        guard let nsobj = view as? NSObject else { return }
+        let nsobj = view as NSObject
         
-        // Try common setter selectors for an Int property named "maxParticles".
         performSetterIfPossible(nsobj, selectorName: "setMaxParticles:", value: NSNumber(value: maxParticles))
         performSetterIfPossible(nsobj, selectorName: "setParticleCount:", value: NSNumber(value: maxParticles))
         
-        // Try common setter selectors for a Bool property named "isRunning"/"running".
         performSetterIfPossible(nsobj, selectorName: "setIsRunning:", value: NSNumber(value: isRunning))
         performSetterIfPossible(nsobj, selectorName: "setRunning:", value: NSNumber(value: isRunning))
         
-        // Try calling start/stop API if present.
         if isRunning {
             performSelectorIfAvailable(nsobj, selName: "startEngine")
             performSelectorIfAvailable(nsobj, selName: "start")
@@ -112,7 +68,7 @@ struct MetalParticleHost: UIViewRepresentable {
 }
 #else
 // Non-iOS fallback so this file compiles on macOS/watchOS/tvOS SwiftUI previews if needed.
-struct MetalParticleHost: View {
+struct MetalParticleContainer: View {
     @Binding var isRunning: Bool
     var maxParticles: Int
     
@@ -121,10 +77,3 @@ struct MetalParticleHost: View {
     }
 }
 #endif
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .preferredColorScheme(.dark)
-    }
-}

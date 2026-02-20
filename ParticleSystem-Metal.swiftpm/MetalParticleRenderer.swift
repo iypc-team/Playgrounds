@@ -1,5 +1,5 @@
 //  MetalParticleRenderer.swift
-//  
+//  Updated: namespaced ComputeParams and fixed pointer binding errors
 
 import Foundation
 import Metal
@@ -8,25 +8,26 @@ import simd
 import UIKit
 
 // MARK: - Swift-side structs matching MSL
-
-struct ComputeParams {
-    //  Invalid redeclaration of 'ComputeParams'
-    var dt: Float
-    var lifespan: Float
-    var center: SIMD2<Float>           // unit-space center
-    var emissionDirectionX: Float
-    var emissionDirectionY: Float
-    var spread: Float
-    var speedMin: Float
-    var speedMax: Float
-    var sizeMin: Float
-    var sizeMax: Float
-    var hueMin: Float
-    var hueMax: Float
-    var maxParticles: UInt32
-    var emitCount: UInt32
-    var seedBase: UInt32
-    var viewportSize: SIMD2<Float>
+// Namespaced to avoid top-level ComputeParams collision with generated shader symbol
+enum ShaderTypes {
+    struct ComputeParams {
+        var dt: Float
+        var lifespan: Float
+        var center: SIMD2<Float>           // unit-space center
+        var emissionDirectionX: Float
+        var emissionDirectionY: Float
+        var spread: Float
+        var speedMin: Float
+        var speedMax: Float
+        var sizeMin: Float
+        var sizeMax: Float
+        var hueMin: Float
+        var hueMax: Float
+        var maxParticles: UInt32
+        var emitCount: UInt32
+        var seedBase: UInt32
+        var viewportSize: SIMD2<Float>
+    }
 }
 
 struct GPUParticle {
@@ -138,21 +139,24 @@ final class MetalParticleRenderer: NSObject, MTKViewDelegate {
     }
     
     private func allocateBuffers() {
+        // Create buffers (makeBuffer returns optionals; assign to IUOs)
         particleBuffer = device.makeBuffer(length: MemoryLayout<GPUParticle>.stride * maxParticles, options: .storageModeShared)
-        paramsBuffer = device.makeBuffer(length: MemoryLayout<ComputeParams>.stride, options: .storageModeShared)
+        paramsBuffer = device.makeBuffer(length: MemoryLayout<ShaderTypes.ComputeParams>.stride, options: .storageModeShared)
         headBuffer = device.makeBuffer(length: MemoryLayout<UInt32>.stride, options: .storageModeShared)
         seedBuffer = device.makeBuffer(length: MemoryLayout<UInt32>.stride * 4096, options: .storageModeShared)
         
-        // zero head
-        if let headPtr = headBuffer.contents().assumingMemoryBound(to: UInt32.self) {
+        // zero head (guard buffer exists then write)
+        if let headBuf = headBuffer {
+            let headPtr = headBuf.contents().assumingMemoryBound(to: UInt32.self)
             headPtr.pointee = 0
         }
         
-        // zero particles
-        if let pptr = particleBuffer.contents().bindMemory(to: GPUParticle.self, capacity: maxParticles) {
+        // zero particles (guard buffer exists then bind memory and initialize)
+        if let pbuf = particleBuffer {
+            let pptr = pbuf.contents().bindMemory(to: GPUParticle.self, capacity: maxParticles)
             for i in 0..<maxParticles {
-                pptr[i].pos = SIMD2<Float>(0,0)
-                pptr[i].vel = SIMD2<Float>(0,0)
+                pptr[i].pos = SIMD2<Float>(0, 0)
+                pptr[i].vel = SIMD2<Float>(0, 0)
                 pptr[i].size = 0
                 pptr[i].hue = 0
                 pptr[i].age = 0
@@ -209,12 +213,13 @@ final class MetalParticleRenderer: NSObject, MTKViewDelegate {
         
         // ensure seedBuffer capacity
         if emitCount > 0 {
-            let neededSeeds = emitCount
-            let currentSlots = seedBuffer.length / MemoryLayout<UInt32>.stride
-            if neededSeeds > currentSlots {
-                seedBuffer = device.makeBuffer(length: MemoryLayout<UInt32>.stride * neededSeeds, options: .storageModeShared)
+            // if seedBuffer is nil, create a new one
+            let currentSlots = seedBuffer?.length ?? 0 / MemoryLayout<UInt32>.stride
+            if emitCount > currentSlots {
+                seedBuffer = device.makeBuffer(length: MemoryLayout<UInt32>.stride * emitCount, options: .storageModeShared)
             }
-            let seedPtr = seedBuffer.contents().assumingMemoryBound(to: UInt32.self)
+            guard let seedBuf = seedBuffer else { return }
+            let seedPtr = seedBuf.contents().assumingMemoryBound(to: UInt32.self)
             for i in 0..<emitCount {
                 seedPtr[i] = UInt32(arc4random()) ^ UInt32(i & 0xFFFFFFFF)
             }
@@ -222,7 +227,7 @@ final class MetalParticleRenderer: NSObject, MTKViewDelegate {
         
         // prepare params (unit-space for center; viewport in px)
         let viewSize = view.drawableSize
-        var params = ComputeParams(
+        var params = ShaderTypes.ComputeParams(
             dt: Float(dt),
             lifespan: Float(lifespan),
             center: SIMD2<Float>(Float(center.x), Float(center.y)),
@@ -242,7 +247,8 @@ final class MetalParticleRenderer: NSObject, MTKViewDelegate {
         )
         
         // copy params to GPU buffer
-        memcpy(paramsBuffer.contents(), &params, MemoryLayout<ComputeParams>.stride)
+        guard let paramsBuf = paramsBuffer else { return }
+        memcpy(paramsBuf.contents(), &params, MemoryLayout<ShaderTypes.ComputeParams>.stride)
         
         // dispatch emit kernel
         if emitCount > 0 {
@@ -310,5 +316,3 @@ final class MetalParticleRenderer: NSObject, MTKViewDelegate {
         return device.makeSamplerState(descriptor: desc)
     }
 }
-
-
