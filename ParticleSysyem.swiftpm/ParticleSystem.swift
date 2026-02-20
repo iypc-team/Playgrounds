@@ -1,6 +1,7 @@
 // ParticleSystem.swift
 // Updated: focused, pencil-shaped exhaust (sharpened pencil)
-//. print
+// Improvements: avoid advancing lastUpdateDate / doing work when engine is stopped,
+// clamp large dt after long pauses, expose simple active/empty checks.
 
 import SwiftUI
 import Foundation
@@ -57,17 +58,32 @@ final class ParticleSystem: Sequence {
     // optional image kept for compatibility if you choose to use sprites instead of shapes
     let image = Image("spark")
     
+    // Public convenience checks
+    var isEmpty: Bool { particles.isEmpty }
+    var isActive: Bool { emissionRate > 0 || !particles.isEmpty }
+    
     /// Call once per frame with timeline.date.timeIntervalSinceReferenceDate
     func update(date: TimeInterval) {
-        // initialize lastUpdateDate on first call
+        // If the emitter is fully stopped and there are no particles, do nothing.
+        // Also avoid advancing lastUpdateDate in that paused state so we won't
+        // accumulate a huge dt when resuming.
+        if emissionRate == 0 && particles.isEmpty {
+            lastUpdateDate = nil
+            return
+        }
+        
+        // initialize lastUpdateDate on first call (or after a pause)
         guard let last = lastUpdateDate else {
             lastUpdateDate = date
             return
         }
         
-        let dt = Swift.max(0, date - last)
+        // compute dt and clamp to avoid huge jumps after backgrounding or long pauses
+        let rawDt = Swift.max(0, date - last)
+        let maxDt: TimeInterval = 1.0 / 15.0   // clamp to ~66ms to keep simulation stable
+        let dt = Swift.min(rawDt, maxDt)
         lastUpdateDate = date
-        print("lastUpdateDate: \(String(describing: lastUpdateDate))")
+//        print("lastUpdateDate: \(lastUpdateDate!)")
         
         // spawn particles according to emissionRate (supports fractional particles via accumulator)
         let toEmit = emissionRate * dt + emissionAccumulator
@@ -127,9 +143,6 @@ final class ParticleSystem: Sequence {
             let cx = Double(center.x)
             let cy = Double(center.y)
             
-            // normalized axis for projection
-//            let axis = (x: axisX, y: axisY)
-            
             for i in particles.indices {
                 // basic Euler integration
                 particles[i].x += particles[i].vx * dt
@@ -139,14 +152,11 @@ final class ParticleSystem: Sequence {
                 let relX = particles[i].x - cx
                 let relY = particles[i].y - cy
                 // lateral offset (signed) from axis: compute perpendicular component
-                // perpendicular vector (perpX, perpY) defined above
                 let lateral = relX * perpX + relY * perpY
                 
                 // attract toward axis (pull lateral velocity back toward centerline)
                 particles[i].vx -= lateral * axisAttraction * dt * perpX
                 particles[i].vy -= lateral * axisAttraction * dt * perpY
-                
-                // optional small cohesion along axis (no-op here; axisAttraction handles focus)
                 
                 // buoyancy (disabled for focused exhaust)
                 particles[i].vy += buoyancy * dt * abs(particles[i].size / sizeRange.upperBound)
