@@ -1,6 +1,6 @@
-//  ParticleSystem-Metal 02/20/2026-2
+//  ParticleSystem-Metal 02/20/2026-3
 //  ContentView.swift
-//  Updated: use a safe cross-platform SwiftUI host for the Metal-backed view (MetalParticleHost)
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSystem-Metal.swiftpm
 
 import SwiftUI
 
