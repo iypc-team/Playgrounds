@@ -1,14 +1,11 @@
-//  ParticleSystem-Metal 02/20/2026- initial commit
+//  ParticleSystem-Metal 02/20/2026-1
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
-//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
-// 
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSystem-Metal.swiftpm
 // 
 
-// ContentView.swift
 // Replaced Canvas-based renderer with Metal-backed renderer (iOS)
 // Assumes MetalParticleView is added to the target.
-
 import SwiftUI
 
 struct ContentView: View {
