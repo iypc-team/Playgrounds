@@ -1,8 +1,7 @@
 // ParticleShaders.metal
 
-#include <metal_stdlib>;
-
-#include <metal_atomic>;
+#include; <metal_stdlib>
+#include; <metal_atomic>
 
 using namespace metal;
 // Consecutive statements on a line must be seperated by newline or ';'
