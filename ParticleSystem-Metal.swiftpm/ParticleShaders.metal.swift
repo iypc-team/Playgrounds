@@ -1,11 +1,11 @@
-//  ParticleShaders.metal
-//  
 // ParticleShaders.metal
+//  
+
 #include <metal_stdlib>
 #include <metal_atomic>
 using namespace metal;
 
-// Particle state (matches Swift layout)
+// Particle state (must match Swift GPUParticle layout)
 struct Particle {
     float2 pos;    // unit-space (0..1)
     float2 vel;    // unit-space/sec
@@ -15,7 +15,7 @@ struct Particle {
     uint   alive;
 };
 
-// Compute parameters (must match Swift ComputeParams layout)
+// Compute parameters (must match Swift ShaderTypes.ComputeParams)
 struct ComputeParams {
     float dt;
     float lifespan;
@@ -89,11 +89,11 @@ kernel void emitKernel(device Particle *particles         [[buffer(0)]],
     float size = mix(params.sizeMin, params.sizeMax, rand01(seed));
     float hue  = mix(params.hueMin, params.hueMax, rand01(seed));
     
-    particles[idx].pos = float2(px, py);
-    particles[idx].vel = float2(vx, vy);
+    particles[idx].pos  = float2(px, py);
+    particles[idx].vel  = float2(vx, vy);
     particles[idx].size = size;
-    particles[idx].hue = hue;
-    particles[idx].age = 0.0f;
+    particles[idx].hue  = hue;
+    particles[idx].age  = 0.0f;
     particles[idx].alive = 1u;
 }
 
