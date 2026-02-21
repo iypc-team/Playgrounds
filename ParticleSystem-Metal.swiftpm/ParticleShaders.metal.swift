@@ -1,8 +1,11 @@
 // ParticleShaders.metal
 
-#include <metal_stdlib>
-#include <metal_atomic>
+#include <metal_stdlib>;
+
+#include <metal_atomic>;
+
 using namespace metal;
+// Consecutive statements on a line must be seperated by newline or ';'
 
 // Particle state (must match Swift GPUParticle layout)
 struct Particle {
@@ -32,6 +35,7 @@ struct ComputeParams {
     uint  emitCount;
     uint  seedBase;
     float2 viewportSize;     // px width/height
+    float drag;              // precomputed drag factor (avoid pow per-particle)
 };
 
 // simple xorshift RNG expansion
@@ -76,7 +80,7 @@ kernel void emitKernel(device Particle *particles         [[buffer(0)]],
     float axisX = params.emissionDirectionX;
     float axisY = params.emissionDirectionY;
     float axisLen = sqrt(axisX * axisX + axisY * axisY);
-    if (axisLen == 0.0f) { axisX = 0.0f; axisY = -1.0f; axisLen = 1.0f; }
+    if (axisLen <= 1e-8f) { axisX = 0.0f; axisY = -1.0f; axisLen = 1.0f; }
     axisX /= axisLen; axisY /= axisLen;
     float perpX = -axisY;
     float perpY = axisX;
@@ -109,9 +113,8 @@ kernel void integrateKernel(device Particle *particles     [[buffer(0)]],
     p.pos += p.vel * params.dt;
     p.age += params.dt;
     
-    // light drag
-    const float drag = pow(0.995f, params.dt * 60.0f);
-    p.vel *= drag;
+    // light drag (precomputed in params.drag)
+    p.vel *= params.drag;
     
     // lifespan
     if (p.age >= params.lifespan) {
@@ -190,7 +193,7 @@ fragment float4 particleFragment(VSOut in [[stage_in]],
     float s = 0.95f;
     float v = 0.95f;
     float c = v * s;
-    float hp = h * 6.0f;
+    float hp = fract(h) * 6.0f; // ensure hue is in [0,1) before scaling
     float x = c * (1.0f - fabs(fmod(hp, 2.0f) - 1.0f));
     float3 rgb;
     if (0.0f <= hp && hp < 1.0f) rgb = float3(c, x, 0);
@@ -204,5 +207,7 @@ fragment float4 particleFragment(VSOut in [[stage_in]],
     
     // mix white core and colored glow
     float3 color = mix(rgb * glow, float3(1.0f, 1.0f, 1.0f) * core, 0.7f);
+    // premultiply color by alpha to match premultiplied blending pipelines
+    color *= alpha;
     return float4(color, alpha);
 }
