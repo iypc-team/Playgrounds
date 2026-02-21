@@ -1,5 +1,7 @@
 //  MetalParticleRenderer.swift
 //  Updated: namespaced ComputeParams and fixed pointer binding errors
+//  
+
 
 import Foundation
 import Metal

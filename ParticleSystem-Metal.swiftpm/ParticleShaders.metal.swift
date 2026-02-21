@@ -4,7 +4,6 @@
 #include; <metal_atomic>
 
 using namespace metal;
-// Consecutive statements on a line must be seperated by newline or ';'
 
 // Particle state (must match Swift GPUParticle layout)
 struct Particle {
