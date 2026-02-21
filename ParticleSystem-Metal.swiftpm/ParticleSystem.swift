@@ -1,0 +1,212 @@
+// ParticleSystem.swift
+// Updated: focused, pencil-shaped exhaust (sharpened pencil)
+// Improvements: avoid advancing lastUpdateDate / doing work when engine is stopped,
+// clamp large dt after long pauses, expose simple active/empty checks.
+
+import SwiftUI
+import Foundation
+import Darwin
+
+// Renamed from `Particle` to `PSParticle` to avoid collision with shader-side `Particle` type.
+struct PSParticle {
+    // unit-space coordinates (0..1) relative to drawing container
+    var x: Double
+    var y: Double
+    
+    // velocity in unit-space per second
+    var vx: Double
+    var vy: Double
+    
+    // initial size in points (used by drawing code)
+    let size: Double
+    
+    // hue (0..1) for color mapping
+    let hue: Double
+    
+    // creation timestamp
+    let creationDate: TimeInterval
+}
+
+final class ParticleSystem: Sequence {
+    // Particles
+    private(set) var particles: [PSParticle] = []
+    
+    // Where particles originate (unit coordinates) - nozzle near bottom center
+    var center: UnitPoint = UnitPoint(x: 0.5, y: 0.88)
+    
+    // How long a particle lives (seconds)
+    var lifespan: TimeInterval = 0.9
+    
+    // Emission properties tuned for a tight focused beam
+    var emissionRate: Double = 1400                    // particles per second (dense line)
+    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
+    var spread: Double = .pi * 0.02                    // very narrow cone
+    var speedRange: ClosedRange<Double> = 3.0...6.0    // fast particles
+    var sizeRange: ClosedRange<Double> = 0.8...1.6     // small cores
+    var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
+    var maxParticles: Int = 20000                      // safety cap
+    
+    // Emission geometry & motion tuning
+    var radialEmissionRadius: Double = 0.006 // small nozzle radius in unit-space
+    var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
+    var lateralBoost: Double = 0.0           // no lateral spreading
+    var buoyancy: Double = 0.0               // disable upward billow
+    
+    // internal bookkeeping
+    private var lastUpdateDate: TimeInterval?
+    private var emissionAccumulator: Double = 0
+    
+    // optional image kept for compatibility if you choose to use sprites instead of shapes
+    let image = Image("spark")
+    
+    // Public convenience checks
+    var isEmpty: Bool { particles.isEmpty }
+    var isActive: Bool { emissionRate > 0 || !particles.isEmpty }
+    
+    /// Call once per frame with timeline.date.timeIntervalSinceReferenceDate
+    func update(date: TimeInterval) {
+        // If the emitter is fully stopped and there are no particles, do nothing.
+        // Also avoid advancing lastUpdateDate in that paused state so we won't
+        // accumulate a huge dt when resuming.
+        if emissionRate == 0 && particles.isEmpty {
+            lastUpdateDate = nil
+            return
+        }
+        
+        // initialize lastUpdateDate on first call (or after a pause)
+        guard let last = lastUpdateDate else {
+            lastUpdateDate = date
+            return
+        }
+        
+        // compute dt and clamp to avoid huge jumps after backgrounding or long pauses
+        let rawDt = Swift.max(0, date - last)
+        let maxDt: TimeInterval = 1.0 / 15.0   // clamp to ~66ms to keep simulation stable
+        let dt = Swift.min(rawDt, maxDt)
+        lastUpdateDate = date
+        
+        // spawn particles according to emissionRate (supports fractional particles via accumulator)
+        let toEmit = emissionRate * dt + emissionAccumulator
+        let count = Int(floor(toEmit))
+        emissionAccumulator = toEmit - Double(count)
+        
+        // compute angle base using Double values to avoid overload ambiguity
+        let angleBase = Darwin.atan2(Double(emissionDirection.dy), Double(emissionDirection.dx))
+        
+        // compute normalized emission axis and perpendicular in unit-space
+        let axisLen = sqrt(Double(emissionDirection.dx * emissionDirection.dx + emissionDirection.dy * emissionDirection.dy))
+        let axisX = axisLen > 0 ? Double(emissionDirection.dx) / axisLen : 0.0
+        let axisY = axisLen > 0 ? Double(emissionDirection.dy) / axisLen : -1.0
+        // perpendicular: rotate by 90deg
+        let perpX = -axisY
+        let perpY = axisX
+        
+        for _ in 0..<count {
+            if particles.count >= maxParticles { break }
+            
+            // randomize angle within spread (small jitter only)
+            let halfSpread = spread / 2.0
+            let angle = angleBase + Double.random(in: -halfSpread...halfSpread)
+            
+            // random speed in unit-space / second
+            let speed = Double.random(in: speedRange)
+            
+            // velocity components using explicit Darwin trig functions
+            let vx = Darwin.cos(angle) * speed
+            let vy = Darwin.sin(angle) * speed
+            
+            // small radial offset in nozzle plane to form base width
+            let r = Double.random(in: -radialEmissionRadius...radialEmissionRadius)
+            let offsetX = perpX * r
+            let offsetY = perpY * r
+            
+            // random size and hue
+            let size = Double.random(in: sizeRange)
+            let hue = Double.random(in: hueRange)
+            
+            let p = PSParticle(
+                x: Double(center.x) + offsetX,
+                y: Double(center.y) + offsetY,
+                vx: vx,
+                vy: vy,
+                size: size,
+                hue: hue,
+                creationDate: date
+            )
+            particles.append(p)
+        }
+        
+        // integrate particle motion and apply effects (axis attraction, light drag)
+        if dt > 0 {
+            // extremely light damping so streaks persist and beam reads continuous
+            let dragFactor = pow(0.995, dt * 60.0)
+            let cx = Double(center.x)
+            let cy = Double(center.y)
+            
+            for i in particles.indices {
+                // basic Euler integration
+                particles[i].x += particles[i].vx * dt
+                particles[i].y += particles[i].vy * dt
+                
+                // project particle position onto axis relative to center to compute lateral offset
+                let relX = particles[i].x - cx
+                let relY = particles[i].y - cy
+                // lateral offset (signed) from axis: compute perpendicular component
+                let lateral = relX * perpX + relY * perpY
+                
+                // attract toward axis (pull lateral velocity back toward centerline)
+                particles[i].vx -= lateral * axisAttraction * dt * perpX
+                particles[i].vy -= lateral * axisAttraction * dt * perpY
+                
+                // buoyancy (disabled for focused exhaust)
+                particles[i].vy += buoyancy * dt * abs(particles[i].size / sizeRange.upperBound)
+                
+                // apply light drag
+                particles[i].vx *= dragFactor
+                particles[i].vy *= dragFactor
+            }
+        }
+        
+        // remove old or outside particles
+        particles.removeAll { p in
+            let age = date - p.creationDate
+            if age > lifespan { return true }
+            // discard if far outside unit box for safety
+            if p.x < -0.25 || p.x > 1.25 || p.y < -0.25 || p.y > 1.25 { return true }
+            return false
+        }
+        
+        // enforce maxParticles cap more strictly if needed
+        if particles.count > maxParticles {
+            let excess = particles.count - maxParticles
+            particles.removeFirst(excess)
+        }
+    }
+    
+    // allow resetting emitter timing (useful when pausing/resuming)
+    func reset() {
+        particles.removeAll()
+        lastUpdateDate = nil
+        emissionAccumulator = 0
+    }
+    
+    // Sequence conformance: iterate over a stable snapshot
+    struct ParticleIterator: IteratorProtocol {
+        private var index = 0
+        private let snapshot: [PSParticle]
+        
+        init(snapshot: [PSParticle]) {
+            self.snapshot = snapshot
+        }
+        
+        mutating func next() -> PSParticle? {
+            guard index < snapshot.count else { return nil }
+            defer { index += 1 }
+            return snapshot[index]
+        }
+    }
+    
+    func makeIterator() -> ParticleIterator {
+        return ParticleIterator(snapshot: particles)
+    }
+}
