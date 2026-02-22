@@ -1,29 +1,37 @@
+//  Convert_UTLtoString 02/22/2026-1
+//  ContentView.swift
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Convert_URLtoString.swiftpm
+
 import SwiftUI
 import SceneKit
 
-func getDocumentsDirectory() -> URL {
-    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    let documentsDirectory = paths[0]
-    print(documentsDirectory)
-    return documentsDirectory
+
+ class GetDocuments {
+    let fm = FileManager.SceneKit
+     
+     func getDocumentsDirectory() -> URL {
+         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+         let documentsDirectory = paths[0]
+         print(documentsDirectory)
+         return documentsDirectory
+     }
+
+    func searchDocumentsDirectory() {
+        do {
+            let items = try fm.contentsOfDirectory(atPath: path.absoluteString)
+            print(items)
+            for item in items {
+                print("Found \(item)")
+            }
+        } catch {
+            print("failed to read directory – bad permissions, perhaps?")
+        }
+    }
+     
+     func getiCloudDrive() {
+         
+     }
 }
-
-
-//class GetDocuments {
-//    let fm = FileManager.default
-//
-//    func searchDocumentsDirectory() {
-//        do {
-//            let items = try fm.contentsOfDirectory(atPath: path.absoluteString)
-//            print(items)
-//            for item in items {
-//                print("Found \(item)")
-//            }
-//        } catch {
-//            print("failed to read directory – bad permissions, perhaps?")
-//        }
-//    }
-//}
 
 struct ContentView: View {
 //    let gd = GetDocuments()
