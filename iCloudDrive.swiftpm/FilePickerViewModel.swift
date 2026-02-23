@@ -52,15 +52,24 @@ final class FilePickerViewModel: ObservableObject {
         // Use structured concurrency: perform blocking I/O off the actor via Task.detached,
         // then resume on MainActor for state updates.
         Task { [weak self] in
+            // Capture the pieces we need from self on the MainActor so we do NOT capture `self`
+            // inside the detached concurrent work below.
+            let capturedFileService = self?.fileService
+            let capturedMaxPreviewChars = self?.maxPreviewChars ?? 20_000
+            
             do {
-                // Detached task performs the blocking I/O
-                let data = try await Task.detached { [url] in
-                    try self?.fileService.readData(from: url) ?? Data(contentsOf: url)
-                    //  reference to captured var 'self' in concurrently-executing code
+                // Detached task performs the blocking I/O without referencing `self`.
+                let data = try await Task.detached { [url, capturedFileService] in
+                    if let fs = capturedFileService {
+                        return try fs.readData(from: url)
+                    } else {
+                        // Fallback to direct read if we don't have a fileService (rare).
+                        return try Data(contentsOf: url)
+                    }
                 }.value
                 
                 // Build preview text (pure computation)
-                let preview = Self.makePreviewText(from: data, maxChars: self?.maxPreviewChars ?? 20_000)
+                let preview = Self.makePreviewText(from: data, maxChars: capturedMaxPreviewChars)
                 
                 // Ensure we still have self on MainActor, then update @Published properties
                 guard let self = self else {

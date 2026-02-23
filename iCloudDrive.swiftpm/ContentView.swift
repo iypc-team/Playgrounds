@@ -1,13 +1,7 @@
-//  iCloudDrive 02/22/2026-6
+//  iCloudDrive 02/22/2026-7
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloudDrive.swiftpm
-
-//
-//  ContentView.swift
-//  iCloudDrive Playground - MVVM
-//
-//  Updated: 2026-02-23
-//
+//  
 
 import SwiftUI
 import UniformTypeIdentifiers
@@ -65,8 +59,8 @@ struct ContentView: View {
             isPresented: $showingPicker,
             allowedContentTypes: [.item],
             allowsMultipleSelection: true
-        ) { result in
-            vm.handle(result: result)
+        ) { [weak vm] result in
+            vm?.handle(result: result)
         }
     }
 }
