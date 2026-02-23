@@ -1,4 +1,4 @@
-//  iCloudDrive 02/22/2026-7
+//  iCloudDrive 02/22/2026-9
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloudDrive.swiftpm
 //  
@@ -9,14 +9,28 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @StateObject private var vm = FilePickerViewModel()
     @State private var showingPicker = false
+    @State private var lastEvent = "Idle"
     
     var body: some View {
         NavigationView {
-            VStack {
-                Button("Pick files from iCloud Drive") {
-                    showingPicker = true
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    Button("Pick files from iCloud Drive") {
+                        lastEvent = "Picker presented"
+                        showingPicker = true
+                    }
+                    Button("Mock add") {
+                        vm.pickedURLs = [URL(fileURLWithPath: "/tmp/example.txt")]
+                        vm.previewText = "Preview text"
+                        lastEvent = "Mock added"
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .padding()
+                .padding(.horizontal)
+                
+                Text("Debug: \(lastEvent) • picked: \(vm.pickedURLs.count)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
                 
                 List {
                     Section(header: Text("Picked files")) {
@@ -59,8 +73,15 @@ struct ContentView: View {
             isPresented: $showingPicker,
             allowedContentTypes: [.item],
             allowsMultipleSelection: true
-        ) { [weak vm] result in
-            vm?.handle(result: result)
+        ) { result in
+            switch result {
+            case .success(let urls):
+                lastEvent = "Importer success: \(urls.count) url(s)"
+                vm.handle(result: result)
+            case .failure(let error):
+                lastEvent = "Importer failure: \(error.localizedDescription)"
+                vm.errorMessage = error.localizedDescription
+            }
         }
     }
 }
