@@ -1,7 +1,9 @@
+//  GhostEffect  02/23/2026-1
+//  ContentView.swift
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Ghost%20Effect.swiftpm
 
 import SwiftUI
 import SceneKit
-//import RealityKit
 import QuartzCore
 import GLKit
 

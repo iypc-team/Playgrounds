@@ -1,4 +1,3 @@
-//
 //  EarthNode.swift
 //  3d Earth
 //
