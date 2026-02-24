@@ -1,5 +1,5 @@
 //  GhostSceneViewModel.swift
-//  
+//  loadScene
 
 import Foundation
 import SceneKit
@@ -27,6 +27,7 @@ final class GhostSceneViewModel: ObservableObject {
     
     // MARK: - Scene loading (robust for Playgrounds / SwiftPM / app bundle)
     private func loadScene(named sceneName: String) {
+        print("private func loadScene(named sceneName: String)")
         // Try a few strategies to locate the .scn resource
         // 1) If running as Swift Package, try Bundle.module
         if let scene = loadSceneFromPackageResource(named: sceneName) {
@@ -59,6 +60,7 @@ final class GhostSceneViewModel: ObservableObject {
     
 #if SWIFT_PACKAGE
     private func loadSceneFromPackageResource(named sceneName: String) -> SCNScene? {
+        print("private func loadSceneFromPackageResource(named sceneName: String)")
         // Bundle.module is only available for Swift packages
         // Use optional chaining so this file also compiles in Playgrounds/Xcode without package
         if let url = Bundle.module.url(forResource: (sceneName as NSString).deletingPathExtension,
@@ -68,11 +70,17 @@ final class GhostSceneViewModel: ObservableObject {
         return nil
     }
 #else
-    private func loadSceneFromPackageResource(named _: String) -> SCNScene? { nil }
+    private func loadSceneFromPackageResource(named _: String) -> SCNScene? {
+        print("private func loadSceneFromPackageResource(named _: String)")
+        return nil
+    }
 #endif
     
     // MARK: - Scene configuration
     private func configureScene() {
+        print("private func configureScene()")
+        // Prepare ghost node but don't add by default
+        ghostNode = makeGhostEffectNode()
         // If the scene already contains a camera node, prefer it.
         if let existingCamera = findFirstCameraNode(in: scene) {
             cameraNode = existingCamera
@@ -91,15 +99,15 @@ final class GhostSceneViewModel: ObservableObject {
         }
         
         // Background / ambient lights
-        let bgLight1 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, 100), intensity: 500)
-        let bgLight2 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, -100), intensity: 500)
+        let bgLight1 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, 100), intensity: 500 * 1)  //  default intensity: 500
+        let bgLight2 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, -100), intensity: 500 * 1)  //  default intensity: 500
         scene.rootNode.addChildNode(bgLight1)
         scene.rootNode.addChildNode(bgLight2)
         
         // Engine & cabin lights (create but attach later)
-        engineLightNode = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, -2, 0), intensity: 10000, attenuationEndDistance: 4)
-        engineLightNode2 = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, 1.5, 0), intensity: 10000, attenuationEndDistance: 4)
-        cabinLightNode = makeLight(type: .omni, color: .systemRed, position: SCNVector3(0, 4.5, 0), intensity: 1000, attenuationEndDistance: 4)
+        engineLightNode = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, -2, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
+        engineLightNode2 = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, 1.5, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
+        cabinLightNode = makeLight(type: .omni, color: .systemRed, position: SCNVector3(0, -3.9, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 1000
         
         // Ambient fill
         let ambient = makeLight(type: .ambient, color: .darkGray, position: SCNVector3Zero, intensity: 200)
@@ -121,6 +129,7 @@ final class GhostSceneViewModel: ObservableObject {
             if let e1 = engineLightNode { ship.addChildNode(e1) }
             if let e2 = engineLightNode2 { ship.addChildNode(e2) }
             
+            ship.addChildNode(ghostNode!)
             // Small rotation animation so it's obvious something is in the scene
 //            ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
         } else {
@@ -129,8 +138,8 @@ final class GhostSceneViewModel: ObservableObject {
             if let e2 = engineLightNode2 { scene.rootNode.addChildNode(e2) }
         }
         
-        // Prepare ghost node but don't add by default
-        ghostNode = makeGhostEffectNode()
+//        // Prepare ghost node but don't add by default
+//        ghostNode = makeGhostEffectNode()
         
         // Ensure published properties update on main thread for UI consumers
         DispatchQueue.main.async {
@@ -138,7 +147,8 @@ final class GhostSceneViewModel: ObservableObject {
         }
     }
     
-    private func findFirstCameraNode(in scene: SCNScene) -> SCNNode? {
+    private func findFirstCameraNode(in scene: SCNScene) -> SCNNode? { 
+        print("private func findFirstCameraNode(in scene: SCNScene)")
         return scene.rootNode.childNodes.first(where: { $0.camera != nil })
     }
     
@@ -147,6 +157,7 @@ final class GhostSceneViewModel: ObservableObject {
                            position: SCNVector3,
                            intensity: CGFloat = 1000,
                            attenuationEndDistance: CGFloat = 0) -> SCNNode {
+        print("private func makeLight")
         let node = SCNNode()
         node.light = SCNLight()
         node.light!.type = type
@@ -161,6 +172,7 @@ final class GhostSceneViewModel: ObservableObject {
     }
     
     private func makeGhostEffectNode() -> SCNNode {
+        print("private func makeGhostEffectNode()")
         // Fresnel-like transparent shell (scale and radius tuned to typical model size)
         let sphere = SCNSphere(radius: 8)
         sphere.segmentCount = 64
@@ -186,6 +198,7 @@ final class GhostSceneViewModel: ObservableObject {
     
     // MARK: - Public API
     func addGhostEffect() {
+        print("func addGhostEffect()")
         guard let ghost = ghostNode else { return }
         if let ship = shipNode {
             if ghost.parent == nil { ship.addChildNode(ghost) }
@@ -195,14 +208,17 @@ final class GhostSceneViewModel: ObservableObject {
     }
     
     func removeGhostEffect() {
+        print("func removeGhostEffect() ")
         ghostNode?.removeFromParentNode()
     }
     
-    func toggleGhostEffect(_ enabled: Bool) {
+    func toggleGhostEffect(_ enabled: Bool) { 
+        print("func toggleGhostEffect(_ enabled: Bool)")
         if enabled { addGhostEffect() } else { removeGhostEffect() }
     }
     
-    func replaceScene(named sceneName: String) {
+    func replaceScene(named sceneName: String) { 
+        print("func replaceScene(named sceneName: String) ")
         loadScene(named: sceneName)
         // Clear references and rebuild configuration for the new scene
         shipNode = nil
