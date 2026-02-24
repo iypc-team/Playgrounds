@@ -1,5 +1,5 @@
 //  GhostSceneViewModel.swift
-//  loadScene
+//  camera
 
 import Foundation
 import SceneKit
@@ -20,9 +20,26 @@ final class GhostSceneViewModel: ObservableObject {
     private var engineLightNode2: SCNNode?
     private var cabinLightNode: SCNNode?
     
+    // Track Combine cancellables / other resources to clean up
+    private var cancellables = Set<AnyCancellable>()
+    
     init(sceneName: String = "fighter.scn") {
         loadScene(named: sceneName)
         configureScene()
+    }
+    
+    deinit {
+        // cleanupSceneResources will dispatch to main if needed
+        cleanupSceneResources()
+    }
+    
+    // Helper to ensure SceneKit / UI work runs on main:
+    private func performOnMain(_ work: @escaping () -> Void) {
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async { work() }
+        }
     }
     
     // MARK: - Scene loading (robust for Playgrounds / SwiftPM / app bundle)
@@ -30,31 +47,39 @@ final class GhostSceneViewModel: ObservableObject {
         print("private func loadScene(named sceneName: String)")
         // Try a few strategies to locate the .scn resource
         // 1) If running as Swift Package, try Bundle.module
-        if let scene = loadSceneFromPackageResource(named: sceneName) {
-            self.scene = scene
-            self.isSceneLoaded = true
+        if let s = loadSceneFromPackageResource(named: sceneName) {
+            performOnMain {
+                self.scene = s
+                self.isSceneLoaded = true
+            }
             return
         }
         
         // 2) Try SCNScene(named:) which looks in the main bundle / playground resources
-        if let scene = SCNScene(named: sceneName) {
-            self.scene = scene
-            self.isSceneLoaded = true
+        if let s = SCNScene(named: sceneName) {
+            performOnMain {
+                self.scene = s
+                self.isSceneLoaded = true
+            }
             return
         }
         
         // 3) Try Bundle.main url-based load (useful in some playground contexts)
         if let url = Bundle.main.url(forResource: (sceneName as NSString).deletingPathExtension,
                                      withExtension: (sceneName as NSString).pathExtension),
-           let scene = try? SCNScene(url: url, options: nil) {
-            self.scene = scene
-            self.isSceneLoaded = true
+           let s = try? SCNScene(url: url, options: nil) {
+            performOnMain {
+                self.scene = s
+                self.isSceneLoaded = true
+            }
             return
         }
         
         // Fallback: empty scene
-        self.scene = SCNScene()
-        self.isSceneLoaded = false
+        performOnMain {
+            self.scene = SCNScene()
+            self.isSceneLoaded = false
+        }
         print("GhostSceneViewModel: failed to locate \(sceneName); using empty scene.")
     }
     
@@ -78,76 +103,70 @@ final class GhostSceneViewModel: ObservableObject {
     
     // MARK: - Scene configuration
     private func configureScene() {
-        print("private func configureScene()")
-        // Prepare ghost node but don't add by default
-        ghostNode = makeGhostEffectNode()
-        // If the scene already contains a camera node, prefer it.
-        if let existingCamera = findFirstCameraNode(in: scene) {
-            cameraNode = existingCamera
-            // Ensure camera is attached to the root (some .scn files keep camera elsewhere)
-            if existingCamera.parent == nil {
-                scene.rootNode.addChildNode(existingCamera)
+        performOnMain {
+            print("private func configureScene()")
+            // Prepare ghost node but don't add by default
+            self.ghostNode = self.makeGhostEffectNode()
+            // If the scene already contains a camera node, prefer it.
+            if let existingCamera = self.findFirstCameraNode(in: self.scene) {
+                self.cameraNode = existingCamera
+                // Ensure camera is attached to the root (some .scn files keep camera elsewhere)
+                if existingCamera.parent == nil {
+                    self.scene.rootNode.addChildNode(existingCamera)
+                }
+            } else {
+                // Create a camera and place it so it can see most typical content
+                self.cameraNode = SCNNode()
+                self.cameraNode.name = "mainCamera"
+                self.cameraNode.camera = SCNCamera()
+                self.cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
+                self.cameraNode.camera?.automaticallyAdjustsZRange = true
+                self.scene.rootNode.addChildNode(self.cameraNode)
             }
-        } else {
-            // Create a camera and place it so it can see most typical content
-            cameraNode = SCNNode()
-            cameraNode.name = "mainCamera"
-            cameraNode.camera = SCNCamera()
-            cameraNode.position = SCNVector3(x: 0, y: 0, z: 20)
-            cameraNode.camera?.automaticallyAdjustsZRange = true
-            scene.rootNode.addChildNode(cameraNode)
-        }
-        
-        // Background / ambient lights
-        let bgLight1 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, 100), intensity: 500 * 1)  //  default intensity: 500
-        let bgLight2 = makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, -100), intensity: 500 * 1)  //  default intensity: 500
-        scene.rootNode.addChildNode(bgLight1)
-        scene.rootNode.addChildNode(bgLight2)
-        
-        // Engine & cabin lights (create but attach later)
-        engineLightNode = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, -2, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
-        engineLightNode2 = makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, 1.5, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
-        cabinLightNode = makeLight(type: .omni, color: .systemRed, position: SCNVector3(0, -3.9, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 1000
-        
-        // Ambient fill
-        let ambient = makeLight(type: .ambient, color: .darkGray, position: SCNVector3Zero, intensity: 200)
-        scene.rootNode.addChildNode(ambient)
-        
-        // Attempt to find the ship node(s).
-        // Many .scn files won't name the top container "fighter" — handle common variations:
-        shipNode = scene.rootNode.childNode(withName: "fighter", recursively: true)
-        if shipNode == nil {
-            // Look for any node that contains geometry and looks like a main model
-            shipNode = scene.rootNode.childNodes.first(where: { node in
-                return node.geometry != nil || !node.childNodes.isEmpty
-            })
-        }
-        
-        // Attach lights to ship if present; otherwise attach to root so something is visible
-        if let ship = shipNode {
-            if let cabin = cabinLightNode { ship.addChildNode(cabin) }
-            if let e1 = engineLightNode { ship.addChildNode(e1) }
-            if let e2 = engineLightNode2 { ship.addChildNode(e2) }
             
-            ship.addChildNode(ghostNode!)
-            // Small rotation animation so it's obvious something is in the scene
-//            ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
-        } else {
-            if let cabin = cabinLightNode { scene.rootNode.addChildNode(cabin) }
-            if let e1 = engineLightNode { scene.rootNode.addChildNode(e1) }
-            if let e2 = engineLightNode2 { scene.rootNode.addChildNode(e2) }
-        }
-        
-//        // Prepare ghost node but don't add by default
-//        ghostNode = makeGhostEffectNode()
-        
-        // Ensure published properties update on main thread for UI consumers
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
+            // Background / ambient lights
+            let bgLight1 = self.makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, 100), intensity: 500 * 1)  //  default intensity: 500
+            let bgLight2 = self.makeLight(type: .omni, color: .gray, position: SCNVector3(0, 0, -100), intensity: 500 * 1)  //  default intensity: 500
+            self.scene.rootNode.addChildNode(bgLight1)
+            self.scene.rootNode.addChildNode(bgLight2)
+            
+            // Engine & cabin lights (create but attach later)
+            self.engineLightNode = self.makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, -2, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
+            self.engineLightNode2 = self.makeLight(type: .omni, color: .systemGreen, position: SCNVector3(0, 1.5, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 10000
+            self.cabinLightNode = self.makeLight(type: .omni, color: .systemRed, position: SCNVector3(0, -3.9, 0), intensity: 10000, attenuationEndDistance: 4)  //  intensity: 1000
+            
+            // Ambient fill
+            let ambient = self.makeLight(type: .ambient, color: .darkGray, position: SCNVector3Zero, intensity: 200)
+            self.scene.rootNode.addChildNode(ambient)
+            
+            // Attempt to find the ship node(s).
+            // Many .scn files won't name the top container "fighter" — handle common variations:
+            self.shipNode = self.scene.rootNode.childNode(withName: "fighter", recursively: true)
+            if self.shipNode == nil {
+                // Prefer nodes that actually have geometry (less likely to pick camera/light-only nodes)
+                self.shipNode = self.scene.rootNode.childNodes.first(where: { $0.geometry != nil })
+            }
+            
+            // Attach lights to ship if present; otherwise attach to root so something is visible
+            if let ship = self.shipNode {
+                if let cabin = self.cabinLightNode { ship.addChildNode(cabin) }
+                if let e1 = self.engineLightNode { ship.addChildNode(e1) }
+                if let e2 = self.engineLightNode2 { ship.addChildNode(e2) }
+                
+                if let ghost = self.ghostNode {
+                    if ghost.parent == nil { ship.addChildNode(ghost) }
+                }
+                // Small rotation animation so it's obvious something is in the scene
+                //            ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 8)))
+            } else {
+                if let cabin = self.cabinLightNode { self.scene.rootNode.addChildNode(cabin) }
+                if let e1 = self.engineLightNode { self.scene.rootNode.addChildNode(e1) }
+                if let e2 = self.engineLightNode2 { self.scene.rootNode.addChildNode(e2) }
+            }
         }
     }
     
-    private func findFirstCameraNode(in scene: SCNScene) -> SCNNode? { 
+    private func findFirstCameraNode(in scene: SCNScene) -> SCNNode? {
         print("private func findFirstCameraNode(in scene: SCNScene)")
         return scene.rootNode.childNodes.first(where: { $0.camera != nil })
     }
@@ -159,14 +178,15 @@ final class GhostSceneViewModel: ObservableObject {
                            attenuationEndDistance: CGFloat = 0) -> SCNNode {
         print("private func makeLight")
         let node = SCNNode()
-        node.light = SCNLight()
-        node.light!.type = type
-        node.light!.color = color
-        node.light!.intensity = intensity
-        node.light!.castsShadow = false
+        let light = SCNLight()
+        light.type = type
+        light.color = color
+        light.intensity = intensity
+        light.castsShadow = false
         if attenuationEndDistance > 0 {
-            node.light!.attenuationEndDistance = attenuationEndDistance
+            light.attenuationEndDistance = attenuationEndDistance
         }
+        node.light = light
         node.position = position
         return node
     }
@@ -196,34 +216,92 @@ final class GhostSceneViewModel: ObservableObject {
         return node
     }
     
+    // MARK: - Cleanup
+    private func cleanupSceneResources() {
+        // Ensure all SceneKit modifications happen on the main thread.
+        performOnMain {
+            print("private func cleanupSceneResources()")
+            
+            // Stop actions/animations/particles and clear geometry/material resources
+            self.scene.rootNode.enumerateChildNodes { node, _ in
+                node.removeAllActions()
+                node.removeAllParticleSystems()
+                node.removeAllAnimations()
+                
+                if let geometry = node.geometry {
+                    for material in geometry.materials {
+                        // Clear typical material content slots to release images/textures
+                        material.diffuse.contents = nil
+                        material.normal.contents = nil
+                        material.ambient.contents = nil
+                        material.specular.contents = nil
+                        material.emission.contents = nil
+                        material.reflective.contents = nil
+                    }
+                    node.geometry = nil
+                }
+                
+                // Detach node from scene graph to break strong references
+                node.removeFromParentNode()
+            }
+            
+            // Clear published scene on main thread so UI consumers see the change
+            self.scene = SCNScene()
+            self.isSceneLoaded = false
+            
+            // Clear stored references
+            self.shipNode = nil
+            self.ghostNode = nil
+            self.engineLightNode = nil
+            self.engineLightNode2 = nil
+            self.cabinLightNode = nil
+            
+            // Cancel Combine subscriptions (if any were added)
+            self.cancellables.forEach { $0.cancel() }
+            self.cancellables.removeAll()
+        }
+    }
+    
     // MARK: - Public API
     func addGhostEffect() {
         print("func addGhostEffect()")
-        guard let ghost = ghostNode else { return }
-        if let ship = shipNode {
-            if ghost.parent == nil { ship.addChildNode(ghost) }
-        } else {
-            if ghost.parent == nil { scene.rootNode.addChildNode(ghost) }
+        performOnMain {
+            guard let ghost = self.ghostNode else { return }
+            if let ship = self.shipNode {
+                if ghost.parent == nil { ship.addChildNode(ghost) }
+            } else {
+                if ghost.parent == nil { self.scene.rootNode.addChildNode(ghost) }
+            }
         }
     }
     
     func removeGhostEffect() {
         print("func removeGhostEffect() ")
-        ghostNode?.removeFromParentNode()
+        performOnMain {
+            self.ghostNode?.removeFromParentNode()
+        }
     }
     
-    func toggleGhostEffect(_ enabled: Bool) { 
+    func toggleGhostEffect(_ enabled: Bool) {
         print("func toggleGhostEffect(_ enabled: Bool)")
         if enabled { addGhostEffect() } else { removeGhostEffect() }
     }
     
-    func replaceScene(named sceneName: String) { 
+    func replaceScene(named sceneName: String) {
         print("func replaceScene(named sceneName: String) ")
+        // Clean up the current scene's resources before loading a new one.
+        // cleanupSceneResources will dispatch to main as needed.
+        cleanupSceneResources()
+        
+        // Load the new scene (loadScene updates published scene on main)
         loadScene(named: sceneName)
-        // Clear references and rebuild configuration for the new scene
-        shipNode = nil
-        ghostNode = nil
-        cameraNode = SCNNode()
-        configureScene()
+        
+        // Reconfigure on main thread once the scene has been set.
+        performOnMain {
+            self.shipNode = nil
+            self.ghostNode = nil
+            self.cameraNode = SCNNode()
+            self.configureScene()
+        }
     }
 }
