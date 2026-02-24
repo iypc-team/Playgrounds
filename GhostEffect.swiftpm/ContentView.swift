@@ -1,4 +1,4 @@
-//  GhostEffect  02/23/2026-3
+//  GhostEffect  02/24/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/GhostEffect.swiftpm
 //  
@@ -35,8 +35,13 @@ struct ContentView: UIViewRepresentable {
         scnView.pointOfView = viewModel.cameraNode
         scnView.isPlaying = true
         scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
+        scnView.showsStatistics = false
     }
 }
 
-
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .preferredColorScheme(.dark)
+    }
+}
