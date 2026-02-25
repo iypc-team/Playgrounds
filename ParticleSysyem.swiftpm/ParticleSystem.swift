@@ -1,7 +1,9 @@
 // ParticleSystem.swift
 // Updated: focused, pencil-shaped exhaust (sharpened pencil)
-// Improvements: avoid advancing lastUpdateDate / doing work when engine is stopped,
-// clamp large dt after long pauses, expose simple active/empty checks.
+// Tweaks: reduced default particle size & density for a smaller stream,
+// clamp large dt after long pauses, avoid advancing lastUpdateDate when stopped,
+// expose simple active/empty checks.
+// size
 
 import SwiftUI
 import Foundation
@@ -34,19 +36,19 @@ final class ParticleSystem: Sequence {
     var center: UnitPoint = .init(x: 0.5, y: 0.88)
     
     // How long a particle lives (seconds)
-    var lifespan: TimeInterval = 0.9
+    var lifespan: TimeInterval = 0.8     // slightly shorter lifespan to reduce visual spread
     
     // Emission properties tuned for a tight focused beam
-    var emissionRate: Double = 1400                    // particles per second (dense line)
+    var emissionRate: Double = 700                    // reduced particles per second (was 1400)
     var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
     var spread: Double = .pi * 0.02                    // very narrow cone
     var speedRange: ClosedRange<Double> = 3.0...6.0    // fast particles
-    var sizeRange: ClosedRange<Double> = 0.8...1.6     // small cores
+    var sizeRange: ClosedRange<Double> = 0.5...1.1     // smaller cores (was 0.8...1.6)
     var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
-    var maxParticles: Int = 20000                      // safety cap
+    var maxParticles: Int = 8000                      // lower safety cap (was 20000)
     
     // Emission geometry & motion tuning
-    var radialEmissionRadius: Double = 0.006 // small nozzle radius in unit-space
+    var radialEmissionRadius: Double = 0.003 // smaller nozzle radius in unit-space (was 0.006)
     var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
     var lateralBoost: Double = 0.0           // no lateral spreading
     var buoyancy: Double = 0.0               // disable upward billow
@@ -56,7 +58,7 @@ final class ParticleSystem: Sequence {
     private var emissionAccumulator: Double = 0
     
     // optional image kept for compatibility if you choose to use sprites instead of shapes
-//    let image = Image("spark")
+    //    let image = Image("spark")
     let image = Image("star")
     
     // Public convenience checks
@@ -84,7 +86,7 @@ final class ParticleSystem: Sequence {
         let maxDt: TimeInterval = 1.0 / 15.0   // clamp to ~66ms to keep simulation stable
         let dt = Swift.min(rawDt, maxDt)
         lastUpdateDate = date
-//        print("lastUpdateDate: \(lastUpdateDate!)")
+        //        print("lastUpdateDate: \(lastUpdateDate!)")
         
         // spawn particles according to emissionRate (supports fractional particles via accumulator)
         let toEmit = emissionRate * dt + emissionAccumulator
