@@ -1,4 +1,4 @@
-//  ParticleSystem 02/20/2026-2
+//  ParticleSystem 02/25/2026-1
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
@@ -19,7 +19,7 @@ struct ContentView: View {
                 particleSystem.update(date: timelineDate)
                 
                 // additive blending for bright cores and glow
-                context.blendMode = .plusLighter
+                context.blendMode = .plusDarker
                 
                 // Guard against invalid lifespan
                 guard particleSystem.lifespan > 0 else { return }
@@ -83,7 +83,7 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .background(Color.black)
-        .overlay(alignment: .top) {
+        .overlay(alignment: .bottom) {
             Button(action: toggleEngine) {
                 Text(isEngineRunning ? "stopEngine" : "startEngine")
                     .font(.system(size: 22, weight: .semibold))

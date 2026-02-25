@@ -56,7 +56,8 @@ final class ParticleSystem: Sequence {
     private var emissionAccumulator: Double = 0
     
     // optional image kept for compatibility if you choose to use sprites instead of shapes
-    let image = Image("spark")
+//    let image = Image("spark")
+    let image = Image("star")
     
     // Public convenience checks
     var isEmpty: Bool { particles.isEmpty }
