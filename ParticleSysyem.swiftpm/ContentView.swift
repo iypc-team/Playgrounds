@@ -1,8 +1,7 @@
-//  ParticleSystem 02/25/2026-2
+//  ParticleSystem 02/25/2026-3
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
-// 
 // 
 
 import SwiftUI
@@ -24,7 +23,7 @@ struct ContentView: View {
                 // Guard against invalid lifespan
                 guard particleSystem.lifespan > 0 else { return }
                 
-                let viewScale = max(size.width, size.height)
+                let viewScale = Swift.max(size.width, size.height)
                 
                 for particle in particleSystem {
                     let xPos = particle.x * size.width
@@ -32,7 +31,7 @@ struct ContentView: View {
                     
                     // Age-based factor
                     let age = timelineDate - particle.creationDate
-                    let t = CGFloat(max(0, min(1, age / particleSystem.lifespan))) // 0..1
+                    let t = CGFloat(Swift.max(0, Swift.min(1, age / particleSystem.lifespan))) // 0..1
                     
                     // base radius (core)
                     let baseRadius = CGFloat(particle.size) * (1 - t * 0.6)
@@ -47,7 +46,7 @@ struct ContentView: View {
                     let speedPoints = speed * viewScale
                     
                     // elongation based on speed
-                    let lengthScale = 1.0 + min(speedPoints * 0.025, 14.0)
+                    let lengthScale = 1.0 + Swift.min(speedPoints * 0.025, 14.0)
                     
                     // angle aligned with velocity. fallback to up
                     var angle = atan2(vy, vx)
@@ -55,7 +54,7 @@ struct ContentView: View {
                     
                     // create a small ellipse centered at origin, then transform
                     let w = baseRadius * 2.0
-                    let h = max(baseRadius * 0.45, 0.5) // thin cross-axis
+                    let h = Swift.max(baseRadius * 0.45, 0.5) // thin cross-axis
                     let rect = CGRect(x: -w / 2, y: -h / 2, width: w, height: h)
                     
                     var transform = CGAffineTransform(translationX: xPos, y: yPos)
@@ -65,7 +64,7 @@ struct ContentView: View {
                     let corePath = Path(ellipseIn: rect).applying(transform)
                     
                     // white core, bright and short-lived
-                    let coreOpacity = Double(max(0.0, 1.0 - t * 1.4))
+                    let coreOpacity = Double(Swift.max(0.0, 1.0 - t * 1.4))
                     context.fill(corePath, with: .color(Color.white.opacity(coreOpacity)))
                     
                     // Outer glow (tinted by particle hue). Larger and softer.

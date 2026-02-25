@@ -1,9 +1,10 @@
 // ParticleSystem.swift
 // Updated: focused, pencil-shaped exhaust (sharpened pencil)
+// Added: globalScale (scales emission rate, size, speed, and nozzle radius)
 // Tweaks: reduced default particle size & density for a smaller stream,
 // clamp large dt after long pauses, avoid advancing lastUpdateDate when stopped,
 // expose simple active/empty checks.
-// size
+// Note: global Swift.max / Swift.min qualified to avoid name ambiguity.
 
 import SwiftUI
 import Foundation
@@ -39,19 +40,29 @@ final class ParticleSystem: Sequence {
     var lifespan: TimeInterval = 0.8     // slightly shorter lifespan to reduce visual spread
     
     // Emission properties tuned for a tight focused beam
-    var emissionRate: Double = 700                    // reduced particles per second (was 1400)
+    // Public-facing "base" parameters; globalScale multiplies these at runtime.
+    var emissionRate: Double = 700                    // particles per second (base)
     var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
     var spread: Double = .pi * 0.02                    // very narrow cone
-    var speedRange: ClosedRange<Double> = 3.0...6.0    // fast particles
-    var sizeRange: ClosedRange<Double> = 0.5...1.1     // smaller cores (was 0.8...1.6)
+    var speedRange: ClosedRange<Double> = 3.0...6.0    // base speeds (unit-space / s)
+    var sizeRange: ClosedRange<Double> = 0.5...1.1     // base core sizes (points)
     var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
-    var maxParticles: Int = 8000                      // lower safety cap (was 20000)
+    var maxParticles: Int = 8000                      // safety cap (base)
     
-    // Emission geometry & motion tuning
-    var radialEmissionRadius: Double = 0.003 // smaller nozzle radius in unit-space (was 0.006)
+    // Emission geometry & motion tuning (base)
+    var radialEmissionRadius: Double = 0.003 // nozzle radius in unit-space (base)
     var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
     var lateralBoost: Double = 0.0           // no lateral spreading
     var buoyancy: Double = 0.0               // disable upward billow
+    
+    // Global scale: multiplies emission rate, particle size, speeds and nozzle radius.
+    // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
+    var globalScale: Double = 1.0 {
+        didSet {
+            // sanitize
+            if globalScale.isNaN || globalScale < 0.0 { globalScale = 0.0 }
+        }
+    }
     
     // internal bookkeeping
     private var lastUpdateDate: TimeInterval?
@@ -63,14 +74,15 @@ final class ParticleSystem: Sequence {
     
     // Public convenience checks
     var isEmpty: Bool { particles.isEmpty }
-    var isActive: Bool { emissionRate > 0 || !particles.isEmpty }
+    // consider emitter active if either base emissionRate > 0 and scale > 0, or particles exist
+    var isActive: Bool { (emissionRate * globalScale) > 0 || !particles.isEmpty }
     
     /// Call once per frame with timeline.date.timeIntervalSinceReferenceDate
     func update(date: TimeInterval) {
         // If the emitter is fully stopped and there are no particles, do nothing.
         // Also avoid advancing lastUpdateDate in that paused state so we won't
         // accumulate a huge dt when resuming.
-        if emissionRate == 0 && particles.isEmpty {
+        if (emissionRate * globalScale) == 0 && particles.isEmpty {
             lastUpdateDate = nil
             return
         }
@@ -86,10 +98,20 @@ final class ParticleSystem: Sequence {
         let maxDt: TimeInterval = 1.0 / 15.0   // clamp to ~66ms to keep simulation stable
         let dt = Swift.min(rawDt, maxDt)
         lastUpdateDate = date
-        //        print("lastUpdateDate: \(lastUpdateDate!)")
         
-        // spawn particles according to emissionRate (supports fractional particles via accumulator)
-        let toEmit = emissionRate * dt + emissionAccumulator
+        // apply scaling to derived parameters
+        let effectiveEmissionRate = emissionRate * globalScale
+        // scale speeds linearly (smaller globalScale -> slower, less spread)
+        let effectiveSpeedRange = (speedRange.lowerBound * globalScale)...(speedRange.upperBound * globalScale)
+        // scale sizes (points)
+        let effectiveSizeRange = (sizeRange.lowerBound * globalScale)...(sizeRange.upperBound * globalScale)
+        // scale nozzle radius in unit-space
+        let effectiveRadialEmissionRadius = radialEmissionRadius * globalScale
+        // compute effective max particles (at least a small positive floor)
+        let effectiveMaxParticles = Swift.max(16, Int(Double(maxParticles) * Swift.max(globalScale, 0.01)))
+        
+        // spawn particles according to effectiveEmissionRate (supports fractional particles via accumulator)
+        let toEmit = effectiveEmissionRate * dt + emissionAccumulator
         let count = Int(floor(toEmit))
         emissionAccumulator = toEmit - Double(count)
         
@@ -105,26 +127,26 @@ final class ParticleSystem: Sequence {
         let perpY = axisX
         
         for _ in 0..<count {
-            if particles.count >= maxParticles { break }
+            if particles.count >= effectiveMaxParticles { break }
             
             // randomize angle within spread (small jitter only)
             let halfSpread = spread / 2.0
             let angle = angleBase + Double.random(in: -halfSpread...halfSpread)
             
-            // random speed in unit-space / second
-            let speed = Double.random(in: speedRange)
+            // random speed in unit-space / second (use effectiveSpeedRange)
+            let speed = Double.random(in: effectiveSpeedRange)
             
             // velocity components using explicit Darwin trig functions
             let vx = Darwin.cos(angle) * speed
             let vy = Darwin.sin(angle) * speed
             
-            // small radial offset in nozzle plane to form base width
-            let r = Double.random(in: -radialEmissionRadius...radialEmissionRadius)
+            // small radial offset in nozzle plane to form base width (use effectiveRadialEmissionRadius)
+            let r = Double.random(in: -effectiveRadialEmissionRadius...effectiveRadialEmissionRadius)
             let offsetX = perpX * r
             let offsetY = perpY * r
             
-            // random size and hue
-            let size = Double.random(in: sizeRange)
+            // random size and hue (use effectiveSizeRange)
+            let size = Double.random(in: effectiveSizeRange)
             let hue = Double.random(in: hueRange)
             
             let p = Particle(
@@ -179,9 +201,9 @@ final class ParticleSystem: Sequence {
             return false
         }
         
-        // enforce maxParticles cap more strictly if needed
-        if particles.count > maxParticles {
-            let excess = particles.count - maxParticles
+        // enforce effectiveMaxParticles cap more strictly if needed
+        if particles.count > effectiveMaxParticles {
+            let excess = particles.count - effectiveMaxParticles
             particles.removeFirst(excess)
         }
     }
