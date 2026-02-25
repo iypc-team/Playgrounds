@@ -6,7 +6,7 @@ import SceneKit
 import UIKit
 import Combine
 
-final class GhostSceneViewModel: ObservableObject {
+final class GhostSceneViewModel: ObservableObject { 
     @Published private(set) var scene: SCNScene = SCNScene()
     @Published private(set) var isSceneLoaded: Bool = false
     
@@ -24,6 +24,7 @@ final class GhostSceneViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(sceneName: String = "fighter.scn") {
+        print("\nfinal class GhostSceneViewModel")
         loadScene(named: sceneName)
         configureScene()
     }
