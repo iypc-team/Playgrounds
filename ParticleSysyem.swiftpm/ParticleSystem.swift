@@ -57,7 +57,7 @@ final class ParticleSystem: Sequence {
     
     // Global scale: multiplies emission rate, particle size, speeds and nozzle radius.
     // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
-    var globalScale: Double = 1.0 {
+    var globalScale: Double = 1.0 / 4 {
         didSet {
             // sanitize
             if globalScale.isNaN || globalScale < 0.0 { globalScale = 0.0 }
