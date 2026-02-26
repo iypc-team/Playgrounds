@@ -4,7 +4,9 @@
 // Tweaks: reduced default particle size & density for a smaller stream,
 // clamp large dt after long pauses, avoid advancing lastUpdateDate when stopped,
 // expose simple active/empty checks.
-// Note: global Swift.max / Swift.min qualified to avoid name ambiguity.
+// Improvements: buoyancy scaled against effectiveSizeRange, use lateralBoost,
+// reserve particle capacity before emit, cache normalized emission direction & angle,
+// use in-place compaction for removal to reduce temporaries.
 
 import SwiftUI
 import Foundation
@@ -42,7 +44,9 @@ final class ParticleSystem: Sequence {
     // Emission properties tuned for a tight focused beam
     // Public-facing "base" parameters; globalScale multiplies these at runtime.
     var emissionRate: Double = 700                    // particles per second (base)
-    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) // up (negative y)
+    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) {
+        didSet { emissionDirectionDirty = true }
+    }
     var spread: Double = .pi * 0.02                    // very narrow cone
     var speedRange: ClosedRange<Double> = 3.0...6.0    // base speeds (unit-space / s)
     var sizeRange: ClosedRange<Double> = 0.5...1.1     // base core sizes (points)
@@ -52,8 +56,8 @@ final class ParticleSystem: Sequence {
     // Emission geometry & motion tuning (base)
     var radialEmissionRadius: Double = 0.003 // nozzle radius in unit-space (base)
     var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
-    var lateralBoost: Double = 0.0           // no lateral spreading
-    var buoyancy: Double = 0.0               // disable upward billow
+    var lateralBoost: Double = 0.0           // additional lateral attraction (now used)
+    var buoyancy: Double = 0.0               // disable upward billow by default
     
     // Global scale: multiplies emission rate, particle size, speeds and nozzle radius.
     // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
@@ -76,6 +80,12 @@ final class ParticleSystem: Sequence {
     var isEmpty: Bool { particles.isEmpty }
     // consider emitter active if either base emissionRate > 0 and scale > 0, or particles exist
     var isActive: Bool { (emissionRate * globalScale) > 0 || !particles.isEmpty }
+    
+    // Cached normalized emission axis and angle to avoid recomputing every frame.
+    private var emissionDirectionDirty: Bool = true
+    private var cachedAxisX: Double = 0.0
+    private var cachedAxisY: Double = -1.0
+    private var cachedAngleBase: Double = -Double.pi / 2.0 // corresponds to (0, -1)
     
     /// Call once per frame with timeline.date.timeIntervalSinceReferenceDate
     func update(date: TimeInterval) {
@@ -110,21 +120,38 @@ final class ParticleSystem: Sequence {
         // compute effective max particles (at least a small positive floor)
         let effectiveMaxParticles = Swift.max(16, Int(Double(maxParticles) * Swift.max(globalScale, 0.01)))
         
+        // Reserve capacity to avoid repeated reallocations when emitting many particles
+        if particles.capacity < effectiveMaxParticles {
+            particles.reserveCapacity(effectiveMaxParticles)
+        }
+        
         // spawn particles according to effectiveEmissionRate (supports fractional particles via accumulator)
         let toEmit = effectiveEmissionRate * dt + emissionAccumulator
         let count = Int(floor(toEmit))
         emissionAccumulator = toEmit - Double(count)
         
-        // compute angle base using Double values to avoid overload ambiguity
-        let angleBase = Darwin.atan2(Double(emissionDirection.dy), Double(emissionDirection.dx))
+        // update cached normalized axis + angle if emissionDirection changed
+        if emissionDirectionDirty {
+            let ax = Double(emissionDirection.dx)
+            let ay = Double(emissionDirection.dy)
+            let len = sqrt(ax*ax + ay*ay)
+            if len > 0 {
+                cachedAxisX = ax / len
+                cachedAxisY = ay / len
+            } else {
+                cachedAxisX = 0.0
+                cachedAxisY = -1.0
+            }
+            cachedAngleBase = Darwin.atan2(cachedAxisY, cachedAxisX)
+            emissionDirectionDirty = false
+        }
         
-        // compute normalized emission axis and perpendicular in unit-space
-        let axisLen = sqrt(Double(emissionDirection.dx * emissionDirection.dx + emissionDirection.dy * emissionDirection.dy))
-        let axisX = axisLen > 0 ? Double(emissionDirection.dx) / axisLen : 0.0
-        let axisY = axisLen > 0 ? Double(emissionDirection.dy) / axisLen : -1.0
-        // perpendicular: rotate by 90deg
+        // compute perpendicular once from cached axis
+        let axisX = cachedAxisX
+        let axisY = cachedAxisY
         let perpX = -axisY
         let perpY = axisX
+        let angleBase = cachedAngleBase
         
         for _ in 0..<count {
             if particles.count >= effectiveMaxParticles { break }
@@ -167,6 +194,8 @@ final class ParticleSystem: Sequence {
             let dragFactor = pow(0.995, dt * 60.0)
             let cx = Double(center.x)
             let cy = Double(center.y)
+            // combine axisAttraction and lateralBoost
+            let lateralAttraction = axisAttraction + lateralBoost
             
             for i in particles.indices {
                 // basic Euler integration
@@ -180,11 +209,15 @@ final class ParticleSystem: Sequence {
                 let lateral = relX * perpX + relY * perpY
                 
                 // attract toward axis (pull lateral velocity back toward centerline)
-                particles[i].vx -= lateral * axisAttraction * dt * perpX
-                particles[i].vy -= lateral * axisAttraction * dt * perpY
+                particles[i].vx -= lateral * lateralAttraction * dt * perpX
+                particles[i].vy -= lateral * lateralAttraction * dt * perpY
                 
-                // buoyancy (disabled for focused exhaust)
-                particles[i].vy += buoyancy * dt * abs(particles[i].size / sizeRange.upperBound)
+                // buoyancy scaled relative to effective size (so globalScale influences buoyancy)
+                if effectiveSizeRange.upperBound > 0 {
+                    particles[i].vy += buoyancy * dt * (particles[i].size / effectiveSizeRange.upperBound)
+                } else {
+                    particles[i].vy += buoyancy * dt
+                }
                 
                 // apply light drag
                 particles[i].vx *= dragFactor
@@ -192,16 +225,26 @@ final class ParticleSystem: Sequence {
             }
         }
         
-        // remove old or outside particles
-        particles.removeAll { p in
+        // remove old or outside particles using in-place compaction (avoid extra temporaries)
+        var write = 0
+        for read in 0..<particles.count {
+            let p = particles[read]
             let age = date - p.creationDate
-            if age > lifespan { return true }
-            // discard if far outside unit box for safety
-            if p.x < -0.25 || p.x > 1.25 || p.y < -0.25 || p.y > 1.25 { return true }
-            return false
+            var keep = true
+            if age > lifespan { keep = false }
+            if p.x < -0.25 || p.x > 1.25 || p.y < -0.25 || p.y > 1.25 { keep = false }
+            if keep {
+                if write != read {
+                    particles[write] = p
+                }
+                write += 1
+            }
+        }
+        if write < particles.count {
+            particles.removeLast(particles.count - write)
         }
         
-        // enforce effectiveMaxParticles cap more strictly if needed
+        // enforce effectiveMaxParticles cap more strictly if needed (trim oldest)
         if particles.count > effectiveMaxParticles {
             let excess = particles.count - effectiveMaxParticles
             particles.removeFirst(excess)
