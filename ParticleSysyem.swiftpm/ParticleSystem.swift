@@ -1,13 +1,7 @@
 // ParticleSystem.swift
-// Updated: focused, pencil-shaped exhaust (sharpened pencil)
-// Added: globalScale (scales emission rate, size, speed, and nozzle radius)
-// Tweaks: reduced default particle size & density for a smaller stream,
-// clamp large dt after long pauses, avoid advancing lastUpdateDate when stopped,
-// expose simple active/empty checks.
-// Improvements: buoyancy scaled against effectiveSizeRange, use lateralBoost,
-// reserve particle capacity before emit, cache normalized emission direction & angle,
-// use in-place compaction for removal to reduce temporaries.
-
+// Updated: ParticleSystem now conforms to ObservableObject so it can be used with @StateObject.
+// Note: particles are intentionally NOT @Published (updated every frame) to avoid flooding SwiftUI with change events.
+// Import SwiftUI so ObservableObject and Image are available.
 import SwiftUI
 import Foundation
 import Darwin
@@ -31,43 +25,43 @@ struct Particle {
     let creationDate: TimeInterval
 }
 
-final class ParticleSystem: Sequence {
-    // Particles
+final class ParticleSystem: ObservableObject, Sequence {
+    // Particles (updated each frame; not @Published to avoid excessive SwiftUI notifications)
     private(set) var particles: [Particle] = []
     
     // Where particles originate (unit coordinates) - nozzle near bottom center
-    var center: UnitPoint = .init(x: 0.5, y: 0.88)
+    @Published var center: UnitPoint = .init(x: 0.5, y: 0.88)
     
     // How long a particle lives (seconds)
-    var lifespan: TimeInterval = 0.8     // slightly shorter lifespan to reduce visual spread
+    @Published var lifespan: TimeInterval = 0.8     // slightly shorter lifespan to reduce visual spread
     
     // Emission properties tuned for a tight focused beam
     // Public-facing "base" parameters; globalScale multiplies these at runtime.
-    var emissionRate: Double = 700                    // particles per second (base)
-    var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) {
+    @Published var emissionRate: Double = 700                    // particles per second (base)
+    @Published var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) {
         didSet { emissionDirectionDirty = true }
     }
-    var spread: Double = .pi * 0.02                    // very narrow cone
-    var speedRange: ClosedRange<Double> = 3.0...6.0    // base speeds (unit-space / s)
-    var sizeRange: ClosedRange<Double> = 0.5...1.1     // base core sizes (points)
-    var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
-    var maxParticles: Int = 8000                      // safety cap (base)
+    @Published var spread: Double = .pi * 0.02                    // very narrow cone
+    @Published var speedRange: ClosedRange<Double> = 3.0...6.0    // base speeds (unit-space / s)
+    @Published var sizeRange: ClosedRange<Double> = 0.5...1.1     // base core sizes (points)
+    @Published var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
+    @Published var maxParticles: Int = 8000                      // safety cap (base)
     
     // Emission geometry & motion tuning (base)
     // NOTE: this is a half-width along the nozzle plane (perpendicular to the axis),
     // since we sample r in [-radius, +radius].
-    var radialEmissionHalfWidth: Double = 0.003        // nozzle half-width in unit-space (base)
+    @Published var radialEmissionHalfWidth: Double = 0.003        // nozzle half-width in unit-space (base)
     
     // Spring-like restoring strength toward the axis (acceleration proportional to lateral offset).
     // Higher values keep the beam tighter.
-    var axisRestoringStrength: Double = 6.0
+    @Published var axisRestoringStrength: Double = 6.0
     
-    var lateralBoost: Double = 0.0                     // additional lateral restoring strength (now used)
-    var buoyancy: Double = 0.0                         // disable upward billow by default
+    @Published var lateralBoost: Double = 0.0                     // additional lateral restoring strength (now used)
+    @Published var buoyancy: Double = 0.0                         // disable upward billow by default
     
     // Global scale: multiplies emission rate, particle size, speeds and nozzle half-width.
     // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
-    var globalScale: Double = 1.0 / 4 {
+    @Published var globalScale: Double = 1.0 / 4 {
         didSet {
             // sanitize
             if globalScale.isNaN || globalScale < 0.0 { globalScale = 0.0 }

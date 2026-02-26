@@ -1,13 +1,17 @@
-//  ParticleSystem 02/26/2026-3
+//  ParticleSystem 02/26/2026-4
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
 // 
 
+
 import SwiftUI
 
 struct ContentView: View {
-    @State private var particleSystem = ParticleSystem()
+    // Use @StateObject when ParticleSystem is a reference type (class)
+    // and the view should own its lifetime/identity.
+    @StateObject private var particleSystem = ParticleSystem() 
+    //  Generic struct 'StateObject' does not conform to 'ObservableObject'
     @State private var isEngineRunning = true
     @State private var savedEmissionRate: Double? = nil
     
