@@ -2,6 +2,8 @@
 // Updated: ParticleSystem now conforms to ObservableObject so it can be used with @StateObject.
 // Note: particles are intentionally NOT @Published (updated every frame) to avoid flooding SwiftUI with change events.
 // Import SwiftUI so ObservableObject and Image are available.
+//  
+
 import SwiftUI
 import Foundation
 import Darwin
@@ -37,7 +39,7 @@ final class ParticleSystem: ObservableObject, Sequence {
     
     // Emission properties tuned for a tight focused beam
     // Public-facing "base" parameters; globalScale multiplies these at runtime.
-    @Published var emissionRate: Double = 700                    // particles per second (base)
+    @Published var emissionRate: Double = 700 * 4                   // particles per second (base)
     @Published var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) {
         didSet { emissionDirectionDirty = true }
     }
@@ -258,23 +260,8 @@ final class ParticleSystem: ObservableObject, Sequence {
         emissionAccumulator = 0
     }
     
-    // Sequence conformance: iterate over a stable snapshot
-    struct Iterator: IteratorProtocol {
-        private var index = 0
-        private let snapshot: [Particle]
-        
-        init(_ particles: [Particle]) {
-            self.snapshot = particles
-        }
-        
-        mutating func next() -> Particle? {
-            guard index < snapshot.count else { return nil }
-            defer { index += 1 }
-            return snapshot[index]
-        }
-    }
-    
-    func makeIterator() -> Iterator {
-        return Iterator(particles)
+    // Sequence conformance: iterate over the particles array directly
+    func makeIterator() -> IndexingIterator<[Particle]> {
+        return particles.makeIterator()
     }
 }
