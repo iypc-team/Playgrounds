@@ -54,12 +54,18 @@ final class ParticleSystem: Sequence {
     var maxParticles: Int = 8000                      // safety cap (base)
     
     // Emission geometry & motion tuning (base)
-    var radialEmissionRadius: Double = 0.003 // nozzle radius in unit-space (base)
-    var axisAttraction: Double = 6.0         // pulls particles toward axis (keeps beam tight)
-    var lateralBoost: Double = 0.0           // additional lateral attraction (now used)
-    var buoyancy: Double = 0.0               // disable upward billow by default
+    // NOTE: this is a half-width along the nozzle plane (perpendicular to the axis),
+    // since we sample r in [-radius, +radius].
+    var radialEmissionHalfWidth: Double = 0.003        // nozzle half-width in unit-space (base)
     
-    // Global scale: multiplies emission rate, particle size, speeds and nozzle radius.
+    // Spring-like restoring strength toward the axis (acceleration proportional to lateral offset).
+    // Higher values keep the beam tighter.
+    var axisRestoringStrength: Double = 6.0
+    
+    var lateralBoost: Double = 0.0                     // additional lateral restoring strength (now used)
+    var buoyancy: Double = 0.0                         // disable upward billow by default
+    
+    // Global scale: multiplies emission rate, particle size, speeds and nozzle half-width.
     // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
     var globalScale: Double = 1.0 / 4 {
         didSet {
@@ -115,8 +121,8 @@ final class ParticleSystem: Sequence {
         let effectiveSpeedRange = (speedRange.lowerBound * globalScale)...(speedRange.upperBound * globalScale)
         // scale sizes (points)
         let effectiveSizeRange = (sizeRange.lowerBound * globalScale)...(sizeRange.upperBound * globalScale)
-        // scale nozzle radius in unit-space
-        let effectiveRadialEmissionRadius = radialEmissionRadius * globalScale
+        // scale nozzle half-width in unit-space
+        let effectiveRadialEmissionHalfWidth = radialEmissionHalfWidth * globalScale
         // compute effective max particles (at least a small positive floor)
         let effectiveMaxParticles = Swift.max(16, Int(Double(maxParticles) * Swift.max(globalScale, 0.01)))
         
@@ -134,7 +140,7 @@ final class ParticleSystem: Sequence {
         if emissionDirectionDirty {
             let ax = Double(emissionDirection.dx)
             let ay = Double(emissionDirection.dy)
-            let len = sqrt(ax*ax + ay*ay)
+            let len = sqrt(ax * ax + ay * ay)
             if len > 0 {
                 cachedAxisX = ax / len
                 cachedAxisY = ay / len
@@ -167,8 +173,8 @@ final class ParticleSystem: Sequence {
             let vx = Darwin.cos(angle) * speed
             let vy = Darwin.sin(angle) * speed
             
-            // small radial offset in nozzle plane to form base width (use effectiveRadialEmissionRadius)
-            let r = Double.random(in: -effectiveRadialEmissionRadius...effectiveRadialEmissionRadius)
+            // small radial offset in nozzle plane to form base width (use effectiveRadialEmissionHalfWidth)
+            let r = Double.random(in: -effectiveRadialEmissionHalfWidth...effectiveRadialEmissionHalfWidth)
             let offsetX = perpX * r
             let offsetY = perpY * r
             
@@ -188,14 +194,14 @@ final class ParticleSystem: Sequence {
             particles.append(p)
         }
         
-        // integrate particle motion and apply effects (axis attraction, light drag)
+        // integrate particle motion and apply effects (axis restoring, light drag)
         if dt > 0 {
             // extremely light damping so streaks persist and beam reads continuous
             let dragFactor = pow(0.995, dt * 60.0)
             let cx = Double(center.x)
             let cy = Double(center.y)
-            // combine axisAttraction and lateralBoost
-            let lateralAttraction = axisAttraction + lateralBoost
+            // combine axis restoring strength and lateralBoost
+            let lateralRestoringStrength = axisRestoringStrength + lateralBoost
             
             for i in particles.indices {
                 // basic Euler integration
@@ -208,9 +214,9 @@ final class ParticleSystem: Sequence {
                 // lateral offset (signed) from axis: compute perpendicular component
                 let lateral = relX * perpX + relY * perpY
                 
-                // attract toward axis (pull lateral velocity back toward centerline)
-                particles[i].vx -= lateral * lateralAttraction * dt * perpX
-                particles[i].vy -= lateral * lateralAttraction * dt * perpY
+                // restore toward axis (spring-like)
+                particles[i].vx -= lateral * lateralRestoringStrength * dt * perpX
+                particles[i].vy -= lateral * lateralRestoringStrength * dt * perpY
                 
                 // buoyancy scaled relative to effective size (so globalScale influences buoyancy)
                 if effectiveSizeRange.upperBound > 0 {
