@@ -9,22 +9,17 @@ import Foundation
 import Darwin
 
 struct Particle {
-    // unit-space coordinates (0..1) relative to drawing container
-    var x: Double
+    var x: Double  // unit-space coordinates (0..1) relative to drawing container
     var y: Double
     
-    // velocity in unit-space per second
-    var vx: Double
+    var vx: Double  // velocity in unit-space per second
     var vy: Double
     
-    // initial size in points (used by drawing code)
-    let size: Double
+    let size: Double  // initial size in points (used by drawing code)
     
-    // hue (0..1) for color mapping
-    let hue: Double
+    let hue: Double  // hue (0..1) for color mapping
     
-    // creation timestamp
-    let creationDate: TimeInterval
+    let creationDate: TimeInterval  // creation timestamp
 }
 
 final class ParticleSystem: ObservableObject, Sequence {
@@ -35,15 +30,15 @@ final class ParticleSystem: ObservableObject, Sequence {
     @Published var center: UnitPoint = .init(x: 0.5, y: 0.88)
     
     // How long a particle lives (seconds)
-    @Published var lifespan: TimeInterval = 0.8     // slightly shorter lifespan to reduce visual spread
+    @Published var lifespan: TimeInterval = 0.8 / 5     // slightly shorter lifespan to reduce visual spread
     
     // Emission properties tuned for a tight focused beam
     // Public-facing "base" parameters; globalScale multiplies these at runtime.
-    @Published var emissionRate: Double = 700 * 4                   // particles per second (base)
-    @Published var emissionDirection: CGVector = CGVector(dx: 0.0, dy: -1.0) {
+    @Published var emissionRate: Double = 700 * 5                   // particles per second (base)
+    @Published var emissionDirection: CGVector = CGVector(dx: -1.0, dy: 0.0) {
         didSet { emissionDirectionDirty = true }
     }
-    @Published var spread: Double = .pi * 0.02                    // very narrow cone
+    @Published var spread: Double = .pi * 0.01                    // very narrow cone
     @Published var speedRange: ClosedRange<Double> = 3.0...6.0    // base speeds (unit-space / s)
     @Published var sizeRange: ClosedRange<Double> = 0.5...1.1     // base core sizes (points)
     @Published var hueRange: ClosedRange<Double> = 0.58...0.66    // bluish-white beam
@@ -52,7 +47,7 @@ final class ParticleSystem: ObservableObject, Sequence {
     // Emission geometry & motion tuning (base)
     // NOTE: this is a half-width along the nozzle plane (perpendicular to the axis),
     // since we sample r in [-radius, +radius].
-    @Published var radialEmissionHalfWidth: Double = 0.003        // nozzle half-width in unit-space (base)
+    @Published var radialEmissionHalfWidth: Double = 0.003 / 4       // nozzle half-width in unit-space (base)
     
     // Spring-like restoring strength toward the axis (acceleration proportional to lateral offset).
     // Higher values keep the beam tighter.
@@ -63,7 +58,7 @@ final class ParticleSystem: ObservableObject, Sequence {
     
     // Global scale: multiplies emission rate, particle size, speeds and nozzle half-width.
     // Use values <= 1.0 to shrink the stream (e.g. 0.5 halves size & emission); 1.0 is default.
-    @Published var globalScale: Double = 1.0 / 4 {
+    @Published var globalScale: Double = 1.0 / 5 {
         didSet {
             // sanitize
             if globalScale.isNaN || globalScale < 0.0 { globalScale = 0.0 }
