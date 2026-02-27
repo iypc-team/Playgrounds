@@ -1,14 +1,13 @@
-//  ParticleSystem 02/27/2026-2
+//  ParticleSystem 02/27/2026-3
 //  ContentView.swift
 //   Updated: velocity-aligned, stretched particles for jet afterburner look
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/ParticleSysyem.swiftpm
 
+
 import SwiftUI
 
 struct ContentView: View {
-    // Use @StateObject when ParticleSystem is a reference type (class)
-    // and the view should own its lifetime/identity.
-    @StateObject private var particleSystem = ParticleSystem() 
+    @StateObject private var particleSystem = ParticleSystem()
     @State private var isEngineRunning = true
     @State private var savedEmissionRate: Double? = nil
     
@@ -19,7 +18,7 @@ struct ContentView: View {
                 particleSystem.update(date: timelineDate)
                 
                 // additive blending for bright cores and glow
-                context.blendMode = .plusDarker
+                context.blendMode = .plusLighter
                 
                 // Guard against invalid lifespan
                 guard particleSystem.lifespan > 0 else { return }
@@ -71,10 +70,18 @@ struct ContentView: View {
                     // Outer glow (tinted by particle hue). Larger and softer.
                     let glowRadius = baseRadius * 4.0 * CGFloat(lengthScale)
                     if glowRadius > 0.5 {
-                        let glowRect = CGRect(x: xPos - glowRadius, y: yPos - glowRadius,
-                                              width: glowRadius * 2, height: glowRadius * 2)
-                        let glowColor = Color(hue: particle.hue, saturation: 0.95, brightness: 0.95,
-                                              opacity: Double((1 - t) * 0.18))
+                        let glowRect = CGRect(
+                            x: xPos - glowRadius,
+                            y: yPos - glowRadius,
+                            width: glowRadius * 2,
+                            height: glowRadius * 2
+                        )
+                        let glowColor = Color(
+                            hue: particle.hue,
+                            saturation: 0.95,
+                            brightness: 0.95,
+                            opacity: Double((1 - t) * 0.18)
+                        )
                         context.fill(Path(ellipseIn: glowRect), with: .color(glowColor))
                     }
                 }
@@ -95,18 +102,15 @@ struct ContentView: View {
             .padding()
         }
         .onAppear {
-            // Ensure emission state is applied when the view appears
             if isEngineRunning {
                 particleSystem.emissionRate = savedEmissionRate ?? particleSystem.emissionRate
                 savedEmissionRate = nil
             } else {
-                // keep previously stored emission rate and ensure emission is stopped
                 savedEmissionRate = particleSystem.emissionRate
                 particleSystem.emissionRate = 0
             }
         }
         .onDisappear {
-            // Stop emission when view disappears to avoid unnecessary work
             savedEmissionRate = particleSystem.emissionRate
             particleSystem.emissionRate = 0
         }
@@ -114,11 +118,9 @@ struct ContentView: View {
     
     private func toggleEngine() {
         if isEngineRunning {
-            // stop emission: save current rate and set to zero
             savedEmissionRate = particleSystem.emissionRate
             particleSystem.emissionRate = 0
         } else {
-            // restore previously saved emission rate (or default)
             particleSystem.emissionRate = savedEmissionRate ?? particleSystem.emissionRate
             savedEmissionRate = nil
         }

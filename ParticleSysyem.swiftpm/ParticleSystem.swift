@@ -1,8 +1,5 @@
-//
 //  ParticleSystem.swift
-//  Updated: ParticleSystem now conforms to ObservableObject so it can be used with @StateObject.
-//  Note: particles are intentionally NOT @Published (updated every frame) to avoid flooding SwiftUI with change events.
-//  Import SwiftUI so ObservableObject and Image are available.
+//  
 //
 
 import SwiftUI
