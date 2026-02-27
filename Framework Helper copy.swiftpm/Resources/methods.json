@@ -1,0 +1,43 @@
+{
+  "SwiftUI": [
+    "Text(_:)",
+    "Image(_:)",
+    "Button(_:action:)",
+    "VStack(alignment:spacing:content:)",
+    "HStack(alignment:spacing:content:)",
+    "ZStack(alignment:content:)",
+    "List(_:rowContent:)",
+    "NavigationStack(_:)",
+    "NavigationLink(_:value:)",
+    "Sheet(isPresented:onDismiss:content:)",
+    "Alert(title:message:dismissButton:)",
+    "Task(_:priority:operation:)"
+  ],
+  "UIKit": [
+    "UIView.init(frame:)",
+    "UIViewController.viewDidLoad()",
+    "UIViewController.present(_:animated:completion:)",
+    "UITableView.init(frame:style:)",
+    "UITableViewDataSource.tableView(_:cellForRowAt:)",
+    "UICollectionView.init(frame:collectionViewLayout:)",
+    "UIStackView.init(arrangedSubviews:)",
+    "UIAlertController.init(title:message:preferredStyle:)",
+    "UINavigationController.pushViewController(_:animated:)",
+    "UIApplication.shared.open(_:options:completionHandler:)"
+  ],
+  "Foundation": [
+    "Date()",
+    "DateFormatter.string(from:)",
+    "URL.init(string:)",
+    "Data.init(contentsOf:)",
+    "JSONDecoder.decode(_:from:)",
+    "FileManager.default.urls(for:in:)"
+  ],
+  "Combine": [
+    "Just.init(_:)",
+    "PassthroughSubject.send(_:)",
+    "Publisher.map(_:)",
+    "Publisher.sink(receiveCompletion:receiveValue:)",
+    "Publisher.assign(to:on:)"
+  ]
+}
