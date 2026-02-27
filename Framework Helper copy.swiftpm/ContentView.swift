@@ -1,9 +1,7 @@
-// Framework Helper copy  01/16/2026-2
+//  Framework Helper copy  02/27/2026-1
 //  
-//  https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
+//   https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //
-//  for Grok Code Fast
-//  
 
 import SwiftUI
 
@@ -29,5 +27,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
