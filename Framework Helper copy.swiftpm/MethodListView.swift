@@ -1,5 +1,7 @@
 // MethodListView.swift
-//  
+//
+// Updated to avoid duplicate fetches: the view only triggers fetch if the view model
+// hasn't already loaded methods. Removed dead/commented-out code.
 
 import SwiftUI
 
@@ -25,41 +27,11 @@ struct MethodListView: View {
         }
         .navigationTitle(viewModel.framework.name)
         .task {
-            // Runs on first render; ensures fetchMethods is called on transition
-            await viewModel.fetchMethods()
+            // Only fetch if the view model hasn't already populated methods.
+            // This avoids duplication when MethodViewModel triggers a fetch in its init.
+            if viewModel.methods.isEmpty {
+                await viewModel.fetchMethods()
+            }
         }
     }
 }
-
-// 
-//import SwiftUI
-//
-//struct MethodListView: View {
-//    @StateObject private var viewModel: MethodViewModel
-//    
-//    init(framework: Framework) {
-//        _viewModel = StateObject(wrappedValue: MethodViewModel(framework: framework))
-//    }
-//    
-//    var body: some View {
-//        VStack {
-//            Text("Methods for \(viewModel.framework.name)")
-//                .font(.largeTitle)
-//                .padding()
-//            
-//            List(viewModel.methods, id: \.self) { method in
-//                Text(method)
-//            }
-//            .refreshable {
-//                
-//                await viewModel.fetchMethods()
-//            }
-//            .navigationTitle(viewModel.framework.name)
-//        }
-//        .onAppear {
-//            // Remove debug prints or gate them behind a debug flag
-//            // print("struct MethodListView: View")
-//            // print(".onAppear")
-//        }
-//    }
-//}

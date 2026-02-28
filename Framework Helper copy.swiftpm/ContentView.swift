@@ -1,4 +1,4 @@
-//  Framework Helper copy  02/28/2026-4
+//  Framework Helper copy  02/28/2026-5
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper%20copy.swiftpm
 //  
@@ -16,25 +16,23 @@ struct ContentView: View {
         NavigationStack {
             Group {
                 if viewModel.isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    LoadingView()
                 } else if let error = viewModel.errorMessage {
-                    VStack(spacing: 16) {
-                        Text("Error")
-                            .font(.headline)
-                        Text(error)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.secondary)
-                        Button("Retry") {
+                    ErrorView(
+                        error: error,
+                        isLoading: viewModel.isLoading,
+                        retryAction: {
+                            // guard against concurrent loads from the view side too
+                            guard !viewModel.isLoading else { return }
                             Task { await viewModel.load() }
                         }
-                        .buttonStyle(.bordered)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
                 } else if viewModel.frameworks.isEmpty {
                     Text("No libraries available")
                         .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .accessibilityLabel("No libraries available")
                 } else {
                     List(viewModel.frameworks) { framework in
                         NavigationLink(value: framework) {
@@ -44,17 +42,68 @@ struct ContentView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle(Text("Libraries"))
+            .navigationTitle("Libraries")
             .navigationDestination(for: Framework.self) { framework in
                 MethodListView(framework: framework)
             }
             .task {
-                await viewModel.load()
+                // Only trigger initial load if nothing is loaded and not already loading
+                if viewModel.frameworks.isEmpty && !viewModel.isLoading {
+                    await viewModel.load()
+                }
             }
             .refreshable {
-                await viewModel.load()
+                // Let the view model handle concurrency, but avoid firing when already loading
+                if !viewModel.isLoading {
+                    await viewModel.load()
+                }
             }
         }
+    }
+}
+
+// MARK: - Small helper subviews for clarity & accessibility
+
+private struct LoadingView: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            ProgressView()
+                .progressViewStyle(.automatic)
+                .accessibilityLabel("Loading")
+                .accessibilityHint("Content is loading")
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+private struct ErrorView: View {
+    let error: String
+    let isLoading: Bool
+    let retryAction: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Error")
+                .font(.headline)
+                .accessibilityAddTraits(.isHeader)
+            
+            Text(error)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+            
+            Button("Retry") {
+                retryAction()
+            }
+            .buttonStyle(.bordered)
+            .disabled(isLoading)
+            .accessibilityLabel("Retry")
+            .accessibilityHint(isLoading ? "Retry is disabled while loading" : "Tap to retry loading")
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityElement(children: .combine)
     }
 }
 
