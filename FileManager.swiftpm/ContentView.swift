@@ -1,4 +1,4 @@
-//  FileManager 03/01/2026-5
+//  FileManager 03/01/2026-6
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
 // Updated: safe UI actions and disabled buttons when no image
