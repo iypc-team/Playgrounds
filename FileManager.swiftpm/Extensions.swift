@@ -1,4 +1,5 @@
-import SwiftUI
+//  Extensions.swift
+//  
 
 extension Double {
     /// Rounds the double to decimal places value
