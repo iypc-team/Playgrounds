@@ -1,15 +1,29 @@
-//  FileManagerSearch.swift
-//  
+// FileManagerSearch.swift
+// Utilities to access common directories and inspect URLs safely
 
-import SwiftUI
 import Foundation
+import UniformTypeIdentifiers
 
 extension URL {
-    var typeIdentifier: String? { (try? resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier }
+    var typeIdentifier: String? {
+        (try? resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier
+    }
     
-    var isMP3: Bool { typeIdentifier == "public.mp3" }
+    var isMP3: Bool {
+        if #available(iOS 14.0, *) {
+            if let type = typeIdentifier, let ut = UTType(type) {
+                return ut.conforms(to: .audio) && pathExtension.lowercased() == "mp3"
+            } else {
+                return pathExtension.lowercased() == "mp3"
+            }
+        } else {
+            return typeIdentifier == "public.mp3"
+        }
+    }
     
-    var localizedName: String? { (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName }
+    var localizedName: String? {
+        (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName
+    }
     
     var hasHiddenExtension: Bool {
         get { (try? resourceValues(forKeys: [.hasHiddenExtensionKey]))?.hasHiddenExtension == true }
@@ -21,75 +35,31 @@ extension URL {
     }
 }
 
-extension  FileManager {
+extension FileManager {
     class func cachesURL() -> URL? {
-        let paths = Foundation.FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
-        return paths.first
+        Foundation.FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
     }
     
-    //  allRecordedCachesData
     func allRecordedCachesData() -> [URL]? {
-        print("\nfunc allRecordedCachesData() ")
-        if let documentsUrl =  FileManager.cachesURL() {
-            do {
-                let cachesContent = try Foundation.FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
-                print("cachesContent: \(cachesContent.description)")
-                print()
-                //                return cachesContent.filter{ $0.pathExtension == "m4a" }
-                return cachesContent
-            } catch let error {
-                print("allRecordedData() error: \(error.localizedDescription)")
-                return nil
-            }
-        }
-        return nil
+        guard let caches = FileManager.cachesURL() else { return nil }
+        return try? Foundation.FileManager.default.contentsOfDirectory(at: caches, includingPropertiesForKeys: nil)
     }
-}
-
-extension FileManager {
+    
     class func documentsURL() -> URL? {
-        let paths = Foundation.FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths.first
+        Foundation.FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
     
     func allDocumentsDirectoryData() -> [URL]? {
-        print("\nfunc allDocumentsDirectoryData()")
-        if let documentsUrl =  FileManager.documentsURL() {
-            do {
-                let directoryContents = try Foundation.FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
-                print("directoryContents: \(directoryContents.description)")
-                print()
-                
-                return directoryContents
-            } catch let error {
-                print("allRecordedData() error: \(error.localizedDescription)")
-                return nil
-            }
-        }
-        return nil
+        guard let docs = FileManager.documentsURL() else { return nil }
+        return try? Foundation.FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil)
     }
-}
-
-extension FileManager {
-    class func tempURL() -> URL? {
-        let paths = Foundation.FileManager.default.temporaryDirectory
-        return paths // .first
+    
+    class func tempURL() -> URL {
+        Foundation.FileManager.default.temporaryDirectory
     }
-    // documentsUrl
+    
     func allTemporaryDirectoryData() -> [URL]? {
-        print("\nfunc allTemporaryDirectoryData()")
-        if let tempFiles =  FileManager.tempURL() {
-            do {
-                let directoryContents = try Foundation.FileManager.default.contentsOfDirectory(at: tempFiles, includingPropertiesForKeys: nil)
-                print("directoryContents: \(directoryContents.description)")
-                print()
-                
-                return directoryContents
-            } catch let error {
-                print("allRecordedData() error: \(error.localizedDescription)")
-                return nil
-            }
-        }
-        return nil
+        let temp = FileManager.tempURL()
+        return try? Foundation.FileManager.default.contentsOfDirectory(at: temp, includingPropertiesForKeys: nil)
     }
 }

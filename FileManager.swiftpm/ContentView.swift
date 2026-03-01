@@ -1,6 +1,7 @@
-//  FileManager 03/01/2026-2
+//  FileManager 03/01/2026-3
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
+// Updated: safe UI actions and disabled buttons when no image
 //  
 
 import SwiftUI
@@ -45,6 +46,7 @@ struct ContentView: View {
                         .padding(8)
                         .background(Color(.secondarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityHidden(true)
                 }
             }
             .padding(.top, 20)
@@ -56,8 +58,7 @@ struct ContentView: View {
                 .truncationMode(.tail)
             
             if let size = fm.thisImageSize {
-                // Use a simple, safe interpolation; change to ByteCountFormatter if size is numeric bytes
-                Text("Size: \(size)")
+                Text("Size: \(Int(size.width)) × \(Int(size.height))")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
@@ -75,14 +76,19 @@ struct ContentView: View {
                 Spacer()
                 Button(action: { fm.saveImage() }) {
                     Text("Save\nImage")
+                        .multilineTextAlignment(.center)
                 }
                 .buttonStyle(FMButtonStyle(bg: Color.forestGreen))
+                .disabled(fm.thisImage == nil)
                 
                 Spacer()
+                
                 Button(action: { fm.deleteImage() }) {
                     Text("Delete\nImage")
+                        .multilineTextAlignment(.center)
                 }
                 .buttonStyle(FMButtonStyle(bg: Color.cardinalRed))
+                .disabled(fm.thisImage == nil)
                 
                 Spacer()
             }
@@ -99,7 +105,6 @@ struct ContentView: View {
             }
         }
         .padding()
-        // Accessibility hints (examples)
         .accessibilityElement(children: .contain)
     }
 }
