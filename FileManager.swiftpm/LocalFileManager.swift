@@ -1,6 +1,6 @@
 // LocalFileManager.swift
 // Singleton local file manager. No VM dependencies, safe file I/O, implemented save/get/delete/delete-folder.
-// 
+//
 
 import Foundation
 import UIKit
@@ -39,6 +39,8 @@ final class LocalFileManager {
         imageDirectoryURL = imagesDir
     }
     
+    // MARK: - Save
+    
     /// Save UIImage as PNG data to the images directory. Returns the file URL of saved image.
     /// - Parameters:
     ///   - image: UIImage to save
@@ -64,17 +66,69 @@ final class LocalFileManager {
         }
     }
     
-    /// Delete a specific image file by name (name should match how it was saved).
-    /// - Throws: LocalFileManagerError or underlying FileManager error
-    func deleteImage(named name: String) throws {
+    // MARK: - Deterministic resolution (base-name -> best match)
+    
+    /// Deterministically resolve a file URL in the Images directory.
+    ///
+    /// Rules:
+    /// 1) If `name` includes an extension (e.g. "Mike.jpg"), resolve exactly that file.
+    /// 2) If `name` has no extension (e.g. "Mike"), find all files whose base name matches (case-insensitive),
+    ///    then choose deterministically:
+    ///    - preferred extension order
+    ///    - then lexicographic filename order (stable)
+    private func resolveImageFileURL(named name: String) throws -> URL {
         guard let imagesDir = imageDirectoryURL else {
             throw LocalFileManagerError.missingDirectory
         }
-        let filename = (name as NSString).lastPathComponent
-        let fileURL = imagesDir.appendingPathComponent(filename)
-        guard fm.fileExists(atPath: fileURL.path) else {
+        
+        let raw = (name as NSString).lastPathComponent
+        let providedExt = (raw as NSString).pathExtension
+        
+        // Rule 1: explicit filename provided
+        if !providedExt.isEmpty {
+            let exactURL = imagesDir.appendingPathComponent(raw)
+            guard fm.fileExists(atPath: exactURL.path) else {
+                throw LocalFileManagerError.fileNotFound
+            }
+            return exactURL
+        }
+        
+        // Rule 2: base-name search (deterministic)
+        let preferredExtensions = ["png", "jpg", "jpeg", "heic", "gif", "tiff", "bmp", "webp"]
+        
+        let urls = try fm.contentsOfDirectory(
+            at: imagesDir,
+            includingPropertiesForKeys: nil,
+            options: [.skipsHiddenFiles]
+        )
+        
+        let matches = urls.filter { url in
+            url.deletingPathExtension().lastPathComponent
+                .localizedCaseInsensitiveCompare(raw) == .orderedSame
+        }
+        
+        guard !matches.isEmpty else {
             throw LocalFileManagerError.fileNotFound
         }
+        
+        func rank(for url: URL) -> (Int, String) {
+            let ext = url.pathExtension.lowercased()
+            let extRank = preferredExtensions.firstIndex(of: ext) ?? Int.max
+            let stableName = url.lastPathComponent.lowercased()
+            return (extRank, stableName)
+        }
+        
+        return matches.min { rank(for: $0) < rank(for: $1) }!
+    }
+    
+    // MARK: - Delete / Get
+    
+    /// Delete a specific image file by name.
+    /// Accepts either "Mike" (base name) or "Mike.jpg" (explicit filename).
+    /// - Throws: LocalFileManagerError or underlying FileManager error
+    func deleteImage(named name: String) throws {
+        let fileURL = try resolveImageFileURL(named: name)
+        
         do {
             try fm.removeItem(at: fileURL)
         } catch {
@@ -83,11 +137,11 @@ final class LocalFileManager {
     }
     
     /// Delete the entire images folder and its contents.
-    /// - Throws: underlying FileManager error
     func deleteImageFolder() throws {
         guard let imagesDir = imageDirectoryURL else {
             throw LocalFileManagerError.missingDirectory
         }
+        
         if fm.fileExists(atPath: imagesDir.path) {
             do {
                 try fm.removeItem(at: imagesDir)
@@ -96,26 +150,20 @@ final class LocalFileManager {
             } catch {
                 throw LocalFileManagerError.removeFailed(error)
             }
-        } else {
-            // nothing to do
         }
     }
     
     /// Get a saved image by name (returns UIImage loaded from file path).
+    /// Accepts either "Mike" (base name) or "Mike.jpg" (explicit filename).
     func getImage(named name: String) -> UIImage? {
-        guard let imagesDir = imageDirectoryURL else { return nil }
-        let filename = (name as NSString).lastPathComponent
-        let fileURL = imagesDir.appendingPathComponent(filename)
-        guard fm.fileExists(atPath: fileURL.path) else { return nil }
+        guard let url = try? resolveImageFileURL(named: name) else { return nil }
         // UIImage(contentsOfFile:) expects a file system path (not absoluteString)
-        return UIImage(contentsOfFile: fileURL.path)
+        return UIImage(contentsOfFile: url.path)
     }
     
-    /// Helper: return file URL for a given saved image name (if exists)
+    /// Helper: return file URL for a given saved image name (if exists).
+    /// Accepts either "Mike" (base name) or "Mike.jpg" (explicit filename).
     func fileURLForImage(named name: String) -> URL? {
-        guard let imagesDir = imageDirectoryURL else { return nil }
-        let filename = (name as NSString).lastPathComponent
-        let fileURL = imagesDir.appendingPathComponent(filename)
-        return fm.fileExists(atPath: fileURL.path) ? fileURL : nil
+        return try? resolveImageFileURL(named: name)
     }
 }
