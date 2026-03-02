@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "My App",
+    name: "FileManager",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "My App",
+            name: "FileManager",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
@@ -33,8 +33,9 @@ let package = Package(
             capabilities: [
                 .camera(purposeString: "Create something."),
                 .photoLibrary(purposeString: "Save photos."),
-                .localNetwork(purposeString: "WTF")
-            ]
+                .localNetwork(purposeString: "Access the local net work.")
+            ],
+            appCategory: .photography
         )
     ],
     targets: [
