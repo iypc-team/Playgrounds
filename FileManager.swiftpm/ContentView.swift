@@ -1,7 +1,7 @@
-//  FileManager 03/02/2026-1
+//  FileManager 03/02/2026-2
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
-// Updated: safe UI actions and disabled buttons when no image
+//  
 //  Delete failed: The operation couldn't be completed. (AppModule.LocalFileManagerError error 3.)
 
 import SwiftUI

@@ -1,7 +1,7 @@
 // FileManagerViewModel.swift
 // View model with safe file manager usage and no force-unwraps
 // Updated: perform file I/O on a background queue to avoid blocking the main thread
-//  print
+//  print Italy
 
 import SwiftUI
 import Foundation
@@ -15,7 +15,7 @@ class FileManagerViewModel: ObservableObject {
     @Published var thisImage: UIImage? = nil
     @Published var thisImageSize: CGSize? = nil
     @Published var infoMessage: String = "ok"
-    @Published var imageName: String = "Italy_4"
+    @Published var imageName: String = "Mike"
     
     init() {
         getImageFromAssetsFolder()
