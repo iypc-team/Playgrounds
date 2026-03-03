@@ -1,7 +1,8 @@
+
 // FileManagerViewModel.swift
 // View model with safe file manager usage and no force-unwraps
 // Updated: perform file I/O on a background queue to avoid blocking the main thread
-//  infoMessage
+//  print(infoMessage) print("\n\(infoMessage)")
 
 import SwiftUI
 import Foundation
