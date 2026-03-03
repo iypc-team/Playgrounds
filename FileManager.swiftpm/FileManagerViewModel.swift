@@ -1,7 +1,7 @@
 // FileManagerViewModel.swift
 // View model with safe file manager usage and no force-unwraps
 // Updated: perform file I/O on a background queue to avoid blocking the main thread
-//  print Italy
+//  infoMessage
 
 import SwiftUI
 import Foundation
@@ -16,6 +16,7 @@ class FileManagerViewModel: ObservableObject {
     @Published var thisImageSize: CGSize? = nil
     @Published var infoMessage: String = "ok"
     @Published var imageName: String = "Mike"
+    @Published var availableImages: [String] = []  // Added: List of available images from Assets folder
     
     init() {
         getImageFromAssetsFolder()
@@ -24,14 +25,18 @@ class FileManagerViewModel: ObservableObject {
         if let path = mgr.imageDirectoryURL {
             let options: FileManager.DirectoryEnumerationOptions = [.skipsHiddenFiles, .skipsPackageDescendants]
             Task {
-                for await item in walkDirectory(at: path, options: options) {
-                    if item.pathExtension == "swift" {
-                        print(item.lastPathComponent)
+                do {
+                    let enumerator = FileManager.default.enumerator(at: path, includingPropertiesForKeys: nil, options: options, errorHandler: nil)
+                    while let item = enumerator?.nextObject() as? URL {
+                        if item.pathExtension == "swift" {
+                            print(item.lastPathComponent)
+                        }
                     }
                 }
             }
         } else {
             infoMessage = "Images directory not available."
+            print(infoMessage)
         }
         
         if let caches = fileManager.allRecordedCachesData() {
@@ -50,6 +55,7 @@ class FileManagerViewModel: ObservableObject {
             thisImage = nil
             thisImageSize = nil
             infoMessage = "Asset image '\(imageName)' not found."
+            print(infoMessage)
             return
         }
         thisImage = ui
@@ -58,7 +64,22 @@ class FileManagerViewModel: ObservableObject {
     }
     
     func pickImage() {
-        print("pickImage()")
+        // List all images in the main bundle (not in a subdirectory)
+        let imageExtensions = ["png", "jpg", "jpeg", "gif", "heic", "tiff", "bmp", "webp"]
+        var allImageURLs: [URL] = []
+        
+        for ext in imageExtensions {
+            if let urls = Bundle.main.urls(forResourcesWithExtension: ext, subdirectory: nil) {
+                allImageURLs.append(contentsOf: urls)
+            }
+        }
+        
+        // Extract unique image names (without extensions)
+        let imageNames = allImageURLs.map { $0.deletingPathExtension().lastPathComponent }
+        availableImages = Array(Set(imageNames))  // Remove duplicates
+        
+        infoMessage = "Found \(availableImages.count) images in bundle."
+        print(infoMessage)
     }
     
     /// Save image off the main thread to avoid UI blocking.
@@ -67,11 +88,13 @@ class FileManagerViewModel: ObservableObject {
     func saveImage() {
         guard let image = thisImage else {
             infoMessage = "No image to save."
+            print(infoMessage)
             return
         }
         
         // Give immediate feedback
         infoMessage = "Saving..."
+        print(infoMessage)
         
         // Perform write on background
         let name = imageName // capture atomically
@@ -82,10 +105,12 @@ class FileManagerViewModel: ObservableObject {
                 let savedURL = try self.mgr.saveUIImage(imageToSave, named: name)
                 await MainActor.run {
                     self.infoMessage = "Saved to: \(savedURL.path)"
+                    print(self.infoMessage)
                 }
             } catch {
                 await MainActor.run {
                     self.infoMessage = "Save failed: \(error.localizedDescription)"
+                    print(self.infoMessage)
                 }
             }
         }
@@ -96,6 +121,7 @@ class FileManagerViewModel: ObservableObject {
         let name = imageName // capture name
         // Provide immediate feedback
         infoMessage = "Deleting..."
+        print(infoMessage)
         
         Task.detached { [weak self] in
             guard let self = self else { return }
@@ -103,6 +129,7 @@ class FileManagerViewModel: ObservableObject {
                 try self.mgr.deleteImage(named: name)
                 await MainActor.run {
                     self.infoMessage = "Deleted image '\(name)'."
+                    print(self.infoMessage)
                     // clear local reference if it refers to the deleted file
                     self.thisImage = nil
                     self.thisImageSize = nil
@@ -110,87 +137,23 @@ class FileManagerViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.infoMessage = "Delete failed: \(error.localizedDescription)"
+                    print(self.infoMessage)
                 }
             }
         }
     }
     
-    /// Delete images folder off the main thread and update UI on main actor.
     func deleteImagesFolder() {
-        infoMessage = "Deleting images folder..."
-        
-        Task.detached { [weak self] in
-            guard let self = self else { return }
-            do {
-                try self.mgr.deleteImageFolder()
-                await MainActor.run {
-                    self.infoMessage = "Deleted images folder."
-                }
-            } catch {
-                await MainActor.run {
-                    self.infoMessage = "Delete folder failed: \(error.localizedDescription)"
-                }
-            }
-        }
-    }
-    
-    // Recursive iteration
-    func walkDirectory(at url: URL, options: FileManager.DirectoryEnumerationOptions) -> AsyncStream<URL> {
-        AsyncStream { continuation in
-            Task {
-                let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil, options: options)
-                while let fileURL = enumerator?.nextObject() as? URL {
-                    if fileURL.hasDirectoryPath {
-                        for await item in walkDirectory(at: fileURL, options: options) {
-                            continuation.yield(item)
-                        }
-                    } else {
-                        continuation.yield(fileURL)
-                    }
-                }
-                continuation.finish()
-            }
-        }
-    }
-    
-    func listFilesFromDocumentsFolder() {
         do {
-            let documentDirectory = try Foundation.FileManager.default.url(
-                for: .documentDirectory,
-                in: .userDomainMask,
-                appropriateFor: nil,
-                create: false
-            )
-            
-            let directoryContents = try Foundation.FileManager.default.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
-            print("directoryContents:", directoryContents.map { $0.localizedName ?? $0.lastPathComponent })
-            
-            // Hide file extension for display
-            for var url in directoryContents {
-                url.hasHiddenExtension = true
-            }
-            for url in directoryContents {
-                print(url.localizedName ?? url.lastPathComponent)
-            }
-            
-            let mp3s = directoryContents.filter(\.isMP3).map { $0.localizedName ?? $0.lastPathComponent }
-            print("mp3s:", mp3s)
+            try mgr.deleteImageFolder()
+            infoMessage = "Deleted images folder and recreated it."
+            print(infoMessage)
+            // Optionally clear UI
+            thisImage = nil
+            thisImageSize = nil
         } catch {
-            print(error)
+            infoMessage = "Failed to delete images folder: \(error.localizedDescription)"
+            print(infoMessage)
         }
-    }
-    
-    func listContentsRootDirectory() {
-        do {
-            let fileList = try fileManager.contentsOfDirectory(atPath: "/")
-            print("fileList: \(fileList.count) ")
-            print(fileList.debugDescription)
-            for filename in fileList {
-                print(filename)
-            }
-        } catch let error {
-            print("Error: \(error.localizedDescription)")
-        }
-        print("Root Directory search completed...\n")
     }
 }
