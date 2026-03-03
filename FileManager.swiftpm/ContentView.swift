@@ -1,4 +1,4 @@
-//  FileManager 03/03/2026-1
+//  FileManager 03/03/2026-2
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
 //  
@@ -16,7 +16,7 @@ struct FMButtonStyle: ButtonStyle {
             .multilineTextAlignment(.center)
             .padding(.vertical, 10)
             .padding(.horizontal, 14)
-            .background(bg.opacity(configuration.isPressed ? 0.85 : 1.0))
+            .background(bg.opacity(configuration.isPressed ? 0.1 : 1.0))
             .cornerRadius(10)
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
     }
@@ -95,6 +95,14 @@ struct ContentView: View {
             
             // Secondary actions row
             HStack {
+                Spacer()
+                
+                Button(action: { fm.pickImage() }) {
+                    Text("Choose\nImage")
+                        .multilineTextAlignment(.center)
+                }
+                .buttonStyle(FMButtonStyle(bg: Color.yellow))
+                
                 Spacer()
                 Button(action: { fm.deleteImagesFolder() }) {
                     Text("Delete\nFolder")

@@ -57,6 +57,10 @@ class FileManagerViewModel: ObservableObject {
         infoMessage = "Loaded asset '\(imageName)'."
     }
     
+    func pickImage() {
+        print("pickImage()")
+    }
+    
     /// Save image off the main thread to avoid UI blocking.
     /// The method remains synchronous from the caller's perspective (returns immediately),
     /// but the actual file I/O happens in a detached task and UI is updated on the main actor.
