@@ -12,7 +12,7 @@ struct FrameworksConstants {
         "SpriteKit", "SceneKit", "Metal", "CoreML", "Vision", "HealthKit",
         "WatchKit", "CloudKit", "StoreKit", "PassKit", "PushKit", "CallKit",
         "EventKit", "HomeKit", "UserNotifications", "Contacts", "MetricKit",
-        "CreateML", "RealityKit", "NetworkExtension"
+        "CreateML", "RealityKit", "NetworkExtension", "UniformTypeIdentifiers"
     ]
     
     /// Normalize a framework name into a stable ID.
