@@ -1,8 +1,7 @@
-//  FileManager 03/02/2026-4
+//  FileManager 03/03/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
 //  
-//  Delete failed: The operation couldn't be completed. (AppModule.LocalFileManagerError error 3.)
 
 import SwiftUI
 
@@ -78,7 +77,7 @@ struct ContentView: View {
                     Text("Save\nImage")
                         .multilineTextAlignment(.center)
                 }
-                .buttonStyle(FMButtonStyle(bg: Color.forestGreen))
+                .buttonStyle(FMButtonStyle(bg: Color.green))
                 .disabled(fm.thisImage == nil)
                 
                 Spacer()
@@ -87,7 +86,7 @@ struct ContentView: View {
                     Text("Delete\nImage")
                         .multilineTextAlignment(.center)
                 }
-                .buttonStyle(FMButtonStyle(bg: Color.cardinalRed))
+                .buttonStyle(FMButtonStyle(bg: Color.red))
                 .disabled(fm.thisImage == nil)
                 
                 Spacer()
