@@ -1,8 +1,8 @@
-//  FileManager 03/03/2026-5
+//  FileManager 03/04/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FileManager.swiftpm
 //  
-//  Failed to
+//  Found 0 images in bundle.
 
 
 import SwiftUI

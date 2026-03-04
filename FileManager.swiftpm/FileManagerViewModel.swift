@@ -3,6 +3,7 @@
 // View model with safe file manager usage and no force-unwraps
 // Updated: perform file I/O on a background queue to avoid blocking the main thread
 //  print(infoMessage) print("\n\(infoMessage)")
+//  print(self.infoMessage) print("\n\(self.infoMessage )") Saving... Deleting...
 
 import SwiftUI
 import Foundation
@@ -37,7 +38,7 @@ class FileManagerViewModel: ObservableObject {
             }
         } else {
             infoMessage = "Images directory not available."
-            print(infoMessage)
+            print("\n\(self.infoMessage )")
         }
         
         if let caches = fileManager.allRecordedCachesData() {
@@ -56,7 +57,7 @@ class FileManagerViewModel: ObservableObject {
             thisImage = nil
             thisImageSize = nil
             infoMessage = "Asset image '\(imageName)' not found."
-            print(infoMessage)
+            print("\n\(self.infoMessage )")
             return
         }
         thisImage = ui
@@ -80,7 +81,7 @@ class FileManagerViewModel: ObservableObject {
         availableImages = Array(Set(imageNames))  // Remove duplicates
         
         infoMessage = "Found \(availableImages.count) images in bundle."
-        print(infoMessage)
+        print("\n\(self.infoMessage )")
     }
     
     /// Save image off the main thread to avoid UI blocking.
@@ -89,13 +90,13 @@ class FileManagerViewModel: ObservableObject {
     func saveImage() {
         guard let image = thisImage else {
             infoMessage = "No image to save."
-            print(infoMessage)
+            print("\n\(self.infoMessage )")
             return
         }
         
         // Give immediate feedback
         infoMessage = "Saving..."
-        print(infoMessage)
+        print("\n\(self.infoMessage )")
         
         // Perform write on background
         let name = imageName // capture atomically
@@ -106,12 +107,12 @@ class FileManagerViewModel: ObservableObject {
                 let savedURL = try self.mgr.saveUIImage(imageToSave, named: name)
                 await MainActor.run {
                     self.infoMessage = "Saved to: \(savedURL.path)"
-                    print(self.infoMessage)
+                    print("\(self.infoMessage )")
                 }
             } catch {
                 await MainActor.run {
                     self.infoMessage = "Save failed: \(error.localizedDescription)"
-                    print(self.infoMessage)
+                    print("\(self.infoMessage )")
                 }
             }
         }
@@ -122,7 +123,7 @@ class FileManagerViewModel: ObservableObject {
         let name = imageName // capture name
         // Provide immediate feedback
         infoMessage = "Deleting..."
-        print(infoMessage)
+        print("\n\(self.infoMessage )")
         
         Task.detached { [weak self] in
             guard let self = self else { return }
@@ -130,7 +131,7 @@ class FileManagerViewModel: ObservableObject {
                 try self.mgr.deleteImage(named: name)
                 await MainActor.run {
                     self.infoMessage = "Deleted image '\(name)'."
-                    print(self.infoMessage)
+                    print("\(self.infoMessage )")
                     // clear local reference if it refers to the deleted file
                     self.thisImage = nil
                     self.thisImageSize = nil
@@ -138,7 +139,7 @@ class FileManagerViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.infoMessage = "Delete failed: \(error.localizedDescription)"
-                    print(self.infoMessage)
+                    print("\(self.infoMessage )")
                 }
             }
         }
@@ -148,13 +149,13 @@ class FileManagerViewModel: ObservableObject {
         do {
             try mgr.deleteImageFolder()
             infoMessage = "Deleted images folder and recreated it."
-            print(infoMessage)
+            print("\n\(self.infoMessage )")
             // Optionally clear UI
             thisImage = nil
             thisImageSize = nil
         } catch {
             infoMessage = "Failed to delete images folder: \(error.localizedDescription)"
-            print(infoMessage)
+            print("\n\(self.infoMessage )")
         }
     }
 }
