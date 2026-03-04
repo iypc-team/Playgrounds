@@ -1,6 +1,7 @@
 // LocalFileManager.swift
 // Singleton local file manager. No VM dependencies, safe file I/O, implemented save/get/delete/delete-folder.
-//
+//  
+//  
 
 import Foundation
 import UIKit

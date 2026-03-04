@@ -1,6 +1,7 @@
 // FileManagerSearch.swift
 // Utilities to access common directories and inspect URLs safely
-// class func 
+//  
+
 
 import Foundation
 import UniformTypeIdentifiers

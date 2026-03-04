@@ -4,6 +4,8 @@
 // Updated: perform file I/O on a background queue to avoid blocking the main thread
 //  print(infoMessage) print("\n\(infoMessage)")
 //  print(self.infoMessage) print("\n\(self.infoMessage )") Saving... Deleting...
+//  
+// images in bundle.
 
 import SwiftUI
 import Foundation
@@ -17,7 +19,7 @@ class FileManagerViewModel: ObservableObject {
     @Published var thisImage: UIImage? = nil
     @Published var thisImageSize: CGSize? = nil
     @Published var infoMessage: String = "ok"
-    @Published var imageName: String = "Mike"
+    @Published var imageName: String = "Planet"
     @Published var availableImages: [String] = []  // Added: List of available images from Assets folder
     
     init() {
