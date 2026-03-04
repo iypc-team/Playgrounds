@@ -1,6 +1,6 @@
-//  Framework Helper  03/04/2026-1
+//  LibraryHelper  03/04/2026-1
 //  ContentView.swift
-//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Framework%20Helper.swiftpm
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LibraryHelper.swiftpm
 //  
 
 import SwiftUI

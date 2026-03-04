@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "Framework Helper",
+    name: "FrameworkHelper",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "Framework Helper",
+            name: "FrameworkHelper",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
