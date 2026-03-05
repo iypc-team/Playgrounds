@@ -1,37 +1,73 @@
 // MethodViewModel.swift
 //
-// Updated to remove side-effects from init, use JSONDecoder with proper error handling,
-// and protect against concurrent fetches. The view should call `fetchMethods()` (e.g. in .task).
+// Decode the actual Resources/methods.json shape and expose separate published lists
+// for methods, properties, constants and functions. Uses Bundle.module to load the
+// packaged resource, falls back to defaults, and preserves concurrency/error handling.
 
+import Foundation
 import SwiftUI
 
 @MainActor
 final class MethodViewModel: ObservableObject {
     @Published var methods: [String] = []
+    @Published var properties: [String] = []
+    @Published var constants: [String] = []
+    @Published var functions: [String] = []
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
     
     let framework: Framework
     
-    // Built‑in defaults so the list never stays empty
-    private let defaultMethods: [String: [String]] = [
-        "SwiftUI": [
-            "Text(_:)", "Image(_:)", "Button(_:action:)",
-            "VStack(alignment:spacing:content:)", "HStack(alignment:spacing:content:)",
-            "ZStack(alignment:content:)", "List(_:rowContent:)",
-            "NavigationStack(_:)", "NavigationLink(_:value:)"
-        ],
-        "UIKit": [
-            "UIView.init(frame:)", "UIViewController.viewDidLoad()",
-            "UIViewController.present(_:animated:completion:)", "UITableView.init(frame:style:)"
-        ],
-        "Foundation": [
-            "Date()", "URL.init(string:)", "Data.init(contentsOf:)",
-            "JSONDecoder.decode(_:from:)"
-        ],
-        "Combine": [
-            "Just.init(_:)", "Publisher.map(_:)", "Publisher.sink(receiveCompletion:receiveValue:)"
-        ]
+    // Built‑in per-category defaults so the UI never stays empty
+    private let defaultEntries: [String: (methods: [String], properties: [String], constants: [String], functions: [String])] = [
+        "SwiftUI": (
+            methods: [
+                "Text(_:)", "Text(verbatim:)", "Image(systemName:)", "Button(action:label:)",
+                "VStack(alignment:spacing:content:)", "HStack(alignment:spacing:content:)", "ZStack(alignment:content:)",
+                "List(_:rowContent:)", "ForEach(_:content:)", "NavigationStack(_:)", "NavigationLink(_:value:)",
+                "sheet(isPresented:onDismiss:content:)", "fullScreenCover(isPresented:content:)", "task(priority:operation:)",
+                "onAppear(perform:)", "onDisappear(perform:)", "toolbar(content:)", "alert(_:isPresented:actions:message:)"
+            ],
+            properties: [
+                ".body", ".environmentObject", ".environment", ".state", ".binding", ".observedObject", ".sceneStorage",
+                ".frame(width:height:)", ".background", ".foregroundColor", ".opacity", ".padding", ".cornerRadius",
+                ".listStyle", ".navigationBarTitle", ".sheet", ".alert"
+            ],
+            constants: [
+                "ForEach", "Group", "NavigationView", "List", "VStack", "HStack", "ZStack", "Spacer()", "Divider()",
+                "TextField", "Button"
+            ],
+            functions: [
+                "Spacer()", "Divider()", "TextField", "Button"
+            ]
+        ),
+        "UIKit": (
+            methods: [
+                "UIView.init(frame:)", "UIView.addSubview(_:)", "UIView.layoutIfNeeded()", "UIView.setNeedsLayout()",
+                "UIViewController.viewDidLoad()", "UIViewController.viewWillAppear(_:)", "UIViewController.viewDidAppear(_:)",
+                "UIViewController.present(_:animated:completion:)", "UIViewController.dismiss(animated:completion:)",
+                "UINavigationController.pushViewController(_:animated:)", "UINavigationController.popViewController(animated:)"
+            ],
+            properties: [
+                "UIView.backgroundColor", "UIView.frame", "UIView.bounds", "UIView.alpha", "UIViewController.view",
+                "UIViewController.navigationController", "UILabel.text", "UITextField.text", "UIButton.titleLabel",
+                "UIImageView.image", "UIScrollView.contentOffset"
+            ],
+            constants: [
+                "UILabel.textAlignment", "UIControl.State", "UIView.ContentMode"
+            ],
+            functions: []
+        ),
+        "Foundation": (
+            methods: [
+                "Date()", "DateFormatter.string(from:)", "URL.init(string:)", "URLComponents.init()", "Data(contentsOf:)",
+                "JSONDecoder.decode(_:from:)", "JSONEncoder.encode(_:)", "UserDefaults.standard.set(_:forKey:)"
+            ],
+            properties: [],
+            constants: [],
+            functions: []
+        )
+        // Add additional defaults if you need them
     ]
     
     // Guard to avoid concurrent loads
@@ -39,10 +75,10 @@ final class MethodViewModel: ObservableObject {
     
     init(framework: Framework) {
         self.framework = framework
-        // No side-effects here (no automatic fetch). Let the view trigger fetchMethods().
+        // No side-effects here; view triggers fetchMethods()
     }
     
-    /// Fetch methods for the framework.
+    /// Fetch per-category entries for the framework.
     /// If a load is already in progress this returns immediately.
     func fetchMethods() async {
         // Prevent starting a second concurrent load
@@ -51,7 +87,6 @@ final class MethodViewModel: ObservableObject {
         let task = Task { [weak self] in
             guard let self = self else { return }
             
-            // Mark loading state on the main actor
             await MainActor.run {
                 self.isLoading = true
                 self.errorMessage = nil
@@ -59,24 +94,50 @@ final class MethodViewModel: ObservableObject {
             
             let currentLibrary = self.framework.name
             
+            struct FrameworkEntry: Codable {
+                let methods: [String]?
+                let properties: [String]?
+                let constants: [String]?
+                let functions: [String]?
+            }
+            
+            var loadedMethods: [String]? = nil
+            var loadedProperties: [String]? = nil
+            var loadedConstants: [String]? = nil
+            var loadedFunctions: [String]? = nil
+            
             do {
-                // Attempt to load JSON from bundle (expects { "SwiftUI": [...], ... })
-                if let url = Bundle.main.url(forResource: "methods", withExtension: "json") {
+                // Prefer Bundle.module for package resources; fallback to Bundle.main
+                let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
+                var fileURL: URL? = nil
+                for b in candidateBundles.compactMap({ $0 }) {
+                    if let url = b.url(forResource: "methods", withExtension: "json") {
+                        fileURL = url
+                        break
+                    }
+                }
+                
+                if let url = fileURL {
                     let data = try Data(contentsOf: url)
-                    let decoded = try JSONDecoder().decode([String: [String]].self, from: data)
+                    let decoded = try JSONDecoder().decode([String: FrameworkEntry].self, from: data)
                     
-                    // Respect cancellation
                     if Task.isCancelled { return }
                     
-                    if let loaded = decoded[currentLibrary] {
-                        await MainActor.run {
-                            self.methods = loaded
+                    if let entry = decoded[currentLibrary] {
+                        func uniquePreservingOrder(_ arr: [String]?) -> [String] {
+                            guard let arr = arr else { return [] }
+                            var seen = Set<String>()
+                            return arr.filter { seen.insert($0).inserted }
                         }
-                        return
+                        
+                        loadedMethods = uniquePreservingOrder(entry.methods)
+                        loadedProperties = uniquePreservingOrder(entry.properties)
+                        loadedConstants = uniquePreservingOrder(entry.constants)
+                        loadedFunctions = uniquePreservingOrder(entry.functions)
                     }
                 }
             } catch {
-                // If JSON loading/decoding fails, capture a friendly error but continue to fallback
+                // Capture a friendly error but continue to fallback
                 if Task.isCancelled { return }
                 
                 await MainActor.run {
@@ -84,9 +145,19 @@ final class MethodViewModel: ObservableObject {
                 }
             }
             
-            // Fallback to built-in defaults (or a friendly message)
+            // Apply loaded values or fall back to defaults
             await MainActor.run {
-                self.methods = self.defaultMethods[currentLibrary] ?? ["No methods available for this framework"]
+                if let m = loadedMethods, !m.isEmpty { self.methods = m }
+                else { self.methods = self.defaultEntries[currentLibrary]?.methods ?? ["No methods available for this framework"] }
+                
+                if let p = loadedProperties, !p.isEmpty { self.properties = p }
+                else { self.properties = self.defaultEntries[currentLibrary]?.properties ?? [] }
+                
+                if let c = loadedConstants, !c.isEmpty { self.constants = c }
+                else { self.constants = self.defaultEntries[currentLibrary]?.constants ?? [] }
+                
+                if let f = loadedFunctions, !f.isEmpty { self.functions = f }
+                else { self.functions = self.defaultEntries[currentLibrary]?.functions ?? [] }
             }
         }
         
@@ -102,7 +173,7 @@ final class MethodViewModel: ObservableObject {
         }
     }
     
-    /// Cancel an in-flight fetch (if any).
+    /// Cancel an in-flight fetch.
     func cancelFetch() {
         currentLoadTask?.cancel()
         currentLoadTask = nil

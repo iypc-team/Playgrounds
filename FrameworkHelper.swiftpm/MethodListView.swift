@@ -1,7 +1,6 @@
 // MethodListView.swift
 //
-// Updated to avoid duplicate fetches: the view only triggers fetch if the view model
-// hasn't already loaded methods. Removed dead/commented-out code.
+// Display Methods, Properties, Constants and Functions in distinct sections.
 
 import SwiftUI
 
@@ -13,23 +12,59 @@ struct MethodListView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Methods for \(viewModel.framework.name)")
-                .font(.largeTitle)
-                .padding(.top)
-            
-            List(viewModel.methods, id: \.self) { method in
-                Text(method)
+        List {
+            Section(header: Text("Methods")) {
+                if viewModel.methods.isEmpty {
+                    Text("No methods available")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(viewModel.methods, id: \.self) { method in
+                        Text(method)
+                    }
+                }
             }
-            .refreshable {
-                await viewModel.fetchMethods()
+            
+            Section(header: Text("Properties")) {
+                if viewModel.properties.isEmpty {
+                    Text("No properties available")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(viewModel.properties, id: \.self) { property in
+                        Text(property)
+                    }
+                }
+            }
+            
+            Section(header: Text("Constants")) {
+                if viewModel.constants.isEmpty {
+                    Text("No constants available")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(viewModel.constants, id: \.self) { constant in
+                        Text(constant)
+                    }
+                }
+            }
+            
+            Section(header: Text("Functions")) {
+                if viewModel.functions.isEmpty {
+                    Text("No functions available")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(viewModel.functions, id: \.self) { fn in
+                        Text(fn)
+                    }
+                }
             }
         }
+        .listStyle(.insetGrouped)
         .navigationTitle(viewModel.framework.name)
+        .refreshable {
+            await viewModel.fetchMethods()
+        }
         .task {
-            // Only fetch if the view model hasn't already populated methods.
-            // This avoids duplication when MethodViewModel triggers a fetch in its init.
-            if viewModel.methods.isEmpty {
+            // Only fetch if no category has content
+            if viewModel.methods.isEmpty && viewModel.properties.isEmpty && viewModel.constants.isEmpty && viewModel.functions.isEmpty {
                 await viewModel.fetchMethods()
             }
         }
