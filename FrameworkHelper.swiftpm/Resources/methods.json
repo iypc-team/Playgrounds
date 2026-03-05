@@ -1,277 +1,281 @@
 {
     "SwiftUI": {
         "methods": [
-            "Text(_:)",
-            "Text(verbatim:)",
-            "Image(systemName:)",
-            "Button(action:label:)",
-            "VStack(alignment:spacing:content:)",
-            "HStack(alignment:spacing:content:)",
-            "ZStack(alignment:content:)",
-            "List(_:rowContent:)",
-            "ForEach(_:content:)",
-            "NavigationStack(_:)",
-            "NavigationLink(_:value:)",
-            "sheet(isPresented:onDismiss:content:)",
-            "fullScreenCover(isPresented:content:)",
-            "task(priority:operation:)",
-            "onAppear(perform:)",
-            "onDisappear(perform:)",
-            "toolbar(content:)",
-            "alert(_:isPresented:actions:message:)",
-            ".onAppear",
-            ".onDisappear",
-            ".onTapGesture",
-            ".gesture()",
-            ".transition()",
-            ".animation()",
-            ".sheet()",
-            ".alert()",
-            ".popover()",
-            ".navigationLink(destination:)"
+            "Text(_:)", "Text(verbatim:)", "Image(systemName:)", "Button(action:label:)",
+            "VStack(alignment:spacing:content:)", "HStack(alignment:spacing:content:)",
+            "ZStack(alignment:content:)", "List(_:rowContent:)", "ForEach(_:content:)",
+            "NavigationStack(_:)", "NavigationLink(_:value:)", "sheet(isPresented:onDismiss:content:)",
+            "fullScreenCover(isPresented:content:)", "task(priority:operation:)",
+            "onAppear(perform:)", "onDisappear(perform:)", "toolbar(content:)",
+            "alert(_:isPresented:actions:message:)", ".onAppear", ".onDisappear",
+            ".onTapGesture", ".gesture()", ".transition()", ".animation()",
+            ".sheet()", ".alert()", ".popover()", ".navigationLink(destination:)"
         ],
         "properties": [
-            ".body",
-            ".environmentObject",
-            ".environment",
-            ".state",
-            ".binding",
-            ".observedObject",
-            ".sceneStorage",
-            ".frame(width:height:)",
-            ".background",
-            ".foregroundColor",
-            ".animation",
-            ".opacity",
-            ".padding",
-            ".cornerRadius",
-            ".listStyle",
-            ".navigationBarTitle",
-            ".sheet",
-            ".alert"
+            ".body", ".environmentObject", ".environment", ".state", ".binding",
+            ".observedObject", ".sceneStorage", ".frame(width:height:)", ".background",
+            ".foregroundColor", ".animation", ".opacity", ".padding", ".cornerRadius",
+            ".listStyle", ".navigationBarTitle", ".sheet", ".alert"
         ],
         "constants": [
-            "ForEach",
-            "Group",
-            "NavigationView",
-            "List",
-            "VStack",
-            "HStack",
-            "ZStack",
-            "Spacer()",
-            "Divider()",
-            "TextField",
-            "Button"
+            "ForEach", "Group", "NavigationView", "List", "VStack", "HStack",
+            "ZStack", "Spacer()", "Divider()", "TextField", "Button"
         ],
-        "functions": [
-            "Spacer()",
-            "Divider()",
-            "TextField",
-            "Button"
-        ]
+        "functions": ["Spacer()", "Divider()", "TextField", "Button"]
     },
     "UIKit": {
         "methods": [
-            "UIView.init(frame:)",
-            "UIView.addSubview(_:)",
-            "UIView.layoutIfNeeded()",
-            "UIView.setNeedsLayout()",
-            "UIViewController.viewDidLoad()",
-            "UIViewController.viewWillAppear(_:)",
-            "UIViewController.viewDidAppear(_:)",
-            "UIViewController.present(_:animated:completion:)",
-            "UIViewController.dismiss(animated:completion:)",
-            "UINavigationController.pushViewController(_:animated:)",
-            "UINavigationController.popViewController(animated:)",
-            "UITableView.dequeueReusableCell(withIdentifier:for:)",
-            "UICollectionView.register(_:forCellWithReuseIdentifier:)",
-            "UIResponder.becomeFirstResponder()",
-            "UIApplication.shared.open(_:options:completionHandler:)",
-            "UIScrollView.setContentOffset(_:animated:)",
-            "UIView.addSubview(_:)",
-            "UIViewController.present(_:animated:completion:)",
-            "UIViewController.dismiss(animated:completion:)",
-            "UITableView.reloadData()",
-            "UITableView.dequeueReusableCell(withIdentifier:)",
-            "UIView.animate(withDuration:animations:)",
-            "resignFirstResponder()",
-            "becomeFirstResponder()"
+            "UIView.init(frame:)", "UIView.addSubview(_:)", "UIView.layoutIfNeeded()",
+            "UIView.setNeedsLayout()", "UIViewController.viewDidLoad()",
+            "UIViewController.viewWillAppear(_:)", "UIViewController.viewDidAppear(_:)",
+            "UIViewController.present(_:animated:completion:)", "UIViewController.dismiss(animated:completion:)",
+            "UINavigationController.pushViewController(_:animated:)", "UINavigationController.popViewController(animated:)",
+            "UITableView.dequeueReusableCell(withIdentifier:for:)", "UICollectionView.register(_:forCellWithReuseIdentifier:)",
+            "UIResponder.becomeFirstResponder()", "UIApplication.shared.open(_:options:completionHandler:)",
+            "UIScrollView.setContentOffset(_:animated:)", "UIView.addSubview(_:)",
+            "UIViewController.present(_:animated:completion:)", "UIViewController.dismiss(animated:completion:)",
+            "UITableView.reloadData()", "UITableView.dequeueReusableCell(withIdentifier:)",
+            "UIView.animate(withDuration:animations:)", "resignFirstResponder()", "becomeFirstResponder()"
         ],
         "properties": [
-            "UIView.backgroundColor",
-            "UIView.frame",
-            "UIView.bounds",
-            "UIView.alpha",
-            "UIViewController.view",
-            "UIViewController.navigationController",
-            "UILabel.text",
-            "UITextField.text",
-            "UIButton.titleLabel",
-            "UIImageView.image",
-            "UIScrollView.contentOffset"
+            "UIView.backgroundColor", "UIView.frame", "UIView.bounds", "UIView.alpha",
+            "UIViewController.view", "UIViewController.navigationController",
+            "UILabel.text", "UITextField.text", "UIButton.titleLabel",
+            "UIImageView.image", "UIScrollView.contentOffset"
         ],
-        "constants": [
-            "UILabel.textAlignment",
-            "UIControl.State",
-            "UIView.ContentMode"
-        ],
+        "constants": ["UILabel.textAlignment", "UIControl.State", "UIView.ContentMode"],
         "functions": []
     },
     "Foundation": {
         "methods": [
-            "Date()",
-            "DateFormatter.string(from:)",
-            "URL.init(string:)",
-            "URLComponents.init()",
-            "Data(contentsOf:)",
-            "JSONDecoder.decode(_:from:)",
-            "JSONEncoder.encode(_:)",
-            "UserDefaults.standard.set(_:forKey:)",
-            "UserDefaults.standard.object(forKey:)",
-            "NotificationCenter.default.post(name:object:userInfo:)",
-            "OperationQueue.addOperation(_:)",
-            "URLSession.dataTask(with:completionHandler:)",
-            "FileManager.default.contentsOfDirectory(atPath:)",
-            "Array.append(_:)",
-            "Array.remove(at:)",
-            "String.replacingOccurrences(of:with:)",
-            "String.split(separator:)",
-            "String.lowercased()",
-            "Data.init(contentsOf:)",
-            "FileManager.default",
-            "NotificationCenter.default"
+            "Date()", "DateFormatter.string(from:)", "URL.init(string:)", "URLComponents.init()",
+            "Data(contentsOf:)", "JSONDecoder.decode(_:from:)", "JSONEncoder.encode(_:)",
+            "UserDefaults.standard.set(_:forKey:)", "UserDefaults.standard.object(forKey:)",
+            "NotificationCenter.default.post(name:object:userInfo:)", "OperationQueue.addOperation(_:)",
+            "URLSession.dataTask(with:completionHandler:)", "FileManager.default.contentsOfDirectory(atPath:)",
+            "Array.append(_:)", "Array.remove(at:)", "String.replacingOccurrences(of:with:)",
+            "String.split(separator:)", "String.lowercased()", "Data.init(contentsOf:)",
+            "FileManager.default", "NotificationCenter.default"
         ],
         "properties": [
-            "Date.timeIntervalSince1970",
-            "Date.now",
-            "Data.count",
-            "URL.absoluteString",
-            "String.count",
-            "Array.count",
-            "Dictionary.keys",
-            "Set.inserted"
+            "Date.timeIntervalSince1970", "Date.now", "Data.count",
+            "URL.absoluteString", "String.count", "Array.count",
+            "Dictionary.keys", "Set.inserted"
         ],
-        "constants": [
-            "DateFormatter",
-            "JSONDecoder",
-            "UserDefaults.standard",
-            "Notification.Name"
-        ],
+        "constants": ["DateFormatter", "JSONDecoder", "UserDefaults.standard", "Notification.Name"],
         "functions": []
     },
     "CoreData": {
         "methods": [
-            "NSPersistentContainer.init(name:)",
-            "NSPersistentContainer.loadPersistentStores(completionHandler:)",
-            "NSManagedObjectContext.save()",
-            "NSFetchRequest.init(entityName:)",
-            "NSManagedObjectContext.perform(_:)",
-            "NSBatchDeleteRequest.init(fetchRequest:)",
-            "NSManagedObject.init(entity:insertInto:)",
-            "NSManagedObjectContext.mergeChanges(fromContextDidSave:)",
-            "NSManagedObjectContext.fetch(_:)",
-            "NSManagedObjectContext.save()",
-            "NSManagedObjectContext.insert(_:)",
-            "NSManagedObjectContext.delete(_:)",
-            "NSFetchRequest<NSManagedObject>(entityName:)",
-            "NSFetchedResultsController.init(fetchRequest:managedObjectContext:...)"
+            "NSPersistentContainer.init(name:)", "NSPersistentContainer.loadPersistentStores(completionHandler:)",
+            "NSManagedObjectContext.save()", "NSFetchRequest.init(entityName:)",
+            "NSManagedObjectContext.perform(_:)", "NSBatchDeleteRequest.init(fetchRequest:)",
+            "NSManagedObject.init(entity:insertInto:)", "NSManagedObjectContext.mergeChanges(fromContextDidSave:)",
+            "NSManagedObjectContext.fetch(_:)", "NSManagedObjectContext.save()",
+            "NSManagedObjectContext.insert(_:)", "NSManagedObjectContext.delete(_:)",
+            "NSFetchRequest<NSManagedObject>(entityName:)", "NSFetchedResultsController.init(fetchRequest:managedObjectContext:...)"
         ],
         "properties": [
-            "NSManagedObjectContext.persistentStoreCoordinator",
-            "NSManagedObject.entity",
-            "NSManagedObject.objectID",
-            "NSFetchRequest.entity"
+            "NSManagedObjectContext.persistentStoreCoordinator", "NSManagedObject.entity",
+            "NSManagedObject.objectID", "NSFetchRequest.entity"
         ],
-        "constants": [
-            "NSManagedObjectModel",
-            "NSPersistentContainer.defaultDirectoryURL()"
-        ],
+        "constants": ["NSManagedObjectModel", "NSPersistentContainer.defaultDirectoryURL()"],
         "functions": []
     },
     "Combine": {
         "methods": [
-            "Just.init(_:)",
-            "Future.init(_:)",
-            "PassthroughSubject.send(_:)",
-            "CurrentValueSubject.value",
-            "Publisher.map(_:)",
-            "Publisher.flatMap(_:)",
-            "Publisher.debounce(for:scheduler:)",
-            "Publisher.sink(receiveCompletion:receiveValue:)",
-            "AnyCancellable.cancel()",
-            "Publishers.Merge(_:)",
-            ".sink(receiveCompletion:receiveValue:)",
-            ".assign(to:on:)",
-            ".map",
-            ".flatMap",
-            ".debounce(for:scheduler:)",
-            ".removeDuplicates()",
-            ".filter()"
+            "Just.init(_:)", "Future.init(_:)", "PassthroughSubject.send(_:)",
+            "CurrentValueSubject.value", "Publisher.map(_:)", "Publisher.flatMap(_:)",
+            "Publisher.debounce(for:scheduler:)", "Publisher.sink(receiveCompletion:receiveValue:)",
+            "AnyCancellable.cancel()", "Publishers.Merge(_:)", ".sink(receiveCompletion:receiveValue:)",
+            ".assign(to:on:)", ".map", ".flatMap", ".debounce(for:scheduler:)", ".removeDuplicates()", ".filter()"
         ],
         "properties": [
-            ".publisher",
-            ".value",
-            ".output",
-            ".failure",
-            ".sink",
-            "PassthroughSubject",
-            "CurrentValueSubject"
+            ".publisher", ".value", ".output", ".failure", ".sink",
+            "PassthroughSubject", "CurrentValueSubject"
         ],
-        "constants": [
-            "Just",
-            "Empty",
-            "Publishers",
-            "Subscribers",
-            "Subscription"
-        ],
+        "constants": ["Just", "Empty", "Publishers", "Subscribers", "Subscription"],
         "functions": []
     },
     "ARKit": {
         "methods": [
-            "ARSession.run(_:options:)",
-            "ARSession.pause()",
-            "ARSession.currentFrame",
-            "ARSession.delegate",
-            "ARSession.getCurrentWorldMap(completionHandler:)",
-            "ARWorldTrackingConfiguration.init()",
-            "ARImageTrackingConfiguration.init()",
-            "ARFaceTrackingConfiguration.init()",
-            "ARObjectScanningConfiguration.init()",
-            "ARConfiguration.isAutoFocusEnabled",
-            "ARWorldTrackingConfiguration.planeDetection",
-            "ARPlaneDetection.horizontal",
-            "ARPlaneDetection.vertical",
-            "ARAnchor.init(transform:)",
-            "ARAnchor.init(name:transform:)",
-            "ARPlaneAnchor.alignment",
-            "ARImageAnchor.referenceImage",
-            "ARFaceAnchor.blendShapes",
-            "ARBodyAnchor.skeleton",
-            "ARMeshAnchor.geometry",
-            "ARSession.run(_:)",
-            "ARSession.pause()",
-            "ARSession.add(anchor:)",
-            "ARSession.remove(anchor:)",
-            "ARSCNView.hitTest(_:types:)",
-            "ARAnchor.init(transform:)",
+            "ARSession.run(_:options:)", "ARSession.pause()", "ARSession.currentFrame",
+            "ARSession.delegate", "ARSession.getCurrentWorldMap(completionHandler:)",
+            "ARWorldTrackingConfiguration.init()", "ARImageTrackingConfiguration.init()",
+            "ARFaceTrackingConfiguration.init()", "ARObjectScanningConfiguration.init()",
+            "ARConfiguration.isAutoFocusEnabled", "ARWorldTrackingConfiguration.planeDetection",
+            "ARPlaneDetection.horizontal", "ARPlaneDetection.vertical", "ARAnchor.init(transform:)",
+            "ARAnchor.init(name:transform:)", "ARPlaneAnchor.alignment", "ARImageAnchor.referenceImage",
+            "ARFaceAnchor.blendShapes", "ARBodyAnchor.skeleton", "ARMeshAnchor.geometry",
+            "ARSession.add(anchor:)", "ARSession.remove(anchor:)", "ARSCNView.hitTest(_:types:)",
             "ARSCNViewDelegate.session(_:didAdd:)"
         ],
         "properties": [
-            "ARSCNView.scene",
-            "ARSCNView.session",
-            "ARSession.currentFrame",
-            "ARAnchor.transform",
-            "ARConfiguration.isLightEstimationEnabled",
+            "ARSCNView.scene", "ARSCNView.session", "ARSession.currentFrame",
+            "ARAnchor.transform", "ARConfiguration.isLightEstimationEnabled",
             "ARWorldTrackingConfiguration.planeDetection"
         ],
         "constants": [
-            "ARWorldTrackingConfiguration",
-            "ARPlaneAnchor",
-            "ARImageAnchor",
-            "AREnvironmentProbeAnchor",
-            "ARReferenceImage",
-            "ARReferenceObject"
+            "ARWorldTrackingConfiguration", "ARPlaneAnchor", "ARImageAnchor",
+            "AREnvironmentProbeAnchor", "ARReferenceImage", "ARReferenceObject"
         ],
+        "functions": []
+    },
+    
+    "QuartzCore": {
+        "methods": ["CALayer.init()", "CALayer.add(_:forKey:)", "CABasicAnimation(keyPath:)", "CAAnimationGroup.init()", "CATransaction.begin()", "CATransaction.commit()"],
+        "properties": ["CALayer.opacity", "CALayer.bounds", "CALayer.position", "CALayer.cornerRadius"],
+        "constants": ["CAMediaTimingFunction", "CAFillMode"],
+        "functions": []
+    },
+    "CoreGraphics": {
+        "methods": ["CGContext.move(to:)", "CGContext.addLine(to:)", "CGContext.strokePath()", "CGContext.fillPath()", "CGPath.init(rect:transform:)"],
+        "properties": ["CGRect.width", "CGRect.height", "CGSize.width", "CGPoint.x"],
+        "constants": ["CGColorSpace", "CGLineCap", "CGLineJoin"],
+        "functions": []
+    },
+    "CoreLocation": {
+        "methods": ["CLLocationManager.requestWhenInUseAuthorization()", "CLLocationManager.startUpdatingLocation()", "CLLocationManager.stopUpdatingLocation()", "CLGeocoder.reverseGeocodeLocation(_:completionHandler:)"],
+        "properties": ["CLLocation.coordinate", "CLLocation.speed", "CLLocation.horizontalAccuracy"],
+        "constants": ["kCLLocationAccuracyBest", "CLAuthorizationStatus"],
+        "functions": []
+    },
+    "MapKit": {
+        "methods": ["MKMapView.setRegion(_:animated:)", "MKMapView.addAnnotation(_:)", "MKMapView.removeAnnotation(_:)", "MKDirections.calculate(completionHandler:)"],
+        "properties": ["MKMapView.region", "MKMapView.userLocation", "MKAnnotation.coordinate"],
+        "constants": ["MKCoordinateSpan", "MKMapType"],
+        "functions": []
+    },
+    "AVFoundation": {
+        "methods": ["AVPlayer.play()", "AVPlayer.pause()", "AVAudioSession.setCategory(_:mode:options:)", "AVCaptureSession.startRunning()", "AVCaptureSession.stopRunning()"],
+        "properties": ["AVPlayer.currentItem", "AVAudioSession.sharedInstance()", "AVCaptureDevice.position"],
+        "constants": ["AVLayerVideoGravity", "AVMediaType", "AVAudioSession.Category"],
+        "functions": []
+    },
+    "SpriteKit": {
+        "methods": ["SKScene.update(_:)", "SKView.presentScene(_:)", "SKSpriteNode.init(imageNamed:)", "SKAction.move(to:duration:)", "SKAction.fadeOut(withDuration:)"],
+        "properties": ["SKNode.position", "SKNode.physicsBody", "SKView.showsFPS"],
+        "constants": ["SKBlendMode", "SKActionTimingMode"],
+        "functions": []
+    },
+    "SceneKit": {
+        "methods": ["SCNScene.init(named:)", "SCNView.play(_:)", "SCNNode.addChildNode(_:)", "SCNAction.rotateBy(x:y:z:duration:)", "SCNTransaction.begin()", "SCNTransaction.commit()"],
+        "properties": ["SCNNode.geometry", "SCNNode.position", "SCNView.scene"],
+        "constants": ["SCNGeometryPrimitiveType", "SCNCameraProjectionDirection"],
+        "functions": []
+    },
+    "Metal": {
+        "methods": ["MTLDevice.makeCommandQueue()", "MTLCommandBuffer.commit()", "MTLRenderCommandEncoder.setVertexBuffer(_:offset:index:)", "MTLRenderCommandEncoder.drawPrimitives(type:vertexStart:vertexCount:)"],
+        "properties": ["MTLDevice.maxThreadsPerThreadgroup", "MTLTexture.width", "MTLBuffer.length"],
+        "constants": ["MTLFeatureSet", "MTLPixelFormat"],
+        "functions": []
+    },
+    "CoreML": {
+        "methods": ["MLModel.prediction(from:)", "MLModelConfiguration.init()", "VNCoreMLRequest.init(model:completionHandler:)"],
+        "properties": ["MLModel.modelDescription", "MLFeatureValue.doubleValue"],
+        "constants": ["MLMultiArrayDataType"],
+        "functions": []
+    },
+    "Vision": {
+        "methods": ["VNImageRequestHandler.perform(_:)", "VNDetectFaceRectanglesRequest.init(completionHandler:)", "VNDetectTextRectanglesRequest.init(completionHandler:)"],
+        "properties": ["VNFaceObservation.boundingBox", "VNRequest.results"],
+        "constants": ["VNImageOption", "VNRequestRevision"],
+        "functions": []
+    },
+    "HealthKit": {
+        "methods": ["HKHealthStore.requestAuthorization(toShare:read:completion:)", "HKHealthStore.execute(_:)", "HKSampleQuery.init(sampleType:predicate:limit:sortDescriptors:resultsHandler:)"],
+        "properties": ["HKQuantity.doubleValue(for:)", "HKUnit.gram()"],
+        "constants": ["HKQuantityTypeIdentifier", "HKAuthorizationStatus"],
+        "functions": []
+    },
+    "WatchKit": {
+        "methods": ["WKInterfaceController.pushController(withName:context:)", "WKInterfaceDevice.current()", "WKCrownSequencer.start()"],
+        "properties": ["WKInterfaceDevice.screenBounds", "WKCrownSequencer.rotationDelta"],
+        "constants": ["WKErrorDomain"],
+        "functions": []
+    },
+    "CloudKit": {
+        "methods": ["CKContainer.default()", "CKDatabase.save(_:completionHandler:)", "CKDatabase.fetch(withRecordID:completionHandler:)", "CKQueryOperation.init(query:)"],
+        "properties": ["CKRecord.recordID", "CKRecord.fields"],
+        "constants": ["CKRecordZone.default"],
+        "functions": []
+    },
+    "StoreKit": {
+        "methods": ["SKPaymentQueue.add(_:)", "SKProductsRequest.start()", "SKPaymentQueue.restoreCompletedTransactions()"],
+        "properties": ["SKProduct.localizedTitle", "SKPaymentTransaction.transactionState"],
+        "constants": ["SKError.Code"],
+        "functions": []
+    },
+    "PassKit": {
+        "methods": ["PKPaymentAuthorizationViewController.init(paymentRequest:)", "PKPaymentAuthorizationController.present(completion:)"],
+        "properties": ["PKPaymentRequest.merchantIdentifier", "PKPayment.token"],
+        "constants": ["PKPaymentNetwork"],
+        "functions": []
+    },
+    "PushKit": {
+        "methods": ["PKPushRegistry.init(queue:)", "PKPushRegistry.desiredPushTypes =", "PKPushRegistryDelegate.pushRegistry(_:didUpdate:)"],
+        "properties": ["PKPushCredentials.token"],
+        "constants": ["PKPushType.voIP"],
+        "functions": []
+    },
+    "CallKit": {
+        "methods": ["CXProvider.reportNewIncomingCall(with:update:completion:)", "CXCallController.request(_:completion:)"],
+        "properties": ["CXCall.isOutgoing", "CXCall.uuid"],
+        "constants": ["CXHandle.HandleType"],
+        "functions": []
+    },
+    "EventKit": {
+        "methods": ["EKEventStore.requestAccess(to:completion:)", "EKEventStore.save(_:span:commit:)", "EKEventStore.fetchReminders(matching:completion:)"],
+        "properties": ["EKEvent.title", "EKEvent.startDate", "EKReminder.completed"],
+        "constants": ["EKEntityType", "EKSpan"],
+        "functions": []
+    },
+    "HomeKit": {
+        "methods": ["HMHomeManager.addHome(withName:completion:)", "HMHome.addAccessory(_:completion:)", "HMAccessory.updateName(_:completionHandler:)"],
+        "properties": ["HMHome.name", "HMAccessory.services"],
+        "constants": ["HMError.Code"],
+        "functions": []
+    },
+    "UserNotifications": {
+        "methods": ["UNUserNotificationCenter.requestAuthorization(options:completionHandler:)", "UNUserNotificationCenter.add(_:withCompletionHandler:)", "UNUserNotificationCenter.getPendingNotificationRequests(completionHandler:)"],
+        "properties": ["UNNotificationRequest.identifier", "UNNotificationContent.body"],
+        "constants": ["UNAuthorizationOptions", "UNNotificationCategory"],
+        "functions": []
+    },
+    "Contacts": {
+        "methods": ["CNContactStore.requestAccess(for:completionHandler:)", "CNContactStore.unifiedContacts(matching:keysToFetch:)"],
+        "properties": ["CNContact.givenName", "CNContact.familyName", "CNContact.phoneNumbers"],
+        "constants": ["CNEntityType", "CNContactFormatterStyle"],
+        "functions": []
+    },
+    "MetricKit": {
+        "methods": ["MXMetricManager.add(_:)", "MXMetricManager.remove(_:)", "MXMetricPayload.dictionaryRepresentation()"],
+        "properties": ["MXMetricManager.shared", "MXDiagnosticPayload.dictionaryRepresentation"],
+        "constants": ["MXError.code"],
+        "functions": []
+    },
+    "CreateML": {
+        "methods": ["MLImageClassifier.train(trainingData:parameters:)", "MLTextClassifier.train(trainingData:parameters:)"],
+        "properties": ["MLImageClassifier.ModelParameters", "MLTextClassifier.ModelParameters"],
+        "constants": ["MLTaskState"],
+        "functions": []
+    },
+    "RealityKit": {
+        "methods": ["ARView.installGestures(_:for:)", "Entity.loadModelAsync(named:)", "AnchorEntity.init(plane:classification:)"],
+        "properties": ["Entity.transform", "ModelEntity.model"],
+        "constants": ["RealityKit.Content"],
+        "functions": []
+    },
+    "NetworkExtension": {
+        "methods": ["NEHotspotConfigurationManager.apply(_:completionHandler:)", "NEVPNManager.loadFromPreferences(completionHandler:)", "NEVPNManager.saveToPreferences(completionHandler:)"],
+        "properties": ["NEVPNManager.shared()"],
+        "constants": ["NEVPNStatus"],
+        "functions": []
+    },
+    "UniformTypeIdentifiers": {
+        "methods": ["UTType(filenameExtension:)", "UTType(importedAs:)"],
+        "properties": ["UTType.identifier", "UTType.preferredFilenameExtension"],
+        "constants": ["UTTagClass", "UTType.image", "UTType.data"],
         "functions": []
     }
 }
