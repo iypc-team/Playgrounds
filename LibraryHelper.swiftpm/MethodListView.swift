@@ -1,7 +1,7 @@
 // MethodListView.swift
 //
-// Updated to avoid duplicate fetches: the view only triggers fetch if the view model
-// hasn't already loaded methods. Removed dead/commented-out code.
+// Updated to display methods, properties, constants, and functions in separate
+// sections. The view only triggers fetch if the view model hasn't already loaded data.
 
 import SwiftUI
 
@@ -13,21 +13,42 @@ struct MethodListView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Methods for \(viewModel.framework.name)")
-                .font(.largeTitle)
-                .padding(.top)
-            
-            List(viewModel.methods, id: \.self) { method in
-                Text(method)
+        List {
+            if !viewModel.methods.isEmpty {
+                Section(header: Text("Methods")) {
+                    ForEach(viewModel.methods, id: \.self) { item in
+                        Text(item)
+                    }
+                }
             }
-            .refreshable {
-                await viewModel.fetchMethods()
+            if !viewModel.properties.isEmpty {
+                Section(header: Text("Properties")) {
+                    ForEach(viewModel.properties, id: \.self) { item in
+                        Text(item)
+                    }
+                }
             }
+            if !viewModel.constants.isEmpty {
+                Section(header: Text("Constants")) {
+                    ForEach(viewModel.constants, id: \.self) { item in
+                        Text(item)
+                    }
+                }
+            }
+            if !viewModel.functions.isEmpty {
+                Section(header: Text("Functions")) {
+                    ForEach(viewModel.functions, id: \.self) { item in
+                        Text(item)
+                    }
+                }
+            }
+        }
+        .refreshable {
+            await viewModel.fetchMethods()
         }
         .navigationTitle(viewModel.framework.name)
         .task {
-            // Only fetch if the view model hasn't already populated methods.
+            // Only fetch if the view model hasn't already populated data.
             // This avoids duplication when MethodViewModel triggers a fetch in its init.
             if viewModel.methods.isEmpty {
                 await viewModel.fetchMethods()
