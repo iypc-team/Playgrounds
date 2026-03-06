@@ -1,8 +1,9 @@
 // MethodViewModel.swift
 //
-// Decode the actual Resources/methods.json shape and expose separate published lists
+// Decode the Resources/methods.json shape and expose separate published lists
 // for methods, properties, constants and functions. Uses Bundle.module to load the
-// packaged resource, falls back to defaults, and preserves concurrency/error handling.
+// packaged resource, falls back to Bundle.main, preserves ordering and uniqueness,
+// and keeps concurrency and cancellation behavior clear.
 
 import Foundation
 import SwiftUI
@@ -78,6 +79,8 @@ final class MethodViewModel: ObservableObject {
         // No side-effects here; view triggers fetchMethods()
     }
     
+    // MARK: - Public API
+    
     /// Fetch per-category entries for the framework.
     /// If a load is already in progress this returns immediately.
     func fetchMethods() async {
@@ -94,6 +97,7 @@ final class MethodViewModel: ObservableObject {
             
             let currentLibrary = self.framework.name
             
+            // Local helper types
             struct FrameworkEntry: Codable {
                 let methods: [String]?
                 let properties: [String]?
@@ -101,35 +105,17 @@ final class MethodViewModel: ObservableObject {
                 let functions: [String]?
             }
             
+            // Results we may populate from JSON
             var loadedMethods: [String]? = nil
             var loadedProperties: [String]? = nil
             var loadedConstants: [String]? = nil
             var loadedFunctions: [String]? = nil
             
             do {
-                // Prefer Bundle.module for package resources; fallback to Bundle.main
-                let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
-                var fileURL: URL? = nil
-                for b in candidateBundles.compactMap({ $0 }) {
-                    if let url = b.url(forResource: "methods", withExtension: "json") {
-                        fileURL = url
-                        break
-                    }
-                }
-                
-                if let url = fileURL {
-                    let data = try Data(contentsOf: url)
-                    let decoded = try JSONDecoder().decode([String: FrameworkEntry].self, from: data)
-                    
+                if let decodedMap = try loadMethodsJSON() {
                     if Task.isCancelled { return }
                     
-                    if let entry = decoded[currentLibrary] {
-                        func uniquePreservingOrder(_ arr: [String]?) -> [String] {
-                            guard let arr = arr else { return [] }
-                            var seen = Set<String>()
-                            return arr.filter { seen.insert($0).inserted }
-                        }
-                        
+                    if let entry = decodedMap[currentLibrary] {
                         loadedMethods = uniquePreservingOrder(entry.methods)
                         loadedProperties = uniquePreservingOrder(entry.properties)
                         loadedConstants = uniquePreservingOrder(entry.constants)
@@ -137,7 +123,6 @@ final class MethodViewModel: ObservableObject {
                     }
                 }
             } catch {
-                // Capture a friendly error but continue to fallback
                 if Task.isCancelled { return }
                 
                 await MainActor.run {
@@ -147,17 +132,29 @@ final class MethodViewModel: ObservableObject {
             
             // Apply loaded values or fall back to defaults
             await MainActor.run {
-                if let m = loadedMethods, !m.isEmpty { self.methods = m }
-                else { self.methods = self.defaultEntries[currentLibrary]?.methods ?? ["No methods available for this framework"] }
+                if let m = loadedMethods, !m.isEmpty {
+                    self.methods = m
+                } else {
+                    self.methods = self.defaultEntries[currentLibrary]?.methods ?? ["No methods available for this framework"]
+                }
                 
-                if let p = loadedProperties, !p.isEmpty { self.properties = p }
-                else { self.properties = self.defaultEntries[currentLibrary]?.properties ?? [] }
+                if let p = loadedProperties, !p.isEmpty {
+                    self.properties = p
+                } else {
+                    self.properties = self.defaultEntries[currentLibrary]?.properties ?? []
+                }
                 
-                if let c = loadedConstants, !c.isEmpty { self.constants = c }
-                else { self.constants = self.defaultEntries[currentLibrary]?.constants ?? [] }
+                if let c = loadedConstants, !c.isEmpty {
+                    self.constants = c
+                } else {
+                    self.constants = self.defaultEntries[currentLibrary]?.constants ?? []
+                }
                 
-                if let f = loadedFunctions, !f.isEmpty { self.functions = f }
-                else { self.functions = self.defaultEntries[currentLibrary]?.functions ?? [] }
+                if let f = loadedFunctions, !f.isEmpty {
+                    self.functions = f
+                } else {
+                    self.functions = self.defaultEntries[currentLibrary]?.functions ?? []
+                }
             }
         }
         
@@ -181,5 +178,42 @@ final class MethodViewModel: ObservableObject {
         Task { @MainActor in
             self.isLoading = false
         }
+    }
+    
+    // MARK: - Private helpers
+    
+    /// Load and decode the top-level methods.json into a dictionary keyed by framework name.
+    /// Returns nil when the file cannot be found (caller should fall back to defaults).
+    private func loadMethodsJSON() throws -> [String: FrameworkEntry]? {
+        // Prefer Bundle.module for package resources; fallback to Bundle.main
+        let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
+        var fileURL: URL? = nil
+        for b in candidateBundles.compactMap({ $0 }) {
+            if let url = b.url(forResource: "methods", withExtension: "json") {
+                fileURL = url
+                break
+            }
+        }
+        
+        guard let url = fileURL else { return nil }
+        
+        let data = try Data(contentsOf: url)
+        let decoded = try JSONDecoder().decode([String: FrameworkEntry].self, from: data)
+        return decoded
+    }
+    
+    /// Remove duplicates while preserving first-seen order.
+    private func uniquePreservingOrder(_ arr: [String]?) -> [String] {
+        guard let arr = arr else { return [] }
+        var seen = Set<String>()
+        return arr.filter { seen.insert($0).inserted }
+    }
+    
+    // Local Codable type reused by loader
+    private struct FrameworkEntry: Codable {
+        let methods: [String]?
+        let properties: [String]?
+        let constants: [String]?
+        let functions: [String]?
     }
 }

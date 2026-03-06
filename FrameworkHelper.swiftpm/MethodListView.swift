@@ -1,6 +1,6 @@
 // MethodListView.swift
 //
-// Display Methods, Properties, Constants and Functions in distinct sections.
+// Refactored to remove repetition by extracting a reusable CategorySection view.
 
 import SwiftUI
 
@@ -13,49 +13,21 @@ struct MethodListView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Methods")) {
-                if viewModel.methods.isEmpty {
-                    Text("No methods available")
-                        .foregroundColor(.secondary)
-                } else {
-                    ForEach(viewModel.methods, id: \.self) { method in
-                        Text(method)
-                    }
-                }
-            }
+            CategorySection(title: "Methods",
+                            items: viewModel.methods,
+                            emptyMessage: "No methods available")
             
-            Section(header: Text("Properties")) {
-                if viewModel.properties.isEmpty {
-                    Text("No properties available")
-                        .foregroundColor(.secondary)
-                } else {
-                    ForEach(viewModel.properties, id: \.self) { property in
-                        Text(property)
-                    }
-                }
-            }
+            CategorySection(title: "Properties",
+                            items: viewModel.properties,
+                            emptyMessage: "No properties available")
             
-            Section(header: Text("Constants")) {
-                if viewModel.constants.isEmpty {
-                    Text("No constants available")
-                        .foregroundColor(.secondary)
-                } else {
-                    ForEach(viewModel.constants, id: \.self) { constant in
-                        Text(constant)
-                    }
-                }
-            }
+            CategorySection(title: "Constants",
+                            items: viewModel.constants,
+                            emptyMessage: "No constants available")
             
-            Section(header: Text("Functions")) {
-                if viewModel.functions.isEmpty {
-                    Text("No functions available")
-                        .foregroundColor(.secondary)
-                } else {
-                    ForEach(viewModel.functions, id: \.self) { fn in
-                        Text(fn)
-                    }
-                }
-            }
+            CategorySection(title: "Functions",
+                            items: viewModel.functions,
+                            emptyMessage: "No functions available")
         }
         .listStyle(.insetGrouped)
         .navigationTitle(viewModel.framework.name)
@@ -63,9 +35,35 @@ struct MethodListView: View {
             await viewModel.fetchMethods()
         }
         .task {
-            // Only fetch if no category has content
-            if viewModel.methods.isEmpty && viewModel.properties.isEmpty && viewModel.constants.isEmpty && viewModel.functions.isEmpty {
-                await viewModel.fetchMethods()
+            await fetchIfNeeded()
+        }
+    }
+    
+    private func fetchIfNeeded() async {
+        if viewModel.methods.isEmpty &&
+            viewModel.properties.isEmpty &&
+            viewModel.constants.isEmpty &&
+            viewModel.functions.isEmpty
+        {
+            await viewModel.fetchMethods()
+        }
+    }
+    
+    private struct CategorySection: View {
+        let title: String
+        let items: [String]
+        let emptyMessage: String
+        
+        var body: some View {
+            Section(header: Text(title)) {
+                if items.isEmpty {
+                    Text(emptyMessage)
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(items, id: \.self) { item in
+                        Text(item)
+                    }
+                }
             }
         }
     }
