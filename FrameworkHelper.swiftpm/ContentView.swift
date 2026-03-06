@@ -1,7 +1,8 @@
-//  FrameworkHelper 03/06/2026-3
+//  FrameworkHelper 03/06/2026-4
 //  ContentView.swift
-//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
-//  
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
+//  Project:  FrameworkHelper.swiftpm
+// 
 
 import SwiftUI
 
@@ -28,11 +29,11 @@ struct ContentView: View {
                         }
                     )
                 } else if viewModel.frameworks.isEmpty {
-                    Text("No libraries available")
+                    Text("No frameworks available")
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .accessibilityLabel("No libraries available")
+                        .accessibilityLabel("No frameworks available")
                 } else {
                     List(viewModel.frameworks) { framework in
                         NavigationLink(value: framework) {
@@ -42,7 +43,7 @@ struct ContentView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("Libraries")
+            .navigationTitle("Frameworks:")
             .navigationDestination(for: Framework.self) { framework in
                 MethodListView(framework: framework)
             }
