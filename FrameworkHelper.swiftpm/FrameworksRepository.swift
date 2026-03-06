@@ -8,10 +8,10 @@ protocol FrameworksRepository {
     func fetchFrameworks() async throws -> [Framework]
 }
 
-/// Simple repository backed by FrameworksConstants (existing).
+/// Simple repository backed by FrameworksConstants (updated to load from JSON).
 struct StaticFrameworksRepository: FrameworksRepository {
     func fetchFrameworks() async throws -> [Framework] {
-        FrameworksConstants.sortedFrameworks()
+        try await FrameworksConstants.sortedFrameworks()
     }
 }
 
