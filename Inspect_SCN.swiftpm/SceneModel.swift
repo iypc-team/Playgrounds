@@ -1,5 +1,5 @@
 //  SceneModel.swift
-// 
+//  
 
 import SceneKit
 import Foundation

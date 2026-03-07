@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/07/2026-4
+//  Inspect_SCN 03/07/2026-5
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
@@ -7,13 +7,9 @@
 
 import SwiftUI
 import SceneKit
-import os  // Add this import for logging
 
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
-    
-    // Initialize a logger for this view
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Defcon4", category: "ContentView")
     
     // File names from Resources directory
     private let resourceFiles = [

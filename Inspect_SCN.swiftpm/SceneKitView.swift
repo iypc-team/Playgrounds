@@ -3,14 +3,10 @@
 
 import SwiftUI
 import SceneKit
-import os
-
 
 struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
     var sceneModel: SceneModel
-    
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Defcon4", category: "SceneKitView")
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
@@ -61,9 +57,6 @@ struct SceneKitView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {
-        // Use logger for info-level logging instead of print
-        logger.info("Updating SceneKitView with sceneModel changes.")
-        Logger().info("Updating SceneKitView with sceneModel changes.")
         // Re-scale fighter and update light if sceneModel changed
         configureFighterNode(in: uiView)
     }
