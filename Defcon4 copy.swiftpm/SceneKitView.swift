@@ -27,8 +27,7 @@ struct SceneKitView: UIViewRepresentable {
     
     private func configureFighterNode(in scnView: SCNView) {
         guard let node = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
-            // Use print for warnings instead of Logger
-            print("Warning: Fighter node not found in scene.")
+            // Skip configuration if fighter node not found (no warning logged)
             return
         }
         node.scale = sceneModel.fighterScale
@@ -42,7 +41,7 @@ struct SceneKitView: UIViewRepresentable {
         cabinLightNode.light?.attenuationEndDistance = 5.0
         cabinLightNode.light?.color = sceneModel.cabinLightColor
         cabinLightNode.light?.intensity = 6000
-//        print("cabinLightNode: \(String(describing: cabinLightNode.light?.intensity)) ")
+        //        print("cabinLightNode: \(String(describing: cabinLightNode.light?.intensity)) ")
         
         node.addChildNode(cabinLightNode)
         
@@ -56,7 +55,7 @@ struct SceneKitView: UIViewRepresentable {
         engineLightNode.light?.attenuationEndDistance = 5.0
         engineLightNode.light?.color = UIColor.green
         engineLightNode.light?.intensity = 6000 
-//        print("engineLightNode: \(engineLightNode.description)\n ")
+        //        print("engineLightNode: \(engineLightNode.description)\n ")
         
         node.addChildNode(engineLightNode)
     }
@@ -69,4 +68,3 @@ struct SceneKitView: UIViewRepresentable {
         configureFighterNode(in: uiView)
     }
 }
-

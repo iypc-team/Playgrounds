@@ -5,7 +5,7 @@ import SceneKit
 import Foundation
 
 class SceneModel: ObservableObject {
-    var sceneName: String = "newFighter.scn"
+    @Published var sceneName: String = "newFighter.scn"  // Made @Published to trigger view updates
     var enenyName: String = "smooth_ship.scn"
     
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
@@ -24,4 +24,3 @@ class SceneModel: ObservableObject {
     
     // Add more properties as needed
 }
-
