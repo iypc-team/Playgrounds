@@ -52,7 +52,7 @@ class SceneViewModel: ObservableObject {
     }
     
     // Method to load a scene by name
-    private func loadScene(for name: String) {
+    public func loadScene(for name: String) {
         if let loadedScene = SCNScene(named: name) {
             self.scene = loadedScene  // Update to loaded scene
             sceneModel.sceneName = name  // Update model

@@ -1,8 +1,7 @@
-//  Inspect_SCN 03/07/2026-5
+//  Inspect_SCN 03/07/2026-6
 //  ContentView.swift
 //  
 //  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
-//  
 //  
 
 import SwiftUI
@@ -21,13 +20,17 @@ struct ContentView: View {
         "smooth_ship.scn"
     ]
     
-    // State for selected file
-    @State private var selectedFile = "fighter.scn"
+    // State for selected file, initialized to match SceneModel's default sceneName
+    @State private var selectedFile = "newFighter.scn"
     
     var body: some View {
         SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .accessibilityLabel("3D Fighter Scene")
+            .onChange(of: selectedFile) { newValue in
+                viewModel.loadScene(for: newValue)
+                
+            }
             .overlay(
                 VStack {
                     HStack {

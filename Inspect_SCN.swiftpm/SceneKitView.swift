@@ -21,6 +21,13 @@ struct SceneKitView: UIViewRepresentable {
         return scnView
     }
     
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        // Update the scene if it has changed
+        uiView.scene = scene
+        // Re-scale fighter and update light if sceneModel changed
+        configureFighterNode(in: uiView)
+    }
+    
     private func configureFighterNode(in scnView: SCNView) {
         guard let node = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
             // Skip configuration if fighter node not found (no warning logged)
@@ -54,10 +61,5 @@ struct SceneKitView: UIViewRepresentable {
         //        print("engineLightNode: \(engineLightNode.description)\n ")
         
         node.addChildNode(engineLightNode)
-    }
-    
-    func updateUIView(_ uiView: SCNView, context: Context) {
-        // Re-scale fighter and update light if sceneModel changed
-        configureFighterNode(in: uiView)
     }
 }
