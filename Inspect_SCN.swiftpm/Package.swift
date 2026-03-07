@@ -8,17 +8,17 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "Defcon4",
+    name: "Inspect_SCN",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "Defcon4",
+            name: "Inspect_SCN",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .plane),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.orange),
             supportedDeviceFamilies: [
                 .pad,
