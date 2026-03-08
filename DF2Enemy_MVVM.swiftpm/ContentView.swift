@@ -1,7 +1,8 @@
-// DF2Enemy_MVVM 01/11/2026-1
-/*   
- https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
- */
+//  DF2Enemy_MVVM 03/08/2026-1
+//  ContentView.swift
+//  
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
+//  
 
 import SwiftUI
 
@@ -12,8 +13,9 @@ struct ContentView: View {
         ZStack {
             ScenekitView(viewModel: viewModel)
                 .onAppear {
-//                    print(viewModel.enemyShip.orientation)
-//                    print("enemyShip.position: \( viewModel.enemyShip.position)")
+                    viewModel.startAnimation()
+                    print(viewModel.enemyShip.orientation)
+                    print("enemyShip.position: \( viewModel.enemyShip.position)")
                 }
                 .onDisappear {
                     viewModel.stopAnimation()
@@ -31,7 +33,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .font(.system(size: 20, weight: .regular, design: .default))
+            .font(.system(size: 20, weight: .semibold, design: .default))
             .foregroundColor(.white)
             .background(Color.clear)
             .padding(15)

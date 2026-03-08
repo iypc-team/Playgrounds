@@ -1,7 +1,7 @@
-// SceneViewModel: Handles scene logic, setup, and state
-// Refactored for reusability: Added configurable parameters, constants for hardcoded values,
-// error handling, dynamic updates to ship position/rotation, and removal of duplicate lights.
-//
+//  SceneViewModel.swift
+//  
+//  SceneViewModel: Handles scene logic, setup, and state
+//  
 
 import SwiftUI
 import SceneKit
@@ -9,16 +9,17 @@ import SceneKit
 class SceneViewModel: ObservableObject {
     @Published var enemyShip: EnemyShipModel = EnemyShipModel()
     @Published var isAnimating: Bool = false
+    
     private var enemyShipNode: SCNNode?
     private var rotationAction: SCNAction?
     private var universeScene: SCNScene = SCNScene()
     private var scene = SCNScene(named: "smooth_ship.scn")!  // Keep this if needed for loading the ship model
     
     func setupUniverse() -> SCNScene {
-        let universe = SCNSphere(radius: 2048.0)
+        let universe = SCNSphere(radius: 2048.0 * 4)
         let universeNode = SCNNode(geometry: universe)
 //        universeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
-        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_2.png")
+        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_1.png")
         universeNode.geometry?.firstMaterial?.isDoubleSided = true  // Make visible from inside
         universeScene.rootNode.addChildNode(universeNode)
         
