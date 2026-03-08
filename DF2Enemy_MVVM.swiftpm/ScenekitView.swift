@@ -10,8 +10,10 @@ struct ScenekitView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        let baseScene = viewModel.setupUniverse()  // Universe loaded first
-        scnView.scene = viewModel.setupScene(baseScene: baseScene)
+        // Universe scene is set up independently but not assigned to the view
+        _ = viewModel.setupUniverse()
+        // Assign the independent enemy scene to the view
+        scnView.scene = viewModel.setupEnemyScene()
         return scnView
     }
     

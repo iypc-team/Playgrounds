@@ -1,4 +1,4 @@
-//  DF2Enemy_MVVM 03/08/2026-2
+//  DF2Enemy_MVVM 03/08/2026-3
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
@@ -13,7 +13,7 @@ struct ContentView: View {
         ZStack {
             ScenekitView(viewModel: viewModel)
                 .onAppear {
-                    viewModel.startAnimation()
+//                    viewModel.startAnimation()
                     print(viewModel.enemyShip.orientation)
                     print("enemyShip.position: \( viewModel.enemyShip.position)")
                 }

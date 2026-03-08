@@ -13,28 +13,27 @@ class SceneViewModel: ObservableObject {
     private var enemyShipNode: SCNNode?
     private var rotationAction: SCNAction?
     private var universeScene: SCNScene = SCNScene()
-    private var scene = SCNScene(named: "smooth_ship.scn")!  // Keep this if needed for loading the ship model
+    private var enemyScene = SCNScene(named: "smooth_ship.scn")!  // Renamed from 'scene' to 'enemyScene'
     
     func setupUniverse() -> SCNScene {
         let universe = SCNSphere(radius: 2048.0 * 4)
         let universeNode = SCNNode(geometry: universe)
-//        universeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
+        //        universeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_1.png")
         universeNode.geometry?.firstMaterial?.isDoubleSided = true  // Make visible from inside
+        
+        // Add static physics body to universeNode for physics properties
+        universeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: universe, options: nil))
+        
         universeScene.rootNode.addChildNode(universeNode)
         
         print("universeScene: \(universeScene.rootNode)")
         return universeScene
     }
     
-    func setupScene(baseScene: SCNScene) -> SCNScene {
-        guard let scene = SCNScene(named: "smooth_ship.scn") else {
+    func setupEnemyScene() -> SCNScene {  // Renamed from setupScene, now creates independent enemyScene
+        guard let enemyScene = SCNScene(named: "smooth_ship.scn") else {
             fatalError("Error: Could not load the SceneKit asset 'smooth_ship.scn'. Verify the file exists in the project's resources.")
-        }
-        
-        // Copy nodes from the loaded scene to the base scene
-        for child in scene.rootNode.childNodes {
-            baseScene.rootNode.addChildNode(child)
         }
         
         // Setup camera
@@ -42,35 +41,35 @@ class SceneViewModel: ObservableObject {
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.automaticallyAdjustsZRange = true
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
-        baseScene.rootNode.addChildNode(cameraNode)
+        enemyScene.rootNode.addChildNode(cameraNode)
         
         // Setup ambient light
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .omni
         ambientLightNode.light!.color = UIColor.darkGray
-        baseScene.rootNode.addChildNode(ambientLightNode)
+        enemyScene.rootNode.addChildNode(ambientLightNode)
         
         // Setup omni lights
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100), in: baseScene)
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100), in: baseScene)
+        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100), in: enemyScene)
+        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100), in: enemyScene)
         
         // Configure ship
-        configureShip(in: baseScene)
+        configureShip(in: enemyScene)
         
-        return baseScene
+        return enemyScene
     }
     
-    private func setupOmniLight(at position: SCNVector3, in scene: SCNScene) {
+    private func setupOmniLight(at position: SCNVector3, in enemyScene: SCNScene) {  // Updated parameter name
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
         lightNode.position = position
-        scene.rootNode.addChildNode(lightNode)
+        enemyScene.rootNode.addChildNode(lightNode)
     }
     
-    private func configureShip(in scene: SCNScene) {
-        guard let enemyShipNode = scene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
+    private func configureShip(in enemyScene: SCNScene) {  // Updated parameter name
+        guard let enemyShipNode = enemyScene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
         self.enemyShipNode = enemyShipNode
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
