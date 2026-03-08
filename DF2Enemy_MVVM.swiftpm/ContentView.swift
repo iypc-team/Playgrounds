@@ -1,26 +1,24 @@
-//  DF2Enemy_MVVM 03/08/2026-3
+//  DF2Enemy_MVVM 03/08/2026-4
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
 //  
 
 import SwiftUI
+import SceneKit
 
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
+    @State private var combinedScene: SCNScene?
     
     var body: some View {
         ZStack {
-            ScenekitView(viewModel: viewModel)
-                .onAppear {
-//                    viewModel.startAnimation()
-                    print(viewModel.enemyShip.orientation)
-                    print("enemyShip.position: \( viewModel.enemyShip.position)")
-                }
-                .onDisappear {
-                    viewModel.stopAnimation()
-                    // value of type 'SceneViewModel' has no dynamic member 'stopAnimation' using key path from root type 'SceneViewModel'
-                }
+            if let scene = combinedScene {
+                ScenekitView(scene: scene, viewModel: viewModel)
+            } else {
+                Text("Loading scene...")
+                    .foregroundColor(.white)
+            }
             VStack {
                 Spacer()
                 HStack {
@@ -37,6 +35,20 @@ struct ContentView: View {
             .foregroundColor(.white)
             .background(Color.clear)
             .padding(15)
+        }
+        .onAppear {
+            let universe = viewModel.setupUniverse()
+            let enemy = viewModel.setupEnemyScene()
+            for node in enemy.rootNode.childNodes {
+                universe.rootNode.addChildNode(node)
+            }
+            combinedScene = universe
+//            viewModel.startAnimation()
+//            print(viewModel.enemyShip.orientation)
+//            print("enemyShip.position: \( viewModel.enemyShip.position)")
+        }
+        .onDisappear {
+            viewModel.stopAnimation()
         }
     }
 }

@@ -6,19 +6,17 @@ import SwiftUI
 import SceneKit
 
 struct ScenekitView: UIViewRepresentable {
+    var scene: SCNScene
     @ObservedObject var viewModel: SceneViewModel
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        // Universe scene is set up independently but not assigned to the view
-        _ = viewModel.setupUniverse()
-        // Assign the independent enemy scene to the view
-        scnView.scene = viewModel.setupEnemyScene()
+        scnView.scene = scene
         return scnView
     }
     
     func updateUIView(_ scnView: SCNView, context: Context) {
-        // Configure view properties
+        scnView.scene = scene
         scnView.allowsCameraControl = true
         scnView.showsStatistics = false
         scnView.backgroundColor = UIColor.gray
