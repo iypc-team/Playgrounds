@@ -1,4 +1,4 @@
-//  DF2Enemy_MVVM 03/08/2026-4
+//  DF2Enemy_MVVM 03/08/2026-5
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
@@ -43,9 +43,9 @@ struct ContentView: View {
                 universe.rootNode.addChildNode(node)
             }
             combinedScene = universe
-//            viewModel.startAnimation()
-//            print(viewModel.enemyShip.orientation)
-//            print("enemyShip.position: \( viewModel.enemyShip.position)")
+            //            viewModel.startAnimation()
+            //            print(viewModel.enemyShip.orientation)
+            //            print("enemyShip.position: \( viewModel.enemyShip.position)")
         }
         .onDisappear {
             viewModel.stopAnimation()
