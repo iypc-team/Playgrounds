@@ -1,4 +1,4 @@
-//  DF2Enemy_MVVM 03/09/2026-1
+//  DF2Enemy_MVVM 03/09/2026-2
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
@@ -49,6 +49,7 @@ struct ContentView: View {
         }
         .onDisappear {
             viewModel.stopAnimation()
+            //  Value of type 'SceneViewModel' has no dynamic member 'stopAnimation' using key path from root type 'SceneViewModel'
         }
     }
 }
