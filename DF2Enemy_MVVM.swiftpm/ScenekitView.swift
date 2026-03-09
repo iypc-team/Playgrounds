@@ -5,7 +5,7 @@
 import SwiftUI
 import SceneKit
 
-struct ScenekitView: UIViewRepresentable {
+struct ScenekitView: UIViewRepresentable { 
     var scene: SCNScene
     @ObservedObject var viewModel: SceneViewModel
     
@@ -21,7 +21,7 @@ struct ScenekitView: UIViewRepresentable {
         scnView.showsStatistics = false
         scnView.backgroundColor = UIColor.gray
         scnView.antialiasingMode = .multisampling4X
-        scnView.autoenablesDefaultLighting = false
+        scnView.autoenablesDefaultLighting = true
         scnView.isTemporalAntialiasingEnabled = true
     }
 }

@@ -1,6 +1,5 @@
 //  SceneViewModel.swift
 //  
-//  SceneViewModel: Handles scene logic, setup, and state
 //  
 
 import SwiftUI
@@ -74,31 +73,30 @@ class SceneViewModel: ObservableObject {
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
+        enemyShipNode.geometry?.firstMaterial?.isDoubleSided = true
         
-        // Make the engine glow by setting emission
-        enemyShipNode.geometry?.material(named: "Engine")?.emission.contents = UIColor.red
         
-        // Add engine light to ship
-        let engineLightNode = SCNNode()
-        engineLightNode.light = SCNLight()
-        engineLightNode.position = enemyShipNode.position  // SCNVector3(x: 0.0,y: 0.0, z: 0.0)
-        engineLightNode.light?.type = .omni
-        engineLightNode.light?.castsShadow = false
-        //        engineLightNode.light?.attenuationStartDistance = 1.0
-        //        engineLightNode.light?.attenuationEndDistance = 5.0
-        engineLightNode.light?.color = UIColor.red
-        engineLightNode.light?.intensity = 6000
+        // Add engine light to ship cabinLightNode
+        let cabinLightNode = SCNNode()
+        cabinLightNode.light = SCNLight()
+        cabinLightNode.position = enemyShipNode.position  // SCNVector3(x: 0.0,y: 0.0, z: 0.0)
+        cabinLightNode.light?.type = .omni
+        cabinLightNode.light?.castsShadow = false
+        //        cabinLightNode.light?.attenuationStartDistance = 1.0
+        //        cabinLightNode.light?.attenuationEndDistance = 5.0
+        cabinLightNode.light?.color = UIColor.red
+        cabinLightNode.light?.intensity = 6000
         
         // Position the light node inside the ship (adjust coordinates based on your model)
-        engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        cabinLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
         // Add visible geometry to the light node for glow effect
         let lightGeometry = SCNSphere(radius: 0.5)
         lightGeometry.firstMaterial?.diffuse.contents = UIColor.black
         lightGeometry.firstMaterial?.emission.contents = UIColor.red
-        engineLightNode.geometry = lightGeometry
+        cabinLightNode.geometry = lightGeometry
         
-        enemyShipNode.addChildNode(engineLightNode)
+        enemyShipNode.addChildNode(cabinLightNode)
         
         // Prepare animation
         let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
@@ -112,6 +110,7 @@ class SceneViewModel: ObservableObject {
         guard let node = enemyShipNode, let action = rotationAction, !isAnimating else { return }
         node.runAction(action)
         isAnimating = true
+        
     }
     
     func stopAnimation() {
