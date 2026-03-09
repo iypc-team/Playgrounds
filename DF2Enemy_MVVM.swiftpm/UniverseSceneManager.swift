@@ -1,7 +1,6 @@
 //  UniverseSceneManager.swift
 //  DF2Enemy_MVVM.swiftpm
-//
-//  UniverseSceneManager: Handles the setup and management of the universe scene.
+//  
 //
 
 import SceneKit

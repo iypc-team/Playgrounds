@@ -1,7 +1,6 @@
 //  EnemySceneManager.swift
 //  DF2Enemy_MVVM.swiftpm
-//
-//  EnemySceneManager: Handles the setup and management of the enemy scene.
+//  
 //
 
 import SceneKit
@@ -50,16 +49,16 @@ class EnemySceneManager {
     
     private func configureShip(in enemyScene: SCNScene) {
         guard let enemyShipNode = enemyScene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
+        self.enemyShipNode = enemyShipNode  // Fixed: Assign to the private property
         enemyShipNode.geometry?.firstMaterial?.isDoubleSided = true
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-//        enemyShipNode.geometry?.firstMaterial?.isDoubleSided = true
     }
     
     func startAnimation() {
         guard let enemyShipNode = self.enemyShipNode else { return }
-        rotationAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 2))
+        rotationAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 1))
         enemyShipNode.runAction(rotationAction!)
     }
     

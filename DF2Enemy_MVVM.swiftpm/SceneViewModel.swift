@@ -1,9 +1,7 @@
-//
 //  SceneViewModel.swift
 //  DF2Enemy_MVVM.swiftpm
 //
-//  SceneViewModel: Handles scene logic, setup, and state, delegating to specialized managers.
-//
+//  
 
 import SwiftUI
 import SceneKit
@@ -24,12 +22,14 @@ class SceneViewModel: ObservableObject {
         return enemyManager.setupEnemyScene()
     }
     
-    func startAnimation() {
+    func startAnimation() { 
+        print("startAnimation ")
         enemyManager.startAnimation()
         isAnimating = true
     }
     
-    func stopAnimation() {
+    func stopAnimation() { 
+        print("stopAnimation")
         enemyManager.stopAnimation()
         isAnimating = false
     }
