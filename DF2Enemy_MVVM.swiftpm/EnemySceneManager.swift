@@ -30,31 +30,28 @@ class EnemySceneManager {
         ambientLightNode.light!.color = UIColor.darkGray
         enemyScene.rootNode.addChildNode(ambientLightNode)
         
-        // Setup omni lights
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100), in: enemyScene)
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100), in: enemyScene)
-        
         // Configure ship
         configureShip(in: enemyScene)
         
         return enemyScene
     }
     
-    private func setupOmniLight(at position: SCNVector3, in enemyScene: SCNScene) {
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light!.type = .omni
-        lightNode.position = position
-        enemyScene.rootNode.addChildNode(lightNode)
-    }
-    
     private func configureShip(in enemyScene: SCNScene) {
         guard let enemyShipNode = enemyScene.rootNode.childNode(withName: "enemy", recursively: true) else { return }
         self.enemyShipNode = enemyShipNode  // Fixed: Assign to the private property
-        enemyShipNode.geometry?.firstMaterial?.isDoubleSided = true
+        
+        // Set all materials to be double-sided
+        if let materials = enemyShipNode.geometry?.materials {
+            for material in materials {
+                material.isDoubleSided = true
+            }
+        }
+        
         enemyShipNode.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.darkGray
         enemyShipNode.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
+        enemyShipNode.geometry?.material(named: "Black_Exterior")?.diffuse.contents = UIColor.black
         enemyShipNode.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
+        
         print()
         getOrientation()
         getEnemyShipMaterials()
@@ -79,8 +76,14 @@ class EnemySceneManager {
         print("orientation: \(String(describing: enemyOrientation))")
     }
     
-    func getEnemyShipMaterials() { 
-        let materialCount = enemyShipNode?.geometry?.materials.count
-        print("materialCount: \(String(describing: materialCount))")
+    func getEnemyShipMaterials() {
+        if let materials = enemyShipNode?.geometry?.materials {
+            print("Materials in enemyShipNode:")
+            for (index, material) in materials.enumerated() {
+                print("Material \(index): \(material.name ?? "Unnamed")")
+            }
+        } else {
+            print("No materials found in enemyShipNode.")
+        }
     }
 }

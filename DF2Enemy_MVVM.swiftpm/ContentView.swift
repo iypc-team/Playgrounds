@@ -1,6 +1,7 @@
-//  DF2Enemy_MVVM 03/10/2026-1
+//  DF2Enemy_MVVM 03/10/2026-2
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
+//  
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
 //  
 //  
