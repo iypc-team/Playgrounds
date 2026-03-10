@@ -1,6 +1,6 @@
 //  SceneViewModel.swift
 //  DF2Enemy_MVVM.swiftpm
-//
+//  
 //  
 
 import SwiftUI
@@ -23,13 +23,13 @@ class SceneViewModel: ObservableObject {
     }
     
     func startAnimation() { 
-        print("startAnimation ")
+//        print("startAnimation ")
         enemyManager.startAnimation()
         isAnimating = true
     }
     
     func stopAnimation() { 
-        print("stopAnimation")
+//        print("stopAnimation")
         enemyManager.stopAnimation()
         isAnimating = false
     }

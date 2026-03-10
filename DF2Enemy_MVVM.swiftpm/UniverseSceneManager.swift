@@ -1,7 +1,7 @@
 //  UniverseSceneManager.swift
 //  DF2Enemy_MVVM.swiftpm
 //  
-//
+//  
 
 import SceneKit
 import UIKit
@@ -24,7 +24,7 @@ class UniverseSceneManager {
         
         universeScene.rootNode.addChildNode(universeNode)
         
-        print("universeScene: \(universeScene.rootNode)")
+        print("universeScene: \(universeScene.rootNode.childNodes)")
         return universeScene
     }
     
