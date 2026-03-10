@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "DF2Enemy_MVVM",
+    name: "Enemy_MVVM",
     platforms: [
         .iOS("16.0")
     ],
     products: [
         .iOSApplication(
-            name: "DF2Enemy_MVVM",
+            name: "Enemy_MVVM",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",

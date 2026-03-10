@@ -13,7 +13,7 @@ class EnemySceneManager {
     func setupEnemyScene() -> SCNScene {
         guard let  enemyScene = SCNScene(named: "smooth_ship.scn") else {
             fatalError("Error: Could not load the SceneKit asset 'smooth_ship.scn'. Verify the file exists in the project's resources.")
-//            print("enemyScene: \(enemyScene.rootNode.childNodes)")
+            //            print("enemyScene: \(enemyScene.rootNode.childNodes)")
         }
         
         // Setup camera

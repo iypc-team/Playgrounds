@@ -23,13 +23,13 @@ class SceneViewModel: ObservableObject {
     }
     
     func startAnimation() { 
-//        print("startAnimation ")
+        //        print("startAnimation ")
         enemyManager.startAnimation()
         isAnimating = true
     }
     
     func stopAnimation() { 
-//        print("stopAnimation")
+        //        print("stopAnimation")
         enemyManager.stopAnimation()
         isAnimating = false
     }
