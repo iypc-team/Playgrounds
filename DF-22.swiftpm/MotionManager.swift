@@ -10,6 +10,7 @@ struct AttitudeQuaternion {
 class MotionManager {
     private var motionManager = CMMotionManager()
     private var continuation: AsyncThrowingStream<AttitudeQuaternion, Error>.Continuation?
+    private var lastYieldTime: Date?
     
     var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
@@ -22,8 +23,8 @@ class MotionManager {
                 return
             }
             
-            self.motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
-                guard let continuation = self?.continuation else { return }
+            self.motionManager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { [weak self] motion, error in
+                guard let self = self, let continuation = self.continuation else { return }
                 
                 if let error = error {
                     continuation.finish(throwing: error)
@@ -32,6 +33,13 @@ class MotionManager {
                 
                 guard let motion = motion else { return }
                 
+                // Throttle to once per second
+                let currentTime = Date()
+                if let lastTime = self.lastYieldTime, currentTime.timeIntervalSince(lastTime) < 1.0 {
+                    return
+                }
+                
+                self.lastYieldTime = currentTime
                 let quaternion = AttitudeQuaternion(quaternion: motion.attitude.quaternion)
                 continuation.yield(quaternion)
             }
@@ -50,5 +58,6 @@ class MotionManager {
         motionManager.stopDeviceMotionUpdates()
         continuation?.finish()
         attitudeStream = nil
+        lastYieldTime = nil
     }
 }
