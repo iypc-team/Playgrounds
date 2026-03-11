@@ -3,21 +3,49 @@
 
 import CoreMotion
 
-class MotionManager: ObservableObject {
-    private var motionManager = CMMotionManager()
-    var roll = 0.0
-    var pitch = 0.0
-    var yaw = 0.0
-    
-    init() { 
-        motionManager.startDeviceMotionUpdates(to: .main, withHandler: {
-            [weak self] motion, error  in guard let self=self, let motion=motion else {
-                return
-            }
-            self.pitch = motion.attitude.pitch
-            self.roll = motion.attitude.roll
-            self.yaw = motion.attitude.yaw
-        })
-    }
+struct AttitudeQuaternion {
+    let quaternion: CMQuaternion
 }
 
+class MotionManager {
+    private var motionManager = CMMotionManager()
+    private var continuation: AsyncThrowingStream<AttitudeQuaternion, Error>.Continuation?
+    
+    lazy var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error> = {
+        AsyncThrowingStream { continuation in
+            self.continuation = continuation
+            
+            guard self.motionManager.isDeviceMotionAvailable else {
+                continuation.finish(throwing: NSError(domain: "MotionManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Device motion not available"]))
+                return
+            }
+            
+            self.motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
+                guard let continuation = self?.continuation else { return }
+                
+                if let error = error {
+                    continuation.finish(throwing: error)
+                    return
+                }
+                
+                guard let motion = motion else { return }
+                
+                let quaternion = AttitudeQuaternion(quaternion: motion.attitude.quaternion)
+                continuation.yield(quaternion)
+            }
+        }
+    }()
+    
+    init() {
+        // The stream is lazily initialized when accessed
+    }
+    
+    deinit {
+        stopUpdates()
+    }
+    
+    func stopUpdates() {
+        motionManager.stopDeviceMotionUpdates()
+        continuation?.finish()
+    }
+}
