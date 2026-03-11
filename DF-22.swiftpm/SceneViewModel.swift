@@ -20,6 +20,7 @@ class SceneViewModel: ObservableObject {
     init() {
         scene = SCNScene(named: model.shipName + ".scn")!
         setupScene()
+        motionManager.startUpdates()  // Start updates before accessing stream
         startMotionUpdates()  // Start listening to motion after setup
     }
     
@@ -109,7 +110,7 @@ class SceneViewModel: ObservableObject {
     private func startMotionUpdates() {
         motionTask = Task {
             do {
-                for try await quaternion in motionManager.attitudeStream {
+                for try await quaternion in motionManager.attitudeStream! {
                     // Update ship orientation on main thread
                     await MainActor.run {
                         shipNode?.orientation = SCNVector4(quaternion.quaternion.x, quaternion.quaternion.y, quaternion.quaternion.z, quaternion.quaternion.w)

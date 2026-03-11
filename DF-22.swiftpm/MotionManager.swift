@@ -11,8 +11,10 @@ class MotionManager {
     private var motionManager = CMMotionManager()
     private var continuation: AsyncThrowingStream<AttitudeQuaternion, Error>.Continuation?
     
-    lazy var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error> = {
-        AsyncThrowingStream { continuation in
+    var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
+    
+    func startUpdates() {
+        attitudeStream = AsyncThrowingStream { continuation in
             self.continuation = continuation
             
             guard self.motionManager.isDeviceMotionAvailable else {
@@ -34,10 +36,10 @@ class MotionManager {
                 continuation.yield(quaternion)
             }
         }
-    }()
+    }
     
     init() {
-        // The stream is lazily initialized when accessed
+        // Initialization
     }
     
     deinit {
@@ -47,5 +49,6 @@ class MotionManager {
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
         continuation?.finish()
+        attitudeStream = nil
     }
 }
