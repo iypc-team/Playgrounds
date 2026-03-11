@@ -1,10 +1,14 @@
+//  DF-22  03/22/2026-1
+//  ContentView.swift
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/DF-2.swiftpm
+//  
 
 import SwiftUI
 import SceneKit
 import QuartzCore
 import GLKit
 
-struct SceneKitView : UIViewRepresentable {
+struct ContentView : UIViewRepresentable {
     var scene = SCNScene(named: "fighter.scn")!
 //    var scene = SCNScene(named: "smooth_ship.scn")!
     
@@ -73,7 +77,7 @@ struct SceneKitView : UIViewRepresentable {
         
         let plane = SCNPlane(width: 3, height: 2.2)
         plane.firstMaterial?.isDoubleSided = true
-        plane.firstMaterial?.diffuse.contents = UIColor.clear
+        plane.firstMaterial?.diffuse.contents = UIColor.white
         plane.firstMaterial?.fresnelExponent = .infinity
         
         let planeNode = SCNNode(geometry: plane)
@@ -139,7 +143,7 @@ struct SceneKitView : UIViewRepresentable {
 
 struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneKitView()
+        ContentView()
             .preferredColorScheme(.dark)
     }
 }
