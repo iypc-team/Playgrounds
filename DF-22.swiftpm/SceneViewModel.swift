@@ -7,15 +7,25 @@ import SwiftUI
 import SceneKit
 import QuartzCore
 import GLKit
+import CoreMotion  // Added for MotionManager integration
 
 class SceneViewModel: ObservableObject {
     @Published var scene: SCNScene
     
     private let model = SceneModel()
+    private let motionManager = MotionManager()  // Added MotionManager instance
+    private var shipNode: SCNNode?  // Reference to the ship for rotation updates
+    private var motionTask: Task<Void, Never>?  // Task for handling motion stream
     
     init() {
         scene = SCNScene(named: model.shipName + ".scn")!
         setupScene()
+        startMotionUpdates()  // Start listening to motion after setup
+    }
+    
+    deinit {
+        motionTask?.cancel()
+        motionManager.stopUpdates()
     }
     
     private func setupScene() {
@@ -71,13 +81,13 @@ class SceneViewModel: ObservableObject {
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
         // Retrieve and configure ship
-        let ship = scene.rootNode.childNode(withName: model.shipName, recursively: true)!
-        ship.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-        ship.geometry?.firstMaterial?.isDoubleSided = true
+        shipNode = scene.rootNode.childNode(withName: model.shipName, recursively: true)!
+        shipNode!.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+        shipNode!.geometry?.firstMaterial?.isDoubleSided = true
         
         // Add children to ship
-        ship.addChildNode(planeNode)
-        ship.addChildNode(cabinLightNode)
+        shipNode!.addChildNode(planeNode)
+        shipNode!.addChildNode(cabinLightNode)
         // Add engine lights to ship (assuming from original context)
         for lightConfig in model.engineLights {
             let lightNode = SCNNode()
@@ -88,11 +98,26 @@ class SceneViewModel: ObservableObject {
             lightNode.light!.castsShadow = lightConfig.castsShadow
             lightNode.light!.attenuationEndDistance = lightConfig.attenuationEndDistance!
             lightNode.position = lightConfig.position
-            ship.addChildNode(lightNode)
+            shipNode!.addChildNode(lightNode)
         }
         
         // Debug prints (kept for consistency, can be removed)
-        print("\nship.pivot\n", ship.pivot)
-        print("ship.orientation: ", ship.orientation)
+        print("\nship.pivot\n", shipNode!.pivot)
+        print("ship.orientation: ", shipNode!.orientation)
+    }
+    
+    private func startMotionUpdates() {
+        motionTask = Task {
+            do {
+                for try await quaternion in motionManager.attitudeStream {
+                    // Update ship orientation on main thread
+                    await MainActor.run {
+                        shipNode?.orientation = SCNVector4(quaternion.quaternion.x, quaternion.quaternion.y, quaternion.quaternion.z, quaternion.quaternion.w)
+                    }
+                }
+            } catch {
+                print("Motion stream error: \(error)")
+            }
+        }
     }
 }

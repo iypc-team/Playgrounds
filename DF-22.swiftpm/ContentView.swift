@@ -1,4 +1,4 @@
-//  DF-22  03/11/2026-3
+//  DF-22  03/11/2026-4
 //  ContentView.swift
 //  Project:  DF-22.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF-2.swiftpm
@@ -6,6 +6,7 @@
 
 import SwiftUI
 import SceneKit
+import CoreMotion  // Added for motion integration awareness
 
 struct ContentView: UIViewRepresentable {
     @StateObject private var viewModel = SceneViewModel()

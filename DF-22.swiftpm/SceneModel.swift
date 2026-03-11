@@ -1,5 +1,6 @@
 // SceneModel.swift
 // Defines data structures for scene configuration.
+//  
 
 import SwiftUI
 import SceneKit
