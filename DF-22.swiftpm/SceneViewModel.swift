@@ -20,12 +20,23 @@ class SceneViewModel: ObservableObject {
     init() {
         scene = SCNScene(named: model.shipName + ".scn")!
         setupScene()
-        motionManager.startUpdates()  // Start updates before accessing stream
-        startMotionUpdates()  // Start listening to motion after setup
+        // Removed automatic start of motion updates to allow button control
     }
     
     deinit {
         motionTask?.cancel()
+        motionManager.stopUpdates()
+    }
+    
+    public func startMotion() {
+        if motionTask != nil { return }  // Already started
+        motionManager.startUpdates()
+        startMotionUpdates()
+    }
+    
+    public func stopMotion() {
+        motionTask?.cancel()
+        motionTask = nil
         motionManager.stopUpdates()
     }
     

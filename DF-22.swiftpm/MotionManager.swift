@@ -35,7 +35,7 @@ class MotionManager {
                 
                 // Throttle to once per second
                 let currentTime = Date()
-                if let lastTime = self.lastYieldTime, currentTime.timeIntervalSince(lastTime) < 1.0 {
+                if let lastTime = self.lastYieldTime, currentTime.timeIntervalSince(lastTime) < 1.0 / 30 {
                     return
                 }
                 
