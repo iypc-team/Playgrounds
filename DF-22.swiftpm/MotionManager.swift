@@ -1,6 +1,6 @@
 // MotionManager.swift
-// Uses deviceMotionUpdateInterval instead of manual Date-based throttling.
-// Creates attitudeStream in startUpdates() so callers can safely for-await it afterwards.
+// Exposes device attitude as an AsyncThrowingStream and ensures the CMMotionManager
+// is stopped on stream termination (normal, error, or consumer cancellation).
 
 import CoreMotion
 
@@ -24,8 +24,23 @@ final class MotionManager {
         // Configure the update interval instead of doing manual throttling.
         motionManager.deviceMotionUpdateInterval = updateInterval
         
-        attitudeStream = AsyncThrowingStream { continuation in
+        attitudeStream = AsyncThrowingStream { [weak self] continuation in
+            guard let self = self else {
+                continuation.finish()
+                return
+            }
+            
+            // Hold on to the continuation so handlers can yield/finish later.
             self.continuation = continuation
+            
+            // Ensure we stop the motion manager when the stream is terminated
+            // (consumer cancellation, finish, or error).
+            continuation.onTermination = { @Sendable _ in
+                // Stop device motion updates and clear references.
+                self.motionManager.stopDeviceMotionUpdates()
+                self.continuation = nil
+                self.attitudeStream = nil
+            }
             
             guard self.motionManager.isDeviceMotionAvailable else {
                 continuation.finish(throwing: NSError(
@@ -38,9 +53,15 @@ final class MotionManager {
             
             // Start device motion updates; handler runs on the provided OperationQueue (.main here).
             self.motionManager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { [weak self] motion, error in
-                guard let self = self, let continuation = self.continuation else { return }
+                guard let self = self, let continuation = self.continuation else {
+                    // If we don't have a continuation, ensure the underlying manager is stopped.
+                    self?.motionManager.stopDeviceMotionUpdates()
+                    return
+                }
                 
                 if let error = error {
+                    // Stop updates before finishing the stream with error to avoid leaving CMMotionManager running.
+                    self.motionManager.stopDeviceMotionUpdates()
                     continuation.finish(throwing: error)
                     return
                 }
@@ -55,7 +76,9 @@ final class MotionManager {
     
     /// Stop updates and finish the stream.
     func stopUpdates() {
+        // Stop the CMMotionManager immediately.
         motionManager.stopDeviceMotionUpdates()
+        // Finish the continuation if present (will also trigger onTermination).
         continuation?.finish()
         continuation = nil
         attitudeStream = nil

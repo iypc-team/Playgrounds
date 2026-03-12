@@ -6,7 +6,11 @@ import SwiftUI
 import SceneKit
 
 struct SceneModel {
-    let shipName: String = "fighter"
+    let shipName: String = "ship"
+    // newFighter
+    // fighterPBR
+    // smooth_ship
+    // airplane
     
     struct LightConfig {
         let type: SCNLight.LightType
