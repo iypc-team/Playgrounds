@@ -1,26 +1,30 @@
 // SceneViewModel.swift
-//  
-// Handles scene creation, configuration, and business logic.
-//  
+// Safe scene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
+// and robust motion stream consumption.
 
 import SwiftUI
 import SceneKit
 import QuartzCore
 import GLKit
-import CoreMotion  // Added for MotionManager integration
+import CoreMotion  // MotionManager integration
 
-class SceneViewModel: ObservableObject {
+final class SceneViewModel: ObservableObject {
     @Published var scene: SCNScene
     
     private let model = SceneModel()
-    private let motionManager = MotionManager()  // Added MotionManager instance
-    private var shipNode: SCNNode?  // Reference to the ship for rotation updates
-    private var motionTask: Task<Void, Never>?  // Task for handling motion stream
+    private let motionManager = MotionManager()
+    private var shipNode: SCNNode?               // Optional reference to ship node
+    private var motionTask: Task<Void, Never>?   // Task for handling motion stream
     
     init() {
-        scene = SCNScene(named: model.shipName + ".scn")!
+        if let loaded = SCNScene(named: model.shipName + ".scn") {
+            scene = loaded
+        } else {
+            scene = SCNScene()
+            print("WARN: \(model.shipName).scn not found — using empty scene")
+        }
         setupScene()
-        // Removed automatic start of motion updates to allow button control
+        // Motion is started/stopped via public API (e.g., UI buttons)
     }
     
     deinit {
@@ -28,10 +32,17 @@ class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    public func startMotion() {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 30.0) {
         if motionTask != nil { return }  // Already started
-        motionManager.startUpdates()
-        startMotionUpdates()
+        
+        motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
+        
+        guard let stream = motionManager.attitudeStream else {
+            print("WARN: motion stream not available after startUpdates()")
+            return
+        }
+        
+        startMotionUpdates(stream: stream)
     }
     
     public func stopMotion() {
@@ -40,13 +51,13 @@ class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    func ghostEffect(scene: SCNScene) -> SCNNode {
+    // Creates a simple "ghost" SCNNode; no unused parameter.
+    func ghostEffect() -> SCNNode {
         // https://stackoverflow.com/questions/43843110/ios-scenekit-add-fresnel-effect-to-material-transparency
         let sphere = SCNSphere(radius: 8)
         sphere.segmentCount = 64
         
         let material = SCNMaterial()
-        // material.diffuse.contents = UIColor.clear
         material.diffuse.contents = UIColor.black
         material.reflective.contents = UIColor(red: 0, green: 0.764, blue: 1, alpha: 1)
         material.reflective.intensity = 3
@@ -62,7 +73,7 @@ class SceneViewModel: ObservableObject {
     }
     
     private func setupScene() {
-        // Add camera
+        // Add a camera (safe to add even if the scene file already contains one; helpful for fallback)
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = model.camera.position
@@ -73,34 +84,27 @@ class SceneViewModel: ObservableObject {
         // Add ambient lights
         for lightConfig in model.ambientLights {
             let lightNode = SCNNode()
-            lightNode.light = SCNLight()
-            lightNode.light!.type = lightConfig.type
-            lightNode.light!.color = lightConfig.color
+            let light = SCNLight()
+            light.type = lightConfig.type
+            light.color = lightConfig.color
+            lightNode.light = light
             lightNode.position = lightConfig.position
             scene.rootNode.addChildNode(lightNode)
         }
         
-        // Add engine lights
-        for lightConfig in model.engineLights {
-            let lightNode = SCNNode()
-            lightNode.light = SCNLight()
-            lightNode.light!.type = lightConfig.type
-            lightNode.light!.color = lightConfig.color
-            lightNode.light!.intensity = lightConfig.intensity!
-            lightNode.light!.castsShadow = lightConfig.castsShadow
-            lightNode.light!.attenuationEndDistance = lightConfig.attenuationEndDistance!
-            lightNode.position = lightConfig.position
-            // Note: In original, these are added to ship later
-        }
-        
-        // Add cabin light
+        // Create cabin light node (configure safely)
         let cabinLightNode = SCNNode()
-        cabinLightNode.light = SCNLight()
-        cabinLightNode.light!.type = model.cabinLight.type
-        cabinLightNode.light!.color = model.cabinLight.color
-        cabinLightNode.light!.intensity = model.cabinLight.intensity!
-        cabinLightNode.light!.castsShadow = model.cabinLight.castsShadow
-        cabinLightNode.light!.attenuationEndDistance = model.cabinLight.attenuationEndDistance!
+        let cabinLight = SCNLight()
+        cabinLight.type = model.cabinLight.type
+        cabinLight.color = model.cabinLight.color
+        if let intensity = model.cabinLight.intensity {
+            cabinLight.intensity = intensity
+        }
+        cabinLight.castsShadow = model.cabinLight.castsShadow
+        if let attenuation = model.cabinLight.attenuationEndDistance {
+            cabinLight.attenuationEndDistance = attenuation
+        }
+        cabinLightNode.light = cabinLight
         cabinLightNode.position = model.cabinLight.position
         
         // Create plane
@@ -113,39 +117,117 @@ class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
-        // Retrieve and configure ship
-        shipNode = scene.rootNode.childNode(withName: model.shipName, recursively: true)!
-        shipNode!.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-        shipNode!.geometry?.firstMaterial?.isDoubleSided = true
-        
-        // Add children to ship
-        shipNode!.addChildNode(planeNode)
-        shipNode!.addChildNode(cabinLightNode)
-        // Add engine lights to ship (assuming from original context)
-        for lightConfig in model.engineLights {
-            let lightNode = SCNNode()
-            lightNode.light = SCNLight()
-            lightNode.light!.type = lightConfig.type
-            lightNode.light!.color = lightConfig.color
-            lightNode.light!.intensity = lightConfig.intensity!
-            lightNode.light!.castsShadow = lightConfig.castsShadow
-            lightNode.light!.attenuationEndDistance = lightConfig.attenuationEndDistance!
-            lightNode.position = lightConfig.position
-            shipNode!.addChildNode(lightNode)
+        // Retrieve and configure ship safely (no force-unwrap)
+        if let ship = scene.rootNode.childNode(withName: model.shipName, recursively: true) {
+            shipNode = ship
+            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
+            
+            // Add children to ship
+            shipNode?.addChildNode(planeNode)
+            shipNode?.addChildNode(cabinLightNode)
+            
+            // Add engine lights to ship (configure safely)
+            for lightConfig in model.engineLights {
+                let lightNode = SCNNode()
+                let light = SCNLight()
+                light.type = lightConfig.type
+                light.color = lightConfig.color
+                if let intensity = lightConfig.intensity {
+                    light.intensity = intensity
+                }
+                light.castsShadow = lightConfig.castsShadow
+                if let attenuation = lightConfig.attenuationEndDistance {
+                    light.attenuationEndDistance = attenuation
+                }
+                lightNode.light = light
+                lightNode.position = lightConfig.position
+                shipNode?.addChildNode(lightNode)
+            }
+        } else {
+            // Ship not found — attach items to root so scene still shows something useful
+            print("WARN: ship node '\(model.shipName)' not found; attaching plane and lights to rootNode")
+            scene.rootNode.addChildNode(planeNode)
+            scene.rootNode.addChildNode(cabinLightNode)
+            
+            for lightConfig in model.engineLights {
+                let lightNode = SCNNode()
+                let light = SCNLight()
+                light.type = lightConfig.type
+                light.color = lightConfig.color
+                if let intensity = lightConfig.intensity {
+                    light.intensity = intensity
+                }
+                light.castsShadow = lightConfig.castsShadow
+                if let attenuation = lightConfig.attenuationEndDistance {
+                    light.attenuationEndDistance = attenuation
+                }
+                lightNode.light = light
+                lightNode.position = lightConfig.position
+                scene.rootNode.addChildNode(lightNode)
+            }
+            
+            // Fallback demo geometry so UI shows something immediately
+            addFallbackDemoContent()
         }
         
-        // Debug prints (kept for consistency, can be removed)
-        print("\nship.pivot\n", shipNode!.pivot)
-        print("ship.orientation: ", shipNode!.orientation)
+        // Optional debug prints (remove or gate behind debug flag as needed)
+        if let ship = shipNode {
+            print("\nship.pivot\n", ship.pivot)
+            print("ship.orientation: ", ship.orientation)
+        } else {
+            print("scene.rootNode children:", scene.rootNode.childNodes.map { $0.name ?? "<anon>" })
+        }
     }
     
-    private func startMotionUpdates() {
-        motionTask = Task {
+    private func addFallbackDemoContent() {
+        // Only add if a visible geometry isn't already present
+        // Add a visible geometry so the view isn't empty
+        let box = SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0.1)
+        box.firstMaterial?.diffuse.contents = UIColor.systemTeal
+        let boxNode = SCNNode(geometry: box)
+        boxNode.name = "debugBox"
+        boxNode.position = SCNVector3(0, 0, 0)
+        scene.rootNode.addChildNode(boxNode)
+        
+        // Add a light so the box is lit
+        let lightNode = SCNNode()
+        let light = SCNLight()
+        light.type = .omni
+        light.intensity = 1000
+        lightNode.light = light
+        lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
+        scene.rootNode.addChildNode(lightNode)
+        
+        // Optional: animate the box so it's obvious something is happening
+        let spin = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi * 2, z: 0, duration: 6))
+        boxNode.runAction(spin)
+    }
+    
+    private func startMotionUpdates(stream: AsyncThrowingStream<AttitudeQuaternion, Error>) {
+        // Ensure we don't start a duplicate task
+        if motionTask != nil { return }
+        
+        motionTask = Task { [weak self] in
+            guard let self = self else { return }
             do {
-                for try await quaternion in motionManager.attitudeStream! {
-                    // Update ship orientation on main thread
+                for try await att in stream {
+                    // Normalize quaternion to avoid scale issues
+                    let x = att.quaternion.x
+                    let y = att.quaternion.y
+                    let z = att.quaternion.z
+                    let w = att.quaternion.w
+                    let mag = sqrt(x * x + y * y + z * z + w * w)
+                    let nx = mag > 0 ? x / mag : x
+                    let ny = mag > 0 ? y / mag : y
+                    let nz = mag > 0 ? z / mag : z
+                    let nw = mag > 0 ? w / mag : w
+                    
+                    // Update ship orientation on main actor
                     await MainActor.run {
-                        shipNode?.orientation = SCNVector4(quaternion.quaternion.x, quaternion.quaternion.y, quaternion.quaternion.z, quaternion.quaternion.w)
+                        // Note: SceneKit's orientation is an SCNVector4. If you find the rotation
+                        // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
+                        self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                     }
                 }
             } catch {
