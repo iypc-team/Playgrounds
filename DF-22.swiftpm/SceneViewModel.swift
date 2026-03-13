@@ -174,12 +174,7 @@ final class SceneViewModel: ObservableObject {
         }
         
         // Optional debug prints (remove or gate behind debug flag as needed)
-        if let ship = shipNode {
-            let materials = ship.geometry?.materials
-            print("materials: \(String(describing: materials?.debugDescription))")
-        } else {
-            print("combatScene.rootNode children:", combatScene.rootNode.childNodes.map { $0.name ?? "<anon>" })
-        }
+        
     }
     
     private func addFallbackDemoContent() {

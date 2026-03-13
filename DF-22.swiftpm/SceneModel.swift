@@ -6,7 +6,8 @@ import SwiftUI
 import SceneKit
 
 struct SceneModel {
-    let shipName: String = "fighter"
+    let shipName: String = "newFighter"
+    // fighter
     // newFighter
     // fighterPBR
     // smooth_ship
