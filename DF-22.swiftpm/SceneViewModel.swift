@@ -75,6 +75,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     private func setupScene() {
+        let shields = ghostEffect()
         // Add a camera (safe to add even if the scene file already contains one; helpful for fallback)
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -127,6 +128,7 @@ final class SceneViewModel: ObservableObject {
             // Add children to ship
             shipNode?.addChildNode(planeNode)
             shipNode?.addChildNode(cabinLightNode)
+            shipNode?.addChildNode(shields)
             
             // Add engine lights to ship (configure safely)
             for lightConfig in model.engineLights {
@@ -147,8 +149,8 @@ final class SceneViewModel: ObservableObject {
         } else {
             // Ship not found — attach items to root so scene still shows something useful
             print("WARN: ship node '\(model.shipName)' not found; attaching plane and lights to rootNode")
-            combatScene.rootNode.addChildNode(planeNode)
-            combatScene.rootNode.addChildNode(cabinLightNode)
+//            combatScene.rootNode.addChildNode(planeNode)
+//            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
