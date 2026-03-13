@@ -1,4 +1,4 @@
-//  DF-22  03/12/2026-5
+//  DF-22  03/13/2026-1
 //  ContentView.swift
 //  Project:  DF-22.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF-22.swiftpm
@@ -13,12 +13,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            SceneKitUIView(scene: viewModel.scene)
+            SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
                 Spacer()
                 HStack {
-// Value of type 'SceneViewModel' has no dynamic member 'startMotion' using key path from root type 'SceneViewModel'
+                    // Value of type 'SceneViewModel' has no dynamic member 'startMotion' using key path from root type 'SceneViewModel'
                     Button(action: { viewModel.startMotion() }) {
                         Text("Start Motion")
                             .foregroundColor(.green)
@@ -41,16 +41,16 @@ struct ContentView: View {
 }
 
 struct SceneKitUIView: UIViewRepresentable {
-    var scene: SCNScene
+    var combatScene: SCNScene
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        scnView.scene = scene
+        scnView.scene = combatScene
         return scnView
     }
     
     func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = scene
+        scnView.scene = combatScene
         // Configure the view
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true

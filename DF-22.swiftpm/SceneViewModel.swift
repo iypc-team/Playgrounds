@@ -1,6 +1,7 @@
 // SceneViewModel.swift
-// Safe scene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
+// Safe combatScene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
 // and robust motion stream consumption.
+// print
 
 import SwiftUI
 import SceneKit
@@ -9,7 +10,8 @@ import GLKit
 import CoreMotion  // MotionManager integration
 
 final class SceneViewModel: ObservableObject {
-    @Published var scene: SCNScene
+    @Published var combatScene: SCNScene
+    @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
     
     private let model = SceneModel()
     private let motionManager = MotionManager()
@@ -18,9 +20,9 @@ final class SceneViewModel: ObservableObject {
     
     init() {
         if let loaded = SCNScene(named: model.shipName + ".scn") {
-            scene = loaded
+            combatScene = loaded
         } else {
-            scene = SCNScene()
+            combatScene = SCNScene()
             print("WARN: \(model.shipName).scn not found — using empty scene")
         }
         setupScene()
@@ -79,17 +81,16 @@ final class SceneViewModel: ObservableObject {
         cameraNode.position = model.camera.position
         cameraNode.camera?.automaticallyAdjustsZRange = model.camera.automaticallyAdjustsZRange
         cameraNode.look(at: model.camera.lookAt)
-        scene.rootNode.addChildNode(cameraNode)
+        combatScene.rootNode.addChildNode(cameraNode)
         
         // Add ambient lights
         for lightConfig in model.ambientLights {
             let lightNode = SCNNode()
-            let light = SCNLight()
-            light.type = lightConfig.type
-            light.color = lightConfig.color
-            lightNode.light = light
+            lightNode.light = SCNLight()
+            lightNode.light?.type = lightConfig.type
+            lightNode.light?.color = lightConfig.color
             lightNode.position = lightConfig.position
-            scene.rootNode.addChildNode(lightNode)
+            combatScene.rootNode.addChildNode(lightNode)
         }
         
         // Create cabin light node (configure safely)
@@ -118,7 +119,7 @@ final class SceneViewModel: ObservableObject {
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
         // Retrieve and configure ship safely (no force-unwrap)
-        if let ship = scene.rootNode.childNode(withName: model.shipName, recursively: true) {
+        if let ship = combatScene.rootNode.childNode(withName: model.shipName, recursively: true) {
             shipNode = ship
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
@@ -130,41 +131,39 @@ final class SceneViewModel: ObservableObject {
             // Add engine lights to ship (configure safely)
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
-                let light = SCNLight()
-                light.type = lightConfig.type
-                light.color = lightConfig.color
+                lightNode.light = SCNLight()
+                lightNode.light?.type = lightConfig.type
+                lightNode.light?.color = lightConfig.color
                 if let intensity = lightConfig.intensity {
-                    light.intensity = intensity
+                    lightNode.light?.intensity = intensity
                 }
-                light.castsShadow = lightConfig.castsShadow
+                lightNode.light?.castsShadow = lightConfig.castsShadow
                 if let attenuation = lightConfig.attenuationEndDistance {
-                    light.attenuationEndDistance = attenuation
+                    lightNode.light?.attenuationEndDistance = attenuation
                 }
-                lightNode.light = light
                 lightNode.position = lightConfig.position
                 shipNode?.addChildNode(lightNode)
             }
         } else {
             // Ship not found — attach items to root so scene still shows something useful
             print("WARN: ship node '\(model.shipName)' not found; attaching plane and lights to rootNode")
-            scene.rootNode.addChildNode(planeNode)
-            scene.rootNode.addChildNode(cabinLightNode)
+            combatScene.rootNode.addChildNode(planeNode)
+            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
-                let light = SCNLight()
-                light.type = lightConfig.type
-                light.color = lightConfig.color
+                lightNode.light = SCNLight()
+                lightNode.light?.type = lightConfig.type
+                lightNode.light?.color = lightConfig.color
                 if let intensity = lightConfig.intensity {
-                    light.intensity = intensity
+                    lightNode.light?.intensity = intensity
                 }
-                light.castsShadow = lightConfig.castsShadow
+                lightNode.light?.castsShadow = lightConfig.castsShadow
                 if let attenuation = lightConfig.attenuationEndDistance {
-                    light.attenuationEndDistance = attenuation
+                    lightNode.light?.attenuationEndDistance = attenuation
                 }
-                lightNode.light = light
                 lightNode.position = lightConfig.position
-                scene.rootNode.addChildNode(lightNode)
+                combatScene.rootNode.addChildNode(lightNode)
             }
             
             // Fallback demo geometry so UI shows something immediately
@@ -173,10 +172,10 @@ final class SceneViewModel: ObservableObject {
         
         // Optional debug prints (remove or gate behind debug flag as needed)
         if let ship = shipNode {
-            print("\nship.pivot\n", ship.pivot)
-            print("ship.orientation: ", ship.orientation)
+            let materials = ship.geometry?.materials
+            print("materials: \(String(describing: materials?.debugDescription))")
         } else {
-            print("scene.rootNode children:", scene.rootNode.childNodes.map { $0.name ?? "<anon>" })
+            print("combatScene.rootNode children:", combatScene.rootNode.childNodes.map { $0.name ?? "<anon>" })
         }
     }
     
@@ -188,7 +187,7 @@ final class SceneViewModel: ObservableObject {
         let boxNode = SCNNode(geometry: box)
         boxNode.name = "debugBox"
         boxNode.position = SCNVector3(0, 0, 0)
-        scene.rootNode.addChildNode(boxNode)
+        combatScene.rootNode.addChildNode(boxNode)
         
         // Add a light so the box is lit
         let lightNode = SCNNode()
@@ -197,7 +196,7 @@ final class SceneViewModel: ObservableObject {
         light.intensity = 1000
         lightNode.light = light
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
-        scene.rootNode.addChildNode(lightNode)
+        combatScene.rootNode.addChildNode(lightNode)
         
         // Optional: animate the box so it's obvious something is happening
         let spin = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi * 2, z: 0, duration: 6))
@@ -228,6 +227,7 @@ final class SceneViewModel: ObservableObject {
                         // Note: SceneKit's orientation is an SCNVector4. If you find the rotation
                         // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
+                        self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
                     }
                 }
             } catch {
