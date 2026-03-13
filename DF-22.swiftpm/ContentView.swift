@@ -1,4 +1,4 @@
-//  DF-22  03/13/2026-2
+//  DF-22  03/13/2026-3
 //  ContentView.swift
 //  Project:  DF-22.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF-22.swiftpm
@@ -36,6 +36,10 @@ struct ContentView: View {
                 }
                 .padding()
             }
+        }
+        .onTapGesture(count: 2) {
+            viewModel.shieldsEnabled.toggle()
+            print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
     }
 }

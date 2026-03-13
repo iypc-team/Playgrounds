@@ -12,6 +12,7 @@ import CoreMotion  // MotionManager integration
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
+    @Published var shieldsEnabled: Bool = false
     
     private let model = SceneModel()
     private let motionManager = MotionManager()
@@ -149,8 +150,8 @@ final class SceneViewModel: ObservableObject {
         } else {
             // Ship not found — attach items to root so scene still shows something useful
             print("WARN: ship node '\(model.shipName)' not found; attaching plane and lights to rootNode")
-//            combatScene.rootNode.addChildNode(planeNode)
-//            combatScene.rootNode.addChildNode(cabinLightNode)
+            //            combatScene.rootNode.addChildNode(planeNode)
+            //            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
