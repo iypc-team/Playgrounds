@@ -1,7 +1,7 @@
 // SceneViewModel.swift
 // Safe combatScene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
 // and robust motion stream consumption.
-// print
+// stopMotion pressed
 
 import SwiftUI
 import SceneKit
@@ -20,8 +20,10 @@ final class SceneViewModel: ObservableObject {
     private var motionTask: Task<Void, Never>?   // Task for handling motion stream
     
     init() {
+//        print("model: \(model)\n")
         if let loaded = SCNScene(named: model.shipName + ".scn") {
             combatScene = loaded
+//            print("loaded: \(loaded.rootNode.childNodes)\n")
         } else {
             combatScene = SCNScene()
             print("WARN: \(model.shipName).scn not found — using empty scene")
@@ -36,6 +38,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func startMotion(updateInterval: TimeInterval = 1.0 / 30.0) {
+        print("\nstartMotion called")
         if motionTask != nil { return }  // Already started
         
         motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
@@ -49,6 +52,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func stopMotion() {
+        print("stopMotion called\n")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
@@ -125,6 +129,8 @@ final class SceneViewModel: ObservableObject {
             shipNode = ship
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
+            let  materials = shipNode?.geometry?.materials
+            print("materials: \(String(describing: materials))\n")
             
             // Add children to ship
             shipNode?.addChildNode(planeNode)
@@ -180,8 +186,8 @@ final class SceneViewModel: ObservableObject {
     private func addFallbackDemoContent() {
         // Only add if a visible geometry isn't already present
         // Add a visible geometry so the view isn't empty
-        let box = SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0.1)
-        box.firstMaterial?.diffuse.contents = UIColor.systemTeal
+        let box = SCNBox(width: 1, height: 10, length: 1, chamferRadius: 0.1)
+        box.firstMaterial?.diffuse.contents = UIColor.gray
         let boxNode = SCNNode(geometry: box)
         boxNode.name = "debugBox"
         boxNode.position = SCNVector3(0, 0, 0)
@@ -194,7 +200,7 @@ final class SceneViewModel: ObservableObject {
         light.intensity = 1000
         lightNode.light = light
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
-        combatScene.rootNode.addChildNode(lightNode)
+//        combatScene.rootNode.addChildNode(lightNode)
         
         // Optional: animate the box so it's obvious something is happening
         let spin = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi * 2, z: 0, duration: 6))

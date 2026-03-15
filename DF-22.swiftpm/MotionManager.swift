@@ -17,7 +17,7 @@ final class MotionManager {
     
     /// Start device motion updates and create the attitude stream.
     /// - Parameter updateInterval: desired update interval in seconds (default 1/30s).
-    func startUpdates(updateInterval: TimeInterval = 1.0 / 30.0) {
+    func startUpdates(updateInterval: TimeInterval = 1.0 / 60.0) {
         // If already started, do nothing.
         if attitudeStream != nil { return }
         

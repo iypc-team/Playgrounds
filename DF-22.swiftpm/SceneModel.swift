@@ -6,12 +6,13 @@ import SwiftUI
 import SceneKit
 
 struct SceneModel {
-    let shipName: String = "newFighter"
+    let shipName: String = "airplane"
     // fighter
     // newFighter
     // fighterPBR
     // smooth_ship
     // airplane
+    // Y-Up-fighter.scn
     
     struct LightConfig {
         let type: SCNLight.LightType
@@ -27,7 +28,7 @@ struct SceneModel {
         let height: CGFloat = 2.2
         let position: SCNVector3 = SCNVector3Make(0, -2.55, 0)
         let rotationAngle: CGFloat = CGFloat(GLKMathDegreesToRadians(90.0))
-        let materialColor: UIColor = .white
+        let materialColor: UIColor = .clear
         let isDoubleSided: Bool = true
         let fresnelExponent: CGFloat = .infinity
     }
