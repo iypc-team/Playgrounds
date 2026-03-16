@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/16/2026-3
+//  Inspect_SCN 03/16/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
@@ -121,6 +121,10 @@ struct ContentView: View {
         results += "\nGeometries:\n"
         for (index, geometry) in geometries.enumerated() {
             results += "\(index + 1). \(geometry.name ?? "Unnamed") - \(type(of: geometry))\n"
+            results += "  Materials (\(geometry.materials.count)):\n"
+            for (matIndex, material) in geometry.materials.enumerated() {
+                results += "    \(matIndex + 1). \(material.name ?? "Unnamed Material")\n"
+            }
         }
         
         inspectionResults = results
