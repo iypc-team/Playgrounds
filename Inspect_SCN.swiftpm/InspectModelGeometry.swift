@@ -39,7 +39,8 @@ class InspectModelGeometry {
     
     /// Prints a summary of the scene's geometry.
     func printGeometrySummary() {
-        guard let scene = scene else {
+        guard let scene = scene else { 
+            // Value 'scene' was defined but never used. replace with boolean test. Show fully updated InspectModelGeometry.swift code snippet
             print("No scene loaded.")
             return
         }

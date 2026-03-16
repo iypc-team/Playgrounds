@@ -17,7 +17,6 @@ class SceneViewModel: ObservableObject {
         "fighter.usdg",
         "fighterPBR.scn",
         "newFighter.scn",
-        "new_enemy.scn",
         "smooth_ship.scn"
     ]
     private var currentSceneIndex = 0  // Index to track current scene

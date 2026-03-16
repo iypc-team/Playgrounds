@@ -34,6 +34,7 @@ class SceneModel: ObservableObject {
         } else {
             print("Failed to load scene: \(sceneName)")
             currentScene = SCNScene() // Fallback
+            print("currentScene: \(String(describing: currentScene))")
             return currentScene
         }
     }

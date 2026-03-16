@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/15/2026-1
+//  Inspect_SCN 03/16/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
@@ -61,7 +61,7 @@ struct ContentView: View {
                         Text("Inspect Geometry")
                             .foregroundColor(.white)
                             .padding()
-                            .background(Color.blue.opacity(0.7))
+                            .background(Color.gray.opacity(0.5))
                             .cornerRadius(8)
                     }
                     .tint(.white)
