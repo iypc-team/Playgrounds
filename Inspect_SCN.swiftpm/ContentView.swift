@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/16/2026-1
+//  Inspect_SCN 03/16/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
@@ -101,6 +101,7 @@ struct ContentView: View {
     }
     
     private func inspectGeometry() {
+        print("func inspectGeometry()")
         // Load scene for inspection if needed
         _ = viewModel.sceneModel.loadSceneForInspection()
         
@@ -126,10 +127,14 @@ struct ContentView: View {
         showInspection = true
         
         // Also print to console for debugging
+        print("inspectionResults: \(inspectionResults)")
         viewModel.sceneModel.printGeometrySummary()
     }
 }
 
-#Preview {
-    ContentView()
+struct SceneKitView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .preferredColorScheme(.dark)
+    }
 }

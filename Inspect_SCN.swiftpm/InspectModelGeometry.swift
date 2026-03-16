@@ -27,8 +27,8 @@ class InspectModelGeometry {
     
     /// Lists all SCNNode objects in the scene recursively.
     func listAllNodes() -> [SCNNode] {
-        guard let scene = scene else { return [] }
-        return scene.rootNode.childNodes(passingTest: { _, _ in true })
+        guard self.scene != nil else { return [] }
+        return self.scene!.rootNode.childNodes(passingTest: { _, _ in true })
     }
     
     /// Lists all SCNGeometry objects in the scene.
@@ -39,8 +39,7 @@ class InspectModelGeometry {
     
     /// Prints a summary of the scene's geometry.
     func printGeometrySummary() {
-        guard let scene = scene else { 
-            // Value 'scene' was defined but never used. replace with boolean test. Show fully updated InspectModelGeometry.swift code snippet
+        guard self.scene != nil else {
             print("No scene loaded.")
             return
         }
@@ -59,7 +58,7 @@ class InspectModelGeometry {
     
     /// Gets the bounding box of the entire scene.
     func sceneBoundingBox() -> (min: SCNVector3, max: SCNVector3)? {
-        guard let scene = scene else { return nil }
-        return scene.rootNode.boundingBox
+        guard self.scene != nil else { return nil }
+        return self.scene!.rootNode.boundingBox
     }
 }
