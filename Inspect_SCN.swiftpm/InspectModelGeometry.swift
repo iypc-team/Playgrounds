@@ -1,5 +1,5 @@
 // InspectModelGeometry.swift
-// 
+// new_enemy.scn
 
 import SceneKit
 
@@ -9,7 +9,8 @@ class InspectModelGeometry {
     
     /// Initializes the inspector with a scene loaded by name.
     /// - Parameter sceneName: The name of the .scn file to load (without extension).
-    init(sceneName: String) {
+    init(sceneName: String) { 
+        print("class InspectModelGeometry")
         // Load the scene using the same method as SceneViewModel
         if let loadedScene = SCNScene(named: sceneName) {
             self.scene = loadedScene
@@ -21,7 +22,8 @@ class InspectModelGeometry {
     
     /// Initializes the inspector with an existing SCNScene.
     /// - Parameter scene: The SceneKit scene to inspect.
-    init(scene: SCNScene) {
+    init(scene: SCNScene) { 
+        print("class InspectModelGeometry")
         self.scene = scene
     }
     

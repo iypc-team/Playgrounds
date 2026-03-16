@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/16/2026-2
+//  Inspect_SCN 03/16/2026-3
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
@@ -15,7 +15,6 @@ struct ContentView: View {
         "fighter.scn",
         "fighterPBR.scn",
         "newFighter.scn",
-        "new_enemy.scn",
         "smooth_ship.scn"
     ]
     
@@ -75,12 +74,13 @@ struct ContentView: View {
                     VStack {
                         Text("Geometry Inspection Results:")
                             .foregroundColor(.white)
+                            .background(Color.black)
                             .font(.headline)
                         ScrollView {
                             Text(inspectionResults)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(Color.black.opacity(0.7))
+                                .background(Color.black.opacity(1.0))
                                 .cornerRadius(8)
                         }
                         .frame(maxHeight: 200)

@@ -14,7 +14,6 @@ class SceneViewModel: ObservableObject {
     private let sceneFiles = [
         "Y-Up-fighter.scn",
         "fighter.scn",
-        "fighter.usdg",
         "fighterPBR.scn",
         "newFighter.scn",
         "smooth_ship.scn"
