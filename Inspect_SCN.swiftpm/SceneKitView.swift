@@ -1,6 +1,7 @@
 //  SceneKitView.swift
 //  
 
+
 import SwiftUI
 import SceneKit
 
@@ -36,7 +37,7 @@ struct SceneKitView: UIViewRepresentable {
         cabinLightNode.light?.attenuationStartDistance = 1.0
         cabinLightNode.light?.attenuationEndDistance = 5.0
         cabinLightNode.light?.color = sceneModel.cabinLightColor
-        cabinLightNode.light?.intensity = 6000
+        cabinLightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model property
         //        print("cabinLightNode: \(String(describing: cabinLightNode.light?.intensity)) ")
         
         node.addChildNode(cabinLightNode)
@@ -49,8 +50,8 @@ struct SceneKitView: UIViewRepresentable {
         engineLightNode.light?.castsShadow = false
         engineLightNode.light?.attenuationStartDistance = 1.0
         engineLightNode.light?.attenuationEndDistance = 5.0
-        engineLightNode.light?.color = UIColor.green
-        engineLightNode.light?.intensity = 6000 
+        engineLightNode.light?.color = sceneModel.engineLightColor  // Use model property
+        engineLightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model property
         //        print("engineLightNode: \(engineLightNode.description)\n ")
         
         node.addChildNode(engineLightNode)

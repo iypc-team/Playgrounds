@@ -1,6 +1,7 @@
 //  SceneModel.swift
-//  Updated to include geometry inspection capabilities
+//  Updated to include geometry inspection capabilities and synchronized scene handling
 //  
+
 
 import SceneKit
 import Foundation
@@ -26,22 +27,14 @@ class SceneModel: ObservableObject {
     // Geometry inspection properties
     private var currentScene: SCNScene?
     
-    // Load the scene for inspection
-    func loadSceneForInspection() -> SCNScene? {
-        if let loadedScene = SCNScene(named: sceneName) {
-            currentScene = loadedScene
-            return loadedScene
-        } else {
-            print("Failed to load scene: \(sceneName)")
-            currentScene = SCNScene() // Fallback
-            print("currentScene: \(String(describing: currentScene))")
-            return currentScene
-        }
+    // Set the current scene for inspection (to synchronize with SceneViewModel)
+    func setScene(_ scene: SCNScene) {
+        currentScene = scene
     }
     
     // Lists all SCNNode objects in the current scene recursively
     func listAllNodes() -> [SCNNode] {
-        guard let scene = currentScene ?? loadSceneForInspection() else { return [] }
+        guard let scene = currentScene else { return [] }
         return scene.rootNode.childNodes(passingTest: { _, _ in true })
     }
     
@@ -53,8 +46,8 @@ class SceneModel: ObservableObject {
     
     // Prints a summary of the scene's geometry
     func printGeometrySummary() {
-        guard let _ = currentScene ?? loadSceneForInspection() else {
-            print("No scene loaded.")
+        guard currentScene != nil else {  // Fixed: Use boolean test instead of defining unused 'scene'
+            print("No scene set for inspection.")
             return
         }
         
@@ -72,7 +65,7 @@ class SceneModel: ObservableObject {
     
     // Gets the bounding box of the entire scene
     func sceneBoundingBox() -> (min: SCNVector3, max: SCNVector3)? {
-        guard let scene = currentScene ?? loadSceneForInspection() else { return nil }
+        guard let scene = currentScene else { return nil }
         return scene.rootNode.boundingBox
     }
     

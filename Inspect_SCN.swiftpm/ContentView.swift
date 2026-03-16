@@ -1,7 +1,8 @@
-//  Inspect_SCN 03/16/2026-4
+//  Inspect_SCN 03/16/2026-5
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
+
 
 import SwiftUI
 import SceneKit
@@ -102,8 +103,7 @@ struct ContentView: View {
     
     private func inspectGeometry() {
         print("func inspectGeometry()")
-        // Load scene for inspection if needed
-        _ = viewModel.sceneModel.loadSceneForInspection()
+        // No need to load scene; it's already synchronized in SceneViewModel
         
         // Gather inspection data
         let nodes = viewModel.sceneModel.listAllNodes()

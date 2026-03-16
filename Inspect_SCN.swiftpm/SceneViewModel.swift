@@ -1,6 +1,7 @@
 //  SceneViewModel.swift
 //  
 
+
 import SwiftUI
 import SceneKit
 import Foundation
@@ -54,8 +55,12 @@ class SceneViewModel: ObservableObject {
         if let loadedScene = SCNScene(named: name) {
             self.scene = loadedScene  // Update to loaded scene
             sceneModel.sceneName = name  // Update model
+            sceneModel.setScene(loadedScene)  // Synchronize scene for inspection
         } else {
-            // Failed to load scene named '\(name)'
+            print("Failed to load scene: \(name)")  // Added logging for debugging
+            // Fallback to empty scene
+            self.scene = SCNScene()
+            sceneModel.setScene(self.scene)
         }
         setupScene()  // Reconfigure camera and lights for new scene
     }
