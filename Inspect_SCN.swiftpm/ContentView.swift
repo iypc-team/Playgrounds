@@ -1,8 +1,6 @@
-//  Inspect_SCN 03/16/2026-5
+//  Inspect_SCN 03/17/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
-//  
-
 
 import SwiftUI
 import SceneKit
@@ -54,7 +52,6 @@ struct ContentView: View {
                     }
                     .tint(.white)
                     
-                    // New button for geometry inspection
                     Button(action: {
                         inspectGeometry()
                     }) {
@@ -65,6 +62,7 @@ struct ContentView: View {
                             .cornerRadius(8)
                     }
                     .tint(.white)
+                    .accessibilityLabel("Inspect the geometry of the current scene")
                     
                     Spacer()
                 }
@@ -75,13 +73,14 @@ struct ContentView: View {
                     VStack {
                         Text("Geometry Inspection Results:")
                             .foregroundColor(.white)
-                            .background(Color.black)
+                            .background(Color.black.opacity(0.8))
                             .font(.headline)
+                            .padding(.bottom, 8)
                         ScrollView {
                             Text(inspectionResults)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(Color.black.opacity(1.0))
+                                .background(Color.black.opacity(0.9))
                                 .cornerRadius(8)
                         }
                         .frame(maxHeight: 200)
@@ -93,6 +92,7 @@ struct ContentView: View {
                         .padding()
                         .background(Color.red.opacity(0.7))
                         .cornerRadius(8)
+                        .accessibilityLabel("Close inspection results")
                     }
                     .padding()
                 }
@@ -102,36 +102,11 @@ struct ContentView: View {
     }
     
     private func inspectGeometry() {
-        print("func inspectGeometry()")
-        // No need to load scene; it's already synchronized in SceneViewModel
-        
-        // Gather inspection data
-        let nodes = viewModel.sceneModel.listAllNodes()
-        let geometries = viewModel.sceneModel.listAllGeometries()
-        let boundingBox = viewModel.sceneModel.sceneBoundingBox()
-        
-        var results = "Scene: \(selectedFile)\n"
-        results += "Total Nodes: \(nodes.count)\n"
-        results += "Nodes with Geometry: \(geometries.count)\n"
-        
-        if let box = boundingBox {
-            results += "Bounding Box: Min(\(box.min.x), \(box.min.y), \(box.min.z)) Max(\(box.max.x), \(box.max.y), \(box.max.z))\n"
-        }
-        
-        results += "\nGeometries:\n"
-        for (index, geometry) in geometries.enumerated() {
-            results += "\(index + 1). \(geometry.name ?? "Unnamed") - \(type(of: geometry))\n"
-            results += "  Materials (\(geometry.materials.count)):\n"
-            for (matIndex, material) in geometry.materials.enumerated() {
-                results += "    \(matIndex + 1). \(material.name ?? "Unnamed Material")\n"
-            }
-        }
-        
-        inspectionResults = results
+        // Generate report via SceneModel
+        inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
         showInspection = true
         
-        // Also print to console for debugging
-        print("inspectionResults: \(inspectionResults)")
+        // Print summary to console for debugging
         viewModel.sceneModel.printGeometrySummary()
     }
 }

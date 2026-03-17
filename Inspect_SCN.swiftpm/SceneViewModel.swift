@@ -1,6 +1,4 @@
 //  SceneViewModel.swift
-//  
-
 
 import SwiftUI
 import SceneKit
@@ -27,7 +25,7 @@ class SceneViewModel: ObservableObject {
         loadScene(for: sceneModel.sceneName)  // Load initial scene
     }
     
-    public func setupScene() {
+    func setupScene() {
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -36,7 +34,7 @@ class SceneViewModel: ObservableObject {
         
         // Setup radar node
         let radarNode = SCNNode()
-        radarNode.position = sceneModel.radarPosition  // Fix: Assign position from model
+        radarNode.position = sceneModel.radarPosition
         radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
         radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
         scene.rootNode.addChildNode(radarNode)
@@ -51,7 +49,7 @@ class SceneViewModel: ObservableObject {
     }
     
     // Method to load a scene by name
-    public func loadScene(for name: String) {
+    func loadScene(for name: String) {
         if let loadedScene = SCNScene(named: name) {
             self.scene = loadedScene  // Update to loaded scene
             sceneModel.sceneName = name  // Update model
@@ -70,16 +68,5 @@ class SceneViewModel: ObservableObject {
         currentSceneIndex = (currentSceneIndex + 1) % sceneFiles.count
         let nextFile = sceneFiles[currentSceneIndex]
         loadScene(for: nextFile)
-    }
-    
-    private func positionRadarNode(_ radarNode: SCNNode) {
-        guard let geometry = radarNode.geometry else {
-            return
-        }
-        
-        let boundingBox = geometry.boundingBox
-        var length = boundingBox.max.y - boundingBox.min.y  // Operate on y-axis only
-        length += length / 2.5
-        sceneModel.radarPosition = SCNVector3(x: 0.0, y: length / 2.0, z: 0)
     }
 }

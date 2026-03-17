@@ -1,24 +1,22 @@
 //  SceneModel.swift
-//  Updated to include geometry inspection capabilities and synchronized scene handling
-//  
-
+//  Updated to centralize geometry inspection capabilities and synchronized scene handling
 
 import SceneKit
 import Foundation
 
 class SceneModel: ObservableObject {
-    @Published var sceneName: String = "newFighter.scn"  // Made @Published to trigger view updates
-    var enemyName: String = "smooth_ship.scn"  // Fixed typo: 'enenyName' to 'enemyName'
+    @Published var sceneName: String = "newFighter.scn"
+    var enemyName: String = "smooth_ship.scn"
     
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
     
     // New properties for fighter node configuration
     var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)
     
-    // property for radar position
+    // Property for radar position
     var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
-    // properties for lighting
+    // Properties for lighting
     var lightIntensity: CGFloat = 200
     var omniLightIntensity: CGFloat = 5000
     var cabinLightColor: UIColor = UIColor.red
@@ -46,7 +44,7 @@ class SceneModel: ObservableObject {
     
     // Prints a summary of the scene's geometry
     func printGeometrySummary() {
-        guard currentScene != nil else {  // Fixed: Use boolean test instead of defining unused 'scene'
+        guard currentScene != nil else {
             print("No scene set for inspection.")
             return
         }
@@ -61,6 +59,32 @@ class SceneModel: ObservableObject {
         for (index, geometry) in geometries.enumerated() {
             print("  Geometry \(index + 1): \(geometry.name ?? "Unnamed") - Type: \(type(of: geometry))")
         }
+    }
+    
+    // Generates a detailed inspection report as a string
+    func generateInspectionReport(for sceneName: String) -> String {
+        let nodes = listAllNodes()
+        let geometries = listAllGeometries()
+        let boundingBox = sceneBoundingBox()
+        
+        var results = "Scene: \(sceneName)\n"
+        results += "Total Nodes: \(nodes.count)\n"
+        results += "Nodes with Geometry: \(geometries.count)\n"
+        
+        if let box = boundingBox {
+            results += "Bounding Box: Min(\(box.min.x), \(box.min.y), \(box.min.z)) Max(\(box.max.x), \(box.max.y), \(box.max.z))\n"
+        }
+        
+        results += "\nGeometries:\n"
+        for (index, geometry) in geometries.enumerated() {
+            results += "\(index + 1). \(geometry.name ?? "Unnamed") - \(type(of: geometry))\n"
+            results += "  Materials (\(geometry.materials.count)):\n"
+            for (matIndex, material) in geometry.materials.enumerated() {
+                results += "    \(matIndex + 1). \(material.name ?? "Unnamed Material")\n"
+            }
+        }
+        
+        return results
     }
     
     // Gets the bounding box of the entire scene
