@@ -18,7 +18,7 @@ class SceneModel: ObservableObject {
     var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
     // Properties for lighting
-    var lightIntensity: CGFloat = 200
+    var lightIntensity: CGFloat = 2000
     var omniLightIntensity: CGFloat = 5000
     var cabinLightColor: UIColor = UIColor.red
     var engineLightColor: UIColor = UIColor.green

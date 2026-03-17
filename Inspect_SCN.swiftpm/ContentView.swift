@@ -1,6 +1,9 @@
-//  Inspect_SCN 03/17/2026-8
+//  Inspect_SCN 03/17/2026-9
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
+
+// ContentView.swift
+// Fully updated: Added onAppear to load initial scene after resources, ensuring bundle readiness
 
 import SwiftUI
 import SceneKit
@@ -33,6 +36,13 @@ struct ContentView: View {
                 }
                 .onAppear {
                     loadResourceFiles()
+                    // Load initial scene after resources are loaded
+                    if resourceFiles.contains(selectedFile) {
+                        viewModel.loadScene(for: selectedFile)
+                    } else if let firstFile = resourceFiles.first {
+                        selectedFile = firstFile
+                        viewModel.loadScene(for: firstFile)
+                    }
                 }
             
             VStack {

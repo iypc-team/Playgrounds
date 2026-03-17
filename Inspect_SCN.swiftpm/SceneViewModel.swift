@@ -1,5 +1,5 @@
-//  SceneViewModel.swift
-// 
+// SceneViewModel.swift
+// Fully updated: Removed hardcoded sceneFiles array, nextScene method, and initial loadScene call for consistency
 
 import SwiftUI
 import SceneKit
@@ -19,20 +19,9 @@ class SceneViewModel: ObservableObject {
         return Float(geometry.height / 2)
     }
     
-    // List of all scene files in Resources/ to cycle through
-    private let sceneFiles = [
-        "Y-Up-fighter.scn",
-        "fighter.scn",
-        "fighterPBR.scn",
-        "newFighter.scn",
-        "smooth_ship.scn"
-    ]
-    private var currentSceneIndex = 0  // Index to track current scene
-    
     init() {
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
-        loadScene(for: sceneModel.sceneName)  // Load initial scene
     }
     
     func setupScene() {
@@ -56,7 +45,7 @@ class SceneViewModel: ObservableObject {
         radarNodeMaterial.transparency = 0.1
         radarNode.geometry?.materials = [radarNodeMaterial]
         
-//        scene.rootNode.addChildNode(radarNode)
+        //        scene.rootNode.addChildNode(radarNode)
         self.radarNode = radarNode  // Assign to property for computed access
         
         // Use radarNodePosition to set radarNode.position on the y-axis
@@ -84,12 +73,5 @@ class SceneViewModel: ObservableObject {
             sceneModel.setScene(self.scene)
         }
         setupScene()  // Reconfigure camera and lights for new scene
-    }
-    
-    // Method to cycle to the next scene in the list
-    func nextScene() {
-        currentSceneIndex = (currentSceneIndex + 1) % sceneFiles.count
-        let nextFile = sceneFiles[currentSceneIndex]
-        loadScene(for: nextFile)
     }
 }
