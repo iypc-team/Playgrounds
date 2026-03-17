@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/17/2026-5
+//  Inspect_SCN 03/17/2026-6
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -18,6 +18,9 @@ struct ContentView: View {
     @State private var inspectionResults: String = ""
     @State private var showInspection: Bool = false
     
+    // State for showing bounding box
+    @State private var showBoundingBox: Bool = false
+    
     var body: some View {
         ZStack {
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
@@ -26,6 +29,7 @@ struct ContentView: View {
                 .onChange(of: selectedFile) { newValue in
                     viewModel.loadScene(for: newValue)
                     inspectionResults = "" // Reset inspection when scene changes
+                    showBoundingBox = false  // Reset bounding box display on scene change
                 }
                 .onAppear {
                     loadResourceFiles()
@@ -60,6 +64,25 @@ struct ContentView: View {
                     }
                     .tint(.white)
                     .accessibilityLabel("Inspect the geometry of the current scene")
+                    
+                    Button(action: {
+                        showBoundingBox.toggle()
+                        if showBoundingBox {
+                            if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
+                                viewModel.scene.rootNode.addChildNode(boxNode)
+                            }
+                        } else {
+                            viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
+                        }
+                    }) {
+                        Text(showBoundingBox ? "Hide Bounding Box" : "Show Bounding Box")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                    .tint(.white)
+                    .accessibilityLabel(showBoundingBox ? "Hide the bounding box overlay" : "Show the bounding box overlay")
                     
                     Spacer()
                 }

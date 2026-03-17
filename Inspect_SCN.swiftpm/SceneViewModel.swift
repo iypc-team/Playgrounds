@@ -55,7 +55,7 @@ class SceneViewModel: ObservableObject {
         radarNodeMaterial.transparency = 0.1
         radarNode.geometry?.materials = [radarNodeMaterial]
         
-        scene.rootNode.addChildNode(radarNode)
+//        scene.rootNode.addChildNode(radarNode)
         self.radarNode = radarNode  // Assign to property for computed access
         
         // Use radarNodePosition to set radarNode.position on the y-axis

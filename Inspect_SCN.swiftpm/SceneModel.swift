@@ -104,5 +104,23 @@ class SceneModel: ObservableObject {
         return scene.rootNode.boundingBox
     }
     
+    // Creates a wireframe node representing the scene's bounding box
+    func createBoundingBoxNode() -> SCNNode? {
+        guard let box = sceneBoundingBox() else { return nil }
+        let size = SCNVector3(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z)
+        let center = SCNVector3((box.max.x + box.min.x) / 2, (box.max.y + box.min.y) / 2, (box.max.z + box.min.z) / 2)
+        
+        let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.red  // Visible color for wireframe
+        material.fillMode = .lines  // Wireframe mode
+        boxGeometry.materials = [material]
+        
+        let boxNode = SCNNode(geometry: boxGeometry)
+        boxNode.name = "boundingBox"
+        boxNode.position = center
+        return boxNode
+    }
+    
     // Add more properties as needed
 }
