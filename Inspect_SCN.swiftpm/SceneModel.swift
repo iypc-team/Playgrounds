@@ -112,7 +112,7 @@ class SceneModel: ObservableObject {
         
         let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red  // Visible color for wireframe
+        material.diffuse.contents = UIColor.blue  // Visible color for wireframe
         material.fillMode = .lines  // Wireframe mode
         boxGeometry.materials = [material]
         
