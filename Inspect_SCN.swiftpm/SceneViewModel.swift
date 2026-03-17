@@ -9,6 +9,15 @@ class SceneViewModel: ObservableObject {
     @Published var selectedNode: SCNNode?
     @Published var scene: SCNScene
     
+    // Radar node property for access in computed variable
+    var radarNode: SCNNode?
+    
+    // Computed variable for radar node position (y-axis), accessing radarNode.geometry height / 2
+    var radarNodePosition: Float {
+        guard let geometry = radarNode?.geometry as? SCNCone else { return 0 }
+        return Float(geometry.height / 2)
+    }
+    
     // List of all scene files in Resources/ to cycle through
     private let sceneFiles = [
         "Y-Up-fighter.scn",
@@ -32,12 +41,23 @@ class SceneViewModel: ObservableObject {
         cameraNode.position = sceneModel.cameraPosition
         scene.rootNode.addChildNode(cameraNode)
         
-        // Setup radar node
+        // Setup radar node (made smaller and repositioned for visibility)
         let radarNode = SCNNode()
-        radarNode.position = sceneModel.radarPosition
-        radarNode.geometry = SCNCone(topRadius: 1.0, bottomRadius: 256, height: 1024)
-        radarNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        radarNode.position = SCNVector3(x: 0, y: radarNodePosition, z: 0)  // Initial position
+        print("radarNode.position: \(radarNode.position)")
+        radarNode.geometry = SCNCone(topRadius: 0.1, bottomRadius: 5.0, height: 20)  // Smaller scale
+        
+        // Create radar node material with white color and 0.1 opacity
+        let radarNodeMaterial = SCNMaterial()
+        radarNodeMaterial.diffuse.contents = UIColor.white
+        radarNodeMaterial.transparency = 0.1
+        radarNode.geometry?.materials = [radarNodeMaterial]
+        
         scene.rootNode.addChildNode(radarNode)
+        self.radarNode = radarNode  // Assign to property for computed access
+        
+        // Use radarNodePosition to set radarNode.position on the y-axis
+        self.radarNode?.position.y = radarNodePosition
         
         // Setup lights
         let ambientLightNode = SCNNode()

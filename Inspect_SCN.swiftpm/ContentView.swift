@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/17/2026-2
+//  Inspect_SCN 03/17/2026-3
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -8,16 +8,10 @@ import SceneKit
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
     
-    // File names from Resources directory
-    private let resourceFiles = [
-        "Y-Up-fighter.scn",
-        "fighter.scn",
-        "fighterPBR.scn",
-        "newFighter.scn",
-        "smooth_ship.scn"
-    ]
+    // Dynamically load .scn files from Resources directory
+    @State private var resourceFiles: [String] = []
     
-    // State for selected file, initialized to match SceneModel's default sceneName
+    // State for selected file, initialized after loading files
     @State private var selectedFile = "newFighter.scn"
     
     // State for showing inspection results
@@ -32,6 +26,9 @@ struct ContentView: View {
                 .onChange(of: selectedFile) { newValue in
                     viewModel.loadScene(for: newValue)
                     inspectionResults = "" // Reset inspection when scene changes
+                }
+                .onAppear {
+                    loadResourceFiles()
                 }
             
             VStack {
@@ -98,6 +95,18 @@ struct ContentView: View {
                 }
             }
             .padding()
+        }
+    }
+    
+    private func loadResourceFiles() {
+        // Load .scn files dynamically from the app bundle
+        resourceFiles = (Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? [])
+            .map { $0.lastPathComponent }
+            .sorted()
+        
+        // Ensure selectedFile is valid; default to first if "newFighter.scn" not found
+        if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
+            selectedFile = firstFile
         }
     }
     
