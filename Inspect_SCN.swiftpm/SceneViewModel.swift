@@ -46,7 +46,7 @@ class SceneViewModel: ObservableObject {
         radarNode.name = "radarNode"
         radarNode.position = SCNVector3(x: 0, y: radarNodePosition, z: 0)  // Initial position
         print("radarNode.position: \(radarNode.position)")
-        radarNode.geometry = SCNCone(topRadius: 0.1, bottomRadius: 5.0, height: 20)  // Smaller scale
+        radarNode.geometry = SCNCone(topRadius: 0.1, bottomRadius: 5.0, height: 10)  // Smaller scale
         
         // Create radar node material with white color and 0.1 opacity
         let radarNodeMaterial = SCNMaterial()

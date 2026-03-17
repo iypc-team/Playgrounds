@@ -87,6 +87,17 @@ class SceneModel: ObservableObject {
         return results
     }
     
+    // Renames a geometry by index (0-based)
+    func renameGeometry(at index: Int, to newName: String) {
+        let geometries = listAllGeometries()
+        guard index < geometries.count else {
+            print("Geometry index \(index) is out of range.")
+            return
+        }
+        geometries[index].name = newName
+        print("Renamed geometry at index \(index) to '\(newName)'.")
+    }
+    
     // Gets the bounding box of the entire scene
     func sceneBoundingBox() -> (min: SCNVector3, max: SCNVector3)? {
         guard let scene = currentScene else { return nil }
