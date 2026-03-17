@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/17/2026-1
+//  Inspect_SCN 03/17/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -105,6 +105,9 @@ struct ContentView: View {
         // Generate report via SceneModel
         inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
         showInspection = true
+        
+        // Print the full inspection results to console (matches UI)
+        print("Geometry Inspection Results:\n\(inspectionResults)")
         
         // Print summary to console for debugging
         viewModel.sceneModel.printGeometrySummary()
