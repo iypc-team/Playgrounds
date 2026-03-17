@@ -1,5 +1,6 @@
 //  SceneModel.swift
 //  Updated to centralize geometry inspection capabilities and synchronized scene handling
+//
 
 import SceneKit
 import Foundation
