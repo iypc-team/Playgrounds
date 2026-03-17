@@ -43,12 +43,14 @@ class SceneViewModel: ObservableObject {
         
         // Setup radar node (made smaller and repositioned for visibility)
         let radarNode = SCNNode()
+        radarNode.name = "radarNode"
         radarNode.position = SCNVector3(x: 0, y: radarNodePosition, z: 0)  // Initial position
         print("radarNode.position: \(radarNode.position)")
         radarNode.geometry = SCNCone(topRadius: 0.1, bottomRadius: 5.0, height: 20)  // Smaller scale
         
         // Create radar node material with white color and 0.1 opacity
         let radarNodeMaterial = SCNMaterial()
+        radarNodeMaterial.name = "radarNodeMaterial"
         radarNodeMaterial.diffuse.contents = UIColor.white
         radarNodeMaterial.transparency = 0.1
         radarNode.geometry?.materials = [radarNodeMaterial]
