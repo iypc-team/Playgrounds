@@ -1,4 +1,4 @@
-//  Inspect_SCN 03/17/2026-10
+//  Inspect_SCN 03/18/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  
@@ -130,18 +130,25 @@ struct ContentView: View {
     }
     
     private func loadResourceFiles() {
+        print("private func loadResourceFiles()")
         // Load .scn files dynamically from the app bundle
-        resourceFiles = (Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? [])
-            .map { $0.lastPathComponent }
-            .sorted()
+        let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? []
+        resourceFiles = urls.map { $0.lastPathComponent }.sorted()
         
-        // Ensure selectedFile is valid; default to first if "newFighter.scn" not found
-        if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
-            selectedFile = firstFile
+        if resourceFiles.isEmpty {
+            print("Error: No .scn files found in the Resources directory. Ensure .scn files are properly included in the Swift Package.")
+            // Optionally, set a user-facing error state (e.g., add @State private var resourceLoadError: String? and display it in the UI)
+            // resourceLoadError = "No scene files found. Please check the Resources directory."
+        } else {
+            // Ensure selectedFile is valid; default to first if "newFighter.scn" not found
+            if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
+                selectedFile = firstFile
+            }
         }
     }
     
     private func inspectGeometry() {
+        print("private func inspectGeometry()")
         // Generate report via SceneModel
         inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
         showInspection = true

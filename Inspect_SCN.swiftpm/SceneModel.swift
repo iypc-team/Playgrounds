@@ -1,6 +1,6 @@
 //  SceneModel.swift
 //  Updated to centralize geometry inspection capabilities and synchronized scene handling
-// red
+// red.  
 
 import SceneKit
 import Foundation
@@ -8,17 +8,14 @@ import Foundation
 class SceneModel: ObservableObject {
     @Published var sceneName: String = "newFighter.scn"
     var enemyName: String = "smooth_ship.scn"
-    
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
-    
     // New properties for fighter node configuration
     var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)
-    
     // Property for radar position
     var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
     // Properties for lighting
-    var lightIntensity: CGFloat = 750
+    var lightIntensity: CGFloat = 500
     var omniLightIntensity: CGFloat = 5000
     var cabinLightColor: UIColor = UIColor.red
     var engineLightColor: UIColor = UIColor.green
@@ -84,7 +81,6 @@ class SceneModel: ObservableObject {
                 results += "    \(matIndex + 1). \(material.name ?? "Unnamed Material")\n"
             }
         }
-        
         return results
     }
     
@@ -109,11 +105,14 @@ class SceneModel: ObservableObject {
     func createBoundingBoxNode() -> SCNNode? {
         guard let box = sceneBoundingBox() else { return nil }
         let size = SCNVector3(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z)
+        let model = SceneViewModel()
+        let name = model.sceneModel.sceneName
+        print("\(name) size: \(size)")
         let center = SCNVector3((box.max.x + box.min.x) / 2, (box.max.y + box.min.y) / 2, (box.max.z + box.min.z) / 2)
         
         let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red  // Visible color for wireframe
+        material.diffuse.contents = UIColor.white  // Visible color for wireframe
         material.fillMode = .lines  // Wireframe mode
         boxGeometry.materials = [material]
         

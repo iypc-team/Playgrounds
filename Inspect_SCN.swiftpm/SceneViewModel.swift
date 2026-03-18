@@ -1,6 +1,6 @@
 // SceneViewModel.swift
 // Updated: Removed hardcoded sceneFiles array, nextScene method, and initial loadScene call for consistency
-// 
+// Scene:
 
 import SwiftUI
 import SceneKit
@@ -12,6 +12,7 @@ class SceneViewModel: ObservableObject {
     @Published var scene: SCNScene
     
     init() {
+        
         self.scene = SCNScene()  // Initialize with default empty scene
         self.sceneModel = SceneModel()  // Initialize SceneModel
     }
