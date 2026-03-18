@@ -1,6 +1,6 @@
 //  SceneModel.swift
 //  Updated to centralize geometry inspection capabilities and synchronized scene handling
-//
+// red
 
 import SceneKit
 import Foundation
@@ -18,7 +18,7 @@ class SceneModel: ObservableObject {
     var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
     // Properties for lighting
-    var lightIntensity: CGFloat = 2000
+    var lightIntensity: CGFloat = 750
     var omniLightIntensity: CGFloat = 5000
     var cabinLightColor: UIColor = UIColor.red
     var engineLightColor: UIColor = UIColor.green
@@ -113,7 +113,7 @@ class SceneModel: ObservableObject {
         
         let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.blue  // Visible color for wireframe
+        material.diffuse.contents = UIColor.red  // Visible color for wireframe
         material.fillMode = .lines  // Wireframe mode
         boxGeometry.materials = [material]
         

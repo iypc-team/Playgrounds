@@ -1,5 +1,6 @@
 // SceneViewModel.swift
-// Fully updated: Removed hardcoded sceneFiles array, nextScene method, and initial loadScene call for consistency
+// Updated: Removed hardcoded sceneFiles array, nextScene method, and initial loadScene call for consistency
+// 
 
 import SwiftUI
 import SceneKit
@@ -9,15 +10,6 @@ class SceneViewModel: ObservableObject {
     @Published var sceneModel: SceneModel
     @Published var selectedNode: SCNNode?
     @Published var scene: SCNScene
-    
-    // Radar node property for access in computed variable
-    var radarNode: SCNNode?
-    
-    // Computed variable for radar node position (y-axis), accessing radarNode.geometry height / 2
-    var radarNodePosition: Float {
-        guard let geometry = radarNode?.geometry as? SCNCone else { return 0 }
-        return Float(geometry.height / 2)
-    }
     
     init() {
         self.scene = SCNScene()  // Initialize with default empty scene
@@ -30,26 +22,6 @@ class SceneViewModel: ObservableObject {
         cameraNode.camera = SCNCamera()
         cameraNode.position = sceneModel.cameraPosition
         scene.rootNode.addChildNode(cameraNode)
-        
-        // Setup radar node (made smaller and repositioned for visibility)
-        let radarNode = SCNNode()
-        radarNode.name = "radarNode"
-        radarNode.position = SCNVector3(x: 0, y: radarNodePosition, z: 0)  // Initial position
-        print("radarNode.position: \(radarNode.position)")
-        radarNode.geometry = SCNCone(topRadius: 0.1, bottomRadius: 5.0, height: 10)  // Smaller scale
-        
-        // Create radar node material with white color and 0.1 opacity
-        let radarNodeMaterial = SCNMaterial()
-        radarNodeMaterial.name = "radarNodeMaterial"
-        radarNodeMaterial.diffuse.contents = UIColor.white
-        radarNodeMaterial.transparency = 0.1
-        radarNode.geometry?.materials = [radarNodeMaterial]
-        
-        //        scene.rootNode.addChildNode(radarNode)
-        self.radarNode = radarNode  // Assign to property for computed access
-        
-        // Use radarNodePosition to set radarNode.position on the y-axis
-        self.radarNode?.position.y = radarNodePosition
         
         // Setup lights
         let ambientLightNode = SCNNode()
