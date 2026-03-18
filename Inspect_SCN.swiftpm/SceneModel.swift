@@ -7,12 +7,10 @@ import Foundation
 
 class SceneModel: ObservableObject {
     @Published var sceneName: String = "newFighter.scn"
-    var enemyName: String = "smooth_ship.scn"
+    
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
     // New properties for fighter node configuration
     var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)
-    // Property for radar position
-    var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
     // Properties for lighting
     var lightIntensity: CGFloat = 500

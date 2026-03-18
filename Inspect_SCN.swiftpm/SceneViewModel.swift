@@ -35,13 +35,21 @@ class SceneViewModel: ObservableObject {
     
     // Method to load a scene by name
     func loadScene(for name: String) {
+        guard SCNScene(named: name) != nil else {
+            print("Scene '\(name)' could not be found or loaded. Falling back to empty scene.")
+            self.scene = SCNScene()
+            sceneModel.setScene(self.scene)
+            sceneModel.sceneName = name  // Still set for reporting, but note it's invalid
+            return
+        }
+        
         if let loadedScene = SCNScene(named: name) {
-            self.scene = loadedScene  // Update to loaded scene
-            sceneModel.sceneName = name  // Update model
-            sceneModel.setScene(loadedScene)  // Synchronize scene for inspection
+            self.scene = loadedScene
+            sceneModel.sceneName = name
+            sceneModel.setScene(loadedScene)
         } else {
-            print("Failed to load scene: \(name)")  // Added logging for debugging
-            // Fallback to empty scene
+            // This shouldn't happen due to the guard, but kept for safety
+            print("Failed to load scene: \(name)")
             self.scene = SCNScene()
             sceneModel.setScene(self.scene)
         }
