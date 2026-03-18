@@ -1,7 +1,0 @@
-Text("AccelerometerAvailable: \(motion.motionManager.isAccelerometerAvailable)")
-
-Text("AccelerometerActive: \(motion.motionManager.isAccelerometerActive)")
-            
-Text("MagnetometerAvailable: \(motion.motionManager.isMagnetometerAvailable)")
-
-Text("MagnetometerActive: \(motion.motionManager.isMagnetometerActive)")
