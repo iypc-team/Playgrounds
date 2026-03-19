@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "My App",
+    name: "NFC1",
     platforms: [
-        .iOS("16.7")
+        .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "My App",
+            name: "NFC1",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
