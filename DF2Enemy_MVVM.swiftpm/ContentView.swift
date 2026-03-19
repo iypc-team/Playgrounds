@@ -1,9 +1,8 @@
-//  DF2Enemy_MVVM 03/19/2026-1
+//  DF2Enemy_MVVM 03/19/2026-2
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2Enemy_MVVM.swiftpm
-//  
 //  
 
 import SwiftUI
@@ -12,11 +11,15 @@ import SceneKit
 struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
     @State private var combinedScene: SCNScene?
+    @State private var errorMessage: String?
     
     var body: some View {
         ZStack {
             if let scene = combinedScene {
                 ScenekitView(scene: scene, viewModel: viewModel)
+            } else if let error = errorMessage {
+                Text("Error loading scene: \(error)")
+                    .foregroundColor(.red)
             } else {
                 Text("Loading scene...")
                     .foregroundColor(.white)
@@ -39,21 +42,23 @@ struct ContentView: View {
             .padding(15)
         }
         .onAppear {
-            let universe = viewModel.setupUniverse()
-            print("universe: \(universe.rootNode.childNodes)")
-            let enemy = viewModel.setupEnemyScene()
-            print("enemy: \(enemy)")
+            setupScenes()
+        }
+        .onDisappear {
+            viewModel.stopAnimation()
+        }
+    }
+    
+    private func setupScenes() {
+        do {
+            let universe = try viewModel.setupUniverse()
+            let enemy = try viewModel.setupEnemyScene()
             for node in enemy.rootNode.childNodes {
                 universe.rootNode.addChildNode(node)
             }
             combinedScene = universe
-            //            viewModel.startAnimation()
-            //            print(viewModel.enemyShip.orientation)
-            //            print("enemyShip.position: \( viewModel.enemyShip.position)")
-        }
-        .onDisappear {
-            viewModel.stopAnimation()
-            //  Value of type 'SceneViewModel' has no dynamic member 'stopAnimation' using key path from root type 'SceneViewModel'
+        } catch {
+            errorMessage = error.localizedDescription
         }
     }
 }
