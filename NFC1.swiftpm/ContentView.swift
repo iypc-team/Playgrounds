@@ -1,4 +1,4 @@
-//  NFC1 03/19/2026-2
+//  NFC1 03/19/2026-3
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/NFC1.swiftpm
 
@@ -8,7 +8,7 @@ import Dispatch
 
 struct ContentView: View {
     @StateObject var reader = NFCReader()
-    
+    //  Generic struct 'StateObject' requires that 'NFCReader' conform to 'ObservableObject'
     var body: some View {
         VStack(spacing: 40) {
             Text("NFC Result:")

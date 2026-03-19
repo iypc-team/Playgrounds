@@ -4,49 +4,42 @@
 import SwiftUI
 import CoreNFC
 
-class NFCReader: NSObject, ObservableObject, NFCTagReaderSessionDelegate {
+class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     @Published var scanResult: String = ""
-    //  Type 'NFCReader' does not conform to protocol 'NFCTagReaderSessionDelegate'. Show fully updated code snippet
-    var session: NFCTagReaderSession?
+    private var session: NFCNDEFReaderSession?
     
     func beginScanning() {
-        session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
-        session?.alertMessage = "Hold your iPhone near the NFC tag."
+        guard NFCNDEFReaderSession.readingAvailable else {
+            scanResult = "NFC reading is not available on this device."
+            return
+        }
+        session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: true)
+        session?.alertMessage = "Hold your iPhone near an NFC tag."
         session?.begin()
     }
     
-    func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
-        DispatchQueue.main.async {
-            self.scanResult = "Session invalidated: \(error.localizedDescription)"
-        }
+    func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {
+        print("Reader session did become active.")
     }
     
-    func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        if tags.count > 1 {
-            session.alertMessage = "More than 1 tag detected. Please present only 1 tag."
+    func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+        print("Reader session did invalidate with error: \(error.localizedDescription)")
+        self.session = nil
+    }
+    
+    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+        guard let message = messages.first, let record = message.records.first else {
+            scanResult = "No NDEF data found."
             session.invalidate()
             return
         }
         
-        guard let tag = tags.first else { return }
-        session.connect(to: tag) { (error: Error?) in
-            if let error = error {
-                session.invalidate(errorMessage: "Connection failed: \(error.localizedDescription)")
-                return
-            }
-            
-            switch tag {
-            case .miFare(let mifareTag):
-                let identifier = mifareTag.identifier.map { String(format: "%.2hhx", $0) }.joined()
-                session.alertMessage = "Tag detected (MiFare): \(identifier)"
-                DispatchQueue.main.async {
-                    self.scanResult = "Tag ID: \(identifier)"
-                }
-                session.invalidate()
-                // Handle other tag types (.iso7816, .iso15693, .feliCa) if needed
-            default:
-                session.invalidate(errorMessage: "Unsupported tag type")
-            }
+        // Convert payload to string (assuming UTF-8)
+        if let payloadString = String(data: record.payload, encoding: .utf8) {
+            scanResult = "NFC Tag Detected: \(payloadString)"
+        } else {
+            scanResult = "NFC Tag Detected: \(record.payload.debugDescription)"
         }
+        session.invalidate()
     }
 }
