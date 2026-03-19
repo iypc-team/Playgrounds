@@ -1,7 +1,6 @@
 // NFCReader.swift
 //  
 
-import SwiftUI
 import CoreNFC
 
 class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
@@ -11,6 +10,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     func beginScanning() {
         guard NFCNDEFReaderSession.readingAvailable else {
             scanResult = "NFC reading is not available on this device."
+            print("scanResult: \(scanResult)")
             return
         }
         session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: true)
