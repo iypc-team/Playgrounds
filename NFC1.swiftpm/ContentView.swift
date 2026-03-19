@@ -1,3 +1,7 @@
+//  NFC1 03/19/2026-1
+//  ContentView.swift
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/NFC1.swiftpm
+
 import SwiftUI
 import CoreNFC
 import Dispatch

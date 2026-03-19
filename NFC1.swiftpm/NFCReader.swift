@@ -1,10 +1,13 @@
 // NFCReader.swift
+//  
+
 import SwiftUI
 import CoreNFC
 
 class NFCReader: NSObject, NFCReaderDelegate, NFCTagReaderSessionDelegate {
     @State private var tagData: Data?
-    
+    // Cannot find type 'NFCReadeaDelegate' in scope
+    // Type 'NFCReader' does not conform to protocol 'NFCTagReaderSessionDelegate'
     init(
         delegate: any NFCNDEFReaderSessionDelegate,
         queue: dispatch_queue_t?,
