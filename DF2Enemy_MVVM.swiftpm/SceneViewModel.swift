@@ -12,6 +12,7 @@ class SceneViewModel: ObservableObject {
     
     // Managers for separated concerns
     private let universeManager = UniverseSceneManager()
+    
     private let enemyManager = EnemySceneManager()
     
     func setupUniverse() -> SCNScene {

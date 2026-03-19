@@ -1,4 +1,4 @@
-//  DF2Enemy_MVVM 03/10/2026-4
+//  DF2Enemy_MVVM 03/19/2026-1
 //  ContentView.swift
 //  Project:  DF2Enemy_MVVM.swiftpm
 //  
@@ -40,7 +40,9 @@ struct ContentView: View {
         }
         .onAppear {
             let universe = viewModel.setupUniverse()
+            print("universe: \(universe.rootNode.childNodes)")
             let enemy = viewModel.setupEnemyScene()
+            print("enemy: \(enemy)")
             for node in enemy.rootNode.childNodes {
                 universe.rootNode.addChildNode(node)
             }

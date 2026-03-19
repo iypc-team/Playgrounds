@@ -10,13 +10,14 @@ class UniverseSceneManager {
     private var universeScene: SCNScene = SCNScene()
     
     init() {
+        
         // Initialize with an empty scene; setup can be called separately
     }
     
     func setupUniverse() -> SCNScene {
         let universe = SCNSphere(radius: 2048.0 * 4)
         let universeNode = SCNNode(geometry: universe)
-        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_1.png")
+        universeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "JWST_2.png")
         universeNode.geometry?.firstMaterial?.isDoubleSided = true  // Make visible from inside
         
         // Add static physics body to universeNode for physics properties
