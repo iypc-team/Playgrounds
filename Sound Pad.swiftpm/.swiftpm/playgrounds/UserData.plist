@@ -8,19 +8,26 @@
 		<array/>
 		<key>completedTaskIDs</key>
 		<array>
+			<string>modifyfilter</string>
 			<string>modifyVolume</string>
 			<string>modifyPitch</string>
+			<string>modifySpeed</string>
 		</array>
 		<key>hasSeenIntro</key>
 		<false/>
 		<key>pageIDsWithRevealedSolutions</key>
-		<dict/>
+		<dict>
+			<key>modifySpeed</key>
+			<array>
+				<string>4.speed</string>
+			</array>
+		</dict>
 		<key>stepIndex</key>
 		<integer>0</integer>
 		<key>successMessageShowing</key>
 		<false/>
 		<key>taskID</key>
-		<string>modifySpeed</string>
+		<string>ownButton</string>
 	</dict>
 </dict>
 </plist>

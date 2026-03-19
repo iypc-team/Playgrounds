@@ -9,7 +9,14 @@ struct LearnButton: View {
                 soundPlayer.playSound(.FirstGearFX)
                 /*#-code-walkthrough(6.soundPadButton)*/
             }
-            //#-learning-code-snippet(6.addButton)
+            Button {
+                soundPlayer.playSound(.FirstGearFX)
+            } label: {
+                /*#-code-walkthrough(6.buttonLabel)*/
+                Circle()
+                /*#-code-walkthrough(6.buttonLabel)*/
+                //#-learning-code-snippet(6.buttonLabel)
+            }
         }
     }
 }

@@ -5,10 +5,10 @@ struct SoundPadView: View {
         Divider()
         /*#-code-walkthrough(1.exploreLoop)*/Beats {
             LoopButton(beat: .CosmicBeat, color: /*#-code-walkthrough(1.changeColor)*/ .teal /*#-code-walkthrough(1.changeColor)*/)
-                .volume(100.0)
+                .volume(50.0)
                 .pitch(.D_b)
             LoopButton(bass: .LesInfernoBass, color: .teal)
-                .volume(100.0)
+                .volume(50.0)
                 .pitch(.D_b)
             LoopButton(melodic: .SensationArpeggio, color: .cyan)
                 .volume(50.0)
