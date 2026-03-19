@@ -4,46 +4,48 @@
 import SwiftUI
 import CoreNFC
 
-class NFCReader: NSObject, NFCReaderDelegate, NFCTagReaderSessionDelegate {
-    @State private var tagData: Data?
-    // Cannot find type 'NFCReadeaDelegate' in scope
-    // Type 'NFCReader' does not conform to protocol 'NFCTagReaderSessionDelegate'
-    init(
-        delegate: any NFCNDEFReaderSessionDelegate,
-        queue: dispatch_queue_t?,
-        invalidateAfterFirstRead: Bool
-    ) {
-        print("delegate\n", delegate)
+class NFCReader: NSObject, ObservableObject, NFCTagReaderSessionDelegate {
+    @Published var scanResult: String = ""
+    //  Type 'NFCReader' does not conform to protocol 'NFCTagReaderSessionDelegate'. Show fully updated code snippet
+    var session: NFCTagReaderSession?
+    
+    func beginScanning() {
+        session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
+        session?.alertMessage = "Hold your iPhone near the NFC tag."
+        session?.begin()
     }
     
-    func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {
-        print("readerSessionDidBecomeActive")
-        return
-    }
-    
-    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-        print("didDetectNDEF messages\n", messages)
-    }
-    
-    func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [any NFCNDEFTag]) {
-        print("tags\n", tags)
-    }
-    
-    func startReading() {
-        let reader = NFCTagReaderSession(pollingOption: [.iso14443], delegate: self)
-        reader?.begin()
+    func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
+        DispatchQueue.main.async {
+            self.scanResult = "Session invalidated: \(error.localizedDescription)"
+        }
     }
     
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        @State var identifier = tagData?.debugDescription
-        if let tag = tags.first {
-            session.connect(to: tag) { (error) in
-                if let error = error {
-                    print("Error connecting to tag: \(error)")
-                } else {
-//                    self.tagData = tag.identifier
-                    print("tags\n", tags)
+        if tags.count > 1 {
+            session.alertMessage = "More than 1 tag detected. Please present only 1 tag."
+            session.invalidate()
+            return
+        }
+        
+        guard let tag = tags.first else { return }
+        session.connect(to: tag) { (error: Error?) in
+            if let error = error {
+                session.invalidate(errorMessage: "Connection failed: \(error.localizedDescription)")
+                return
+            }
+            
+            switch tag {
+            case .miFare(let mifareTag):
+                let identifier = mifareTag.identifier.map { String(format: "%.2hhx", $0) }.joined()
+                session.alertMessage = "Tag detected (MiFare): \(identifier)"
+                DispatchQueue.main.async {
+                    self.scanResult = "Tag ID: \(identifier)"
                 }
+                session.invalidate()
+                // Handle other tag types (.iso7816, .iso15693, .feliCa) if needed
+            default:
+                session.invalidate(errorMessage: "Unsupported tag type")
             }
         }
     }
