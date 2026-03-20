@@ -6,6 +6,7 @@ import SceneKit
 import UIKit
 
 class UniverseSceneManager {
+    private let model = UniverseSceneModel()
     private var universeScene: SCNScene = SCNScene()
     
     init() {
@@ -14,10 +15,10 @@ class UniverseSceneManager {
     }
     
     func setupUniverse() throws -> SCNScene {
-        let universe = SCNSphere(radius: 2048.0 * 4)
+        let universe = SCNSphere(radius: model.radius)
         let universeNode = SCNNode(geometry: universe)
-        guard let image = UIImage(named: "JWST_2.png") else {
-            throw NSError(domain: "UniverseSceneManager", code: 3, userInfo: [NSLocalizedDescriptionKey: "Could not load image 'JWST_2.png'."])
+        guard let image = UIImage(named: model.imageName) else {
+            throw NSError(domain: "UniverseSceneManager", code: 3, userInfo: [NSLocalizedDescriptionKey: "Could not load image '\(model.imageName)'."])
         }
         universeNode.geometry?.firstMaterial?.diffuse.contents = image
         universeNode.geometry?.firstMaterial?.isDoubleSided = true  // Make visible from inside
@@ -25,8 +26,9 @@ class UniverseSceneManager {
         universeScene.rootNode.addChildNode(universeNode)
         
         // Setup omni lights
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: 100), in: universeScene)
-        setupOmniLight(at: SCNVector3(x: 0, y: 0, z: -100), in: universeScene)
+        for position in model.lightPositions {
+            setupOmniLight(at: position, in: universeScene)
+        }
         
         return universeScene
     }

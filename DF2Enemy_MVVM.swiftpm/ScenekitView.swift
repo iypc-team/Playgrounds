@@ -24,3 +24,23 @@ struct ScenekitView: UIViewRepresentable {
         scnView.isTemporalAntialiasingEnabled = true
     }
 }
+
+struct ScenekitUniverseView: UIViewRepresentable {
+    var scene: SCNScene
+    
+    func makeUIView(context: Context) -> SCNView {
+        let scnView = SCNView()
+        scnView.scene = scene
+        return scnView
+    }
+    
+    func updateUIView(_ scnView: SCNView, context: Context) {
+        scnView.scene = scene
+        scnView.allowsCameraControl = false
+        scnView.showsStatistics = false
+        scnView.backgroundColor = UIColor.black  // Example: Universe-specific background
+        scnView.antialiasingMode = .multisampling4X
+        scnView.autoenablesDefaultLighting = true
+        scnView.isTemporalAntialiasingEnabled = true
+    }
+}

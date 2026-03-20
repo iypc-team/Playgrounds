@@ -2,10 +2,6 @@
 //  DF2Enemy_MVVM.swiftpm
 //  
 
-//  EnemySceneManager.swift
-//  DF2Enemy_MVVM.swiftpm
-//  
-
 import SceneKit
 import UIKit
 
