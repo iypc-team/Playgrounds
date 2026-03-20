@@ -18,4 +18,3 @@ struct UniverseSceneModel {
         self.lightPositions = lightPositions
     }
 }
-
