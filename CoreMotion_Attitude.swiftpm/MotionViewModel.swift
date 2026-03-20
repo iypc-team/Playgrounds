@@ -1,23 +1,6 @@
 //  MotionViewModel.swift
 //    
-//  recalibrate()
-//
-//  MotionViewModel.swift
-//  Updated – 2026‑01‑28
-//
-//  Provides a CoreMotion‑driven orientation stream that publishes
-//  roll / pitch / yaw (degrees), a rotation matrix, and a raw‑quaternion
-//  publisher. The implementation now includes:
-//
-//  • Defensive normalisation of incoming quaternions
-//  • Explicit logging (os.Logger) instead of `print`
-//  • Safe termination of the CoreMotion queue
-//  • A returning‑value `recalibrate()` for clearer error handling
-//  • Finite‑value guards for angular‑velocity calculations
-//  • Minimal UI updates (assign only when the value changes)
-//  • Read‑only exposure of the quaternion publisher
-//  • Comprehensive inline documentation
-//
+//  
 
 import Foundation
 import CoreMotion
