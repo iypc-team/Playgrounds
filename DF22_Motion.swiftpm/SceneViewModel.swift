@@ -38,7 +38,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func startMotion(updateInterval: TimeInterval = 1.0 / 30.0) {
-        print("\nstartMotion called")
+        print("func startMotion()")
         if motionTask != nil { return }  // Already started
         
         motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
@@ -52,7 +52,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func stopMotion() {
-        print("stopMotion called\n")
+        print("func stopMotion()")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
@@ -200,7 +200,7 @@ final class SceneViewModel: ObservableObject {
         light.intensity = 1000
         lightNode.light = light
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
-//        combatScene.rootNode.addChildNode(lightNode)
+        combatScene.rootNode.addChildNode(lightNode)
         
         // Optional: animate the box so it's obvious something is happening
         let spin = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi * 2, z: 0, duration: 6))
@@ -232,6 +232,7 @@ final class SceneViewModel: ObservableObject {
                         // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                         self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
+                        print("currentOrientation:  \(self.currentOrientation)")
                     }
                 }
             } catch {

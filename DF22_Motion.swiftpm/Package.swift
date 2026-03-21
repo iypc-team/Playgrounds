@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "DF-22",
+    name: "DF22_Motion",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "DF-22",
+            name: "DF22_Motion",
             targets: ["AppModule"],
             bundleIdentifier: "biz.IYPC.DF-2",
             teamIdentifier: "JSQBS6MFBB",

@@ -6,7 +6,7 @@ import SwiftUI
 import SceneKit
 
 struct SceneModel {
-    let shipName: String = "airplane"
+    let shipName: String = "fighter"
     // fighter
     // newFighter
     // fighterPBR
