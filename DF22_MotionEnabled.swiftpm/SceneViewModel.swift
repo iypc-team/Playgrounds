@@ -131,12 +131,11 @@ final class SceneViewModel: ObservableObject {
             shipNode = ship
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-            let  materials = shipNode?.geometry?.materials
-//            print("materials: \(String(describing: materials))\n")
-            for material in materials {
-                print("material:  \(material.name)")
+            if let materials = shipNode?.geometry?.materials {
+                for material in materials {
+                    print("material:  \(String(describing: material.name))")
+                }
             }
-            // For-in loop requires '[SCNMaterial]?' to conform to 'Sequence'
             // Add children to ship
             shipNode?.addChildNode(planeNode)
             shipNode?.addChildNode(cabinLightNode)
