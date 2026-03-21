@@ -20,10 +20,10 @@ final class SceneViewModel: ObservableObject {
     private var motionTask: Task<Void, Never>?   // Task for handling motion stream
     
     init() {
-//        print("model: \(model)\n")
+        //        print("model: \(model)\n")
         if let loaded = SCNScene(named: model.shipName + ".scn") {
             combatScene = loaded
-//            print("loaded: \(loaded.rootNode.childNodes)\n")
+            //            print("loaded: \(loaded.rootNode.childNodes)\n")
         } else {
             combatScene = SCNScene()
             print("WARN: \(model.shipName).scn not found — using empty scene")
@@ -37,8 +37,10 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 30.0) {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 1.0) {
         print("func startMotion()")
+        print("updateInterval:  \(updateInterval) frames per second.")
+        
         if motionTask != nil { return }  // Already started
         
         motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
@@ -130,8 +132,11 @@ final class SceneViewModel: ObservableObject {
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
             let  materials = shipNode?.geometry?.materials
-            print("materials: \(String(describing: materials))\n")
-            
+//            print("materials: \(String(describing: materials))\n")
+            for material in materials {
+                print("material:  \(material.name)")
+            }
+            // For-in loop requires '[SCNMaterial]?' to conform to 'Sequence'
             // Add children to ship
             shipNode?.addChildNode(planeNode)
             shipNode?.addChildNode(cabinLightNode)
