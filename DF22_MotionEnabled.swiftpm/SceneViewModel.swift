@@ -1,7 +1,7 @@
 // SceneViewModel.swift
 // Safe combatScene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
 // and robust motion stream consumption.
-// stopMotion pressed
+// stop
 
 import SwiftUI
 import SceneKit
@@ -12,11 +12,16 @@ import CoreMotion  // MotionManager integration
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
-    @Published var shieldsEnabled: Bool = false
+    @Published var shieldsEnabled: Bool = false {
+        didSet {
+            shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
+        }
+    }
     
     private let model = SceneModel()
     private let motionManager = MotionManager()
     private var shipNode: SCNNode?               // Optional reference to ship node
+    private var shieldsNode: SCNNode?            // Reference to shields node for toggling
     private var motionTask: Task<Void, Never>?   // Task for handling motion stream
     
     init() {
@@ -37,7 +42,7 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 1.0) {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
         
@@ -54,7 +59,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func stopMotion() {
-        print("func stopMotion()")
+        print("func stopMotion()\n")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
@@ -83,6 +88,7 @@ final class SceneViewModel: ObservableObject {
     
     private func setupScene() {
         let shields = ghostEffect()
+        shieldsNode = shields  // Store reference for toggling
         // Add a camera (safe to add even if the scene file already contains one; helpful for fallback)
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -135,6 +141,7 @@ final class SceneViewModel: ObservableObject {
                 for material in materials {
                     print("material:  \(String(describing: material.name))")
                 }
+                print()
             }
             // Add children to ship
             shipNode?.addChildNode(planeNode)
@@ -182,6 +189,9 @@ final class SceneViewModel: ObservableObject {
             // Fallback demo geometry so UI shows something immediately
             addFallbackDemoContent()
         }
+        
+        // Set initial shields opacity based on shieldsEnabled
+        shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
         
         // Optional debug prints (remove or gate behind debug flag as needed)
         
@@ -236,7 +246,7 @@ final class SceneViewModel: ObservableObject {
                         // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                         self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
-                        print("currentOrientation:  \(self.currentOrientation)")
+                        print("currentOrientation:  \(self.currentOrientation)\n")
                     }
                 }
             } catch {

@@ -1,4 +1,4 @@
-//  DF22_MotionEnabled 03/21/2026-3
+//  DF22_MotionEnabled 2026-03-22-1
 //  ContentView.swift
 //  Project:  DF22_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
@@ -18,7 +18,6 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 HStack {
-                    // Value of type 'SceneViewModel' has no dynamic member 'startMotion' using key path from root type 'SceneViewModel'
                     Button(action: { viewModel.startMotion() }) {
                         Text("Start Motion")
                             .foregroundColor(.green)
