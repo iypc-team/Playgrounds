@@ -18,13 +18,14 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    private let model = SceneModel()
+    private let model: SceneModel
     private let motionManager = MotionManager()
     private var shipNode: SCNNode?               // Optional reference to ship node
     private var shieldsNode: SCNNode?            // Reference to shields node for toggling
     private var motionTask: Task<Void, Never>?   // Task for handling motion stream
     
     init() {
+        model = SceneModel(shipName: "fighter")
         //        print("model: \(model)\n")
         if let loaded = SCNScene(named: model.shipName + ".scn") {
             combatScene = loaded

@@ -5,14 +5,23 @@
 import SwiftUI
 import SceneKit
 
-struct SceneModel {
-    let shipName: String = "fighter"
-    // fighter
-    // newFighter
-    // fighterPBR
-    // smooth_ship
-    // airplane
-    // Y-Up-fighter.scn
+class SceneModel {
+    // Available ship models for configuration
+    static let availableShipNames = [
+        "fighter",
+        "newFighter",
+        "fighterPBR",
+        "smooth_ship",
+        "airplane",
+        "Y-Up-fighter.scn"
+    ]
+    
+    // Configurable ship name
+    var shipName: String
+    
+    init(shipName: String) {
+        self.shipName = "newFighter"
+    }
     
     struct LightConfig {
         let type: SCNLight.LightType
