@@ -27,12 +27,13 @@ final class SceneViewModel: ObservableObject {
     init() {
         model = SceneModel(shipName: "fighter")
         //        print("model: \(model)\n")
-        if let loaded = SCNScene(named: model.shipName + ".scn") {
+        let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
+        if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
             //            print("loaded: \(loaded.rootNode.childNodes)\n")
         } else {
             combatScene = SCNScene()
-            print("WARN: \(model.shipName).scn not found — using empty scene")
+            print("WARN: \(sceneFileName) not found — using empty scene")
         }
         setupScene()
         // Motion is started/stopped via public API (e.g., UI buttons)
@@ -133,9 +134,44 @@ final class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
+        // Derive node name from ship name (remove .scn if present)
+        let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
+        
         // Retrieve and configure ship safely (no force-unwrap)
-        if let ship = combatScene.rootNode.childNode(withName: model.shipName, recursively: true) {
+        if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
             shipNode = ship
+            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
+            if let materials = shipNode?.geometry?.materials {
+                for material in materials {
+                    print("material:  \(String(describing: material.name))")
+                }
+                print()
+            }
+            // Add children to ship
+            shipNode?.addChildNode(planeNode)
+            shipNode?.addChildNode(cabinLightNode)
+            shipNode?.addChildNode(shields)
+            
+            // Add engine lights to ship (configure safely)
+            for lightConfig in model.engineLights {
+                let lightNode = SCNNode()
+                lightNode.light = SCNLight()
+                lightNode.light?.type = lightConfig.type
+                lightNode.light?.color = lightConfig.color
+                if let intensity = lightConfig.intensity {
+                    lightNode.light?.intensity = intensity
+                }
+                lightNode.light?.castsShadow = lightConfig.castsShadow
+                if let attenuation = lightConfig.attenuationEndDistance {
+                    lightNode.light?.attenuationEndDistance = attenuation
+                }
+                lightNode.position = lightConfig.position
+                shipNode?.addChildNode(lightNode)
+            }
+        } else if combatScene.rootNode.geometry != nil {
+            // If no named node, but root has geometry, use root as ship
+            shipNode = combatScene.rootNode
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
             if let materials = shipNode?.geometry?.materials {
@@ -167,7 +203,7 @@ final class SceneViewModel: ObservableObject {
             }
         } else {
             // Ship not found — attach items to root so scene still shows something useful
-            print("WARN: ship node '\(model.shipName)' not found; attaching plane and lights to rootNode")
+            print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
             //            combatScene.rootNode.addChildNode(planeNode)
             //            combatScene.rootNode.addChildNode(cabinLightNode)
             
@@ -254,5 +290,17 @@ final class SceneViewModel: ObservableObject {
                 print("Motion stream error: \(error)")
             }
         }
+    }
+    
+    func changeShip(to shipName: String) {
+        model.shipName = shipName
+        let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
+        if let loaded = SCNScene(named: sceneFileName) {
+            combatScene = loaded
+        } else {
+            combatScene = SCNScene()
+            print("WARN: \(sceneFileName) not found — using empty scene")
+        }
+        setupScene()
     }
 }

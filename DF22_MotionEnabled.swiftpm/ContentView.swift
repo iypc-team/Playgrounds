@@ -1,4 +1,4 @@
-//  DF22_MotionEnabled 2026-03-22-2
+//  DF22_MotionEnabled 03/23/2026-1
 //  ContentView.swift
 //  Project:  DF22_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
@@ -10,13 +10,29 @@ import CoreMotion  // Added for motion integration awareness
 
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
+    @State private var selectedShip = "fighter"
     
     var body: some View {
         ZStack {
             SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
+                Picker("Ship", selection: $selectedShip) {
+                    Text("fighter").tag("fighter")
+                    Text("newFighter").tag("newFighter")
+                    Text("fighterPBR").tag("fighterPBR")
+                    Text("smooth_ship").tag("smooth_ship")
+                    Text("airplane").tag("airplane")
+                    Text("Y-Up-fighter.scn").tag("Y-Up-fighter.scn")
+                }
+                .pickerStyle(.menu)
+                .onChange(of: selectedShip) { newValue in
+                    viewModel.changeShip(to: newValue)
+                }
+                .padding(.horizontal)
+                
                 Spacer()
+                
                 HStack {
                     Button(action: { viewModel.startMotion() }) {
                         Text("Start Motion")
@@ -40,6 +56,9 @@ struct ContentView: View {
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
             print("shieldsEnabled: \(viewModel.shieldsEnabled)")
+        }
+        .onAppear {
+            viewModel.changeShip(to: selectedShip)
         }
     }
 }

@@ -20,7 +20,7 @@ class SceneModel {
     var shipName: String
     
     init(shipName: String) {
-        self.shipName = "newFighter"
+        self.shipName = shipName  // Use the passed shipName instead of hardcoding
     }
     
     struct LightConfig {
