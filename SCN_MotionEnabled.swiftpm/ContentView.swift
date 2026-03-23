@@ -1,7 +1,8 @@
-// SCN_MotionEnabled 03/23/2026-3
+// SCN_MotionEnabled 03/23/2026-4
 // ContentView.swift
 // Project: SCN_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
+// 
 
 import SwiftUI
 import SceneKit
@@ -14,7 +15,6 @@ struct ContentView: View {
         "fighter",
         "newFighter",
         "fighterPBR",
-        "fighterPBR 1",
         "smooth_ship",
         "newEnemy",
         "Y-Up-fighter"
@@ -27,16 +27,20 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Picker("Ship", selection: $viewModel.selectedShip) {
+                Menu {
                     ForEach(ships, id: \.self) { ship in
-                        Text(ship).tag(ship)
+                        Button(ship) {
+                            viewModel.selectedShip = ship
+                        }
                     }
+                } label: {
+                    Text("Ship: \(viewModel.selectedShip)")
+                        
                 }
-//                .pickerStyle(.menu)
-//                .padding(16)
-//                .font(.system(size: 24, weight: .semibold, design: .default))
-//                .foregroundColor(.white)
-//                .background(Color.clear)
+                .font(.system(size: 22, weight: .semibold, design: .default))
+                .foregroundColor(.white)
+                .background(Color.clear)
+                .padding(20)
                 
                 
                 Spacer()
@@ -45,22 +49,20 @@ struct ContentView: View {
                     Button("Start Motion") {
                         viewModel.startMotion()
                     }
-                    
+                    .padding(20)
                     Button("Stop Motion") {
                         viewModel.stopMotion()
                     }
+                    .padding(20)
                     
-//                    Button("Reset") {
-//                        viewModel.resetOrientation()
-//                    }
                 }
                 .font(.system(size: 22, weight: .semibold, design: .default))
                 .foregroundColor(.white)
                 .background(Color.clear)
+                .padding(20)
             }
         }
-        .font(.system(size: 22, weight: .semibold, design: .default))
-        .padding(20)
+        
         .onTapGesture(count: 2) {
             viewModel.toggleShields()
         }
