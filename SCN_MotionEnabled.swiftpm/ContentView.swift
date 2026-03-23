@@ -1,7 +1,7 @@
-// SCN_MotionEnabled 03/23/2026-initial commit
+// SCN_MotionEnabled 03/23/2026-1
 // ContentView.swift
 // Project: SCN_MotionEnabled.swiftpm
-// Repo: 
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
 
 import SwiftUI
 import SceneKit
