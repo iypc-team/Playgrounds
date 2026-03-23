@@ -1,4 +1,4 @@
-// SCN_MotionEnabled 03/23/2026-2
+// SCN_MotionEnabled 03/23/2026-3
 // ContentView.swift
 // Project: SCN_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
@@ -22,45 +22,45 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack {
-            
+        ZStack {
             SceneKitView(scene: viewModel.scene)
+                .ignoresSafeArea()
             
-            Picker("Ship", selection: $viewModel.selectedShip) {
-                ForEach(ships, id: \.self) { ship in
-                    Text(ship).tag(ship)
-                }
-            }
-            .pickerStyle(.menu)
-            .padding()
-            
-            HStack {
-                
-                if viewModel.motionRunning {
-                    Button("Stop Motion") {
-                        viewModel.stopMotion()
+            VStack {
+                Picker("Ship", selection: $viewModel.selectedShip) {
+                    ForEach(ships, id: \.self) { ship in
+                        Text(ship).tag(ship)
                     }
-                } else {
+                }
+//                .pickerStyle(.menu)
+//                .padding(16)
+//                .font(.system(size: 24, weight: .semibold, design: .default))
+//                .foregroundColor(.white)
+//                .background(Color.clear)
+                
+                
+                Spacer()
+                
+                HStack {
                     Button("Start Motion") {
                         viewModel.startMotion()
                     }
+                    
+                    Button("Stop Motion") {
+                        viewModel.stopMotion()
+                    }
+                    
+//                    Button("Reset") {
+//                        viewModel.resetOrientation()
+//                    }
                 }
-                
-                Button("Reset") {
-                    viewModel.resetOrientation()
-                }
+                .font(.system(size: 22, weight: .semibold, design: .default))
+                .foregroundColor(.white)
+                .background(Color.clear)
             }
-            .font(.system(size: 22, weight: .semibold, design: .default))
-            
-            if viewModel.shieldsEnabled {
-                Text("Shields ON")
-                    .foregroundColor(.green)
-            } else {
-                Text("Shields OFF")
-                    .foregroundColor(.red)
-            }
-            
         }
+        .font(.system(size: 22, weight: .semibold, design: .default))
+        .padding(20)
         .onTapGesture(count: 2) {
             viewModel.toggleShields()
         }

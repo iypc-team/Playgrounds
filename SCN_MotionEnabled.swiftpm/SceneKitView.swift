@@ -16,7 +16,7 @@ struct SceneKitView: UIViewRepresentable {
         view.backgroundColor = .black
         view.autoenablesDefaultLighting = true
         view.antialiasingMode = .multisampling4X
-        view.showsStatistics = true
+        view.showsStatistics = false
         
         return view
     }

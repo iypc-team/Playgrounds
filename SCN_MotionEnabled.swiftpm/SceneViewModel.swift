@@ -39,6 +39,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     func resetOrientation() {
+        stopMotion()
         shipNode?.orientation = SCNQuaternion(0,0,0,1)
     }
     
@@ -66,6 +67,7 @@ final class SceneViewModel: ObservableObject {
     func stopMotion() {
         motionRunning = false
         motionManager.stopUpdates()
+        shipNode?.orientation = SCNQuaternion(0,0,0,1)
     }
     
     private func updateShipRotation(_ q: AttitudeQuaternion) {
