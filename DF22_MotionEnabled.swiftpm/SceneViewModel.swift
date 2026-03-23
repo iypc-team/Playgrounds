@@ -26,11 +26,9 @@ final class SceneViewModel: ObservableObject {
     
     init() {
         model = SceneModel(shipName: "fighter")
-        //        print("model: \(model)\n")
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
-            //            print("loaded: \(loaded.rootNode.childNodes)\n")
         } else {
             combatScene = SCNScene()
             print("WARN: \(sceneFileName) not found — using empty scene")
@@ -44,6 +42,9 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
+    /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
+    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
+    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment; if rotation feels incorrect, verify SceneKit's coordinate system (e.g., Z-up vs. Y-up) and consider Euler angle conversion for fine-tuning.
     public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
@@ -60,6 +61,7 @@ final class SceneViewModel: ObservableObject {
         startMotionUpdates(stream: stream)
     }
     
+    /// Stops motion tracking and cancels any ongoing updates.
     public func stopMotion() {
         print("func stopMotion()\n")
         motionTask?.cancel()
@@ -292,6 +294,9 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
+    /// Changes the active ship model and reloads the scene.
+    /// - Parameter shipName: The name of the ship model (e.g., "fighter" or "Y-Up-fighter.scn").
+    /// - Note: This recreates the entire scene; motion tracking continues if active, but orientation may reset.
     func changeShip(to shipName: String) {
         model.shipName = shipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"

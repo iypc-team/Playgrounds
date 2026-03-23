@@ -19,6 +19,8 @@ class SceneModel {
     // Configurable ship name
     var shipName: String
     
+    /// Initializes the scene model with a ship name.
+    /// - Parameter shipName: The name of the ship model to load (e.g., "fighter").
     init(shipName: String) {
         self.shipName = shipName  // Use the passed shipName instead of hardcoding
     }
