@@ -1,4 +1,4 @@
-// SCN_MotionEnabled 03/23/2026-1
+// SCN_MotionEnabled 03/23/2026-2
 // ContentView.swift
 // Project: SCN_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
@@ -50,6 +50,7 @@ struct ContentView: View {
                     viewModel.resetOrientation()
                 }
             }
+            .font(.system(size: 22, weight: .semibold, design: .default))
             
             if viewModel.shieldsEnabled {
                 Text("Shields ON")
@@ -66,5 +67,12 @@ struct ContentView: View {
         .onChange(of: viewModel.selectedShip) { newValue in
             viewModel.loadShip(named: newValue)
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .preferredColorScheme(.dark)
     }
 }
