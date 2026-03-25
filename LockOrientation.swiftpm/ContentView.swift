@@ -1,3 +1,8 @@
+//  LockOrientation 03/25/2026-1
+//  ContentView.swift
+//  Project: LockOrientation.swiftpm
+//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
+
 import SwiftUI
 import UIKit
 
@@ -8,7 +13,7 @@ struct ContentView: View {
         ZStack {
             Color.blue
             NavigationView {
-                Text("Hello, world!  Kiss my ass.")
+                Text("Hello, world!  Kiss my mother fucking ass.")
                     .padding()
                     .navigationTitle("Turkey Gizzards")
                     .navigationBarTitleDisplayMode(.inline)
