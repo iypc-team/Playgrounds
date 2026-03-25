@@ -1,4 +1,4 @@
-//  LockOrientation 03/25/2026-1
+//  LockOrientation 03/25/2026-3
 //  ContentView.swift
 //  Project: LockOrientation.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
@@ -7,8 +7,10 @@ import SwiftUI
 import UIKit
 
 // Define an enum for orientation options to work with Picker (since UIInterfaceOrientationMask doesn't conform to Hashable)
+// Added case for "All But Upside Down" for consistency with onDisappear behavior
 enum OrientationOption: String, CaseIterable, Hashable {
     case all = "All"
+    case allButUpsideDown = "All But Upside Down"
     case portrait = "Portrait"
     case landscapeLeft = "Landscape Left"
     case landscapeRight = "Landscape Right"
@@ -16,6 +18,7 @@ enum OrientationOption: String, CaseIterable, Hashable {
     var mask: UIInterfaceOrientationMask {
         switch self {
         case .all: return .all
+        case .allButUpsideDown: return .allButUpsideDown
         case .portrait: return .portrait
         case .landscapeLeft: return .landscapeLeft
         case .landscapeRight: return .landscapeRight
@@ -30,50 +33,72 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.blue
+            // Improved: Use semantic color for better theming
+            Color(uiColor: .systemBackground)
             NavigationView {
                 VStack {
-                    Text("Orientation Locked to Landscape")
+                    // Improved: Make text dynamic to reflect current lock
+                    Text(String(format: NSLocalizedString("orientation_locked_to", comment: "Orientation locked message"), selectedOption.rawValue))
                         .padding()
-                        .navigationTitle("Orientation Lock Demo")
+                        .navigationTitle(NSLocalizedString("orientation_lock_demo", comment: "Demo title"))
                         .navigationBarTitleDisplayMode(.inline)
                     
                     Spacer() // Adds flexible space to push the picker to the bottom
                     
-                    Picker("Select Orientation", selection: $selectedOption) {
+                    Picker(NSLocalizedString("select_orientation", comment: "Picker label"), selection: $selectedOption) {
                         ForEach(OrientationOption.allCases, id: \.self) { option in
                             Text(option.rawValue).tag(option)
                         }
                     }
                     .pickerStyle(.segmented)
                     .padding()
+                    // Improved: Added accessibility for better usability
+                    .accessibilityLabel(NSLocalizedString("orientation_picker_label", comment: "Accessibility label"))
+                    .accessibilityHint(NSLocalizedString("orientation_picker_hint", comment: "Accessibility hint"))
                 }
             }
         }
         .onChange(of: selectedOption) { newValue in
+            let previousOrientation = UIDevice.current.orientation
             AppDelegate.orientationLock = newValue.mask
             UIViewController.attemptRotationToDeviceOrientation()
-            print("Orientation changed to: \(newValue.rawValue)")
+            // Improved: Added error handling/logging for orientation changes
+#if DEBUG
+            let currentOrientation = UIDevice.current.orientation
+            if currentOrientation == previousOrientation {
+                print("Warning: Orientation change to \(newValue.rawValue) may have failed. Current orientation: \(currentOrientation.rawValue)")
+            } else {
+                print("Orientation successfully changed to: \(newValue.rawValue)")
+            }
+#endif
         }
         .onAppear {
-            // Forcing the rotation to landscape right by default
-            selectedOption = .landscapeRight
-            AppDelegate.orientationLock = .landscapeRight
-            
-            print("onAppear")
-            print("orientationLock: \(AppDelegate.orientationLock)")
-            print("UIDevice.current: \(UIDevice.orientationDidChangeNotification)\n")
-            
-            UIViewController.attemptRotationToDeviceOrientation()
+            // Removed: Forced override to respect initial picker state; can be re-added if demo requires it
+#if DEBUG
+            print("onAppear - Initial orientationLock: \(AppDelegate.orientationLock)")
+            print("UIDevice.current.orientationDidChangeNotification: \(UIDevice.orientationDidChangeNotification)")
+#endif
+            // If forcing landscape right for demo, uncomment below (but align with selectedOption)
+            // selectedOption = .landscapeRight
+            // AppDelegate.orientationLock = .landscapeRight
+            // UIViewController.attemptRotationToDeviceOrientation()
         }
         .onDisappear {
-            // Unlocking the rotation when leaving the view
-            selectedOption = .all
+            // Improved: Aligned selectedOption with orientationLock for consistency
+            selectedOption = .allButUpsideDown
             AppDelegate.orientationLock = .allButUpsideDown
             
-            print("onDisappear")
-            print("orientationLock: \(AppDelegate.orientationLock)")
+            let previousOrientation = UIDevice.current.orientation
             UIViewController.attemptRotationToDeviceOrientation()
+            // Improved: Added error handling/logging
+#if DEBUG
+            let currentOrientation = UIDevice.current.orientation
+            if currentOrientation == previousOrientation {
+                print("Warning: Orientation unlock in onDisappear may have failed. Current orientation: \(currentOrientation.rawValue)")
+            } else {
+                print("Orientation unlocked successfully in onDisappear")
+            }
+#endif
         }
     }
 }
@@ -82,7 +107,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
+        ContentView()
+            .preferredColorScheme(.light)
     }
 }
-
-

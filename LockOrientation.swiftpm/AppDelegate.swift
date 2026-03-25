@@ -1,4 +1,5 @@
 //  AppDelegate.swift
+//  Project: LockOrientation.swiftpm
 //  
 
 import SwiftUI
@@ -10,8 +11,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // Default allows all orientations for flexibility
     static var orientationLock: UIInterfaceOrientationMask = .all {
         didSet {
-            // Optional: Log changes for debugging
+            // Improved: Gated debug logging
+#if DEBUG
             print("Orientation lock changed to: \(orientationLock)")
+#endif
         }
     }
     
