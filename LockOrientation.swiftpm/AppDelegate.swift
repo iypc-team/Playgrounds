@@ -1,9 +1,8 @@
+//  AppDelegate.swift
+// 
 
 import UIKit
 
-@UImainApplicationMain
-
-// unknown attribute 'UImainApplicationMain'
 class AppDelegate: UIResponder, UIApplicationDelegate {
     //  
     static var orientationLock = UIInterfaceOrientationMask.all // Default value

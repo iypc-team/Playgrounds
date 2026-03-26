@@ -1,4 +1,4 @@
-//  LockOrientation 03/26/2026-1
+//  LockOrientation 03/26/2026-3
 //  ContentView.swift
 //  Project: LockOrientation.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
@@ -61,7 +61,7 @@ struct ContentView: View {
         }
         .onChange(of: selectedOption) { newValue in
             let previousOrientation = UIDevice.current.orientation
-            AppDelegate.orientationLock = newValue.mask
+            SceneDelegate.orientationLock = newValue.mask
             UIViewController.attemptRotationToDeviceOrientation()
             // Improved: Added error handling/logging for orientation changes
 #if DEBUG
@@ -77,7 +77,7 @@ struct ContentView: View {
             // Leverage scene phases: Reset orientation when the app becomes inactive or backgrounds
             if newPhase == .inactive || newPhase == .background {
                 selectedOption = .allButUpsideDown
-                AppDelegate.orientationLock = .allButUpsideDown
+                SceneDelegate.orientationLock = .allButUpsideDown
                 
                 let previousOrientation = UIDevice.current.orientation
                 UIViewController.attemptRotationToDeviceOrientation()
@@ -95,12 +95,12 @@ struct ContentView: View {
         .onAppear {
             // Removed: Forced override to respect initial picker state; can be re-added if demo requires it
 #if DEBUG
-            print("onAppear - Initial orientationLock: \(AppDelegate.orientationLock)")
+            print("onAppear - Initial orientationLock: \(SceneDelegate.orientationLock)")
             print("UIDevice.current.orientationDidChangeNotification: \(UIDevice.orientationDidChangeNotification)")
 #endif
             // If forcing landscape right for demo, uncomment below (but align with selectedOption)
             // selectedOption = .landscapeRight
-            // AppDelegate.orientationLock = .landscapeRight
+            // SceneDelegate.orientationLock = .landscapeRight
             // UIViewController.attemptRotationToDeviceOrientation()
         }
     }
