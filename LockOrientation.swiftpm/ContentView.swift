@@ -1,4 +1,4 @@
-//  LockOrientation 03/26/2026-5
+//  LockOrientation 03/26/2026-6
 //  ContentView.swift
 //  Project: LockOrientation.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
@@ -52,7 +52,7 @@ struct ContentView: View {
                             Text(option.rawValue).tag(option)
                         }
                     }
-                           .pickerStyle(.segmented)
+                           .pickerStyle(.menu)
                            .padding()
                            .accessibilityLabel(NSLocalizedString("orientation_picker_label", comment: "Accessibility label"))
                            .accessibilityHint(NSLocalizedString("orientation_picker_hint", comment: "Accessibility hint"))
