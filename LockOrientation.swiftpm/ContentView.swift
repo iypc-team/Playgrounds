@@ -1,9 +1,4 @@
-//  LockOrientation 03/26/2026-7
-//  ContentView.swift
-//  Project: LockOrientation.swiftpm
-//  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
-
-//  LockOrientation 03/26/2026-6
+//  LockOrientation 03/26/2026-8
 //  ContentView.swift
 //  Project: LockOrientation.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
