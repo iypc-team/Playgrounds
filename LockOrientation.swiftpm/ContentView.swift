@@ -1,4 +1,4 @@
-//  LockOrientation 03/25/2026-3
+//  LockOrientation 03/26/2026-1
 //  ContentView.swift
 //  Project: LockOrientation.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/LockOrientation.swiftpm
@@ -30,6 +30,7 @@ enum OrientationOption: String, CaseIterable, Hashable {
 @MainActor
 struct ContentView: View {
     @State private var selectedOption: OrientationOption = .all
+    @Environment(\.scenePhase) private var scenePhase  // Leverage scene phases for app lifecycle handling
     
     var body: some View {
         ZStack {
@@ -72,6 +73,25 @@ struct ContentView: View {
             }
 #endif
         }
+        .onChange(of: scenePhase) { newPhase in
+            // Leverage scene phases: Reset orientation when the app becomes inactive or backgrounds
+            if newPhase == .inactive || newPhase == .background {
+                selectedOption = .allButUpsideDown
+                AppDelegate.orientationLock = .allButUpsideDown
+                
+                let previousOrientation = UIDevice.current.orientation
+                UIViewController.attemptRotationToDeviceOrientation()
+                // Improved: Added error handling/logging
+#if DEBUG
+                let currentOrientation = UIDevice.current.orientation
+                if currentOrientation == previousOrientation {
+                    print("Warning: Orientation unlock via scene phase may have failed. Current orientation: \(currentOrientation.rawValue)")
+                } else {
+                    print("Orientation unlocked successfully via scene phase")
+                }
+#endif
+            }
+        }
         .onAppear {
             // Removed: Forced override to respect initial picker state; can be re-added if demo requires it
 #if DEBUG
@@ -82,23 +102,6 @@ struct ContentView: View {
             // selectedOption = .landscapeRight
             // AppDelegate.orientationLock = .landscapeRight
             // UIViewController.attemptRotationToDeviceOrientation()
-        }
-        .onDisappear {
-            // Improved: Aligned selectedOption with orientationLock for consistency
-            selectedOption = .allButUpsideDown
-            AppDelegate.orientationLock = .allButUpsideDown
-            
-            let previousOrientation = UIDevice.current.orientation
-            UIViewController.attemptRotationToDeviceOrientation()
-            // Improved: Added error handling/logging
-#if DEBUG
-            let currentOrientation = UIDevice.current.orientation
-            if currentOrientation == previousOrientation {
-                print("Warning: Orientation unlock in onDisappear may have failed. Current orientation: \(currentOrientation.rawValue)")
-            } else {
-                print("Orientation unlocked successfully in onDisappear")
-            }
-#endif
         }
     }
 }
