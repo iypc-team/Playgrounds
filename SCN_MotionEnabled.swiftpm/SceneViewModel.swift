@@ -1,5 +1,5 @@
 // SceneViewModel.swift
-// 
+// Cannot find type 'SceneModel' in scope
 
 import SwiftUI
 import SceneKit
