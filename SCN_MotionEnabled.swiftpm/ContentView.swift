@@ -1,23 +1,22 @@
-//  DF22_MotionEnabled 03/27/2026-3
+//  DF22_MotionEnabled 03/27/2026-4
 //  ContentView.swift
-//  Project:  DF22_MotionEnabled.swiftpm
-//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
+//  Project:  SCN_MotionEnabled.swiftpm
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
 //  
 
 import SwiftUI
 import SceneKit
-import CoreMotion  // Added for motion integration awareness
+import CoreMotion
 
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
-    @State private var selectedShip = "fighter"
     
     var body: some View {
         ZStack {
             SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
-                Picker("Ship", selection: $selectedShip) {
+                Picker("Ship", selection: $viewModel.selectedShip) {
                     Text("fighter").tag("fighter")
                     Text("newFighter").tag("newFighter")
                     Text("fighterPBR").tag("fighterPBR")
@@ -26,7 +25,7 @@ struct ContentView: View {
                     Text("Y-Up-fighter.scn").tag("Y-Up-fighter.scn")
                 }
                 .pickerStyle(.menu)
-                .onChange(of: selectedShip) { newValue in
+                .onChange(of: viewModel.selectedShip) { newValue in
                     viewModel.changeShip(to: newValue)
                 }
                 .padding(.horizontal)
@@ -58,7 +57,7 @@ struct ContentView: View {
             print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
         .onAppear {
-            viewModel.changeShip(to: selectedShip)
+            viewModel.changeShip(to: viewModel.selectedShip)
         }
     }
 }
@@ -74,7 +73,6 @@ struct SceneKitUIView: UIViewRepresentable {
     
     func updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = combatScene
-        // Configure the view
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.darkGray

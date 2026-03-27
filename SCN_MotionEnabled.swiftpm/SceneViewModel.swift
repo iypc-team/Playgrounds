@@ -1,15 +1,17 @@
 // SceneViewModel.swift
-// Cannot find type 'SceneModel' in scope
+// Refactored to include selectedShip, fix imports, and integrate SceneModel.
+// Fixed init to avoid using @Published selectedShip before it's initialized.
 
 import SwiftUI
 import SceneKit
 import QuartzCore
 import GLKit
-import CoreMotion  // MotionManager integration
+import CoreMotion
 
 final class SceneViewModel: ObservableObject {
-    @Published var combatScene: SCNScene
-    @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
+    @Published var selectedShip: String = "fighter"
+    @Published var combatScene = SCNScene()
+    @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)
     @Published var shieldsEnabled: Bool = false {
         didSet {
             shieldsNode?.opacity = shieldsEnabled ? 0.5 : 0.0
@@ -17,13 +19,13 @@ final class SceneViewModel: ObservableObject {
     }
     
     private let model: SceneModel
-    // Cannot find type 'SceneModel' in scope
     private let motionManager = MotionManager()
-    private var shipNode: SCNNode?               // Optional reference to ship node
-    private var shieldsNode: SCNNode?            // Reference to shields node for toggling
-    private var motionTask: Task<Void, Never>?   // Task for handling motion stream
+    private var shipNode: SCNNode?
+    private var shieldsNode: SCNNode?
+    private var motionTask: Task<Void, Never>?
     
     init() {
+        // Fixed: Use literal string to avoid self before stored properties
         model = SceneModel(shipName: "fighter")
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
@@ -33,7 +35,6 @@ final class SceneViewModel: ObservableObject {
             print("WARN: \(sceneFileName) not found — using empty scene")
         }
         setupScene()
-        // Motion is started/stopped via public API (e.g., UI buttons)
     }
     
     deinit {
@@ -41,17 +42,14 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
-    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
-    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment; if rotation feels incorrect, verify SceneKit's coordinate system (e.g., Z-up vs. Y-up) and consider Euler angle conversion for fine-tuning.
     public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
         
-        if motionTask != nil { return }  // Already started
+        if motionTask != nil { return }
         
-        motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
-        
+        motionManager.startUpdates()
+        // result of call to 'srartUpdates()' is unused WARN: motion stream not available after startUpdates()
         guard let stream = motionManager.attitudeStream else {
             print("WARN: motion stream not available after startUpdates()")
             return
@@ -60,7 +58,6 @@ final class SceneViewModel: ObservableObject {
         startMotionUpdates(stream: stream)
     }
     
-    /// Stops motion tracking and cancels any ongoing updates.
     public func stopMotion() {
         print("func stopMotion()\n")
         motionTask?.cancel()
@@ -68,9 +65,7 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    // Creates a simple "ghost" SCNNode; no unused parameter.
     func ghostEffect() -> SCNNode {
-        // https://stackoverflow.com/questions/43843110/ios-scenekit-add-fresnel-effect-to-material-transparency
         let sphere = SCNSphere(radius: 8)
         sphere.segmentCount = 64
         
@@ -91,8 +86,7 @@ final class SceneViewModel: ObservableObject {
     
     private func setupScene() {
         let shields = ghostEffect()
-        shieldsNode = shields  // Store reference for toggling
-        // Add a camera (safe to add even if the scene file already contains one; helpful for fallback)
+        shieldsNode = shields
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = model.camera.position
@@ -100,7 +94,6 @@ final class SceneViewModel: ObservableObject {
         cameraNode.look(at: model.camera.lookAt)
         combatScene.rootNode.addChildNode(cameraNode)
         
-        // Add ambient lights
         for lightConfig in model.ambientLights {
             let lightNode = SCNNode()
             lightNode.light = SCNLight()
@@ -110,7 +103,6 @@ final class SceneViewModel: ObservableObject {
             combatScene.rootNode.addChildNode(lightNode)
         }
         
-        // Create cabin light node (configure safely)
         let cabinLightNode = SCNNode()
         let cabinLight = SCNLight()
         cabinLight.type = model.cabinLight.type
@@ -125,7 +117,6 @@ final class SceneViewModel: ObservableObject {
         cabinLightNode.light = cabinLight
         cabinLightNode.position = model.cabinLight.position
         
-        // Create plane
         let plane = SCNPlane(width: model.plane.width, height: model.plane.height)
         plane.firstMaterial?.isDoubleSided = model.plane.isDoubleSided
         plane.firstMaterial?.diffuse.contents = model.plane.materialColor
@@ -135,10 +126,8 @@ final class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
-        // Derive node name from ship name (remove .scn if present)
         let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
         
-        // Retrieve and configure ship safely (no force-unwrap)
         if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
             shipNode = ship
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
@@ -149,12 +138,10 @@ final class SceneViewModel: ObservableObject {
                 }
                 print()
             }
-            // Add children to ship
             shipNode?.addChildNode(planeNode)
             shipNode?.addChildNode(cabinLightNode)
             shipNode?.addChildNode(shields)
             
-            // Add engine lights to ship (configure safely)
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
                 lightNode.light = SCNLight()
@@ -171,7 +158,6 @@ final class SceneViewModel: ObservableObject {
                 shipNode?.addChildNode(lightNode)
             }
         } else if combatScene.rootNode.geometry != nil {
-            // If no named node, but root has geometry, use root as ship
             shipNode = combatScene.rootNode
             shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
@@ -181,12 +167,10 @@ final class SceneViewModel: ObservableObject {
                 }
                 print()
             }
-            // Add children to ship
             shipNode?.addChildNode(planeNode)
             shipNode?.addChildNode(cabinLightNode)
             shipNode?.addChildNode(shields)
             
-            // Add engine lights to ship (configure safely)
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
                 lightNode.light = SCNLight()
@@ -203,10 +187,7 @@ final class SceneViewModel: ObservableObject {
                 shipNode?.addChildNode(lightNode)
             }
         } else {
-            // Ship not found — attach items to root so scene still shows something useful
             print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
-            //            combatScene.rootNode.addChildNode(planeNode)
-            //            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
@@ -224,20 +205,13 @@ final class SceneViewModel: ObservableObject {
                 combatScene.rootNode.addChildNode(lightNode)
             }
             
-            // Fallback demo geometry so UI shows something immediately
             addFallbackDemoContent()
         }
         
-        // Set initial shields opacity based on shieldsEnabled
         shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
-        
-        // Optional debug prints (remove or gate behind debug flag as needed)
-        
     }
     
     private func addFallbackDemoContent() {
-        // Only add if a visible geometry isn't already present
-        // Add a visible geometry so the view isn't empty
         let box = SCNBox(width: 1, height: 10, length: 1, chamferRadius: 0.1)
         box.firstMaterial?.diffuse.contents = UIColor.gray
         let boxNode = SCNNode(geometry: box)
@@ -245,7 +219,6 @@ final class SceneViewModel: ObservableObject {
         boxNode.position = SCNVector3(0, 0, 0)
         combatScene.rootNode.addChildNode(boxNode)
         
-        // Add a light so the box is lit
         let lightNode = SCNNode()
         let light = SCNLight()
         light.type = .omni
@@ -254,36 +227,30 @@ final class SceneViewModel: ObservableObject {
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
         combatScene.rootNode.addChildNode(lightNode)
         
-        // Optional: animate the box so it's obvious something is happening
         let spin = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi * 2, z: 0, duration: 6))
         boxNode.runAction(spin)
     }
     
     private func startMotionUpdates(stream: AsyncThrowingStream<AttitudeQuaternion, Error>) {
-        // Ensure we don't start a duplicate task
         if motionTask != nil { return }
         
         motionTask = Task { [weak self] in
             guard let self = self else { return }
             do {
                 for try await att in stream {
-                    // Normalize quaternion to avoid scale issues
-                    let x = att.quaternion.x
-                    let y = att.quaternion.y
-                    let z = att.quaternion.z
-                    let w = att.quaternion.w
+                    let x = att.x
+                    let y = att.y
+                    let z = att.z
+                    let w = att.w
                     let mag = sqrt(x * x + y * y + z * z + w * w)
                     let nx = mag > 0 ? x / mag : x
                     let ny = mag > 0 ? y / mag : y
                     let nz = mag > 0 ? z / mag : z
                     let nw = mag > 0 ? w / mag : w
                     
-                    // Update ship orientation on main actor
                     await MainActor.run {
-                        // Note: SceneKit's orientation is an SCNVector4. If you find the rotation
-                        // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
-                        self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
+                        self.currentOrientation = SCNVector4(nx, ny, nz, nw)
                         print("currentOrientation:  \(self.currentOrientation)\n")
                     }
                 }
@@ -293,11 +260,9 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    /// Changes the active ship model and reloads the scene.
-    /// - Parameter shipName: The name of the ship model (e.g., "fighter" or "Y-Up-fighter.scn").
-    /// - Note: This recreates the entire scene; motion tracking continues if active, but orientation may reset.
     func changeShip(to shipName: String) {
         model.shipName = shipName
+        selectedShip = shipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
