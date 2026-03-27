@@ -1,77 +1,90 @@
-// SCN_MotionEnabled 03/23/2026-5
-// ContentView.swift
-// Project: SCN_MotionEnabled.swiftpm
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
-// 
+//  DF22_MotionEnabled 03/27/2026-1
+//  ContentView.swift
+//  Project:  DF22_MotionEnabled.swiftpm
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
+//  
 
 import SwiftUI
 import SceneKit
+import CoreMotion  // Added for motion integration awareness
 
 struct ContentView: View {
-    
     @StateObject private var viewModel = SceneViewModel()
-    
-    private let ships = [
-        "fighter",
-        "newFighter",
-        "fighterPBR",
-        "smooth_ship",
-        "newEnemy",
-        "Y-Up-fighter"
-    ]
+    @State private var selectedShip = "fighter"
     
     var body: some View {
-        
         ZStack {
-            SceneKitView(scene: viewModel.scene)
-                .ignoresSafeArea()
+            SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
-                Menu {
-                    ForEach(ships, id: \.self) { ship in
-                        Button(ship) {
-                            viewModel.selectedShip = ship
-                        }
-                    }
-                } label: {
-                    Text("Ship: \(viewModel.selectedShip)")
-                        
+                Picker("Ship", selection: $selectedShip) {
+                    Text("fighter").tag("fighter")
+                    Text("newFighter").tag("newFighter")
+                    Text("fighterPBR").tag("fighterPBR")
+                    Text("smooth_ship").tag("smooth_ship")
+                    Text("airplane").tag("airplane")
+                    Text("Y-Up-fighter.scn").tag("Y-Up-fighter.scn")
                 }
-                .font(.system(size: 22, weight: .semibold, design: .default))
-                .foregroundColor(.white)
-                .background(Color.clear)
-                .padding(20)
+                .pickerStyle(.menu)
+                .onChange(of: selectedShip) { newValue in
+                    viewModel.changeShip(to: newValue)
+                }
+                .padding(.horizontal)
                 
                 Spacer()
                 
                 HStack {
-                    Button("Start Motion") {
-                        viewModel.startMotion()
+                    Button(action: { viewModel.startMotion() }) {
+                        Text("Start Motion")
+                            .foregroundColor(.green)
+                            .padding()
+                            .background(Color.clear)
+                            .cornerRadius(8)
                     }
-                    .padding(20)
-                    Button("Stop Motion") {
-                        viewModel.stopMotion()
+                    Button(action: { viewModel.stopMotion() }) {
+                        Text("Stop Motion")
+                            .foregroundColor(.red)
+                            .padding()
+                            .background(Color.clear)
+                            .cornerRadius(8)
                     }
-                    .padding(20)
-                    
                 }
-                .font(.system(size: 22, weight: .semibold, design: .default))
-                .foregroundColor(.white)
-                .background(Color.clear)
-                .padding(20)
+                .padding()
             }
+            .font(.system(size: 20, weight: .semibold, design: .default))
         }
-        
         .onTapGesture(count: 2) {
-            viewModel.toggleShields()
+            viewModel.shieldsEnabled.toggle()
+            print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
-        .onChange(of: viewModel.selectedShip) { newValue in
-            viewModel.loadShip(named: newValue)
+        .onAppear {
+            viewModel.changeShip(to: selectedShip)
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SceneKitUIView: UIViewRepresentable {
+    var combatScene: SCNScene
+    
+    func makeUIView(context: Context) -> SCNView {
+        let scnView = SCNView()
+        scnView.scene = combatScene
+        return scnView
+    }
+    
+    func updateUIView(_ scnView: SCNView, context: Context) {
+        scnView.scene = combatScene
+        // Configure the view
+        scnView.allowsCameraControl = true
+        scnView.showsStatistics = true
+        scnView.backgroundColor = UIColor.darkGray
+        scnView.antialiasingMode = .multisampling4X
+        scnView.autoenablesDefaultLighting = true
+        scnView.isTemporalAntialiasingEnabled = true
+    }
+}
+
+struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
