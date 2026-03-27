@@ -48,14 +48,14 @@ final class SceneViewModel: ObservableObject {
         
         if motionTask != nil { return }
         
-        motionManager.startUpdates()
-        // result of call to 'srartUpdates()' is unused WARN: motion stream not available after startUpdates()
-        guard let stream = motionManager.attitudeStream else {
+        // Capture and reuse the stream returned by startUpdates()
+        let stream = motionManager.startUpdates()
+        guard let attitudeStream = motionManager.attitudeStream ?? Optional(stream) else {
             print("WARN: motion stream not available after startUpdates()")
             return
         }
         
-        startMotionUpdates(stream: stream)
+        startMotionUpdates(stream: attitudeStream)
     }
     
     public func stopMotion() {

@@ -1,6 +1,3 @@
-// MotionManager.swift
-// 
-
 import CoreMotion
 import Foundation
 
@@ -16,23 +13,21 @@ struct AttitudeQuaternion {
 }
 
 final class MotionManager {
-    
     private let motionManager = CMMotionManager()
-    
     private let queue: OperationQueue = {
         let q = OperationQueue()
         q.qualityOfService = .userInteractive
         return q
     }()
     
-    private(set) var attitudeStream:
-    AsyncThrowingStream<AttitudeQuaternion, Error>?
+    private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
-    func startUpdates()
-    -> AsyncThrowingStream<AttitudeQuaternion, Error> {
+    @discardableResult
+    func startUpdates() -> AsyncThrowingStream<AttitudeQuaternion, Error> {
+        if let attitudeStream { return attitudeStream }
         
-        AsyncThrowingStream { continuation in
-            
+        let stream = AsyncThrowingStream<AttitudeQuaternion, Error> { [weak self] continuation in
+            guard let self else { return }
             guard motionManager.isDeviceMotionAvailable else {
                 continuation.finish(throwing: MotionError.deviceMotionUnavailable)
                 return
@@ -40,25 +35,16 @@ final class MotionManager {
             
             motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
             
-            motionManager.startDeviceMotionUpdates(to: queue) {
-                motion, error in
-                
+            motionManager.startDeviceMotionUpdates(to: queue) { motion, error in
                 if let error {
                     continuation.finish(throwing: error)
                     return
                 }
-                
                 guard let motion else { return }
                 
                 let q = motion.attitude.quaternion
-                
                 continuation.yield(
-                    AttitudeQuaternion(
-                        x: q.x,
-                        y: q.y,
-                        z: q.z,
-                        w: q.w
-                    )
+                    AttitudeQuaternion(x: q.x, y: q.y, z: q.z, w: q.w)
                 )
             }
             
@@ -66,10 +52,13 @@ final class MotionManager {
                 self?.motionManager.stopDeviceMotionUpdates()
             }
         }
+        
+        attitudeStream = stream
+        return stream
     }
     
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
+        attitudeStream = nil
     }
 }
-
