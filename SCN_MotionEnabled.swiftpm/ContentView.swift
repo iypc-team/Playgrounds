@@ -1,9 +1,13 @@
-//  SCN_MotionEnabled 03/28/2026-7
+//  SCN_MotionEnabled 03/28/2026-8
 //  ContentView.swift
 //  Project:  SCN_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
 //  
 
+// ContentView.swift
+// Updated to reflect dynamic picture list based on continents.
+
+// Import necessary libraries
 import SwiftUI
 import SceneKit
 import CoreMotion
@@ -11,11 +15,17 @@ import CoreMotion
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
     
-    var availableShips: [String] {
-        if let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
-            return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
+    // This computed property dynamically fetches resources categorized by continent
+    var availableResources: [String] {
+        let continents = ["asia", "europe", "america", "africa", "australia", "antarctica"]
+        var resources = [String]()
+        
+        for continent in continents {
+            guard let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: "Resources/\(continent)") else { continue }
+            resources.append(contentsOf: urls.map { $0.deletingPathExtension().lastPathComponent })
         }
-        return []
+        
+        return resources.sorted()
     }
     
     var body: some View {
@@ -23,19 +33,20 @@ struct ContentView: View {
             SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
-                Picker("Ship", selection: $viewModel.selectedShip) {
-                    ForEach(availableShips, id: \.self) { ship in
-                        Text(ship).tag(ship)
+                Picker("Models", selection: $viewModel.selectedShip) {
+                    ForEach(availableResources, id: \.self) { model in
+                        Text(model).tag(model)
                     }
                 }
                 .pickerStyle(.menu)
+                .padding(.horizontal)
                 .onChange(of: viewModel.selectedShip) { newValue in
                     viewModel.changeShip(to: newValue)
                 }
-                .padding(.horizontal)
                 
                 Spacer()
                 
+                // Control buttons
                 HStack {
                     Button(action: { viewModel.startMotion() }) {
                         Text("Start Motion")
@@ -44,6 +55,7 @@ struct ContentView: View {
                             .background(Color.clear)
                             .cornerRadius(8)
                     }
+                    
                     Button(action: { viewModel.stopMotion() }) {
                         Text("Stop Motion")
                             .foregroundColor(.red)
@@ -54,41 +66,10 @@ struct ContentView: View {
                 }
                 .padding()
             }
-            .font(.system(size: 20, weight: .semibold, design: .default))
-        }
-        .onTapGesture(count: 2) {
-            viewModel.shieldsEnabled.toggle()
-            print("shieldsEnabled: \(viewModel.shieldsEnabled)")
+            .font(.system(size: 20, weight: .semibold))
         }
         .onAppear {
             viewModel.changeShip(to: viewModel.selectedShip)
         }
-    }
-}
-
-struct SceneKitUIView: UIViewRepresentable {
-    var combatScene: SCNScene
-    
-    func makeUIView(context: Context) -> SCNView {
-        let scnView = SCNView()
-        scnView.scene = combatScene
-        return scnView
-    }
-    
-    func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = combatScene
-        scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        scnView.backgroundColor = UIColor.darkGray
-        scnView.antialiasingMode = .multisampling4X
-        scnView.autoenablesDefaultLighting = true
-        scnView.isTemporalAntialiasingEnabled = true
-    }
-}
-
-struct SceneKitView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .preferredColorScheme(.dark)
     }
 }
