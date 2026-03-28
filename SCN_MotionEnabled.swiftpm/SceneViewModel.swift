@@ -2,6 +2,8 @@
 // Refactored to include selectedShip, fix imports, and integrate SceneModel.
 // Fixed init to avoid using @Published selectedShip before it's initialized.
 // Added pi radians rotation about z-axis for 'fighter.scn' only.
+// Updated updateInterval to 60 FPS for smoother motion.
+// Prioritized rootNode geometry check to fix warnings for ship nodes not found.
 
 import SwiftUI
 import SceneKit
@@ -43,9 +45,9 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 60.0) {
         print("func startMotion()")
-        print("updateInterval:  \(updateInterval) frames per second.")
+        print("updateInterval:  \(1.0 / updateInterval) frames per second.")
         
         if motionTask != nil { return }
         
@@ -129,8 +131,9 @@ final class SceneViewModel: ObservableObject {
         
         let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
         
-        if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
-            shipNode = ship
+        // Prioritize rootNode if it has geometry (common for .scn files)
+        if combatScene.rootNode.geometry != nil {
+            shipNode = combatScene.rootNode
             // Apply pi radians rotation about z-axis for 'fighter' only
             if model.shipName == "fighter" {
                 shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
@@ -163,8 +166,8 @@ final class SceneViewModel: ObservableObject {
                 lightNode.position = lightConfig.position
                 shipNode?.addChildNode(lightNode)
             }
-        } else if combatScene.rootNode.geometry != nil {
-            shipNode = combatScene.rootNode
+        } else if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
+            shipNode = ship
             // Apply pi radians rotation about z-axis for 'fighter' only
             if model.shipName == "fighter" {
                 shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
