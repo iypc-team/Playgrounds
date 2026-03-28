@@ -1,6 +1,5 @@
 // SceneModel.swift
-// Defines data structures for scene configuration.
-// Added GLKit import for GLKMathDegreesToRadians.
+// 
 
 import SwiftUI
 import SceneKit

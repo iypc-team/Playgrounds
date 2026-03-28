@@ -1,9 +1,5 @@
 // SceneViewModel.swift
-// Refactored to include selectedShip, fix imports, and integrate SceneModel.
-// Fixed init to avoid using @Published selectedShip before it's initialized.
-// Added pi radians rotation about z-axis for 'fighter' only.
-// Updated updateInterval to 60 FPS for smoother motion.
-// Simplified setupScene to always use rootNode, eliminating warnings for missing ship nodes.
+// 
 
 import SwiftUI
 import SceneKit
@@ -47,7 +43,7 @@ final class SceneViewModel: ObservableObject {
     
     public func startMotion(updateInterval: TimeInterval = 1.0 / 60.0) {
         print("func startMotion()")
-        print("updateInterval:  \(1.0 / updateInterval) frames per second.")
+        print("updateInterval:  \(1.0 / updateInterval) frames per second.\n")
         
         if motionTask != nil { return }
         
@@ -140,6 +136,7 @@ final class SceneViewModel: ObservableObject {
         if let materials = shipNode?.geometry?.materials {
             for material in materials {
                 print("material:  \(String(describing: material.name))")
+                print("material.isDoubleSided: \(material.isDoubleSided)")
             }
             print()
         }

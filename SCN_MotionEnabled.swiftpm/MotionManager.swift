@@ -1,3 +1,6 @@
+//  MotionManager.swift
+//  
+
 import CoreMotion
 import Foundation
 

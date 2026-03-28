@@ -1,11 +1,8 @@
-//  SCN_MotionEnabled 03/28/2026-8
+//  SCN_MotionEnabled 03/28/2026-10
 //  ContentView.swift
 //  Project:  SCN_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
 //  
-
-// ContentView.swift
-// Updated to reflect dynamic picture list based on continents.
 
 // Import necessary libraries
 import SwiftUI
@@ -15,17 +12,10 @@ import CoreMotion
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
     
-    // This computed property dynamically fetches resources categorized by continent
+    // This computed property dynamically fetches resources from the Resources directory
     var availableResources: [String] {
-        let continents = ["asia", "europe", "america", "africa", "australia", "antarctica"]
-        var resources = [String]()
-        
-        for continent in continents {
-            guard let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: "Resources/\(continent)") else { continue }
-            resources.append(contentsOf: urls.map { $0.deletingPathExtension().lastPathComponent })
-        }
-        
-        return resources.sorted()
+        guard let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") else { return [] }
+        return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
     }
     
     var body: some View {
@@ -40,9 +30,6 @@ struct ContentView: View {
                 }
                 .pickerStyle(.menu)
                 .padding(.horizontal)
-                .onChange(of: viewModel.selectedShip) { newValue in
-                    viewModel.changeShip(to: newValue)
-                }
                 
                 Spacer()
                 
@@ -71,5 +58,34 @@ struct ContentView: View {
         .onAppear {
             viewModel.changeShip(to: viewModel.selectedShip)
         }
+    }
+}
+
+// UIViewRepresentable wrapper for SCNView to integrate SceneKit with SwiftUI
+struct SceneKitUIView: UIViewRepresentable {
+    var combatScene: SCNScene
+    
+    func makeUIView(context: Context) -> SCNView {
+        let scnView = SCNView()
+        scnView.scene = combatScene
+        return scnView
+    }
+    
+    func updateUIView(_ scnView: SCNView, context: Context) {
+        scnView.scene = combatScene
+        // Configure the view for better rendering
+        scnView.allowsCameraControl = true
+        scnView.showsStatistics = true
+        scnView.backgroundColor = UIColor.darkGray
+        scnView.antialiasingMode = .multisampling4X
+        scnView.autoenablesDefaultLighting = true
+        scnView.isTemporalAntialiasingEnabled = true
+    }
+}
+
+struct SceneKitView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .preferredColorScheme(.dark)
     }
 }
