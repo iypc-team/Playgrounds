@@ -50,7 +50,7 @@ final class SceneViewModel: ObservableObject {
         if motionTask != nil { return }
         
         // Capture and reuse the stream returned by startUpdates()
-        let stream = motionManager.startUpdates()
+        let stream = motionManager.startUpdates(updateInterval: updateInterval)
         guard let attitudeStream = motionManager.attitudeStream ?? Optional(stream) else {
             print("WARN: motion stream not available after startUpdates()")
             return
@@ -219,7 +219,7 @@ final class SceneViewModel: ObservableObject {
             addFallbackDemoContent()
         }
         
-        shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
+        shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0  // Updated: Use 0.1 for semi-transparent shields
     }
     
     private func addFallbackDemoContent() {

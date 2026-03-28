@@ -23,7 +23,7 @@ final class MotionManager {
     private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
     @discardableResult
-    func startUpdates() -> AsyncThrowingStream<AttitudeQuaternion, Error> {
+    func startUpdates(updateInterval: TimeInterval = 1.0 / 60.0) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
         if let attitudeStream { return attitudeStream }
         
         let stream = AsyncThrowingStream<AttitudeQuaternion, Error> { [weak self] continuation in
@@ -33,7 +33,7 @@ final class MotionManager {
                 return
             }
             
-            motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
+            motionManager.deviceMotionUpdateInterval = updateInterval
             
             motionManager.startDeviceMotionUpdates(to: queue) { motion, error in
                 if let error {
