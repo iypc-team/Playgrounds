@@ -14,7 +14,7 @@ final class SceneViewModel: ObservableObject {
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)
     @Published var shieldsEnabled: Bool = false {
         didSet {
-            shieldsNode?.opacity = shieldsEnabled ? 0.5 : 0.0
+            shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0
         }
     }
     
