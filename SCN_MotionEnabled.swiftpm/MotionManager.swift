@@ -1,5 +1,5 @@
 //  MotionManager.swift
-//  
+//  updateInterval
 
 import CoreMotion
 import Foundation
@@ -26,7 +26,7 @@ final class MotionManager {
     private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
     @discardableResult
-    func startUpdates(updateInterval: TimeInterval = 1.0 / 60.0) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
+    func startUpdates(updateInterval: TimeInterval = 1.0 / 15.0) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
         if let attitudeStream { return attitudeStream }
         
         let stream = AsyncThrowingStream<AttitudeQuaternion, Error> { [weak self] continuation in

@@ -1,4 +1,4 @@
-//  SCN_MotionEnabled 03/28/2026-11
+//  SCN_MotionEnabled 03/28/2026-12
 //  ContentView.swift
 //  Project:  SCN_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
@@ -12,15 +12,17 @@ import CoreMotion
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
     
-    // This computed property dynamically fetches resources from the Resources directory
+    // This computed property fetches available models from SceneModel for reliability
     var availableResources: [String] {
-        guard let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") else { return [] }
-        return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
+        SceneModel.availableShipNames.map { name in
+            name.hasSuffix(".scn") ? String(name.dropLast(4)) : name
+        }.sorted()
     }
     
     var body: some View {
         ZStack(alignment: .top) {
             SceneKitUIView(combatScene: viewModel.combatScene)
+                .ignoresSafeArea()
             
             VStack {
                 Picker("Models", selection: $viewModel.selectedShip) {
@@ -30,6 +32,8 @@ struct ContentView: View {
                 }
                 .pickerStyle(.menu)
                 .padding(.horizontal)
+                .background(Color.white.opacity(0.8))  // Added for visibility on dark background
+                .cornerRadius(8)  // Added for consistency
                 
                 Spacer()
                 
@@ -54,13 +58,13 @@ struct ContentView: View {
                 .padding()
             }
             .font(.system(size: 20, weight: .semibold))
+            .background(Color.black.opacity(0.5))  // Added for better contrast over the scene
         }
         .onAppear {
             viewModel.changeShip(to: viewModel.selectedShip)
         }
     }
 }
-
 
 struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
