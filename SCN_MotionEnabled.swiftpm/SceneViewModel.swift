@@ -1,9 +1,9 @@
 // SceneViewModel.swift
 // Refactored to include selectedShip, fix imports, and integrate SceneModel.
 // Fixed init to avoid using @Published selectedShip before it's initialized.
-// Added pi radians rotation about z-axis for 'fighter.scn' only.
+// Added pi radians rotation about z-axis for 'fighter' only.
 // Updated updateInterval to 60 FPS for smoother motion.
-// Prioritized rootNode geometry check to fix warnings for ship nodes not found.
+// Simplified setupScene to always use rootNode, eliminating warnings for missing ship nodes.
 
 import SwiftUI
 import SceneKit
@@ -129,97 +129,38 @@ final class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
-        let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
-        
-        // Prioritize rootNode if it has geometry (common for .scn files)
-        if combatScene.rootNode.geometry != nil {
-            shipNode = combatScene.rootNode
-            // Apply pi radians rotation about z-axis for 'fighter' only
-            if model.shipName == "fighter" {
-                shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
-            } else {
-                shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-            }
-            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-            if let materials = shipNode?.geometry?.materials {
-                for material in materials {
-                    print("material:  \(String(describing: material.name))")
-                }
-                print()
-            }
-            shipNode?.addChildNode(planeNode)
-            shipNode?.addChildNode(cabinLightNode)
-            shipNode?.addChildNode(shields)
-            
-            for lightConfig in model.engineLights {
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = lightConfig.type
-                lightNode.light?.color = lightConfig.color
-                if let intensity = lightConfig.intensity {
-                    lightNode.light?.intensity = intensity
-                }
-                lightNode.light?.castsShadow = lightConfig.castsShadow
-                if let attenuation = lightConfig.attenuationEndDistance {
-                    lightNode.light?.attenuationEndDistance = attenuation
-                }
-                lightNode.position = lightConfig.position
-                shipNode?.addChildNode(lightNode)
-            }
-        } else if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
-            shipNode = ship
-            // Apply pi radians rotation about z-axis for 'fighter' only
-            if model.shipName == "fighter" {
-                shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
-            } else {
-                shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-            }
-            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-            if let materials = shipNode?.geometry?.materials {
-                for material in materials {
-                    print("material:  \(String(describing: material.name))")
-                }
-                print()
-            }
-            shipNode?.addChildNode(planeNode)
-            shipNode?.addChildNode(cabinLightNode)
-            shipNode?.addChildNode(shields)
-            
-            for lightConfig in model.engineLights {
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = lightConfig.type
-                lightNode.light?.color = lightConfig.color
-                if let intensity = lightConfig.intensity {
-                    lightNode.light?.intensity = intensity
-                }
-                lightNode.light?.castsShadow = lightConfig.castsShadow
-                if let attenuation = lightConfig.attenuationEndDistance {
-                    lightNode.light?.attenuationEndDistance = attenuation
-                }
-                lightNode.position = lightConfig.position
-                shipNode?.addChildNode(lightNode)
-            }
+        shipNode = combatScene.rootNode
+        // Apply pi radians rotation about z-axis for 'fighter' only
+        if model.shipName == "fighter" {
+            shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
         } else {
-            print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
-            
-            for lightConfig in model.engineLights {
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = lightConfig.type
-                lightNode.light?.color = lightConfig.color
-                if let intensity = lightConfig.intensity {
-                    lightNode.light?.intensity = intensity
-                }
-                lightNode.light?.castsShadow = lightConfig.castsShadow
-                if let attenuation = lightConfig.attenuationEndDistance {
-                    lightNode.light?.attenuationEndDistance = attenuation
-                }
-                lightNode.position = lightConfig.position
-                combatScene.rootNode.addChildNode(lightNode)
+            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+        }
+        shipNode?.geometry?.firstMaterial?.isDoubleSided = true
+        if let materials = shipNode?.geometry?.materials {
+            for material in materials {
+                print("material:  \(String(describing: material.name))")
             }
-            
-            addFallbackDemoContent()
+            print()
+        }
+        shipNode?.addChildNode(planeNode)
+        shipNode?.addChildNode(cabinLightNode)
+        shipNode?.addChildNode(shields)
+        
+        for lightConfig in model.engineLights {
+            let lightNode = SCNNode()
+            lightNode.light = SCNLight()
+            lightNode.light?.type = lightConfig.type
+            lightNode.light?.color = lightConfig.color
+            if let intensity = lightConfig.intensity {
+                lightNode.light?.intensity = intensity
+            }
+            lightNode.light?.castsShadow = lightConfig.castsShadow
+            if let attenuation = lightConfig.attenuationEndDistance {
+                lightNode.light?.attenuationEndDistance = attenuation
+            }
+            lightNode.position = lightConfig.position
+            shipNode?.addChildNode(lightNode)
         }
         
         shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0  // Updated: Use 0.1 for semi-transparent shields
