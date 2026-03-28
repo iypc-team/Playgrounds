@@ -7,14 +7,13 @@ import GLKit
 
 class SceneModel {
     // Available ship models for configuration
-    static let availableShipNames = [
-        "fighter",
-        "newFighter",
-        "fighterPBR",
-        "smooth_ship",
-        "airplane",
-        "Y-Up-fighter.scn"
-    ]
+    static var availableShipNames: [String] {
+        if let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
+            return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
+        } else {
+            return []
+        }
+    }
     
     // Configurable ship name
     var shipName: String
