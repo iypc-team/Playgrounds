@@ -1,6 +1,7 @@
 // SceneViewModel.swift
 // Refactored to include selectedShip, fix imports, and integrate SceneModel.
 // Fixed init to avoid using @Published selectedShip before it's initialized.
+// Added pi radians rotation about z-axis for 'fighter.scn' only.
 
 import SwiftUI
 import SceneKit
@@ -130,7 +131,12 @@ final class SceneViewModel: ObservableObject {
         
         if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
             shipNode = ship
-            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            // Apply pi radians rotation about z-axis for 'fighter' only
+            if model.shipName == "fighter" {
+                shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
+            } else {
+                shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            }
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
             if let materials = shipNode?.geometry?.materials {
                 for material in materials {
@@ -159,7 +165,12 @@ final class SceneViewModel: ObservableObject {
             }
         } else if combatScene.rootNode.geometry != nil {
             shipNode = combatScene.rootNode
-            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            // Apply pi radians rotation about z-axis for 'fighter' only
+            if model.shipName == "fighter" {
+                shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
+            } else {
+                shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            }
             shipNode?.geometry?.firstMaterial?.isDoubleSided = true
             if let materials = shipNode?.geometry?.materials {
                 for material in materials {
