@@ -12,7 +12,6 @@ class SceneModel {
         "fighter",
         "newFighter",
         "fighterPBR",
-        "fighterPBR",
         "smooth_ship",
         "airplane",
         "Y-Up-fighter.scn"
