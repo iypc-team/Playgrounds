@@ -1,4 +1,4 @@
-//  SCN_MotionEnabled 03/28/2026-5
+//  SCN_MotionEnabled 03/28/2026-6
 //  ContentView.swift
 //  Project:  SCN_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/SCN_MotionEnabled.swiftpm
@@ -11,18 +11,22 @@ import CoreMotion
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
     
+    var availableShips: [String] {
+        if let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
+            return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
+        }
+        return []
+    }
+    
     var body: some View {
         ZStack {
             SceneKitUIView(combatScene: viewModel.combatScene)
             
             VStack {
                 Picker("Ship", selection: $viewModel.selectedShip) {
-                    Text("fighter").tag("fighter")
-                    Text("newFighter").tag("newFighter")
-                    Text("fighterPBR").tag("fighterPBR")
-                    Text("smooth_ship").tag("smooth_ship")
-                    Text("airplane").tag("airplane")
-                    Text("Y-Up-fighter.scn").tag("Y-Up-fighter.scn")
+                    ForEach(availableShips, id: \.self) { ship in
+                        Text(ship).tag(ship)
+                    }
                 }
                 .pickerStyle(.menu)
                 .onChange(of: viewModel.selectedShip) { newValue in
