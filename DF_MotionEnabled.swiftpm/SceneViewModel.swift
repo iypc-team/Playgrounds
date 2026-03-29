@@ -45,7 +45,7 @@ final class SceneViewModel: ObservableObject {
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
     /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
     /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 15) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
         
@@ -183,7 +183,7 @@ final class SceneViewModel: ObservableObject {
         }
         
         // Set initial shields opacity based on shieldsEnabled
-        shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
+        shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0
         
         // Optional debug prints (remove or gate behind debug flag as needed)
         
