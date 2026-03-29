@@ -44,7 +44,7 @@ final class SceneViewModel: ObservableObject {
     
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
     /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
-    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment; if rotation feels incorrect, verify SceneKit's coordinate system (e.g., Z-up vs. Y-up) and consider Euler angle conversion for fine-tuning.
+    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
     public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
@@ -136,73 +136,26 @@ final class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
-        // Derive node name from ship name (remove .scn if present)
+        // Attempt to find the ship node(s).
+        // Many .scn files won't name the top container with the expected name — handle common variations:
         let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
+        var ship: SCNNode?
         
-        // Retrieve and configure ship safely (no force-unwrap)
-        if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
-            shipNode = ship
-            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-            if let materials = shipNode?.geometry?.materials {
-                for material in materials {
-                    print("material:  \(String(describing: material.name))")
-                }
-                print()
-            }
-            // Add children to ship
-            shipNode?.addChildNode(planeNode)
-            shipNode?.addChildNode(cabinLightNode)
-            shipNode?.addChildNode(shields)
-            
-            // Add engine lights to ship (configure safely)
-            for lightConfig in model.engineLights {
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = lightConfig.type
-                lightNode.light?.color = lightConfig.color
-                if let intensity = lightConfig.intensity {
-                    lightNode.light?.intensity = intensity
-                }
-                lightNode.light?.castsShadow = lightConfig.castsShadow
-                if let attenuation = lightConfig.attenuationEndDistance {
-                    lightNode.light?.attenuationEndDistance = attenuation
-                }
-                lightNode.position = lightConfig.position
-                shipNode?.addChildNode(lightNode)
-            }
-        } else if combatScene.rootNode.geometry != nil {
-            // If no named node, but root has geometry, use root as ship
-            shipNode = combatScene.rootNode
-            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
-            shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-            if let materials = shipNode?.geometry?.materials {
-                for material in materials {
-                    print("material:  \(String(describing: material.name))")
-                }
-                print()
-            }
-            // Add children to ship
-            shipNode?.addChildNode(planeNode)
-            shipNode?.addChildNode(cabinLightNode)
-            shipNode?.addChildNode(shields)
-            
-            // Add engine lights to ship (configure safely)
-            for lightConfig in model.engineLights {
-                let lightNode = SCNNode()
-                lightNode.light = SCNLight()
-                lightNode.light?.type = lightConfig.type
-                lightNode.light?.color = lightConfig.color
-                if let intensity = lightConfig.intensity {
-                    lightNode.light?.intensity = intensity
-                }
-                lightNode.light?.castsShadow = lightConfig.castsShadow
-                if let attenuation = lightConfig.attenuationEndDistance {
-                    lightNode.light?.attenuationEndDistance = attenuation
-                }
-                lightNode.position = lightConfig.position
-                shipNode?.addChildNode(lightNode)
-            }
+        // Try named node first
+        ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true)
+        
+        // If not found, prefer root if it has geometry
+        if ship == nil && combatScene.rootNode.geometry != nil {
+            ship = combatScene.rootNode
+        }
+        
+        // If still not found, use the first child node with geometry (less likely to pick camera/light-only nodes)
+        if ship == nil {
+            ship = combatScene.rootNode.childNodes.first(where: { $0.geometry != nil })
+        }
+        
+        if let ship = ship {
+            configureShip(ship, with: planeNode, cabinLightNode: cabinLightNode, shields: shields)
         } else {
             // Ship not found — attach items to root so scene still shows something useful
             print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
@@ -234,6 +187,39 @@ final class SceneViewModel: ObservableObject {
         
         // Optional debug prints (remove or gate behind debug flag as needed)
         
+    }
+    
+    private func configureShip(_ ship: SCNNode, with planeNode: SCNNode, cabinLightNode: SCNNode, shields: SCNNode) {
+        shipNode = ship
+        shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+        shipNode?.geometry?.firstMaterial?.isDoubleSided = true
+        if let materials = shipNode?.geometry?.materials {
+            for material in materials {
+                print("material:  \(String(describing: material.name))")
+            }
+            print()
+        }
+        // Add children to ship
+        shipNode?.addChildNode(planeNode)
+        shipNode?.addChildNode(cabinLightNode)
+        shipNode?.addChildNode(shields)
+        
+        // Add engine lights to ship (configure safely)
+        for lightConfig in model.engineLights {
+            let lightNode = SCNNode()
+            lightNode.light = SCNLight()
+            lightNode.light?.type = lightConfig.type
+            lightNode.light?.color = lightConfig.color
+            if let intensity = lightConfig.intensity {
+                lightNode.light?.intensity = intensity
+            }
+            lightNode.light?.castsShadow = lightConfig.castsShadow
+            if let attenuation = lightConfig.attenuationEndDistance {
+                lightNode.light?.attenuationEndDistance = attenuation
+            }
+            lightNode.position = lightConfig.position
+            shipNode?.addChildNode(lightNode)
+        }
     }
     
     private func addFallbackDemoContent() {
