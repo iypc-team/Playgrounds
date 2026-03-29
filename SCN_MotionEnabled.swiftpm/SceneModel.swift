@@ -6,9 +6,9 @@ import SceneKit
 import GLKit
 
 class SceneModel {
-    // Available ship models for configuration
+    // Available ship models for configuration (dynamically loaded from Resources/ only)
     static var availableShipNames: [String] {
-        if let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
+        if let urls = Bundle.module.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") {  // Updated to subdirectory: "Resources" to restrict to Resources/ directory
             return urls.map { $0.deletingPathExtension().lastPathComponent }.sorted()
         } else {
             return []
