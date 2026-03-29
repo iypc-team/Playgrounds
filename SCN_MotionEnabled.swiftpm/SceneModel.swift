@@ -52,8 +52,8 @@ class SceneModel {
     let camera = CameraConfig()
     let plane = PlaneConfig()
     let ambientLights: [LightConfig] = [
-        LightConfig(type: .ambient, color: .clear, intensity: nil, castsShadow: false, attenuationEndDistance: nil, position: SCNVector3(x: 0, y: 0, z: 100)),
-        LightConfig(type: .ambient, color: .clear, intensity: nil, castsShadow: false, attenuationEndDistance: nil, position: SCNVector3(x: 0, y: 0, z: -100))
+        LightConfig(type: .ambient, color: .white, intensity: 2000, castsShadow: false, attenuationEndDistance: nil, position: SCNVector3(x: 0, y: 0, z: 100)),
+        LightConfig(type: .ambient, color: .white, intensity: 2000, castsShadow: false, attenuationEndDistance: nil, position: SCNVector3(x: 0, y: 0, z: -100))
     ]
     let engineLights: [LightConfig] = [
         LightConfig(type: .omni, color: .green, intensity: 10000, castsShadow: false, attenuationEndDistance: 4, position: SCNVector3(x: 0, y: -2, z: 0)),
