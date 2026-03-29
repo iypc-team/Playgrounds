@@ -27,6 +27,16 @@ final class SceneViewModel: ObservableObject {
     init() {
         // Fixed: Use literal string to avoid self before stored properties
         model = SceneModel(shipName: "fighter")
+        loadScene()
+        setupScene()
+    }
+    
+    deinit {
+        motionTask?.cancel()
+        motionManager.stopUpdates()
+    }
+    
+    private func loadScene() {
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
@@ -34,12 +44,6 @@ final class SceneViewModel: ObservableObject {
             combatScene = SCNScene()
             print("WARN: \(sceneFileName) not found — using empty scene")
         }
-        setupScene()
-    }
-    
-    deinit {
-        motionTask?.cancel()
-        motionManager.stopUpdates()
     }
     
     public func startMotion(updateInterval: TimeInterval = 1.0 / 60.0) {
@@ -85,8 +89,20 @@ final class SceneViewModel: ObservableObject {
     }
     
     private func setupScene() {
-        let shields = ghostEffect()
-        shieldsNode = shields
+        // Create shipNode to hold the model
+        let shipNode = SCNNode()
+        
+        // Move all children except cameras from rootNode to shipNode
+        for child in combatScene.rootNode.childNodes where child.camera == nil {
+            child.removeFromParentNode()
+            shipNode.addChildNode(child)
+        }
+        combatScene.rootNode.addChildNode(shipNode)
+        
+        // Remove any existing cameras
+        combatScene.rootNode.childNodes.filter { $0.camera != nil }.forEach { $0.removeFromParentNode() }
+        
+        // Add our camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = model.camera.position
@@ -94,6 +110,10 @@ final class SceneViewModel: ObservableObject {
         cameraNode.look(at: model.camera.lookAt)
         combatScene.rootNode.addChildNode(cameraNode)
         
+        let shields = ghostEffect()
+        shieldsNode = shields
+        
+        // Add ambient lights to rootNode
         for lightConfig in model.ambientLights {
             let lightNode = SCNNode()
             lightNode.light = SCNLight()
@@ -103,6 +123,7 @@ final class SceneViewModel: ObservableObject {
             combatScene.rootNode.addChildNode(lightNode)
         }
         
+        // Cabin light
         let cabinLightNode = SCNNode()
         let cabinLight = SCNLight()
         cabinLight.type = model.cabinLight.type
@@ -117,6 +138,7 @@ final class SceneViewModel: ObservableObject {
         cabinLightNode.light = cabinLight
         cabinLightNode.position = model.cabinLight.position
         
+        // Plane
         let plane = SCNPlane(width: model.plane.width, height: model.plane.height)
         plane.firstMaterial?.isDoubleSided = model.plane.isDoubleSided
         plane.firstMaterial?.diffuse.contents = model.plane.materialColor
@@ -126,25 +148,29 @@ final class SceneViewModel: ObservableObject {
         planeNode.position = model.plane.position
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
-        shipNode = combatScene.rootNode
-        // Apply pi radians rotation about z-axis for 'fighter' only
+        // Apply orientation to shipNode
         if model.shipName == "fighter" {
-            shipNode?.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
+            shipNode.orientation = SCNVector4(0, 0, 1, 0)  // pi radians about z-axis
         } else {
-            shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+            shipNode.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
         }
-        shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-        if let materials = shipNode?.geometry?.materials {
+        
+        // Set double-sided on shipNode's geometry if any
+        shipNode.geometry?.firstMaterial?.isDoubleSided = true
+        if let materials = shipNode.geometry?.materials {
             for material in materials {
                 print("material:  \(String(describing: material.name))")
                 print("material.isDoubleSided: \(material.isDoubleSided)")
             }
             print()
         }
-        shipNode?.addChildNode(planeNode)
-        shipNode?.addChildNode(cabinLightNode)
-        shipNode?.addChildNode(shields)
         
+        // Add children to shipNode
+        shipNode.addChildNode(planeNode)
+        shipNode.addChildNode(cabinLightNode)
+        shipNode.addChildNode(shields)
+        
+        // Engine lights to shipNode
         for lightConfig in model.engineLights {
             let lightNode = SCNNode()
             lightNode.light = SCNLight()
@@ -158,9 +184,10 @@ final class SceneViewModel: ObservableObject {
                 lightNode.light?.attenuationEndDistance = attenuation
             }
             lightNode.position = lightConfig.position
-            shipNode?.addChildNode(lightNode)
+            shipNode.addChildNode(lightNode)
         }
         
+        self.shipNode = shipNode
         shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0  // Updated: Use 0.1 for semi-transparent shields
     }
     
@@ -216,13 +243,7 @@ final class SceneViewModel: ObservableObject {
     func changeShip(to shipName: String) {
         model.shipName = shipName
         selectedShip = shipName
-        let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
-        if let loaded = SCNScene(named: sceneFileName) {
-            combatScene = loaded
-        } else {
-            combatScene = SCNScene()
-            print("WARN: \(sceneFileName) not found — using empty scene")
-        }
+        loadScene()
         setupScene()
     }
 }
