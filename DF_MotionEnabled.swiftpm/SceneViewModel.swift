@@ -6,6 +6,7 @@ import SceneKit
 import QuartzCore
 import GLKit
 import CoreMotion  // MotionManager integration
+import simd
 
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
@@ -262,12 +263,15 @@ final class SceneViewModel: ObservableObject {
                     let nz = mag > 0 ? z / mag : z
                     let nw = mag > 0 ? w / mag : w
                     
+                    // Transform quaternion to align CoreMotion axes with SceneKit
+                    let motionQuat = simd_quatf(ix: Float(nx), iy: Float(ny), iz: Float(nz), r: Float(nw))
+                    let transform = simd_quatf(angle: Float(GLKMathDegreesToRadians(-90)), axis: SIMD3<Float>(1, 0, 0))
+                    let alignedQuat = transform * motionQuat
+                    
                     // Update ship orientation on main actor
                     await MainActor.run {
-                        // Note: SceneKit's orientation is an SCNVector4. If you find the rotation
-                        // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
-                        self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
-                        self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
+                        self.shipNode?.orientation = SCNVector4(alignedQuat.imag.x, alignedQuat.imag.y, alignedQuat.imag.z, alignedQuat.real)
+                        self.currentOrientation = SCNVector4(alignedQuat.imag.x, alignedQuat.imag.y, alignedQuat.imag.z, alignedQuat.real)  // Update for real-time monitoring
                         print("currentOrientation:  \(self.currentOrientation)\n")
                     }
                 }
