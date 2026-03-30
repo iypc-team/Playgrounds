@@ -1,7 +1,5 @@
 // SceneViewModel.swift
-// Safe combatScene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
-// and robust motion stream consumption.
-// stop
+// opacity
 
 import SwiftUI
 import SceneKit
@@ -14,7 +12,7 @@ final class SceneViewModel: ObservableObject {
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
     @Published var shieldsEnabled: Bool = false {
         didSet {
-            shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
+            shieldsNode?.opacity = shieldsEnabled ? 0.1 : 0.0
         }
     }
     
@@ -158,9 +156,8 @@ final class SceneViewModel: ObservableObject {
             configureShip(ship, with: planeNode, cabinLightNode: cabinLightNode, shields: shields)
         } else {
             // Ship not found — attach items to root so scene still shows something useful
-            print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
-            //            combatScene.rootNode.addChildNode(planeNode)
-            //            combatScene.rootNode.addChildNode(cabinLightNode)
+            combatScene.rootNode.addChildNode(planeNode)
+            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
