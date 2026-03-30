@@ -28,7 +28,10 @@ final class SceneViewModel: ObservableObject {
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
+            UtilityFunctions.printSceneLoadingStatus(sceneFileName: sceneFileName, loaded: loaded)
+            UtilityFunctions.printNodeHierarchy(combatScene.rootNode)
         } else {
+            UtilityFunctions.printSceneLoadingStatus(sceneFileName: sceneFileName, loaded: nil)
             combatScene = SCNScene()
             print("WARN: \(sceneFileName) not found — using empty scene")
         }
@@ -189,7 +192,11 @@ final class SceneViewModel: ObservableObject {
     
     private func configureShip(_ ship: SCNNode, with planeNode: SCNNode, cabinLightNode: SCNNode, shields: SCNNode) {
         shipNode = ship
-        shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
+        // Align model: +90° around X to match Z-up to Y-up, then 180° around Y (before motion becomes active)
+        let alignQuatX = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(90)), 1, 0, 0)
+        let alignQuatY = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(180)), 0, 1, 0)
+        let alignQuat = GLKQuaternionMultiply(alignQuatY, alignQuatX)  // Apply X first, then Y
+        shipNode?.orientation = SCNVector4(alignQuat.x, alignQuat.y, alignQuat.z, alignQuat.w)
         shipNode?.geometry?.firstMaterial?.isDoubleSided = true
         if let materials = shipNode?.geometry?.materials {
             for material in materials {
@@ -263,16 +270,13 @@ final class SceneViewModel: ObservableObject {
                     let nz = mag > 0 ? z / mag : z
                     let nw = mag > 0 ? w / mag : w
                     
-                    // Transform quaternion to align CoreMotion axes with SceneKit
-                    let motionQuat = simd_quatf(ix: Float(nx), iy: Float(ny), iz: Float(nz), r: Float(nw))
-                    let transform = simd_quatf(angle: Float(GLKMathDegreesToRadians(-90)), axis: SIMD3<Float>(1, 0, 0))
-                    let alignedQuat = transform * motionQuat
-                    
-                    // Update ship orientation on main actor
+                    // Apply raw normalized quaternion directly (model is pre-aligned)
                     await MainActor.run {
-                        self.shipNode?.orientation = SCNVector4(alignedQuat.imag.x, alignedQuat.imag.y, alignedQuat.imag.z, alignedQuat.real)
-                        self.currentOrientation = SCNVector4(alignedQuat.imag.x, alignedQuat.imag.y, alignedQuat.imag.z, alignedQuat.real)  // Update for real-time monitoring
-                        print("currentOrientation:  \(self.currentOrientation)\n")
+                        let motionQuat = SCNVector4(Float(nx), Float(ny), Float(nz), Float(nw))
+                        UtilityFunctions.logQuaternion(motionQuat, label: "Motion Quaternion")
+                        self.shipNode?.orientation = motionQuat
+                        self.currentOrientation = motionQuat
+                        print("currentOrientation: \(self.currentOrientation)\n")
                     }
                 }
             } catch {
@@ -289,7 +293,10 @@ final class SceneViewModel: ObservableObject {
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
+            UtilityFunctions.printSceneLoadingStatus(sceneFileName: sceneFileName, loaded: loaded)
+            UtilityFunctions.printNodeHierarchy(combatScene.rootNode)
         } else {
+            UtilityFunctions.printSceneLoadingStatus(sceneFileName: sceneFileName, loaded: nil)
             combatScene = SCNScene()
             print("WARN: \(sceneFileName) not found — using empty scene")
         }
