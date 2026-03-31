@@ -6,10 +6,6 @@ import SceneKit
 /// A utility class for debugging SceneKit scenes and motion data.
 class UtilityFunctions {
     
-    /// Prints the loading status of a SceneKit scene.
-    /// - Parameters:
-    ///   - sceneFileName: The name of the scene file (e.g., "airplane.scn").
-    ///   - loaded: The loaded SCNScene, or nil if loading failed.
     static func printSceneLoadingStatus(sceneFileName: String, loaded: SCNScene?) {
         print("printSceneLoadingStatus()")
         if loaded != nil {
@@ -29,8 +25,8 @@ class UtilityFunctions {
         print("\(indent)\(node.name ?? "Unnamed") - Geometry: \(hasGeometry)")
         for child in node.childNodes {
             printNodeHierarchy(child, indent: indent + "  ")
-            print()
         }
+        print()
     }
     
     /// Logs a quaternion for debugging.
@@ -43,4 +39,3 @@ class UtilityFunctions {
     
     // Add more utility methods here as needed, e.g., for performance profiling
 }
-
