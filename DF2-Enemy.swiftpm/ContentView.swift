@@ -1,7 +1,6 @@
-// DF2-Enemy  01/08/2026-3
-/*
- https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
- */
+// DF2-Enemy  03/31/2026-2
+// 
+// Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
 //   rotationDegrees
 
 import SwiftUI
