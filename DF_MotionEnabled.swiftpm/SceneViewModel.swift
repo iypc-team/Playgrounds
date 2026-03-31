@@ -192,11 +192,6 @@ final class SceneViewModel: ObservableObject {
     
     private func configureShip(_ ship: SCNNode, with planeNode: SCNNode, cabinLightNode: SCNNode, shields: SCNNode) {
         shipNode = ship
-        // Align model: +90° around X to match Z-up to Y-up, then 180° around Y (before motion becomes active)
-//        let alignQuatX = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(90)), 1, 0, 0)
-//        let alignQuatY = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(180)), 0, 1, 0)
-//        let alignQuat = GLKQuaternionMultiply(alignQuatY, alignQuatX)  // Apply X first, then Y
-//        shipNode?.orientation = SCNVector4(alignQuat.x, alignQuat.y, alignQuat.z, alignQuat.w)
         
         shipNode?.geometry?.firstMaterial?.isDoubleSided = true
         if let materials = shipNode?.geometry?.materials {
@@ -220,10 +215,12 @@ final class SceneViewModel: ObservableObject {
             if let intensity = lightConfig.intensity {
                 lightNode.light?.intensity = intensity
             }
+            
             lightNode.light?.castsShadow = lightConfig.castsShadow
             if let attenuation = lightConfig.attenuationEndDistance {
                 lightNode.light?.attenuationEndDistance = attenuation
             }
+            
             lightNode.position = lightConfig.position
             shipNode?.addChildNode(lightNode)
         }
@@ -287,8 +284,6 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    /// Changes the active ship model and reloads the scene.
-    /// - Parameter shipName: The name of the ship model (e.g., "fighter" or "Y-Up-fighter.scn").
     /// - Note: This recreates the entire scene; motion tracking continues if active, but orientation may reset.
     func changeShip(to shipName: String) {
         model.shipName = shipName
