@@ -1,5 +1,5 @@
 // SceneViewModel.swift
-// opacity
+// material
 
 import SwiftUI
 import SceneKit
@@ -47,7 +47,7 @@ final class SceneViewModel: ObservableObject {
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
     /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
     /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 15) {
+    public func startMotion(updateInterval: TimeInterval = 1.0 / 30) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
         
@@ -193,14 +193,16 @@ final class SceneViewModel: ObservableObject {
     private func configureShip(_ ship: SCNNode, with planeNode: SCNNode, cabinLightNode: SCNNode, shields: SCNNode) {
         shipNode = ship
         // Align model: +90° around X to match Z-up to Y-up, then 180° around Y (before motion becomes active)
-        let alignQuatX = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(90)), 1, 0, 0)
-        let alignQuatY = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(180)), 0, 1, 0)
-        let alignQuat = GLKQuaternionMultiply(alignQuatY, alignQuatX)  // Apply X first, then Y
-        shipNode?.orientation = SCNVector4(alignQuat.x, alignQuat.y, alignQuat.z, alignQuat.w)
+//        let alignQuatX = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(90)), 1, 0, 0)
+//        let alignQuatY = GLKQuaternionMakeWithAngleAndAxis(Float(GLKMathDegreesToRadians(180)), 0, 1, 0)
+//        let alignQuat = GLKQuaternionMultiply(alignQuatY, alignQuatX)  // Apply X first, then Y
+//        shipNode?.orientation = SCNVector4(alignQuat.x, alignQuat.y, alignQuat.z, alignQuat.w)
+        
         shipNode?.geometry?.firstMaterial?.isDoubleSided = true
         if let materials = shipNode?.geometry?.materials {
             for material in materials {
-                print("material:  \(String(describing: material.name))")
+                print("material.name:  \(String(describing: material.name))")
+//                print("material:  \(String(describing: material))")
             }
             print()
         }
