@@ -1,12 +1,13 @@
-// DF2-Enemy  03/31/2026-2
-// 
+// DF2-Enemy  04/01/2026-1
+// ContentView.swift
+// Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
 //   rotationDegrees
 
 import SwiftUI
 import SceneKit
 
-struct ScenekitView : UIViewRepresentable {
+struct ContentView : UIViewRepresentable {
     let scene = SCNScene(named: "smooth_ship.scn")!
     
     func makeUIView(context: Context) -> SCNView {
@@ -70,11 +71,11 @@ struct ScenekitView : UIViewRepresentable {
         let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
         print("rotationDegrees: ",rotationDegrees)
         
-        enemyShip.runAction(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
-        
-        sleep(2)
-        
-        enemyShip.runAction(SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4))
+        // Replace blocking sleep with a non-blocking SCNAction sequence
+        let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+        let wait = SCNAction.wait(duration: 2)
+        let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+        enemyShip.runAction(SCNAction.sequence([action1, wait, action2]))
         
         //        enemyShip.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 0, z: 0, duration: 2)))
         
@@ -101,8 +102,8 @@ struct ScenekitView : UIViewRepresentable {
 
 
 
-struct ScenekitView_Previews : PreviewProvider {
+struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ScenekitView()
+        ContentView()
     }
 }
