@@ -1,108 +1,29 @@
-// DF2-Enemy  04/01/2026-1
+// DF2-Enemy  04/01/2026-2
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
-//   rotationDegrees
+// Refactored to MVVM: View delegates logic to ViewModel.
+// 
 
 import SwiftUI
 import SceneKit
 
-struct ContentView : UIViewRepresentable {
-    let scene = SCNScene(named: "smooth_ship.scn")!
+struct ContentView: UIViewRepresentable {
+    @StateObject private var viewModel = EnemySceneViewModel()
     
     func makeUIView(context: Context) -> SCNView {
-        // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
-        scene.rootNode.addChildNode(cameraNode)
-        
-        // place the camera
-        
-        // create and add an ambient light to the scene
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.darkGray
-        scene.rootNode.addChildNode(ambientLightNode)
-        
-        // create and add a light to the scene
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light!.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 0, z: 100)
-        scene.rootNode.addChildNode(lightNode)
-        
-        let lightNode2 = SCNNode()
-        lightNode2.light = SCNLight()
-        lightNode2.light!.type = .omni
-        lightNode2.position = SCNVector3(x: 0, y: 0, z: -100)
-        scene.rootNode.addChildNode(lightNode2)
-        
-        let engineLightNode = SCNNode()
-        engineLightNode.light = SCNLight()
-        engineLightNode.light!.type = .omni
-        engineLightNode.light!.color = UIColor.red
-        engineLightNode.light!.intensity = 7000 * 4
-        engineLightNode.light!.castsShadow = true
-        engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        
-        // retrieve the ship node
-        let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true)!
-        cameraNode.look(at: enemyShip.position)
-        let description = enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents.debugDescription
-        enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
-        enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear 
-        enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-        enemyShip.addChildNode(engineLightNode)
-        
-        print()
-        print(enemyShip.geometry!.materials.startIndex)
-        print(enemyShip.geometry!.materials.endIndex)
-        print("description:\n"
-              , description! as Any)
-        print("materials[0]\n", enemyShip.geometry!.materials[0])
-        print("materials[1]\n", enemyShip.geometry!.materials[1])
-        print("materials[2]\n", enemyShip.geometry!.materials[2])
-        print("materials[3]\n", enemyShip.geometry!.materials[3])
-        
-        
-        // animate the 3d object
-        let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
-        print("rotationDegrees: ",rotationDegrees)
-        
-        // Replace blocking sleep with a non-blocking SCNAction sequence
-        let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        let wait = SCNAction.wait(duration: 2)
-        let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        enemyShip.runAction(SCNAction.sequence([action1, wait, action2]))
-        
-        //        enemyShip.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 1, y: 0, z: 0, duration: 2)))
-        
-        // retrieve the SCNView
         let scnView = SCNView()
+        viewModel.setupScene()
+        viewModel.configureView(scnView)
         return scnView
     }
     
     func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = scene
-        // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
-        // show statistics such as fps and timing information
-        scnView.showsStatistics = true
-        // configure the view
-        scnView.backgroundColor = UIColor.gray
-        
-        // other items
-        scnView.antialiasingMode = .multisampling4X
-        scnView.autoenablesDefaultLighting = true
-        scnView.isTemporalAntialiasingEnabled = true
+        // No additional updates needed; configuration is handled in makeUIView.
     }
 }
 
-
-
-struct ContentView_Previews : PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
