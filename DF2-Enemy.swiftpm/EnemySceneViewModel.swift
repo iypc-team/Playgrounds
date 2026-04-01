@@ -54,9 +54,8 @@ class EnemySceneViewModel: ObservableObject {
         // Animate the enemy ship
         let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
         let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        let wait = SCNAction.wait(duration: 2)
         let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        enemyShip.runAction(SCNAction.sequence([action1, wait, action2]))
+        enemyShip.runAction(SCNAction.sequence([action1, action2]))
     }
     
     func configureView(_ scnView: SCNView) {
@@ -69,4 +68,3 @@ class EnemySceneViewModel: ObservableObject {
         scnView.isTemporalAntialiasingEnabled = true
     }
 }
-
