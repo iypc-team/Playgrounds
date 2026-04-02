@@ -13,7 +13,11 @@ enum ShipType: String, CaseIterable {
     case fighter, newFighter, fighterPBR, smooth_ship, airplane, yUpFighter = "Y-Up-fighter.scn"
     
     var displayName: String {
-        self.rawValue.replacingOccurrences(of: "_", with: " ").capitalized
+        self.rawValue
+            .replacingOccurrences(of: ".scn", with: "")
+            .replacingOccurrences(of: "_", with: " ")
+            .replacingOccurrences(of: "-", with: " ")
+            .capitalized
     }
 }
 

@@ -8,6 +8,7 @@ import GLKit
 import CoreMotion  // MotionManager integration
 import simd
 
+@MainActor
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)  // Real-time orientation monitor
@@ -45,7 +46,7 @@ final class SceneViewModel: ObservableObject {
     }
     
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
-    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
+    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/30 ≈ 30 FPS; adjust based on performance needs).
     /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
     public func startMotion(updateInterval: TimeInterval = 1.0 / 30) {
         print("func startMotion()")
@@ -251,9 +252,6 @@ final class SceneViewModel: ObservableObject {
     }
     
     private func startMotionUpdates(stream: AsyncThrowingStream<AttitudeQuaternion, Error>) {
-        // Ensure we don't start a duplicate task
-        if motionTask != nil { return }
-        
         motionTask = Task { [weak self] in
             guard let self = self else { return }
             do {
@@ -275,7 +273,6 @@ final class SceneViewModel: ObservableObject {
                         UtilityFunctions.logQuaternion(motionQuat, label: "Motion Quaternion")
                         self.shipNode?.orientation = motionQuat
                         self.currentOrientation = motionQuat
-                        print("currentOrientation: \(self.currentOrientation)\n")
                     }
                 }
             } catch {
@@ -284,8 +281,12 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    /// - Note: This recreates the entire scene; motion tracking continues if active, but orientation may reset.
+    /// - Note: This recreates the entire scene; if motion tracking is active it is restarted so the new ship node is tracked.
     func changeShip(to shipName: String) {
+        let wasMotionActive = motionTask != nil
+        if wasMotionActive {
+            stopMotion()
+        }
         model.shipName = shipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
@@ -298,5 +299,8 @@ final class SceneViewModel: ObservableObject {
             print("WARN: \(sceneFileName) not found — using empty scene")
         }
         setupScene()
+        if wasMotionActive {
+            startMotion()
+        }
     }
 }
