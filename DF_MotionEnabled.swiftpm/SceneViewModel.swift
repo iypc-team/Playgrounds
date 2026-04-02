@@ -45,12 +45,9 @@ final class SceneViewModel: ObservableObject {
     }
     
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
-    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
+    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/30 ≈ 30 FPS).
     /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
     public func startMotion(updateInterval: TimeInterval = 1.0 / 30) {
-        print("func startMotion()")
-        print("updateInterval:  \(updateInterval) frames per second.")
-        
         if motionTask != nil { return }  // Already started
         
         motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
@@ -65,7 +62,6 @@ final class SceneViewModel: ObservableObject {
     
     /// Stops motion tracking and cancels any ongoing updates.
     public func stopMotion() {
-        print("func stopMotion()\n")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
@@ -193,14 +189,8 @@ final class SceneViewModel: ObservableObject {
     private func configureShip(_ ship: SCNNode, with planeNode: SCNNode, cabinLightNode: SCNNode, shields: SCNNode) {
         shipNode = ship
         
+        shipNode?.orientation = SCNVector4(x: 0.0, y: 0.0, z: 0.0, w: 1.0)
         shipNode?.geometry?.firstMaterial?.isDoubleSided = true
-        if let materials = shipNode?.geometry?.materials {
-            for material in materials {
-                print("material.name:  \(String(describing: material.name))")
-//                print("material:  \(String(describing: material))")
-            }
-            print()
-        }
         // Add children to ship
         shipNode?.addChildNode(planeNode)
         shipNode?.addChildNode(cabinLightNode)
@@ -275,7 +265,6 @@ final class SceneViewModel: ObservableObject {
                         UtilityFunctions.logQuaternion(motionQuat, label: "Motion Quaternion")
                         self.shipNode?.orientation = motionQuat
                         self.currentOrientation = motionQuat
-                        print("currentOrientation: \(self.currentOrientation)\n")
                     }
                 }
             } catch {
