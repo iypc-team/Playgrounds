@@ -6,7 +6,7 @@ import SwiftUI
 import SceneKit
 
 class EnemySceneViewModel: ObservableObject {
-    let scene = SCNScene(named: "smooth_ship.scn")!
+    let scene = SCNScene(named: "smooth_ship.scn") ?? SCNScene()
     
     func setupScene() {
         // Create and add a camera to the scene
@@ -44,7 +44,10 @@ class EnemySceneViewModel: ObservableObject {
         engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
         // Retrieve and configure the enemy ship node
-        let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true)!
+        guard let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) else {
+            print("Warning: Enemy ship node not found in scene. Skipping ship-specific setup.")
+            return
+        }
         cameraNode.look(at: enemyShip.position)
         enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
         enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
