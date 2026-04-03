@@ -1,4 +1,4 @@
-// DF2-Enemy  04/03/2026-2
+// DF2-Enemy  04/03/2026-3
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
@@ -10,26 +10,49 @@ import SceneKit
 struct ContentView: View {
     @StateObject private var viewModel = EnemySceneViewModel()
     
+    let scenes = ["fighter.scn", "fighterPBR.scn", "newFighter_2.scn", "ship.scn", "smooth_ship.scn"]
+    @State private var selectedScene = "smooth_ship.scn"
+    
     var body: some View {
-        if viewModel.sceneFailed {
-            Text("Scene failed to load. Please check resources.")
-        } else {
-            EnemySCNView(viewModel: viewModel)
+        ZStack {
+            if viewModel.sceneFailed {
+                Text("Scene '\(selectedScene)' failed to load. Please check resources.")
+            } else {
+                EnemySCNView(viewModel: viewModel, scene: viewModel.scene)
+            }
+            VStack {
+                Picker("Select Scene", selection: $selectedScene) {
+                    ForEach(scenes, id: \.self) { scene in
+                        Text(scene).tag(scene)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .padding()
+                .background(Color.white.opacity(0.8))
+                .cornerRadius(8)
+                .padding()
+                Spacer()
+            }
+        }
+        .onChange(of: selectedScene) { newValue in
+            viewModel.selectedScene = newValue
         }
     }
 }
 
 struct EnemySCNView: UIViewRepresentable {
     let viewModel: EnemySceneViewModel
+    let scene: SCNScene
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         viewModel.configureView(scnView)
+        scnView.scene = scene
         return scnView
     }
     
     func updateUIView(_ scnView: SCNView, context: Context) {
-        // No additional updates needed; configuration is handled in makeUIView.
+        scnView.scene = scene
     }
 }
 

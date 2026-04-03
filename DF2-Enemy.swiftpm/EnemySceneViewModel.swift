@@ -7,16 +7,28 @@ import SceneKit
 
 class EnemySceneViewModel: ObservableObject {
     @Published var sceneFailed = false
-    let scene: SCNScene
+    @Published var scene: SCNScene
+    
+    @Published var selectedScene: String = "smooth_ship.scn" {
+        didSet {
+            loadScene()
+        }
+    }
     
     init() {
-        if let loadedScene = SCNScene(named: "smooth_ship.scn") {
+        self.scene = SCNScene()
+        loadScene()
+    }
+    
+    private func loadScene() {
+        if let loadedScene = SCNScene(named: selectedScene) {
             self.scene = loadedScene
+            sceneFailed = false
+            setupScene()
         } else {
             self.scene = SCNScene()
             sceneFailed = true
         }
-        setupScene()
     }
     
     func setupScene() {
@@ -55,26 +67,26 @@ class EnemySceneViewModel: ObservableObject {
         cabinLightNode.light!.castsShadow = false
         cabinLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
-        // Retrieve and configure the enemy ship node
-        guard let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) else {
-            sceneFailed = true
-            return
+        // Retrieve and configure the enemy ship node (optional for animation)
+        if let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) {
+            cameraNode.look(at: enemyShip.position)
+            enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
+            enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
+            enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
+            enemyShip.addChildNode(cabinLightNode)
+            
+            // Animate the enemy ship
+            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
+            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+            let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+            enemyShip.runAction(SCNAction.sequence([action1, action2]))
+        } else {
+            // No "enemy" node found; add cabin light to root and skip animation
+            scene.rootNode.addChildNode(cabinLightNode)
         }
-        cameraNode.look(at: enemyShip.position)
-        enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
-        enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
-        enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-        enemyShip.addChildNode(cabinLightNode)
-        
-        // Animate the enemy ship
-        let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
-        let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-        enemyShip.runAction(SCNAction.sequence([action1, action2]))
     }
     
     func configureView(_ scnView: SCNView) {
-        scnView.scene = scene
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.gray
