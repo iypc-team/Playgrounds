@@ -1,4 +1,4 @@
-// DF2-Enemy  04/03/2026-1
+// DF2-Enemy  04/03/2026-2
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
@@ -7,12 +7,23 @@
 import SwiftUI
 import SceneKit
 
-struct ContentView: UIViewRepresentable {
+struct ContentView: View {
     @StateObject private var viewModel = EnemySceneViewModel()
+    
+    var body: some View {
+        if viewModel.sceneFailed {
+            Text("Scene failed to load. Please check resources.")
+        } else {
+            EnemySCNView(viewModel: viewModel)
+        }
+    }
+}
+
+struct EnemySCNView: UIViewRepresentable {
+    let viewModel: EnemySceneViewModel
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        viewModel.setupScene()
         viewModel.configureView(scnView)
         return scnView
     }
