@@ -20,6 +20,7 @@ class EnemySceneViewModel: ObservableObject {
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
+        ambientLightNode.position = SCNVector3(x: 0, y: 0, z: 500)
         scene.rootNode.addChildNode(ambientLightNode)
         
         // Create and add lights to the scene
@@ -35,13 +36,13 @@ class EnemySceneViewModel: ObservableObject {
         lightNode2.position = SCNVector3(x: 0, y: 0, z: -100)
         scene.rootNode.addChildNode(lightNode2)
         
-        let engineLightNode = SCNNode()
-        engineLightNode.light = SCNLight()
-        engineLightNode.light!.type = .omni
-        engineLightNode.light!.color = UIColor.red
-        engineLightNode.light!.intensity = 7000 * 4
-        engineLightNode.light!.castsShadow = true
-        engineLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        let cabinLightNode = SCNNode()
+        cabinLightNode.light = SCNLight()
+        cabinLightNode.light!.type = .omni
+        cabinLightNode.light!.color = UIColor.red
+        cabinLightNode.light!.intensity = 1000
+        cabinLightNode.light!.castsShadow = false
+        cabinLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
         // Retrieve and configure the enemy ship node
         guard let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) else {
@@ -52,10 +53,10 @@ class EnemySceneViewModel: ObservableObject {
         enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
         enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
         enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-        enemyShip.addChildNode(engineLightNode)
+        enemyShip.addChildNode(cabinLightNode)
         
         // Animate the enemy ship
-        let rotationDegrees = CGFloat(GLKMathDegreesToRadians(45.0))
+        let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
         let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
         let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
         enemyShip.runAction(SCNAction.sequence([action1, action2]))
@@ -67,7 +68,7 @@ class EnemySceneViewModel: ObservableObject {
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.gray
         scnView.antialiasingMode = .multisampling4X
-        scnView.autoenablesDefaultLighting = true
+        scnView.autoenablesDefaultLighting = false
         scnView.isTemporalAntialiasingEnabled = true
     }
 }
