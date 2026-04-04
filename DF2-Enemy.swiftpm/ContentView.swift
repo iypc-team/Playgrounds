@@ -1,4 +1,4 @@
-// DF2-Enemy  04/04/2026-1
+// DF2-Enemy  04/04/2026-2
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
@@ -12,6 +12,11 @@ struct ContentView: View {
     
     let scenes = ["fighter.scn", "fighterPBR.scn", "newFighter_2.scn", "ship.scn", "smooth_ship.scn"]
     @State private var selectedScene = "smooth_ship.scn"
+    
+    // Use a computed property to initialize UtilityFunctions
+    var utility: UtilityFunctions {
+        UtilityFunctions(selectedScene: viewModel.selectedScene, scene: viewModel.scene)
+    }
     
     var body: some View {
         ZStack {
