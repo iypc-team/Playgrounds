@@ -35,7 +35,7 @@ class EnemySceneViewModel: ObservableObject {
         // Create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 50)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 20)
         scene.rootNode.addChildNode(cameraNode)
         
         // Create and add an ambient light to the scene
@@ -44,7 +44,7 @@ class EnemySceneViewModel: ObservableObject {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
         ambientLightNode.position = SCNVector3(x: 0, y: 0, z: 500)
-        scene.rootNode.addChildNode(ambientLightNode)
+//        scene.rootNode.addChildNode(ambientLightNode)
         
         // Create and add lights to the scene
         let lightNode = SCNNode()
@@ -70,25 +70,26 @@ class EnemySceneViewModel: ObservableObject {
         // Retrieve and configure the enemy ship node (optional for animation)
         if let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) {
             cameraNode.look(at: enemyShip.position)
+            enemyShip.addChildNode(cabinLightNode)
+            
             enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
             enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
             enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-            enemyShip.addChildNode(cabinLightNode)
             
             // Animate the enemy ship
-            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
-            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-            let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-            enemyShip.runAction(SCNAction.sequence([action1, action2]))
+//            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
+//            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+//            let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+//            enemyShip.runAction(SCNAction.sequence([action1, action2]))
         } else {
-            // No "enemy" node found; add cabin light to root and skip animation
-            scene.rootNode.addChildNode(cabinLightNode)
+            print("No enemy node found.")
+            // No "enemy" node found.
         }
     }
     
     func configureView(_ scnView: SCNView) {
         scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
+        scnView.showsStatistics = false
         scnView.backgroundColor = UIColor.gray
         scnView.antialiasingMode = .multisampling4X
         scnView.autoenablesDefaultLighting = false

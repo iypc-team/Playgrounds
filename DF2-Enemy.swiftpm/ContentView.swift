@@ -1,4 +1,4 @@
-// DF2-Enemy  04/03/2026-3
+// DF2-Enemy  04/04/2026-1
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
@@ -28,7 +28,8 @@ struct ContentView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .padding()
-                .background(Color.white.opacity(0.8))
+                .foregroundColor(Color.black)
+                .background(Color.white.opacity(1.0))
                 .cornerRadius(8)
                 .padding()
                 Spacer()
