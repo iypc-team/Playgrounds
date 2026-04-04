@@ -10,6 +10,8 @@ class UtilityFunctions {
     init(selectedScene: String, scene: SCNScene) {
         self.selectedScene = selectedScene
         self.scene = scene
+        print(selectedScene)
+        print()
         
     }
     
