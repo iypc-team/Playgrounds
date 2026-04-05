@@ -12,7 +12,6 @@ class UtilityFunctions {
         self.scene = scene
         print(selectedScene)
         print()
-        
     }
     
     // Example utility methods
@@ -38,9 +37,8 @@ class UtilityFunctions {
         
         // Traverse all child nodes recursively to find geometries with materials
         scene.rootNode.enumerateChildNodes { node, _ in
-            // error occurs on line 42 in UtilityFunctions.swift
-            if let geometry = node.geometry, let geometryMaterials = geometry.materials {
-                materials.formUnion(geometryMaterials)
+            if let geometry = node.geometry {
+                materials.formUnion(geometry.materials) // Removed unnecessary "if let"
             }
         }
         
