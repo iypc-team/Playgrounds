@@ -31,6 +31,30 @@ class EnemySceneViewModel: ObservableObject {
         }
     }
     
+    private func findEnemyNode() -> SCNNode? {
+        // First, try the standard "enemy" node name
+        if let node = scene.rootNode.childNode(withName: "enemy", recursively: true) {
+            return node
+        }
+        
+        // Fallback: Try scene-specific names based on file names
+        let possibleNames = ["ship", "fighter", "newFighter_2"]
+        for name in possibleNames {
+            if let node = scene.rootNode.childNode(withName: name, recursively: true) {
+                return node
+            }
+        }
+        
+        // Last resort: Find the first child node with geometry (assuming it's the main model)
+        for child in scene.rootNode.childNodes {
+            if child.geometry != nil {
+                return child
+            }
+        }
+        
+        return nil
+    }
+    
     func setupScene() {
         // Create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -44,7 +68,7 @@ class EnemySceneViewModel: ObservableObject {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
         ambientLightNode.position = SCNVector3(x: 0, y: 0, z: 500)
-//        scene.rootNode.addChildNode(ambientLightNode)
+        //        scene.rootNode.addChildNode(ambientLightNode)
         
         // Create and add lights to the scene
         let lightNode = SCNNode()
@@ -67,8 +91,8 @@ class EnemySceneViewModel: ObservableObject {
         cabinLightNode.light!.castsShadow = false
         cabinLightNode.position = SCNVector3(x: 0, y: 0, z: 0)
         
-        // Retrieve and configure the enemy ship node (optional for animation)
-        if let enemyShip = scene.rootNode.childNode(withName: "enemy", recursively: true) {
+        // Retrieve and configure the enemy ship node (using flexible search)
+        if let enemyShip = findEnemyNode() {
             cameraNode.look(at: enemyShip.position)
             enemyShip.addChildNode(cabinLightNode)
             
@@ -77,13 +101,13 @@ class EnemySceneViewModel: ObservableObject {
             enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
             
             // Animate the enemy ship
-//            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
-//            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-//            let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
-//            enemyShip.runAction(SCNAction.sequence([action1, action2]))
+            //            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
+            //            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+            //            let action2 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
+            //            enemyShip.runAction(SCNAction.sequence([action1, action2]))
         } else {
             print("No enemy node found.")
-            // No "enemy" node found.
+            // No suitable node found; camera remains at default position
         }
     }
     
