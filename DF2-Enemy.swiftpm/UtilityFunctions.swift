@@ -32,5 +32,20 @@ class UtilityFunctions {
         return validScenes.contains(selectedScene)
     }
     
+    // Retrieves and lists all unique materials from geometries in the selected scene
+    func getMaterials() -> [SCNMaterial] {
+        var materials = Set<SCNMaterial>()
+        
+        // Traverse all child nodes recursively to find geometries with materials
+        scene.rootNode.enumerateChildNodes { node, _ in
+            // error occurs on line 42 in UtilityFunctions.swift
+            if let geometry = node.geometry, let geometryMaterials = geometry.materials {
+                materials.formUnion(geometryMaterials)
+            }
+        }
+        
+        return Array(materials)
+    }
+    
     // Add more utility functions as needed
 }

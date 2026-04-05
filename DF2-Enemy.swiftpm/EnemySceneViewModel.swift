@@ -15,6 +15,9 @@ class EnemySceneViewModel: ObservableObject {
         }
     }
     
+    // Holds the UtilityFunctions instance
+    @Published var utility: UtilityFunctions?
+    
     init() {
         self.scene = SCNScene()
         loadScene()
@@ -25,9 +28,12 @@ class EnemySceneViewModel: ObservableObject {
             self.scene = loadedScene
             sceneFailed = false
             setupScene()
+            // Initialize UtilityFunctions after scene setup
+            self.utility = UtilityFunctions(selectedScene: selectedScene, scene: scene)
         } else {
             self.scene = SCNScene()
             sceneFailed = true
+            self.utility = nil
         }
     }
     
