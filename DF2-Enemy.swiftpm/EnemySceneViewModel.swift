@@ -30,6 +30,10 @@ class EnemySceneViewModel: ObservableObject {
             setupScene()
             // Initialize UtilityFunctions after scene setup
             self.utility = UtilityFunctions(selectedScene: selectedScene, scene: scene)
+            // Print materials to console after utility is initialized
+            if let materials = self.utility?.getMaterials() {
+                print("Materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
+            }
         } else {
             self.scene = SCNScene()
             sceneFailed = true
