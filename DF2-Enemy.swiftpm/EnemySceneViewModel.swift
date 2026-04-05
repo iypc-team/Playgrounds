@@ -1,6 +1,6 @@
 // EnemySceneViewModel.swift
 // Handles SceneKit scene setup, configuration, and animations for MVVM separation.
-// 
+// print
 
 import SwiftUI
 import SceneKit
@@ -33,6 +33,12 @@ class EnemySceneViewModel: ObservableObject {
             // Print materials to console after utility is initialized
             if let materials = self.utility?.getMaterials() {
                 print("Materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
+                for material in materials {
+//                    material.isDoubleSided = true
+                    print("material.isDoubleSided \(material.isDoubleSided)")
+                    print("material.name:  \(String(describing: material.name!))")
+                    print("material.diffuse:  \(String(describing: material.diffuse.contents.debugDescription))\n")
+                }
             }
         } else {
             self.scene = SCNScene()
