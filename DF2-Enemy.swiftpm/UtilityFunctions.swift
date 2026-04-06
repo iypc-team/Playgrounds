@@ -4,6 +4,8 @@
 import SceneKit
 
 class UtilityFunctions {
+    static let validScenes = ["fighter.scn", "fighterPBR.scn", "newFighter_2.scn", "ship.scn", "smooth_ship.scn"]
+    
     let selectedScene: String
     let scene: SCNScene
     
@@ -12,6 +14,7 @@ class UtilityFunctions {
         self.scene = scene
         print(selectedScene)
         print()
+        let _ = getSceneRootNode
     }
     
     // Example utility methods
@@ -26,9 +29,7 @@ class UtilityFunctions {
     }
     
     func isValidScene() -> Bool {
-        // Assuming a list of valid scenes similar to ContentView
-        let validScenes = ["fighter.scn", "fighterPBR.scn", "newFighter_2.scn", "ship.scn", "smooth_ship.scn"]
-        return validScenes.contains(selectedScene)
+        return Self.validScenes.contains(selectedScene)
     }
     
     // Retrieves and lists all unique materials from geometries in the selected scene
@@ -41,7 +42,6 @@ class UtilityFunctions {
                 materials.formUnion(geometry.materials) // Removed unnecessary "if let"
             }
         }
-        
         return Array(materials)
     }
     

@@ -1,8 +1,8 @@
-// DF2-Enemy  04/05/2026-5
+// DF2-Enemy  04/06/2026-1
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
-// 
+// validScenes
 
 import SwiftUI
 import SceneKit
@@ -10,7 +10,7 @@ import SceneKit
 struct ContentView: View {
     @StateObject private var viewModel = EnemySceneViewModel()
     
-    let scenes = ["fighter.scn", "fighterPBR.scn", "newFighter_2.scn", "ship.scn", "smooth_ship.scn"]
+    let scenes = UtilityFunctions.validScenes
     @State private var selectedScene = "smooth_ship.scn"
     
     var body: some View {
@@ -28,7 +28,7 @@ struct ContentView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .padding()
-                .foregroundColor(Color.black)
+                .tint(Color.black)
                 .background(Color.white.opacity(1.0))
                 .cornerRadius(8)
                 .padding()

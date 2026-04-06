@@ -34,10 +34,10 @@ class EnemySceneViewModel: ObservableObject {
             if let materials = self.utility?.getMaterials() {
                 print("Materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
                 for material in materials {
-//                    material.isDoubleSided = true
+                    material.isDoubleSided = true
                     print("material.isDoubleSided \(material.isDoubleSided)")
-                    print("material.name:  \(String(describing: material.name!))")
-                    print("material.diffuse:  \(String(describing: material.diffuse.contents.debugDescription))\n")
+                    print("material.name:  \(String(describing: material.name))")
+                    print("material.diffuse:  \(String(describing: material.diffuse.contents))\n")
                 }
             }
         } else {
