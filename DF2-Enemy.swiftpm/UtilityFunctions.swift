@@ -14,7 +14,6 @@ class UtilityFunctions {
         self.scene = scene
         print(selectedScene)
         print()
-        let _ = getSceneRootNode
     }
     
     // Example utility methods
@@ -35,14 +34,20 @@ class UtilityFunctions {
     // Retrieves and lists all unique materials from geometries in the selected scene
     func getMaterials() -> [SCNMaterial] {
         var materials = Set<SCNMaterial>()
-        
-        // Traverse all child nodes recursively to find geometries with materials
-        scene.rootNode.enumerateChildNodes { node, _ in
-            if let geometry = node.geometry {
-                materials.formUnion(geometry.materials) // Removed unnecessary "if let"
-            }
-        }
+
+        collectMaterials(from: scene.rootNode, into: &materials)
+
         return Array(materials)
+    }
+
+    private func collectMaterials(from node: SCNNode, into materials: inout Set<SCNMaterial>) {
+        if let geometry = node.geometry {
+            materials.formUnion(geometry.materials)
+        }
+
+        for childNode in node.childNodes {
+            collectMaterials(from: childNode, into: &materials)
+        }
     }
     
     // Add more utility functions as needed

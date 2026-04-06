@@ -32,9 +32,9 @@ class EnemySceneViewModel: ObservableObject {
             self.utility = UtilityFunctions(selectedScene: selectedScene, scene: scene)
             // Print materials to console after utility is initialized
             if let materials = self.utility?.getMaterials() {
+                configureMaterials(materials)
                 print("Materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
                 for material in materials {
-                    material.isDoubleSided = true
                     print("material.isDoubleSided \(material.isDoubleSided)")
                     print("material.name:  \(String(describing: material.name))")
                     print("material.diffuse:  \(String(describing: material.diffuse.contents))\n")
@@ -62,13 +62,7 @@ class EnemySceneViewModel: ObservableObject {
         }
         
         // Last resort: Find the first child node with geometry (assuming it's the main model)
-        for child in scene.rootNode.childNodes {
-            if child.geometry != nil {
-                return child
-            }
-        }
-        
-        return nil
+        return findNodeWithGeometry(in: scene.rootNode)
     }
     
     func setupScene() {
@@ -112,10 +106,6 @@ class EnemySceneViewModel: ObservableObject {
             cameraNode.look(at: enemyShip.position)
             enemyShip.addChildNode(cabinLightNode)
             
-            enemyShip.geometry?.material(named: "Exterior")?.diffuse.contents = UIColor.black
-            enemyShip.geometry?.material(named: "Windows")?.diffuse.contents = UIColor.clear
-            enemyShip.geometry?.material(named: "Engine")?.diffuse.contents = UIColor.cyan
-            
             // Animate the enemy ship
             //            let rotationDegrees = CGFloat(GLKMathDegreesToRadians(180))
             //            let action1 = SCNAction.rotate(by: rotationDegrees, around: SCNVector3(x: 0.0, y: 1.0, z: 0.0), duration: 4)
@@ -134,5 +124,36 @@ class EnemySceneViewModel: ObservableObject {
         scnView.antialiasingMode = .multisampling4X
         scnView.autoenablesDefaultLighting = false
         scnView.isTemporalAntialiasingEnabled = true
+    }
+
+    private func findNodeWithGeometry(in node: SCNNode) -> SCNNode? {
+        if node.geometry != nil {
+            return node
+        }
+
+        for child in node.childNodes {
+            if let geometryNode = findNodeWithGeometry(in: child) {
+                return geometryNode
+            }
+        }
+
+        return nil
+    }
+
+    private func configureMaterials(_ materials: [SCNMaterial]) {
+        for material in materials {
+            material.isDoubleSided = true
+
+            switch material.name?.lowercased() {
+            case "exterior", "black_exterior", "black_material":
+                material.diffuse.contents = UIColor.black
+            case "windows":
+                material.diffuse.contents = UIColor.clear
+            case "engine", "engine_material", "engine_emission_material":
+                material.diffuse.contents = UIColor.cyan
+            default:
+                break
+            }
+        }
     }
 }
