@@ -1,6 +1,5 @@
 // SceneViewModel.swift
-// Updated: Removed hardcoded sceneFiles array, nextScene method, and initial loadScene call for consistency
-// Scene:
+// 
 
 import SwiftUI
 import SceneKit
@@ -18,6 +17,10 @@ class SceneViewModel: ObservableObject {
     }
     
     func setupScene() {
+        // Remove existing camera and light nodes to prevent accumulation
+        scene.rootNode.childNodes.filter { $0.camera != nil }.forEach { $0.removeFromParentNode() }
+        scene.rootNode.childNodes.filter { $0.light != nil && $0.light!.type == .ambient }.forEach { $0.removeFromParentNode() }
+        
         // Setup camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()

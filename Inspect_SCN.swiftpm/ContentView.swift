@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/06/2026-1
+//  Inspect_SCN 04/06/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 // 

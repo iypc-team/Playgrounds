@@ -1,6 +1,5 @@
 //  SceneModel.swift
-//  Updated to centralize geometry inspection capabilities and synchronized scene handling
-// red.  
+//  
 
 import SceneKit
 import Foundation
@@ -103,9 +102,7 @@ class SceneModel: ObservableObject {
     func createBoundingBoxNode() -> SCNNode? {
         guard let box = sceneBoundingBox() else { return nil }
         let size = SCNVector3(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z)
-        let model = SceneViewModel()
-        let name = model.sceneModel.sceneName
-        print("\(name) size: \(size)")
+        print("\(sceneName) size: \(size)")
         let center = SCNVector3((box.max.x + box.min.x) / 2, (box.max.y + box.min.y) / 2, (box.max.z + box.min.z) / 2)
         
         let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)

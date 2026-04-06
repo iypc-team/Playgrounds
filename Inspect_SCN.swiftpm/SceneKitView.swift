@@ -28,6 +28,9 @@ struct SceneKitView: UIViewRepresentable {
         }
         node.scale = sceneModel.fighterScale
         
+        // Remove existing light nodes to prevent accumulation
+        node.childNodes.filter { $0.light != nil }.forEach { $0.removeFromParentNode() }
+        
         let cabinLightNode = SCNNode()
         cabinLightNode.light = SCNLight()
         cabinLightNode.position = SCNVector3(x: 0.0, y: -5.0, z: 0.0)
