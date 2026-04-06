@@ -35,19 +35,17 @@ class UtilityFunctions {
     func getMaterials() -> [SCNMaterial] {
         var materials = Set<SCNMaterial>()
 
-        collectMaterials(from: scene.rootNode, into: &materials)
+        if let rootGeometry = scene.rootNode.geometry {
+            materials.formUnion(rootGeometry.materials)
+        }
+
+        scene.rootNode.enumerateChildNodes { node, _ in
+            if let geometry = node.geometry {
+                materials.formUnion(geometry.materials)
+            }
+        }
 
         return Array(materials)
-    }
-
-    private func collectMaterials(from node: SCNNode, into materials: inout Set<SCNMaterial>) {
-        if let geometry = node.geometry {
-            materials.formUnion(geometry.materials)
-        }
-
-        for childNode in node.childNodes {
-            collectMaterials(from: childNode, into: &materials)
-        }
     }
     
     // Add more utility functions as needed

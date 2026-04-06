@@ -6,6 +6,25 @@ import SwiftUI
 import SceneKit
 
 class EnemySceneViewModel: ObservableObject {
+    private enum MaterialAppearance {
+        // These aliases come from different bundled .scn assets that describe the
+        // same visual surfaces with different material names.
+        static let diffuseContentsByName: [String: UIColor] = [
+            // Exterior-style materials
+            "exterior": .black,
+            "black_exterior": .black,
+            "black_material": .black,
+
+            // Transparent window materials
+            "windows": .clear,
+
+            // Engine glow materials
+            "engine": .cyan,
+            "engine_material": .cyan,
+            "engine_emission_material": .cyan
+        ]
+    }
+
     @Published var sceneFailed = false
     @Published var scene: SCNScene
     
@@ -30,10 +49,10 @@ class EnemySceneViewModel: ObservableObject {
             setupScene()
             // Initialize UtilityFunctions after scene setup
             self.utility = UtilityFunctions(selectedScene: selectedScene, scene: scene)
-            // Print materials to console after utility is initialized
+            // Print configured materials to console after utility is initialized
             if let materials = self.utility?.getMaterials() {
                 configureMaterials(materials)
-                print("Materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
+                print("Configured materials (\(materials.count)): \(materials.map { $0.name ?? "Unnamed Material" })")
                 for material in materials {
                     print("material.isDoubleSided \(material.isDoubleSided)")
                     print("material.name:  \(String(describing: material.name))")
@@ -62,7 +81,21 @@ class EnemySceneViewModel: ObservableObject {
         }
         
         // Last resort: Find the first child node with geometry (assuming it's the main model)
-        return findNodeWithGeometry(in: scene.rootNode)
+        if scene.rootNode.geometry != nil {
+            return scene.rootNode
+        }
+
+        var geometryNode: SCNNode?
+        scene.rootNode.enumerateChildNodes { node, stop in
+            guard node.geometry != nil else {
+                return
+            }
+
+            geometryNode = node
+            stop.pointee = true
+        }
+
+        return geometryNode
     }
     
     func setupScene() {
@@ -126,33 +159,20 @@ class EnemySceneViewModel: ObservableObject {
         scnView.isTemporalAntialiasingEnabled = true
     }
 
-    private func findNodeWithGeometry(in node: SCNNode) -> SCNNode? {
-        if node.geometry != nil {
-            return node
-        }
-
-        for child in node.childNodes {
-            if let geometryNode = findNodeWithGeometry(in: child) {
-                return geometryNode
-            }
-        }
-
-        return nil
-    }
-
     private func configureMaterials(_ materials: [SCNMaterial]) {
         for material in materials {
             material.isDoubleSided = true
 
-            switch material.name?.lowercased() {
-            case "exterior", "black_exterior", "black_material":
-                material.diffuse.contents = UIColor.black
-            case "windows":
-                material.diffuse.contents = UIColor.clear
-            case "engine", "engine_material", "engine_emission_material":
-                material.diffuse.contents = UIColor.cyan
-            default:
-                break
+            // Normalize SceneKit material names to lowercase so the lookup stays
+            // consistent across assets that use mixed-case naming.
+            guard let materialName = material.name?.lowercased() else {
+                continue
+            }
+
+            // Leave unknown materials unchanged so each scene can retain any
+            // asset-specific materials that are not part of this shared styling.
+            if let diffuseContents = MaterialAppearance.diffuseContentsByName[materialName] {
+                material.diffuse.contents = diffuseContents
             }
         }
     }
