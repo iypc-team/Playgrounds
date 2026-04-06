@@ -1,5 +1,6 @@
 // UtilityFunctions.swift
 // Utility functions for handling SceneKit scenes and related data.
+// 
 
 import SceneKit
 
@@ -31,7 +32,7 @@ class UtilityFunctions {
     func isValidScene() -> Bool {
         return Self.validScenes.contains(selectedScene)
     }
-    
+    // I would like to create a fonction named 'editMaterials' in UtilityFunctions.swift. Function will call 'var materials = Set<SCNMaterial>()' and edit each material by name, example 'Materials (4): ["Windows", "Black_Exterior", "Exterior", "Engine"]'. 
     // Retrieves and lists all unique materials from geometries in the selected scene
     func getMaterials() -> [SCNMaterial] {
         var materials = Set<SCNMaterial>()

@@ -1,6 +1,6 @@
 // EnemySceneViewModel.swift
 // Handles SceneKit scene setup, configuration, and animations for MVVM separation.
-// print
+// 
 
 import SwiftUI
 import SceneKit

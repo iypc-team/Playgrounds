@@ -1,8 +1,8 @@
-// DF2-Enemy  04/06/2026-1
+// DF2-Enemy  04/06/2026-2
 // ContentView.swift
 // Project: DF2-Enemy.swiftpm
 // Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF2-Enemy.swiftpm
-// validScenes
+// 
 
 import SwiftUI
 import SceneKit
