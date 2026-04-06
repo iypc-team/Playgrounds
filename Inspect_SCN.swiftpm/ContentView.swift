@@ -1,7 +1,7 @@
-//  Inspect_SCN 03/18/2026-2
+//  Inspect_SCN 04/06/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
-//  
+// 
 
 import SwiftUI
 import SceneKit
