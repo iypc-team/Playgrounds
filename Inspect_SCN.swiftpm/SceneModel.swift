@@ -13,9 +13,12 @@ class SceneModel: ObservableObject {
     
     // Properties for lighting
     var lightIntensity: CGFloat = 500
-    var omniLightIntensity: CGFloat = 5000
+    var omniLightIntensity: CGFloat = 500
     var cabinLightColor: UIColor = UIColor.red
     var engineLightColor: UIColor = UIColor.green
+    
+    // SCNView optimization properties
+    var antialiasingMode: SCNAntialiasingMode = .multisampling2X  // Optimized for performance (reduced from 4X)
     
     // Geometry inspection properties
     private var currentScene: SCNScene?
