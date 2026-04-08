@@ -1,7 +1,6 @@
-//  Inspect_SCN 04/06/2026-2
+//  Inspect_SCN 04/08/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
-// 
 
 import SwiftUI
 import SceneKit
@@ -29,12 +28,11 @@ struct ContentView: View {
                 .accessibilityLabel("3D Fighter Scene")
                 .onChange(of: selectedFile) { newValue in
                     viewModel.loadScene(for: newValue)
-                    inspectionResults = "" // Reset inspection when scene changes
-                    showBoundingBox = false  // Reset bounding box display on scene change
+                    inspectionResults = ""
+                    showBoundingBox = false
                 }
                 .onAppear {
                     loadResourceFiles()
-                    // Load initial scene after resources are loaded
                     if resourceFiles.contains(selectedFile) {
                         viewModel.loadScene(for: selectedFile)
                     } else if let firstFile = resourceFiles.first {
@@ -96,7 +94,6 @@ struct ContentView: View {
                 }
                 Spacer()
                 
-                // Overlay for inspection results
                 if showInspection && !inspectionResults.isEmpty {
                     VStack {
                         Text("Geometry Inspection Results:")
@@ -131,41 +128,39 @@ struct ContentView: View {
     
     private func loadResourceFiles() {
         print("private func loadResourceFiles()")
-        // Load .scn files dynamically from the app bundle (root of Resources or specified subdirectory)
+        // Load .scn files dynamically from the app bundle
         let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? []
-        // Filter to only include files where SCNScene(named:) succeeds (ensures they are loadable)
+        
+        // FIX: Use URL-based loading to validate, NOT SCNScene(named:)
         resourceFiles = urls
             .filter { url in
-                let fileName = url.lastPathComponent
-                return SCNScene(named: fileName) != nil
+                // Validate that the file can actually be loaded as a SceneKit scene
+                do {
+                    let _ = try SCNScene(url: url, options: nil)
+                    return true
+                } catch {
+                    print("Warning: '\(url.lastPathComponent)' could not be loaded: \(error.localizedDescription)")
+                    return false
+                }
             }
             .map { $0.lastPathComponent }
             .sorted()
         
         if resourceFiles.isEmpty {
-            print("Error: No loadable .scn files found in the Resources directory. Ensure .scn files are properly included in the Swift Package and are valid SceneKit scenes.")
-            // Optionally, set a user-facing error state (e.g., add @State private var resourceLoadError: String? and display it in the UI)
-            // resourceLoadError = "No scene files found. Please check the Resources directory."
+            print("Error: No loadable .scn files found in the Resources directory.")
         } else {
-            // Ensure selectedFile is valid; default to first if "newFighter.scn" not found
             if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
                 selectedFile = firstFile
             }
-            // Log the found files for debugging
             print("Found loadable .scn files: \(resourceFiles)")
         }
     }
     
     private func inspectGeometry() {
         print("private func inspectGeometry()")
-        // Generate report via SceneModel
         inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
         showInspection = true
-        
-        // Print the full inspection results to console (matches UI)
         print("Geometry Inspection Results:\n\(inspectionResults)")
-        
-        // Print summary to console for debugging
         viewModel.sceneModel.printGeometrySummary()
     }
 }

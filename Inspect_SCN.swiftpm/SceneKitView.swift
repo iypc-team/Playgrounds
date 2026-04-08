@@ -1,5 +1,4 @@
 //  SceneKitView.swift
-//  
 
 import SwiftUI
 import SceneKit
@@ -13,19 +12,46 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.black
         scnView.allowsCameraControl = true
-        scnView.autoenablesDefaultLighting = false
+        // FIX: Enable default lighting as a fallback so scenes without
+        // custom lights are always visible
+        scnView.autoenablesDefaultLighting = true
         scnView.antialiasingMode = .multisampling4X
         
-        configureFighterNode(in: scnView)
+        configureSceneNode(in: scnView)
         
         return scnView
     }
     
-    private func configureFighterNode(in scnView: SCNView) {
-        guard let node = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
-            // Skip configuration if fighter node not found (no warning logged)
+    private func configureSceneNode(in scnView: SCNView) {
+        // Try the "fighter" node first (for fighter scenes)
+        if let fighterNode = scene.rootNode.childNode(withName: "fighter", recursively: true) {
+            configureFighterLights(on: fighterNode)
             return
         }
+        
+        // For ALL other scenes (like smooth_ship.scn), find the first node
+        // with geometry and apply generic lighting to it
+        if let firstGeometryNode = findFirstNodeWithGeometry(in: scene.rootNode) {
+            configureGenericLights(on: firstGeometryNode)
+        }
+        // If no geometry node exists at all, default lighting from
+        // autoenablesDefaultLighting = true will still illuminate the scene
+    }
+    
+    /// Recursively finds the first child node that has geometry
+    private func findFirstNodeWithGeometry(in node: SCNNode) -> SCNNode? {
+        if node.geometry != nil {
+            return node
+        }
+        for child in node.childNodes {
+            if let found = findFirstNodeWithGeometry(in: child) {
+                return found
+            }
+        }
+        return nil
+    }
+    
+    private func configureFighterLights(on node: SCNNode) {
         node.scale = sceneModel.fighterScale
         
         // Remove existing light nodes to prevent accumulation
@@ -39,11 +65,8 @@ struct SceneKitView: UIViewRepresentable {
         cabinLightNode.light?.attenuationStartDistance = 1.0
         cabinLightNode.light?.attenuationEndDistance = 5.0
         cabinLightNode.light?.color = sceneModel.cabinLightColor
-        cabinLightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model property
-        //        print("cabinLightNode: \(String(describing: cabinLightNode.light?.intensity)) ")
-        
+        cabinLightNode.light?.intensity = sceneModel.omniLightIntensity
         node.addChildNode(cabinLightNode)
-        
         
         let engineLightNode = SCNNode()
         engineLightNode.light = SCNLight()
@@ -52,19 +75,27 @@ struct SceneKitView: UIViewRepresentable {
         engineLightNode.light?.castsShadow = false
         engineLightNode.light?.attenuationStartDistance = 1.0
         engineLightNode.light?.attenuationEndDistance = 5.0
-        engineLightNode.light?.color = sceneModel.engineLightColor  // Use model property
-        engineLightNode.light?.intensity = sceneModel.omniLightIntensity  // Use model property
-        //        print("engineLightNode: \(engineLightNode.description)\n ")
-        
+        engineLightNode.light?.color = sceneModel.engineLightColor
+        engineLightNode.light?.intensity = sceneModel.omniLightIntensity
         node.addChildNode(engineLightNode)
     }
     
+    private func configureGenericLights(on node: SCNNode) {
+        // Remove existing added lights to prevent accumulation
+        node.childNodes.filter { $0.light != nil }.forEach { $0.removeFromParentNode() }
+        
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight()
+        lightNode.light?.type = .omni
+        lightNode.light?.color = UIColor.white
+        lightNode.light?.intensity = sceneModel.omniLightIntensity
+        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+        node.addChildNode(lightNode)
+    }
+    
     func updateUIView(_ uiView: SCNView, context: Context) {
-        // Update the scene if it has changed
         uiView.scene = scene
-        // Ensure background is always black, overriding any scene file settings
         uiView.scene?.background.contents = UIColor.black
-        // Re-scale fighter and update lights if sceneModel changed
-        configureFighterNode(in: uiView)
+        configureSceneNode(in: uiView)
     }
 }
