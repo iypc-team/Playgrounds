@@ -1,4 +1,4 @@
-//  NFC1 04/13/2026-1
+//  NFC1 04/13/2026-2
 //  ContentView.swift
 //  NFC1.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/NFC1.swiftpm
@@ -9,7 +9,7 @@ import CoreNFC
 // Constants for UI spacing and padding
 private let verticalSpacing: CGFloat = 40
 private let buttonPadding: CGFloat = 16
-private let cornerRadius: CGFloat = 10
+private let buttonCornerRadius: CGFloat = 10          // ← RENAMED from "cornerRadius"
 
 struct ContentView: View {
     @StateObject var reader = NFCReader()
@@ -40,8 +40,7 @@ struct ContentView: View {
                     .padding(buttonPadding)
                     .background(Color.blue)
                     .foregroundColor(.white)
-                    .cornerRadius(cornerRadius)
-                // Cannot convert value of type '(CGFloat, Bool) -> some View' to expected type 'CGFloat'
+                    .clipShape(RoundedRectangle(cornerRadius: buttonCornerRadius))  // ← FIX
             }
             .accessibilityLabel(NSLocalizedString("Start NFC Scan", comment: "Accessibility label for scan button"))
             .accessibilityHint(NSLocalizedString("Tap to begin scanning for NFC tags", comment: "Accessibility hint for scan button"))
@@ -59,7 +58,7 @@ struct ContentView: View {
                     .padding(buttonPadding)
                     .background(Color.gray)
                     .foregroundColor(.white)
-                    .cornerRadius(cornerRadius)
+                    .clipShape(RoundedRectangle(cornerRadius: buttonCornerRadius))  // ← FIX
             }
             .accessibilityLabel(NSLocalizedString("Clear Result", comment: "Accessibility label for clear button"))
             .accessibilityHint(NSLocalizedString("Tap to clear the NFC scan result", comment: "Accessibility hint for clear button"))
