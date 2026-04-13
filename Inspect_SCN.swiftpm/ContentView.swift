@@ -1,5 +1,5 @@
-//  Inspect_SCN 04/13/2026-3
-//  ContentView.swift
+//  Inspect_SCN 04/13/2026-4
+//  ContentView.swift)
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
 import SwiftUI
@@ -27,10 +27,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            // Primary SceneKit view to display 3D content
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .accessibilityLabel("3D Fighter Scene")
                 .onChange(of: selectedFile) { newValue in
+                    // Handle file switching by reloading the scene and resetting states
                     viewModel.loadScene(for: newValue)
                     inspectionResults = ""
                     showInspection = false
@@ -41,6 +43,7 @@ struct ContentView: View {
                     showBoundingBox = false
                 }
                 .onAppear {
+                    // Dynamically load .scn files on view presentation
                     loadResourceFiles()
                     if resourceFiles.contains(selectedFile) {
                         viewModel.loadScene(for: selectedFile)
@@ -50,10 +53,12 @@ struct ContentView: View {
                     }
                 }
             
+            // Overlayed button menu aligned at the top with a vertical stack
             VStack {
                 HStack {
                     Spacer()
                     Menu {
+                        // Dynamically populate menu with resource files
                         ForEach(resourceFiles, id: \.self) { file in
                             Button(file) {
                                 selectedFile = file
@@ -68,6 +73,7 @@ struct ContentView: View {
                     }
                     .tint(.white)
                     
+                    // Inspect Geometry Button
                     Button(action: {
                         inspectGeometry()
                     }) {
@@ -80,6 +86,7 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Inspect the geometry of the current scene")
                     
+                    // List Materials Button
                     Button(action: {
                         listMaterials()
                     }) {
@@ -92,6 +99,7 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("List all materials in the current scene")
                     
+                    // Set Materials to Double-Sided Button
                     Button(action: {
                         setAllMaterialsDoubleSided()
                     }) {
@@ -104,6 +112,7 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Set all materials to double-sided rendering")
                     
+                    // Set Materials to Reflective Button
                     Button(action: {
                         setAllMaterialsVeryReflective()
                     }) {
@@ -116,6 +125,7 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Set all materials to very reflective")
                     
+                    // Randomize Material Colors Button
                     Button(action: {
                         randomizeMaterialColors()
                     }) {
@@ -128,8 +138,10 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Randomize colors for all materials")
                     
+                    // Toggle Bounding Box Button
                     Button(action: {
                         showBoundingBox.toggle()
+                        // Toggle logic to display or remove bounding box from the scene
                         if showBoundingBox {
                             if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
                                 viewModel.scene.rootNode.addChildNode(boxNode)
@@ -149,68 +161,28 @@ struct ContentView: View {
                     
                     Spacer()
                 }
+                .padding()
+                
                 Spacer()
                 
+                // Overlayed inspection results
                 if showInspection && !inspectionResults.isEmpty {
-                    VStack {
-                        Text("Geometry Inspection Results:")
-                            .foregroundColor(.white)
-                            .background(Color.black.opacity(0.8))
-                            .font(.headline)
-                            .padding(.bottom, 8)
-                        ScrollView {
-                            Text(inspectionResults)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.black.opacity(0.9))
-                                .cornerRadius(8)
-                        }
-                        .frame(maxHeight: 200)
-                        
-                        Button("Close") {
-                            showInspection = false
-                        }
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red.opacity(0.7))
-                        .cornerRadius(8)
-                        .accessibilityLabel("Close inspection results")
+                    overlayResultsView(title: "Geometry Inspection Results:", content: inspectionResults) {
+                        showInspection = false
                     }
-                    .padding()
                 }
                 
+                // Overlayed materials results
                 if showMaterials && !materialsResults.isEmpty {
-                    VStack {
-                        Text("Materials List:")
-                            .foregroundColor(.white)
-                            .background(Color.black.opacity(0.8))
-                            .font(.headline)
-                            .padding(.bottom, 8)
-                        ScrollView {
-                            Text(materialsResults)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.black.opacity(0.9))
-                                .cornerRadius(8)
-                        }
-                        .frame(maxHeight: 200)
-                        
-                        Button("Close") {
-                            showMaterials = false
-                        }
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red.opacity(0.7))
-                        .cornerRadius(8)
-                        .accessibilityLabel("Close materials list")
+                    overlayResultsView(title: "Materials List:", content: materialsResults) {
+                        showMaterials = false
                     }
-                    .padding()
                 }
             }
-            .padding()
         }
     }
     
+    // Dynamically load .scn files from app resources
     private func loadResourceFiles() {
         print("private func loadResourceFiles()")
         // Load .scn files dynamically from the app bundle
@@ -241,6 +213,35 @@ struct ContentView: View {
         }
     }
     
+    // Inspector overlay for geometry/materials results
+    private func overlayResultsView(title: String, content: String, onClose: @escaping () -> Void) -> some View {
+        VStack {
+            Text(title)
+                .foregroundColor(.white)
+                .background(Color.black.opacity(0.8))
+                .font(.headline)
+                .padding(.bottom, 8)
+            ScrollView {
+                Text(content)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.9))
+                    .cornerRadius(8)
+            }
+            .frame(maxHeight: 200)
+            Button("Close", action: onClose)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.red.opacity(0.7))
+                .cornerRadius(8)
+                .accessibilityLabel("Close results")
+        }
+        .padding()
+        .background(Color.black.opacity(0.7))
+        .cornerRadius(12)
+    }
+    
+    // Geometry inspection action
     private func inspectGeometry() {
         print("private func inspectGeometry()")
         inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
@@ -249,6 +250,7 @@ struct ContentView: View {
         viewModel.sceneModel.printGeometrySummary()
     }
     
+    // List materials action
     private func listMaterials() {
         print("private func listMaterials()")
         materialsResults = viewModel.sceneModel.generateMaterialsReport(for: selectedFile)
@@ -256,18 +258,21 @@ struct ContentView: View {
         print("Materials Results:\n\(materialsResults)")
     }
     
+    // Toggle materials to double-sided rendering
     private func setAllMaterialsDoubleSided() {
         print("private func setAllMaterialsDoubleSided()")
         viewModel.sceneModel.setAllMaterialsDoubleSided()
         print("All materials set to double-sided.")
     }
     
+    // Set materials to very reflective rendering
     private func setAllMaterialsVeryReflective() {
         print("private func setAllMaterialsVeryReflective()")
         viewModel.sceneModel.setAllMaterialsVeryReflective()
         print("All materials set to very reflective.")
     }
     
+    // Randomize material colors
     private func randomizeMaterialColors() {
         print("private func randomizeMaterialColors()")
         viewModel.sceneModel.setAllMaterialsRandomColors()
