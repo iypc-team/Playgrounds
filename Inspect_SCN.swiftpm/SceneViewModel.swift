@@ -17,7 +17,7 @@ class SceneViewModel: ObservableObject {
     func setupScene() {
         // Remove existing camera and light nodes to prevent accumulation
         scene.rootNode.childNodes.filter { $0.camera != nil }.forEach { $0.removeFromParentNode() }
-        scene.rootNode.childNodes.filter { $0.light != nil && $0.light!.type == .ambient }.forEach { $0.removeFromParentNode() }
+        scene.rootNode.childNodes.filter { $0.light != nil }.forEach { $0.removeFromParentNode() }  // Updated: Remove ALL lights, not just ambient
         
         // Setup camera
         let cameraNode = SCNNode()

@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/13/2026-1
+//  Inspect_SCN 04/13/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -36,6 +36,8 @@ struct ContentView: View {
                     showInspection = false
                     materialsResults = ""
                     showMaterials = false
+                    // Updated: Explicitly remove bounding box node to prevent accumulation on scene switch
+                    viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
                     showBoundingBox = false
                 }
                 .onAppear {
@@ -273,7 +275,7 @@ struct ContentView: View {
     }
 }
 
-struct SceneKitView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
