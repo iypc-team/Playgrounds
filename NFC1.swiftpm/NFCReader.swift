@@ -36,7 +36,16 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
         isScanning = false
         // Only set error message if no result was obtained and it's not a user cancellation
         if scanResult.isEmpty, let nfcError = error as? NFCReaderError, nfcError.code != .readerSessionInvalidationErrorUserCanceled {
-            scanResult = NSLocalizedString("Scanning failed. Try again.", comment: "Generic error message for scan failure")
+            switch nfcError.code {
+            case .readerSessionInvalidationErrorSessionTimeout:
+                scanResult = NSLocalizedString("Scanning timed out. Please try again.", comment: "Error message for session timeout")
+            case .readerSessionInvalidationErrorSessionTerminatedUnexpectedly:
+                scanResult = NSLocalizedString("Scanning was interrupted unexpectedly. Please try again.", comment: "Error message for unexpected termination")
+            case .readerSessionInvalidationErrorSystemIsBusy:
+                scanResult = NSLocalizedString("The system is busy. Please wait and try again.", comment: "Error message for system busy")
+            default:
+                scanResult = NSLocalizedString("Scanning failed due to an unknown error. Please try again.", comment: "Default error message for scan failure")
+            }
         }
         self.session = nil
     }
