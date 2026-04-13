@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/08/2026-2
+//  Inspect_SCN 04/13/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -21,6 +21,10 @@ struct ContentView: View {
     // State for showing bounding box
     @State private var showBoundingBox: Bool = false
     
+    // State for showing materials results
+    @State private var materialsResults: String = ""
+    @State private var showMaterials: Bool = false
+    
     var body: some View {
         ZStack {
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
@@ -29,6 +33,9 @@ struct ContentView: View {
                 .onChange(of: selectedFile) { newValue in
                     viewModel.loadScene(for: newValue)
                     inspectionResults = ""
+                    showInspection = false
+                    materialsResults = ""
+                    showMaterials = false
                     showBoundingBox = false
                 }
                 .onAppear {
@@ -70,6 +77,54 @@ struct ContentView: View {
                     }
                     .tint(.white)
                     .accessibilityLabel("Inspect the geometry of the current scene")
+                    
+                    Button(action: {
+                        listMaterials()
+                    }) {
+                        Text("List Materials")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                    .tint(.white)
+                    .accessibilityLabel("List all materials in the current scene")
+                    
+                    Button(action: {
+                        setAllMaterialsDoubleSided()
+                    }) {
+                        Text("Set Double-Sided")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                    .tint(.white)
+                    .accessibilityLabel("Set all materials to double-sided rendering")
+                    
+                    Button(action: {
+                        setAllMaterialsVeryReflective()
+                    }) {
+                        Text("Set Very Reflective")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                    .tint(.white)
+                    .accessibilityLabel("Set all materials to very reflective")
+                    
+                    Button(action: {
+                        randomizeMaterialColors()
+                    }) {
+                        Text("Randomize Colors")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                    .tint(.white)
+                    .accessibilityLabel("Randomize colors for all materials")
                     
                     Button(action: {
                         showBoundingBox.toggle()
@@ -121,6 +176,34 @@ struct ContentView: View {
                     }
                     .padding()
                 }
+                
+                if showMaterials && !materialsResults.isEmpty {
+                    VStack {
+                        Text("Materials List:")
+                            .foregroundColor(.white)
+                            .background(Color.black.opacity(0.8))
+                            .font(.headline)
+                            .padding(.bottom, 8)
+                        ScrollView {
+                            Text(materialsResults)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.black.opacity(0.9))
+                                .cornerRadius(8)
+                        }
+                        .frame(maxHeight: 200)
+                        
+                        Button("Close") {
+                            showMaterials = false
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red.opacity(0.7))
+                        .cornerRadius(8)
+                        .accessibilityLabel("Close materials list")
+                    }
+                    .padding()
+                }
             }
             .padding()
         }
@@ -162,6 +245,31 @@ struct ContentView: View {
         showInspection = true
         print("Geometry Inspection Results:\n\(inspectionResults)")
         viewModel.sceneModel.printGeometrySummary()
+    }
+    
+    private func listMaterials() {
+        print("private func listMaterials()")
+        materialsResults = viewModel.sceneModel.generateMaterialsReport(for: selectedFile)
+        showMaterials = true
+        print("Materials Results:\n\(materialsResults)")
+    }
+    
+    private func setAllMaterialsDoubleSided() {
+        print("private func setAllMaterialsDoubleSided()")
+        viewModel.sceneModel.setAllMaterialsDoubleSided()
+        print("All materials set to double-sided.")
+    }
+    
+    private func setAllMaterialsVeryReflective() {
+        print("private func setAllMaterialsVeryReflective()")
+        viewModel.sceneModel.setAllMaterialsVeryReflective()
+        print("All materials set to very reflective.")
+    }
+    
+    private func randomizeMaterialColors() {
+        print("private func randomizeMaterialColors()")
+        viewModel.sceneModel.setAllMaterialsRandomColors()
+        print("Material colors randomized.")
     }
 }
 

@@ -84,6 +84,70 @@ class SceneModel: ObservableObject {
         return results
     }
     
+    // Generates a report listing all materials in the scene, grouped by geometry
+    func generateMaterialsReport(for sceneName: String) -> String {
+        let geometries = listAllGeometries()
+        var results = "Materials in Scene: \(sceneName)\n"
+        var totalMaterials = 0
+        
+        for geometry in geometries {
+            results += "\nGeometry: \(geometry.name ?? "Unnamed")\n"
+            if geometry.materials.isEmpty {
+                results += "  No materials\n"
+            } else {
+                for material in geometry.materials {
+                    totalMaterials += 1
+                    results += "  \(totalMaterials). \(material.name ?? "Unnamed Material")\n"
+                }
+            }
+        }
+        
+        if totalMaterials == 0 {
+            results += "No materials found in the scene.\n"
+        } else {
+            results += "\nTotal Materials: \(totalMaterials)\n"
+        }
+        return results
+    }
+    
+    // Sets all materials in the scene to double-sided rendering
+    func setAllMaterialsDoubleSided() {
+        let geometries = listAllGeometries()
+        for geometry in geometries {
+            for material in geometry.materials {
+                material.isDoubleSided = true
+            }
+        }
+        print("Set all materials to double-sided.")
+    }
+    
+    // Sets all materials in the scene to very reflective (physically-based with max metalness and min roughness)
+    func setAllMaterialsVeryReflective() {
+        let geometries = listAllGeometries()
+        for geometry in geometries {
+            for material in geometry.materials {
+                material.lightingModel = .physicallyBased
+                material.metalness.contents = 1.0  // Maximum metalness for high reflectivity
+                material.roughness.contents = 0.0  // Minimum roughness for mirror-like reflection
+            }
+        }
+        print("Set all materials to very reflective.")
+    }
+    
+    // Sets random colors for all materials in the scene (editable in code)
+    func setAllMaterialsRandomColors() {
+        let geometries = listAllGeometries()
+        for geometry in geometries {
+            for material in geometry.materials {
+                let red = CGFloat.random(in: 0...1)
+                let green = CGFloat.random(in: 0...1)
+                let blue = CGFloat.random(in: 0...1)
+                material.diffuse.contents = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+            }
+        }
+        print("Set random colors for all materials.")
+    }
+    
     // Renames a geometry by index (0-based)
     func renameGeometry(at index: Int, to newName: String) {
         let geometries = listAllGeometries()
