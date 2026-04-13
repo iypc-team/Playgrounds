@@ -1,4 +1,4 @@
-//  NFC1 04/12/2026-1
+//  NFC1 04/13/2026-1
 //  ContentView.swift
 //  NFC1.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/NFC1.swiftpm
@@ -41,7 +41,7 @@ struct ContentView: View {
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(cornerRadius)
-                // Cannot convert value of type '(CGFloat, Bool) -> some view' to expected argument type 'CGFloat'
+                // Cannot convert value of type '(CGFloat, Bool) -> some View' to expected type 'CGFloat'
             }
             .accessibilityLabel(NSLocalizedString("Start NFC Scan", comment: "Accessibility label for scan button"))
             .accessibilityHint(NSLocalizedString("Tap to begin scanning for NFC tags", comment: "Accessibility hint for scan button"))
