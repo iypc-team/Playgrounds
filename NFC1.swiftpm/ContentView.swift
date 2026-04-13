@@ -1,4 +1,4 @@
-//  NFC1 04/13/2026-2
+//  NFC1 04/13/2026-3
 //  ContentView.swift
 //  NFC1.swiftpm
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/NFC1.swiftpm
@@ -63,5 +63,12 @@ struct ContentView: View {
             .accessibilityLabel(NSLocalizedString("Clear Result", comment: "Accessibility label for clear button"))
             .accessibilityHint(NSLocalizedString("Tap to clear the NFC scan result", comment: "Accessibility hint for clear button"))
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .preferredColorScheme(.dark)
     }
 }

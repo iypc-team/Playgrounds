@@ -34,36 +34,43 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         print("Reader session did invalidate with error: \(error.localizedDescription)")
         isScanning = false
-        if scanResult.isEmpty {
+        // Only set error message if no result was obtained and it's not a user cancellation
+        if scanResult.isEmpty, let nfcError = error as? NFCReaderError, nfcError.code != .readerSessionInvalidationErrorUserCanceled {
             scanResult = NSLocalizedString("Scanning failed. Try again.", comment: "Generic error message for scan failure")
         }
         self.session = nil
     }
     
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-        guard let message = messages.first, let record = message.records.first else {
-            scanResult = NSLocalizedString("No NDEF data found.", comment: "Message when no data is detected")
-            session.invalidate()
-            isScanning = false
-            return
-        }
+        var allPayloads: [String] = []
         
-        // Parse payload based on record type
-        var payloadString: String
-        switch record.typeNameFormat {
-        case .nfcWellKnown:
-            if record.type == Data([0x55]) { // URI record
-                payloadString = parseURIPayload(record.payload)
-            } else if record.type == Data([0x54]) { // Text record
-                payloadString = parseTextPayload(record.payload)
-            } else {
-                payloadString = String(data: record.payload, encoding: .utf8) ?? record.payload.debugDescription
+        for message in messages {
+            for record in message.records {
+                // Parse payload based on record type
+                var payloadString: String
+                switch record.typeNameFormat {
+                case .nfcWellKnown:
+                    if record.type == Data([0x55]) { // URI record
+                        payloadString = parseURIPayload(record.payload)
+                    } else if record.type == Data([0x54]) { // Text record
+                        payloadString = parseTextPayload(record.payload)
+                    } else {
+                        payloadString = String(data: record.payload, encoding: .utf8) ?? record.payload.debugDescription
+                    }
+                default:
+                    payloadString = String(data: record.payload, encoding: .utf8) ?? record.payload.debugDescription
+                }
+                allPayloads.append(payloadString)
             }
-        default:
-            payloadString = String(data: record.payload, encoding: .utf8) ?? record.payload.debugDescription
         }
         
-        scanResult = String(format: NSLocalizedString("NFC Tag Detected: %@", comment: "Success message with payload"), payloadString)
+        if allPayloads.isEmpty {
+            scanResult = NSLocalizedString("No NDEF data found.", comment: "Message when no data is detected")
+        } else {
+            let joinedPayloads = allPayloads.joined(separator: "\n\n")
+            scanResult = String(format: NSLocalizedString("NFC Tag Detected:\n%@", comment: "Success message with payloads"), joinedPayloads)
+        }
+        
         session.invalidate()
         isScanning = false
     }
