@@ -134,20 +134,6 @@ class SceneModel: ObservableObject {
         print("Set all materials to very reflective.")
     }
     
-    // Sets random colors for all materials in the scene (editable in code)
-    func setAllMaterialsRandomColors() {
-        let geometries = listAllGeometries()
-        for geometry in geometries {
-            for material in geometry.materials {
-                let red = CGFloat.random(in: 0...1)
-                let green = CGFloat.random(in: 0...1)
-                let blue = CGFloat.random(in: 0...1)
-                material.diffuse.contents = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-            }
-        }
-        print("Set random colors for all materials.")
-    }
-    
     // Renames a geometry by index (0-based)
     func renameGeometry(at index: Int, to newName: String) {
         let geometries = listAllGeometries()

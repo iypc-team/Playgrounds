@@ -1,5 +1,5 @@
-//  Inspect_SCN 04/14/2026-1
-//  ContentView.swift)
+//  Inspect_SCN 04/14/2026-3
+//  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
 import SwiftUI
@@ -25,6 +25,10 @@ struct ContentView: View {
     @State private var materialsResults: String = ""
     @State private var showMaterials: Bool = false
     
+    // State for load error alert
+    @State private var showLoadError: Bool = false
+    @State private var loadErrorMessage: String = ""
+    
     var body: some View {
         ZStack {
             // Primary SceneKit view to display 3D content
@@ -33,23 +37,28 @@ struct ContentView: View {
                 .accessibilityLabel("3D Fighter Scene")
                 .onChange(of: selectedFile) { newValue in
                     // Handle file switching by reloading the scene and resetting states
-                    viewModel.loadScene(for: newValue)
+                    let success = viewModel.loadScene(for: newValue)
                     inspectionResults = ""
                     showInspection = false
                     materialsResults = ""
                     showMaterials = false
-                    // Updated: Explicitly remove bounding box node to prevent accumulation on scene switch
+                    // Explicitly remove bounding box node to prevent accumulation on scene switch
                     viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
                     showBoundingBox = false
+                    
+                    if !success {
+                        loadErrorMessage = "Failed to load '\(newValue)'. The file may be corrupt or incompatible."
+                        showLoadError = true
+                    }
                 }
                 .onAppear {
                     // Dynamically load .scn files on view presentation
                     loadResourceFiles()
                     if resourceFiles.contains(selectedFile) {
-                        viewModel.loadScene(for: selectedFile)
+                        let _ = viewModel.loadScene(for: selectedFile)
                     } else if let firstFile = resourceFiles.first {
                         selectedFile = firstFile
-                        viewModel.loadScene(for: firstFile)
+                        let _ = viewModel.loadScene(for: firstFile)
                     }
                 }
             
@@ -125,19 +134,6 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Set all materials to very reflective")
                     
-                    // Randomize Material Colors Button
-                    Button(action: {
-                        randomizeMaterialColors()
-                    }) {
-                        Text("Randomize Colors")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.gray.opacity(0.5))
-                            .cornerRadius(8)
-                    }
-                    .tint(.white)
-                    .accessibilityLabel("Randomize colors for all materials")
-                    
                     // Toggle Bounding Box Button
                     Button(action: {
                         showBoundingBox.toggle()
@@ -180,36 +176,34 @@ struct ContentView: View {
                 }
             }
         }
+        .alert("Scene Load Error", isPresented: $showLoadError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(loadErrorMessage)
+        }
     }
     
-    // Dynamically load .scn files from app resources
+    // Dynamically load .scn files from app resources — no trial-loading filter
     private func loadResourceFiles() {
         print("private func loadResourceFiles()")
-        // Load .scn files dynamically from the app bundle
+        // Load .scn files dynamically from the app bundle without trial-loading
         let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? []
         
-        // FIX: Use URL-based loading to validate, NOT SCNScene(named:)
+        // List all .scn files found in the bundle without filtering by trial-load.
+        // This ensures files like "smooth_ship.scn" and "smooth_ship 1.scn" appear
+        // even if they fail a speculative SCNScene(url:) parse.
+        // Load errors are handled at selection time in loadScene(for:).
         resourceFiles = urls
-            .filter { url in
-                // Validate that the file can actually be loaded as a SceneKit scene
-                do {
-                    let _ = try SCNScene(url: url, options: nil)
-                    return true
-                } catch {
-                    print("Warning: '\(url.lastPathComponent)' could not be loaded: \(error.localizedDescription)")
-                    return false
-                }
-            }
             .map { $0.lastPathComponent }
             .sorted()
         
         if resourceFiles.isEmpty {
-            print("Error: No loadable .scn files found in the Resources directory.")
+            print("Error: No .scn files found in the Resources directory.")
         } else {
             if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
                 selectedFile = firstFile
             }
-            print("Found loadable .scn files: \(resourceFiles)")
+            print("Found .scn files: \(resourceFiles)")
         }
     }
     
@@ -270,13 +264,6 @@ struct ContentView: View {
         print("private func setAllMaterialsVeryReflective()")
         viewModel.sceneModel.setAllMaterialsVeryReflective()
         print("All materials set to very reflective.")
-    }
-    
-    // Randomize material colors
-    private func randomizeMaterialColors() {
-        print("private func randomizeMaterialColors()")
-        viewModel.sceneModel.setAllMaterialsRandomColors()
-        print("Material colors randomized.")
     }
 }
 

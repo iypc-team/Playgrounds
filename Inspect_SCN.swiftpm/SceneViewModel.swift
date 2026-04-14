@@ -63,7 +63,9 @@ class SceneViewModel: ObservableObject {
     }
     
     // Method to load a scene by file name using URL-based loading
-    func loadScene(for name: String) {
+    // Returns true on success, false on failure
+    @discardableResult
+    func loadScene(for name: String) -> Bool {
         let fileNameWithoutExtension = (name as NSString).deletingPathExtension
         let fileExtension = (name as NSString).pathExtension
         
@@ -72,7 +74,8 @@ class SceneViewModel: ObservableObject {
             self.scene = SCNScene()
             sceneModel.setScene(self.scene)
             sceneModel.sceneName = name
-            return
+            setupScene()
+            return false
         }
         
         do {
@@ -84,8 +87,11 @@ class SceneViewModel: ObservableObject {
             print("Failed to load scene '\(name)': \(error.localizedDescription)")
             self.scene = SCNScene()
             sceneModel.setScene(self.scene)
+            setupScene()
+            return false
         }
         
         setupScene()
+        return true
     }
 }
