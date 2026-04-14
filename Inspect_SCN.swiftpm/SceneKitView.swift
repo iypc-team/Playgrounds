@@ -1,6 +1,7 @@
 //  SceneKitView.swift
 // 
 
+
 import SwiftUI
 import SceneKit
 
@@ -16,7 +17,7 @@ struct SceneKitView: UIViewRepresentable {
         // FIX: Enable default lighting as a fallback so scenes without
         // custom lights are always visible
         scnView.autoenablesDefaultLighting = true
-        scnView.antialiasingMode = .multisampling4X
+        scnView.antialiasingMode = sceneModel.antialiasingMode
         
         configureSceneNode(in: scnView)
         
@@ -97,6 +98,7 @@ struct SceneKitView: UIViewRepresentable {
     func updateUIView(_ uiView: SCNView, context: Context) {
         uiView.scene = scene
         uiView.scene?.background.contents = UIColor.black
+        uiView.antialiasingMode = sceneModel.antialiasingMode
         configureSceneNode(in: uiView)
     }
 }
