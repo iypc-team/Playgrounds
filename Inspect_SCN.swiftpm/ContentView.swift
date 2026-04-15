@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/15/2026-2
+//  Inspect_SCN 04/15/2026-3
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -29,10 +29,17 @@ struct ContentView: View {
     @State private var showLoadError: Bool = false
     @State private var loadErrorMessage: String = ""
     
+    // Monotonically increasing ID to force SceneKitView refresh on scene change
+    @State private var sceneRevision: Int = 0
+    
     var body: some View {
         ZStack {
             // Primary SceneKit view to display 3D content
+            // The .id(sceneRevision) forces SwiftUI to tear down and recreate
+            // the UIViewRepresentable whenever the scene changes, guaranteeing
+            // the new SCNScene is actually displayed.
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
+                .id(sceneRevision)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .accessibilityLabel("3D Fighter Scene")
                 .onChange(of: selectedFile) { newValue in
@@ -45,6 +52,9 @@ struct ContentView: View {
                     // Explicitly remove bounding box node to prevent accumulation on scene switch
                     viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
                     showBoundingBox = false
+                    
+                    // Bump revision to force SceneKitView to fully re-create
+                    sceneRevision += 1
                     
                     if !success {
                         loadErrorMessage = "Failed to load '\(newValue)'. The file may be corrupt or incompatible."
@@ -60,6 +70,7 @@ struct ContentView: View {
                         selectedFile = firstFile
                         let _ = viewModel.loadScene(for: firstFile)
                     }
+                    sceneRevision += 1
                 }
             
             // Overlayed button menu aligned at the top with a vertical stack
@@ -221,6 +232,30 @@ struct ContentView: View {
                 while let fileURL = enumerator.nextObject() as? URL {
                     if fileURL.pathExtension.lowercased() == "scn" {
                         foundFiles.insert(fileURL.lastPathComponent)
+                    }
+                }
+            }
+        }
+        
+        // Strategy 4: Search for known resource names that may have been missed
+        // due to spaces or percent-encoding. Build a lookup from the bundle's
+        // resource path using low-level FileManager contentsOfDirectory.
+        if let bundlePath = Bundle.main.resourcePath {
+            let fileManager = FileManager.default
+            if let items = try? fileManager.contentsOfDirectory(atPath: bundlePath) {
+                for item in items {
+                    if item.lowercased().hasSuffix(".scn") {
+                        foundFiles.insert(item)
+                    }
+                }
+            }
+            // Also check a Resources subdirectory if it exists at the path level
+            let resourcesSubpath = (bundlePath as NSString).appendingPathComponent("Resources")
+            if fileManager.fileExists(atPath: resourcesSubpath),
+               let items = try? fileManager.contentsOfDirectory(atPath: resourcesSubpath) {
+                for item in items {
+                    if item.lowercased().hasSuffix(".scn") {
+                        foundFiles.insert(item)
                     }
                 }
             }

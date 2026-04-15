@@ -66,21 +66,49 @@ class SceneViewModel: ObservableObject {
     // MARK: - Load a scene by file name
     // Uses multiple strategies to locate the .scn file in the bundle:
     //   1. Standard Bundle.main.url(forResource:withExtension:)
-    //   2. Recursive FileManager search (handles spaces in filenames and
+    //   2. Bundle.main.path(forResource:ofType:) (string-based, avoids URL encoding)
+    //   3. Recursive FileManager search (handles spaces in filenames and
     //      SPM-relocated resources)
+    //   4. Direct path construction from Bundle.main.resourcePath
     @discardableResult
     func loadScene(for name: String) -> Bool {
         let fileNameWithoutExtension = (name as NSString).deletingPathExtension
         let fileExtension = (name as NSString).pathExtension
         
-        // Strategy 1: Standard bundle lookup
+        // Strategy 1: Standard bundle lookup (URL-based)
         var url = Bundle.main.url(forResource: fileNameWithoutExtension, withExtension: fileExtension)
         
-        // Strategy 2: If standard lookup fails (common with spaces in filenames),
-        // recursively search the bundle for a file whose lastPathComponent matches.
+        // Strategy 2: String-based bundle lookup — handles spaces better on some platforms
         if url == nil {
-            print("Standard bundle lookup failed for '\(name)', falling back to recursive search.")
+            print("Strategy 1 (url forResource) failed for '\(name)', trying path-based lookup.")
+            if let path = Bundle.main.path(forResource: fileNameWithoutExtension, ofType: fileExtension) {
+                url = URL(fileURLWithPath: path)
+            }
+        }
+        
+        // Strategy 3: Recursive FileManager search by lastPathComponent match
+        if url == nil {
+            print("Strategy 2 (path forResource) failed for '\(name)', falling back to recursive search.")
             url = findFileInBundle(named: name)
+        }
+        
+        // Strategy 4: Direct path construction from resourcePath
+        // This bypasses all bundle lookup methods and directly constructs the filesystem path
+        if url == nil {
+            print("Strategy 3 (recursive search) failed for '\(name)', trying direct path construction.")
+            if let resourcePath = Bundle.main.resourcePath {
+                let directPath = (resourcePath as NSString).appendingPathComponent(name)
+                if FileManager.default.fileExists(atPath: directPath) {
+                    url = URL(fileURLWithPath: directPath)
+                }
+                // Also try under a Resources subdirectory
+                if url == nil {
+                    let subDirPath = ((resourcePath as NSString).appendingPathComponent("Resources") as NSString).appendingPathComponent(name)
+                    if FileManager.default.fileExists(atPath: subDirPath) {
+                        url = URL(fileURLWithPath: subDirPath)
+                    }
+                }
+            }
         }
         
         guard let resolvedURL = url else {
@@ -91,6 +119,8 @@ class SceneViewModel: ObservableObject {
             setupScene()
             return false
         }
+        
+        print("Successfully located '\(name)' at: \(resolvedURL.path)")
         
         do {
             let loadedScene = try SCNScene(url: resolvedURL, options: nil)
@@ -122,7 +152,13 @@ class SceneViewModel: ObservableObject {
             return nil
         }
         while let fileURL = enumerator.nextObject() as? URL {
+            // Compare using lastPathComponent (auto-decoded from percent-encoding)
             if fileURL.lastPathComponent == fileName {
+                return fileURL
+            }
+            // Also compare the percent-decoded path's last component
+            // in case lastPathComponent retains encoding
+            if fileURL.path.removingPercentEncoding?.components(separatedBy: "/").last == fileName {
                 return fileURL
             }
         }
