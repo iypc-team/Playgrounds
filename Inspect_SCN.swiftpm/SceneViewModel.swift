@@ -65,6 +65,7 @@ class SceneViewModel: ObservableObject {
     
     // MARK: - Load a scene by file name
     // Uses multiple strategies to locate the .scn file in the bundle:
+    //   0. Bundle.main.url with subdirectory "Resources" (for .copy("Resources"))
     //   1. Standard Bundle.main.url(forResource:withExtension:)
     //   2. Bundle.main.path(forResource:ofType:) (string-based, avoids URL encoding)
     //   3. Recursive FileManager search (handles spaces in filenames and
@@ -75,8 +76,19 @@ class SceneViewModel: ObservableObject {
         let fileNameWithoutExtension = (name as NSString).deletingPathExtension
         let fileExtension = (name as NSString).pathExtension
         
-        // Strategy 1: Standard bundle lookup (URL-based)
-        var url = Bundle.main.url(forResource: fileNameWithoutExtension, withExtension: fileExtension)
+        // Strategy 0: Look inside "Resources" subdirectory first
+        // When Package.swift uses .copy("Resources"), SPM preserves the
+        // directory as-is inside the bundle, so files live under a
+        // "Resources/" subdirectory rather than at the bundle root.
+        var url = Bundle.main.url(forResource: fileNameWithoutExtension,
+                                  withExtension: fileExtension,
+                                  subdirectory: "Resources")
+        
+        // Strategy 1: Standard bundle lookup (URL-based, top-level)
+        if url == nil {
+            print("Strategy 0 (subdirectory Resources) failed for '\(name)', trying top-level lookup.")
+            url = Bundle.main.url(forResource: fileNameWithoutExtension, withExtension: fileExtension)
+        }
         
         // Strategy 2: String-based bundle lookup — handles spaces better on some platforms
         if url == nil {
@@ -97,15 +109,16 @@ class SceneViewModel: ObservableObject {
         if url == nil {
             print("Strategy 3 (recursive search) failed for '\(name)', trying direct path construction.")
             if let resourcePath = Bundle.main.resourcePath {
-                let directPath = (resourcePath as NSString).appendingPathComponent(name)
-                if FileManager.default.fileExists(atPath: directPath) {
-                    url = URL(fileURLWithPath: directPath)
+                // Try under Resources subdirectory first (for .copy("Resources"))
+                let subDirPath = ((resourcePath as NSString).appendingPathComponent("Resources") as NSString).appendingPathComponent(name)
+                if FileManager.default.fileExists(atPath: subDirPath) {
+                    url = URL(fileURLWithPath: subDirPath)
                 }
-                // Also try under a Resources subdirectory
+                // Then try top-level
                 if url == nil {
-                    let subDirPath = ((resourcePath as NSString).appendingPathComponent("Resources") as NSString).appendingPathComponent(name)
-                    if FileManager.default.fileExists(atPath: subDirPath) {
-                        url = URL(fileURLWithPath: subDirPath)
+                    let directPath = (resourcePath as NSString).appendingPathComponent(name)
+                    if FileManager.default.fileExists(atPath: directPath) {
+                        url = URL(fileURLWithPath: directPath)
                     }
                 }
             }
@@ -142,7 +155,7 @@ class SceneViewModel: ObservableObject {
     // MARK: - Recursive bundle file search
     // Walks the entire bundle directory tree to find a file by its exact name.
     // This handles filenames with spaces, percent-encoded paths, and files
-    // nested in subdirectories by SPM's .process() directive.
+    // nested in subdirectories by SPM's .copy() directive.
     private func findFileInBundle(named fileName: String) -> URL? {
         guard let bundleURL = Bundle.main.resourceURL else { return nil }
         let fileManager = FileManager.default

@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/15/2026-4
+//  Inspect_SCN 04/15/2026-5
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -196,8 +196,8 @@ struct ContentView: View {
     
     // MARK: - Dynamically load .scn files from app resources
     // Uses multiple search strategies to find all .scn files in the bundle,
-    // including those with spaces in filenames and those nested in subdirectories
-    // by SPM's .process("Resources") directive.
+    // including those with spaces in filenames and those placed inside a
+    // "Resources/" subdirectory by SPM's .copy("Resources") directive.
     private func loadResourceFiles() {
         print("private func loadResourceFiles()")
         
@@ -210,15 +210,12 @@ struct ContentView: View {
             }
         }
         
-        // Strategy 2: Search common SPM resource subdirectory names
-        // SPM .process("Resources") can place files under the module's resource bundle
-        let possibleSubdirectories = ["Resources", ""]
-        for subdir in possibleSubdirectories {
-            let searchDir = subdir.isEmpty ? nil : subdir
-            if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: searchDir) {
-                for url in urls {
-                    foundFiles.insert(url.lastPathComponent)
-                }
+        // Strategy 2: Search "Resources" subdirectory
+        // When Package.swift uses .copy("Resources"), SPM preserves the
+        // directory structure, so .scn files live under "Resources/".
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") {
+            for url in urls {
+                foundFiles.insert(url.lastPathComponent)
             }
         }
         
@@ -237,9 +234,8 @@ struct ContentView: View {
             }
         }
         
-        // Strategy 4: Search for known resource names that may have been missed
-        // due to spaces or percent-encoding. Build a lookup from the bundle's
-        // resource path using low-level FileManager contentsOfDirectory.
+        // Strategy 4: Search using low-level FileManager contentsOfDirectory
+        // at both top-level and Resources subdirectory
         if let bundlePath = Bundle.main.resourcePath {
             let fileManager = FileManager.default
             if let items = try? fileManager.contentsOfDirectory(atPath: bundlePath) {
@@ -249,7 +245,7 @@ struct ContentView: View {
                     }
                 }
             }
-            // Also check a Resources subdirectory if it exists at the path level
+            // Check the Resources subdirectory (for .copy("Resources"))
             let resourcesSubpath = (bundlePath as NSString).appendingPathComponent("Resources")
             if fileManager.fileExists(atPath: resourcesSubpath),
                let items = try? fileManager.contentsOfDirectory(atPath: resourcesSubpath) {
