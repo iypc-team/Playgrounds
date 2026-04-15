@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/15/2026-1
+//  Inspect_SCN 04/15/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -183,22 +183,53 @@ struct ContentView: View {
         }
     }
     
-    // Dynamically load .scn files from app resources — no trial-loading filter
+    // MARK: - Dynamically load .scn files from app resources
+    // Uses multiple search strategies to find all .scn files in the bundle,
+    // including those with spaces in filenames and those nested in subdirectories
+    // by SPM's .process("Resources") directive.
     private func loadResourceFiles() {
         print("private func loadResourceFiles()")
-        // Load .scn files dynamically from the app bundle without trial-loading
-        let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) ?? []
         
-        // List all .scn files found in the bundle without filtering by trial-load.
-        // This ensures files like "smooth_ship.scn" and "smooth_ship 1.scn" appear
-        // even if they fail a speculative SCNScene(url:) parse.
-        // Load errors are handled at selection time in loadScene(for:).
-        resourceFiles = urls
-            .map { $0.lastPathComponent }
-            .sorted()
+        var foundFiles = Set<String>()
+        
+        // Strategy 1: Search top-level bundle (subdirectory: nil)
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
+            for url in urls {
+                foundFiles.insert(url.lastPathComponent)
+            }
+        }
+        
+        // Strategy 2: Search common SPM resource subdirectory names
+        // SPM .process("Resources") can place files under the module's resource bundle
+        let possibleSubdirectories = ["Resources", ""]
+        for subdir in possibleSubdirectories {
+            let searchDir = subdir.isEmpty ? nil : subdir
+            if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: searchDir) {
+                for url in urls {
+                    foundFiles.insert(url.lastPathComponent)
+                }
+            }
+        }
+        
+        // Strategy 3: Recursively walk the entire bundle to catch any .scn file
+        // regardless of where SPM placed it (handles spaces, percent-encoding, etc.)
+        if let bundlePath = Bundle.main.resourceURL {
+            let fileManager = FileManager.default
+            if let enumerator = fileManager.enumerator(at: bundlePath,
+                                                       includingPropertiesForKeys: nil,
+                                                       options: [.skipsHiddenFiles]) {
+                while let fileURL = enumerator.nextObject() as? URL {
+                    if fileURL.pathExtension.lowercased() == "scn" {
+                        foundFiles.insert(fileURL.lastPathComponent)
+                    }
+                }
+            }
+        }
+        
+        resourceFiles = foundFiles.sorted()
         
         if resourceFiles.isEmpty {
-            print("Error: No .scn files found in the Resources directory.")
+            print("Error: No .scn files found in the bundle.")
         } else {
             if !resourceFiles.contains(selectedFile), let firstFile = resourceFiles.first {
                 selectedFile = firstFile
