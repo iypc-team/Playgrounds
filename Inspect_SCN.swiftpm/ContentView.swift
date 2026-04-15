@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/15/2026-3
+//  Inspect_SCN 04/15/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var resourceFiles: [String] = []
     
     // State for selected file, initialized after loading files
-    @State private var selectedFile = "newFighter.scn"
+    @State private var selectedFile = "smooth_ship.scn"
     
     // State for showing inspection results
     @State private var inspectionResults: String = ""
