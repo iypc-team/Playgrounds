@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/14/2026-4
+//  Inspect_SCN 04/15/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -270,6 +270,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
     }
 }
