@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/16/2026-2
+//  Inspect_SCN 04/16/2026-3
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  print
@@ -42,34 +42,27 @@ struct ContentView: View {
         "fighterPBR.scn",
         "newFighter.scn",
         "pyramid.scn",
-        "smooth_ship 1.scn",
+        "smooth_ship1.scn",       // ← FIXED: was "smooth_ship 1.scn"
         "smooth_ship.scn",
         "sphere.scn"
     ]
     
     var body: some View {
         ZStack {
-            // Primary SceneKit view to display 3D content
-            // The .id(sceneRevision) forces SwiftUI to tear down and recreate
-            // the UIViewRepresentable whenever the scene changes, guaranteeing
-            // the new SCNScene is actually displayed.
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
                 .id(sceneRevision)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .accessibilityLabel("3D Fighter Scene")
                 .onChange(of: selectedFile) { newValue in
-                    // Handle file switching by reloading the scene and resetting states
                     let success = viewModel.loadScene(for: newValue)
                     inspectionResults = ""
                     showInspection = false
                     materialsResults = ""
                     showMaterials = false
                     
-                    // Explicitly remove bounding box node to prevent accumulation on scene switch
                     viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
                     showBoundingBox = false
                     
-                    // Bump revision to force SceneKitView to fully re-create
                     sceneRevision += 1
                     
                     if !success {
@@ -78,7 +71,6 @@ struct ContentView: View {
                     }
                 }
                 .onAppear {
-                    // Dynamically load .scn files on view presentation
                     loadResourceFiles()
                     
                     if resourceFiles.contains(selectedFile) {
@@ -91,13 +83,11 @@ struct ContentView: View {
                     sceneRevision += 1
                 }
             
-            // Overlayed button menu aligned at the top with a vertical stack
             VStack {
                 HStack {
                     Spacer()
                     
                     Menu {
-                        // Dynamically populate menu with resource files
                         ForEach(resourceFiles, id: \.self) { file in
                             Button(file) {
                                 selectedFile = file
@@ -112,7 +102,6 @@ struct ContentView: View {
                     }
                     .tint(.white)
                     
-                    // Inspect Geometry Button
                     Button(action: {
                         inspectGeometry()
                     }) {
@@ -125,7 +114,6 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Inspect the geometry of the current scene")
                     
-                    // List Materials Button
                     Button(action: {
                         listMaterials()
                     }) {
@@ -138,7 +126,6 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("List all materials in the current scene")
                     
-                    // Set Materials to Double-Sided Button
                     Button(action: {
                         setAllMaterialsDoubleSided()
                     }) {
@@ -151,7 +138,6 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Set all materials to double-sided rendering")
                     
-                    // Set Materials to Reflective Button
                     Button(action: {
                         setAllMaterialsVeryReflective()
                     }) {
@@ -164,11 +150,9 @@ struct ContentView: View {
                     .tint(.white)
                     .accessibilityLabel("Set all materials to very reflective")
                     
-                    // Toggle Bounding Box Button
                     Button(action: {
                         showBoundingBox.toggle()
                         
-                        // Toggle logic to display or remove bounding box from the scene
                         if showBoundingBox {
                             if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
                                 viewModel.scene.rootNode.addChildNode(boxNode)
@@ -192,14 +176,12 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Overlayed inspection results
                 if showInspection && !inspectionResults.isEmpty {
                     overlayResultsView(title: "Geometry Inspection Results:", content: inspectionResults) {
                         showInspection = false
                     }
                 }
                 
-                // Overlayed materials results
                 if showMaterials && !materialsResults.isEmpty {
                     overlayResultsView(title: "Materials List:", content: materialsResults) {
                         showMaterials = false
@@ -215,32 +197,25 @@ struct ContentView: View {
     }
     
     // MARK: - Dynamically load .scn files from app resources
-    // Uses multiple search strategies to find all .scn files in the bundle.
-    // Also merges in a known-good fallback list so menu population remains
-    // stable even when bundle enumeration misses packaged resources.
     private func loadResourceFiles() {
         print("\nprivate func loadResourceFiles()")
         
         var foundFiles = Set<String>()
         
-        // Always seed with known packaged scene files so the menu is stable.
         foundFiles.formUnion(fallbackSceneFiles)
         
-        // Strategy 1: Search top-level bundle (subdirectory: nil)
         if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
             for url in urls {
                 foundFiles.insert(url.lastPathComponent)
             }
         }
         
-        // Strategy 2: Search "Resources" subdirectory
         if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") {
             for url in urls {
                 foundFiles.insert(url.lastPathComponent)
             }
         }
         
-        // Strategy 3: Recursively walk the entire bundle to catch any .scn file
         if let bundlePath = Bundle.main.resourceURL {
             let fileManager = FileManager.default
             if let enumerator = fileManager.enumerator(
@@ -256,8 +231,6 @@ struct ContentView: View {
             }
         }
         
-        // Strategy 4: Search using low-level FileManager contentsOfDirectory
-        // at both top-level and Resources subdirectory
         if let bundlePath = Bundle.main.resourcePath {
             let fileManager = FileManager.default
             
@@ -288,7 +261,6 @@ struct ContentView: View {
         }
     }
     
-    // Inspector overlay for geometry/materials results
     private func overlayResultsView(title: String, content: String, onClose: @escaping () -> Void) -> some View {
         VStack {
             Text(title)
@@ -318,7 +290,6 @@ struct ContentView: View {
         .cornerRadius(12)
     }
     
-    // Geometry inspection action
     private func inspectGeometry() {
         print("private func inspectGeometry()")
         inspectionResults = viewModel.sceneModel.generateInspectionReport(for: selectedFile)
@@ -327,7 +298,6 @@ struct ContentView: View {
         viewModel.sceneModel.printGeometrySummary()
     }
     
-    // List materials action
     private func listMaterials() {
         print("private func listMaterials()")
         materialsResults = viewModel.sceneModel.generateMaterialsReport(for: selectedFile)
@@ -335,14 +305,12 @@ struct ContentView: View {
         print("Materials Results:\n\(materialsResults)")
     }
     
-    // Toggle materials to double-sided rendering
     private func setAllMaterialsDoubleSided() {
         print("\nprivate func setAllMaterialsDoubleSided()")
         viewModel.sceneModel.setAllMaterialsDoubleSided()
         print("All materials set to double-sided.")
     }
     
-    // Set materials to very reflective rendering
     private func setAllMaterialsVeryReflective() {
         print("\nprivate func setAllMaterialsVeryReflective()")
         viewModel.sceneModel.setAllMaterialsVeryReflective()

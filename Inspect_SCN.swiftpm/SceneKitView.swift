@@ -1,6 +1,4 @@
 //  SceneKitView.swift
-// 
-
 
 import SwiftUI
 import SceneKit
@@ -14,10 +12,14 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.scene?.background.contents = UIColor.black
         scnView.allowsCameraControl = true
-        // FIX: Enable default lighting as a fallback so scenes without
-        // custom lights are always visible
         scnView.autoenablesDefaultLighting = true
         scnView.antialiasingMode = sceneModel.antialiasingMode
+        
+        // Force our programmatic camera so embedded .scn cameras don't
+        // override the auto-framed viewpoint
+        if let appCamera = scene.rootNode.childNode(withName: "appCamera", recursively: true) {
+            scnView.pointOfView = appCamera
+        }
         
         configureSceneNode(in: scnView)
         
@@ -36,8 +38,6 @@ struct SceneKitView: UIViewRepresentable {
         if let firstGeometryNode = findFirstNodeWithGeometry(in: scene.rootNode) {
             configureGenericLights(on: firstGeometryNode)
         }
-        // If no geometry node exists at all, default lighting from
-        // autoenablesDefaultLighting = true will still illuminate the scene
     }
     
     /// Recursively finds the first child node that has geometry
@@ -99,6 +99,12 @@ struct SceneKitView: UIViewRepresentable {
         uiView.scene = scene
         uiView.scene?.background.contents = UIColor.black
         uiView.antialiasingMode = sceneModel.antialiasingMode
+        
+        // Re-apply our camera on every SwiftUI update cycle
+        if let appCamera = scene.rootNode.childNode(withName: "appCamera", recursively: true) {
+            uiView.pointOfView = appCamera
+        }
+        
         configureSceneNode(in: uiView)
     }
 }

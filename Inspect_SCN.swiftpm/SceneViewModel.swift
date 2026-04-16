@@ -1,5 +1,4 @@
 // SceneViewModel.swift
-// 
 
 import SwiftUI
 import SceneKit
@@ -20,9 +19,11 @@ class SceneViewModel: ObservableObject {
         scene.rootNode.childNodes.filter { $0.camera != nil }.forEach { $0.removeFromParentNode() }
         scene.rootNode.childNodes.filter { $0.light != nil }.forEach { $0.removeFromParentNode() }
         
-        // Setup camera
+        // Setup camera — tagged so SceneKitView can force it as pointOfView
         let cameraNode = SCNNode()
+        cameraNode.name = "appCamera"
         cameraNode.camera = SCNCamera()
+        cameraNode.camera?.automaticallyAdjustsZRange = true
         cameraNode.position = sceneModel.cameraPosition
         scene.rootNode.addChildNode(cameraNode)
         
@@ -61,25 +62,63 @@ class SceneViewModel: ObservableObject {
         directionalLightNode.light!.castsShadow = true
         directionalLightNode.eulerAngles = SCNVector3(x: -Float.pi / 4, y: 0, z: 0)
         scene.rootNode.addChildNode(directionalLightNode)
+        
+        // Auto-frame the camera so ANY model is visible regardless of its
+        // bounding box size or world-space position.
+        frameCameraToContent()
+    }
+    
+    // MARK: - Auto-frame the camera to fit all scene content
+    /// Computes the bounding box of the entire root node, derives a bounding-
+    /// sphere radius, and pulls the camera back far enough to see everything.
+    /// Also repositions the omni lights to bracket the content.
+    private func frameCameraToContent() {
+        let (minVec, maxVec) = scene.rootNode.boundingBox
+        
+        let size = SCNVector3(
+            maxVec.x - minVec.x,
+            maxVec.y - minVec.y,
+            maxVec.z - minVec.z
+        )
+        let center = SCNVector3(
+            (minVec.x + maxVec.x) / 2,
+            (minVec.y + maxVec.y) / 2,
+            (minVec.z + maxVec.z) / 2
+        )
+        
+        // Approximate bounding-sphere radius
+        let radius = sqrt(size.x * size.x + size.y * size.y + size.z * size.z) / 2
+        
+        // If the scene is essentially empty, keep the default camera position
+        guard radius > 0.001 else {
+            print("frameCameraToContent: scene is empty, keeping default camera.")
+            return
+        }
+        
+        // Pull the camera back 2.5× the bounding-sphere radius
+        let distance = Float(radius) * 2.5
+        
+        if let cameraNode = scene.rootNode.childNode(withName: "appCamera", recursively: false) {
+            cameraNode.position = SCNVector3(center.x, center.y, center.z + distance)
+            cameraNode.look(at: center)
+            print("Camera auto-framed: center=(\(center.x), \(center.y), \(center.z)), radius=\(radius), distance=\(distance)")
+        }
+        
+        // Reposition the two omni lights to bracket the content
+        let lightNodes = scene.rootNode.childNodes.filter { $0.light?.type == .omni }
+        if lightNodes.count >= 2 {
+            lightNodes[0].position = SCNVector3(center.x, center.y + Float(radius), center.z + distance)
+            lightNodes[1].position = SCNVector3(center.x, center.y + Float(radius), center.z - distance)
+        }
     }
     
     // MARK: - Load a scene by file name
-    // Uses multiple strategies to locate the .scn file in the bundle:
-    //   0. Bundle.main.url with subdirectory "Resources" (for .copy("Resources"))
-    //   1. Standard Bundle.main.url(forResource:withExtension:)
-    //   2. Bundle.main.path(forResource:ofType:) (string-based, avoids URL encoding)
-    //   3. Recursive FileManager search (handles spaces in filenames and
-    //      SPM-relocated resources)
-    //   4. Direct path construction from Bundle.main.resourcePath
     @discardableResult
     func loadScene(for name: String) -> Bool {
         let fileNameWithoutExtension = (name as NSString).deletingPathExtension
         let fileExtension = (name as NSString).pathExtension
         
         // Strategy 0: Look inside "Resources" subdirectory first
-        // When Package.swift uses .copy("Resources"), SPM preserves the
-        // directory as-is inside the bundle, so files live under a
-        // "Resources/" subdirectory rather than at the bundle root.
         var url = Bundle.main.url(forResource: fileNameWithoutExtension,
                                   withExtension: fileExtension,
                                   subdirectory: "Resources")
@@ -105,16 +144,13 @@ class SceneViewModel: ObservableObject {
         }
         
         // Strategy 4: Direct path construction from resourcePath
-        // This bypasses all bundle lookup methods and directly constructs the filesystem path
         if url == nil {
             print("Strategy 3 (recursive search) failed for '\(name)', trying direct path construction.")
             if let resourcePath = Bundle.main.resourcePath {
-                // Try under Resources subdirectory first (for .copy("Resources"))
                 let subDirPath = ((resourcePath as NSString).appendingPathComponent("Resources") as NSString).appendingPathComponent(name)
                 if FileManager.default.fileExists(atPath: subDirPath) {
                     url = URL(fileURLWithPath: subDirPath)
                 }
-                // Then try top-level
                 if url == nil {
                     let directPath = (resourcePath as NSString).appendingPathComponent(name)
                     if FileManager.default.fileExists(atPath: directPath) {
@@ -153,9 +189,6 @@ class SceneViewModel: ObservableObject {
     }
     
     // MARK: - Recursive bundle file search
-    // Walks the entire bundle directory tree to find a file by its exact name.
-    // This handles filenames with spaces, percent-encoded paths, and files
-    // nested in subdirectories by SPM's .copy() directive.
     private func findFileInBundle(named fileName: String) -> URL? {
         guard let bundleURL = Bundle.main.resourceURL else { return nil }
         let fileManager = FileManager.default
@@ -165,12 +198,9 @@ class SceneViewModel: ObservableObject {
             return nil
         }
         while let fileURL = enumerator.nextObject() as? URL {
-            // Compare using lastPathComponent (auto-decoded from percent-encoding)
             if fileURL.lastPathComponent == fileName {
                 return fileURL
             }
-            // Also compare the percent-decoded path's last component
-            // in case lastPathComponent retains encoding
             if fileURL.path.removingPercentEncoding?.components(separatedBy: "/").last == fileName {
                 return fileURL
             }
