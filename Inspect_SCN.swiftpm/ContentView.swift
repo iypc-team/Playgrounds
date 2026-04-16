@@ -1,6 +1,7 @@
-//  Inspect_SCN 04/15/2026-6
+//  Inspect_SCN 04/16/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
+//  print
 
 import SwiftUI
 import SceneKit
@@ -32,6 +33,20 @@ struct ContentView: View {
     // Monotonically increasing ID to force SceneKitView refresh on scene change
     @State private var sceneRevision: Int = 0
     
+    /// Canonical list of packaged scene resources for this playground.
+    /// This guarantees the UI menu includes known files even when bundle
+    /// enumeration is incomplete in Swift Playgrounds / SwiftPM app packaging.
+    private let fallbackSceneFiles: [String] = [
+        "Y-Up-fighter.scn",
+        "fighter.scn",
+        "fighterPBR.scn",
+        "newFighter.scn",
+        "pyramid.scn",
+        "smooth_ship 1.scn",
+        "smooth_ship.scn",
+        "sphere.scn"
+    ]
+    
     var body: some View {
         ZStack {
             // Primary SceneKit view to display 3D content
@@ -49,6 +64,7 @@ struct ContentView: View {
                     showInspection = false
                     materialsResults = ""
                     showMaterials = false
+                    
                     // Explicitly remove bounding box node to prevent accumulation on scene switch
                     viewModel.scene.rootNode.childNode(withName: "boundingBox", recursively: true)?.removeFromParentNode()
                     showBoundingBox = false
@@ -64,12 +80,14 @@ struct ContentView: View {
                 .onAppear {
                     // Dynamically load .scn files on view presentation
                     loadResourceFiles()
+                    
                     if resourceFiles.contains(selectedFile) {
                         let _ = viewModel.loadScene(for: selectedFile)
                     } else if let firstFile = resourceFiles.first {
                         selectedFile = firstFile
                         let _ = viewModel.loadScene(for: firstFile)
                     }
+                    
                     sceneRevision += 1
                 }
             
@@ -77,6 +95,7 @@ struct ContentView: View {
             VStack {
                 HStack {
                     Spacer()
+                    
                     Menu {
                         // Dynamically populate menu with resource files
                         ForEach(resourceFiles, id: \.self) { file in
@@ -148,6 +167,7 @@ struct ContentView: View {
                     // Toggle Bounding Box Button
                     Button(action: {
                         showBoundingBox.toggle()
+                        
                         // Toggle logic to display or remove bounding box from the scene
                         if showBoundingBox {
                             if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
@@ -195,13 +215,16 @@ struct ContentView: View {
     }
     
     // MARK: - Dynamically load .scn files from app resources
-    // Uses multiple search strategies to find all .scn files in the bundle,
-    // including those with spaces in filenames and those placed inside a
-    // "Resources/" subdirectory by SPM's .copy("Resources") directive.
+    // Uses multiple search strategies to find all .scn files in the bundle.
+    // Also merges in a known-good fallback list so menu population remains
+    // stable even when bundle enumeration misses packaged resources.
     private func loadResourceFiles() {
-        print("private func loadResourceFiles()")
+        print("\nprivate func loadResourceFiles()")
         
         var foundFiles = Set<String>()
+        
+        // Always seed with known packaged scene files so the menu is stable.
+        foundFiles.formUnion(fallbackSceneFiles)
         
         // Strategy 1: Search top-level bundle (subdirectory: nil)
         if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
@@ -211,8 +234,6 @@ struct ContentView: View {
         }
         
         // Strategy 2: Search "Resources" subdirectory
-        // When Package.swift uses .copy("Resources"), SPM preserves the
-        // directory structure, so .scn files live under "Resources/".
         if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") {
             for url in urls {
                 foundFiles.insert(url.lastPathComponent)
@@ -220,12 +241,13 @@ struct ContentView: View {
         }
         
         // Strategy 3: Recursively walk the entire bundle to catch any .scn file
-        // regardless of where SPM placed it (handles spaces, percent-encoding, etc.)
         if let bundlePath = Bundle.main.resourceURL {
             let fileManager = FileManager.default
-            if let enumerator = fileManager.enumerator(at: bundlePath,
-                                                       includingPropertiesForKeys: nil,
-                                                       options: [.skipsHiddenFiles]) {
+            if let enumerator = fileManager.enumerator(
+                at: bundlePath,
+                includingPropertiesForKeys: nil,
+                options: [.skipsHiddenFiles]
+            ) {
                 while let fileURL = enumerator.nextObject() as? URL {
                     if fileURL.pathExtension.lowercased() == "scn" {
                         foundFiles.insert(fileURL.lastPathComponent)
@@ -238,21 +260,18 @@ struct ContentView: View {
         // at both top-level and Resources subdirectory
         if let bundlePath = Bundle.main.resourcePath {
             let fileManager = FileManager.default
+            
             if let items = try? fileManager.contentsOfDirectory(atPath: bundlePath) {
-                for item in items {
-                    if item.lowercased().hasSuffix(".scn") {
-                        foundFiles.insert(item)
-                    }
+                for item in items where item.lowercased().hasSuffix(".scn") {
+                    foundFiles.insert(item)
                 }
             }
-            // Check the Resources subdirectory (for .copy("Resources"))
+            
             let resourcesSubpath = (bundlePath as NSString).appendingPathComponent("Resources")
             if fileManager.fileExists(atPath: resourcesSubpath),
                let items = try? fileManager.contentsOfDirectory(atPath: resourcesSubpath) {
-                for item in items {
-                    if item.lowercased().hasSuffix(".scn") {
-                        foundFiles.insert(item)
-                    }
+                for item in items where item.lowercased().hasSuffix(".scn") {
+                    foundFiles.insert(item)
                 }
             }
         }
@@ -277,6 +296,7 @@ struct ContentView: View {
                 .background(Color.black.opacity(0.8))
                 .font(.headline)
                 .padding(.bottom, 8)
+            
             ScrollView {
                 Text(content)
                     .foregroundColor(.white)
@@ -285,6 +305,7 @@ struct ContentView: View {
                     .cornerRadius(8)
             }
             .frame(maxHeight: 200)
+            
             Button("Close", action: onClose)
                 .foregroundColor(.white)
                 .padding()
@@ -316,14 +337,14 @@ struct ContentView: View {
     
     // Toggle materials to double-sided rendering
     private func setAllMaterialsDoubleSided() {
-        print("private func setAllMaterialsDoubleSided()")
+        print("\nprivate func setAllMaterialsDoubleSided()")
         viewModel.sceneModel.setAllMaterialsDoubleSided()
         print("All materials set to double-sided.")
     }
     
     // Set materials to very reflective rendering
     private func setAllMaterialsVeryReflective() {
-        print("private func setAllMaterialsVeryReflective()")
+        print("\nprivate func setAllMaterialsVeryReflective()")
         viewModel.sceneModel.setAllMaterialsVeryReflective()
         print("All materials set to very reflective.")
     }
