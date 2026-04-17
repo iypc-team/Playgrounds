@@ -1,4 +1,4 @@
-//  Inspect_SCN 04/17/2026-1
+//  Inspect_SCN 04/17/2026-2
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 //  print
@@ -42,7 +42,7 @@ struct ContentView: View {
         "fighterPBR.scn",
         "newFighter.scn",
         "pyramid.scn",
-        "smooth_ship1.scn",       // ← FIXED: was "smooth_ship 1.scn"
+        "smooth_ship1.scn",
         "smooth_ship.scn",
         "sphere.scn"
     ]
