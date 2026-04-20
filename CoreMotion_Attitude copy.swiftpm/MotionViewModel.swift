@@ -5,7 +5,6 @@
 import Foundation
 import CoreMotion
 import Combine
-import os.log               // Structured logging
 import simd
 
 // MARK: – MotionSample abstraction
@@ -162,7 +161,6 @@ final class MotionViewModel: ObservableObject {
         } else if let filtered = filteredQuat {
             newReference = filtered.normalized
         } else {
-            Logger.motion.debug("recalibrate(): no valid reference – aborting")
             referenceQuat = nil
             return false
         }
@@ -178,7 +176,6 @@ final class MotionViewModel: ObservableObject {
         }
         
         referenceQuat = newReference
-        Logger.motion.debug("recalibrate(): new reference installed")
         // Intentionally do **not** reset `lastAngularVelocity` – this keeps
         // jerk‑based smoothing stable across the transition.
         return true
@@ -208,7 +205,6 @@ final class MotionViewModel: ObservableObject {
         
         // Guard against non‑finite results (sensor glitches).
         guard omega.isFinite else {
-            Logger.motion.error("process(): non‑finite angular velocity – sample dropped")
             return
         }
         
@@ -324,11 +320,3 @@ private extension simd_quatd {
         return SIMD3(pitch, yaw, roll)
     }
 }
-
-// MARK: – Logging namespace
-
-private extension Logger {
-    static let motion = Logger(subsystem: "com.proton.lumo.motion",
-                               category: "viewmodel")
-}
-
