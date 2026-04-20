@@ -1,8 +1,7 @@
-//  CoreMotion_Attitude copy initial commit
-//  04/20/2026-1
+//  CoreMotion_Attitude copy  04/20/2026-1
 //  ContentView.swift
 //  
-//  https://github.com/iypc-team/Playgrounds/blob/main/CoreMotion_Attitude.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_Attitude%20copy.swiftpm
 //  
 //  1f  0.0f
 

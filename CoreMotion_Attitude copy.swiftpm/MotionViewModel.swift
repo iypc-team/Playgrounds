@@ -331,3 +331,4 @@ private extension Logger {
     static let motion = Logger(subsystem: "com.proton.lumo.motion",
                                category: "viewmodel")
 }
+
