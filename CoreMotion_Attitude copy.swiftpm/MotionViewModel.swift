@@ -1,6 +1,5 @@
 //  MotionViewModel.swift
-//    
-//  
+//
 
 import Foundation
 import CoreMotion
@@ -30,23 +29,24 @@ extension CMDeviceMotion: MotionSample {
 }
 
 // MARK: – Motion stream provider
+
 /// Supplies an `AsyncStream` of `MotionSample`s using CoreMotion.
 final class MotionStreamProvider {
     
     private let manager = CMMotionManager()
-    private let interval: TimeInterval = 1.0 / 60.0          // Nominal 60 Hz
+    private let interval: TimeInterval = 1.0 / 60.0   // Nominal 60 Hz
     
     /// Serial queue for CoreMotion callbacks.
     private let motionQueue: OperationQueue = {
         let q = OperationQueue()
         q.name = "MotionStreamProvider.CoreMotionQueue"
         q.qualityOfService = .userInitiated
-        q.maxConcurrentOperationCount = 1                 // Preserve order
+        q.maxConcurrentOperationCount = 1              // Preserve order
         return q
     }()
     
     deinit {
-        // Defensive clean‑up if the provider is released unexpectedly.
+        // Defensive cleanup if the provider is released unexpectedly.
         manager.stopDeviceMotionUpdates()
         motionQueue.cancelAllOperations()
     }
@@ -61,20 +61,21 @@ final class MotionStreamProvider {
                 return
             }
             
+            // Ensure the queue is active in case a prior stream was stopped.
+            motionQueue.isSuspended = false
             manager.deviceMotionUpdateInterval = interval
             manager.startDeviceMotionUpdates(
                 using: .xArbitraryZVertical,
                 to: motionQueue
             ) { motion, _ in
                 if let motion {
-                    continuation.yield(motion)               // Bridge to consumer
+                    continuation.yield(motion)        // Bridge to consumer
                 }
             }
             
             continuation.onTermination = { @Sendable _ in
                 // Ensure no further callbacks are delivered.
                 self.manager.stopDeviceMotionUpdates()
-                self.motionQueue.isSuspended = true
             }
         }
     }
@@ -88,12 +89,13 @@ final class MotionViewModel: ObservableObject {
     
     // MARK: Published UI values (degrees / matrix)
     
-    @Published private(set) var roll:  Double = 0
+    @Published private(set) var roll: Double = 0
     @Published private(set) var pitch: Double = 0
-    @Published private(set) var yaw:   Double = 0
+    @Published private(set) var yaw: Double = 0
     @Published private(set) var rotationMatrix = matrix_identity_double3x3
+    @Published private(set) var isStreaming = false
     
-    // MARK: Raw quaternion publisher (read‑only)
+    // MARK: Raw quaternion publisher (read-only)
     
     private let motionSubject = PassthroughSubject<simd_quatd, Never>()
     var motionPublisher: AnyPublisher<simd_quatd, Never> {
@@ -105,14 +107,14 @@ final class MotionViewModel: ObservableObject {
     private let provider = MotionStreamProvider()
     private var streamingTask: Task<Void, Never>?
     
-    private var referenceQuat: simd_quatd?          // Current reference frame
-    private var filteredQuat:  simd_quatd?          // Smoothed orientation
-    private var lastRawQuat:   simd_quatd?          // Most recent raw sample
-    private var lastAngularVelocity: Double = 0     // For jerk calculation
+    private var referenceQuat: simd_quatd?           // Current reference frame
+    private var filteredQuat: simd_quatd?            // Smoothed orientation
+    private var lastRawQuat: simd_quatd?             // Most recent raw sample
+    private var lastAngularVelocity: Double = 0      // For jerk calculation
     
-    private let updateInterval = 1.0 / 60.0         // Seconds per frame
+    private let updateInterval = 1.0 / 60.0          // Seconds per frame
     
-    // MARK: Constants (tuned for 60 Hz)
+    // MARK: Constants (tuned for 60 Hz)
     
     private enum Constants {
         static let deadZoneOmega      = 0.02
@@ -129,19 +131,29 @@ final class MotionViewModel: ObservableObject {
     func startStream() {
         guard streamingTask == nil else { return }
         
+        isStreaming = true
         streamingTask = Task {
             for await sample in provider.stream() {
                 process(sample: sample)
+            }
+            
+            // If the stream ends unexpectedly, keep the state consistent.
+            await MainActor.run {
+                self.streamingTask = nil
+                self.isStreaming = false
             }
         }
     }
     
     /// Stops the stream and clears all internal state.
     func stopStream() async {
-        streamingTask?.cancel()
+        guard let task = streamingTask else { return }
+        
+        task.cancel()
         // Await termination to avoid a race where the cancelled task writes stale data.
-        await streamingTask?.value
+        await task.value
         streamingTask = nil
+        isStreaming = false
         
         filteredQuat = nil
         lastRawQuat = nil
@@ -149,7 +161,7 @@ final class MotionViewModel: ObservableObject {
         referenceQuat = nil
     }
     
-    /// Re‑bases the orientation reference to the most stable recent sample.
+    /// Re-bases the orientation reference to the most stable recent sample.
     ///
     /// - Returns: `true` if a new reference was installed, `false` otherwise.
     @discardableResult
@@ -167,7 +179,7 @@ final class MotionViewModel: ObservableObject {
         
         let inv = newReference.inverse
         
-        // Re‑base filtered and raw quaternions to preserve continuity.
+        // Re-base filtered and raw quaternions to preserve continuity.
         if let filtered = filteredQuat {
             filteredQuat = (filtered * inv).normalized
         }
@@ -176,8 +188,14 @@ final class MotionViewModel: ObservableObject {
         }
         
         referenceQuat = newReference
+        
+        // Immediately publish the recalibrated orientation so the UI updates now.
+        if let filteredQuat {
+            publish(filteredQuat)
+        }
+        
         // Intentionally do **not** reset `lastAngularVelocity` – this keeps
-        // jerk‑based smoothing stable across the transition.
+        // jerk-based smoothing stable across the transition.
         return true
     }
     
@@ -203,7 +221,7 @@ final class MotionViewModel: ObservableObject {
         // --------------------------------------------------------------
         let omega = angularVelocity(from: previous, to: relativeQuat)
         
-        // Guard against non‑finite results (sensor glitches).
+        // Guard against non-finite results (sensor glitches).
         guard omega.isFinite else {
             return
         }
@@ -228,8 +246,10 @@ final class MotionViewModel: ObservableObject {
             // Faster motion – adapt smoothing based on jerk.
             let alpha = min(
                 Constants.maxAlpha,
-                max(Constants.minAlpha,
-                    Constants.minAlpha + Constants.jerkGain * jerk)
+                max(
+                    Constants.minAlpha,
+                    Constants.minAlpha + Constants.jerkGain * jerk
+                )
             )
             filteredQuat = simd_slerp(
                 filteredQuat ?? relativeQuat,
@@ -261,8 +281,8 @@ final class MotionViewModel: ObservableObject {
         
         // Assign only when the value actually changes – reduces UI churn.
         if pitch != newPitch { pitch = newPitch }
-        if yaw   != newYaw   { yaw   = newYaw   }
-        if roll  != newRoll  { roll  = newRoll  }
+        if yaw   != newYaw   { yaw   = newYaw }
+        if roll  != newRoll  { roll  = newRoll }
         
         // Forward the raw quaternion to any external subscribers.
         motionSubject.send(quat)
@@ -270,13 +290,13 @@ final class MotionViewModel: ObservableObject {
     
     // MARK: – Math helpers
     
-    /// Computes angular velocity (rad / s) between two unit quaternions.
+    /// Computes angular velocity (rad / s) between two unit quaternions.
     private func angularVelocity(from q1: simd_quatd, to q2: simd_quatd) -> Double {
         let dot = simd_dot(q1.vector, q2.vector)
-        // Clamp to [-1, 1] and guard against NaN.
+        // Clamp to [-1, 1] and guard against NaN.
         let clamped = min(1.0, max(-1.0, dot))
         guard clamped.isFinite else { return 0 }
-        let angle = 2.0 * acos(abs(clamped))          // Shortest‑arc angle
+        let angle = 2.0 * acos(abs(clamped))          // Shortest-arc angle
         return angle / updateInterval
     }
     
@@ -285,7 +305,7 @@ final class MotionViewModel: ObservableObject {
         r * 180.0 / .pi
     }
     
-    /// Normalises a degree value to the range (‑180°, +180°].
+    /// Normalises a degree value to the range (-180°, +180°].
     @inline(__always)
     private func wrapDegrees(_ d: Double) -> Double {
         var x = d.truncatingRemainder(dividingBy: 360.0)
@@ -295,16 +315,16 @@ final class MotionViewModel: ObservableObject {
     }
 }
 
-// MARK: – Quaternion → Euler (right‑handed, pitch‑yaw‑roll order)
+// MARK: – Quaternion → Euler (right-handed, pitch-yaw-roll order)
 
 private extension simd_quatd {
     /// Returns the Euler angles (pitch, yaw, roll) in radians.
     var eulerAngles: SIMD3<Double> {
-        // Normalise to avoid drift‑induced scaling errors.
+        // Normalise to avoid drift-induced scaling errors.
         let q = normalized
         let sinp = 2.0 * (q.real * q.imag.x - q.imag.y * q.imag.z)
         let pitch = abs(sinp) >= 1.0
-        ? copysign(.pi / 2.0, sinp)          // Gimbal lock
+        ? copysign(.pi / 2.0, sinp)   // Gimbal lock
         : asin(sinp)
         
         let yaw = atan2(
