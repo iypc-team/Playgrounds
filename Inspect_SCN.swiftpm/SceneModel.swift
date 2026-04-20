@@ -1,5 +1,4 @@
 //  SceneModel.swift
-//  
 
 import SceneKit
 import Foundation
@@ -7,168 +6,144 @@ import Foundation
 class SceneModel: ObservableObject {
     @Published var sceneName: String = "newFighter.scn"
     
-    var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 20)
-    // New properties for fighter node configuration
-    var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)
+    // Camera
+    var cameraPosition: SCNVector3 = SCNVector3(0, 0, 20)
     
-    // Properties for lighting
-    var lightIntensity: CGFloat = 500
+    // Node configuration
+    var fighterScale: SCNVector3 = SCNVector3(1, 1, 1)
+    
+    // Lighting
+    var lightIntensity: CGFloat     = 500
     var omniLightIntensity: CGFloat = 500
-    var cabinLightColor: UIColor = UIColor.red
-    var engineLightColor: UIColor = UIColor.green
+    var cabinLightColor: UIColor    = .red
+    var engineLightColor: UIColor   = .green
     
-    // SCNView optimization properties
-    var antialiasingMode: SCNAntialiasingMode = .multisampling2X  // Optimized for performance (reduced from 4X)
+    // Rendering
+    var antialiasingMode: SCNAntialiasingMode = .multisampling2X
     
-    // Geometry inspection properties
+    // Current scene reference (kept in sync by SceneViewModel)
     private var currentScene: SCNScene?
     
-    // Set the current scene for inspection (to synchronize with SceneViewModel)
     func setScene(_ scene: SCNScene) {
         currentScene = scene
     }
     
-    // Lists all SCNNode objects in the current scene recursively
+    // MARK: - Node & Geometry Accessors
+    
     func listAllNodes() -> [SCNNode] {
-        guard let scene = currentScene else { return [] }
-        return scene.rootNode.childNodes(passingTest: { _, _ in true })
+        currentScene?.rootNode.childNodes(passingTest: { _, _ in true }) ?? []
     }
     
-    // Lists all SCNGeometry objects in the current scene
     func listAllGeometries() -> [SCNGeometry] {
-        let nodes = listAllNodes()
-        return nodes.compactMap { $0.geometry }
+        listAllNodes().compactMap { $0.geometry }
     }
     
-    // Prints a summary of the scene's geometry
+    // MARK: - Inspection Reports
+    
     func printGeometrySummary() {
-        guard currentScene != nil else {
-            print("No scene set for inspection.")
-            return
-        }
-        
+        guard currentScene != nil else { print("[printGeometrySummary] No scene set."); return }
         let nodes = listAllNodes()
-        let geometries = listAllGeometries()
-        
-        print("Scene Geometry Summary for '\(sceneName)':")
-        print("- Total Nodes: \(nodes.count)")
-        print("- Nodes with Geometry: \(geometries.count)")
-        
-        for (index, geometry) in geometries.enumerated() {
-            print("  Geometry \(index + 1): \(geometry.name ?? "Unnamed") - Type: \(type(of: geometry))")
+        let geos  = listAllGeometries()
+        print("[printGeometrySummary] '\(sceneName)': \(nodes.count) nodes, \(geos.count) with geometry")
+        for (i, g) in geos.enumerated() {
+            print("  \(i + 1). \(g.name ?? "Unnamed") — \(type(of: g))")
         }
     }
     
-    // Generates a detailed inspection report as a string
     func generateInspectionReport(for sceneName: String) -> String {
         let nodes = listAllNodes()
-        let geometries = listAllGeometries()
-        let boundingBox = sceneBoundingBox()
+        let geos  = listAllGeometries()
+        let bbox  = sceneBoundingBox()
         
-        var results = "Scene: \(sceneName)\n"
-        results += "Total Nodes: \(nodes.count)\n"
-        results += "Nodes with Geometry: \(geometries.count)\n"
-        
-        if let box = boundingBox {
-            results += "Bounding Box: Min(\(box.min.x), \(box.min.y), \(box.min.z)) Max(\(box.max.x), \(box.max.y), \(box.max.z))\n"
+        var r = "Scene: \(sceneName)\n"
+        r += "Total Nodes: \(nodes.count)\n"
+        r += "Nodes with Geometry: \(geos.count)\n"
+        if let b = bbox {
+            r += "Bounding Box: Min(\(b.min.x), \(b.min.y), \(b.min.z))"
+            + " Max(\(b.max.x), \(b.max.y), \(b.max.z))\n"
         }
-        
-        results += "\nGeometries:\n"
-        for (index, geometry) in geometries.enumerated() {
-            results += "\(index + 1). \(geometry.name ?? "Unnamed") - \(type(of: geometry))\n"
-            results += "  Materials (\(geometry.materials.count)):\n"
-            for (matIndex, material) in geometry.materials.enumerated() {
-                results += "    \(matIndex + 1). \(material.name ?? "Unnamed Material")\n"
+        r += "\nGeometries:\n"
+        for (i, g) in geos.enumerated() {
+            r += "\(i + 1). \(g.name ?? "Unnamed") — \(type(of: g))\n"
+            r += "  Materials (\(g.materials.count)):\n"
+            for (mi, m) in g.materials.enumerated() {
+                r += "    \(mi + 1). \(m.name ?? "Unnamed")\n"
             }
         }
-        return results
+        return r
     }
     
-    // Generates a report listing all materials in the scene, grouped by geometry
     func generateMaterialsReport(for sceneName: String) -> String {
-        let geometries = listAllGeometries()
-        var results = "Materials in Scene: \(sceneName)\n"
-        var totalMaterials = 0
-        
-        for geometry in geometries {
-            results += "\nGeometry: \(geometry.name ?? "Unnamed")\n"
-            if geometry.materials.isEmpty {
-                results += "  No materials\n"
+        let geos = listAllGeometries()
+        var r = "Materials in Scene: \(sceneName)\n"
+        var total = 0
+        for g in geos {
+            r += "\nGeometry: \(g.name ?? "Unnamed")\n"
+            if g.materials.isEmpty {
+                r += "  No materials\n"
             } else {
-                for material in geometry.materials {
-                    totalMaterials += 1
-                    results += "  \(totalMaterials). \(material.name ?? "Unnamed Material")\n"
+                for m in g.materials {
+                    total += 1
+                    r += "  \(total). \(m.name ?? "Unnamed")\n"
                 }
             }
         }
-        
-        if totalMaterials == 0 {
-            results += "No materials found in the scene.\n"
-        } else {
-            results += "\nTotal Materials: \(totalMaterials)\n"
-        }
-        return results
+        r += total == 0 ? "No materials found.\n" : "\nTotal Materials: \(total)\n"
+        return r
     }
     
-    // Sets all materials in the scene to double-sided rendering
+    // MARK: - Material Modifiers
+    
     func setAllMaterialsDoubleSided() {
-        let geometries = listAllGeometries()
-        for geometry in geometries {
-            for material in geometry.materials {
-                material.isDoubleSided = true
-            }
-        }
-        print("Set all materials to double-sided.")
+        listAllGeometries().flatMap { $0.materials }.forEach { $0.isDoubleSided = true }
+        print("[setAllMaterialsDoubleSided] Done.")
     }
     
-    // Sets all materials in the scene to very reflective (physically-based with max metalness and min roughness)
     func setAllMaterialsVeryReflective() {
-        let geometries = listAllGeometries()
-        for geometry in geometries {
-            for material in geometry.materials {
-                material.lightingModel = .physicallyBased
-                material.metalness.contents = 1.0  // Maximum metalness for high reflectivity
-                material.roughness.contents = 0.0  // Minimum roughness for mirror-like reflection
-            }
+        listAllGeometries().flatMap { $0.materials }.forEach {
+            $0.lightingModel = .physicallyBased
+            $0.metalness.contents = 1.0
+            $0.roughness.contents = 0.0
         }
-        print("Set all materials to very reflective.")
+        print("[setAllMaterialsVeryReflective] Done.")
     }
     
-    // Renames a geometry by index (0-based)
     func renameGeometry(at index: Int, to newName: String) {
-        let geometries = listAllGeometries()
-        guard index < geometries.count else {
-            print("Geometry index \(index) is out of range.")
+        let geos = listAllGeometries()
+        guard index < geos.count else {
+            print("[renameGeometry] Index \(index) out of range.")
             return
         }
-        geometries[index].name = newName
-        print("Renamed geometry at index \(index) to '\(newName)'.")
+        geos[index].name = newName
+        print("[renameGeometry] Index \(index) renamed to '\(newName)'.")
     }
     
-    // Gets the bounding box of the entire scene
+    // MARK: - Bounding Box
+    
     func sceneBoundingBox() -> (min: SCNVector3, max: SCNVector3)? {
-        guard let scene = currentScene else { return nil }
-        return scene.rootNode.boundingBox
+        currentScene.map { $0.rootNode.boundingBox }
     }
     
-    // Creates a wireframe node representing the scene's bounding box
     func createBoundingBoxNode() -> SCNNode? {
         guard let box = sceneBoundingBox() else { return nil }
-        let size = SCNVector3(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z)
-        print("\(sceneName) size: \(size)")
-        let center = SCNVector3((box.max.x + box.min.x) / 2, (box.max.y + box.min.y) / 2, (box.max.z + box.min.z) / 2)
+        let size   = SCNVector3(box.max.x - box.min.x,
+                                box.max.y - box.min.y,
+                                box.max.z - box.min.z)
+        let center = SCNVector3((box.max.x + box.min.x) / 2,
+                                (box.max.y + box.min.y) / 2,
+                                (box.max.z + box.min.z) / 2)
+        print("[createBoundingBoxNode] '\(sceneName)' size: \(size)")
         
-        let boxGeometry = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y), length: CGFloat(size.z), chamferRadius: 0)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.white  // Visible color for wireframe
-        material.fillMode = .lines  // Wireframe mode
-        boxGeometry.materials = [material]
+        let geo = SCNBox(width: CGFloat(size.x), height: CGFloat(size.y),
+                         length: CGFloat(size.z), chamferRadius: 0)
+        let mat = SCNMaterial()
+        mat.diffuse.contents = UIColor.white
+        mat.fillMode = .lines
+        geo.materials = [mat]
         
-        let boxNode = SCNNode(geometry: boxGeometry)
-        boxNode.name = "boundingBox"
-        boxNode.position = center
-        return boxNode
+        let node = SCNNode(geometry: geo)
+        node.name = "boundingBox"
+        node.position = center
+        return node
     }
-    
-    // Add more properties as needed
 }
