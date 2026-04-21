@@ -1,7 +1,7 @@
-//  CoreMotion_AttitudeCopy 04/21/2026-1
+//  CoreMotion_AttitudeCopy 04/21/2026-2
 //  ContentView.swift
 //  
-//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_Attitude%20copy.swiftpm
+//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_AttitudeCopy.swiftpm
 //  
 //  1f  0.0f
 
