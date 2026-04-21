@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "CoreMotion_Attitude copy",
+    name: "CoreMotion_AttitudeCopy",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "CoreMotion_Attitude copy",
+            name: "CoreMotion_AttitudeCopy",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
