@@ -1,4 +1,4 @@
-// CoreMotion_AttitudeCopy 04/23/2026-1
+// CoreMotion_AttitudeCopy 04/23/2026-2
 // ContentView.swift
 // Repo https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_AttitudeCopy.swiftpm
 // 
@@ -10,30 +10,46 @@ struct ContentView: View {
     @StateObject private var viewModel = MotionViewModel()
     
     var body: some View {
-        
         ZStack {
-            VStack(spacing: 12) {
-                Text("Attitude XYZ")
-                    .font(.headline)
-                
-                Text("Roll:  \(viewModel.roll,  specifier: "%.0f")°")
-                Text("Pitch: \(viewModel.pitch, specifier: "%.0f")°")
-                Text("Yaw:   \(viewModel.yaw,   specifier: "%.0f")°")
-            }
-            .padding()
+            Color.black
+                .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 20) {
+                Spacer(minLength: 24)
+                
+                VStack(spacing: 12) {
+                    Text("Attitude XYZ")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    
+                    Text("Roll:  \(viewModel.roll,  specifier: "%.0f")°")
+                        .foregroundColor(.white)
+                    
+                    Text("Pitch: \(viewModel.pitch, specifier: "%.0f")°")
+                        .foregroundColor(.white)
+                    
+                    Text("Yaw:   \(viewModel.yaw,   specifier: "%.0f")°")
+                        .foregroundColor(.white)
+                    
+                    Text(viewModel.isStreaming ? "Streaming" : "Stopped")
+                        .font(.footnote)
+                        .foregroundColor(viewModel.isStreaming ? .green : .gray)
+                        .padding(.top, 8)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                
                 Spacer()
                 
                 HStack(spacing: 12) {
-                    
                     Button {
                         viewModel.startStream()
                     } label: {
                         Label("Start", systemImage: "play.fill")
                             .frame(maxWidth: .infinity)
                     }
-                    .foregroundColor(.green)
+                    .tint(.green)
+                    .buttonStyle(.borderedProminent)
                     
                     Button {
                         viewModel.recalibrate()
@@ -41,7 +57,8 @@ struct ContentView: View {
                         Label("Re-Cal", systemImage: "location.north.fill")
                             .frame(maxWidth: .infinity)
                     }
-                    .foregroundColor(.yellow)
+                    .tint(.yellow)
+                    .buttonStyle(.borderedProminent)
                     
                     Button {
                         Task {
@@ -51,16 +68,16 @@ struct ContentView: View {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
                     }
-                    .foregroundColor(.red)
+                    .tint(.red)
+                    .buttonStyle(.borderedProminent)
                 }
                 .padding()
                 .background(.ultraThinMaterial)
-                .cornerRadius(16)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding()
             }
         }
         .task {
-            // Why: ties CoreMotion lifetime to the view’s visibility
             viewModel.startStream()
         }
         .onDisappear {
@@ -77,4 +94,3 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
