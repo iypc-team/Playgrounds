@@ -59,7 +59,8 @@ final class MotionStreamProvider {
             manager.deviceMotionUpdateInterval = interval
             
             manager.startDeviceMotionUpdates(
-                using: .xArbitraryZVertical,
+                // xArbitraryZVertical
+                using: .xMagneticNorthZVertical,
                 to: motionQueue
             ) { motion, _ in
                 guard let motion else { return }
@@ -172,6 +173,7 @@ final class MotionViewModel: ObservableObject {
     
     @discardableResult
     func recalibrate() -> Bool {
+        print("\nfunc recalibrate()")
         let newReference: simd_quatd
         
         if let raw = lastRawQuat {
@@ -193,7 +195,7 @@ final class MotionViewModel: ObservableObject {
         }
         
         referenceQuat = newReference
-        
+        print("referenceQuat: \(String(describing: referenceQuat))")
         if let filteredQuat {
             publish(filteredQuat)
         }
