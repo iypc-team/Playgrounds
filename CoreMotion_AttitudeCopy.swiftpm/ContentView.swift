@@ -1,9 +1,8 @@
-//  CoreMotion_AttitudeCopy 04/21/2026-2
-//  ContentView.swift
-//  
-//  https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_AttitudeCopy.swiftpm
-//  
-//  1f  0.0f
+// CoreMotion_AttitudeCopy 04/23/2026-1
+// ContentView.swift
+// Repo https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_AttitudeCopy.swiftpm
+// 
+// 1f  0.0f
 
 import SwiftUI
 
