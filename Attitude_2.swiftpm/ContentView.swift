@@ -1,6 +1,6 @@
-// CoreMotion_Attitude_2 04/24/2026-1
+// Attitude_2 04/24/2026-2
 // ContentView.swift
-// Repo https://github.com/iypc-team/Playgrounds/tree/main/CoreMotion_Attitude_2.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/Attitude_2.swiftpm
 // 
 // 1f  0.0f
 
