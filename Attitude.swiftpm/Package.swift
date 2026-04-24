@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "My App",
+    name: "Attitude",
     platforms: [
         .iOS("16.7")
     ],
     products: [
         .iOSApplication(
-            name: "My App",
+            name: "Attitude",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
