@@ -1,4 +1,4 @@
-// Attitude_2 04/24/2026-2
+// Attitude_2 04/24/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/Attitude_2.swiftpm
 // 
@@ -17,6 +17,7 @@ struct ContentView: View {
             VStack(spacing: 20) {
                 Spacer(minLength: 24)
                 
+                // Display section for Roll, Pitch, and Yaw
                 VStack(spacing: 12) {
                     Text("Attitude XYZ")
                         .font(.headline)
@@ -31,6 +32,7 @@ struct ContentView: View {
                     Text("Yaw:   \(viewModel.yaw,   specifier: "%.0f")°")
                         .foregroundColor(.white)
                     
+                    // Streaming status indicator
                     Text(viewModel.isStreaming ? "Streaming" : "Stopped")
                         .font(.footnote)
                         .foregroundColor(viewModel.isStreaming ? .green : .gray)
@@ -41,7 +43,9 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                // Action buttons
                 HStack(spacing: 12) {
+                    // Start streaming motion data
                     Button {
                         viewModel.startStream()
                     } label: {
@@ -51,6 +55,7 @@ struct ContentView: View {
                     .tint(.green)
                     .buttonStyle(.borderedProminent)
                     
+                    // Recalibrate motion sensor
                     Button {
                         viewModel.recalibrate()
                     } label: {
@@ -60,6 +65,7 @@ struct ContentView: View {
                     .tint(.yellow)
                     .buttonStyle(.borderedProminent)
                     
+                    // Stop streaming motion data
                     Button {
                         Task {
                             await viewModel.stopStream()
@@ -77,9 +83,7 @@ struct ContentView: View {
                 .padding()
             }
         }
-        .task {
-            viewModel.startStream()
-        }
+        // Ensure streaming is stopped when the view disappears
         .onDisappear {
             Task {
                 await viewModel.stopStream()
