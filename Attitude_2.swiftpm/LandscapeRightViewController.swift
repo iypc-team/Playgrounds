@@ -15,7 +15,7 @@ final class LandscapeRightViewController: UIViewController {
     }
     
     override var shouldAutorotate: Bool {
-        return false
+        return true
     }
     
     override func viewDidLoad() {
