@@ -1,4 +1,4 @@
-// Attitude_2 04/24/2026-3
+// Attitude_2 04/26/2026-1
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/Attitude_2.swiftpm
 // 
@@ -11,8 +11,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea()
+            // Removed: Color.black.ignoresSafeArea() - handled by LandscapeRightViewController
             
             VStack(spacing: 20) {
                 Spacer(minLength: 24)
