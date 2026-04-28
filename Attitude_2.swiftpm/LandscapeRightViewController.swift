@@ -11,7 +11,7 @@ final class LandscapeRightViewController: UIViewController {
     }
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .landscapeRight
+        return .portrait
     }
     
     override var shouldAutorotate: Bool {
