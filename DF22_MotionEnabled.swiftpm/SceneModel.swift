@@ -25,6 +25,26 @@ class SceneModel {
         self.shipName = shipName  // Use the passed shipName instead of hardcoding
     }
     
+    /// Maps ship names to actual node names in the .scn files.
+    /// Update mappings based on debug output from SceneViewModel.
+    func getNodeName(for shipName: String) -> String {
+        let baseName = shipName.hasSuffix(".scn") ? String(shipName.dropLast(4)) : shipName
+        switch baseName {
+        case "newFighter":
+            return "newfighter"  // Example: Adjust based on actual node name in newFighter.scn
+        case "fighterPBR":
+            return "fighterPBR"  // Example: Adjust based on actual node name in fighterPBR.scn
+        case "smooth_ship":
+            return "smooth_ship"  // Example: Adjust based on actual node name in smooth_ship.scn
+        case "airplane":
+            return "airplane"  // Example: Adjust based on actual node name in airplane.scn
+        case "Y-Up-fighter":
+            return "Y-Up-fighter"  // Example: Adjust based on actual node name in Y-Up-fighter.scn
+        default:
+            return baseName
+        }
+    }
+    
     struct LightConfig {
         let type: SCNLight.LightType
         let color: UIColor

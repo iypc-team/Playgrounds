@@ -44,7 +44,7 @@ final class SceneViewModel: ObservableObject {
     
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
     /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
-    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment; if rotation feels incorrect, verify SceneKit's coordinate system (e.g., Z-up vs. Y-up) and consider Euler angle conversion for fine-tuning.
+    /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
     public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
         print("updateInterval:  \(updateInterval) frames per second.")
@@ -86,11 +86,18 @@ final class SceneViewModel: ObservableObject {
         
         let sphereNode = SCNNode(geometry: sphere)
         sphereNode.position = SCNVector3(0, 0, 0)
-        
+        // Value of type 
         return sphereNode
     }
     
     private func setupScene() {
+        // DEBUG: Print all child nodes to identify ship node names
+        print("DEBUG: All child nodes in scene:")
+        combatScene.rootNode.enumerateChildNodes { node, _ in
+            print("  Node: \(node.name ?? "unnamed")")
+        }
+        print()
+        
         let shields = ghostEffect()
         shieldsNode = shields  // Store reference for toggling
         // Add a camera (safe to add even if the scene file already contains one; helpful for fallback)
@@ -137,7 +144,7 @@ final class SceneViewModel: ObservableObject {
         planeNode.runAction(SCNAction.rotate(by: model.plane.rotationAngle, around: SCNVector3(1, 0, 0), duration: 0))
         
         // Derive node name from ship name (remove .scn if present)
-        let nodeName = model.shipName.hasSuffix(".scn") ? String(model.shipName.dropLast(4)) : model.shipName
+        let nodeName = model.getNodeName(for: model.shipName)
         
         // Retrieve and configure ship safely (no force-unwrap)
         if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
@@ -204,10 +211,13 @@ final class SceneViewModel: ObservableObject {
                 shipNode?.addChildNode(lightNode)
             }
         } else {
-            // Ship not found — attach items to root so scene still shows something useful
+            // Ship not found — attach items to rootNode so scene still shows something useful
             print("WARN: ship node '\(nodeName)' not found; attaching plane and lights to rootNode")
             //            combatScene.rootNode.addChildNode(planeNode)
             //            combatScene.rootNode.addChildNode(cabinLightNode)
+            shipNode = combatScene.rootNode  // Enable motion control on root
+            combatScene.rootNode.addChildNode(planeNode)
+            combatScene.rootNode.addChildNode(cabinLightNode)
             
             for lightConfig in model.engineLights {
                 let lightNode = SCNNode()
