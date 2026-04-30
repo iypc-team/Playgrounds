@@ -1,7 +1,7 @@
-//  DF22_MotionEnabled 04/29/2026-2
+//  DF22_MotionEnabled 04/30/2026-1
 //  ContentView.swift
-//  Project:  DF22_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
+//  Project:  DF22_MotionEnabled.swiftpm
 //  
 
 import SwiftUI
