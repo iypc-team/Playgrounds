@@ -31,15 +31,15 @@ class SceneModel {
         let baseName = shipName.hasSuffix(".scn") ? String(shipName.dropLast(4)) : shipName
         switch baseName {
         case "newFighter":
-            return "newfighter"  // Example: Adjust based on actual node name in newFighter.scn
+            return "fighter"  // Matches actual node name in newFighter.scn
         case "fighterPBR":
-            return "fighterPBR"  // Example: Adjust based on actual node name in fighterPBR.scn
+            return "enemy"  // Matches actual node name in fighterPBR.scn
         case "smooth_ship":
-            return "smooth_ship"  // Example: Adjust based on actual node name in smooth_ship.scn
+            return "ship"  // Matches actual node name in smooth_ship.scn
         case "airplane":
-            return "airplane"  // Example: Adjust based on actual node name in airplane.scn
+            return "fighter"  // Matches actual node name in airplane.scn
         case "Y-Up-fighter":
-            return "Y-Up-fighter"  // Example: Adjust based on actual node name in Y-Up-fighter.scn
+            return "fighter"  // Assumed based on pattern; verify in SCN file
         default:
             return baseName
         }

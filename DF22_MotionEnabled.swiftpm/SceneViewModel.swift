@@ -257,9 +257,8 @@ final class SceneViewModel: ObservableObject {
         
         // Add a light so the box is lit
         let lightNode = SCNNode()
-        lightNode.light = SCNLight()
+        let light = SCNLight()
         light.type = .omni
-        // Cannot find 'light' in scope
         light.intensity = 1000
         lightNode.light = light
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
