@@ -43,15 +43,15 @@ final class SceneViewModel: ObservableObject {
     }
     
     /// Starts real-time motion tracking to update the ship's orientation based on device attitude.
-    /// - Parameter updateInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
+    /// - Parameter printInterval: The interval in seconds between motion updates (default: 1/0.2 ≈ 5 FPS for smoother control; adjust based on performance needs).
     /// - Note: Uses Core Motion's attitude quaternion (normalized) and applies it directly to SceneKit's orientation. Assumes .xMagneticNorthZVertical reference frame for magnetic north alignment[...]
-    public func startMotion(updateInterval: TimeInterval = 1.0 / 0.2) {
+    public func startMotion(printInterval: TimeInterval = 1.0 / 0.2) {
         print("func startMotion()")
-        print("updateInterval:  \(updateInterval) frames per second.")
+        print("printInterval:  \(printInterval) frames per second.")
         
         if motionTask != nil { return }  // Already started
         
-        motionManager.startUpdates(updateInterval: updateInterval) // This should create attitudeStream
+        motionManager.startUpdates() // This should create attitudeStream
         
         guard let stream = motionManager.attitudeStream else {
             print("WARN: motion stream not available after startUpdates()")
@@ -86,7 +86,6 @@ final class SceneViewModel: ObservableObject {
         
         let sphereNode = SCNNode(geometry: sphere)
         sphereNode.position = SCNVector3(0, 0, 0)
-        // Value of type 
         return sphereNode
     }
     
@@ -258,8 +257,9 @@ final class SceneViewModel: ObservableObject {
         
         // Add a light so the box is lit
         let lightNode = SCNNode()
-        let light = SCNLight()
+        lightNode.light = SCNLight()
         light.type = .omni
+        // Cannot find 'light' in scope
         light.intensity = 1000
         lightNode.light = light
         lightNode.position = SCNVector3(x: 5, y: 5, z: 10)
@@ -295,7 +295,6 @@ final class SceneViewModel: ObservableObject {
                         // behaves incorrectly, convert quaternion -> euler or apply coordinate changes here.
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                         self.currentOrientation = SCNVector4(nx, ny, nz, nw)  // Update for real-time monitoring
-                        print("currentOrientation:  \(self.currentOrientation)\n")
                     }
                 }
             } catch {

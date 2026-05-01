@@ -1,12 +1,28 @@
 // MotionManager.swift
 // Exposes device attitude as an AsyncThrowingStream and ensures the CMMotionManager
 // is stopped on stream termination (normal, error, or consumer cancellation).
-// 
+// updateInterval: 
 
 import CoreMotion
 
 struct AttitudeQuaternion {
     let quaternion: CMQuaternion
+    
+    // Computed properties for Euler angles (roll, pitch, yaw) derived from quaternion
+    // Formulas based on standard quaternion to Euler conversion (assuming ZYX order)
+    var roll: Double {
+        atan2(2 * (quaternion.w * quaternion.x + quaternion.y * quaternion.z),
+              1 - 2 * (quaternion.x * quaternion.x + quaternion.y * quaternion.y))
+    }
+    
+    var pitch: Double {
+        asin(2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x))
+    }
+    
+    var yaw: Double {
+        atan2(2 * (quaternion.w * quaternion.z + quaternion.x * quaternion.y),
+              1 - 2 * (quaternion.y * quaternion.y + quaternion.z * quaternion.z))
+    }
 }
 
 final class MotionManager {
@@ -17,7 +33,7 @@ final class MotionManager {
     private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
     /// Start device motion updates and create the attitude stream.
-    /// - Parameter updateInterval: desired update interval in seconds (default 1/30s).
+    /// - Parameter updateInterval: Desired update interval in seconds (default 1/60s for high-frequency updates; lower for battery savings, e.g., 1/30s or 1/5s as used elsewhere in the app).
     func startUpdates(updateInterval: TimeInterval = 1.0 / 60.0) {
         // If already started, do nothing.
         if attitudeStream != nil { return }
