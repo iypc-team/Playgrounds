@@ -16,7 +16,7 @@ struct AttitudeQuaternion {
     }
     
     var pitch: Double {
-        asin(2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x))
+        asin(max(-1.0, min(1.0, 2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x))))
     }
     
     var yaw: Double {
