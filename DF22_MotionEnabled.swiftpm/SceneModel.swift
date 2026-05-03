@@ -22,7 +22,7 @@ class SceneModel {
     /// Initializes the scene model with a ship name.
     /// - Parameter shipName: The name of the ship model to load (e.g., "fighter").
     init(shipName: String) {
-        self.shipName = shipName  // Use the passed shipName instead of hardcoding
+        self.shipName = shipName
     }
     
     /// Maps ship names to actual node names in the .scn files.
@@ -33,9 +33,9 @@ class SceneModel {
         case "newFighter":
             return "fighter"  // Matches actual node name in newFighter.scn
         case "fighterPBR":
-            return "enemy"  // Matches actual node name in fighterPBR.scn
+            return "enemy"    // Matches actual node name in fighterPBR.scn
         case "smooth_ship":
-            return "ship"  // Matches actual node name in smooth_ship.scn
+            return "ship"     // Matches actual node name in smooth_ship.scn
         case "airplane":
             return "fighter"  // Matches actual node name in airplane.scn
         case "Y-Up-fighter":
@@ -58,7 +58,7 @@ class SceneModel {
         let width: CGFloat = 3.0
         let height: CGFloat = 2.2
         let position: SCNVector3 = SCNVector3Make(0, -2.55, 0)
-        let rotationAngle: CGFloat = CGFloat(GLKMathDegreesToRadians(90.0))
+        let rotationAngle: CGFloat = .pi / 2  // ✅ Replaces deprecated GLKMathDegreesToRadians(90.0)
         let materialColor: UIColor = .clear
         let isDoubleSided: Bool = true
         let fresnelExponent: CGFloat = .infinity
