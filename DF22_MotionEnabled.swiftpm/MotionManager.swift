@@ -1,7 +1,6 @@
 // MotionManager.swift
 // Exposes device attitude as an AsyncThrowingStream and ensures the CMMotionManager
 // is stopped on stream termination (normal, error, or consumer cancellation).
-// updateInterval: 
 
 import CoreMotion
 
@@ -29,11 +28,23 @@ final class MotionManager {
     private let motionManager = CMMotionManager()
     private var continuation: AsyncThrowingStream<AttitudeQuaternion, Error>.Continuation?
     
-    // Exposed stream. Created when startUpdates(...) is called.
+    // ✅ Fix #2: Dedicated background OperationQueue for CoreMotion callbacks.
+    // Avoids delivering 60 FPS updates on the main thread and causing UI jank.
+    // SceneViewModel already uses `await MainActor.run` for all SceneKit/UI updates.
+    private let motionQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.name = "com.DF22_MotionEnabled.motionQueue"
+        queue.qualityOfService = .userInteractive
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+    
+    // Exposed stream. Created when startUpdates() is called.
     private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
     /// Start device motion updates and create the attitude stream.
-    /// - Parameter updateInterval: Desired update interval in seconds (default 1/60s for high-frequency updates; lower for battery savings, e.g., 1/30s or 1/5s as used elsewhere in the app).
+    /// - Parameter updateInterval: Desired update interval in seconds
+    ///   (default 1/60s for 60 FPS; lower for battery savings e.g. 1/30s or 1/5s).
     func startUpdates(updateInterval: TimeInterval = 1.0 / 60.0) {
         // If already started, do nothing.
         if attitudeStream != nil { return }
@@ -50,13 +61,13 @@ final class MotionManager {
             // Hold on to the continuation so handlers can yield/finish later.
             self.continuation = continuation
             
-            // Ensure we stop the motion manager when the stream is terminated
-            // (consumer cancellation, finish, or error).
-            continuation.onTermination = { @Sendable _ in
-                // Stop device motion updates and clear references.
-                self.motionManager.stopDeviceMotionUpdates()
-                self.continuation = nil
-                self.attitudeStream = nil
+            // ✅ Fix #1: [weak self] added to onTermination to prevent a retain cycle.
+            // onTermination is invoked on an arbitrary thread by the Swift runtime,
+            // so all access is safely guarded through weak self.
+            continuation.onTermination = { @Sendable [weak self] _ in
+                self?.motionManager.stopDeviceMotionUpdates()
+                self?.continuation = nil
+                self?.attitudeStream = nil
             }
             
             guard self.motionManager.isDeviceMotionAvailable else {
@@ -68,16 +79,21 @@ final class MotionManager {
                 return
             }
             
-            // Start device motion updates; handler runs on the provided OperationQueue (.main here).
-            self.motionManager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { [weak self] motion, error in
+            // ✅ Fix #2: CoreMotion callbacks delivered on `motionQueue` (background),
+            // not `.main`. SceneViewModel's startMotionUpdates() dispatches to
+            // MainActor for all SceneKit/UI updates.
+            self.motionManager.startDeviceMotionUpdates(
+                using: .xMagneticNorthZVertical,
+                to: self.motionQueue
+            ) { [weak self] motion, error in
                 guard let self = self, let continuation = self.continuation else {
-                    // If we don't have a continuation, ensure the underlying manager is stopped.
                     self?.motionManager.stopDeviceMotionUpdates()
                     return
                 }
                 
                 if let error = error {
-                    // Stop updates before finishing the stream with error to avoid leaving CMMotionManager running.
+                    // Stop updates before finishing the stream with error
+                    // to avoid leaving CMMotionManager running.
                     self.motionManager.stopDeviceMotionUpdates()
                     continuation.finish(throwing: error)
                     return
