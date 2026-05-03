@@ -25,21 +25,23 @@ class SceneModel {
         self.shipName = shipName
     }
     
-    /// Maps ship names to actual node names in the .scn files.
-    /// Update mappings based on debug output from SceneViewModel.
+    /// Maps ship names to actual node names inside each .scn file.
+    /// Verified against DEBUG output: all 6 ships confirmed 2026-05-03.
     func getNodeName(for shipName: String) -> String {
         let baseName = shipName.hasSuffix(".scn") ? String(shipName.dropLast(4)) : shipName
         switch baseName {
+        case "fighter":
+            return "fighter"    // ✅ fighter.scn nodes: fighter, engine
         case "newFighter":
-            return "fighter"  // Matches actual node name in newFighter.scn
+            return "fighter"    // ✅ newFighter.scn nodes: fighter, fighterCamera, Sun_Top, Sun_Bottom, universe
         case "fighterPBR":
-            return "enemy"    // Matches actual node name in fighterPBR.scn
+            return "fighter"    // ✅ Fix: fighterPBR.scn nodes: fighter, cabinLight, engineLight (not "enemy")
         case "smooth_ship":
-            return "ship"     // Matches actual node name in smooth_ship.scn
+            return "enemy"      // ✅ smooth_ship.scn nodes: enemy
         case "airplane":
-            return "fighter"  // Matches actual node name in airplane.scn
+            return "ship"       // ✅ Fix: airplane.scn nodes: ship, shipMesh, emitter (not "fighter")
         case "Y-Up-fighter":
-            return "fighter"  // Assumed based on pattern; verify in SCN file
+            return "fighter"    // ✅ Y-Up-fighter.scn nodes: fighter, universe, camera
         default:
             return baseName
         }
@@ -58,7 +60,7 @@ class SceneModel {
         let width: CGFloat = 3.0
         let height: CGFloat = 2.2
         let position: SCNVector3 = SCNVector3Make(0, -2.55, 0)
-        let rotationAngle: CGFloat = .pi / 2  // ✅ Replaces deprecated GLKMathDegreesToRadians(90.0)
+        let rotationAngle: CGFloat = .pi / 2
         let materialColor: UIColor = .clear
         let isDoubleSided: Bool = true
         let fresnelExponent: CGFloat = .infinity
