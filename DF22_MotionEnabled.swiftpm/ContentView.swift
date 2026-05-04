@@ -1,4 +1,4 @@
-//  DF22_MotionEnabled 05/02/2026-3
+//  DF22_MotionEnabled 05/04/2026-1
 //  ContentView.swift
 //  Project:  DF22_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
@@ -11,33 +11,27 @@ import SceneKit
 enum ShipType: String, CaseIterable, Identifiable {
     case fighter     = "fighter"
     case newFighter  = "newFighter"
-    case fighterPBR  = "fighterPBR"   // ✅ Fix #3: Uncommented to match SceneModel.availableShipNames
+    case fighterPBR  = "fighterPBR"
     case smoothShip  = "smooth_ship"
     case airplane    = "airplane"
     case yUpFighter  = "Y-Up-fighter.scn"
     
     var id: String { self.rawValue }
     
-    var displayName: String {
-        switch self {
-        case .smoothShip:  return "smooth_ship"
-        case .yUpFighter:  return "Y-Up-fighter.scn"
-        default:           return self.rawValue
-        }
-    }
+    // ✅ Fix #1: All cases already match rawValue — switch was redundant
+    var displayName: String { self.rawValue }
 }
 
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
     @State private var selectedShip: ShipType = .fighter
-    // ✅ Fix #2: Track motion state to toggle allowsCameraControl
     @State private var isMotionActive: Bool = false
     
     var body: some View {
         ZStack {
             SceneKitUIView(
                 combatScene: viewModel.combatScene,
-                allowsCameraControl: !isMotionActive  // ✅ Fix #2: Disable camera control during motion
+                allowsCameraControl: !isMotionActive
             )
             
             VStack {
@@ -47,6 +41,8 @@ struct ContentView: View {
                     }
                 }
                 .pickerStyle(.menu)
+                // ✅ Fix #3: Single-argument onChange — required for iOS 16.6 compatibility
+                // Note: Two-argument { _, newValue in } form requires iOS 17+
                 .onChange(of: selectedShip) { newValue in
                     viewModel.changeShip(to: newValue.rawValue)
                 }
@@ -57,20 +53,24 @@ struct ContentView: View {
                 HStack {
                     Button(action: {
                         viewModel.startMotion()
-                        isMotionActive = true   // ✅ Fix #2: Disable allowsCameraControl
+                        isMotionActive = true
                     }) {
                         Text("Start Motion")
                             .foregroundColor(.green)
                             .padding()
+                        // ✅ Fix #2: background added so cornerRadius is visible
+                            .background(Color.black.opacity(0.5))
                             .cornerRadius(8)
                     }
                     Button(action: {
                         viewModel.stopMotion()
-                        isMotionActive = false  // ✅ Fix #2: Re-enable allowsCameraControl
+                        isMotionActive = false
                     }) {
                         Text("Stop Motion")
                             .foregroundColor(.red)
                             .padding()
+                        // ✅ Fix #2: background added so cornerRadius is visible
+                            .background(Color.black.opacity(0.5))
                             .cornerRadius(8)
                     }
                 }
@@ -94,9 +94,8 @@ struct ContentView: View {
 
 struct SceneKitUIView: UIViewRepresentable {
     var combatScene: SCNScene
-    var allowsCameraControl: Bool  // ✅ Fix #2: Passed in as a parameter
+    var allowsCameraControl: Bool
     
-    // ✅ Fix #1: Static SCNView configuration moved to makeUIView — only runs once
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = combatScene
@@ -108,10 +107,11 @@ struct SceneKitUIView: UIViewRepresentable {
         return scnView
     }
     
-    // ✅ Fix #1: Only dynamic properties updated here
-    // ✅ Fix #2: allowsCameraControl toggled based on motion state
     func updateUIView(_ scnView: SCNView, context: Context) {
-        scnView.scene = combatScene
+        // ✅ Fix #4: Guard scene re-assignment — only update if scene object changed
+        if scnView.scene !== combatScene {
+            scnView.scene = combatScene
+        }
         scnView.allowsCameraControl = allowsCameraControl
     }
 }
