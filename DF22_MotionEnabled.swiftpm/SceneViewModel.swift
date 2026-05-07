@@ -10,6 +10,12 @@ import CoreMotion  // ✅ Fix #4: Removed deprecated `import GLKit`
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)
+    
+    // NEW: Published Euler angles for UI orientation indicators
+    @Published var roll: Double = 0.0
+    @Published var pitch: Double = 0.0
+    @Published var yaw: Double = 0.0
+    
     @Published var shieldsEnabled: Bool = false {
         didSet {
             shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
@@ -253,6 +259,11 @@ final class SceneViewModel: ObservableObject {
                     await MainActor.run {
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                         self.currentOrientation = SCNVector4(nx, ny, nz, nw)
+                        
+                        // NEW: Update Euler angles for UI
+                        self.roll = att.roll
+                        self.pitch = att.pitch
+                        self.yaw = att.yaw
                     }
                 }
             } catch {

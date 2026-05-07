@@ -1,4 +1,4 @@
-//  DF22_MotionEnabled 05/06/2026-1
+//  DF22_MotionEnabled 05/07/2026-1
 //  ContentView.swift
 //  Project:  DF22_MotionEnabled.swiftpm
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
@@ -34,7 +34,8 @@ struct ContentView: View {
                 allowsCameraControl: !isMotionActive
             )
             
-            VStack {
+            VStack(spacing: 12) {
+                // Ship Picker
                 Picker("Ship", selection: $selectedShip) {
                     ForEach(ShipType.allCases) { ship in
                         Text(ship.displayName).tag(ship)
@@ -48,8 +49,13 @@ struct ContentView: View {
                 }
                 .padding(.horizontal)
                 
+                // Orientation Indicators
+                OrientationPanel(viewModel: viewModel)
+                    .padding(.horizontal)
+                
                 Spacer()
                 
+                // Motion Controls
                 HStack {
                     Button(action: {
                         viewModel.startMotion()
@@ -59,9 +65,11 @@ struct ContentView: View {
                             .foregroundColor(.green)
                             .padding()
                         // ✅ Fix #2: background added so cornerRadius is visible
-                            .background(Color.black.opacity(0.5))
+                            .background(Color.black.opacity(0.6))
                             .cornerRadius(8)
                     }
+                    .disabled(isMotionActive)
+                    
                     Button(action: {
                         viewModel.stopMotion()
                         isMotionActive = false
@@ -70,9 +78,10 @@ struct ContentView: View {
                             .foregroundColor(.red)
                             .padding()
                         // ✅ Fix #2: background added so cornerRadius is visible
-                            .background(Color.black.opacity(0.5))
+                            .background(Color.black.opacity(0.6))
                             .cornerRadius(8)
                     }
+                    .disabled(!isMotionActive)
                 }
                 .padding()
             }
@@ -88,6 +97,46 @@ struct ContentView: View {
         .onDisappear {
             viewModel.stopMotion()
             isMotionActive = false
+        }
+    }
+}
+
+// MARK: - Orientation Panel
+struct OrientationPanel: View {
+    @ObservedObject var viewModel: SceneViewModel
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("Device Orientation")
+                .font(.headline)
+                .foregroundColor(.white)
+            
+            HStack(spacing: 20) {
+                IndicatorView(title: "Roll",  value: viewModel.roll,  unit: "°", color: .orange)
+                IndicatorView(title: "Pitch", value: viewModel.pitch, unit: "°", color: .cyan)
+                IndicatorView(title: "Yaw",   value: viewModel.yaw,   unit: "°", color: .purple)
+            }
+        }
+        .padding(12)
+        .background(.ultraThinMaterial)
+        .cornerRadius(12)
+    }
+}
+
+struct IndicatorView: View {
+    let title: String
+    let value: Double
+    let unit: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            Text(String(format: "%.1f%@", value * 180 / .pi, unit))
+                .font(.title2.monospacedDigit().bold())
+                .foregroundColor(color)
         }
     }
 }
