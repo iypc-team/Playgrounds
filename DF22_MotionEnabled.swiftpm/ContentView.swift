@@ -1,8 +1,6 @@
-//  DF22_MotionEnabled 05/07/2026-1
+//  DF22_MotionEnabled 05/08/2026-1
 //  ContentView.swift
 //  Project:  DF22_MotionEnabled.swiftpm
-//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
-//
 
 import SwiftUI
 import SceneKit
@@ -17,8 +15,6 @@ enum ShipType: String, CaseIterable, Identifiable {
     case yUpFighter  = "Y-Up-fighter.scn"
     
     var id: String { self.rawValue }
-    
-    // ✅ Fix #1: All cases already match rawValue — switch was redundant
     var displayName: String { self.rawValue }
 }
 
@@ -42,8 +38,6 @@ struct ContentView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                // ✅ Fix #3: Single-argument onChange — required for iOS 16.6 compatibility
-                // Note: Two-argument { _, newValue in } form requires iOS 17+
                 .onChange(of: selectedShip) { newValue in
                     viewModel.changeShip(to: newValue.rawValue)
                 }
@@ -55,33 +49,44 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Motion Controls
-                HStack {
-                    Button(action: {
-                        viewModel.startMotion()
-                        isMotionActive = true
-                    }) {
-                        Text("Start Motion")
-                            .foregroundColor(.green)
-                            .padding()
-                        // ✅ Fix #2: background added so cornerRadius is visible
-                            .background(Color.black.opacity(0.6))
-                            .cornerRadius(8)
+                // Motion & Reset Controls
+                VStack(spacing: 12) {
+                    HStack {
+                        Button(action: {
+                            viewModel.startMotion()
+                            isMotionActive = true
+                        }) {
+                            Text("Start Motion")
+                                .foregroundColor(.green)
+                                .padding()
+                                .background(Color.black.opacity(0.6))
+                                .cornerRadius(8)
+                        }
+                        .disabled(isMotionActive)
+                        
+                        Button(action: {
+                            viewModel.stopMotion()
+                            isMotionActive = false
+                        }) {
+                            Text("Stop Motion")
+                                .foregroundColor(.red)
+                                .padding()
+                                .background(Color.black.opacity(0.6))
+                                .cornerRadius(8)
+                        }
+                        .disabled(!isMotionActive)
                     }
-                    .disabled(isMotionActive)
                     
                     Button(action: {
-                        viewModel.stopMotion()
-                        isMotionActive = false
+                        viewModel.resetOrientation()
                     }) {
-                        Text("Stop Motion")
-                            .foregroundColor(.red)
+                        Text("Reset Orientation")
+                            .foregroundColor(.white)
                             .padding()
-                        // ✅ Fix #2: background added so cornerRadius is visible
-                            .background(Color.black.opacity(0.6))
+                            .background(Color.blue.opacity(0.7))
                             .cornerRadius(8)
                     }
-                    .disabled(!isMotionActive)
+                    .disabled(isMotionActive)   // Optional: disable while motion is active
                 }
                 .padding()
             }
@@ -89,7 +94,6 @@ struct ContentView: View {
         }
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
-            print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
         .onAppear {
             viewModel.changeShip(to: selectedShip.rawValue)
@@ -101,7 +105,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Orientation Panel
+// MARK: - Orientation Panel (unchanged)
 struct OrientationPanel: View {
     @ObservedObject var viewModel: SceneViewModel
     
@@ -157,7 +161,6 @@ struct SceneKitUIView: UIViewRepresentable {
     }
     
     func updateUIView(_ scnView: SCNView, context: Context) {
-        // ✅ Fix #4: Guard scene re-assignment — only update if scene object changed
         if scnView.scene !== combatScene {
             scnView.scene = combatScene
         }

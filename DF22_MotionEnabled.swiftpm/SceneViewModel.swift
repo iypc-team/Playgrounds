@@ -290,4 +290,18 @@ final class SceneViewModel: ObservableObject {
         
         if wasMotionActive { startMotion() }  // ✅ Restart motion on new scene's shipNode
     }
+    // Reset ship to neutral orientation (identity quaternion)
+    func resetOrientation() {
+        let identity = SCNVector4(0, 0, 0, 1)
+        
+        shipNode?.orientation = identity
+        currentOrientation = identity
+        
+        // Reset Euler angles for UI
+        roll = 0.0
+        pitch = 0.0
+        yaw = 0.0
+        
+        print("Orientation reset to neutral")
+    }
 }
