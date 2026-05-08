@@ -5,13 +5,13 @@
 import SwiftUI
 import SceneKit
 import QuartzCore
-import CoreMotion  // ✅ Fix #4: Removed deprecated `import GLKit`
+import CoreMotion
 
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)
     
-    // NEW: Published Euler angles for UI orientation indicators
+    // Published Euler angles for UI orientation indicators
     @Published var roll: Double = 0.0
     @Published var pitch: Double = 0.0
     @Published var yaw: Double = 0.0
@@ -45,8 +45,6 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
-    // ✅ Fix #2: Removed unused `printInterval` parameter entirely.
-    // Throttling is handled by `motionManager.deviceMotionUpdateInterval` in MotionManager.swift.
     public func startMotion() {
         print("func startMotion()")
         
@@ -63,11 +61,23 @@ final class SceneViewModel: ObservableObject {
     }
     
     public func stopMotion() {
-        print("func stopMotion()\n")
+        print("func stopMotion()")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
-//        resetOrientation()
+        
+        // Reset orientation when the motion stream is stopped
+        resetOrientation()
+    }
+    
+    func resetOrientation() {
+        let identity = SCNVector4(0, 0, 0, 1)
+        shipNode?.orientation = identity
+        currentOrientation = identity
+        roll = 0.0
+        pitch = 0.0
+        yaw = 0.0
+        print("Orientation reset to neutral")
     }
     
     // Creates a simple "ghost" SCNNode for shield effect.
@@ -89,8 +99,6 @@ final class SceneViewModel: ObservableObject {
         return sphereNode
     }
     
-    // ✅ Fix #1: Extracted reusable helper — eliminates duplicated engine-light setup
-    // across all three branches of setupScene().
     private func makeLightNode(from config: SceneModel.LightConfig) -> SCNNode {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
@@ -107,8 +115,6 @@ final class SceneViewModel: ObservableObject {
         return lightNode
     }
     
-    // ✅ Fix #1: Extracted reusable helper — attaches plane, cabin light, shields,
-    // and engine lights to any target node, removing ~30 lines of duplication.
     private func attachLightsAndChildren(
         to node: SCNNode,
         planeNode: SCNNode,
@@ -180,7 +186,6 @@ final class SceneViewModel: ObservableObject {
         // Derive node name from ship name
         let nodeName = model.getNodeName(for: model.shipName)
         
-        // ✅ Fix #1: All three branches now use attachLightsAndChildren — no duplication
         if let ship = combatScene.rootNode.childNode(withName: nodeName, recursively: true) {
             // Named ship node found
             shipNode = ship
@@ -209,7 +214,6 @@ final class SceneViewModel: ObservableObject {
         shieldsNode?.opacity = shieldsEnabled ? 1.0 : 0.0
     }
     
-    // ✅ Fix #1: Extracted material logging helper to further reduce duplication.
     private func logMaterials(for node: SCNNode?) {
         if let materials = node?.geometry?.materials {
             for material in materials {
@@ -261,7 +265,6 @@ final class SceneViewModel: ObservableObject {
                         self.shipNode?.orientation = SCNVector4(nx, ny, nz, nw)
                         self.currentOrientation = SCNVector4(nx, ny, nz, nw)
                         
-                        // NEW: Update Euler angles for UI
                         self.roll = att.roll
                         self.pitch = att.pitch
                         self.yaw = att.yaw
@@ -269,15 +272,14 @@ final class SceneViewModel: ObservableObject {
                 }
             } catch {
                 print("Motion stream error: \(error)")
+                await MainActor.run { self.resetOrientation() }
             }
         }
     }
     
-    // ✅ Fix #3: changeShip now correctly stops and restarts motion if it was active.
-    // Prevents the stale motionTask from attempting to orient a node from the old scene.
     func changeShip(to shipName: String) {
-        let wasMotionActive = motionTask != nil  // ✅ Capture motion state before stopping
-        stopMotion()
+        let wasMotionActive = motionTask != nil
+        stopMotion()  // This now resets orientation
         
         model.shipName = shipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
@@ -289,20 +291,6 @@ final class SceneViewModel: ObservableObject {
         }
         setupScene()
         
-        if wasMotionActive { startMotion() }  // ✅ Restart motion on new scene's shipNode
-    }
-    // Reset ship to neutral orientation (identity quaternion)
-    func resetOrientation() {
-        let identity = SCNVector4(0, 0, 0, 1)
-        
-        shipNode?.orientation = identity
-        currentOrientation = identity
-        
-        // Reset Euler angles for UI
-        roll = 0.0
-        pitch = 0.0
-        yaw = 0.0
-        
-        print("Orientation reset to neutral")
+        if wasMotionActive { startMotion() }
     }
 }

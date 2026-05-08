@@ -1,7 +1,8 @@
-//  DF22_MotionEnabled 05/08/2026-2
+//  DF22_MotionEnabled 05/07/2026-3
 //  ContentView.swift
-//  Repo: https://github.com/iypc-team/Playgrounds/blob/main/DF22_MotionEnabled.swiftpm/ContentView.swift code review.
 //  Project:  DF22_MotionEnabled.swiftpm
+//  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/DF22_MotionEnabled.swiftpm
+//
 
 import SwiftUI
 import SceneKit
@@ -16,6 +17,7 @@ enum ShipType: String, CaseIterable, Identifiable {
     case yUpFighter  = "Y-Up-fighter.scn"
     
     var id: String { self.rawValue }
+    
     var displayName: String { self.rawValue }
 }
 
@@ -50,44 +52,31 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Motion & Reset Controls
-                VStack(spacing: 12) {
-                    HStack {
-                        Button(action: {
-                            viewModel.startMotion()
-                            isMotionActive = true
-                        }) {
-                            Text("Start Motion")
-                                .foregroundColor(.green)
-                                .padding()
-                                .background(Color.black.opacity(0.6))
-                                .cornerRadius(8)
-                        }
-                        .disabled(isMotionActive)
-                        
-                        Button(action: {
-                            viewModel.stopMotion()
-                            isMotionActive = false
-                        }) {
-                            Text("Stop Motion")
-                                .foregroundColor(.red)
-                                .padding()
-                                .background(Color.black.opacity(0.6))
-                                .cornerRadius(8)
-                        }
-                        .disabled(!isMotionActive)
-                    }
-                    
+                // Motion Controls
+                HStack {
                     Button(action: {
-                        viewModel.resetOrientation()
+                        viewModel.startMotion()
+                        isMotionActive = true
                     }) {
-                        Text("Reset Orientation")
-                            .foregroundColor(.white)
+                        Text("Start Motion")
+                            .foregroundColor(.green)
                             .padding()
-                            .background(Color.blue.opacity(0.7))
+                            .background(Color.black.opacity(0.6))
                             .cornerRadius(8)
                     }
-                    .disabled(isMotionActive)   // Optional: disable while motion is active
+                    .disabled(isMotionActive)
+                    
+                    Button(action: {
+                        viewModel.stopMotion()
+                        isMotionActive = false
+                    }) {
+                        Text("Stop Motion")
+                            .foregroundColor(.red)
+                            .padding()
+                            .background(Color.black.opacity(0.6))
+                            .cornerRadius(8)
+                    }
+                    .disabled(!isMotionActive)
                 }
                 .padding()
             }
@@ -95,6 +84,7 @@ struct ContentView: View {
         }
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
+            print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
         .onAppear {
             viewModel.changeShip(to: selectedShip.rawValue)
@@ -106,7 +96,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Orientation Panel (unchanged)
+// MARK: - Orientation Panel
 struct OrientationPanel: View {
     @ObservedObject var viewModel: SceneViewModel
     
