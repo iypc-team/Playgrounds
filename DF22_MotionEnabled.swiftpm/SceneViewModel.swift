@@ -67,6 +67,7 @@ final class SceneViewModel: ObservableObject {
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
+//        resetOrientation()
     }
     
     // Creates a simple "ghost" SCNNode for shield effect.
