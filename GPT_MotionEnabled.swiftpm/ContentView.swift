@@ -1,7 +1,7 @@
 // GPT_MotionEnabled 05/09/2026-1
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
-// Repo: 
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
 // 
 // 
 
