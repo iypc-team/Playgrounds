@@ -1,0 +1,20 @@
+DF22_MotionEnabled/
+├── Models/
+│   ├── ShipType.swift
+│   ├── SceneConfiguration.swift
+│   └── OrientationState.swift
+├── Motion/
+│   └── MotionManager.swift
+├── Scene/
+│   ├── SceneController.swift
+│   ├── ShieldFactory.swift
+│   └── SceneLighting.swift
+├── ViewModels/
+│   └── SceneViewModel.swift
+├── Views/
+│   ├── ContentView.swift
+│   ├── SceneKitView.swift
+│   ├── OrientationPanel.swift
+│   └── MotionControls.swift
+└── Utilities/
+    └── AppLogger.swift
