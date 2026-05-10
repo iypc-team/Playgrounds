@@ -25,9 +25,7 @@ struct SceneKitView: UIViewRepresentable {
         
         scnView.isTemporalAntialiasingEnabled = true
         
-#if DEBUG
         scnView.showsStatistics = true
-#endif
         
         return scnView
     }

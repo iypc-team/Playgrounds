@@ -50,10 +50,7 @@ final class SceneController {
         shipNode?.removeFromParentNode()
         
         guard let loadedScene = SCNScene(named: type.sceneFileName) else {
-            
-            AppLogger.scene.error(
-                "Failed to load scene: \(type.sceneFileName)"
-            )
+            print("scene.error")
             
             return
         }

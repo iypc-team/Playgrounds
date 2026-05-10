@@ -22,21 +22,21 @@ struct OrientationPanel: View {
                     title: "Roll",
                     value: orientation.roll,
                     unit: "°",
-                    color: .orange
+                    color: .white
                 )
                 
                 IndicatorView(
                     title: "Pitch",
                     value: orientation.pitch,
                     unit: "°",
-                    color: .cyan
+                    color: .white
                 )
                 
                 IndicatorView(
                     title: "Yaw",
                     value: orientation.yaw,
                     unit: "°",
-                    color: .purple
+                    color: .white
                 )
             }
         }

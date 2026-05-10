@@ -79,10 +79,7 @@ final class SceneViewModel: ObservableObject {
                 }
                 
             } catch {
-                
-                AppLogger.motion.error(
-                    "Motion stream failed: \(error.localizedDescription)"
-                )
+                print("motion.error")
             }
         }
     }

@@ -1,9 +1,9 @@
-// GPT_MotionEnabled 05/10/2026-1
+// GPT_MotionEnabled 05/10/2026-2
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
 // 
-// 
+// .onTapGesture
 
 import SwiftUI
 
@@ -73,12 +73,13 @@ struct ContentView: View {
             .padding()
         }
         .background(Color.black)
+        // In your tap gesture
         .onTapGesture(count: 2) {
-            
             viewModel.shieldsEnabled.toggle()
+            
+            DebugLogManager.log("🛡️ Shields toggled → \(viewModel.shieldsEnabled)")
         }
         .onDisappear {
-            
             viewModel.stopMotion()
         }
     }
