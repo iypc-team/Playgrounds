@@ -1,4 +1,4 @@
-// GPT_MotionEnabled 05/10/2026-2
+// GPT_MotionEnabled 05/11/2026-1
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
@@ -6,6 +6,7 @@
 // .onTapGesture
 
 import SwiftUI
+import os   // ← Required for AppLogger
 
 struct ContentView: View {
     
@@ -77,7 +78,7 @@ struct ContentView: View {
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
             
-            DebugLogManager.log("🛡️ Shields toggled → \(viewModel.shieldsEnabled)")
+//            AppLogger.scene.info("🛡️ Shields toggled → \(viewModel.shieldsEnabled)")
         }
         .onDisappear {
             viewModel.stopMotion()
