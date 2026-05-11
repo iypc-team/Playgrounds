@@ -1,4 +1,4 @@
-// 
+// DebugLogManager.swift
 // 
 
 import SwiftUI

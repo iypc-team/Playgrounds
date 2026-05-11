@@ -1,4 +1,3 @@
-//
 // SceneKitView.swift
 //
 

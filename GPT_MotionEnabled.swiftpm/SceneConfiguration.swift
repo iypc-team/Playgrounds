@@ -1,4 +1,3 @@
-//
 // SceneConfiguration.swift
 //
 

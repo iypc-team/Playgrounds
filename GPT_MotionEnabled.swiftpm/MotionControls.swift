@@ -1,7 +1,5 @@
 //  MotionControls.swift
-// Fix #4 — Removed tight @ObservedObject coupling to SceneViewModel.
-// MotionControls now receives only the data and actions it needs,
-// making it reusable, testable, and isolated from ViewModel changes.
+// 
 
 import SwiftUI
 

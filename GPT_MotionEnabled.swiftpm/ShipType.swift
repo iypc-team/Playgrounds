@@ -1,7 +1,5 @@
 // ShipType.swift
-// Fix #5 — Normalized .yUpFighter raw value from "Y-Up-fighter.scn" to "Y-Up-fighter".
-// All cases now follow the same convention: raw value = base filename without extension.
-// sceneFileName computed property already appends ".scn" for all cases uniformly.
+// 
 
 import Foundation
 

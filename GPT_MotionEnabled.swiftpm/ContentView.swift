@@ -1,10 +1,8 @@
-// GPT_MotionEnabled 05/11/2026-2
+// GPT_MotionEnabled 05/11/2026-3
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
-//
-// Fix #4 — Updated MotionControls call site to match new decoupled initializer.
-// Fix #8 — Removed stale `import os` and commented-out AppLogger call.
+// 
 
 import SwiftUI
 

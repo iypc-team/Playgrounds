@@ -1,8 +1,4 @@
 // SceneViewModel.swift
-// Fixes applied:
-//   #1 — Removed redundant stopUpdates() Task; onTermination handles CMMotionManager cleanup.
-//   #2 — Removed redundant `selectedShip = ship` assignment inside changeShip(to:).
-//   #3 — Motion error handling now resets isMotionActive/motionTask to unblock the UI.
 // 
 
 import SwiftUI

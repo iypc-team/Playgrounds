@@ -1,4 +1,3 @@
-//
 // SceneLighting.swift
 //
 

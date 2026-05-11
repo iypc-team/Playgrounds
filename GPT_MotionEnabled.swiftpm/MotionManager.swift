@@ -1,7 +1,4 @@
-//
 // MotionManager.swift
-// Exposes device attitude as an AsyncThrowingStream and ensures the CMMotionManager
-// is stopped on stream termination (normal, error, or consumer cancellation).
 //
 
 import CoreMotion

@@ -1,6 +1,5 @@
-//
-// OrientationPanel.swift
-//
+//  OrientationPanel.swift
+// 
 
 import SwiftUI
 

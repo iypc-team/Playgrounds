@@ -1,4 +1,3 @@
-//
 // ShieldFactory.swift
 //
 
