@@ -85,4 +85,3 @@ struct SceneConfiguration {
         position: SCNVector3(x: 0, y: -5.0, z: 0)
     )
 }
-

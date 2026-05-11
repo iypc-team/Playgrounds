@@ -1,8 +1,9 @@
-//
 // SceneViewModel.swift
-// Safe combatScene handling, no implicitly unwrapped optionals, fallback demo content when model missing,
-// and robust motion stream consumption.
-//
+// Fixes applied:
+//   #1 — Removed redundant stopUpdates() Task; onTermination handles CMMotionManager cleanup.
+//   #2 — Removed redundant `selectedShip = ship` assignment inside changeShip(to:).
+//   #3 — Motion error handling now resets isMotionActive/motionTask to unblock the UI.
+// 
 
 import SwiftUI
 import SceneKit
@@ -35,9 +36,7 @@ final class SceneViewModel: ObservableObject {
     private var lastUIUpdate = CACurrentMediaTime()
     
     init() {
-        
         combatScene = sceneController.scene
-        
         sceneController.loadShip(.fighter)
     }
     
@@ -45,6 +44,8 @@ final class SceneViewModel: ObservableObject {
         motionTask?.cancel()
     }
     
+    // Fix #2: Removed redundant `selectedShip = ship`.
+    // The Picker binding already sets selectedShip before onChange calls this.
     func changeShip(to ship: ShipType) {
         
         let wasRunning = isMotionActive
@@ -52,8 +53,6 @@ final class SceneViewModel: ObservableObject {
         stopMotion()
         
         sceneController.loadShip(ship)
-        
-        selectedShip = ship
         
         if wasRunning {
             startMotion()
@@ -79,22 +78,25 @@ final class SceneViewModel: ObservableObject {
                 }
                 
             } catch {
-                print("motion.error")
+                
+                // Fix #3: Reset state on error so the UI is not left stuck.
+                // e.g. MotionError.unavailable fires on Simulator — without this
+                // fix isMotionActive stays true and Start button stays disabled.
+                isMotionActive = false
+                motionTask = nil
+                print("Motion error: \(error)")
             }
         }
     }
     
+    // Fix #1: Removed the redundant `Task { await motionManager.stopUpdates() }`.
+    // Cancelling motionTask triggers onTermination in MotionManager.makeAttitudeStream(),
+    // which already calls stopDeviceMotionUpdates() — calling it again was redundant.
     func stopMotion() {
         
         motionTask?.cancel()
-        
         motionTask = nil
-        
         isMotionActive = false
-        
-        Task {
-            await motionManager.stopUpdates()
-        }
         
         resetOrientation()
     }
@@ -165,4 +167,3 @@ final class SceneViewModel: ObservableObject {
         )
     }
 }
-

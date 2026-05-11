@@ -1,12 +1,15 @@
-//
-// MotionControls.swift
-//
+//  MotionControls.swift
+// Fix #4 — Removed tight @ObservedObject coupling to SceneViewModel.
+// MotionControls now receives only the data and actions it needs,
+// making it reusable, testable, and isolated from ViewModel changes.
 
 import SwiftUI
 
 struct MotionControls: View {
     
-    @ObservedObject var viewModel: SceneViewModel
+    let isMotionActive: Bool
+    let onStart: () -> Void
+    let onStop: () -> Void
     
     var body: some View {
         
@@ -14,7 +17,7 @@ struct MotionControls: View {
             
             Button {
                 
-                viewModel.startMotion()
+                onStart()
                 
             } label: {
                 
@@ -24,11 +27,11 @@ struct MotionControls: View {
                     .background(Color.black.opacity(0.6))
                     .cornerRadius(8)
             }
-            .disabled(viewModel.isMotionActive)
+            .disabled(isMotionActive)
             
             Button {
                 
-                viewModel.stopMotion()
+                onStop()
                 
             } label: {
                 
@@ -38,9 +41,7 @@ struct MotionControls: View {
                     .background(Color.black.opacity(0.6))
                     .cornerRadius(8)
             }
-            .disabled(!viewModel.isMotionActive)
+            .disabled(!isMotionActive)
         }
     }
 }
-
-

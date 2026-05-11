@@ -1,12 +1,12 @@
-// GPT_MotionEnabled 05/11/2026-1
+// GPT_MotionEnabled 05/11/2026-2
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
-// 
-// .onTapGesture
+//
+// Fix #4 — Updated MotionControls call site to match new decoupled initializer.
+// Fix #8 — Removed stale `import os` and commented-out AppLogger call.
 
 import SwiftUI
-import os   // ← Required for AppLogger
 
 struct ContentView: View {
     
@@ -59,8 +59,12 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                // Fix #4: Pass only what MotionControls needs —
+                // a Bool and two action closures — instead of the full ViewModel.
                 MotionControls(
-                    viewModel: viewModel
+                    isMotionActive: viewModel.isMotionActive,
+                    onStart: { viewModel.startMotion() },
+                    onStop:  { viewModel.stopMotion()  }
                 )
                 .padding()
             }
@@ -74,11 +78,8 @@ struct ContentView: View {
             .padding()
         }
         .background(Color.black)
-        // In your tap gesture
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
-            
-//            AppLogger.scene.info("🛡️ Shields toggled → \(viewModel.shieldsEnabled)")
         }
         .onDisappear {
             viewModel.stopMotion()

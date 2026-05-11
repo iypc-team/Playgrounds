@@ -1,20 +1,24 @@
-//
 // ShipType.swift
-//
+// Fix #5 — Normalized .yUpFighter raw value from "Y-Up-fighter.scn" to "Y-Up-fighter".
+// All cases now follow the same convention: raw value = base filename without extension.
+// sceneFileName computed property already appends ".scn" for all cases uniformly.
 
 import Foundation
 
-// 1. Type-safe enum for Ship selections — kept in sync with scene assets.
+// Type-safe enum for Ship selections — kept in sync with scene assets.
 enum ShipType: String, CaseIterable, Identifiable {
     case fighter     = "fighter"
     case newFighter  = "newFighter"
     case fighterPBR  = "fighterPBR"
     case smoothShip  = "smooth_ship"
     case airplane    = "airplane"
-    case yUpFighter  = "Y-Up-fighter.scn"
+    case yUpFighter  = "Y-Up-fighter"   // Fix #5: Removed embedded ".scn" extension
     
     var id: String { rawValue }
     
+    // Appends ".scn" uniformly for all cases.
+    // Previously yUpFighter's raw value "Y-Up-fighter.scn" caused this
+    // to short-circuit via hasSuffix — now all cases take the same path.
     var sceneFileName: String {
         rawValue.hasSuffix(".scn") ? rawValue : "\(rawValue).scn"
     }
@@ -63,4 +67,3 @@ enum ShipType: String, CaseIterable, Identifiable {
         }
     }
 }
-
