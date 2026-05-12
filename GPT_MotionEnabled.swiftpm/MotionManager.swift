@@ -6,18 +6,20 @@ import CoreMotion
 struct AttitudeQuaternion {
     let quaternion: CMQuaternion
     
-    // Computed properties for Euler angles (roll, pitch, yaw) derived from quaternion
-    // Formulas based on standard quaternion to Euler conversion (assuming ZYX order)
+    // Cached Euler angles to avoid recomputing atan2/asin per access
+    let roll: Double
+    let pitch: Double
+    let yaw: Double
     
-    var roll: Double {
-        atan2(
+    init(quaternion: CMQuaternion) {
+        self.quaternion = quaternion
+        // Precompute Euler angles from quaternion
+        // Formulas based on standard quaternion to Euler conversion (assuming ZYX order)
+        self.roll = atan2(
             2 * (quaternion.w * quaternion.x + quaternion.y * quaternion.z),
             1 - 2 * (quaternion.x * quaternion.x + quaternion.y * quaternion.y)
         )
-    }
-    
-    var pitch: Double {
-        asin(
+        self.pitch = asin(
             max(
                 -1.0,
                  min(
@@ -26,10 +28,7 @@ struct AttitudeQuaternion {
                  )
             )
         )
-    }
-    
-    var yaw: Double {
-        atan2(
+        self.yaw = atan2(
             2 * (quaternion.w * quaternion.z + quaternion.x * quaternion.y),
             1 - 2 * (quaternion.y * quaternion.y + quaternion.z * quaternion.z)
         )
@@ -44,24 +43,27 @@ actor MotionManager {
     
     private let motionManager = CMMotionManager()
     
-    // ✅ Fix #2: Dedicated background OperationQueue for CoreMotion callbacks.
-    // Avoids delivering 60 FPS updates on the main thread and causing UI jank.
+    // Fix #2: Dedicated background OperationQueue for CoreMotion callbacks.
+    // Avoids delivering updates on the main thread and causing UI jank.
     // SceneViewModel already uses `await MainActor.run` for all SceneKit/UI updates.
+    // Changed QoS to .userInitiated to balance priority without starving other tasks.
     
     private let motionQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.name = "com.DF22_MotionEnabled.motionQueue"
-        queue.qualityOfService = .userInteractive
+        queue.qualityOfService = .userInitiated  // Adjusted for better resource sharing
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
     
     /// Start device motion updates and create the attitude stream.
     /// - Parameter updateInterval: Desired update interval in seconds
-    ///   (default 1/60s for 60 FPS; lower for battery savings e.g. 1/30s or 1/5s).
+    ///   (default 1/30s for 30 FPS: lower for battery savings).
+    /// - Parameter throttleInterval: Minimum time between yields (optional throttling).
     
     func makeAttitudeStream(
-        updateInterval: TimeInterval = 1.0 / 60.0
+        updateInterval: TimeInterval = 1.0 / 30.0,
+        throttleInterval: TimeInterval? = nil
     ) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
         
         AsyncThrowingStream(
@@ -79,6 +81,8 @@ actor MotionManager {
                 motionManager?.stopDeviceMotionUpdates()
             }
             
+            var lastYieldTime: TimeInterval? = nil
+            
             motionManager.startDeviceMotionUpdates(
                 using: .xArbitraryCorrectedZVertical,
                 to: motionQueue
@@ -91,10 +95,15 @@ actor MotionManager {
                 
                 guard let motion else { return }
                 
+                let currentTime = ProcessInfo.processInfo.systemUptime
+                if let throttle = throttleInterval, let last = lastYieldTime, currentTime - last < throttle {
+                    return  // Skip this update to throttle
+                }
+                
+                lastYieldTime = currentTime
+                
                 continuation.yield(
-                    AttitudeQuaternion(
-                        quaternion: motion.attitude.quaternion
-                    )
+                    AttitudeQuaternion(quaternion: motion.attitude.quaternion)
                 )
             }
         }
@@ -108,4 +117,3 @@ actor MotionManager {
         motionManager.stopDeviceMotionUpdates()
     }
 }
-
