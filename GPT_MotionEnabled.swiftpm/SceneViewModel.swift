@@ -1,5 +1,4 @@
 // SceneViewModel.swift
-// 
 
 import SwiftUI
 import SceneKit
@@ -9,26 +8,18 @@ import QuartzCore
 final class SceneViewModel: ObservableObject {
     
     @Published private(set) var combatScene: SCNScene
-    
-    @Published private(set) var orientationState =
-    OrientationState.neutral
-    
+    @Published private(set) var orientationState = OrientationState.neutral
     @Published var selectedShip: ShipType = .fighter
-    
     @Published var shieldsEnabled = false {
-        didSet {
-            updateShields()
-        }
+        didSet { updateShields() }
     }
-    
     @Published private(set) var isMotionActive = false
+    @Published var performancePreset: PerformancePreset = .medium
     
     private let motionManager = MotionManager()
-    
     private let sceneController = SceneController()
     
     private var motionTask: Task<Void, Never>?
-    
     private var lastUIUpdate = CACurrentMediaTime()
     
     init() {
@@ -36,130 +27,84 @@ final class SceneViewModel: ObservableObject {
         sceneController.loadShip(.fighter)
     }
     
-    deinit {
-        motionTask?.cancel()
-    }
+    deinit { motionTask?.cancel() }
     
-    // Fix #2: Removed redundant `selectedShip = ship`.
-    // The Picker binding already sets selectedShip before onChange calls this.
     func changeShip(to ship: ShipType) {
-        
         let wasRunning = isMotionActive
-        
         stopMotion()
-        
         sceneController.loadShip(ship)
-        
-        if wasRunning {
-            startMotion()
-        }
+        if wasRunning { startMotion() }
     }
     
     func startMotion() {
-        
         guard motionTask == nil else { return }
-        
         isMotionActive = true
         
         motionTask = Task {
-            
             do {
-                
-                let stream =
-                await motionManager.makeAttitudeStream()
+                let stream = await motionManager.makeAttitudeStream(
+                    updateInterval: performancePreset.motionUpdateInterval,
+                    throttleInterval: 1.0 / 180.0
+                )
                 
                 for try await attitude in stream {
-                    
-                    updateOrientation(attitude)
+                    await updateOrientation(attitude)
                 }
-                
             } catch {
-                
-                // Fix #3: Reset state on error so the UI is not left stuck.
-                // e.g. MotionError.unavailable fires on Simulator — without this
-                // fix isMotionActive stays true and Start button stays disabled.
                 isMotionActive = false
                 motionTask = nil
-                print("Motion error: \(error)")
             }
         }
     }
     
-    // Fix #1: Removed the redundant `Task { await motionManager.stopUpdates() }`.
-    // Cancelling motionTask triggers onTermination in MotionManager.makeAttitudeStream(),
-    // which already calls stopDeviceMotionUpdates() — calling it again was redundant.
     func stopMotion() {
-        
         motionTask?.cancel()
         motionTask = nil
         isMotionActive = false
-        
         resetOrientation()
     }
     
-    private func updateOrientation(
-        _ attitude: AttitudeQuaternion
-    ) {
+    func resetOrientation() {
+        // Core fix: Reset the actual ship node
+        guard let shipNode = sceneController.shipNode else { return }
         
-        guard let shipNode = sceneController.shipNode else {
-            return
-        }
+        // Smooth reset using SCNTransaction
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.4
+        SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
         
-        let x = attitude.quaternion.x
-        let y = attitude.quaternion.y
-        let z = attitude.quaternion.z
-        let w = attitude.quaternion.w
+        shipNode.orientation = SCNVector4(0, 0, 0, 1)   // Identity quaternion
+        SCNTransaction.commit()
         
-        let magnitude =
-        sqrt(x * x + y * y + z * z + w * w)
+        // Reset UI state
+        orientationState = .neutral
+        lastUIUpdate = CACurrentMediaTime()
+    }
+    
+    private func updateOrientation(_ attitude: AttitudeQuaternion) async {
+        guard let shipNode = sceneController.shipNode else { return }
         
-        let nx = magnitude > 0 ? x / magnitude : x
-        let ny = magnitude > 0 ? y / magnitude : y
-        let nz = magnitude > 0 ? z / magnitude : z
-        let nw = magnitude > 0 ? w / magnitude : w
+        let q = attitude.quaternion
+        let magnitude = sqrt(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w)
+        let norm = magnitude > 0.001 ? 
+        SCNVector4(q.x/magnitude, q.y/magnitude, q.z/magnitude, q.w/magnitude) : 
+        SCNVector4(0, 0, 0, 1)
         
-        let orientation =
-        SCNVector4(nx, ny, nz, nw)
-        
-        shipNode.orientation = orientation
+        shipNode.orientation = norm
         
         let now = CACurrentMediaTime()
-        
-        if now - lastUIUpdate > 0.05 {
-            
+        if now - lastUIUpdate > performancePreset.uiThrottleInterval {
             orientationState = OrientationState(
-                orientation: orientation,
+                orientation: norm,
                 roll: attitude.roll,
                 pitch: attitude.pitch,
                 yaw: attitude.yaw
             )
-            
             lastUIUpdate = now
         }
     }
     
-    func resetOrientation() {
-        
-        sceneController.shipNode?.orientation =
-        OrientationState.neutral.orientation
-        
-        orientationState = .neutral
-    }
-    
     private func updateShields() {
-        
-        guard let shields = sceneController.shieldsNode else {
-            return
-        }
-        
-        let targetOpacity: CGFloat =
-        shieldsEnabled ? 1.0 : 0.0
-        
-        shields.runAction(
-            SCNAction.fadeOpacity(
-                to: targetOpacity,
-                duration: 0.2
-            )
-        )
+        sceneController.shieldsNode?.isHidden = !shieldsEnabled
     }
 }

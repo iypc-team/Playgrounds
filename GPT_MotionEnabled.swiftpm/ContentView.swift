@@ -1,86 +1,126 @@
-// GPT_MotionEnabled 05/12/2026-1
+// GPT_MotionEnabled 05/12/2026-2
 // ContentView.swift
 // GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
-// 
+
+// ContentView.swift - iOS 16.6 Compatible
 
 import SwiftUI
+import SceneKit
 
 struct ContentView: View {
     
-    @StateObject
-    private var viewModel = SceneViewModel()
+    @StateObject private var viewModel = SceneViewModel()
     
     var body: some View {
-        
         ZStack {
-            
+            // 3D Scene
             SceneKitView(
                 scene: viewModel.combatScene,
-                allowsCameraControl:
-                    !viewModel.isMotionActive
+                allowsCameraControl: !viewModel.isMotionActive,
+                preset: viewModel.performancePreset,
+                viewModel: viewModel
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 12) {
+            // UI Overlay
+            VStack(spacing: 16) {
                 
-                // iOS 16.6-compatible Picker implementation.
-                // The iOS 17 `.onChange(of:) { oldValue, newValue in }`
-                // overload does not exist on iOS 16.
-                
-                Picker(
-                    "Ship",
-                    selection: $viewModel.selectedShip
-                ) {
-                    
-                    ForEach(ShipType.allCases) { ship in
-                        
-                        Text(ship.displayName)
-                            .tag(ship)
+                // Top Controls
+                HStack {
+                    // Ship Selector
+                    Picker("Ship", selection: $viewModel.selectedShip) {
+                        ForEach(ShipType.allCases) { ship in
+                            Text(ship.displayName).tag(ship)
+                        }
                     }
-                }
-                .pickerStyle(.menu)
-                .padding(.horizontal)
-                .padding(.top, 12)
-                .background(.ultraThinMaterial)
-                .cornerRadius(12)
-                .onChange(of: viewModel.selectedShip) { newShip in
+                    .pickerStyle(.menu)
+                    .padding(.horizontal, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                    )
                     
-                    viewModel.changeShip(to: newShip)
+                    Spacer()
+                    
+                    // Quality Preset
+                    Picker("Quality", selection: $viewModel.performancePreset) {
+                        ForEach(PerformancePreset.allCases) { preset in
+                            Text(preset.displayName).tag(preset)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.horizontal, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                    )
                 }
-                
-                OrientationPanel(
-                    orientation:
-                        viewModel.orientationState
-                )
                 .padding(.horizontal)
                 
                 Spacer()
                 
-                // Fix #4: Pass only what MotionControls needs —
-                // a Bool and two action closures — instead of the full ViewModel.
-                MotionControls(
-                    isMotionActive: viewModel.isMotionActive,
-                    onStart: { viewModel.startMotion() },
-                    onStop:  { viewModel.stopMotion()  }
-                )
+                // Orientation Panel
+                OrientationPanel(orientation: viewModel.orientationState)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                    )
+                    .padding(.horizontal)
+                
+                Spacer()
+                
+                // Bottom Controls
+                HStack(spacing: 16) {
+                    Button {
+                        if viewModel.isMotionActive {
+                            viewModel.stopMotion()
+                        } else {
+                            viewModel.startMotion()
+                        }
+                    } label: {
+                        Label(
+                            viewModel.isMotionActive ? "Stop Motion" : "Start Motion",
+                            systemImage: viewModel.isMotionActive ? "pause.circle.fill" : "play.circle.fill"
+                        )
+                        .font(.title2)
+                    }
+                    .foregroundStyle(viewModel.isMotionActive ? .red : .green)
+                    
+                    Button("Reset Orientation") {
+                        viewModel.resetOrientation()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue)
+                }
                 .padding()
-            }
-            .font(
-                .system(
-                    size: 14,
-                    weight: .semibold,
-                    design: .default
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.ultraThinMaterial)
                 )
-            )
-            .padding()
+            }
+            .padding(.vertical, 40)
         }
         .background(Color.black)
+        
+        // Gestures
         .onTapGesture(count: 2) {
             viewModel.shieldsEnabled.toggle()
         }
+        
+        // Ship change handler (iOS 16 compatible)
+        .onChange(of: viewModel.selectedShip) { newShip in
+            viewModel.changeShip(to: newShip)
+        }
+        
+        // Cleanup
         .onDisappear {
             viewModel.stopMotion()
         }
     }
+}
+
+#Preview {
+    ContentView()
 }
