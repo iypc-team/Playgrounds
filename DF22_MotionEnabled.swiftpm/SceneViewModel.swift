@@ -251,6 +251,7 @@ final class SceneViewModel: ObservableObject {
         boxNode.runAction(spin)
     }
     
+    @MainActor
     private func startMotionUpdates(stream: AsyncThrowingStream<AttitudeQuaternion, Error>) {
         if motionTask != nil { return }
         isMotionActive = true

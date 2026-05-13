@@ -7,14 +7,16 @@ import SceneKit
 
 class SceneModel {
     // Available ship models for configuration
-    static let defaultShipName = "fighter"
     static let availableShipNames = [
-        defaultShipName,
+        "fighter",
         "newFighter",
         "smooth_ship",
         "airplane",
         "Y-Up-fighter.scn"
     ]
+    static var defaultShipName: String {
+        availableShipNames.first ?? "fighter"
+    }
     
     // Configurable ship name
     var shipName: String

@@ -71,7 +71,7 @@ struct ContentView: View {
         }
         .onAppear {
             if !SceneModel.availableShipNames.contains(selectedShip) {
-                selectedShip = SceneModel.availableShipNames.first ?? SceneModel.defaultShipName
+                selectedShip = SceneModel.defaultShipName
             }
             viewModel.changeShip(to: selectedShip)
         }
