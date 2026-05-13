@@ -64,7 +64,9 @@ final class SceneViewModel: ObservableObject {
             return
         }
         
-        startMotionUpdates(stream: stream)
+        Task { @MainActor [weak self] in
+            self?.startMotionUpdates(stream: stream)
+        }
     }
     
     public func stopMotion() {
