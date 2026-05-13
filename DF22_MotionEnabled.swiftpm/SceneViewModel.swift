@@ -35,6 +35,11 @@ final class SceneViewModel: ObservableObject {
         isMotionActive = false
     }
     
+    @MainActor
+    private func resetOrientationState() {
+        resetOrientation()
+    }
+    
     init() {
         model = SceneModel(shipName: SceneModel.defaultShipName)
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
@@ -284,9 +289,7 @@ final class SceneViewModel: ObservableObject {
             } catch {
                 if !(error is CancellationError) {
                     print("Motion stream error: \(error)")
-                    await MainActor.run {
-                        self.resetOrientation()
-                    }
+                    await self.resetOrientationState()
                 }
                 await self.clearMotionState()
             }

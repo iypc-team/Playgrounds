@@ -15,7 +15,7 @@ class SceneModel {
         "Y-Up-fighter.scn"
     ]
     static var defaultShipName: String {
-        availableShipNames.first ?? "fighter"
+        availableShipNames[0]
     }
     
     // Configurable ship name
