@@ -39,7 +39,7 @@ final class SceneViewModel: ObservableObject {
     init() {
         model = SceneModel(shipName: SceneModel.defaultShipName)
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
-        if let loaded = loadScene(named: sceneFileName) {
+        if let loaded = Self.loadScene(named: sceneFileName) {
             combatScene = loaded
         } else {
             combatScene = SCNScene()
@@ -310,7 +310,7 @@ final class SceneViewModel: ObservableObject {
         }
         model.shipName = validatedShipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
-        if let loaded = loadScene(named: sceneFileName) {
+        if let loaded = Self.loadScene(named: sceneFileName) {
             combatScene = loaded
         } else {
             combatScene = SCNScene()
@@ -321,7 +321,7 @@ final class SceneViewModel: ObservableObject {
         if wasMotionActive { startMotion() }
     }
     
-    private func loadScene(named sceneFileName: String) -> SCNScene? {
+    private static func loadScene(named sceneFileName: String) -> SCNScene? {
         if let scene = SCNScene(named: sceneFileName) {
             return scene
         }
