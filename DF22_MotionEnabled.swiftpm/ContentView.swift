@@ -7,42 +7,27 @@
 import SwiftUI
 import SceneKit
 
-// 1. Type-safe enum for Ship selections — kept in sync with SceneModel.availableShipNames
-enum ShipType: String, CaseIterable, Identifiable {
-    case fighter     = "fighter"
-    case newFighter  = "newFighter"
-    case fighterPBR  = "fighterPBR"
-    case smoothShip  = "smooth_ship"
-    case airplane    = "airplane"
-    case yUpFighter  = "Y-Up-fighter.scn"
-    
-    var id: String { self.rawValue }
-    
-    var displayName: String { self.rawValue }
-}
-
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
-    @State private var selectedShip: ShipType = .fighter
-    @State private var isMotionActive: Bool = false
+    @State private var selectedShip: String = SceneModel.availableShipNames.first ?? "fighter"
     
     var body: some View {
         ZStack {
             SceneKitUIView(
                 combatScene: viewModel.combatScene,
-                allowsCameraControl: !isMotionActive
+                allowsCameraControl: !viewModel.isMotionActive
             )
             
             VStack(spacing: 12) {
                 // Ship Picker
                 Picker("Ship", selection: $selectedShip) {
-                    ForEach(ShipType.allCases) { ship in
-                        Text(ship.displayName).tag(ship)
+                    ForEach(SceneModel.availableShipNames, id: \.self) { ship in
+                        Text(ship).tag(ship)
                     }
                 }
                 .pickerStyle(.menu)
                 .onChange(of: selectedShip) { newValue in
-                    viewModel.changeShip(to: newValue.rawValue)
+                    viewModel.changeShip(to: newValue)
                 }
                 .padding(.horizontal)
                 
@@ -56,7 +41,6 @@ struct ContentView: View {
                 HStack {
                     Button(action: {
                         viewModel.startMotion()
-                        isMotionActive = true
                     }) {
                         Text("Start Motion")
                             .foregroundColor(.green)
@@ -64,11 +48,10 @@ struct ContentView: View {
                             .background(Color.black.opacity(0.6))
                             .cornerRadius(8)
                     }
-                    .disabled(isMotionActive)
+                    .disabled(viewModel.isMotionActive)
                     
                     Button(action: {
                         viewModel.stopMotion()
-                        isMotionActive = false
                     }) {
                         Text("Stop Motion")
                             .foregroundColor(.red)
@@ -76,7 +59,7 @@ struct ContentView: View {
                             .background(Color.black.opacity(0.6))
                             .cornerRadius(8)
                     }
-                    .disabled(!isMotionActive)
+                    .disabled(!viewModel.isMotionActive)
                 }
                 .padding()
             }
@@ -87,11 +70,13 @@ struct ContentView: View {
             print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
         .onAppear {
-            viewModel.changeShip(to: selectedShip.rawValue)
+            if !SceneModel.availableShipNames.contains(selectedShip) {
+                selectedShip = SceneModel.availableShipNames.first ?? "fighter"
+            }
+            viewModel.changeShip(to: selectedShip)
         }
         .onDisappear {
             viewModel.stopMotion()
-            isMotionActive = false
         }
     }
 }

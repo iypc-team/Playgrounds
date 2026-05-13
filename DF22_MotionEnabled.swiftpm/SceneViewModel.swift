@@ -10,6 +10,7 @@ import CoreMotion
 final class SceneViewModel: ObservableObject {
     @Published var combatScene: SCNScene
     @Published var currentOrientation: SCNVector4 = SCNVector4(0, 0, 0, 1)
+    @Published private(set) var isMotionActive: Bool = false
     
     // Published Euler angles for UI orientation indicators
     @Published var roll: Double = 0.0
@@ -65,6 +66,7 @@ final class SceneViewModel: ObservableObject {
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
+        isMotionActive = false
         
         // Reset orientation when the motion stream is stopped
         resetOrientation()
@@ -248,6 +250,12 @@ final class SceneViewModel: ObservableObject {
         
         motionTask = Task { [weak self] in
             guard let self = self else { return }
+            defer {
+                Task { @MainActor [weak self] in
+                    self?.motionTask = nil
+                    self?.isMotionActive = false
+                }
+            }
             do {
                 for try await att in stream {
                     // Normalize quaternion to avoid scale issues
@@ -275,6 +283,7 @@ final class SceneViewModel: ObservableObject {
                 await MainActor.run { self.resetOrientation() }
             }
         }
+        isMotionActive = true
     }
     
     func changeShip(to shipName: String) {
