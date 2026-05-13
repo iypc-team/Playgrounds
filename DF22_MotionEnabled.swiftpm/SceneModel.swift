@@ -7,6 +7,8 @@ import SceneKit
 
 class SceneModel {
     // Available ship models for configuration
+    // NOTE: fighterPBR is intentionally excluded because no corresponding resource
+    // model exists in DF22_MotionEnabled.swiftpm/Resources.
     static let availableShipNames = [
         "fighter",
         "newFighter",

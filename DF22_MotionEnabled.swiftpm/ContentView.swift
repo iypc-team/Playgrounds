@@ -70,9 +70,6 @@ struct ContentView: View {
             print("shieldsEnabled: \(viewModel.shieldsEnabled)")
         }
         .onAppear {
-            if !SceneModel.availableShipNames.contains(selectedShip) {
-                selectedShip = SceneModel.defaultShipName
-            }
             viewModel.changeShip(to: selectedShip)
         }
         .onDisappear {
