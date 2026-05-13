@@ -6,6 +6,8 @@ import SwiftUI
 import SceneKit
 
 class SceneModel {
+    static let appCameraNodeName = "appCamera"
+    
     // Available ship models for configuration
     // NOTE: fighterPBR is intentionally excluded because no corresponding resource
     // model exists in DF22_MotionEnabled.swiftpm/Resources.

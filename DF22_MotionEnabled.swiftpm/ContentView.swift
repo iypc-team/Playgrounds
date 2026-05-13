@@ -13,8 +13,6 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
-            
             SceneKitUIView(
                 combatScene: viewModel.combatScene,
                 allowsCameraControl: !viewModel.isMotionActive
@@ -125,7 +123,7 @@ struct IndicatorView: View {
 struct SceneKitUIView: UIViewRepresentable {
     var combatScene: SCNScene
     var allowsCameraControl: Bool
-    private let appCameraNodeName = "appCamera"
+    private let appCameraNodeName = SceneModel.appCameraNodeName
     
     private func applyAppCameraPointOfView(to scnView: SCNView) {
         if let appCameraNode = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true) {

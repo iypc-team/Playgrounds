@@ -28,7 +28,6 @@ final class SceneViewModel: ObservableObject {
     private var shipNode: SCNNode?
     private var shieldsNode: SCNNode?
     private var motionTask: Task<Void, Never>?
-    private let appCameraNodeName = "appCamera"
     
     @MainActor
     private func clearMotionState() {
@@ -154,7 +153,7 @@ final class SceneViewModel: ObservableObject {
         
         // Add camera
         let cameraNode = SCNNode()
-        cameraNode.name = appCameraNodeName
+        cameraNode.name = SceneModel.appCameraNodeName
         cameraNode.camera = SCNCamera()
         cameraNode.position = model.camera.position
         cameraNode.camera?.automaticallyAdjustsZRange = model.camera.automaticallyAdjustsZRange
