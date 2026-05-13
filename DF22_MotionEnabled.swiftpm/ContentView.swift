@@ -13,10 +13,14 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            Color.black.ignoresSafeArea()
+            
             SceneKitUIView(
                 combatScene: viewModel.combatScene,
                 allowsCameraControl: !viewModel.isMotionActive
             )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
             
             VStack(spacing: 12) {
                 // Ship Picker
@@ -121,15 +125,18 @@ struct IndicatorView: View {
 struct SceneKitUIView: UIViewRepresentable {
     var combatScene: SCNScene
     var allowsCameraControl: Bool
+    private let appCameraNodeName = "appCamera"
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = combatScene
+        scnView.pointOfView = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true)
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.darkGray
         scnView.antialiasingMode = .multisampling4X
         scnView.autoenablesDefaultLighting = true
         scnView.isTemporalAntialiasingEnabled = true
+        scnView.isPlaying = true
         return scnView
     }
     
@@ -137,6 +144,7 @@ struct SceneKitUIView: UIViewRepresentable {
         if scnView.scene !== combatScene {
             scnView.scene = combatScene
         }
+        scnView.pointOfView = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true)
         scnView.allowsCameraControl = allowsCameraControl
     }
 }

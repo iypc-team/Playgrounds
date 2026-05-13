@@ -28,6 +28,7 @@ final class SceneViewModel: ObservableObject {
     private var shipNode: SCNNode?
     private var shieldsNode: SCNNode?
     private var motionTask: Task<Void, Never>?
+    private let appCameraNodeName = "appCamera"
     
     @MainActor
     private func clearMotionState() {
@@ -38,7 +39,7 @@ final class SceneViewModel: ObservableObject {
     init() {
         model = SceneModel(shipName: SceneModel.defaultShipName)
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
-        if let loaded = SCNScene(named: sceneFileName) {
+        if let loaded = loadScene(named: sceneFileName) {
             combatScene = loaded
         } else {
             combatScene = SCNScene()
@@ -152,6 +153,7 @@ final class SceneViewModel: ObservableObject {
         
         // Add camera
         let cameraNode = SCNNode()
+        cameraNode.name = appCameraNodeName
         cameraNode.camera = SCNCamera()
         cameraNode.position = model.camera.position
         cameraNode.camera?.automaticallyAdjustsZRange = model.camera.automaticallyAdjustsZRange
@@ -308,7 +310,7 @@ final class SceneViewModel: ObservableObject {
         }
         model.shipName = validatedShipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
-        if let loaded = SCNScene(named: sceneFileName) {
+        if let loaded = loadScene(named: sceneFileName) {
             combatScene = loaded
         } else {
             combatScene = SCNScene()
@@ -317,5 +319,12 @@ final class SceneViewModel: ObservableObject {
         setupScene()
         
         if wasMotionActive { startMotion() }
+    }
+    
+    private func loadScene(named sceneFileName: String) -> SCNScene? {
+        if let scene = SCNScene(named: sceneFileName) {
+            return scene
+        }
+        return SCNScene(named: "Resources/\(sceneFileName)")
     }
 }
