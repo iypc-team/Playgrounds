@@ -250,12 +250,6 @@ final class SceneViewModel: ObservableObject {
         
         motionTask = Task { [weak self] in
             guard let self = self else { return }
-            defer {
-                Task { @MainActor [weak self] in
-                    self?.motionTask = nil
-                    self?.isMotionActive = false
-                }
-            }
             do {
                 for try await att in stream {
                     // Normalize quaternion to avoid scale issues
@@ -278,9 +272,22 @@ final class SceneViewModel: ObservableObject {
                         self.yaw = att.yaw
                     }
                 }
+                await MainActor.run {
+                    self.motionTask = nil
+                    self.isMotionActive = false
+                }
+            } catch is CancellationError {
+                await MainActor.run {
+                    self.motionTask = nil
+                    self.isMotionActive = false
+                }
             } catch {
                 print("Motion stream error: \(error)")
-                await MainActor.run { self.resetOrientation() }
+                await MainActor.run {
+                    self.resetOrientation()
+                    self.motionTask = nil
+                    self.isMotionActive = false
+                }
             }
         }
         isMotionActive = true
