@@ -325,6 +325,7 @@ final class SceneViewModel: ObservableObject {
         if let scene = SCNScene(named: sceneFileName) {
             return scene
         }
+        print("WARN: failed loading '\(sceneFileName)', trying 'Resources/\(sceneFileName)'")
         return SCNScene(named: "Resources/\(sceneFileName)")
     }
 }

@@ -128,6 +128,8 @@ struct SceneKitUIView: UIViewRepresentable {
     private func applyAppCameraPointOfView(to scnView: SCNView) {
         if let appCameraNode = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true) {
             scnView.pointOfView = appCameraNode
+        } else if scnView.pointOfView == nil {
+            print("WARN: App camera node '\(appCameraNodeName)' not found")
         }
     }
     
