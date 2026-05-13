@@ -29,8 +29,14 @@ final class SceneViewModel: ObservableObject {
     private var shieldsNode: SCNNode?
     private var motionTask: Task<Void, Never>?
     
+    @MainActor
+    private func clearMotionState() {
+        motionTask = nil
+        isMotionActive = false
+    }
+    
     init() {
-        model = SceneModel(shipName: "fighter")
+        model = SceneModel(shipName: SceneModel.defaultShipName)
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
@@ -247,6 +253,7 @@ final class SceneViewModel: ObservableObject {
     
     private func startMotionUpdates(stream: AsyncThrowingStream<AttitudeQuaternion, Error>) {
         if motionTask != nil { return }
+        isMotionActive = true
         
         motionTask = Task { [weak self] in
             guard let self = self else { return }
@@ -272,32 +279,30 @@ final class SceneViewModel: ObservableObject {
                         self.yaw = att.yaw
                     }
                 }
-                await MainActor.run {
-                    self.motionTask = nil
-                    self.isMotionActive = false
-                }
+                await self.clearMotionState()
             } catch is CancellationError {
-                await MainActor.run {
-                    self.motionTask = nil
-                    self.isMotionActive = false
-                }
+                await self.clearMotionState()
             } catch {
                 print("Motion stream error: \(error)")
                 await MainActor.run {
                     self.resetOrientation()
-                    self.motionTask = nil
-                    self.isMotionActive = false
                 }
+                await self.clearMotionState()
             }
         }
-        isMotionActive = true
     }
     
     func changeShip(to shipName: String) {
         let wasMotionActive = motionTask != nil
         stopMotion()  // This now resets orientation
         
-        model.shipName = shipName
+        let resolvedShipName = SceneModel.availableShipNames.contains(shipName)
+            ? shipName
+            : SceneModel.defaultShipName
+        if resolvedShipName != shipName {
+            print("WARN: Unsupported ship '\(shipName)'; falling back to \(resolvedShipName)")
+        }
+        model.shipName = resolvedShipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded
