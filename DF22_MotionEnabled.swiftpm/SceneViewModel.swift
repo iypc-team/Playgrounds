@@ -52,6 +52,7 @@ final class SceneViewModel: ObservableObject {
         motionManager.stopUpdates()
     }
     
+    @MainActor
     public func startMotion() {
         print("func startMotion()")
         
@@ -64,11 +65,10 @@ final class SceneViewModel: ObservableObject {
             return
         }
         
-        Task { @MainActor [weak self] in
-            self?.startMotionUpdates(stream: stream)
-        }
+        startMotionUpdates(stream: stream)
     }
     
+    @MainActor
     public func stopMotion() {
         print("func stopMotion()")
         motionTask?.cancel()
@@ -295,6 +295,7 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func changeShip(to shipName: String) {
         let wasMotionActive = motionTask != nil
         stopMotion()  // This now resets orientation
