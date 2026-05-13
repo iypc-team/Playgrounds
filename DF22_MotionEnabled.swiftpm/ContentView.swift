@@ -127,10 +127,16 @@ struct SceneKitUIView: UIViewRepresentable {
     var allowsCameraControl: Bool
     private let appCameraNodeName = "appCamera"
     
+    private func applyAppCameraPointOfView(to scnView: SCNView) {
+        if let appCameraNode = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true) {
+            scnView.pointOfView = appCameraNode
+        }
+    }
+    
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = combatScene
-        scnView.pointOfView = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true)
+        applyAppCameraPointOfView(to: scnView)
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.darkGray
         scnView.antialiasingMode = .multisampling4X
@@ -144,7 +150,7 @@ struct SceneKitUIView: UIViewRepresentable {
         if scnView.scene !== combatScene {
             scnView.scene = combatScene
         }
-        scnView.pointOfView = combatScene.rootNode.childNode(withName: appCameraNodeName, recursively: true)
+        applyAppCameraPointOfView(to: scnView)
         scnView.allowsCameraControl = allowsCameraControl
     }
 }

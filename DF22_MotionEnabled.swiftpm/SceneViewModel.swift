@@ -32,6 +32,7 @@ final class SceneViewModel: ObservableObject {
     
     @MainActor
     private func clearMotionState() {
+        motionTask?.cancel()
         motionTask = nil
         isMotionActive = false
     }
