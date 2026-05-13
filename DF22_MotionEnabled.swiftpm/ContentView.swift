@@ -9,7 +9,7 @@ import SceneKit
 
 struct ContentView: View {
     @StateObject private var viewModel = SceneViewModel()
-    @State private var selectedShip: String = SceneModel.initialShipName
+    @State private var selectedShip: String = SceneModel.defaultShipName
     
     var body: some View {
         ZStack {
@@ -71,7 +71,7 @@ struct ContentView: View {
         }
         .onAppear {
             if !SceneModel.availableShipNames.contains(selectedShip) {
-                selectedShip = SceneModel.initialShipName
+                selectedShip = SceneModel.availableShipNames.first ?? SceneModel.defaultShipName
             }
             viewModel.changeShip(to: selectedShip)
         }

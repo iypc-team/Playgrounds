@@ -280,12 +280,12 @@ final class SceneViewModel: ObservableObject {
                     }
                 }
                 await self.clearMotionState()
-            } catch is CancellationError {
-                await self.clearMotionState()
             } catch {
-                print("Motion stream error: \(error)")
-                await MainActor.run {
-                    self.resetOrientation()
+                if !(error is CancellationError) {
+                    print("Motion stream error: \(error)")
+                    await MainActor.run {
+                        self.resetOrientation()
+                    }
                 }
                 await self.clearMotionState()
             }
@@ -296,13 +296,13 @@ final class SceneViewModel: ObservableObject {
         let wasMotionActive = motionTask != nil
         stopMotion()  // This now resets orientation
         
-        let resolvedShipName = SceneModel.availableShipNames.contains(shipName)
+        let validatedShipName = SceneModel.availableShipNames.contains(shipName)
             ? shipName
             : SceneModel.defaultShipName
-        if resolvedShipName != shipName {
-            print("WARN: Unsupported ship '\(shipName)'; falling back to \(resolvedShipName)")
+        if validatedShipName != shipName {
+            print("WARN: Unsupported ship '\(shipName)'; falling back to \(validatedShipName)")
         }
-        model.shipName = resolvedShipName
+        model.shipName = validatedShipName
         let sceneFileName = model.shipName.hasSuffix(".scn") ? model.shipName : model.shipName + ".scn"
         if let loaded = SCNScene(named: sceneFileName) {
             combatScene = loaded

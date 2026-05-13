@@ -15,9 +15,6 @@ class SceneModel {
         "airplane",
         "Y-Up-fighter.scn"
     ]
-    static var initialShipName: String {
-        availableShipNames.first ?? defaultShipName
-    }
     
     // Configurable ship name
     var shipName: String
