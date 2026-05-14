@@ -1,182 +1,219 @@
-// SceneViewModel.swift
+//    SceneViewModel.swift
+//  
 
 import SwiftUI
 import SceneKit
-import Foundation
 
-class SceneViewModel: ObservableObject {
-    @Published var sceneModel: SceneModel
-    @Published var selectedNode: SCNNode?
+@MainActor
+final class SceneViewModel: ObservableObject {
+    
     @Published var scene: SCNScene
+    @Published var sceneModel: SceneModel
+    @Published var showError: Bool = false
+    @Published var errorMessage: String = ""
     
     init() {
         self.scene = SCNScene()
-        self.sceneModel = SceneModel()
-    }
-    
-    // MARK: - Scene Setup
-    
-    func setupScene() {
-        // Remove stale camera and light nodes to prevent accumulation across reloads
-        scene.rootNode.childNodes.filter { $0.camera != nil }.forEach { $0.removeFromParentNode() }
-        scene.rootNode.childNodes.filter { $0.light  != nil }.forEach { $0.removeFromParentNode() }
-        
-        addCamera()
-        addLights()
-        frameCameraToContent()
-    }
-    
-    private func addCamera() {
-        let cameraNode = SCNNode()
-        cameraNode.name = "appCamera"
-        cameraNode.camera = SCNCamera()
-        cameraNode.camera?.automaticallyAdjustsZRange = true
-        cameraNode.position = sceneModel.cameraPosition
-        scene.rootNode.addChildNode(cameraNode)
-    }
-    
-    private func addLights() {
-        // Ambient — broad base illumination
-        let ambient = SCNNode()
-        ambient.light = SCNLight()
-        ambient.light!.type = .ambient
-        ambient.light!.color = UIColor.white
-        ambient.light!.intensity = sceneModel.lightIntensity * 2
-        scene.rootNode.addChildNode(ambient)
-        
-        // Omni front
-        let omniFront = SCNNode()
-        omniFront.light = SCNLight()
-        omniFront.light!.type = .omni
-        omniFront.light!.color = UIColor.darkGray
-        omniFront.light!.intensity = sceneModel.omniLightIntensity * 1.5
-        omniFront.position = SCNVector3(0, 10, 20)
-        scene.rootNode.addChildNode(omniFront)
-        
-        // Omni back
-        let omniBack = SCNNode()
-        omniBack.light = SCNLight()
-        omniBack.light!.type = .omni
-        omniBack.light!.color = UIColor.darkGray
-        omniBack.light!.intensity = sceneModel.omniLightIntensity * 1.5
-        omniBack.position = SCNVector3(0, 10, -20)
-        scene.rootNode.addChildNode(omniBack)
-        
-        // Directional — depth and shadows
-        let directional = SCNNode()
-        directional.light = SCNLight()
-        directional.light!.type = .directional
-        directional.light!.color = UIColor.white
-        directional.light!.intensity = sceneModel.omniLightIntensity * 0.8
-        directional.light!.castsShadow = true
-        directional.eulerAngles = SCNVector3(-Float.pi / 4, 0, 0)
-        scene.rootNode.addChildNode(directional)
-    }
-    
-    // MARK: - Camera Auto-Framing
-    
-    /// Computes a bounding-sphere for all scene content and pulls the camera back
-    /// far enough so every model is visible, regardless of its world-space size.
-    private func frameCameraToContent() {
-        let (minVec, maxVec) = scene.rootNode.boundingBox
-        let size   = SCNVector3(maxVec.x - minVec.x, maxVec.y - minVec.y, maxVec.z - minVec.z)
-        let center = SCNVector3((minVec.x + maxVec.x) / 2,
-                                (minVec.y + maxVec.y) / 2,
-                                (minVec.z + maxVec.z) / 2)
-        let radius = sqrt(size.x * size.x + size.y * size.y + size.z * size.z) / 2
-        
-        guard radius > 0.001 else {
-            print("[frameCameraToContent] Scene is empty — keeping default camera.")
-            return
-        }
-        
-        let distance = radius * 2.5
-        
-        if let cam = scene.rootNode.childNode(withName: "appCamera", recursively: false) {
-            cam.position = SCNVector3(center.x, center.y, center.z + distance)
-            cam.look(at: center)
-            print("[frameCameraToContent] center=\(center) radius=\(radius) distance=\(distance)")
-        }
-        
-        let omniNodes = scene.rootNode.childNodes.filter { $0.light?.type == .omni }
-        if omniNodes.count >= 2 {
-            omniNodes[0].position = SCNVector3(center.x, center.y + radius, center.z + distance)
-            omniNodes[1].position = SCNVector3(center.x, center.y + radius, center.z - distance)
-        }
+        self.sceneModel = SceneModel(scene: scene)
+        setupEmptyScene()
     }
     
     // MARK: - Scene Loading
     
-    @discardableResult
-    func loadScene(for name: String) -> Bool {
-        let stem = (name as NSString).deletingPathExtension
-        let ext  = (name as NSString).pathExtension
+    func loadScene(for fileName: String) -> Bool {
+        print("[loadScene] Attempting to load '\(fileName)'")
         
-        if let url = resolveURL(stem: stem, ext: ext, name: name) {
-            print("[loadScene] Located '\(name)' at: \(url.path)")
-            do {
-                let loaded = try SCNScene(url: url, options: nil)
-                self.scene = loaded
-                sceneModel.sceneName = name
-                sceneModel.setScene(loaded)
-                setupScene()
-                return true
-            } catch {
-                print("[loadScene] Failed to load '\(name)': \(error.localizedDescription)")
-            }
-        } else {
-            print("[loadScene] Could not locate '\(name)' in the bundle.")
+        guard let loadedScene = loadSceneNamed(fileName) else {
+            print("[loadScene] ❌ Failed to load scene: \(fileName)")
+            errorMessage = "Could not load scene: \(fileName)"
+            showError = true
+            return false
         }
         
-        // Fall back to an empty scene so the viewer is never blank
-        self.scene = SCNScene()
-        sceneModel.sceneName = name
-        sceneModel.setScene(self.scene)
+        self.scene = loadedScene
+        self.sceneModel = SceneModel(scene: loadedScene)
+        
+        print("[loadSceneNamed] Loaded '\(fileName)' from bundle root")
+        
         setupScene()
-        return false
+        frameCameraToContent()
+        
+        return true
     }
     
-    // MARK: - URL Resolution (4 strategies)
-    
-    private func resolveURL(stem: String, ext: String, name: String) -> URL? {
-        // Strategy 0: Resources subdirectory
-        if let url = Bundle.main.url(forResource: stem, withExtension: ext,
-                                     subdirectory: "Resources") { return url }
-        // Strategy 1: Top-level bundle URL
-        if let url = Bundle.main.url(forResource: stem, withExtension: ext) { return url }
-        // Strategy 2: Path-based (handles spaces better on some platforms)
-        if let path = Bundle.main.path(forResource: stem, ofType: ext) {
-            return URL(fileURLWithPath: path)
+    private func loadSceneNamed(_ fileName: String) -> SCNScene? {
+        if let scene = SCNScene(named: fileName) {
+            return scene
         }
-        // Strategy 3: Recursive FileManager scan
-        if let url = findFileInBundle(named: name) { return url }
-        // Strategy 4: Direct path construction
-        if let rp = Bundle.main.resourcePath {
-            let subPath  = ((rp as NSString).appendingPathComponent("Resources") as NSString)
-                .appendingPathComponent(name)
-            if FileManager.default.fileExists(atPath: subPath) {
-                return URL(fileURLWithPath: subPath)
-            }
-            let topPath = (rp as NSString).appendingPathComponent(name)
-            if FileManager.default.fileExists(atPath: topPath) {
-                return URL(fileURLWithPath: topPath)
+        if let scene = SCNScene(named: "Resources/\(fileName)") {
+            return scene
+        }
+        
+        if let url = Bundle.main.url(forResource: fileName.replacingOccurrences(of: ".scn", with: ""),
+                                     withExtension: "scn") {
+            do {
+                return try SCNScene(url: url, options: nil)
+            } catch {
+                print("[loadSceneNamed] URL load failed: \(error.localizedDescription)")
             }
         }
         return nil
     }
     
-    private func findFileInBundle(named fileName: String) -> URL? {
-        guard let bundleURL = Bundle.main.resourceURL else { return nil }
-        let fm = FileManager.default
-        guard let enumerator = fm.enumerator(at: bundleURL,
-                                             includingPropertiesForKeys: nil,
-                                             options: .skipsHiddenFiles) else { return nil }
-        while let url = enumerator.nextObject() as? URL {
-            if url.lastPathComponent == fileName { return url }
-            if url.path.removingPercentEncoding?.components(separatedBy: "/").last == fileName {
-                return url
+    // MARK: - Scene Setup
+    
+    private func setupEmptyScene() {
+        let ambient = SCNLight()
+        ambient.type = .ambient
+        ambient.intensity = 400
+        let ambientNode = SCNNode()
+        ambientNode.light = ambient
+        scene.rootNode.addChildNode(ambientNode)
+        
+        let omni = SCNLight()
+        omni.type = .omni
+        omni.intensity = 1200
+        let omniNode = SCNNode()
+        omniNode.light = omni
+        omniNode.position = SCNVector3(10, 10, 15)
+        scene.rootNode.addChildNode(omniNode)
+    }
+    
+    private func setupScene() {
+        // Clean previous app-controlled nodes
+        scene.rootNode.childNode(withName: "appCamera", recursively: true)?.removeFromParentNode()
+        scene.rootNode.childNode(withName: "appDirectionalLight", recursively: true)?.removeFromParentNode()
+        
+        // Force load any reference nodes
+        scene.rootNode.enumerateChildNodes { node, _ in
+            if let refNode = node as? SCNReferenceNode, !refNode.isLoaded {
+                refNode.load()
+                print("[setupScene] Forced load of SCNReferenceNode: \(node.name ?? "unnamed")")
             }
         }
-        return nil
+        
+        // App Camera
+        let cameraNode = SCNNode()
+        cameraNode.name = "appCamera"
+        cameraNode.camera = SCNCamera()
+        cameraNode.camera?.zNear = 0.01
+        cameraNode.camera?.zFar = 1000
+        scene.rootNode.addChildNode(cameraNode)
+        
+        // Strong directional light
+        let directionalLight = SCNLight()
+        directionalLight.type = .directional
+        directionalLight.intensity = 1800
+        directionalLight.castsShadow = true
+        let lightNode = SCNNode()
+        lightNode.name = "appDirectionalLight"
+        lightNode.light = directionalLight
+        lightNode.position = SCNVector3(15, 25, 20)
+        scene.rootNode.addChildNode(lightNode)
+        
+        print("[setupScene] Scene configured with app camera + lights")
+    }
+    
+    // MARK: - Camera Framing
+    
+    private func frameCameraToContent() {
+        let root = scene.rootNode
+        print("[frameCameraToContent] Root has \(root.childNodes.count) direct children")
+        
+        var allGeometryNodes: [SCNNode] = []
+        
+        func collectGeometry(_ node: SCNNode) {
+            if node.geometry != nil {
+                allGeometryNodes.append(node)
+            }
+            node.childNodes.forEach { collectGeometry($0) }
+        }
+        collectGeometry(root)
+        
+        print("[frameCameraToContent] Found \(allGeometryNodes.count) nodes with geometry")
+        
+        var minVec = SCNVector3(Float.infinity, Float.infinity, Float.infinity)
+        var maxVec = SCNVector3(-Float.infinity, -Float.infinity, -Float.infinity)
+        var hasValidContent = false
+        
+        for node in allGeometryNodes {
+            let box = node.boundingBox
+            guard box.min.x < box.max.x else { continue }
+            
+            let worldMin = node.convertPosition(box.min, to: nil)
+            let worldMax = node.convertPosition(box.max, to: nil)
+            
+            minVec.x = min(minVec.x, worldMin.x)
+            minVec.y = min(minVec.y, worldMin.y)
+            minVec.z = min(minVec.z, worldMin.z)
+            
+            maxVec.x = max(maxVec.x, worldMax.x)
+            maxVec.y = max(maxVec.y, worldMax.y)
+            maxVec.z = max(maxVec.z, worldMax.z)
+            
+            hasValidContent = true
+        }
+        
+        if !hasValidContent {
+            print("[frameCameraToContent] ⚠️ No valid geometry found — keeping default camera.")
+            return
+        }
+        
+        // Center point
+        let center = SCNVector3(
+            (minVec.x + maxVec.x) * 0.5,
+            (minVec.y + maxVec.y) * 0.5,
+            (minVec.z + maxVec.z) * 0.5
+        )
+        
+        let extentX = maxVec.x - minVec.x
+        let extentY = maxVec.y - minVec.y
+        let extentZ = maxVec.z - minVec.z
+        let maxExtent = max(max(extentX, extentY), extentZ)
+        let radius = maxExtent * 0.6 + 3.0
+        
+        guard let cameraNode = root.childNode(withName: "appCamera", recursively: true) else {
+            print("[frameCameraToContent] ❌ App camera not found")
+            return
+        }
+        
+        // Position camera
+        cameraNode.position = SCNVector3(
+            center.x,
+            center.y + radius * 0.7,
+            center.z + radius * 1.4
+        )
+        
+        // === SAFE LOOK-AT FOR iOS 16.6 ===
+        let direction = SCNVector3(
+            center.x - cameraNode.position.x,
+            center.y - cameraNode.position.y,
+            center.z - cameraNode.position.z
+        )
+        
+        // Normalize and set rotation
+        let distance = sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z)
+        if distance > 0 {
+            let normalizedDir = SCNVector3(direction.x / distance, direction.y / distance, direction.z / distance)
+            
+            // Simple rotation: point toward target (works reliably)
+            cameraNode.look(at: center)
+        }
+        
+        if let camera = cameraNode.camera {
+            camera.fieldOfView = 50
+        }
+        
+        print("[frameCameraToContent] ✅ Successfully framed content. Center: \(center), Radius: \(radius)")
+    }
+    
+    // MARK: - Debug Helper
+    func debugSceneHierarchy() {
+        print("\n=== SCENE HIERARCHY DEBUG ===")
+        scene.rootNode.enumerateChildNodes { node, _ in
+            let name = node.name ?? "<unnamed>"
+            let hasGeo = node.geometry != nil ? "YES" : "no"
+            print("• \(name) | Geometry: \(hasGeo) | Children: \(node.childNodes.count)")
+        }
     }
 }

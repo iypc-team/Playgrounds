@@ -1,4 +1,4 @@
-//  Inspect_SCN 05/13/2026-1
+//  Inspect_SCN 05/14/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -34,7 +34,7 @@ struct ContentView: View {
         "fighterPBR.scn",
         "newFighter.scn",
         "pyramid.scn",
-        "smooth_ship1.scn",   // displayed as "smooth_ship 1.scn" — no space in filename
+        "smooth_ship1.scn",
         "smooth_ship.scn",
         "sphere.scn"
     ]
@@ -47,28 +47,36 @@ struct ContentView: View {
                 .accessibilityLabel("3D Scene Viewer")
             
             VStack {
-                toolbarRow
+                // MARK: - Toolbar (Extracted)
+                ToolbarView(
+                    selectedFile: $selectedFile,
+                    showBoundingBox: $showBoundingBox,
+                    resourceFiles: resourceFiles,
+                    onInspectGeometry: inspectGeometry,
+                    onListMaterials: listMaterials,
+                    onSetDoubleSided: setAllMaterialsDoubleSided,
+                    onSetVeryReflective: setAllMaterialsVeryReflective,
+                    onBoundingBoxToggle: toggleBoundingBox
+                )
+                
                 Spacer()
                 resultsOverlays
             }
         }
-        // ✅ FIXED: .onAppear and .onChange are on the ZStack, NOT on SceneKitView.
-        // SceneKitView carries .id(sceneRevision); any lifecycle hook on it fires
-        // again every time sceneRevision changes, creating an infinite render loop
-        // that prevented smooth_ship.scn and smooth_ship1.scn from appearing.
+        // ✅ .onAppear and .onChange are intentionally on the ZStack
         .onAppear {
             loadResourceFiles()
-            let fileToLoad = resourceFiles.contains(selectedFile)
-            ? selectedFile
-            : (resourceFiles.first ?? selectedFile)
-            if fileToLoad != selectedFile { selectedFile = fileToLoad }
+            let fileToLoad = resourceFiles.contains(selectedFile) ? selectedFile : (resourceFiles.first ?? selectedFile)
+            if fileToLoad != selectedFile {
+                selectedFile = fileToLoad
+            }
             viewModel.loadScene(for: fileToLoad)
-            // ✅ No sceneRevision bump here — updateUIView handles the initial render.
         }
         .onChange(of: selectedFile) { newValue in
             resetInspectionState()
             let success = viewModel.loadScene(for: newValue)
-            sceneRevision += 1          // ✅ Only bump on an explicit user file-change.
+            sceneRevision += 1
+            
             if !success {
                 loadErrorMessage = "Failed to load '\(newValue)'. The file may be corrupt or incompatible."
                 showLoadError = true
@@ -79,62 +87,6 @@ struct ContentView: View {
         } message: {
             Text(loadErrorMessage)
         }
-    }
-    
-    // MARK: - Toolbar
-    
-    private var toolbarRow: some View {
-        HStack(spacing: 8) {
-            Spacer()
-            filePickerMenu
-            toolbarButton("Inspect Geometry",  action: inspectGeometry)
-            toolbarButton("List Materials",     action: listMaterials)
-            toolbarButton("Set Double-Sided",   action: setAllMaterialsDoubleSided)
-            toolbarButton("Set Very Reflective", action: setAllMaterialsVeryReflective)
-            boundingBoxButton
-            Spacer()
-        }
-        .padding()
-    }
-    
-    private var filePickerMenu: some View {
-        Menu {
-            ForEach(resourceFiles, id: \.self) { file in
-                Button(file) { selectedFile = file }
-            }
-        } label: {
-            Text("Select File: \(selectedFile)")
-                .styledToolbarLabel(background: .gray)
-        }
-        .tint(.white)
-    }
-    
-    private var boundingBoxButton: some View {
-        Button {
-            showBoundingBox.toggle()
-            if showBoundingBox {
-                if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
-                    viewModel.scene.rootNode.addChildNode(boxNode)
-                }
-            } else {
-                viewModel.scene.rootNode
-                    .childNode(withName: "boundingBox", recursively: true)?
-                    .removeFromParentNode()
-            }
-        } label: {
-            Text(showBoundingBox ? "Hide Bounding Box" : "Show Bounding Box")
-                .styledToolbarLabel(background: .blue)
-        }
-        .tint(.white)
-        .accessibilityLabel(showBoundingBox ? "Hide bounding box" : "Show bounding box")
-    }
-    
-    private func toolbarButton(_ title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title)
-                .styledToolbarLabel(background: .gray)
-        }
-        .tint(.white)
     }
     
     // MARK: - Results Overlays
@@ -189,7 +141,6 @@ struct ContentView: View {
         print("\n[loadResourceFiles]")
         var found = Set<String>(fallbackSceneFiles)
         
-        // Bundle URL enumeration
         if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
             urls.forEach { found.insert($0.lastPathComponent) }
         }
@@ -197,17 +148,14 @@ struct ContentView: View {
             urls.forEach { found.insert($0.lastPathComponent) }
         }
         
-        // FileManager deep-scan of the bundle
         if let bundleURL = Bundle.main.resourceURL {
             let fm = FileManager.default
-            fm.enumerator(at: bundleURL, includingPropertiesForKeys: nil,
-                          options: .skipsHiddenFiles)?
+            fm.enumerator(at: bundleURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)?
                 .compactMap { $0 as? URL }
                 .filter { $0.pathExtension.lowercased() == "scn" }
                 .forEach { found.insert($0.lastPathComponent) }
         }
         
-        // resourcePath directory scan
         if let rp = Bundle.main.resourcePath {
             let fm = FileManager.default
             (try? fm.contentsOfDirectory(atPath: rp))?
@@ -238,6 +186,7 @@ struct ContentView: View {
         materialsResults = ""
         showMaterials = false
         showBoundingBox = false
+        
         viewModel.scene.rootNode
             .childNode(withName: "boundingBox", recursively: true)?
             .removeFromParentNode()
@@ -265,11 +214,24 @@ struct ContentView: View {
         print("[setAllMaterialsVeryReflective]")
         viewModel.sceneModel.setAllMaterialsVeryReflective()
     }
+    
+    private func toggleBoundingBox() {
+        showBoundingBox.toggle()
+        if showBoundingBox {
+            if let boxNode = viewModel.sceneModel.createBoundingBoxNode() {
+                viewModel.scene.rootNode.addChildNode(boxNode)
+            }
+        } else {
+            viewModel.scene.rootNode
+                .childNode(withName: "boundingBox", recursively: true)?
+                .removeFromParentNode()
+        }
+    }
 }
 
-// MARK: - View Modifier Helper
+// MARK: - Toolbar Label Style
 
-private extension Text {
+extension Text {
     func styledToolbarLabel(background color: Color) -> some View {
         self
             .foregroundColor(.white)
