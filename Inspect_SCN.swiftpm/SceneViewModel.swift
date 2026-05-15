@@ -14,8 +14,9 @@ final class SceneViewModel: ObservableObject {
     
     init() {
         self.scene = SCNScene()
-        self.sceneModel = SceneModel(scene: scene)
+        self.sceneModel = SceneModel()           // Fixed: No argument
         setupEmptyScene()
+        sceneModel.setScene(self.scene)          // Explicitly set the scene
     }
     
     // MARK: - Scene Loading
@@ -31,7 +32,8 @@ final class SceneViewModel: ObservableObject {
         }
         
         self.scene = loadedScene
-        self.sceneModel = SceneModel(scene: loadedScene)
+        self.sceneModel = SceneModel()           // Fixed: No argument
+        sceneModel.setScene(loadedScene)         // Use setter instead
         
         print("[loadSceneNamed] Loaded '\(fileName)' from bundle root")
         
@@ -185,26 +187,69 @@ final class SceneViewModel: ObservableObject {
         )
         
         // === SAFE LOOK-AT FOR iOS 16.6 ===
-        let direction = SCNVector3(
-            center.x - cameraNode.position.x,
-            center.y - cameraNode.position.y,
-            center.z - cameraNode.position.z
-        )
-        
-        // Normalize and set rotation
-        let distance = sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z)
-        if distance > 0 {
-            let normalizedDir = SCNVector3(direction.x / distance, direction.y / distance, direction.z / distance)
-            
-            // Simple rotation: point toward target (works reliably)
-            cameraNode.look(at: center)
-        }
+        cameraNode.look(at: center)
         
         if let camera = cameraNode.camera {
             camera.fieldOfView = 50
         }
         
         print("[frameCameraToContent] ✅ Successfully framed content. Center: \(center), Radius: \(radius)")
+    }
+    
+    // MARK: - Export (USDZ + SCN)
+    
+    /// Exports the current (modified) scene to USDZ (recommended) or SCN format.
+    /// - Parameters:
+    ///   - baseName: Base filename without extension
+    ///   - format: "usdz" (default, modern) or "scn"
+    func exportScene(as baseName: String, format: String = "usdz") -> URL? {
+        guard !scene.rootNode.childNodes.isEmpty else {
+            errorMessage = "Scene is empty — nothing to export."
+            showError = true
+            return nil
+        }
+        
+        let cleanName = baseName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let exportName = cleanName.hasSuffix(".\(format)") 
+        ? cleanName 
+        : "\(cleanName).\(format)"
+        
+        let fileManager = FileManager.default
+        
+        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            errorMessage = "Could not access Documents directory."
+            showError = true
+            return nil
+        }
+        
+        let destinationURL = documentsURL.appendingPathComponent(exportName)
+        
+        // Export options using raw keys
+        var options: [String: Any]? = nil
+        if format == "usdz" {
+            options = ["SCNSceneExportOptionCompress": true]
+        }
+        
+        let success = scene.write(
+            to: destinationURL,
+            options: options,
+            delegate: nil,
+            progressHandler: { progress, error, stop in
+                print("Export progress: \(Int(progress * 100))%")
+                if let error = error {
+                    print("Export error: \(error.localizedDescription)")
+                }
+            }
+        )
+        
+        if success {
+            print("[exportScene] ✅ Successfully exported to: \(destinationURL.path)")
+            return destinationURL
+        } else {
+            errorMessage = "Export failed for \(exportName). Make sure the file extension is .usdz or .scn."
+            showError = true
+            return nil
+        }
     }
     
     // MARK: - Debug Helper

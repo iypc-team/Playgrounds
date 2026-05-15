@@ -1,4 +1,4 @@
-//  Inspect_SCN 05/14/2026-1
+//  Inspect_SCN 05/15/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -39,6 +39,11 @@ struct ContentView: View {
         "sphere.scn"
     ]
     
+    // Export states
+    @State private var exportFormat: String = "usdz"
+    @State private var showExportSuccess: Bool = false
+    @State private var exportedURL: URL? = nil
+    
     var body: some View {
         ZStack {
             SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
@@ -52,11 +57,13 @@ struct ContentView: View {
                     selectedFile: $selectedFile,
                     showBoundingBox: $showBoundingBox,
                     resourceFiles: resourceFiles,
+                    exportFormat: $exportFormat,
                     onInspectGeometry: inspectGeometry,
                     onListMaterials: listMaterials,
                     onSetDoubleSided: setAllMaterialsDoubleSided,
                     onSetVeryReflective: setAllMaterialsVeryReflective,
-                    onBoundingBoxToggle: toggleBoundingBox
+                    onBoundingBoxToggle: toggleBoundingBox,
+                    onExport: exportCurrentScene
                 )
                 
                 Spacer()
@@ -86,6 +93,16 @@ struct ContentView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text(loadErrorMessage)
+        }
+        .alert("Export Successful", isPresented: $showExportSuccess) {
+            Button("OK") { }
+            if let url = exportedURL {
+                Button("Copy Path") {
+                    UIPasteboard.general.string = url.path
+                }
+            }
+        } message: {
+            Text("Saved as:\n\(exportedURL?.lastPathComponent ?? "unknown")")
         }
     }
     
@@ -225,6 +242,13 @@ struct ContentView: View {
             viewModel.scene.rootNode
                 .childNode(withName: "boundingBox", recursively: true)?
                 .removeFromParentNode()
+        }
+    }
+    
+    private func exportCurrentScene() {
+        if let url = viewModel.exportScene(as: selectedFile, format: exportFormat) {
+            exportedURL = url
+            showExportSuccess = true
         }
     }
 }

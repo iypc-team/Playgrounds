@@ -9,12 +9,15 @@ struct ToolbarView: View {
     
     let resourceFiles: [String]
     
+    @Binding var exportFormat: String
+    
     // Actions
     let onInspectGeometry: () -> Void
     let onListMaterials: () -> Void
     let onSetDoubleSided: () -> Void
     let onSetVeryReflective: () -> Void
     let onBoundingBoxToggle: () -> Void
+    let onExport: () -> Void
     
     var body: some View {
         HStack(spacing: 8) {
@@ -27,6 +30,17 @@ struct ToolbarView: View {
             toolbarButton("Set Very Reflective", action: onSetVeryReflective)
             
             boundingBoxButton
+            
+            // Export section
+            Picker("Format", selection: $exportFormat) {
+                Text("USDZ").tag("usdz")
+                Text("SCN").tag("scn")
+            }
+            .pickerStyle(.segmented)
+            .frame(width: 140)
+            
+            toolbarButton("Export as \(exportFormat.uppercased())", action: onExport)
+                .tint(.green)
             
             Spacer()
         }
@@ -67,4 +81,3 @@ struct ToolbarView: View {
         .tint(.white)
     }
 }
-
