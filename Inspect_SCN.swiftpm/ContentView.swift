@@ -1,4 +1,4 @@
-//  Inspect_SCN 05/15/2026-1
+//  Inspect_SCN 05/14/2026-2
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -97,12 +97,12 @@ struct ContentView: View {
         .alert("Export Successful", isPresented: $showExportSuccess) {
             Button("OK") { }
             if let url = exportedURL {
-                Button("Copy Path") {
+                Button("Copy Full Path") {
                     UIPasteboard.general.string = url.path
                 }
             }
         } message: {
-            Text("Saved as:\n\(exportedURL?.lastPathComponent ?? "unknown")")
+            Text("Saved as:\n\(exportedURL?.lastPathComponent ?? "unknown")\n\nFolder: Exports")
         }
     }
     

@@ -1,0 +1,3 @@
+/var/mobile/Containers/Data/Application/E7282F28-205D-4899-AFD1-88827676B9D9/Documents/fighter.scn.usdz
+
+/var/mobile/Containers/Data/Application/98C6B16B-78DA-4E3D-93FD-5E698A44FCBA/Documents/Exports/smooth_ship_export.usdz

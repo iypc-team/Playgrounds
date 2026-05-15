@@ -199,6 +199,7 @@ final class SceneViewModel: ObservableObject {
     // MARK: - Export (USDZ + SCN)
     
     /// Exports the current (modified) scene to USDZ (recommended) or SCN format.
+    /// Saves into a user-friendly "Exports" folder with clean naming.
     /// - Parameters:
     ///   - baseName: Base filename without extension
     ///   - format: "usdz" (default, modern) or "scn"
@@ -209,22 +210,37 @@ final class SceneViewModel: ObservableObject {
             return nil
         }
         
-        let cleanName = baseName.trimmingCharacters(in: .whitespacesAndNewlines)
-        let exportName = cleanName.hasSuffix(".\(format)") 
-        ? cleanName 
-        : "\(cleanName).\(format)"
+        let cleanName = baseName.replacingOccurrences(of: ".scn", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let finalName = "\(cleanName)_export.\(format)"
         
         let fileManager = FileManager.default
         
+        // Get Documents directory
         guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             errorMessage = "Could not access Documents directory."
             showError = true
             return nil
         }
         
-        let destinationURL = documentsURL.appendingPathComponent(exportName)
+        // Create Exports subfolder (user-friendly)
+        let exportsURL = documentsURL.appendingPathComponent("Exports", isDirectory: true)
         
-        // Export options using raw keys
+        do {
+            if !fileManager.fileExists(atPath: exportsURL.path) {
+                try fileManager.createDirectory(at: exportsURL, withIntermediateDirectories: true)
+                print("[exportScene] Created Exports folder at: \(exportsURL.path)")
+            }
+        } catch {
+            errorMessage = "Failed to create Exports folder: \(error.localizedDescription)"
+            showError = true
+            return nil
+        }
+        
+        let destinationURL = exportsURL.appendingPathComponent(finalName)
+        
+        // Export options
         var options: [String: Any]? = nil
         if format == "usdz" {
             options = ["SCNSceneExportOptionCompress": true]
@@ -243,10 +259,13 @@ final class SceneViewModel: ObservableObject {
         )
         
         if success {
-            print("[exportScene] ✅ Successfully exported to: \(destinationURL.path)")
+            print("✅ EXPORT SUCCESSFUL")
+            print("   File: \(finalName)")
+            print("   Location: \(destinationURL.path)")
+            print("   (Look in Files → On My iPad → Your Playground → Exports)")
             return destinationURL
         } else {
-            errorMessage = "Export failed for \(exportName). Make sure the file extension is .usdz or .scn."
+            errorMessage = "Export failed for \(finalName)."
             showError = true
             return nil
         }
