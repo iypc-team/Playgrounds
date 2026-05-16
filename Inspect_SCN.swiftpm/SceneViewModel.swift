@@ -1,5 +1,5 @@
-//    SceneViewModel.swift
-//  
+// SceneViewModel.swift
+// 
 
 import SwiftUI
 import SceneKit
@@ -14,9 +14,9 @@ final class SceneViewModel: ObservableObject {
     
     init() {
         self.scene = SCNScene()
-        self.sceneModel = SceneModel()           // Fixed: No argument
+        self.sceneModel = SceneModel()
         setupEmptyScene()
-        sceneModel.setScene(self.scene)          // Explicitly set the scene
+        sceneModel.setScene(self.scene)
     }
     
     // MARK: - Scene Loading
@@ -32,10 +32,10 @@ final class SceneViewModel: ObservableObject {
         }
         
         self.scene = loadedScene
-        self.sceneModel = SceneModel()           // Fixed: No argument
-        sceneModel.setScene(loadedScene)         // Use setter instead
+        self.sceneModel = SceneModel()
+        sceneModel.setScene(loadedScene)
         
-        print("[loadSceneNamed] Loaded '\(fileName)' from bundle root")
+        print("[loadScene] ✅ Loaded '\(fileName)' from bundle")
         
         setupScene()
         frameCameraToContent()
@@ -44,15 +44,13 @@ final class SceneViewModel: ObservableObject {
     }
     
     private func loadSceneNamed(_ fileName: String) -> SCNScene? {
-        if let scene = SCNScene(named: fileName) {
-            return scene
-        }
-        if let scene = SCNScene(named: "Resources/\(fileName)") {
-            return scene
-        }
+        if let scene = SCNScene(named: fileName) { return scene }
+        if let scene = SCNScene(named: "Resources/\(fileName)") { return scene }
         
-        if let url = Bundle.main.url(forResource: fileName.replacingOccurrences(of: ".scn", with: ""),
-                                     withExtension: "scn") {
+        if let url = Bundle.main.url(
+            forResource: fileName.replacingOccurrences(of: ".scn", with: ""),
+            withExtension: "scn"
+        ) {
             do {
                 return try SCNScene(url: url, options: nil)
             } catch {
@@ -82,11 +80,9 @@ final class SceneViewModel: ObservableObject {
     }
     
     private func setupScene() {
-        // Clean previous app-controlled nodes
         scene.rootNode.childNode(withName: "appCamera", recursively: true)?.removeFromParentNode()
         scene.rootNode.childNode(withName: "appDirectionalLight", recursively: true)?.removeFromParentNode()
         
-        // Force load any reference nodes
         scene.rootNode.enumerateChildNodes { node, _ in
             if let refNode = node as? SCNReferenceNode, !refNode.isLoaded {
                 refNode.load()
@@ -94,7 +90,6 @@ final class SceneViewModel: ObservableObject {
             }
         }
         
-        // App Camera
         let cameraNode = SCNNode()
         cameraNode.name = "appCamera"
         cameraNode.camera = SCNCamera()
@@ -102,7 +97,6 @@ final class SceneViewModel: ObservableObject {
         cameraNode.camera?.zFar = 1000
         scene.rootNode.addChildNode(cameraNode)
         
-        // Strong directional light
         let directionalLight = SCNLight()
         directionalLight.type = .directional
         directionalLight.intensity = 1800
@@ -123,11 +117,8 @@ final class SceneViewModel: ObservableObject {
         print("[frameCameraToContent] Root has \(root.childNodes.count) direct children")
         
         var allGeometryNodes: [SCNNode] = []
-        
         func collectGeometry(_ node: SCNNode) {
-            if node.geometry != nil {
-                allGeometryNodes.append(node)
-            }
+            if node.geometry != nil { allGeometryNodes.append(node) }
             node.childNodes.forEach { collectGeometry($0) }
         }
         collectGeometry(root)
@@ -156,12 +147,11 @@ final class SceneViewModel: ObservableObject {
             hasValidContent = true
         }
         
-        if !hasValidContent {
+        guard hasValidContent else {
             print("[frameCameraToContent] ⚠️ No valid geometry found — keeping default camera.")
             return
         }
         
-        // Center point
         let center = SCNVector3(
             (minVec.x + maxVec.x) * 0.5,
             (minVec.y + maxVec.y) * 0.5,
@@ -179,30 +169,25 @@ final class SceneViewModel: ObservableObject {
             return
         }
         
-        // Position camera
         cameraNode.position = SCNVector3(
             center.x,
             center.y + radius * 0.7,
             center.z + radius * 1.4
         )
-        
-        // === SAFE LOOK-AT FOR iOS 16.6 ===
         cameraNode.look(at: center)
+        cameraNode.camera?.fieldOfView = 50
         
-        if let camera = cameraNode.camera {
-            camera.fieldOfView = 50
-        }
-        
-        print("[frameCameraToContent] ✅ Successfully framed content. Center: \(center), Radius: \(radius)")
+        print("[frameCameraToContent] ✅ Framed content. Center: \(center), Radius: \(radius)")
     }
     
-    // MARK: - Export (USDZ + SCN)
+    // MARK: - Export
     
-    /// Exports the current (modified) scene to USDZ (recommended) or SCN format.
-    /// Saves into a user-friendly "Exports" folder with clean naming.
+    /// Exports the current scene to the Documents/Exports/ folder.
+    /// All path resolution and directory creation is handled by FileManagerService.
     /// - Parameters:
-    ///   - baseName: Base filename without extension
-    ///   - format: "usdz" (default, modern) or "scn"
+    ///   - baseName: Source file name (any extension stripped automatically)
+    ///   - format: "usdz" (default) or "scn"
+    /// - Returns: The destination URL on success, nil on failure
     func exportScene(as baseName: String, format: String = "usdz") -> URL? {
         guard !scene.rootNode.childNodes.isEmpty else {
             errorMessage = "Scene is empty — nothing to export."
@@ -210,68 +195,47 @@ final class SceneViewModel: ObservableObject {
             return nil
         }
         
-        let cleanName = baseName.replacingOccurrences(of: ".scn", with: "")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        let finalName = "\(cleanName)_export.\(format)"
-        
-        let fileManager = FileManager.default
-        
-        // Get Documents directory
-        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            errorMessage = "Could not access Documents directory."
-            showError = true
-            return nil
-        }
-        
-        // Create Exports subfolder (user-friendly)
-        let exportsURL = documentsURL.appendingPathComponent("Exports", isDirectory: true)
-        
+        // Delegate all path logic to FileManagerService
+        let destinationURL: URL
         do {
-            if !fileManager.fileExists(atPath: exportsURL.path) {
-                try fileManager.createDirectory(at: exportsURL, withIntermediateDirectories: true)
-                print("[exportScene] Created Exports folder at: \(exportsURL.path)")
-            }
+            destinationURL = try FileManagerService.shared.exportDestinationURL(
+                for: baseName,
+                format: format
+            )
         } catch {
-            errorMessage = "Failed to create Exports folder: \(error.localizedDescription)"
+            errorMessage = error.localizedDescription
             showError = true
             return nil
         }
         
-        let destinationURL = exportsURL.appendingPathComponent(finalName)
-        
-        // Export options
-        var options: [String: Any]? = nil
-        if format == "usdz" {
-            options = ["SCNSceneExportOptionCompress": true]
-        }
-        
+        // SceneKit infers compression from the .usdz extension automatically
         let success = scene.write(
             to: destinationURL,
-            options: options,
+            options: nil,
             delegate: nil,
-            progressHandler: { progress, error, stop in
-                print("Export progress: \(Int(progress * 100))%")
+            progressHandler: { progress, error, _ in
+                print("[exportScene] Progress: \(Int(progress * 100))%")
                 if let error = error {
-                    print("Export error: \(error.localizedDescription)")
+                    print("[exportScene] Error: \(error.localizedDescription)")
                 }
             }
         )
         
         if success {
             print("✅ EXPORT SUCCESSFUL")
-            print("   File: \(finalName)")
-            print("   Location: \(destinationURL.path)")
-            print("   (Look in Files → On My iPad → Your Playground → Exports)")
+            print("   File: \(destinationURL.lastPathComponent)")
+            print("   Path: \(destinationURL.path)")
+            print("   (Files → On My iPad → Your Playground → Exports)")
             return destinationURL
         } else {
-            errorMessage = "Export failed for \(finalName)."
+            errorMessage = "Export failed for \(destinationURL.lastPathComponent)."
             showError = true
             return nil
         }
     }
     
-    // MARK: - Debug Helper
+    // MARK: - Debug
+    
     func debugSceneHierarchy() {
         print("\n=== SCENE HIERARCHY DEBUG ===")
         scene.rootNode.enumerateChildNodes { node, _ in

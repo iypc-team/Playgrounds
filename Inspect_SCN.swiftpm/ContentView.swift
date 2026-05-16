@@ -1,4 +1,4 @@
-//  Inspect_SCN  05/16/2026-1
+//  Inspect_SCN  05/16/2026-2
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -9,7 +9,7 @@ struct ContentView: View {
     @StateObject var viewModel = SceneViewModel()
     
     @State private var resourceFiles: [String] = []
-    @State private var selectedFile = "smooth_ship.scn"
+    @State private var selectedFile = "smooth_ship1.scn"
     
     @State private var inspectionResults: String = ""
     @State private var showInspection: Bool = false
