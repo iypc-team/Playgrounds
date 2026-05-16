@@ -1,4 +1,4 @@
-//  Inspect_SCN 05/14/2026-2
+//  Inspect_SCN  05/16/2026-1
 //  ContentView.swift
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
 
@@ -73,11 +73,17 @@ struct ContentView: View {
         // ✅ .onAppear and .onChange are intentionally on the ZStack
         .onAppear {
             loadResourceFiles()
-            let fileToLoad = resourceFiles.contains(selectedFile) ? selectedFile : (resourceFiles.first ?? selectedFile)
+            
+            let fileToLoad = resourceFiles.contains(selectedFile) 
+            ? selectedFile 
+            : (resourceFiles.first ?? selectedFile)
+            
             if fileToLoad != selectedFile {
                 selectedFile = fileToLoad
             }
-            viewModel.loadScene(for: fileToLoad)
+            
+            // Fixed: Use the return value to suppress the warning
+            let _ = viewModel.loadScene(for: fileToLoad)
         }
         .onChange(of: selectedFile) { newValue in
             resetInspectionState()
@@ -107,7 +113,6 @@ struct ContentView: View {
     }
     
     // MARK: - Results Overlays
-    
     @ViewBuilder
     private var resultsOverlays: some View {
         if showInspection && !inspectionResults.isEmpty {
@@ -153,7 +158,6 @@ struct ContentView: View {
     }
     
     // MARK: - Resource Discovery
-    
     private func loadResourceFiles() {
         print("\n[loadResourceFiles]")
         var found = Set<String>(fallbackSceneFiles)
@@ -196,7 +200,6 @@ struct ContentView: View {
     }
     
     // MARK: - Actions
-    
     private func resetInspectionState() {
         inspectionResults = ""
         showInspection = false
