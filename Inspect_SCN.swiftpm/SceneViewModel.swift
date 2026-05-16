@@ -1,5 +1,7 @@
 // SceneViewModel.swift
 // 
+//  Inspect_SCN  05/16/2026
+//  SceneViewModel.swift
 
 import SwiftUI
 import SceneKit
@@ -12,6 +14,22 @@ final class SceneViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
+    // Shared across all screens
+    @Published var selectedFile: String = "smooth_ship1.scn"
+    @Published var resourceFiles: [String] = []
+    @Published var sceneRevision: Int = 0
+    
+    private let fallbackSceneFiles: [String] = [
+        "Y-Up-fighter.scn",
+        "fighter.scn",
+        "fighterPBR.scn",
+        "newFighter.scn",
+        "pyramid.scn",
+        "smooth_ship1.scn",
+        "smooth_ship.scn",
+        "sphere.scn"
+    ]
+    
     init() {
         self.scene = SCNScene()
         self.sceneModel = SceneModel()
@@ -19,43 +37,75 @@ final class SceneViewModel: ObservableObject {
         sceneModel.setScene(self.scene)
     }
     
+    // MARK: - Resource Discovery
+    
+    func loadResourceFiles() {
+        var found = Set<String>(fallbackSceneFiles)
+        
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: nil) {
+            urls.forEach { found.insert($0.lastPathComponent) }
+        }
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "scn", subdirectory: "Resources") {
+            urls.forEach { found.insert($0.lastPathComponent) }
+        }
+        if let bundleURL = Bundle.main.resourceURL {
+            FileManager.default
+                .enumerator(at: bundleURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)?
+                .compactMap { $0 as? URL }
+                .filter { $0.pathExtension.lowercased() == "scn" }
+                .forEach { found.insert($0.lastPathComponent) }
+        }
+        if let rp = Bundle.main.resourcePath {
+            let fm = FileManager.default
+            (try? fm.contentsOfDirectory(atPath: rp))?
+                .filter { $0.lowercased().hasSuffix(".scn") }
+                .forEach { found.insert($0) }
+            let sub = (rp as NSString).appendingPathComponent("Resources")
+            if fm.fileExists(atPath: sub) {
+                (try? fm.contentsOfDirectory(atPath: sub))?
+                    .filter { $0.lowercased().hasSuffix(".scn") }
+                    .forEach { found.insert($0) }
+            }
+        }
+        
+        resourceFiles = found.sorted()
+        print("[loadResourceFiles] Found: \(resourceFiles)")
+        
+        if !resourceFiles.contains(selectedFile), let first = resourceFiles.first {
+            selectedFile = first
+        }
+    }
+    
     // MARK: - Scene Loading
     
+    @discardableResult
     func loadScene(for fileName: String) -> Bool {
-        print("[loadScene] Attempting to load '\(fileName)'")
+        print("[loadScene] Loading '\(fileName)'")
         
-        guard let loadedScene = loadSceneNamed(fileName) else {
-            print("[loadScene] ❌ Failed to load scene: \(fileName)")
+        guard let loaded = loadSceneNamed(fileName) else {
             errorMessage = "Could not load scene: \(fileName)"
             showError = true
             return false
         }
         
-        self.scene = loadedScene
-        self.sceneModel = SceneModel()
-        sceneModel.setScene(loadedScene)
-        
-        print("[loadScene] ✅ Loaded '\(fileName)' from bundle")
-        
+        scene = loaded
+        sceneModel = SceneModel()
+        sceneModel.setScene(loaded)
+        sceneRevision += 1
         setupScene()
         frameCameraToContent()
-        
+        print("[loadScene] ✅ '\(fileName)' loaded")
         return true
     }
     
     private func loadSceneNamed(_ fileName: String) -> SCNScene? {
-        if let scene = SCNScene(named: fileName) { return scene }
-        if let scene = SCNScene(named: "Resources/\(fileName)") { return scene }
-        
+        if let s = SCNScene(named: fileName) { return s }
+        if let s = SCNScene(named: "Resources/\(fileName)") { return s }
         if let url = Bundle.main.url(
             forResource: fileName.replacingOccurrences(of: ".scn", with: ""),
             withExtension: "scn"
         ) {
-            do {
-                return try SCNScene(url: url, options: nil)
-            } catch {
-                print("[loadSceneNamed] URL load failed: \(error.localizedDescription)")
-            }
+            return try? SCNScene(url: url, options: nil)
         }
         return nil
     }
@@ -84,110 +134,63 @@ final class SceneViewModel: ObservableObject {
         scene.rootNode.childNode(withName: "appDirectionalLight", recursively: true)?.removeFromParentNode()
         
         scene.rootNode.enumerateChildNodes { node, _ in
-            if let refNode = node as? SCNReferenceNode, !refNode.isLoaded {
-                refNode.load()
-                print("[setupScene] Forced load of SCNReferenceNode: \(node.name ?? "unnamed")")
-            }
+            if let ref = node as? SCNReferenceNode, !ref.isLoaded { ref.load() }
         }
         
-        let cameraNode = SCNNode()
-        cameraNode.name = "appCamera"
-        cameraNode.camera = SCNCamera()
-        cameraNode.camera?.zNear = 0.01
-        cameraNode.camera?.zFar = 1000
-        scene.rootNode.addChildNode(cameraNode)
+        let cam = SCNNode()
+        cam.name = "appCamera"
+        cam.camera = SCNCamera()
+        cam.camera?.zNear = 0.01
+        cam.camera?.zFar = 1000
+        scene.rootNode.addChildNode(cam)
         
-        let directionalLight = SCNLight()
-        directionalLight.type = .directional
-        directionalLight.intensity = 1800
-        directionalLight.castsShadow = true
+        let light = SCNLight()
+        light.type = .directional
+        light.intensity = 1800
+        light.castsShadow = true
         let lightNode = SCNNode()
         lightNode.name = "appDirectionalLight"
-        lightNode.light = directionalLight
+        lightNode.light = light
         lightNode.position = SCNVector3(15, 25, 20)
         scene.rootNode.addChildNode(lightNode)
-        
-        print("[setupScene] Scene configured with app camera + lights")
     }
     
     // MARK: - Camera Framing
     
     private func frameCameraToContent() {
-        let root = scene.rootNode
-        print("[frameCameraToContent] Root has \(root.childNodes.count) direct children")
-        
-        var allGeometryNodes: [SCNNode] = []
-        func collectGeometry(_ node: SCNNode) {
-            if node.geometry != nil { allGeometryNodes.append(node) }
-            node.childNodes.forEach { collectGeometry($0) }
+        var geoNodes: [SCNNode] = []
+        func collect(_ node: SCNNode) {
+            if node.geometry != nil { geoNodes.append(node) }
+            node.childNodes.forEach { collect($0) }
         }
-        collectGeometry(root)
+        collect(scene.rootNode)
         
-        print("[frameCameraToContent] Found \(allGeometryNodes.count) nodes with geometry")
+        var minV = SCNVector3(Float.infinity, Float.infinity, Float.infinity)
+        var maxV = SCNVector3(-Float.infinity, -Float.infinity, -Float.infinity)
+        var hasContent = false
         
-        var minVec = SCNVector3(Float.infinity, Float.infinity, Float.infinity)
-        var maxVec = SCNVector3(-Float.infinity, -Float.infinity, -Float.infinity)
-        var hasValidContent = false
-        
-        for node in allGeometryNodes {
+        for node in geoNodes {
             let box = node.boundingBox
             guard box.min.x < box.max.x else { continue }
-            
-            let worldMin = node.convertPosition(box.min, to: nil)
-            let worldMax = node.convertPosition(box.max, to: nil)
-            
-            minVec.x = min(minVec.x, worldMin.x)
-            minVec.y = min(minVec.y, worldMin.y)
-            minVec.z = min(minVec.z, worldMin.z)
-            
-            maxVec.x = max(maxVec.x, worldMax.x)
-            maxVec.y = max(maxVec.y, worldMax.y)
-            maxVec.z = max(maxVec.z, worldMax.z)
-            
-            hasValidContent = true
+            let wMin = node.convertPosition(box.min, to: nil)
+            let wMax = node.convertPosition(box.max, to: nil)
+            minV.x = min(minV.x, wMin.x); minV.y = min(minV.y, wMin.y); minV.z = min(minV.z, wMin.z)
+            maxV.x = max(maxV.x, wMax.x); maxV.y = max(maxV.y, wMax.y); maxV.z = max(maxV.z, wMax.z)
+            hasContent = true
         }
         
-        guard hasValidContent else {
-            print("[frameCameraToContent] ⚠️ No valid geometry found — keeping default camera.")
-            return
-        }
+        guard hasContent,
+              let camNode = scene.rootNode.childNode(withName: "appCamera", recursively: true) else { return }
         
-        let center = SCNVector3(
-            (minVec.x + maxVec.x) * 0.5,
-            (minVec.y + maxVec.y) * 0.5,
-            (minVec.z + maxVec.z) * 0.5
-        )
-        
-        let extentX = maxVec.x - minVec.x
-        let extentY = maxVec.y - minVec.y
-        let extentZ = maxVec.z - minVec.z
-        let maxExtent = max(max(extentX, extentY), extentZ)
-        let radius = maxExtent * 0.6 + 3.0
-        
-        guard let cameraNode = root.childNode(withName: "appCamera", recursively: true) else {
-            print("[frameCameraToContent] ❌ App camera not found")
-            return
-        }
-        
-        cameraNode.position = SCNVector3(
-            center.x,
-            center.y + radius * 0.7,
-            center.z + radius * 1.4
-        )
-        cameraNode.look(at: center)
-        cameraNode.camera?.fieldOfView = 50
-        
-        print("[frameCameraToContent] ✅ Framed content. Center: \(center), Radius: \(radius)")
+        let center = SCNVector3((minV.x + maxV.x) * 0.5, (minV.y + maxV.y) * 0.5, (minV.z + maxV.z) * 0.5)
+        let radius = max(max(maxV.x - minV.x, maxV.y - minV.y), maxV.z - minV.z) * 0.6 + 3.0
+        camNode.position = SCNVector3(center.x, center.y + radius * 0.7, center.z + radius * 1.4)
+        camNode.look(at: center)
+        camNode.camera?.fieldOfView = 50
     }
     
     // MARK: - Export
     
-    /// Exports the current scene to the Documents/Exports/ folder.
-    /// All path resolution and directory creation is handled by FileManagerService.
-    /// - Parameters:
-    ///   - baseName: Source file name (any extension stripped automatically)
-    ///   - format: "usdz" (default) or "scn"
-    /// - Returns: The destination URL on success, nil on failure
     func exportScene(as baseName: String, format: String = "usdz") -> URL? {
         guard !scene.rootNode.childNodes.isEmpty else {
             errorMessage = "Scene is empty — nothing to export."
@@ -195,53 +198,35 @@ final class SceneViewModel: ObservableObject {
             return nil
         }
         
-        // Delegate all path logic to FileManagerService
-        let destinationURL: URL
+        let dest: URL
         do {
-            destinationURL = try FileManagerService.shared.exportDestinationURL(
-                for: baseName,
-                format: format
-            )
+            dest = try FileManagerService.shared.exportDestinationURL(for: baseName, format: format)
         } catch {
             errorMessage = error.localizedDescription
             showError = true
             return nil
         }
         
-        // SceneKit infers compression from the .usdz extension automatically
-        let success = scene.write(
-            to: destinationURL,
-            options: nil,
-            delegate: nil,
-            progressHandler: { progress, error, _ in
-                print("[exportScene] Progress: \(Int(progress * 100))%")
-                if let error = error {
-                    print("[exportScene] Error: \(error.localizedDescription)")
-                }
-            }
-        )
+        let ok = scene.write(to: dest, options: nil, delegate: nil) { p, e, _ in
+            print("[export] \(Int(p * 100))%")
+            if let e = e { print("[export] Error: \(e.localizedDescription)") }
+        }
         
-        if success {
-            print("✅ EXPORT SUCCESSFUL")
-            print("   File: \(destinationURL.lastPathComponent)")
-            print("   Path: \(destinationURL.path)")
-            print("   (Files → On My iPad → Your Playground → Exports)")
-            return destinationURL
-        } else {
-            errorMessage = "Export failed for \(destinationURL.lastPathComponent)."
+        guard ok else {
+            errorMessage = "Export failed for \(dest.lastPathComponent)."
             showError = true
             return nil
         }
+        
+        print("✅ Exported: \(dest.path)")
+        return dest
     }
     
     // MARK: - Debug
     
     func debugSceneHierarchy() {
-        print("\n=== SCENE HIERARCHY DEBUG ===")
         scene.rootNode.enumerateChildNodes { node, _ in
-            let name = node.name ?? "<unnamed>"
-            let hasGeo = node.geometry != nil ? "YES" : "no"
-            print("• \(name) | Geometry: \(hasGeo) | Children: \(node.childNodes.count)")
+            print("• \(node.name ?? "<unnamed>") | geo: \(node.geometry != nil) | children: \(node.childNodes.count)")
         }
     }
 }
