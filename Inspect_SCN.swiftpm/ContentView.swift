@@ -1,8 +1,14 @@
-//  Inspect_SCN  05/16/2026-3
-//  ContentView.swift
+//  Inspect_SCN  05/17/2026-1
+//  ContentView.swift — Opening Screen
 //  Repo: https://github.com/iypc-team/Playgrounds/tree/main/Inspect_SCN.swiftpm
+//  
 
 import SwiftUI
+
+// Shared darkGray used across the app
+extension Color {
+    static let appBackground = Color(UIColor.darkGray)
+}
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: SceneViewModel
@@ -10,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.ignoresSafeArea()
+                Color.appBackground.ignoresSafeArea()
                 
                 VStack(spacing: 48) {
                     
@@ -81,9 +87,11 @@ struct ContentView: View {
             }
             .navigationBarHidden(true)
         }
+        // ✅ .onAppear is intentionally on the NavigationStack
         .onAppear {
             viewModel.loadResourceFiles()
-            viewModel.loadScene(for: viewModel.selectedFile)
+            // Fixed: Use the return value to suppress the warning
+            let _ = viewModel.loadScene(for: viewModel.selectedFile)
         }
     }
     
@@ -107,31 +115,6 @@ struct ContentView: View {
             .cornerRadius(12)
             .frame(maxWidth: 320)
         }
-    }
-}
-
-//  Inspect_SCN  05/16/2026
-//  View+CornerRadius.swift
-
-import SwiftUI
-
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-}
-
-struct RoundedCorner: Shape {
-    var radius: CGFloat
-    var corners: UIRectCorner
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }
 

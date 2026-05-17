@@ -44,7 +44,7 @@ struct EditMaterialsView: View {
             }
             .padding()
             .background(.ultraThinMaterial)
-            .cornerRadius(20, corners: [.topLeft, .topRight])
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
         .navigationTitle("Edit Materials")
         .navigationBarTitleDisplayMode(.inline)
@@ -102,4 +102,3 @@ struct EditMaterialsView_Previews: PreviewProvider {
         }
     }
 }
-

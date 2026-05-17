@@ -46,12 +46,12 @@ struct EditGeometryView: View {
             }
             .padding()
             .background(.ultraThinMaterial)
-            .cornerRadius(20, corners: [.topLeft, .topRight])
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
         .navigationTitle("Edit Geometry")
         .navigationBarTitleDisplayMode(.inline)
+        // Remove bounding box when leaving screen
         .onDisappear {
-            // Remove bounding box when leaving screen
             removeBoundingBox()
         }
     }
@@ -126,4 +126,3 @@ struct EditGeometryView_Previews: PreviewProvider {
         }
     }
 }
-

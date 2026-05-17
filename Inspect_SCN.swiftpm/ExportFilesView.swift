@@ -78,11 +78,13 @@ struct ExportFilesView: View {
             }
             .padding()
             .background(.ultraThinMaterial)
-            .cornerRadius(20, corners: [.topLeft, .topRight])
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
         .navigationTitle("Export Files")
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    // MARK: - Export
     
     private func performExport() {
         showSuccess = false
@@ -100,4 +102,3 @@ struct ExportFilesView_Previews: PreviewProvider {
         }
     }
 }
-

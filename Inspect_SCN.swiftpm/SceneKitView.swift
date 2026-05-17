@@ -3,6 +3,9 @@
 import SwiftUI
 import SceneKit
 
+// Matches Color(UIColor.darkGray) used in ContentView
+private let sceneBackground = UIColor.darkGray
+
 struct SceneKitView: UIViewRepresentable {
     var scene: SCNScene
     var sceneModel: SceneModel
@@ -12,7 +15,8 @@ struct SceneKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
         scnView.scene = scene
-        scnView.scene?.background.contents = UIColor.black
+        scnView.scene?.background.contents = sceneBackground
+        scnView.backgroundColor = sceneBackground
         scnView.allowsCameraControl = true
         scnView.autoenablesDefaultLighting = true
         scnView.antialiasingMode = sceneModel.antialiasingMode
@@ -23,7 +27,8 @@ struct SceneKitView: UIViewRepresentable {
     
     func updateUIView(_ uiView: SCNView, context: Context) {
         uiView.scene = scene
-        uiView.scene?.background.contents = UIColor.black
+        uiView.scene?.background.contents = sceneBackground
+        uiView.backgroundColor = sceneBackground
         uiView.antialiasingMode = sceneModel.antialiasingMode
         applyCamera(to: uiView)
         configureSceneLights(in: uiView)
