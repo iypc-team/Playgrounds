@@ -8,7 +8,7 @@ class SceneModel: ObservableObject {
     var sceneName: String = "newFighter.scn"
     var enenyName: String = "smooth_ship.scn"
     
-    var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 25, z: 60)
+    var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 60)
     
     // New properties for fighter node configuration
     var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)

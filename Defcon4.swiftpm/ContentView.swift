@@ -1,6 +1,7 @@
-// Defcon4 02/13/2026-1
+// Defcon4 05/18/2026-1
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm
+// 
 
 import SwiftUI
 import SceneKit
@@ -10,11 +11,10 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            SceneKitView(scene: viewModel.scene, sceneModel: viewModel.sceneModel)
+            SceneKitView(scene: viewModel.scene)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .accessibilityLabel("3D Fighter Scene")
             
-            // Button overlay for controlling fighter (node) rotation
             VStack {
                 Spacer()
                 Button(action: {
@@ -24,13 +24,13 @@ struct ContentView: View {
                         viewModel.startFighterRotation()
                     }
                 }) {
-                    Text(viewModel.isFighterRotating ? "Stop Rotation" : "Start Rotation")
+                    Text(viewModel.isFighterRotating ? "Stop Fighter Rotation" : "Start Fighter Rotation")
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue.opacity(0.7))
+                        .background(Color.blue.opacity(0.8))
                         .cornerRadius(8)
                 }
-                .padding(.bottom, 50)  // Adjust padding as needed
+                .padding(.bottom, 50)
             }
         }
     }
