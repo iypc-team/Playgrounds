@@ -17,7 +17,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     private var rotationAction: SCNAction?
     private var fighterRotationAction: SCNAction?
     
-    // MARK: - Physics Categories (Shared across files)
+    // MARK: - Physics Categories
     struct PhysicsCategory {
         static let radar:   Int = 1 << 0
         static let fighter: Int = 1 << 1
@@ -33,7 +33,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     }
     
     private func loadAndSetupScene() {
-        // Load main scene
         if let loadedScene = SCNScene(named: sceneModel.sceneName) {
             self.scene = loadedScene
         } else {
@@ -42,17 +41,22 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         
         setupFighterNode()
         setupRadarNode()
-        setupRedTargetSphere()      // ← Added
+        setupRedTargetSphere()
         setupLights()
         setupCamera()
         
-        // Set physics delegate
         scene.physicsWorld.contactDelegate = self
     }
     
     private func setupFighterNode() {
         guard let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
-            print("⚠️ Fighter node not found")
+            print("⚠️ Fighter node not found in scene")
+            // Fallback names
+            if let alt = scene.rootNode.childNode(withName: "Fighter", recursively: true) ??
+                scene.rootNode.childNode(withName: "ship", recursively: true) {
+                self.fighterNode = alt
+                print("✅ Found fighter using alternative name")
+            }
             return
         }
         
@@ -63,13 +67,14 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         fighter.physicsBody?.contactTestBitMask = PhysicsCategory.radar | PhysicsCategory.target
         
         self.fighterNode = fighter
+        print("✅ Fighter node successfully set up: \(fighter)")
     }
     
     private func setupRadarNode() {
         guard let fighter = fighterNode else { return }
         
         let radar = SCNNode()
-        radar.geometry = SCNCone(topRadius: 0.2, bottomRadius: 10.0, height: 1024)
+        radar.geometry = SCNCone(topRadius: 0.2, bottomRadius: 12.0, height: 1024)
         
         if let material = radar.geometry?.firstMaterial {
             material.diffuse.contents = UIColor.white
@@ -99,7 +104,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     }
     
     private func setupLights() {
-        // Ambient light
         let ambient = SCNNode()
         ambient.light = SCNLight()
         ambient.light?.type = .ambient
@@ -109,7 +113,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         
         guard let fighter = fighterNode else { return }
         
-        // Cabin light
         let cabinLight = SCNNode()
         cabinLight.light = SCNLight()
         cabinLight.position = SCNVector3(0, -3.5, 5.0)
@@ -118,7 +121,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         cabinLight.light?.intensity = sceneModel.cabinLightIntensity
         fighter.addChildNode(cabinLight)
         
-        // Engine light
         let engineLight = SCNNode()
         engineLight.light = SCNLight()
         engineLight.position = SCNVector3(0, 0, 0)
@@ -135,9 +137,11 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         scene.rootNode.addChildNode(cameraNode)
     }
     
-    // MARK: - Rotation Methods (Add your existing implementations here)
+    // MARK: - Rotation Methods
+    
     func startRotation() {
         guard let radar = radarNode, let action = rotationAction else { return }
+        radar.removeAllActions()
         radar.runAction(action)
         isRotating = true
     }
@@ -148,24 +152,33 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     }
     
     func startFighterRotation() {
-        // Add your fighter rotation logic here
+        guard let fighter = fighterNode, !isFighterRotating else { return }
+        
+        fighter.removeAllActions()
+        
+        // Z-axis rotation (roll / barrel roll)
+        let rotation = SCNAction.rotateBy(x: 0, y: 0, z: .pi * 2, duration: 15.0)
+        let repeatAction = SCNAction.repeatForever(rotation)
+        
+        fighter.runAction(repeatAction)
+        fighterRotationAction = repeatAction
         isFighterRotating = true
+        
+        print("✅ Fighter rotation started around Z-axis (15s per revolution)")
     }
     
     func stopFighterRotation() {
         fighterNode?.removeAllActions()
         isFighterRotating = false
+        print("🛑 Fighter rotation stopped")
     }
     
     // MARK: - SCNPhysicsContactDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        // Red sphere contact with radar
         if (contact.nodeA.name == "RedTargetSphere" || contact.nodeB.name == "RedTargetSphere") &&
             (contact.nodeA == radarNode || contact.nodeB == radarNode) {
             print("🔴 Radar contacted Red Target Sphere!")
         }
-        
-        // Add other contact logic as needed
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {}
