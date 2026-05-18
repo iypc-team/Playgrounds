@@ -7,7 +7,7 @@ class RedTargetSphere {
     
     static func create() -> SCNNode {
         // Geometry
-        let sphere = SCNSphere(radius: 2.0)
+        let sphere = SCNSphere(radius: 5.0)
         
         // Material (Red)
         let material = SCNMaterial()
@@ -18,7 +18,7 @@ class RedTargetSphere {
         
         // Node
         let node = SCNNode(geometry: sphere)
-        node.position = SCNVector3(0, 10, 0)
+        node.position = SCNVector3(0, 30, 0)
         node.name = "RedTargetSphere"
         
         // Kinematic Physics Body

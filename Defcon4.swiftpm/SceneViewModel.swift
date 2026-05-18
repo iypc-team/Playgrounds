@@ -160,7 +160,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     // MARK: - SCNPhysicsContactDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         // Red sphere contact with radar
-        if (contact.nodeA?.name == "RedTargetSphere" || contact.nodeB?.name == "RedTargetSphere") &&
+        if (contact.nodeA.name == "RedTargetSphere" || contact.nodeB.name == "RedTargetSphere") &&
             (contact.nodeA == radarNode || contact.nodeB == radarNode) {
             print("🔴 Radar contacted Red Target Sphere!")
         }
