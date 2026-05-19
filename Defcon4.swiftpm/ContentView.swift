@@ -1,7 +1,7 @@
-// Defcon4 05/18/2026-4
+// Defcon4 05/19/2026-1
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm
-// 'fighterNode' does not rotate when 'Start Fighter Rotation' is pressed.
+// 
 
 import SwiftUI
 import SceneKit
