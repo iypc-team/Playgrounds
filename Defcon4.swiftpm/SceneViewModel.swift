@@ -1,5 +1,5 @@
 // SceneViewModel.swift
-// 
+// SceneViewModel.swift
 
 import SwiftUI
 import SceneKit
@@ -15,7 +15,10 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     
     private var radarNode: SCNNode?
     private var rotationAction: SCNAction?
-    private var fighterRotationAction: SCNAction?
+    
+    // MARK: - Motion
+    private let motionManager = MotionManager()
+    private var motionTask: Task<Void, Never>?
     
     // MARK: - Physics Categories
     struct PhysicsCategory {
@@ -51,7 +54,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     private func setupFighterNode() {
         guard let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
             print("⚠️ Fighter node not found in scene")
-            // Fallback names
             if let alt = scene.rootNode.childNode(withName: "Fighter", recursively: true) ??
                 scene.rootNode.childNode(withName: "ship", recursively: true) {
                 self.fighterNode = alt
@@ -137,7 +139,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         scene.rootNode.addChildNode(cameraNode)
     }
     
-    // MARK: - Rotation Methods
+    // MARK: - Radar Rotation Methods
     
     func startRotation() {
         guard let radar = radarNode, let action = rotationAction else { return }
@@ -151,26 +153,50 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         isRotating = false
     }
     
+    // MARK: - Fighter Motion Control
+    
+    /// Starts streaming device attitude from MotionManager and applies
+    /// the quaternion directly to fighterNode's orientation each frame.
     func startFighterRotation() {
-        guard let fighter = fighterNode, !isFighterRotating else { return }
-        
-        fighter.removeAllActions()
-        
-        // Z-axis rotation (roll / barrel roll)
-        let rotation = SCNAction.rotateBy(x: 0, y: 0, z: .pi * 2, duration: 15.0)
-        let repeatAction = SCNAction.repeatForever(rotation)
-        
-        fighter.runAction(repeatAction)
-        fighterRotationAction = repeatAction
+        guard !isFighterRotating else { return }
         isFighterRotating = true
         
-        print("✅ Fighter rotation started around Z-axis (15s per revolution)")
+        motionTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let stream = await motionManager.makeAttitudeStream(
+                    updateInterval: 1.0 / 60.0
+                )
+                for try await attitude in stream {
+                    guard !Task.isCancelled else { break }
+                    let q = attitude.quaternion
+                    await MainActor.run {
+                        self.fighterNode?.orientation = SCNQuaternion(
+                            x: Float(q.x),
+                            y: Float(q.y),
+                            z: Float(q.z),
+                            w: Float(q.w)
+                        )
+                    }
+                }
+            } catch MotionError.unavailable {
+                print("⚠️ Device motion unavailable on this device.")
+                await MainActor.run { self.isFighterRotating = false }
+            } catch {
+                print("⚠️ Motion stream error: \(error)")
+                await MainActor.run { self.isFighterRotating = false }
+            }
+        }
+        
+        print("✅ Fighter motion control started (device attitude → orientation)")
     }
     
     func stopFighterRotation() {
-        fighterNode?.removeAllActions()
+        motionTask?.cancel()
+        motionTask = nil
+        Task { await motionManager.stopUpdates() }
         isFighterRotating = false
-        print("🛑 Fighter rotation stopped")
+        print("🛑 Fighter motion control stopped")
     }
     
     // MARK: - SCNPhysicsContactDelegate
