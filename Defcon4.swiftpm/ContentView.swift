@@ -1,22 +1,34 @@
-// Defcon4 05/19/2026-3
+// Defcon4 05/20/2026-1
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm
-//
+// 
+
+
 
 import SwiftUI
 import SceneKit
 
 struct ContentView: View {
-    @StateObject var viewModel = SceneViewModel()
+    @StateObject private var viewModel = SceneViewModel()
     
     var body: some View {
         ZStack {
-            SceneKitView(scene: viewModel.scene)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .accessibilityLabel("3D Fighter Scene")
+            // Universe - First layer (true backdrop)
+            if let universe = viewModel.universeScene {
+                SceneKitView(scene: universe)
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
             
+            // Main Scene - Second layer
+            SceneKitView(scene: viewModel.scene)
+                .ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            // UI Overlay
             VStack {
                 Spacer()
+                
                 Button(action: {
                     if viewModel.isFighterRotating {
                         viewModel.stopFighterRotation()
@@ -24,20 +36,16 @@ struct ContentView: View {
                         viewModel.startFighterRotation()
                     }
                 }) {
-                    Text(viewModel.isFighterRotating ? "Disable Motion Control" : "Enable Motion Control")
+                    Text(viewModel.isFighterRotating ? "Stop Motion" : "Start Motion")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue.opacity(0.8))
-                        .cornerRadius(8)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(viewModel.isFighterRotating ? Color.red.opacity(0.9) : Color.blue.opacity(0.9))
+                        .cornerRadius(12)
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 60)
             }
-        }
-        .onAppear {
-            viewModel.startFighterRotation()
-        }
-        .onDisappear {
-//            viewModel.stopFighterRotation()
         }
     }
 }

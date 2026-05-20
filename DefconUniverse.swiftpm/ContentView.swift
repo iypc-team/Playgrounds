@@ -1,6 +1,6 @@
-// DefconUniverse  05/20/2026 initial commit
+// DefconUniverse  05/20/2026-1
 // ContentView.swift
-// Repo: 
+// Repo: https://github.com/iypc-team/Playgrounds/blob/main/DefconUniverse.swiftpm
 
 import SwiftUI
 
