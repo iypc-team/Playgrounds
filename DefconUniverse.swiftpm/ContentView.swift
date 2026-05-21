@@ -1,4 +1,4 @@
-// DefconUniverse  05/21/2026-1
+// DefconUniverse  05/21/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/DefconUniverse.swiftpm
 
@@ -8,8 +8,7 @@ struct ContentView: View {
     @State private var isRotating: Bool = false
     
     var body: some View {
-        SceneKitView(isRotating: $isRotating)
-        // Argument passed to call that takes no arguments.
+        UniverseSceneView(isRotating: $isRotating)
             .ignoresSafeArea()
             .overlay(alignment: .bottom) {
                 Button {

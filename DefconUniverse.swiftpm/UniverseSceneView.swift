@@ -1,37 +1,58 @@
-// DefconUniverse  05/20/2026-1
 // UniverseSceneView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/blob/main/DefconUniverse.swiftpm
+// 
 
 import SwiftUI
 import SceneKit
 
 struct UniverseSceneView: UIViewRepresentable {
     
+    @Binding var isRotating: Bool
+    
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        scnView.backgroundColor = .black
-        scnView.allowsCameraControl = true
-        scnView.autoenablesDefaultLighting = true
-        scnView.antialiasingMode = .multisampling2X
-        
-        let scene = SCNScene()
-        
-        // Add universe background sphere
-        let universeNode = Universe.createNode()
-        scene.rootNode.addChildNode(universeNode)
-        
-        // Camera positioned at center looking outward
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.camera?.zFar = 2048 * 2
-        cameraNode.position = SCNVector3Zero
-        scene.rootNode.addChildNode(cameraNode)
-        
-        scnView.scene = scene
-        scnView.pointOfView = cameraNode
-        
+        scnView.scene                   = buildScene()
+        scnView.allowsCameraControl     = false
+        scnView.autoenablesDefaultLighting = false
+        scnView.backgroundColor         = .black
+        scnView.antialiasingMode        = .multisampling4X
         return scnView
     }
     
-    func updateUIView(_ uiView: SCNView, context: Context) {}
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        guard let cameraNode = uiView.scene?.rootNode.childNode(
+            withName: "cameraNode", recursively: false
+        ) else { return }
+        
+        cameraNode.isPaused = !isRotating
+    }
+    
+    // MARK: - Scene Construction
+    
+    private func buildScene() -> SCNScene {
+        let scene = SCNScene()
+        
+        // ── Universe background sphere ──────────────────────────────
+        let universeNode = Universe.createNode()
+        scene.rootNode.addChildNode(universeNode)
+        
+        // ── Camera ─────────────────────────────────────────────────
+        let camera = SCNCamera()
+        camera.zNear        = 1
+        camera.zFar         = Double(Universe.radius)
+        camera.fieldOfView  = 100
+        
+        let cameraNode = SCNNode()
+        cameraNode.name     = "cameraNode"
+        cameraNode.camera   = camera
+        cameraNode.position = SCNVector3Zero
+        
+        // ── Continuous z-axis rotation (~15 s per full revolution) ──
+        let rotateAction = SCNAction.repeatForever(
+            SCNAction.rotateBy(x: 0, y: 0, z: .pi * 2, duration: 15.0)
+        )
+        cameraNode.runAction(rotateAction, forKey: "zRotation")
+        
+        scene.rootNode.addChildNode(cameraNode)
+        return scene
+    }
 }
