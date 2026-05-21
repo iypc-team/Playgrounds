@@ -1,5 +1,5 @@
 // UniverseSceneView.swift
-// 
+//
 
 import SwiftUI
 import SceneKit
@@ -10,11 +10,11 @@ struct UniverseSceneView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        scnView.scene                   = buildScene()
-        scnView.allowsCameraControl     = false
+        scnView.scene                      = buildScene()
+        scnView.allowsCameraControl        = false
         scnView.autoenablesDefaultLighting = false
-        scnView.backgroundColor         = .black
-        scnView.antialiasingMode        = .multisampling4X
+        scnView.backgroundColor            = .black
+        scnView.antialiasingMode           = .multisampling4X
         return scnView
     }
     
@@ -37,9 +37,11 @@ struct UniverseSceneView: UIViewRepresentable {
         
         // ── Camera ─────────────────────────────────────────────────
         let camera = SCNCamera()
-        camera.zNear        = 1
-        camera.zFar         = Double(Universe.radius)
-        camera.fieldOfView  = 100
+        camera.zNear       = 1
+        // Add 10% buffer beyond sphere radius to prevent far-plane clipping
+        camera.zFar        = Double(Universe.radius) * 1.1
+        // Wide FOV (100°) is intentional — creates an immersive wrap-around effect
+        camera.fieldOfView = 100
         
         let cameraNode = SCNNode()
         cameraNode.name     = "cameraNode"

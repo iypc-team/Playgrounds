@@ -1,11 +1,12 @@
-// DefconUniverse  05/21/2026-2
+// DefconUniverse  05/21/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/DefconUniverse.swiftpm
 
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isRotating: Bool = false
+    // Start as true so the scene is already rotating and the button label is correct
+    @State private var isRotating: Bool = true
     
     var body: some View {
         UniverseSceneView(isRotating: $isRotating)

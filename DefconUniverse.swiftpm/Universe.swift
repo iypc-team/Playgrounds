@@ -1,5 +1,5 @@
 // Universe.swift
-// 
+//
 
 import SceneKit
 
@@ -14,12 +14,17 @@ class Universe {
         let sphere = SCNSphere(radius: radius)
         
         let material = SCNMaterial()
-        material.diffuse.contents = "Galaxy.jpg"
+        
+        // Debug guard: catch a missing Galaxy image in Assets at development time
+        // UIImage(named:) is required for images stored in Assets.xcassets
+        let galaxyImage = UIImage(named: "Galaxy")
+        assert(galaxyImage != nil, "⚠️ Galaxy image is missing from Assets.xcassets.")
+        material.diffuse.contents = galaxyImage
         
         // Sharp texture filtering — avoids blurry interpolation on the galaxy image
         material.diffuse.wrapS = .repeat
         material.diffuse.wrapT = .repeat
-        material.diffuse.mipFilter  = .nearest          // sharp mip transitions
+        material.diffuse.mipFilter           = .nearest // sharp mip transitions
         material.diffuse.minificationFilter  = .linear  // clean detail at distance
         material.diffuse.magnificationFilter = .nearest // crisp / sharp close-up pixels
         
@@ -37,8 +42,8 @@ class Universe {
         sphere.materials = [material]
         
         let node = SCNNode(geometry: sphere)
-        node.name = "Universe"
-        node.scale    = SCNVector3(1, 1, -1)    // Correct inside view
+        node.name     = "Universe"
+        node.scale    = SCNVector3(1, 1, -1) // Correct inside view
         node.position = SCNVector3Zero
         
         return node
