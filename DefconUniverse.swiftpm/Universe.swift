@@ -15,34 +15,31 @@ class Universe {
         let material = SCNMaterial()
         material.diffuse.contents = "Galaxy.jpg"
         
-        // Performance optimizations for 2048x1024 texture
+        // Sharp texture filtering — avoids blurry interpolation on the galaxy image
         material.diffuse.wrapS = .repeat
         material.diffuse.wrapT = .repeat
-        material.diffuse.mipFilter = .linear
-        material.diffuse.minificationFilter = .linear
-        material.diffuse.magnificationFilter = .linear
+        material.diffuse.mipFilter  = .nearest          // sharp mip transitions
+        material.diffuse.minificationFilter  = .linear  // clean detail at distance
+        material.diffuse.magnificationFilter = .nearest // crisp / sharp close-up pixels
         
-        // Reduce specular and emission intensity for better performance
-        material.specular.contents = UIColor.white.withAlphaComponent(0.08)
-        material.emission.contents = UIColor.white.withAlphaComponent(0.06)
+        // Full diffuse intensity — no softening
+        material.diffuse.intensity = 1.0
+        
+        // Remove specular and emission blur; keep constant lighting for performance
+        material.specular.contents = UIColor.black
+        material.emission.contents = UIColor.black
         material.lightingModel = .constant
         
         // Required for inside-sphere visibility
         material.isDoubleSided = true
         
-        // Performance tuning
-        material.diffuse.intensity = 0.98
-        material.emission.intensity = 0.95
-        
         sphere.materials = [material]
         
         let node = SCNNode(geometry: sphere)
         node.name = "Universe"
-        node.scale = SCNVector3(1, 1, -1)        // Correct inside view
+        node.scale    = SCNVector3(1, 1, -1)    // Correct inside view
         node.position = SCNVector3Zero
         
         return node
     }
 }
-
-
