@@ -1,7 +1,6 @@
-// Defcon4 05/22/2026-1
+// Defcon4 05/22/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm
-// 
 
 import SwiftUI
 import SceneKit
@@ -12,8 +11,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             // Universe - First layer (true backdrop)
-            // Value of type 'ObservedObject<SceneViewModel>.Wrapper' has no dynamic member 'universeScene' using key path from root type 'SceneViewModel'
-            if let universe = $viewModel.universeScene {
+            if let universe = viewModel.universeScene {
                 SceneKitView(scene: universe)
                     .ignoresSafeArea()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

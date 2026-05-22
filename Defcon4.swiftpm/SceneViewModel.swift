@@ -1,5 +1,4 @@
 // SceneViewModel.swift
-// SceneViewModel.swift
 
 import SwiftUI
 import SceneKit
@@ -8,6 +7,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     
     @Published var sceneModel: SceneModel
     @Published var scene: SCNScene
+    @Published var universeScene: SCNScene?
     @Published var isRotating: Bool = false
     @Published var isFighterRotating: Bool = false
     @Published var fighterNode: SCNNode?
@@ -42,6 +42,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
             print("⚠️ Failed to load scene: \(sceneModel.sceneName)")
         }
         
+        setupUniverseScene()
         setupFighterNode()
         setupRadarNode()
         setupRedTargetSphere()
@@ -49,6 +50,19 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         setupCamera()
         
         scene.physicsWorld.contactDelegate = self
+    }
+    
+    // MARK: - Universe Background Scene
+    private func setupUniverseScene() {
+        let bgScene = SCNScene()
+        bgScene.rootNode.addChildNode(Universe.createNode())
+        
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = sceneModel.cameraPosition
+        bgScene.rootNode.addChildNode(cameraNode)
+        
+        self.universeScene = bgScene
     }
     
     private func setupFighterNode() {
@@ -154,9 +168,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     }
     
     // MARK: - Fighter Motion Control
-    
-    /// Starts streaming device attitude from MotionManager and applies
-    /// the quaternion directly to fighterNode's orientation each frame.
     func startFighterRotation() {
         guard !isFighterRotating else { return }
         isFighterRotating = true
