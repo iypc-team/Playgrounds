@@ -1,13 +1,11 @@
 // UniverseSceneView.swift
-// Updated: Removed rotation, added real-time MotionManager camera orientation
-
-// UniverseSceneView.swift
-//
+// Updated: Accepts isPaused binding to pause/resume fighterNode motion updates
 
 import SwiftUI
 import SceneKit
 
 struct UniverseSceneView: UIViewRepresentable {
+    @Binding var isPaused: Bool
     
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -22,17 +20,20 @@ struct UniverseSceneView: UIViewRepresentable {
         scnView.backgroundColor            = .black
         scnView.antialiasingMode           = .multisampling4X
         
-        // Start streaming device motion into the camera node
-        if let cameraNode = scene.rootNode.childNode(
-            withName: "cameraNode", recursively: false
+        // Stream device motion into fighterNode orientation
+        if let fighterNode = scene.rootNode.childNode(
+            withName: "fighterNode", recursively: false
         ) {
-            context.coordinator.startMotionUpdates(for: cameraNode)
+            context.coordinator.startMotionUpdates(for: fighterNode)
         }
         
         return scnView
     }
     
-    func updateUIView(_ uiView: SCNView, context: Context) {}
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        // Pause or resume motion updates based on binding
+        context.coordinator.isPaused = isPaused
+    }
     
     // MARK: - Scene Construction
     
@@ -40,16 +41,6 @@ struct UniverseSceneView: UIViewRepresentable {
         let scene = SCNScene()
         
         // ── Cubemap Skybox ─────────────────────────────────────────
-        // 6 square images exported from Galaxy.jpg via equirectangular
-        // to cubemap conversion. Each face should be equal in pixel size
-        // (e.g. 1024×1024 or 2048×2048).
-        // Face naming convention:
-        //   Galaxy_px = +X (right)
-        //   Galaxy_nx = -X (left)
-        //   Galaxy_py = +Y (up)
-        //   Galaxy_ny = -Y (down)
-        //   Galaxy_pz = +Z (front)
-        //   Galaxy_nz = -Z (back)
         let faceNames = [
             "Galaxy_px", "Galaxy_nx",
             "Galaxy_py", "Galaxy_ny",
@@ -63,10 +54,20 @@ struct UniverseSceneView: UIViewRepresentable {
         scene.background.contents = faces
         scene.background.intensity = 1.0
         
+        // ── Fighter Scene ──────────────────────────────────────────
+        let fighterNode: SCNNode
+        if let fighterScene = SCNScene(named: "fighter.scn") {
+            fighterNode = fighterScene.rootNode
+        } else {
+            assertionFailure("⚠️ fighter.scn not found in Resources.")
+            fighterNode = SCNNode()
+        }
+        fighterNode.name     = "fighterNode"
+        fighterNode.position = SCNVector3Zero
+        scene.rootNode.addChildNode(fighterNode)
+        
         // ── Camera ─────────────────────────────────────────────────
         let camera = SCNCamera()
-        // Skybox renders at infinite distance — zFar only needs to cover
-        // scene geometry, not the background.
         camera.zNear       = 0.1
         camera.zFar        = 1000
         camera.fieldOfView = 100
@@ -74,9 +75,17 @@ struct UniverseSceneView: UIViewRepresentable {
         let cameraNode = SCNNode()
         cameraNode.name     = "cameraNode"
         cameraNode.camera   = camera
-        cameraNode.position = SCNVector3Zero
+        // Offset behind and slightly above the fighter in local space
+        cameraNode.position = SCNVector3(x: 0, y: -20, z: 5)
         
-        scene.rootNode.addChildNode(cameraNode)
+        // Lock the camera's gaze onto fighterNode at all times
+        let lookAt = SCNLookAtConstraint(target: fighterNode)
+        lookAt.isGimbalLockEnabled = true
+        cameraNode.constraints = [lookAt]
+        
+        // cameraNode is a child of fighterNode
+        fighterNode.addChildNode(cameraNode)
+        
         return scene
     }
 }
@@ -88,15 +97,17 @@ extension UniverseSceneView {
     class Coordinator {
         private let motionManager = MotionManager()
         private var motionTask: Task<Void, Never>?
+        var isPaused: Bool = false
         
-        /// Begins the attitude stream and applies each quaternion to the camera node.
-        func startMotionUpdates(for cameraNode: SCNNode) {
+        /// Begins the attitude stream and applies each quaternion to fighterNode.
+        func startMotionUpdates(for fighterNode: SCNNode) {
             motionTask = Task {
                 do {
                     for try await attitude in await motionManager.makeAttitudeStream() {
+                        guard !isPaused else { continue }
                         let q = attitude.quaternion
                         await MainActor.run {
-                            cameraNode.orientation = SCNQuaternion(
+                            fighterNode.orientation = SCNQuaternion(
                                 Float(q.x),
                                 Float(q.y),
                                 Float(q.z),
@@ -105,7 +116,6 @@ extension UniverseSceneView {
                         }
                     }
                 } catch MotionError.unavailable {
-                    // Device motion not available (e.g. Simulator) — camera stays fixed
                     print("MotionManager: device motion unavailable.")
                 } catch {
                     print("MotionManager error: \(error)")
