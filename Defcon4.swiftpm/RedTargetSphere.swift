@@ -21,10 +21,10 @@ class RedTargetSphere {
         node.position = SCNVector3(0, 30, 0)
         node.name = "RedTargetSphere"
         
-        // Kinematic Physics Body
+        // Kinematic physics — collisionBitMask is not set because kinematic bodies
+        // do not participate in collision response; contactTestBitMask drives callbacks.
         let body = SCNPhysicsBody(type: .kinematic, shape: nil)
-        body.categoryBitMask = SceneViewModel.PhysicsCategory.target
-        body.collisionBitMask = SceneViewModel.PhysicsCategory.radar | SceneViewModel.PhysicsCategory.fighter
+        body.categoryBitMask    = SceneViewModel.PhysicsCategory.target
         body.contactTestBitMask = SceneViewModel.PhysicsCategory.radar | SceneViewModel.PhysicsCategory.fighter
         node.physicsBody = body
         

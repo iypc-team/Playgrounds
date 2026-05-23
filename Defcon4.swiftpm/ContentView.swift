@@ -1,4 +1,4 @@
-// Defcon4 05/23/2026-1
+// Defcon4 05/23/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/blob/main/Defcon4.swiftpm
 
@@ -10,14 +10,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Universe - First layer (true backdrop)
-            if let universe = viewModel.universeScene {
-                SceneKitView(scene: universe)
-                    .ignoresSafeArea()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            
-            // Main Scene - Second layer
+            // Single SceneKitView — universe background is now a node inside this scene
             SceneKitView(scene: viewModel.scene)
                 .ignoresSafeArea()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -38,7 +31,11 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(viewModel.isFighterRotating ? Color.red.opacity(0.9) : Color.blue.opacity(0.9))
+                        .background(
+                            viewModel.isFighterRotating
+                            ? Color.red.opacity(0.9)
+                            : Color.blue.opacity(0.9)
+                        )
                         .cornerRadius(12)
                 }
                 .padding(.bottom, 60)

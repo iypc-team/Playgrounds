@@ -1,4 +1,5 @@
 // SceneViewModel.swift
+// 
 
 import SwiftUI
 import SceneKit
@@ -7,14 +8,11 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     
     @Published var sceneModel: SceneModel
     @Published var scene: SCNScene
-    @Published var universeScene: SCNScene?
-    @Published var isRotating: Bool = false
     @Published var isFighterRotating: Bool = false
     @Published var fighterNode: SCNNode?
     @Published var redTargetSphere: SCNNode?
     
     private var radarNode: SCNNode?
-    private var rotationAction: SCNAction?
     
     // MARK: - Motion
     private let motionManager = MotionManager()
@@ -31,7 +29,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         self.scene = SCNScene()
         self.sceneModel = SceneModel()
         super.init()
-        
         loadAndSetupScene()
     }
     
@@ -42,7 +39,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
             print("⚠️ Failed to load scene: \(sceneModel.sceneName)")
         }
         
-        setupUniverseScene()
+        setupUniverseBackground()
         setupFighterNode()
         setupRadarNode()
         setupRedTargetSphere()
@@ -52,32 +49,23 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         scene.physicsWorld.contactDelegate = self
     }
     
-    // MARK: - Universe Background Scene
-    private func setupUniverseScene() {
-        let bgScene = SCNScene()
-        bgScene.rootNode.addChildNode(Universe.createNode())
-        
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.position = sceneModel.cameraPosition
-        bgScene.rootNode.addChildNode(cameraNode)
-        
-        self.universeScene = bgScene
+    // MARK: - Universe Background
+    private func setupUniverseBackground() {
+        scene.rootNode.addChildNode(Universe.createNode())
     }
     
     private func setupFighterNode() {
         guard let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
             print("⚠️ Fighter node not found in scene")
-            if let alt = scene.rootNode.childNode(withName: "Fighter", recursively: true) ??
-                scene.rootNode.childNode(withName: "ship", recursively: true) {
+            if let alt = scene.rootNode.childNode(withName: "Fighter", recursively: true)
+                ?? scene.rootNode.childNode(withName: "ship", recursively: true) {
                 self.fighterNode = alt
-                print("✅ Found fighter using alternative name")
+                print("✅ Found fighter using alternative name: '\(alt.name ?? "unnamed")'")
             }
             return
         }
         
         fighter.scale = sceneModel.fighterScale
-        
         fighter.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
         fighter.physicsBody?.categoryBitMask = PhysicsCategory.fighter
         fighter.physicsBody?.contactTestBitMask = PhysicsCategory.radar | PhysicsCategory.target
@@ -105,12 +93,9 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         radar.physicsBody?.categoryBitMask = PhysicsCategory.radar
         radar.physicsBody?.contactTestBitMask = PhysicsCategory.fighter | PhysicsCategory.target
         
+        // radarNode is a child of fighterNode — it moves with the fighter
         fighter.addChildNode(radar)
         self.radarNode = radar
-        
-        rotationAction = SCNAction.repeatForever(
-            SCNAction.rotate(by: .pi * 2, around: SCNVector3(0, 0, 1), duration: 2.0)
-        )
     }
     
     private func setupRedTargetSphere() {
@@ -153,20 +138,6 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         scene.rootNode.addChildNode(cameraNode)
     }
     
-    // MARK: - Radar Rotation Methods
-    
-    func startRotation() {
-        guard let radar = radarNode, let action = rotationAction else { return }
-        radar.removeAllActions()
-        radar.runAction(action)
-        isRotating = true
-    }
-    
-    func stopRotation() {
-        radarNode?.removeAllActions()
-        isRotating = false
-    }
-    
     // MARK: - Fighter Motion Control
     func startFighterRotation() {
         guard !isFighterRotating else { return }
@@ -205,15 +176,21 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     func stopFighterRotation() {
         motionTask?.cancel()
         motionTask = nil
-        Task { await motionManager.stopUpdates() }
+        // CMMotionManager.stopDeviceMotionUpdates() is handled by
+        // the stream's onTermination handler in MotionManager.
         isFighterRotating = false
         print("🛑 Fighter motion control stopped")
     }
     
     // MARK: - SCNPhysicsContactDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        if (contact.nodeA.name == "RedTargetSphere" || contact.nodeB.name == "RedTargetSphere") &&
-            (contact.nodeA == radarNode || contact.nodeB == radarNode) {
+        let maskA = contact.nodeA.physicsBody?.categoryBitMask ?? 0
+        let maskB = contact.nodeB.physicsBody?.categoryBitMask ?? 0
+        
+        let radarInvolved  = maskA == PhysicsCategory.radar  || maskB == PhysicsCategory.radar
+        let targetInvolved = maskA == PhysicsCategory.target || maskB == PhysicsCategory.target
+        
+        if radarInvolved && targetInvolved {
             print("🔴 Radar contacted Red Target Sphere!")
         }
     }

@@ -1,22 +1,21 @@
-//  SceneModel.swift
+// SceneModel.swift
 // 
 
 import SceneKit
-//import Foundation
 
-class SceneModel: ObservableObject {
+struct SceneModel {
     var sceneName: String = "newFighter.scn"
-    var enenyName: String = "smooth_ship.scn"
+    var enemyName: String = "smooth_ship.scn"   // was: enenyName (typo fixed)
     
     var cameraPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 60)
     
-    // New properties for fighter node configuration
+    // Fighter node configuration
     var fighterScale: SCNVector3 = SCNVector3(x: 1.0, y: 1.0, z: 1.0)
     
-    // property for radar position
+    // Radar position
     var radarPosition: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
     
-    // properties for lighting
+    // Lighting
     var lightIntensity: CGFloat = 200
     var omniLightIntensity: CGFloat = 5000
     
@@ -25,7 +24,4 @@ class SceneModel: ObservableObject {
     
     var engineLightColor: UIColor = UIColor.green
     var engineLightIntensity: CGFloat = 3000
-    
-    // Add more properties as needed
 }
-
