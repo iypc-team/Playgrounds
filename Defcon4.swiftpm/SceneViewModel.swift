@@ -1,5 +1,4 @@
 // SceneViewModel.swift
-// 
 
 import SwiftUI
 import SceneKit
@@ -10,6 +9,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
     @Published var scene: SCNScene
     @Published var isFighterRotating: Bool = false
     @Published var fighterNode: SCNNode?
+    @Published var enemyNode: SCNNode?
     @Published var redTargetSphere: SCNNode?
     
     private var radarNode: SCNNode?
@@ -23,6 +23,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         static let radar:   Int = 1 << 0
         static let fighter: Int = 1 << 1
         static let target:  Int = 1 << 2
+        static let enemy:   Int = 1 << 3
     }
     
     override init() {
@@ -42,6 +43,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         setupUniverseBackground()
         setupFighterNode()
         setupRadarNode()
+        setupEnemyNode()
         setupRedTargetSphere()
         setupLights()
         setupCamera()
@@ -54,6 +56,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         scene.rootNode.addChildNode(Universe.createNode())
     }
     
+    // MARK: - Fighter
     private func setupFighterNode() {
         guard let fighter = scene.rootNode.childNode(withName: "fighter", recursively: true) else {
             print("⚠️ Fighter node not found in scene")
@@ -67,13 +70,14 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         
         fighter.scale = sceneModel.fighterScale
         fighter.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        fighter.physicsBody?.categoryBitMask = PhysicsCategory.fighter
-        fighter.physicsBody?.contactTestBitMask = PhysicsCategory.radar | PhysicsCategory.target
+        fighter.physicsBody?.categoryBitMask    = PhysicsCategory.fighter
+        fighter.physicsBody?.contactTestBitMask = PhysicsCategory.radar | PhysicsCategory.target | PhysicsCategory.enemy
         
         self.fighterNode = fighter
         print("✅ Fighter node successfully set up: \(fighter)")
     }
     
+    // MARK: - Radar
     private func setupRadarNode() {
         guard let fighter = fighterNode else { return }
         
@@ -90,20 +94,51 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         radar.position = SCNVector3(0, -offset, 0.25)
         
         radar.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        radar.physicsBody?.categoryBitMask = PhysicsCategory.radar
-        radar.physicsBody?.contactTestBitMask = PhysicsCategory.fighter | PhysicsCategory.target
+        radar.physicsBody?.categoryBitMask    = PhysicsCategory.radar
+        radar.physicsBody?.contactTestBitMask = PhysicsCategory.target | PhysicsCategory.enemy
         
-        // radarNode is a child of fighterNode — it moves with the fighter
+        // radarNode is a child of fighterNode — moves with the fighter, does not rotate independently
         fighter.addChildNode(radar)
         self.radarNode = radar
     }
     
+    // MARK: - Enemy
+    private func setupEnemyNode() {
+        // Load smooth_ship.scn and extract its root content as the enemy node
+        guard let enemyScene = SCNScene(named: sceneModel.enemyName) else {
+            print("⚠️ Failed to load enemy scene: \(sceneModel.enemyName)")
+            return
+        }
+        
+        // Wrap all children of the loaded scene into a single container node
+        let enemy = SCNNode()
+        enemy.name = "enemyNode"
+        
+        for child in enemyScene.rootNode.childNodes {
+            enemy.addChildNode(child.clone())
+        }
+        
+        enemy.scale    = sceneModel.fighterScale
+        enemy.position = SCNVector3(x: 10, y: -5, z: 0)
+        
+        // Physics — kinematic, same pattern as fighterNode
+        enemy.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        enemy.physicsBody?.categoryBitMask    = PhysicsCategory.enemy
+        enemy.physicsBody?.contactTestBitMask = PhysicsCategory.radar | PhysicsCategory.fighter
+        
+        scene.rootNode.addChildNode(enemy)
+        self.enemyNode = enemy
+        print("✅ Enemy node successfully set up: \(enemy)")
+    }
+    
+    // MARK: - Red Target Sphere
     private func setupRedTargetSphere() {
         let node = RedTargetSphere.create()
         scene.rootNode.addChildNode(node)
         self.redTargetSphere = node
     }
     
+    // MARK: - Lights
     private func setupLights() {
         let ambient = SCNNode()
         ambient.light = SCNLight()
@@ -131,6 +166,7 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         fighter.addChildNode(engineLight)
     }
     
+    // MARK: - Camera
     private func setupCamera() {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -189,9 +225,18 @@ class SceneViewModel: NSObject, ObservableObject, SCNPhysicsContactDelegate {
         
         let radarInvolved  = maskA == PhysicsCategory.radar  || maskB == PhysicsCategory.radar
         let targetInvolved = maskA == PhysicsCategory.target || maskB == PhysicsCategory.target
+        let enemyInvolved  = maskA == PhysicsCategory.enemy  || maskB == PhysicsCategory.enemy
         
         if radarInvolved && targetInvolved {
             print("🔴 Radar contacted Red Target Sphere!")
+        }
+        
+        if radarInvolved && enemyInvolved {
+            print("🟠 Radar contacted Enemy!")
+        }
+        
+        if enemyInvolved && (maskA == PhysicsCategory.fighter || maskB == PhysicsCategory.fighter) {
+            print("💥 Fighter contacted Enemy!")
         }
     }
     
