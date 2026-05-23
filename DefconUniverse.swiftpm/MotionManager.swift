@@ -12,7 +12,6 @@ extension CMAttitude {
         return copy
     }
     
-    /// Convenience computed property for AttitudeQuaternion
     var attitudeQuaternion: AttitudeQuaternion {
         AttitudeQuaternion(quaternion: self.quaternion)
     }
@@ -26,23 +25,12 @@ struct AttitudeQuaternion {
     
     init(quaternion: CMQuaternion) {
         self.quaternion = quaternion
-        self.roll = atan2(
-            2 * (quaternion.w * quaternion.x + quaternion.y * quaternion.z),
-            1 - 2 * (quaternion.x * quaternion.x + quaternion.y * quaternion.y)
-        )
-        self.pitch = asin(
-            max(-1.0, min(1.0, 2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x)))
-        )
-        self.yaw = atan2(
-            2 * (quaternion.w * quaternion.z + quaternion.x * quaternion.y),
-            1 - 2 * (quaternion.y * quaternion.y + quaternion.z * quaternion.z)
-        )
+        self.roll = atan2(2 * (quaternion.w * quaternion.x + quaternion.y * quaternion.z),
+                          1 - 2 * (quaternion.x * quaternion.x + quaternion.y * quaternion.y))
+        self.pitch = asin(max(-1.0, min(1.0, 2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x))))
+        self.yaw = atan2(2 * (quaternion.w * quaternion.z + quaternion.x * quaternion.y),
+                         1 - 2 * (quaternion.y * quaternion.y + quaternion.z * quaternion.z))
     }
-}
-
-struct MotionOffset {
-    let quaternion: CMQuaternion
-    static let zero = MotionOffset(quaternion: CMQuaternion(x: 0, y: 0, z: 0, w: 1))
 }
 
 enum MotionError: Error {
@@ -64,7 +52,6 @@ actor MotionManager {
         return queue
     }()
     
-    // MARK: - Calibration
     func calibrate() async {
         await withCheckedContinuation { continuation in
             motionManager.deviceMotionUpdateInterval = 0.1
@@ -74,17 +61,15 @@ actor MotionManager {
                 continuation.resume()
             }
         }
-        print("✅ Calibration completed using reference attitude.")
+        print("✅ Calibration completed.")
     }
     
-    // MARK: - Explicit Cleanup
     func stop() {
         motionManager.stopDeviceMotionUpdates()
         referenceAttitude = nil
         print("🛑 MotionManager stopped.")
     }
     
-    // MARK: - Stream
     func makeAttitudeStream(updateInterval: TimeInterval = 1.0 / 60.0) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
         AsyncThrowingStream(bufferingPolicy: .bufferingNewest(1)) { continuation in
             guard motionManager.isDeviceMotionAvailable else {
