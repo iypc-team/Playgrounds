@@ -1,33 +1,47 @@
 // MotionManager.swift
-//
+// Production-ready motion tracking with attitude, gravity, and rotation rate.
 
 import CoreMotion
 
+// MARK: - Constants
+private enum MotionConstants {
+    static let calibrationInterval: TimeInterval = 0.1
+    static let defaultStreamInterval: TimeInterval = 1.0 / 60.0
+    static let queueName: String = "com.YourApp.motionQueue" // Replace with your bundle ID
+}
+
+// MARK: - CMAttitude Extension
+extension CMAttitude {
+    func relative(to reference: CMAttitude) -> CMAttitude {
+        let copy = self.copy() as! CMAttitude
+        copy.multiply(byInverseOf: reference)
+        return copy
+    }
+    
+    var attitudeQuaternion: AttitudeQuaternion {
+        AttitudeQuaternion(quaternion: self.quaternion)
+    }
+}
+
+// MARK: - Data Models
 struct AttitudeQuaternion {
     let quaternion: CMQuaternion
-    
-    // Cached Euler angles to avoid recomputing atan2/asin per access
     let roll: Double
     let pitch: Double
     let yaw: Double
     
     init(quaternion: CMQuaternion) {
         self.quaternion = quaternion
-        // Precompute Euler angles from quaternion
-        // Formulas based on standard quaternion to Euler conversion (assuming ZYX order)
+        
         self.roll = atan2(
             2 * (quaternion.w * quaternion.x + quaternion.y * quaternion.z),
             1 - 2 * (quaternion.x * quaternion.x + quaternion.y * quaternion.y)
         )
-        self.pitch = asin(
-            max(
-                -1.0,
-                 min(
-                    1.0,
-                    2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x)
-                 )
-            )
-        )
+        
+        self.pitch = asin(max(-1.0, min(1.0,
+                                        2 * (quaternion.w * quaternion.y - quaternion.z * quaternion.x)
+                                       )))
+        
         self.yaw = atan2(
             2 * (quaternion.w * quaternion.z + quaternion.x * quaternion.y),
             1 - 2 * (quaternion.y * quaternion.y + quaternion.z * quaternion.z)
@@ -35,85 +49,174 @@ struct AttitudeQuaternion {
     }
 }
 
-enum MotionError: Error {
-    case unavailable
+struct MotionData {
+    let attitude: AttitudeQuaternion
+    let gravity: CMAcceleration
+    let rotationRate: CMRotationRate
+    let timestamp: TimeInterval
 }
 
+// MARK: - Motion Errors
+enum MotionError: Error, LocalizedError {
+    case unavailable
+    case motionUpdateFailed
+    case calibrationFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .unavailable: return "Device motion is not available on this device"
+        case .motionUpdateFailed: return "Motion update failed - no data received"
+        case .calibrationFailed: return "Failed to calibrate motion sensor"
+        }
+    }
+}
+
+// MARK: - Motion Manager
 actor MotionManager {
     
-    private let motionManager = CMMotionManager()
+    static let shared = MotionManager()
     
-    // Fix #2: Dedicated background OperationQueue for CoreMotion callbacks.
-    // Avoids delivering updates on the main thread and causing UI jank.
-    // SceneViewModel already uses `await MainActor.run` for all SceneKit/UI updates.
-    // Changed QoS to .userInitiated to balance priority without starving other tasks.
+    private let motionManager: CMMotionManager
+    private var referenceAttitude: CMAttitude?
     
     private let motionQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.name = "com.DF22_MotionEnabled.motionQueue"
-        queue.qualityOfService = .userInitiated  // Adjusted for better resource sharing
+        queue.name = MotionConstants.queueName
+        queue.qualityOfService = .userInitiated
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
     
-    /// Start device motion updates and create the attitude stream.
-    /// - Parameter updateInterval: Desired update interval in seconds
-    ///   (default 1/30s for 30 FPS: lower for battery savings).
-    /// - Parameter throttleInterval: Minimum time between yields (optional throttling).
+    init(motionManager: CMMotionManager = CMMotionManager()) {
+        self.motionManager = motionManager
+    }
     
-    func makeAttitudeStream(
-        updateInterval: TimeInterval = 1.0 / 30.0,
-        throttleInterval: TimeInterval? = nil
-    ) -> AsyncThrowingStream<AttitudeQuaternion, Error> {
+    var isMotionAvailable: Bool {
+        motionManager.isDeviceMotionAvailable
+    }
+    
+    var isCalibrated: Bool {
+        referenceAttitude != nil
+    }
+    
+    deinit {
+        motionManager.stopDeviceMotionUpdates()
+        print("[MotionManager] Deallocated")
+    }
+    
+    // MARK: - Public Methods
+    
+    func calibrate() async throws {
+        guard motionManager.isDeviceMotionAvailable else {
+            throw MotionError.unavailable
+        }
         
-        AsyncThrowingStream(
-            bufferingPolicy: .bufferingNewest(1)
-        ) { continuation in
+        print("[MotionManager] Starting calibration...")
+        
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+            guard let self else {
+                continuation.resume(throwing: MotionError.calibrationFailed)
+                return
+            }
             
-            guard motionManager.isDeviceMotionAvailable else {
+            self.motionManager.deviceMotionUpdateInterval = MotionConstants.calibrationInterval
+            self.motionManager.startDeviceMotionUpdates(to: self.motionQueue) { motion, error in
+                if let error {
+                    self.motionManager.stopDeviceMotionUpdates()
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                guard let motion else {
+                    self.motionManager.stopDeviceMotionUpdates()
+                    continuation.resume(throwing: MotionError.calibrationFailed)
+                    return
+                }
+                
+                Task {
+                    self.referenceAttitude = motion.attitude
+                    self.motionManager.stopDeviceMotionUpdates()
+                    print("[MotionManager] ✅ Calibration completed")
+                    continuation.resume()
+                }
+            }
+        }
+    }
+    
+    func stop() {
+        motionQueue.cancelAllOperations()
+        motionManager.stopDeviceMotionUpdates()
+        referenceAttitude = nil
+        print("[MotionManager] 🛑 Motion stopped and reset")
+    }
+    
+    /// Main stream providing attitude + gravity + rotation rate
+    func makeMotionStream(
+        updateInterval: TimeInterval = MotionConstants.defaultStreamInterval,
+        relative: Bool = true
+    ) -> AsyncThrowingStream<MotionData, Error> {
+        
+        // Explicit type annotation to help type inference
+        let stream = AsyncThrowingStream<MotionData, Error>(
+            bufferingPolicy: .bufferingNewest(1)
+        ) { [weak self] continuation in
+            
+            guard let self else {
                 continuation.finish(throwing: MotionError.unavailable)
                 return
             }
             
-            motionManager.deviceMotionUpdateInterval = updateInterval
-            
-            continuation.onTermination = { [weak motionManager] _ in
-                motionManager?.stopDeviceMotionUpdates()
+            guard self.motionManager.isDeviceMotionAvailable else {
+                continuation.finish(throwing: MotionError.unavailable)
+                return
             }
             
-            var lastYieldTime: TimeInterval? = nil
+            self.motionManager.deviceMotionUpdateInterval = updateInterval
             
-            motionManager.startDeviceMotionUpdates(
+            self.motionManager.startDeviceMotionUpdates(
                 using: .xArbitraryCorrectedZVertical,
-                to: motionQueue
-            ) { motion, error in
+                to: self.motionQueue
+            ) { [weak self] motion, error in
+                
+                guard let self else { return }
                 
                 if let error {
                     continuation.finish(throwing: error)
                     return
                 }
                 
-                guard let motion else { return }
-                
-                let currentTime = ProcessInfo.processInfo.systemUptime
-                if let throttle = throttleInterval, let last = lastYieldTime, currentTime - last < throttle {
-                    return  // Skip this update to throttle
+                guard let motion else {
+                    continuation.finish(throwing: MotionError.motionUpdateFailed)
+                    return
                 }
                 
-                lastYieldTime = currentTime
-                
-                continuation.yield(
-                    AttitudeQuaternion(quaternion: motion.attitude.quaternion)
-                )
+                Task {
+                    let attitudeToUse: CMAttitude = await {
+                        if relative, let ref = await self.referenceAttitude {
+                            return motion.attitude.relative(to: ref)
+                        } else {
+                            return motion.attitude
+                        }
+                    }()
+                    
+                    let data = MotionData(
+                        attitude: attitudeToUse.attitudeQuaternion,
+                        gravity: motion.gravity,
+                        rotationRate: motion.rotationRate,
+                        timestamp: motion.timestamp
+                    )
+                    
+                    continuation.yield(data)
+                }
+            }
+            
+            continuation.onTermination = { [weak self] _ in
+                guard let self else { return }
+                self.motionManager.stopDeviceMotionUpdates()
+                self.motionQueue.cancelAllOperations()
             }
         }
-    }
-    
-    func stopUpdates() {
-        motionManager.stopDeviceMotionUpdates()
-    }
-    
-    deinit {
-        motionManager.stopDeviceMotionUpdates()
+        
+        return stream
     }
 }
