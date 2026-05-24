@@ -188,7 +188,7 @@ actor MotionManager {
                 Task { [weak self] in
                     guard let self = self else { return }
                     
-                    let attitudeToUse: CMAttitude = {
+                    let attitudeToUse: CMAttitude = await {
                         if relative, let ref = await self.referenceAttitude {
                             return motion.attitude.relative(to: ref)
                         } else {

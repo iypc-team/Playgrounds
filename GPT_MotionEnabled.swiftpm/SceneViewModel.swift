@@ -1,4 +1,5 @@
 // SceneViewModel.swift
+//
 
 import SwiftUI
 import SceneKit
@@ -42,13 +43,15 @@ final class SceneViewModel: ObservableObject {
         
         motionTask = Task {
             do {
-                let stream = await motionManager.makeAttitudeStream(
+                // ✅ Fixed: makeAttitudeStream does not exist — use makeMotionStream(updateInterval:relative:)
+                let stream: AsyncThrowingStream<MotionData, Error> = await motionManager.makeMotionStream(
                     updateInterval: performancePreset.motionUpdateInterval,
-                    throttleInterval: 1.0 / 180.0
+                    relative: true
                 )
                 
-                for try await attitude in stream {
-                    await updateOrientation(attitude)
+                // ✅ Fixed: iterate MotionData and pass .attitude to updateOrientation
+                for try await motionData in stream {
+                    await updateOrientation(motionData.attitude)
                 }
             } catch {
                 isMotionActive = false
@@ -65,10 +68,8 @@ final class SceneViewModel: ObservableObject {
     }
     
     func resetOrientation() {
-        // Core fix: Reset the actual ship node
         guard let shipNode = sceneController.shipNode else { return }
         
-        // Smooth reset using SCNTransaction
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.4
         SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
@@ -76,7 +77,6 @@ final class SceneViewModel: ObservableObject {
         shipNode.orientation = SCNVector4(0, 0, 0, 1)   // Identity quaternion
         SCNTransaction.commit()
         
-        // Reset UI state
         orientationState = .neutral
         lastUIUpdate = CACurrentMediaTime()
     }
@@ -86,8 +86,8 @@ final class SceneViewModel: ObservableObject {
         
         let q = attitude.quaternion
         let magnitude = sqrt(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w)
-        let norm = magnitude > 0.001 ? 
-        SCNVector4(q.x/magnitude, q.y/magnitude, q.z/magnitude, q.w/magnitude) : 
+        let norm = magnitude > 0.001 ?
+        SCNVector4(q.x/magnitude, q.y/magnitude, q.z/magnitude, q.w/magnitude) :
         SCNVector4(0, 0, 0, 1)
         
         shipNode.orientation = norm
