@@ -1,8 +1,8 @@
-// GPT RealityKit  11/10/2025-3
-// RealityKit model Airplane.usdz MVVM
-// iOS 16 RealityKit model Airplane.usdz I do not require ARView. MVVM paradigm
-
+// GPT RealityKit  05/24/2026-1
 // ContentViewReality.swift
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT%20RealityKit.swiftpm
+// 
+
 import SwiftUI
 
 struct ContentViewReality: View {

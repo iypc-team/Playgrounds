@@ -1,6 +1,8 @@
-// GPT_MotionEnabled 05/24/2026-3
+// GPT_MotionEnabled 05/24/2026-4
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
+// ContentView.swift
+// GPT_MotionEnabled - Updated with .low default preset
 
 import SwiftUI
 import SceneKit
@@ -40,7 +42,7 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    // Quality Preset
+                    // Quality Preset Picker (defaults to .low via ViewModel)
                     Picker("Quality", selection: $viewModel.performancePreset) {
                         ForEach(PerformancePreset.allCases) { preset in
                             Text(preset.displayName).tag(preset)
@@ -106,7 +108,7 @@ struct ContentView: View {
             viewModel.shieldsEnabled.toggle()
         }
         
-        // Ship change handler (iOS 16 compatible)
+        // Ship change handler
         .onChange(of: viewModel.selectedShip) { newShip in
             viewModel.changeShip(to: newShip)
         }
