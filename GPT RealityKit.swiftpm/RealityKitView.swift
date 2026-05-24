@@ -1,7 +1,6 @@
-// 
+// RealityKitView.swift
 // 
 
-// RealityKitView.swift
 import SwiftUI
 import UIKit
 import RealityKit
@@ -11,6 +10,15 @@ import ARKit
 struct RealityKitView: UIViewRepresentable {
     @ObservedObject var vm: RealityViewModel
     
+    final class Coordinator {
+        let anchor = AnchorEntity(world: SIMD3<Float>(0, 0, 0))
+        var attachedModelID: ObjectIdentifier?
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
         // Do not run an AR session — leave it stopped (default).
@@ -18,23 +26,25 @@ struct RealityKitView: UIViewRepresentable {
         arView.session.pause()
         
         arView.environment.background = .color(.init(white: 0.95, alpha: 1.0))
+        arView.scene.addAnchor(context.coordinator.anchor)
         
         return arView
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        // Remove previous anchors
-        uiView.scene.anchors.removeAll()
-        
         guard let model = vm.modelEntity else { return }
         
-        let anchor = AnchorEntity(world: SIMD3<Float>(0, 0, 0))
-        model.generateCollisionShapes(recursive: true) // optional
-        anchor.addChild(model)
-        uiView.scene.addAnchor(anchor)
+        let modelID = ObjectIdentifier(model)
+        
+        if context.coordinator.attachedModelID != modelID {
+            context.coordinator.anchor.children.removeAll()
+            model.generateCollisionShapes(recursive: true) // optional
+            context.coordinator.anchor.addChild(model)
+            context.coordinator.attachedModelID = modelID
+        }
         
         // Position / scale tweaks as needed:
-        model.transform.scale = SIMD3<Float>(repeating: 0.5)
+        model.transform.scale = SIMD3<Float>(repeating: vm.scale)
         model.transform.translation = SIMD3<Float>(0, 0, 0)
     }
 }
