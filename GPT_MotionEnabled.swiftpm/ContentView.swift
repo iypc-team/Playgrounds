@@ -1,6 +1,5 @@
-// GPT_MotionEnabled 05/23/2026-1
+// GPT_MotionEnabled 05/23/2026-2
 // ContentView.swift
-// GPT_MotionEnabled.swiftpm
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
 
 // ContentView.swift - iOS 16.6 Compatible

@@ -1,5 +1,5 @@
 // MotionManager.swift
-// Production-ready motion tracking with attitude, gravity, and rotation rate.
+// Production-ready motion tracking with explicit typing for better compiler inference.
 
 import CoreMotion
 
@@ -7,7 +7,7 @@ import CoreMotion
 private enum MotionConstants {
     static let calibrationInterval: TimeInterval = 0.1
     static let defaultStreamInterval: TimeInterval = 1.0 / 60.0
-    static let queueName: String = "com.YourApp.motionQueue" // Replace with your bundle ID
+    static let queueName: String = "com.YourApp.motionQueue"
 }
 
 // MARK: - CMAttitude Extension
@@ -150,21 +150,16 @@ actor MotionManager {
         print("[MotionManager] 🛑 Motion stopped and reset")
     }
     
-    /// Main stream providing attitude + gravity + rotation rate
+    // MARK: - Motion Stream (Explicitly Typed)
     func makeMotionStream(
         updateInterval: TimeInterval = MotionConstants.defaultStreamInterval,
         relative: Bool = true
     ) -> AsyncThrowingStream<MotionData, Error> {
         
-        // Explicit type annotation to help type inference
-        let stream = AsyncThrowingStream<MotionData, Error>(
+        // Highly explicit stream creation to help type inference
+        return AsyncThrowingStream<MotionData, Error>(
             bufferingPolicy: .bufferingNewest(1)
-        ) { [weak self] continuation in
-            
-            guard let self else {
-                continuation.finish(throwing: MotionError.unavailable)
-                return
-            }
+        ) { continuation in
             
             guard self.motionManager.isDeviceMotionAvailable else {
                 continuation.finish(throwing: MotionError.unavailable)
@@ -178,20 +173,22 @@ actor MotionManager {
                 to: self.motionQueue
             ) { [weak self] motion, error in
                 
-                guard let self else { return }
+                guard let self = self else { return }
                 
                 if let error {
                     continuation.finish(throwing: error)
                     return
                 }
                 
-                guard let motion else {
+                guard let motion = motion else {
                     continuation.finish(throwing: MotionError.motionUpdateFailed)
                     return
                 }
                 
-                Task {
-                    let attitudeToUse: CMAttitude = await {
+                Task { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let attitudeToUse: CMAttitude = {
                         if relative, let ref = await self.referenceAttitude {
                             return motion.attitude.relative(to: ref)
                         } else {
@@ -211,12 +208,11 @@ actor MotionManager {
             }
             
             continuation.onTermination = { [weak self] _ in
-                guard let self else { return }
+                guard let self = self else { return }
                 self.motionManager.stopDeviceMotionUpdates()
                 self.motionQueue.cancelAllOperations()
+                print("[MotionManager] Stream terminated")
             }
         }
-        
-        return stream
     }
 }
