@@ -1,5 +1,4 @@
 // SceneViewModel.swift
-//
 
 import SwiftUI
 import SceneKit
@@ -15,7 +14,9 @@ final class SceneViewModel: ObservableObject {
         didSet { updateShields() }
     }
     @Published private(set) var isMotionActive = false
-    @Published var performancePreset: PerformancePreset = .medium
+    
+    // Changed default from .medium to .low
+    @Published var performancePreset: PerformancePreset = .low
     
     private let motionManager = MotionManager()
     private let sceneController = SceneController()
@@ -60,7 +61,7 @@ final class SceneViewModel: ObservableObject {
                 )
                 
                 for try await motionData in stream {
-                    try Task.checkCancellation()  // Responsive cancellation
+                    try Task.checkCancellation()
                     
                     await self.updateOrientation(motionData.attitude)
                 }
@@ -71,7 +72,6 @@ final class SceneViewModel: ObservableObject {
                     print("❌ Motion error: \(error)")
                 }
                 
-                // Cleanup on main actor
                 await MainActor.run {
                     self.isMotionActive = false
                     self.motionTask = nil
@@ -96,7 +96,7 @@ final class SceneViewModel: ObservableObject {
         SCNTransaction.animationDuration = 0.4
         SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
         
-        shipNode.orientation = SCNVector4(0, 0, 0, 1)   // Identity quaternion
+        shipNode.orientation = SCNVector4(0, 0, 0, 1)
         SCNTransaction.commit()
         
         orientationState = .neutral
