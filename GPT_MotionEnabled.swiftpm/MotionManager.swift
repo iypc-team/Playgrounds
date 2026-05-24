@@ -64,9 +64,9 @@ enum MotionError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .unavailable: return "Device motion is not available on this device"
-        case .motionUpdateFailed: return "Motion update failed - no data received"
-        case .calibrationFailed: return "Failed to calibrate motion sensor"
+        case .unavailable:          return "Device motion is not available on this device"
+        case .motionUpdateFailed:   return "Motion update failed - no data received"
+        case .calibrationFailed:    return "Failed to calibrate motion sensor"
         }
     }
 }
@@ -91,13 +91,8 @@ actor MotionManager {
         self.motionManager = motionManager
     }
     
-    var isMotionAvailable: Bool {
-        motionManager.isDeviceMotionAvailable
-    }
-    
-    var isCalibrated: Bool {
-        referenceAttitude != nil
-    }
+    var isMotionAvailable: Bool { motionManager.isDeviceMotionAvailable }
+    var isCalibrated: Bool { referenceAttitude != nil }
     
     deinit {
         motionManager.stopDeviceMotionUpdates()
@@ -113,12 +108,8 @@ actor MotionManager {
         
         print("[MotionManager] Starting calibration...")
         
-        try await withCheckedThrowingContinuation { [weak self] continuation in
-            guard let self else {
-                continuation.resume(throwing: MotionError.calibrationFailed)
-                return
-            }
-            
+        // ✅ FIX 1: Explicit CheckedContinuation<Void, Error> so Swift can infer T = Void
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             self.motionManager.deviceMotionUpdateInterval = MotionConstants.calibrationInterval
             self.motionManager.startDeviceMotionUpdates(to: self.motionQueue) { motion, error in
                 if let error {
@@ -126,13 +117,11 @@ actor MotionManager {
                     continuation.resume(throwing: error)
                     return
                 }
-                
                 guard let motion else {
                     self.motionManager.stopDeviceMotionUpdates()
                     continuation.resume(throwing: MotionError.calibrationFailed)
                     return
                 }
-                
                 Task {
                     self.referenceAttitude = motion.attitude
                     self.motionManager.stopDeviceMotionUpdates()
@@ -150,14 +139,15 @@ actor MotionManager {
         print("[MotionManager] 🛑 Motion stopped and reset")
     }
     
-    // MARK: - Motion Stream (Explicitly Typed)
+    // MARK: - Motion Stream
     func makeMotionStream(
         updateInterval: TimeInterval = MotionConstants.defaultStreamInterval,
         relative: Bool = true
     ) -> AsyncThrowingStream<MotionData, Error> {
         
-        // Highly explicit stream creation to help type inference
+        // ✅ FIX 2: Pass MotionData.self as first argument so Swift can infer T = MotionData
         return AsyncThrowingStream<MotionData, Error>(
+            MotionData.self,
             bufferingPolicy: .bufferingNewest(1)
         ) { continuation in
             
@@ -167,7 +157,6 @@ actor MotionManager {
             }
             
             self.motionManager.deviceMotionUpdateInterval = updateInterval
-            
             self.motionManager.startDeviceMotionUpdates(
                 using: .xArbitraryCorrectedZVertical,
                 to: self.motionQueue
@@ -179,7 +168,6 @@ actor MotionManager {
                     continuation.finish(throwing: error)
                     return
                 }
-                
                 guard let motion = motion else {
                     continuation.finish(throwing: MotionError.motionUpdateFailed)
                     return
@@ -202,7 +190,6 @@ actor MotionManager {
                         rotationRate: motion.rotationRate,
                         timestamp: motion.timestamp
                     )
-                    
                     continuation.yield(data)
                 }
             }
