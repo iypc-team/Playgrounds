@@ -6,7 +6,7 @@ import CoreMotion
 // MARK: - Constants
 private enum MotionConstants {
     static let calibrationInterval: TimeInterval = 0.1
-    static let defaultStreamInterval: TimeInterval = 1.0 / 60.0
+    static let defaultStreamInterval: TimeInterval = 1.0 / 60.0 
     static let queueName: String = "com.YourApp.motionQueue"
 }
 

@@ -1,8 +1,6 @@
-// GPT_MotionEnabled 05/24/2026-2
+// GPT_MotionEnabled 05/24/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
-
-// ContentView.swift - iOS 16.6 Compatible
 
 import SwiftUI
 import SceneKit

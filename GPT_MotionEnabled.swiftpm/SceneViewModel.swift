@@ -28,34 +28,54 @@ final class SceneViewModel: ObservableObject {
         sceneController.loadShip(.fighter)
     }
     
-    deinit { motionTask?.cancel() }
+    deinit {
+        motionTask?.cancel()
+    }
+    
+    // MARK: - Ship Management
     
     func changeShip(to ship: ShipType) {
         let wasRunning = isMotionActive
         stopMotion()
         sceneController.loadShip(ship)
-        if wasRunning { startMotion() }
+        if wasRunning {
+            startMotion()
+        }
     }
+    
+    // MARK: - Motion Control
     
     func startMotion() {
         guard motionTask == nil else { return }
+        
         isMotionActive = true
         
-        motionTask = Task {
+        motionTask = Task { [weak self] in
+            guard let self else { return }
+            
             do {
-                // ✅ Fixed: makeAttitudeStream does not exist — use makeMotionStream(updateInterval:relative:)
                 let stream: AsyncThrowingStream<MotionData, Error> = await motionManager.makeMotionStream(
                     updateInterval: performancePreset.motionUpdateInterval,
                     relative: true
                 )
                 
-                // ✅ Fixed: iterate MotionData and pass .attitude to updateOrientation
                 for try await motionData in stream {
-                    await updateOrientation(motionData.attitude)
+                    try Task.checkCancellation()  // Responsive cancellation
+                    
+                    await self.updateOrientation(motionData.attitude)
                 }
             } catch {
-                isMotionActive = false
-                motionTask = nil
+                if error is CancellationError {
+                    print("✅ Motion task cancelled gracefully")
+                } else {
+                    print("❌ Motion error: \(error)")
+                }
+                
+                // Cleanup on main actor
+                await MainActor.run {
+                    self.isMotionActive = false
+                    self.motionTask = nil
+                }
             }
         }
     }
@@ -66,6 +86,8 @@ final class SceneViewModel: ObservableObject {
         isMotionActive = false
         resetOrientation()
     }
+    
+    // MARK: - Orientation
     
     func resetOrientation() {
         guard let shipNode = sceneController.shipNode else { return }
@@ -103,6 +125,8 @@ final class SceneViewModel: ObservableObject {
             lastUIUpdate = now
         }
     }
+    
+    // MARK: - Shields
     
     private func updateShields() {
         sceneController.shieldsNode?.isHidden = !shieldsEnabled
