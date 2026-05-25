@@ -1,5 +1,4 @@
 // DebugLogManager.swift
-// 
 
 import SwiftUI
 
@@ -10,15 +9,14 @@ final class DebugLogManager: ObservableObject {
     @Published var messages: [String] = []
     private let maxMessages = 30
     
+    // FIX: Removed redundant DispatchQueue.main.async — this class is already
+    // @MainActor, so all mutations are already guaranteed to be on the main thread.
     func log(_ message: String) {
         let timestamp = Date().formatted(.dateTime.hour().minute().second())
         let entry = "[\(timestamp)] \(message)"
-        
-        DispatchQueue.main.async {
-            self.messages.append(entry)
-            if self.messages.count > self.maxMessages {
-                self.messages.removeFirst()
-            }
+        messages.append(entry)
+        if messages.count > maxMessages {
+            messages.removeFirst()
         }
     }
     

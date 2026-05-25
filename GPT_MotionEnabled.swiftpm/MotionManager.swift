@@ -1,5 +1,5 @@
 // MotionManager.swift
-// Updated for current Core Motion (iOS 17+/Swift 5.9+)
+// 
 
 import CoreMotion
 import Foundation
@@ -9,6 +9,26 @@ private enum MotionConstants {
     static let calibrationInterval: TimeInterval = 0.1
     static let defaultStreamInterval: TimeInterval = 1.0 / 60.0
     static let queueName: String = "com.iypc-team.motionQueue"
+    // FIX: Allow a short warm-up window before flagging poor calibration.
+    // The magnetometer is always uncalibrated on the very first sample —
+    // skipping the first few samples prevents a misleading false warning.
+    static let calibrationWarmupSamples: Int = 5
+}
+
+// MARK: - CMMagneticFieldCalibrationAccuracy readable description
+// FIX: CMMagneticFieldCalibrationAccuracy has no CustomStringConvertible
+// conformance, so string interpolation prints "CMMagneticFieldCalibrationAccuracy
+// (rawValue: -1)" instead of a human-readable name. This extension fixes that.
+extension CMMagneticFieldCalibrationAccuracy: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .uncalibrated: return "uncalibrated"
+        case .low:          return "low"
+        case .medium:       return "medium"
+        case .high:         return "high"
+        @unknown default:   return "unknown(rawValue: \(rawValue))"
+        }
+    }
 }
 
 // MARK: - CMAttitude Extension
@@ -71,7 +91,6 @@ actor MotionManager {
     private let motionQueue: OperationQueue
     private var referenceAttitude: CMAttitude?
     
-    // Public initializer to fix "inaccessible due to 'private' protection level"
     public init() {
         self.motionManager = CMMotionManager()
         self.motionQueue = OperationQueue()
@@ -84,9 +103,15 @@ actor MotionManager {
             throw MotionError.unavailable
         }
         
-        try await withCheckedThrowingContinuation { continuation in
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             motionManager.deviceMotionUpdateInterval = MotionConstants.calibrationInterval
-            motionManager.startDeviceMotionUpdates(to: motionQueue) { motion, error in
+            
+            // FIX: Track sample count so we skip the calibration warning
+            // during the magnetometer warm-up window. rawValue -1 (.uncalibrated)
+            // on sample 0 is normal and not a true problem.
+            var sampleCount = 0
+            
+            motionManager.startDeviceMotionUpdates(to: motionQueue) { [weak self] motion, error in
                 if let error {
                     continuation.resume(throwing: error)
                     return
@@ -96,16 +121,30 @@ actor MotionManager {
                     return
                 }
                 
+                sampleCount += 1
+                
+                // Only log a calibration warning after the warm-up window,
+                // so the inevitable first-sample uncalibrated state is silent.
                 let accuracy = motion.magneticField.accuracy
-                if accuracy == .uncalibrated || accuracy == .low {
+                if sampleCount > MotionConstants.calibrationWarmupSamples,
+                   accuracy == .uncalibrated || accuracy == .low {
+                    // Now uses the readable description extension: "uncalibrated" or "low"
                     print("⚠️ Weak magnetic calibration: \(accuracy)")
                 }
                 
-                self.referenceAttitude = motion.attitude
-                self.motionManager.stopDeviceMotionUpdates()
-                continuation.resume()
+                let capturedAttitude = motion.attitude
+                Task { [weak self] in
+                    await self?.storeReferenceAndStop(capturedAttitude)
+                    continuation.resume()
+                }
             }
         }
+    }
+    
+    // Actor-isolated helper — safely called from within a Task
+    private func storeReferenceAndStop(_ attitude: CMAttitude) {
+        referenceAttitude = attitude
+        motionManager.stopDeviceMotionUpdates()
     }
     
     func startDeviceMotionUpdates(interval: TimeInterval = MotionConstants.defaultStreamInterval,

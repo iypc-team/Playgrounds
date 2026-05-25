@@ -1,9 +1,10 @@
 // SceneViewModel.swift
-// Fully updated to work with the new MotionManager
+// 
 
 import SwiftUI
 import SceneKit
 import QuartzCore
+import CoreMotion  // FIX: Added — required for CMMagneticFieldCalibrationAccuracy
 
 @MainActor
 final class SceneViewModel: ObservableObject {
@@ -19,14 +20,14 @@ final class SceneViewModel: ObservableObject {
     @Published private(set) var magneticAccuracy: CMMagneticFieldCalibrationAccuracy = .uncalibrated
     @Published private(set) var lastError: String?
     
-    private let motionManager: MotionManager   // Now uses public init
+    private let motionManager: MotionManager
     private let sceneController = SceneController()
     
     private var motionTask: Task<Void, Never>?
     private var lastUIUpdate = CACurrentMediaTime()
     
     init() {
-        self.motionManager = MotionManager()   // Fixed initializer access
+        self.motionManager = MotionManager()
         combatScene = sceneController.scene
         sceneController.loadShip(.fighter)
     }
@@ -77,7 +78,10 @@ final class SceneViewModel: ObservableObject {
     func stopMotion() {
         motionTask?.cancel()
         motionTask = nil
-        motionManager.stop()
+        // FIX: MotionManager is an actor — must call stop() with await inside a Task.
+        // Calling it directly from a synchronous @MainActor function is an actor
+        // isolation error (swift-tools-version 5.9 / Swift 5.7+).
+        Task { await motionManager.stop() }
         isMotionActive = false
         resetOrientation()
         magneticAccuracy = .uncalibrated

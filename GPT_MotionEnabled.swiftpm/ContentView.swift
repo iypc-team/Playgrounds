@@ -1,6 +1,7 @@
-// GPT_MotionEnabled 05/25/2026-2
+// GPT_MotionEnabled 05/25/2026-3
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm Type 'CMMagneticFieldCalibrationAccuracy' has no member 'uncertain'.
+// iOS 16.6+ compatible
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm 
 
 import SwiftUI
 import SceneKit
@@ -9,7 +10,7 @@ struct ContentView: View {
     
     @StateObject private var viewModel = SceneViewModel()
     @State private var showDebugFullScreen = false
-    @State private var dragOffset: CGFloat = 0.0   // For smooth swipe feedback
+    @State private var dragOffset: CGFloat = 0.0
     
     var body: some View {
         Group {
@@ -30,7 +31,7 @@ struct ContentView: View {
                     )
                     .ignoresSafeArea()
                     
-                    // UI Overlay (No debug button)
+                    // UI Overlay
                     VStack(spacing: 16) {
                         
                         // Top Controls (Ship + Quality only)
@@ -112,7 +113,6 @@ struct ContentView: View {
                 .background(Color.black)
                 .gesture(swipeGesture)
                 
-                // Gestures
                 .onTapGesture(count: 2) {
                     viewModel.shieldsEnabled.toggle()
                 }
@@ -132,22 +132,26 @@ struct ContentView: View {
     }
     
     // MARK: - Swipe Gesture
+    // FIX 1: Removed value.velocity.width — DragGesture.Value.velocity requires iOS 17+.
+    //         Replaced with value.predictedEndTranslation.width as a momentum proxy
+    //         (available since iOS 13).
+    // FIX 2: Replaced #Preview macro (Xcode 15 / iOS 17+) with PreviewProvider (iOS 13+).
     private var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 80)
             .onChanged { value in
-                // Optional: light visual feedback during drag
                 dragOffset = value.translation.width
             }
             .onEnded { value in
-                let horizontalDistance = value.translation.width
-                let velocity = value.velocity.width
+                let distance = value.translation.width
+                // predictedEndTranslation reflects momentum and is iOS 13+ compatible
+                let predicted = value.predictedEndTranslation.width
                 
                 // Swipe right → show debug
-                if horizontalDistance > 120 || velocity > 300 {
+                if distance > 120 || predicted > 220 {
                     showDebugFullScreen = true
                 }
                 // Swipe left → hide debug
-                else if horizontalDistance < -120 || velocity < -300 {
+                else if distance < -120 || predicted < -220 {
                     showDebugFullScreen = false
                 }
                 
@@ -156,6 +160,10 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
+// FIX 2: #Preview macro requires Xcode 15+ / iOS 17+.
+//         Use PreviewProvider for iOS 16.6 compatibility.
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
