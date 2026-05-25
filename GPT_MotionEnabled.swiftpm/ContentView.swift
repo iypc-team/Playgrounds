@@ -1,4 +1,4 @@
-// GPT_MotionEnabled 05/25/2026-4
+// GPT_MotionEnabled 05/25/2026-5
 // ContentView.swift
 // iOS 16.6+ compatible
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm 
@@ -34,6 +34,15 @@ struct ContentView: View {
                     // UI Overlay
                     VStack(spacing: 16) {
                         
+                        // Orientation Panel (Moved to the top)
+                        OrientationPanel(orientation: viewModel.orientationState)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(.ultraThinMaterial)
+                            )
+                            .padding(.horizontal)
+                        
                         // Top Controls (Ship + Quality only)
                         HStack {
                             // Ship Selector
@@ -65,17 +74,6 @@ struct ContentView: View {
                             )
                         }
                         .padding(.horizontal)
-                        
-                        Spacer()
-                        
-                        // Orientation Panel
-                        OrientationPanel(orientation: viewModel.orientationState)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .fill(.ultraThinMaterial)
-                            )
-                            .padding(.horizontal)
                         
                         Spacer()
                         
@@ -132,10 +130,6 @@ struct ContentView: View {
     }
     
     // MARK: - Swipe Gesture
-    // FIX 1: Removed value.velocity.width — DragGesture.Value.velocity requires iOS 17+.
-    //         Replaced with value.predictedEndTranslation.width as a momentum proxy
-    //         (available since iOS 13).
-    // FIX 2: Replaced #Preview macro (Xcode 15 / iOS 17+) with PreviewProvider (iOS 13+).
     private var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 80)
             .onChanged { value in
@@ -143,7 +137,6 @@ struct ContentView: View {
             }
             .onEnded { value in
                 let distance = value.translation.width
-                // predictedEndTranslation reflects momentum and is iOS 13+ compatible
                 let predicted = value.predictedEndTranslation.width
                 
                 // Swipe right → show debug
