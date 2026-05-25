@@ -1,4 +1,5 @@
 // SceneViewModel.swift
+// Fully updated to work with the new MotionManager
 
 import SwiftUI
 import SceneKit
@@ -14,17 +15,18 @@ final class SceneViewModel: ObservableObject {
         didSet { updateShields() }
     }
     @Published private(set) var isMotionActive = false
-    
-    // Changed default from .medium to .low
     @Published var performancePreset: PerformancePreset = .low
+    @Published private(set) var magneticAccuracy: CMMagneticFieldCalibrationAccuracy = .uncalibrated
+    @Published private(set) var lastError: String?
     
-    private let motionManager = MotionManager()
+    private let motionManager: MotionManager   // Now uses public init
     private let sceneController = SceneController()
     
     private var motionTask: Task<Void, Never>?
     private var lastUIUpdate = CACurrentMediaTime()
     
     init() {
+        self.motionManager = MotionManager()   // Fixed initializer access
         combatScene = sceneController.scene
         sceneController.loadShip(.fighter)
     }
@@ -32,8 +34,6 @@ final class SceneViewModel: ObservableObject {
     deinit {
         motionTask?.cancel()
     }
-    
-    // MARK: - Ship Management
     
     func changeShip(to ship: ShipType) {
         let wasRunning = isMotionActive
@@ -44,37 +44,31 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Motion Control
-    
     func startMotion() {
         guard motionTask == nil else { return }
         
         isMotionActive = true
+        lastError = nil
         
         motionTask = Task { [weak self] in
             guard let self else { return }
             
             do {
-                let stream: AsyncThrowingStream<MotionData, Error> = await motionManager.makeMotionStream(
-                    updateInterval: performancePreset.motionUpdateInterval,
-                    relative: true
-                )
+                try await self.motionManager.calibrate()
                 
-                for try await motionData in stream {
-                    try Task.checkCancellation()
-                    
-                    await self.updateOrientation(motionData.attitude)
+                await self.motionManager.startDeviceMotionUpdates(
+                    interval: self.performancePreset.motionUpdateInterval
+                ) { [weak self] data in
+                    guard let self else { return }
+                    Task { @MainActor in
+                        await self.handleMotionData(data)
+                    }
                 }
             } catch {
-                if error is CancellationError {
-                    print("✅ Motion task cancelled gracefully")
-                } else {
-                    print("❌ Motion error: \(error)")
-                }
-                
                 await MainActor.run {
+                    self.lastError = error.localizedDescription
                     self.isMotionActive = false
-                    self.motionTask = nil
+                    print("Motion error: \(error)")
                 }
             }
         }
@@ -83,41 +77,33 @@ final class SceneViewModel: ObservableObject {
     func stopMotion() {
         motionTask?.cancel()
         motionTask = nil
+        motionManager.stop()
         isMotionActive = false
         resetOrientation()
+        magneticAccuracy = .uncalibrated
     }
     
-    // MARK: - Orientation
-    
-    func resetOrientation() {
-        guard let shipNode = sceneController.shipNode else { return }
-        
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 0.4
-        SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
-        
-        shipNode.orientation = SCNVector4(0, 0, 0, 1)
-        SCNTransaction.commit()
-        
-        orientationState = .neutral
-        lastUIUpdate = CACurrentMediaTime()
+    private func handleMotionData(_ data: MotionData) async {
+        if let accuracy = data.magneticField?.accuracy {
+            self.magneticAccuracy = accuracy
+        }
+        await updateOrientation(data.attitude)
     }
     
     private func updateOrientation(_ attitude: AttitudeQuaternion) async {
         guard let shipNode = sceneController.shipNode else { return }
         
         let q = attitude.quaternion
-        let magnitude = sqrt(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w)
-        let norm = magnitude > 0.001 ?
-        SCNVector4(q.x/magnitude, q.y/magnitude, q.z/magnitude, q.w/magnitude) :
-        SCNVector4(0, 0, 0, 1)
+        let mag = sqrt(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w)
+        let normalized = mag > 0.001 ?
+        SCNVector4(q.x/mag, q.y/mag, q.z/mag, q.w/mag) : SCNVector4(0, 0, 0, 1)
         
-        shipNode.orientation = norm
+        shipNode.orientation = normalized
         
         let now = CACurrentMediaTime()
         if now - lastUIUpdate > performancePreset.uiThrottleInterval {
             orientationState = OrientationState(
-                orientation: norm,
+                orientation: normalized,
                 roll: attitude.roll,
                 pitch: attitude.pitch,
                 yaw: attitude.yaw
@@ -126,7 +112,14 @@ final class SceneViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Shields
+    func resetOrientation() {
+        guard let shipNode = sceneController.shipNode else { return }
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.4
+        shipNode.orientation = SCNVector4(0, 0, 0, 1)
+        SCNTransaction.commit()
+        orientationState = .neutral
+    }
     
     private func updateShields() {
         sceneController.shieldsNode?.isHidden = !shieldsEnabled

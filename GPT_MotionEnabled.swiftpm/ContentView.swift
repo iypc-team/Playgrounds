@@ -1,6 +1,6 @@
-// GPT_MotionEnabled 05/25/2026-1
+// GPT_MotionEnabled 05/25/2026-2
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/GPT_MotionEnabled.swiftpm Type 'CMMagneticFieldCalibrationAccuracy' has no member 'uncertain'.
 
 import SwiftUI
 import SceneKit
