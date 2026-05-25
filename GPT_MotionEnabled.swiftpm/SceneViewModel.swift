@@ -125,7 +125,14 @@ final class SceneViewModel: ObservableObject {
         orientationState = .neutral
     }
     
+    // FIX: Was toggling isHidden only — shield remained invisible because
+    // ShieldFactory initializes opacity to 0. Now animates opacity directly
+    // so the shield fades in/out on double-tap.
     private func updateShields() {
-        sceneController.shieldsNode?.isHidden = !shieldsEnabled
+        guard let node = sceneController.shieldsNode else { return }
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.4
+        node.opacity = shieldsEnabled ? 0.6 : 0.0
+        SCNTransaction.commit()
     }
 }

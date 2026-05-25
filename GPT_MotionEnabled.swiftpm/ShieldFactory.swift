@@ -39,9 +39,9 @@ enum ShieldFactory {
         
         sphereNode.position = SCNVector3(0, 0, 0)
         
-        sphereNode.opacity = 0
+        // opacity starts at 0; controlled by updateShields() in SceneViewModel
+        sphereNode.opacity = 0.0
         
         return sphereNode
     }
 }
-
