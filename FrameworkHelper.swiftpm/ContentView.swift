@@ -1,8 +1,8 @@
-//  FrameworkHelper 03/06/2026-5
+//  FrameworkHelper 05/26/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
 //  Project:  FrameworkHelper.swiftpm
-// 
+//
 
 import SwiftUI
 
@@ -21,7 +21,6 @@ struct ContentView: View {
                 } else if let error = viewModel.errorMessage {
                     ErrorView(
                         error: error,
-                        isLoading: viewModel.isLoading,
                         retryAction: {
                             // guard against concurrent loads from the view side too
                             guard !viewModel.isLoading else { return }
@@ -63,55 +62,8 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Small helper subviews for clarity & accessibility
-private struct LoadingView: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            ProgressView()
-                .progressViewStyle(.automatic)
-                .accessibilityLabel("Loading")
-                .accessibilityHint("Content is loading")
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
+// MARK: - Previews
+
+#Preview {
+    ContentView()
 }
-
-private struct ErrorView: View {
-    let error: String
-    let isLoading: Bool
-    let retryAction: () -> Void
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            Text("Error")
-                .font(.headline)
-                .accessibilityAddTraits(.isHeader)
-            
-            Text(error)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-            
-            Button("Retry") {
-                retryAction()
-            }
-            .buttonStyle(.bordered)
-            .disabled(isLoading)
-            .accessibilityLabel("Retry")
-            .accessibilityHint(isLoading ? "Retry is disabled while loading" : "Tap to retry loading")
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .accessibilityElement(children: .combine)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .preferredColorScheme(.dark)
-    }
-}
-
-

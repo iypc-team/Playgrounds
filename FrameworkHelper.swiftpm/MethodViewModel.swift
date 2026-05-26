@@ -1,9 +1,7 @@
 // MethodViewModel.swift
 //
-// Decode the Resources/methods.json shape and expose separate published lists
-// for methods, properties, constants and functions. Uses Bundle.module to load the
-// packaged resource, falls back to Bundle.main, preserves ordering and uniqueness,
-// and keeps concurrency and cancellation behavior clear.
+// Improved version: Better task cancellation, defensive JSON loading,
+// consistent error handling, and alignment with LibraryViewModel patterns.
 
 import Foundation
 import SwiftUI
@@ -14,77 +12,42 @@ final class MethodViewModel: ObservableObject {
     @Published var properties: [String] = []
     @Published var constants: [String] = []
     @Published var functions: [String] = []
+    
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
     
     let framework: Framework
     
-    // Built‑in per-category defaults so the UI never stays empty
+    // Built-in defaults so UI is never empty
     private let defaultEntries: [String: (methods: [String], properties: [String], constants: [String], functions: [String])] = [
         "SwiftUI": (
-            methods: [
-                "Text(_:)", "Text(verbatim:)", "Image(systemName:)", "Button(action:label:)",
-                "VStack(alignment:spacing:content:)", "HStack(alignment:spacing:content:)", "ZStack(alignment:content:)",
-                "List(_:rowContent:)", "ForEach(_:content:)", "NavigationStack(_:)", "NavigationLink(_:value:)",
-                "sheet(isPresented:onDismiss:content:)", "fullScreenCover(isPresented:content:)", "task(priority:operation:)",
-                "onAppear(perform:)", "onDisappear(perform:)", "toolbar(content:)", "alert(_:isPresented:actions:message:)"
-            ],
-            properties: [
-                ".body", ".environmentObject", ".environment", ".state", ".binding", ".observedObject", ".sceneStorage",
-                ".frame(width:height:)", ".background", ".foregroundColor", ".opacity", ".padding", ".cornerRadius",
-                ".listStyle", ".navigationBarTitle", ".sheet", ".alert"
-            ],
-            constants: [
-                "ForEach", "Group", "NavigationView", "List", "VStack", "HStack", "ZStack", "Spacer()", "Divider()",
-                "TextField", "Button"
-            ],
-            functions: [
-                "Spacer()", "Divider()", "TextField", "Button"
-            ]
+            methods: ["Text(_:)", "Image(systemName:)", "Button(action:label:)", "VStack(alignment:spacing:content:)", "NavigationStack(_:)", "sheet(isPresented:onDismiss:content:)", "task(priority:operation:)"],
+            properties: [".body", ".padding", ".background", ".foregroundColor", ".frame(width:height:)", ".environment", ".state"],
+            constants: ["ForEach", "Group", "VStack", "HStack", "ZStack", "Spacer", "Divider"],
+            functions: ["Spacer()", "Divider()"]
         ),
         "UIKit": (
-            methods: [
-                "UIView.init(frame:)", "UIView.addSubview(_:)", "UIView.layoutIfNeeded()", "UIView.setNeedsLayout()",
-                "UIViewController.viewDidLoad()", "UIViewController.viewWillAppear(_:)", "UIViewController.viewDidAppear(_:)",
-                "UIViewController.present(_:animated:completion:)", "UIViewController.dismiss(animated:completion:)",
-                "UINavigationController.pushViewController(_:animated:)", "UINavigationController.popViewController(animated:)"
-            ],
-            properties: [
-                "UIView.backgroundColor", "UIView.frame", "UIView.bounds", "UIView.alpha", "UIViewController.view",
-                "UIViewController.navigationController", "UILabel.text", "UITextField.text", "UIButton.titleLabel",
-                "UIImageView.image", "UIScrollView.contentOffset"
-            ],
-            constants: [
-                "UILabel.textAlignment", "UIControl.State", "UIView.ContentMode"
-            ],
+            methods: ["UIView.addSubview(_:)", "UIViewController.viewDidLoad()", "UIViewController.present(_:animated:completion:)", "UINavigationController.pushViewController(_:animated:)"],
+            properties: ["UIView.backgroundColor", "UIView.frame", "UILabel.text", "UIButton.titleLabel"],
+            constants: ["UIControl.State", "UIView.ContentMode"],
             functions: []
         ),
         "Foundation": (
-            methods: [
-                "Date()", "DateFormatter.string(from:)", "URL.init(string:)", "URLComponents.init()", "Data(contentsOf:)",
-                "JSONDecoder.decode(_:from:)", "JSONEncoder.encode(_:)", "UserDefaults.standard.set(_:forKey:)"
-            ],
+            methods: ["Date()", "JSONDecoder.decode(_:from:)", "URL(string:)"],
             properties: [],
             constants: [],
             functions: []
         )
-        // Add additional defaults if you need them
     ]
     
-    // Guard to avoid concurrent loads
     private var currentLoadTask: Task<Void, Never>?
     
     init(framework: Framework) {
         self.framework = framework
-        // No side-effects here; view triggers fetchMethods()
     }
     
-    // MARK: - Public API
-    
-    /// Fetch per-category entries for the framework.
-    /// If a load is already in progress this returns immediately.
+    /// Fetch methods for the framework
     func fetchMethods() async {
-        // Prevent starting a second concurrent load
         if currentLoadTask != nil { return }
         
         let task = Task { [weak self] in
@@ -95,32 +58,13 @@ final class MethodViewModel: ObservableObject {
                 self.errorMessage = nil
             }
             
-            let currentLibrary = self.framework.name
-            
-            // Local helper types
-            struct FrameworkEntry: Codable {
-                let methods: [String]?
-                let properties: [String]?
-                let constants: [String]?
-                let functions: [String]?
-            }
-            
-            // Results we may populate from JSON
-            var loadedMethods: [String]? = nil
-            var loadedProperties: [String]? = nil
-            var loadedConstants: [String]? = nil
-            var loadedFunctions: [String]? = nil
-            
             do {
-                if let decodedMap = try loadMethodsJSON() {
-                    if Task.isCancelled { return }
-                    
-                    if let entry = decodedMap[currentLibrary] {
-                        loadedMethods = uniquePreservingOrder(entry.methods)
-                        loadedProperties = uniquePreservingOrder(entry.properties)
-                        loadedConstants = uniquePreservingOrder(entry.constants)
-                        loadedFunctions = uniquePreservingOrder(entry.functions)
-                    }
+                if Task.isCancelled { return }
+                
+                let loaded = try await self.loadFromJSON()
+                
+                await MainActor.run {
+                    self.applyData(loaded)
                 }
             } catch {
                 if Task.isCancelled { return }
@@ -129,48 +73,17 @@ final class MethodViewModel: ObservableObject {
                     self.errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
                 }
             }
-            
-            // Apply loaded values or fall back to defaults
-            await MainActor.run {
-                if let m = loadedMethods, !m.isEmpty {
-                    self.methods = m
-                } else {
-                    self.methods = self.defaultEntries[currentLibrary]?.methods ?? ["No methods available for this framework"]
-                }
-                
-                if let p = loadedProperties, !p.isEmpty {
-                    self.properties = p
-                } else {
-                    self.properties = self.defaultEntries[currentLibrary]?.properties ?? []
-                }
-                
-                if let c = loadedConstants, !c.isEmpty {
-                    self.constants = c
-                } else {
-                    self.constants = self.defaultEntries[currentLibrary]?.constants ?? []
-                }
-                
-                if let f = loadedFunctions, !f.isEmpty {
-                    self.functions = f
-                } else {
-                    self.functions = self.defaultEntries[currentLibrary]?.functions ?? []
-                }
-            }
         }
         
         currentLoadTask = task
-        
-        // Wait for completion so callers awaiting fetchMethods() observe the final state
         await task.value
         
-        // Ensure we clear loading state and task reference (handle cancellation)
         await MainActor.run {
             self.isLoading = false
             self.currentLoadTask = nil
         }
     }
     
-    /// Cancel an in-flight fetch.
     func cancelFetch() {
         currentLoadTask?.cancel()
         currentLoadTask = nil
@@ -180,40 +93,49 @@ final class MethodViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private helpers
+    // MARK: - Private
     
-    /// Load and decode the top-level methods.json into a dictionary keyed by framework name.
-    /// Returns nil when the file cannot be found (caller should fall back to defaults).
-    private func loadMethodsJSON() throws -> [String: FrameworkEntry]? {
-        // Prefer Bundle.module for package resources; fallback to Bundle.main
-        let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
-        var fileURL: URL? = nil
-        for b in candidateBundles.compactMap({ $0 }) {
-            if let url = b.url(forResource: "methods", withExtension: "json") {
-                fileURL = url
-                break
+    private func loadFromJSON() async throws -> FrameworkMethods {
+        let candidateBundles = [Bundle.module, Bundle.main]
+        
+        for bundle in candidateBundles {
+            if let url = bundle.url(forResource: "methods", withExtension: "json") {
+                let data = try Data(contentsOf: url)
+                let decoded = try JSONDecoder().decode([String: FrameworkMethods].self, from: data)
+                return decoded[framework.name] ?? FrameworkMethods()
             }
         }
         
-        guard let url = fileURL else { return nil }
-        
-        let data = try Data(contentsOf: url)
-        let decoded = try JSONDecoder().decode([String: FrameworkEntry].self, from: data)
-        return decoded
+        // No JSON file found → will fall back to defaults
+        return FrameworkMethods()
     }
     
-    /// Remove duplicates while preserving first-seen order.
-    private func uniquePreservingOrder(_ arr: [String]?) -> [String] {
-        guard let arr = arr else { return [] }
+    private func applyData(_ data: FrameworkMethods) {
+        methods = !data.methods.isEmpty ? uniquePreservingOrder(data.methods) : defaultFor(\.methods)
+        properties = !data.properties.isEmpty ? uniquePreservingOrder(data.properties) : defaultFor(\.properties)
+        constants = !data.constants.isEmpty ? uniquePreservingOrder(data.constants) : defaultFor(\.constants)
+        functions = !data.functions.isEmpty ? uniquePreservingOrder(data.functions) : defaultFor(\.functions)
+    }
+    
+    private func defaultFor(_ keyPath: KeyPath<(methods: [String], properties: [String], constants: [String], functions: [String]), [String]>) -> [String] {
+        defaultEntries[framework.name]?[keyPath: keyPath] ?? []
+    }
+    
+    private func uniquePreservingOrder(_ array: [String]) -> [String] {
         var seen = Set<String>()
-        return arr.filter { seen.insert($0).inserted }
+        return array.filter { seen.insert($0).inserted }
     }
+}
+
+// MARK: - Supporting Model
+
+struct FrameworkMethods: Codable {
+    var methods: [String] = []
+    var properties: [String] = []
+    var constants: [String] = []
+    var functions: [String] = []
     
-    // Local Codable type reused by loader
-    private struct FrameworkEntry: Codable {
-        let methods: [String]?
-        let properties: [String]?
-        let constants: [String]?
-        let functions: [String]?
+    enum CodingKeys: String, CodingKey {
+        case methods, properties, constants, functions
     }
 }
