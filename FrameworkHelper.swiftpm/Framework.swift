@@ -1,26 +1,32 @@
 // Framework.swift
-//
-// Use a stable identifier derived from the framework name to avoid
-// unstable identities (UUID) that break List diffing and navigation.
 
 import Foundation
 
 struct Framework: Identifiable, Hashable, Codable {
-    /// Stable identifier derived from the framework's name.
-    /// Using the name (or a normalized form of it) ensures the identity
-    /// stays consistent across recreations.
+    
     let id: String
     let name: String
+    let displayName: String
     
-    init(id: String? = nil, name: String) {
+    /// Main initializer
+    init(id: String? = nil, name: String, displayName: String? = nil) {
         self.name = name
-        // Default id is the name trimmed and normalized to a consistent form.
-        // Adjust normalization if you need different uniqueness rules.
-        self.id = id ?? name.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.displayName = displayName ?? FrameworksConstants.displayName(for: name)
+        self.id = id ?? FrameworksConstants.normalizedID(for: name)
     }
     
-    /// Convenience initializer when you only have a name.
+    /// Convenience initializer (most commonly used)
     init(name: String) {
         self.init(id: nil, name: name)
+    }
+    
+    // MARK: - Hashable & Equatable
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Framework, rhs: Framework) -> Bool {
+        lhs.id == rhs.id
     }
 }

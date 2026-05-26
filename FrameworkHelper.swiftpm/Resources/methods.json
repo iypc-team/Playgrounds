@@ -123,5 +123,41 @@
             "CurrentValueSubject"
         ],
         "functions": []
+    },
+    
+    "CoreMotion": {
+        "methods": [
+            "CMMotionManager()",
+            "startDeviceMotionUpdates()",
+            "startAccelerometerUpdates()",
+            "startGyroUpdates()",
+            "startMagnetometerUpdates()",
+            "stopDeviceMotionUpdates()",
+            "stopAccelerometerUpdates()",
+            "stopGyroUpdates()",
+            "stopMagnetometerUpdates()",
+            "CMMotionActivityManager()",
+            "CMPedometer()"
+        ],
+        "properties": [
+            "isDeviceMotionAvailable",
+            "isAccelerometerAvailable",
+            "isGyroAvailable",
+            "isMagnetometerAvailable",
+            "deviceMotion",
+            "accelerometerData",
+            "gyroData",
+            "magnetometerData",
+            "motionActivity"
+        ],
+        "constants": [
+            "CMAttitudeReferenceFrame",
+            "CMErrorDomain",
+            "CMMotionActivityConfidence",
+            "CMMotionActivityConfidence.high",
+            "CMMotionActivityConfidence.medium",
+            "CMMotionActivityConfidence.low"
+        ],
+        "functions": []
     }
 }
