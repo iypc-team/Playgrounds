@@ -1,958 +1,127 @@
+// methods.json
+// FrameworkHelper.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
+// Last Updated: 2026-05-26
+//
+// This file contains method, property, constant, and function references 
+// for various Apple frameworks. Used by MethodViewModel.
+
 {
     "SwiftUI": {
         "methods": [
             "Text(_:)",
-            "Text(verbatim:)",
             "Image(systemName:)",
             "Button(action:label:)",
+            "NavigationStack(_:)",
+            "sheet(isPresented:onDismiss:content:)",
+            "task(priority:operation:)",
+            "alert(isPresented:content:)",
+            "ForEach(_:content:)",
+            "onAppear(perform:)",
+            "onDisappear(perform:)",
+            "padding(_:)",
+            "background(_:)",
+            "foregroundStyle(_:)"
+        ],
+        "properties": [
+            ".body",
+            ".title",
+            ".headline",
+            ".padding",
+            ".background",
+            ".foregroundColor",
+            ".frame(width:height:alignment:)",
+            ".environment",
+            ".state",
+            ".binding"
+        ],
+        "constants": [
             "VStack(alignment:spacing:content:)",
             "HStack(alignment:spacing:content:)",
             "ZStack(alignment:content:)",
-            "List(_:rowContent:)",
-            "ForEach(_:content:)",
-            "NavigationStack(_:)",
-            "NavigationLink(_:value:)",
-            "sheet(isPresented:onDismiss:content:)",
-            "fullScreenCover(isPresented:content:)",
-            "task(priority:operation:)",
-            "onAppear(perform:)",
-            "onDisappear(perform:)",
-            "toolbar(content:)",
-            "alert(_:isPresented:actions:message:)"
-        ],
-        "properties": [
-            "body",
-            "padding",
-            "frame(width:height:alignment:)",
-            "foregroundColor(_:)",
-            "background(_:alignment:)",
-            "cornerRadius(_:)",
-            "font(_:)",
-            "bold()",
-            "italic()",
-            "shadow(color:radius:x:y:)"
-        ],
-        "constants": [
-            ".leading",
-            ".trailing",
-            ".top",
-            ".bottom",
-            ".center",
-            ".horizontal",
-            ".vertical",
-            ".all",
-            ".largeTitle",
-            ".headline"
+            "Spacer()",
+            "Divider()",
+            "Group",
+            "Color",
+            "ForEach",
+            "NavigationStack"
         ],
         "functions": [
-            "withAnimation(_:_:)",
-            "withTransaction(_:_:)",
-            "GeometryReader(content:)",
-            "Group(content:)",
-            "ScrollView(_:showsIndicators:content:)",
-            "TabView(selection:content:)"
+            "Spacer()",
+            "Divider()",
+            "ProgressView()",
+            "Image(systemName:)"
         ]
     },
+    
     "UIKit": {
         "methods": [
-            "UIView.init(frame:)",
             "UIView.addSubview(_:)",
-            "UIView.layoutIfNeeded()",
-            "UIView.setNeedsLayout()",
             "UIViewController.viewDidLoad()",
-            "UIViewController.viewWillAppear(_:)",
-            "UIViewController.viewDidAppear(_:)",
             "UIViewController.present(_:animated:completion:)",
-            "UIViewController.dismiss(animated:completion:)",
             "UINavigationController.pushViewController(_:animated:)",
-            "UINavigationController.popViewController(animated:)",
-            "UITableView.dequeueReusableCell(withIdentifier:for:)",
-            "UICollectionView.register(_:forCellWithReuseIdentifier:)",
-            "UIResponder.becomeFirstResponder()",
-            "UIApplication.shared.open(_:options:completionHandler:)",
-            "UIScrollView.setContentOffset(_:animated:)"
+            "UITableView.register(_:forCellReuseIdentifier:)",
+            "UIAlertController(title:message:preferredStyle:)",
+            "UIButton.addTarget(_:action:for:)"
         ],
         "properties": [
-            "UIView.frame",
-            "UIView.bounds",
-            "UIView.center",
             "UIView.backgroundColor",
-            "UIView.alpha",
-            "UIView.isHidden",
-            "UIView.layer",
-            "UIViewController.view",
-            "UIViewController.title",
-            "UINavigationItem.title"
+            "UIView.frame",
+            "UILabel.text",
+            "UIButton.titleLabel",
+            "UITableView.dataSource",
+            "UIViewController.navigationController",
+            "UIWindow.rootViewController"
         ],
         "constants": [
-            "UIColor.red",
-            "UIColor.blue",
-            "UIColor.systemBackground",
-            "UIFont.systemFont(ofSize:)",
-            "UIFont.boldSystemFont(ofSize:)",
-            "NSLayoutConstraint.Priority.required",
-            "UIView.ContentMode.scaleAspectFit",
-            "UITableView.Style.plain",
-            "UITableView.Style.grouped"
+            "UIControl.State",
+            "UIView.ContentMode",
+            "UIAlertController.Style",
+            "UITableViewCell.SelectionStyle",
+            "UIModalPresentationStyle"
         ],
-        "functions": [
-            "UIGraphicsBeginImageContextWithOptions(_:_:_:)",
-            "UIGraphicsEndImageContext()",
-            "UIGraphicsGetCurrentContext()",
-            "UIGraphicsGetImageFromCurrentImageContext()"
-        ]
+        "functions": []
     },
+    
     "Foundation": {
         "methods": [
             "Date()",
-            "DateFormatter.string(from:)",
-            "URL.init(string:)",
-            "URLComponents.init()",
-            "Data(contentsOf:)",
             "JSONDecoder.decode(_:from:)",
             "JSONEncoder.encode(_:)",
-            "UserDefaults.standard.set(_:forKey:)",
-            "UserDefaults.standard.object(forKey:)",
-            "NotificationCenter.default.post(name:object:userInfo:)",
-            "OperationQueue.addOperation(_:)",
-            "URLSession.dataTask(with:completionHandler:)",
-            "FileManager.default.contentsOfDirectory(atPath:)"
+            "URL(string:)",
+            "NotificationCenter.default.addObserver(_:selector:name:object:)",
+            "URLSession.shared.data(from:)"
         ],
         "properties": [
-            "UserDefaults.standard",
-            "NotificationCenter.default",
-            "FileManager.default",
-            "Bundle.main",
-            "ProcessInfo.processInfo",
-            "Date.now",
-            "URL.absoluteString",
-            "Data.count"
+            "String.count",
+            "Array.isEmpty",
+            "Date.timeIntervalSince1970"
         ],
         "constants": [
-            "ComparisonResult.orderedAscending",
-            "ComparisonResult.orderedDescending",
-            "ComparisonResult.orderedSame",
-            "NSNotFound",
-            "URLSession.shared"
+            "Notification.Name",
+            "URLSessionConfiguration.default",
+            "Calendar.current"
         ],
         "functions": [
-            "NSLocalizedString(_:comment:)",
-            "NSLog(_:)",
-            "print(_:separator:terminator:)",
-            "assert(_:_:file:line:)",
-            "precondition(_:_:file:line:)"
+            "print(_:)",
+            "fatalError(_:file:line:)"
         ]
     },
-    "CoreData": {
-        "methods": [
-            "NSPersistentContainer.init(name:)",
-            "NSPersistentContainer.loadPersistentStores(completionHandler:)",
-            "NSManagedObjectContext.save()",
-            "NSFetchRequest.init(entityName:)",
-            "NSManagedObjectContext.perform(_:)",
-            "NSBatchDeleteRequest.init(fetchRequest:)",
-            "NSManagedObject.init(entity:insertInto:)",
-            "NSManagedObjectContext.mergeChanges(fromContextDidSave:)"
-        ],
-        "properties": [
-            "NSPersistentContainer.viewContext",
-            "NSManagedObjectContext.persistentStoreCoordinator",
-            "NSManagedObject.objectID",
-            "NSEntityDescription.name",
-            "NSFetchRequest.predicate",
-            "NSFetchRequest.sortDescriptors"
-        ],
-        "constants": [
-            "NSMergePolicy.mergeByPropertyObjectTrump",
-            "NSMergePolicy.overwrite",
-            "NSDeleteRule.nullifyDeleteRule",
-            "NSDeleteRule.cascadeDeleteRule"
-        ],
-        "functions": [
-            "NSEntityDescription.entity(forEntityName:in:)",
-            "NSPredicate(format:)",
-            "NSSortDescriptor(keyPath:ascending:)"
-        ]
-    },
+    
     "Combine": {
         "methods": [
-            "Just.init(_:)",
-            "Future.init(_:)",
-            "PassthroughSubject.send(_:)",
-            "Publisher.map(_:)",
-            "Publisher.flatMap(_:)",
-            "Publisher.debounce(for:scheduler:)",
             "Publisher.sink(receiveCompletion:receiveValue:)",
-            "AnyCancellable.cancel()",
-            "Publishers.Merge(_:)"
-        ],
-        "properties": [
-            "CurrentValueSubject.value",
-            "PassthroughSubject",
+            "Publisher.map(_:)",
             "Publisher.eraseToAnyPublisher()",
-            "Subscribers.Completion.finished",
-            "Subscribers.Completion.failure(_:)"
+            "ObservableObject.objectWillChange",
+            "@Published"
         ],
+        "properties": [],
         "constants": [
-            "RunLoop.main",
-            "DispatchQueue.main",
-            "Scheduler.SchedulerTimeType"
-        ],
-        "functions": [
-            "Publishers.CombineLatest(_:_:)",
-            "Publishers.Zip(_:_:)",
-            "Publishers.MergeMany(_:)",
-            "Deferred(createPublisher:)"
-        ]
-    },
-    "ARKit": {
-        "methods": [
-            "ARSession.run(_:options:)",
-            "ARSession.pause()",
-            "ARSession.getCurrentWorldMap(completionHandler:)",
-            "ARAnchor.init(transform:)",
-            "ARAnchor.init(name:transform:)",
-            "ARReferenceImage.init(_:orientation:physicalWidth:)",
-            "ARReferenceObject.referenceObject(with:in:)",
-            "ARWorldMap.archiveData()",
-            "ARWorldMap.init(data:)",
-            "ARCoachingOverlayView.setActive(_:animated:)",
-            "ARRaycastQuery.init(origin:direction:allowing:alignment:)",
-            "ARSession.raycast(_:)",
-            "ARTrackedRaycast.start(_:)",
-            "ARTrackedRaycast.stop()",
-            "ARSessionDelegate.session(_:didAdd:)",
-            "ARSessionDelegate.session(_:didUpdate:)",
-            "ARSessionDelegate.session(_:didRemove:)",
-            "ARSessionDelegate.session(_:didFailWithError:)",
-            "ARSessionDelegate.sessionWasInterrupted(_:)",
-            "ARSessionDelegate.sessionInterruptionEnded(_:)",
-            "ARSessionDelegate.sessionShouldAttemptRelocalization(_:)",
-            "ARSCNViewDelegate.renderer(_:didAdd:for:)",
-            "ARSCNViewDelegate.renderer(_:didUpdate:for:)",
-            "ARSCNViewDelegate.renderer(_:didRemove:for:)",
-            "ARFrame.hitTest(_:types:)"
-        ],
-        "properties": [
-            "ARSession.currentFrame",
-            "ARSession.delegate",
-            "ARSCNView.session",
-            "ARSCNView.delegate",
-            "ARPlaneAnchor.alignment",
-            "ARImageAnchor.referenceImage",
-            "ARFaceAnchor.blendShapes",
-            "ARBodyAnchor.skeleton",
-            "ARMeshAnchor.geometry",
-            "ARCoachingOverlayView.activatesAutomatically",
-            "ARCoachingOverlayView.goal",
-            "ARRaycastResult.worldTransform",
-            "ARRaycastResult.target",
-            "ARHitTestResult.type",
-            "ARCamera.trackingState",
-            "ARFrame.sceneDepth",
-            "ARFrame.smoothedSceneDepth",
-            "ARFrame.detectedBody",
-            "ARFrame.rawFeaturePoints",
-            "ARCamera.transform",
-            "ARCamera.eulerAngles",
-            "ARConfiguration.isAutoFocusEnabled",
-            "ARWorldTrackingConfiguration.planeDetection"
-        ],
-        "constants": [
-            "ARPlaneDetection.horizontal",
-            "ARPlaneDetection.vertical",
-            "ARCamera.TrackingState.notAvailable",
-            "ARCamera.TrackingState.normal",
-            "ARCamera.TrackingState.Reason.initializing",
-            "ARCamera.TrackingState.Reason.excessiveMotion",
-            "ARCamera.TrackingState.Reason.insufficientFeatures",
-            "ARCamera.TrackingState.Reason.relocalizing"
-        ],
-        "functions": [
-            "ARWorldTrackingConfiguration.init()",
-            "ARImageTrackingConfiguration.init()",
-            "ARFaceTrackingConfiguration.init()",
-            "ARObjectScanningConfiguration.init()"
-        ]
-    },
-    "QuartzCore": {
-        "methods": [
-            "CALayer.addSublayer(_:)",
-            "CATransaction.begin()",
-            "CATransaction.commit()",
-            "CAMediaTimingFunction(name:)"
-        ],
-        "properties": [
-            "CALayer.frame",
-            "CALayer.bounds",
-            "CALayer.position",
-            "CALayer.opacity",
-            "CALayer.cornerRadius",
-            "CALayer.borderWidth",
-            "CALayer.borderColor",
-            "CALayer.shadowColor",
-            "CALayer.shadowRadius",
-            "CALayer.masksToBounds"
-        ],
-        "constants": [
-            "CAMediaTimingFunctionName.linear",
-            "CAMediaTimingFunctionName.easeIn",
-            "CAMediaTimingFunctionName.easeOut",
-            "CAMediaTimingFunctionName.easeInEaseOut"
-        ],
-        "functions": [
-            "CABasicAnimation(keyPath:)",
-            "CAKeyframeAnimation(keyPath:)",
-            "CAGradientLayer.init()",
-            "CAShapeLayer.init()"
-        ]
-    },
-    "CoreGraphics": {
-        "methods": [
-            "CGContext.draw(_:in:)",
-            "CGContext.fillEllipse(in:)",
-            "CGContext.strokePath()",
-            "CGContext.addLine(to:)",
-            "CGContext.move(to:)"
-        ],
-        "properties": [
-            "CGRect.width",
-            "CGRect.height",
-            "CGRect.origin",
-            "CGRect.size",
-            "CGRect.midX",
-            "CGRect.midY",
-            "CGPoint.x",
-            "CGPoint.y",
-            "CGSize.width",
-            "CGSize.height"
-        ],
-        "constants": [
-            "CGRect.zero",
-            "CGPoint.zero",
-            "CGSize.zero",
-            "CGAffineTransform.identity"
-        ],
-        "functions": [
-            "CGRect(x:y:width:height:)",
-            "CGPath.init()",
-            "CGColor.init(red:green:blue:alpha:)",
-            "CGAffineTransform(translationX:y:)",
-            "UIGraphicsBeginImageContextWithOptions(_:_:_:)",
-            "CGImage.init(width:height:bitsPerComponent:bytesPerRow:space:bitmapInfo:provider:releaseData:)"
-        ]
-    },
-    "CoreLocation": {
-        "methods": [
-            "CLLocationManager.requestWhenInUseAuthorization()",
-            "CLLocationManager.startUpdatingLocation()",
-            "CLLocationManager.stopUpdatingLocation()",
-            "CLGeocoder.geocodeAddressString(_:completionHandler:)",
-            "locationManager(_:didUpdateLocations:)"
-        ],
-        "properties": [
-            "CLLocationManager.delegate",
-            "CLLocationManager.desiredAccuracy",
-            "CLLocationManager.distanceFilter",
-            "CLLocation.coordinate",
-            "CLLocation.altitude",
-            "CLLocation.speed",
-            "CLPlacemark.location",
-            "CLPlacemark.locality",
-            "CLPlacemark.country"
-        ],
-        "constants": [
-            "kCLLocationAccuracyBest",
-            "kCLLocationAccuracyNearestTenMeters",
-            "kCLLocationAccuracyHundredMeters",
-            "kCLDistanceFilterNone"
-        ],
-        "functions": [
-            "CLLocation.init(latitude:longitude:)",
-            "CLCircularRegion(center:radius:identifier:)"
-        ]
-    },
-    "MapKit": {
-        "methods": [
-            "MKMapView.setRegion(_:animated:)",
-            "MKMapView.addAnnotation(_:)",
-            "MKDirections.calculate(completionHandler:)"
-        ],
-        "properties": [
-            "MKMapView.region",
-            "MKMapView.centerCoordinate",
-            "MKMapView.mapType",
-            "MKMapView.showsUserLocation",
-            "MKAnnotation.coordinate",
-            "MKAnnotation.title",
-            "MKAnnotation.subtitle"
-        ],
-        "constants": [
-            "MKMapType.standard",
-            "MKMapType.satellite",
-            "MKMapType.hybrid"
-        ],
-        "functions": [
-            "MKPinAnnotationView.init(annotation:reuseIdentifier:)",
-            "MKCoordinateRegion(center:latitudinalMeters:longitudinalMeters:)",
-            "MKMapSnapshotter.init(options:)",
-            "MKMarkerAnnotationView.init(annotation:reuseIdentifier:)"
-        ]
-    },
-    "AVFoundation": {
-        "methods": [
-            "AVPlayer.play()",
-            "AVPlayer.pause()",
-            "AVPlayer.seek(to:)",
-            "AVPlayer.replaceCurrentItem(with:)",
-            "AVPlayerItem.addObserver(_:forKeyPath:options:context:)",
-            "AVAudioSession.sharedInstance().setCategory(_:mode:options:)",
-            "AVAudioSession.sharedInstance().setActive(_:)",
-            "AVAudioSession.sharedInstance().requestRecordPermission(_:)",
-            "AVCaptureSession.startRunning()",
-            "AVCaptureSession.stopRunning()",
-            "AVCaptureDevice.requestAccess(for:completionHandler:)",
-            "AVCaptureDevice.lockForConfiguration()",
-            "AVCaptureDevice.unlockForConfiguration()",
-            "AVCapturePhotoOutput.capturePhoto(with:settings:delegate:)",
-            "AVCaptureVideoDataOutput.setSampleBufferDelegate(_:queue:)",
-            "AVCaptureMovieFileOutput.startRecording(to:recordingDelegate:)",
-            "AVCaptureMovieFileOutput.stopRecording()",
-            "AVAudioRecorder.record()",
-            "AVAudioRecorder.stop()",
-            "AVAudioPlayer.play()",
-            "AVAudioPlayer.pause()",
-            "AVAssetExportSession.exportAsynchronously(completionHandler:)",
-            "AVAudioEngine.attach(_:)",
-            "AVAudioEngine.connect(_:to:format:)",
-            "AVAudioEngine.start()"
-        ],
-        "properties": [
-            "AVPlayer.rate",
-            "AVPlayer.volume",
-            "AVPlayer.currentItem",
-            "AVPlayerItem.status",
-            "AVPlayerItem.duration",
-            "AVCaptureDevice.isFlashAvailable",
-            "AVCaptureDevice.isTorchAvailable",
-            "AVCaptureConnection.isVideoStabilizationSupported",
-            "AVCaptureConnection.videoOrientation",
-            "AVCaptureDeviceInput.device",
-            "AVAssetTrack.naturalSize"
-        ],
-        "constants": [
-            "AVAudioSession.Category.playback",
-            "AVAudioSession.Category.record",
-            "AVAudioSession.Category.playAndRecord",
-            "AVFileType.mp4",
-            "AVFileType.mov",
-            "AVMediaType.video",
-            "AVMediaType.audio"
-        ],
-        "functions": [
-            "AVPlayer.init(url:)",
-            "AVPlayerItem.init(url:)",
-            "AVPlayerLayer(player:)",
-            "AVCaptureSession.init()",
-            "AVCaptureDevice.default(for:)",
-            "AVCaptureDeviceInput.init(device:)",
-            "AVAudioRecorder.init(url:settings:)",
-            "AVAudioPlayer.init(contentsOf:)",
-            "AVAssetReader.init(asset:)",
-            "AVAssetWriter.init(outputURL:fileType:)",
-            "AVAudioPCMBuffer.init(pcmFormat:frameCapacity:)"
-        ]
-    },
-    "SpriteKit": {
-        "methods": [
-            "SKView.presentScene(_:)",
-            "touchesBegan(_:with:)",
-            "SKAction.move(by:duration:)",
-            "SKAction.rotate(byAngle:duration:)"
-        ],
-        "properties": [
-            "SKScene.size",
-            "SKScene.backgroundColor",
-            "SKScene.physicsWorld",
-            "SKNode.position",
-            "SKNode.zRotation",
-            "SKNode.xScale",
-            "SKNode.yScale",
-            "SKSpriteNode.size",
-            "SKSpriteNode.texture",
-            "SKPhysicsBody.isDynamic"
-        ],
-        "constants": [
-            "SKBlendMode.alpha",
-            "SKBlendMode.add",
-            "SKLabelHorizontalAlignmentMode.center",
-            "SKLabelVerticalAlignmentMode.center"
-        ],
-        "functions": [
-            "SKScene.init(size:)",
-            "SKSpriteNode.init(imageNamed:)",
-            "SKPhysicsBody(circleOfRadius:)"
-        ]
-    },
-    "SceneKit": {
-        "methods": [
-            "SCNNode.addChildNode(_:)",
-            "SCNNode.runAction(_:)"
-        ],
-        "properties": [
-            "SCNNode.position",
-            "SCNNode.eulerAngles",
-            "SCNNode.scale",
-            "SCNNode.geometry",
-            "SCNNode.light",
-            "SCNNode.camera",
-            "SCNView.scene",
-            "SCNView.allowsCameraControl",
-            "SCNView.showsStatistics"
-        ],
-        "constants": [
-            "SCNWrapMode.repeat",
-            "SCNWrapMode.clamp",
-            "SCNCullMode.front",
-            "SCNCullMode.back"
-        ],
-        "functions": [
-            "SCNScene(named:)",
-            "SCNCamera.init()",
-            "SCNAction.move(to:duration:)",
-            "SCNPhysicsBody(type:shape:)"
-        ]
-    },
-    "Metal": {
-        "methods": [
-            "MTLDevice.makeCommandQueue()",
-            "MTLDevice.makeBuffer(bytes:length:options:)",
-            "MTLDevice.makeRenderPipelineState(descriptor:)",
-            "MTLTexture.replace(region:mipmapLevel:withBytes:bytesPerRow:)"
-        ],
-        "properties": [
-            "MTLDevice.name",
-            "MTLDevice.maxThreadsPerThreadgroup",
-            "MTLCommandBuffer.status",
-            "MTLRenderPipelineDescriptor.vertexFunction",
-            "MTLRenderPipelineDescriptor.fragmentFunction"
-        ],
-        "constants": [
-            "MTLPixelFormat.bgra8Unorm",
-            "MTLPixelFormat.depth32Float",
-            "MTLPrimitiveType.triangle",
-            "MTLLoadAction.clear",
-            "MTLStoreAction.store"
-        ],
-        "functions": [
-            "MTLCreateSystemDefaultDevice()",
-            "MTKView(drawableSizeWillChange:)"
-        ]
-    },
-    "CoreML": {
-        "methods": [
-            "MLModel.prediction(from:)"
-        ],
-        "properties": [
-            "MLModel.modelDescription",
-            "MLMultiArray.dataPointer",
-            "MLMultiArray.shape",
-            "MLMultiArray.strides",
-            "MLFeatureValue.type"
-        ],
-        "constants": [
-            "MLComputeUnits.all",
-            "MLComputeUnits.cpuOnly",
-            "MLComputeUnits.cpuAndGPU",
-            "MLMultiArrayDataType.float32",
-            "MLMultiArrayDataType.double",
-            "MLMultiArrayDataType.int32"
-        ],
-        "functions": [
-            "MLModel.compileModel(at:)",
-            "MLModel(contentsOf:)",
-            "MLModelConfiguration.init()",
-            "MLMultiArray.init(shape:dataType:)",
-            "MLFeatureValue.init(double:)"
-        ]
-    },
-    "Vision": {
-        "methods": [
-            "VNImageRequestHandler.perform(_:)"
-        ],
-        "properties": [
-            "VNImageBasedRequest.results",
-            "VNRecognizedText.string",
-            "VNFaceObservation.landmarks",
-            "VNDetectedObjectObservation.boundingBox",
-            "VNCoreMLRequest.imageCropAndScaleOption"
-        ],
-        "constants": [
-            "VNImageCropAndScaleOption.scaleFit",
-            "VNImageCropAndScaleOption.scaleFill",
-            "VNRecognizeTextRequest.RecognitionLevel.accurate",
-            "VNRecognizeTextRequest.RecognitionLevel.fast"
-        ],
-        "functions": [
-            "VNDetectFaceRectanglesRequest()",
-            "VNRecognizeTextRequest()",
-            "VNCoreMLRequest(model:completionHandler:)"
-        ]
-    },
-    "HealthKit": {
-        "methods": [
-            "HKHealthStore.requestAuthorization(toShare:read:completion:)",
-            "HKSampleQuery.init(sampleType:predicate:limit:sortDescriptors:resultsHandler:)",
-            "HKStatisticsQuery.init(quantityType:quantitySamplePredicate:options:completionHandler:)"
-        ],
-        "properties": [
-            "HKQuantitySample.quantity",
-            "HKQuantity.doubleValue(for:)",
-            "HKSample.startDate",
-            "HKSample.endDate",
-            "HKSample.sourceRevision"
-        ],
-        "constants": [
-            "HKQuantityTypeIdentifier.heartRate",
-            "HKQuantityTypeIdentifier.stepCount",
-            "HKQuantityTypeIdentifier.activeEnergyBurned",
-            "HKUnit.count()",
-            "HKUnit.kilocalorie()"
-        ],
-        "functions": [
-            "HKQuantityType.quantityType(forIdentifier:)",
-            "HKObjectType.quantityType(forIdentifier:)"
-        ]
-    },
-    "WatchKit": {
-        "methods": [
-            "WKInterfaceController.presentController(withName:context:)",
-            "WKInterfaceController.pushController(withName:context:)",
-            "WCSession.default.sendMessage(_:replyHandler:errorHandler:)"
-        ],
-        "properties": [
-            "WKInterfaceDevice.current().name",
-            "WKInterfaceDevice.current().screenBounds",
-            "WKExtension.shared().rootInterfaceController",
-            "WCSession.default.isReachable"
-        ],
-        "constants": [
-            "WKHapticType.notification",
-            "WKHapticType.success",
-            "WKHapticType.failure"
-        ],
-        "functions": [
-            "WKInterfaceDevice.current()",
-            "WKExtension.shared()"
-        ]
-    },
-    "CloudKit": {
-        "methods": [
-            "CKDatabase.fetch(withRecordID:completionHandler:)",
-            "CKQueryOperation.init(query:)",
-            "CKModifyRecordsOperation(recordsToSave:recordIDsToDelete:)"
-        ],
-        "properties": [
-            "CKRecord.recordID",
-            "CKRecord.recordType",
-            "CKRecord.creationDate",
-            "CKRecord.modificationDate",
-            "CKDatabase.databaseScope"
-        ],
-        "constants": [
-            "CKContainer.default()",
-            "CKDatabase.Scope.public",
-            "CKDatabase.Scope.private",
-            "CKDatabase.Scope.shared"
-        ],
-        "functions": [
-            "CKRecord.init(recordType:)"
-        ]
-    },
-    "StoreKit": {
-        "methods": [
-            "SKPaymentQueue.add(_:)",
-            "SKPaymentQueue.restoreCompletedTransactions()",
-            "SKPaymentTransactionObserver.paymentQueue(_:updatedTransactions:)"
-        ],
-        "properties": [
-            "SKProduct.localizedTitle",
-            "SKProduct.localizedDescription",
-            "SKProduct.price",
-            "SKProduct.priceLocale",
-            "SKPaymentTransaction.payment",
-            "SKPaymentTransaction.transactionState"
-        ],
-        "constants": [
-            "SKPaymentTransactionState.purchased",
-            "SKPaymentTransactionState.failed",
-            "SKPaymentTransactionState.restored",
-            "SKPaymentTransactionState.deferred"
-        ],
-        "functions": [
-            "SKProductsRequest.init(productIdentifiers:)",
-            "SKPayment.init(product:)"
-        ]
-    },
-    "PassKit": {
-        "methods": [
-            "PKPaymentAuthorizationController.present(completion:)"
-        ],
-        "properties": [
-            "PKPaymentRequest.merchantIdentifier",
-            "PKPaymentRequest.supportedNetworks",
-            "PKPaymentRequest.merchantCapabilities",
-            "PKPaymentRequest.paymentSummaryItems"
-        ],
-        "constants": [
-            "PKPaymentNetwork.visa",
-            "PKPaymentNetwork.masterCard",
-            "PKPaymentNetwork.amex",
-            "PKMerchantCapability.threeDSecure"
-        ],
-        "functions": [
-            "PKPaymentRequest.init()",
-            "PKPaymentButton.init(paymentButtonType:paymentButtonStyle:)",
-            "PKAddPassesViewController.init(passes:)"
-        ]
-    },
-    "PushKit": {
-        "methods": [
-            "pushRegistry(_:didUpdate:)"
-        ],
-        "properties": [
-            "PKPushRegistry.delegate",
-            "PKPushCredentials.token",
-            "PKPushCredentials.type"
-        ],
-        "constants": [
-            "PKPushType.voIP",
-            "PKPushType.complication",
-            "PKPushType.fileProvider"
-        ],
-        "functions": [
-            "PKPushRegistry.init(queue:)"
-        ]
-    },
-    "CallKit": {
-        "methods": [
-            "CXCallController.request(_:completion:)",
-            "CXProvider(reportNewIncomingCall:update:completion:)"
-        ],
-        "properties": [
-            "CXCall.uuid",
-            "CXCall.isOutgoing",
-            "CXCall.isOnHold",
-            "CXCall.hasConnected",
-            "CXCallUpdate.remoteHandle",
-            "CXCallUpdate.localizedCallerName"
-        ],
-        "constants": [
-            "CXHandleType.phoneNumber",
-            "CXHandleType.emailAddress",
-            "CXHandleType.generic"
-        ],
-        "functions": [
-            "CXStartCallAction.init(callUUID:handle:)",
-            "CXEndCallAction.init(callUUID:)",
-            "CXCallUpdate.init()"
-        ]
-    },
-    "EventKit": {
-        "methods": [
-            "EKEventStore.requestAccess(to:completion:)"
-        ],
-        "properties": [
-            "EKEvent.title",
-            "EKEvent.startDate",
-            "EKEvent.endDate",
-            "EKEvent.isAllDay",
-            "EKEvent.calendar",
-            "EKCalendar.title",
-            "EKCalendar.color"
-        ],
-        "constants": [
-            "EKEntityType.event",
-            "EKEntityType.reminder",
-            "EKRecurrenceFrequency.daily",
-            "EKRecurrenceFrequency.weekly",
-            "EKRecurrenceFrequency.monthly"
-        ],
-        "functions": [
-            "EKEvent(eventStore:)",
-            "EKAlarm(relativeOffset:)",
-            "EKCalendar.add(_:)",
-            "EKEventEditViewController.init()"
-        ]
-    },
-    "HomeKit": {
-        "methods": [
-            "HMHome.addRoom(_:completionHandler:)",
-            "HMAccessoryBrowser.startSearchingForNewAccessories()",
-            "HMHome.addAccessory(_:completionHandler:)",
-            "HMCharacteristic.writeValue(_:completionHandler:)"
-        ],
-        "properties": [
-            "HMHome.name",
-            "HMHome.rooms",
-            "HMHome.accessories",
-            "HMAccessory.name",
-            "HMAccessory.isReachable",
-            "HMService.serviceType",
-            "HMCharacteristic.value"
-        ],
-        "constants": [
-            "HMServiceType.lightbulb",
-            "HMServiceType.outlet",
-            "HMServiceType.switch",
-            "HMCharacteristicType.powerState",
-            "HMCharacteristicType.brightness"
-        ],
-        "functions": [
-            "HMHomeManager.init()"
-        ]
-    },
-    "UserNotifications": {
-        "methods": [
-            "UNUserNotificationCenter.current().requestAuthorization(options:completionHandler:)"
-        ],
-        "properties": [
-            "UNMutableNotificationContent.title",
-            "UNMutableNotificationContent.body",
-            "UNMutableNotificationContent.sound",
-            "UNMutableNotificationContent.badge",
-            "UNNotificationRequest.identifier",
-            "UNNotificationRequest.trigger"
-        ],
-        "constants": [
-            "UNAuthorizationOptions.alert",
-            "UNAuthorizationOptions.badge",
-            "UNAuthorizationOptions.sound",
-            "UNNotificationSound.default"
-        ],
-        "functions": [
-            "UNMutableNotificationContent.init()",
-            "UNNotificationRequest.init(identifier:content:trigger:)",
-            "UNTimeIntervalNotificationTrigger.init(timeInterval:repeats:)",
-            "UNCalendarNotificationTrigger.init(dateMatching:repeats:)"
-        ]
-    },
-    "Contacts": {
-        "methods": [
-            "CNContactStore.requestAccess(for:completionHandler:)"
-        ],
-        "properties": [
-            "CNContact.givenName",
-            "CNContact.familyName",
-            "CNContact.emailAddresses",
-            "CNContact.phoneNumbers",
-            "CNContact.postalAddresses",
-            "CNContact.imageData"
-        ],
-        "constants": [
-            "CNContactType.person",
-            "CNContactType.organization",
-            "CNLabelPhoneNumberMobile",
-            "CNLabelHome",
-            "CNLabelWork"
-        ],
-        "functions": [
-            "CNContactFetchRequest.init(keysToFetch:)",
-            "CNContactFormatter.string(from:style:)",
-            "CNLabeledValue.init(label:value:)"
-        ]
-    },
-    "MetricKit": {
-        "methods": [
-            "MXMetricManager.shared.add(self:)",
-            "MXMetricManager.shared.remove(self:)"
-        ],
-        "properties": [
-            "MXMetricPayload.latestApplicationLaunchMetrics",
-            "MXMetricPayload.latestMemoryMetrics",
-            "MXMetricPayload.latestCPUMetrics",
-            "MXDiagnosticPayload.crashDiagnostics",
-            "MXDiagnosticPayload.hangDiagnostics"
-        ],
-        "constants": [
-            "MXMetricManager.shared"
-        ],
-        "functions": [
-            "MXMetricPayload.init()",
-            "MXDiagnosticPayload.init()",
-            "MXMetricManager.registerForLaunchMetrics()"
-        ]
-    },
-    "CreateML": {
-        "methods": [
-            "MLTextClassifier.trainingData(from:)"
-        ],
-        "properties": [
-            "MLTextClassifier.trainingMetrics",
-            "MLTextClassifier.validationMetrics",
-            "MLImageClassifier.trainingMetrics",
-            "MLDataTable.columnNames"
-        ],
-        "constants": [
-            "MLTextClassifier.FeatureExtractorType.bertEmbedding",
-            "MLImageClassifier.FeatureExtractorType.scenePrint(revision:)"
-        ],
-        "functions": [
-            "MLTextClassifier.init()",
-            "MLImageClassifier.init()",
-            "MLDataTable.read(from:)",
-            "MLFeatureValue.init(double:)"
-        ]
-    },
-    "RealityKit": {
-        "methods": [
-            "SceneEvents.Update.subscribe(_:)"
-        ],
-        "properties": [
-            "ARView.scene",
-            "ARView.environment",
-            "Entity.transform",
-            "Entity.position",
-            "Entity.scale",
-            "ModelEntity.model",
-            "AnchorEntity.anchoring"
-        ],
-        "constants": [
-            "AnchoringComponent.Target.world(transform:)",
-            "AnchoringComponent.Target.plane(_:classification:minimumBounds:)",
-            "CollisionComponent.Mode.default",
-            "CollisionComponent.Mode.trigger"
-        ],
-        "functions": [
-            "ARView(frame:)",
-            "Entity.load(named:)",
-            "ModelEntity.loadAsync(contentsOf:)",
-            "AnchorEntity(world:)",
-            "CollisionComponent(shapes:)"
-        ]
-    },
-    "NetworkExtension": {
-        "methods": [
-            "NEHotspotConfigurationManager.shared.apply(_:completionHandler:)",
-            "NEVPNManager.loadFromPreferences(completionHandler:)",
-            "NETunnelProviderSession.sendProviderMessage(_:responseHandler:)",
-            "NEPacketTunnelProvider.startTunnel(options:)"
-        ],
-        "properties": [
-            "NEHotspotConfiguration.ssid",
-            "NEVPNManager.isOnDemandEnabled",
-            "NEVPNManager.protocolConfiguration",
-            "NETunnelProviderSession.status"
-        ],
-        "constants": [
-            "NEVPNStatus.connected",
-            "NEVPNStatus.disconnected",
-            "NEVPNStatus.connecting",
-            "NEVPNStatus.disconnecting"
-        ],
-        "functions": [
-            "NEHotspotConfiguration.init(ssid:)"
-        ]
+            "AnyCancellable",
+            "PassthroughSubject",
+            "CurrentValueSubject"
+        ],
+        "functions": []
     }
 }
-
