@@ -1,4 +1,3 @@
-
 {
     "SwiftUI": {
         "methods": [
@@ -148,5 +147,1182 @@
             "CMMotionActivityConfidence.low"
         ],
         "functions": []
+    },
+    "CoreData": {
+        "methods": [
+            "NSPersistentContainer(name:)",
+            "NSPersistentContainer.loadPersistentStores(completionHandler:)",
+            "NSManagedObjectContext.save()",
+            "NSManagedObjectContext.fetch(_:)",
+            "NSManagedObjectContext.delete(_:)",
+            "NSManagedObjectContext.performAndWait(_:)",
+            "NSFetchRequest(entityName:)",
+            "NSFetchRequest.execute()",
+            "NSBatchDeleteRequest(fetchRequest:)",
+            "NSBatchInsertRequest(entity:objects:)"
+        ],
+        "properties": [
+            "NSManagedObject.objectID",
+            "NSManagedObjectContext.hasChanges",
+            "NSManagedObjectContext.undoManager",
+            "NSPersistentContainer.viewContext",
+            "NSPersistentContainer.persistentStoreDescriptions",
+            "NSFetchRequest.predicate",
+            "NSFetchRequest.sortDescriptors",
+            "NSFetchRequest.fetchLimit"
+        ],
+        "constants": [
+            "NSMergePolicy.mergeByPropertyObjectTrump",
+            "NSMergePolicy.overwrite",
+            "NSFetchedResultsChangeType.insert",
+            "NSFetchedResultsChangeType.delete",
+            "NSFetchedResultsChangeType.update",
+            "NSManagedObjectContextDidSave"
+        ],
+        "functions": [
+            "NSEntityDescription.insertNewObject(forEntityName:into:)"
+        ]
+    },
+    "ARKit": {
+        "methods": [
+            "ARSession.run(_:options:)",
+            "ARSession.pause()",
+            "ARSession.add(anchor:)",
+            "ARSession.remove(anchor:)",
+            "ARSCNView.hitTest(_:types:)",
+            "ARView.raycast(from:allowing:alignment:)",
+            "ARWorldTrackingConfiguration()",
+            "ARImageTrackingConfiguration()",
+            "ARFaceTrackingConfiguration()",
+            "ARBodyTrackingConfiguration()"
+        ],
+        "properties": [
+            "ARSession.currentFrame",
+            "ARFrame.camera",
+            "ARFrame.anchors",
+            "ARCamera.transform",
+            "ARCamera.trackingState",
+            "ARWorldTrackingConfiguration.planeDetection",
+            "ARWorldTrackingConfiguration.environmentTexturing",
+            "ARAnchor.transform",
+            "ARFaceAnchor.blendShapes"
+        ],
+        "constants": [
+            "ARSession.RunOptions.resetTracking",
+            "ARSession.RunOptions.removeExistingAnchors",
+            "ARHitTestResult.ResultType.existingPlane",
+            "ARWorldTrackingConfiguration.PlaneDetection.horizontal",
+            "ARWorldTrackingConfiguration.PlaneDetection.vertical",
+            "ARCamera.TrackingState.normal",
+            "ARCamera.TrackingState.limited",
+            "ARCamera.TrackingState.notAvailable"
+        ],
+        "functions": [
+            "ARSCNViewDelegate.renderer(_:didAdd:for:)",
+            "ARSCNViewDelegate.renderer(_:didUpdate:for:)",
+            "ARSessionDelegate.session(_:didUpdate:)"
+        ]
+    },
+    "QuartzCore": {
+        "methods": [
+            "CALayer.addSublayer(_:)",
+            "CALayer.removeFromSuperlayer()",
+            "CALayer.setNeedsDisplay()",
+            "CALayer.setNeedsLayout()",
+            "CABasicAnimation(keyPath:)",
+            "CAKeyframeAnimation(keyPath:)",
+            "CAAnimationGroup()",
+            "CATransaction.begin()",
+            "CATransaction.commit()",
+            "CADisplayLink(target:selector:)"
+        ],
+        "properties": [
+            "CALayer.frame",
+            "CALayer.bounds",
+            "CALayer.opacity",
+            "CALayer.cornerRadius",
+            "CALayer.shadowColor",
+            "CALayer.shadowOpacity",
+            "CALayer.shadowOffset",
+            "CALayer.shadowRadius",
+            "CALayer.masksToBounds",
+            "CALayer.borderWidth",
+            "CALayer.borderColor",
+            "CAAnimation.duration",
+            "CAAnimation.repeatCount",
+            "CAAnimation.autoreverses"
+        ],
+        "constants": [
+            "kCAFillModeForwards",
+            "kCAFillModeBackwards",
+            "kCAFillModeBoth",
+            "kCAMediaTimingFunctionLinear",
+            "kCAMediaTimingFunctionEaseIn",
+            "kCAMediaTimingFunctionEaseOut",
+            "kCAGravityResizeAspect"
+        ],
+        "functions": [
+            "CATransaction.setAnimationDuration(_:)",
+            "CATransaction.setDisableActions(_:)"
+        ]
+    },
+    "CoreGraphics": {
+        "methods": [
+            "CGContext.fillPath()",
+            "CGContext.strokePath()",
+            "CGContext.drawImage(_:in:)",
+            "CGContext.addRect(_:)",
+            "CGContext.addEllipse(in:)",
+            "CGContext.addLine(to:)",
+            "CGContext.move(to:)",
+            "CGContext.closePath()",
+            "CGContext.setFillColor(_:)",
+            "CGContext.setStrokeColor(_:)",
+            "CGContext.setLineWidth(_:)",
+            "CGContext.clip()",
+            "CGImage.cropping(to:)"
+        ],
+        "properties": [
+            "CGRect.origin",
+            "CGRect.size",
+            "CGRect.width",
+            "CGRect.height",
+            "CGPoint.x",
+            "CGPoint.y",
+            "CGSize.width",
+            "CGSize.height",
+            "CGAffineTransform.identity"
+        ],
+        "constants": [
+            "CGRect.zero",
+            "CGPoint.zero",
+            "CGSize.zero",
+            "CGAffineTransform.identity",
+            "CGLineCap.round",
+            "CGLineJoin.round",
+            "CGBlendMode.normal",
+            "CGBlendMode.multiply"
+        ],
+        "functions": [
+            "CGRectMake(_:_:_:_:)",
+            "CGPointMake(_:_:)",
+            "CGSizeMake(_:_:)",
+            "CGAffineTransformMakeRotation(_:)",
+            "CGAffineTransformMakeScale(_:_:)",
+            "UIGraphicsGetCurrentContext()",
+            "UIGraphicsBeginImageContextWithOptions(_:_:_:)",
+            "UIGraphicsEndImageContext()"
+        ]
+    },
+    "CoreLocation": {
+        "methods": [
+            "CLLocationManager()",
+            "CLLocationManager.requestWhenInUseAuthorization()",
+            "CLLocationManager.requestAlwaysAuthorization()",
+            "CLLocationManager.startUpdatingLocation()",
+            "CLLocationManager.stopUpdatingLocation()",
+            "CLLocationManager.startMonitoring(for:)",
+            "CLLocationManager.stopMonitoring(for:)",
+            "CLLocationManager.startUpdatingHeading()",
+            "CLLocationManager.requestLocation()",
+            "CLGeocoder.reverseGeocodeLocation(_:completionHandler:)",
+            "CLGeocoder.geocodeAddressString(_:completionHandler:)"
+        ],
+        "properties": [
+            "CLLocationManager.authorizationStatus",
+            "CLLocationManager.location",
+            "CLLocationManager.desiredAccuracy",
+            "CLLocationManager.distanceFilter",
+            "CLLocationManager.heading",
+            "CLLocation.coordinate",
+            "CLLocation.altitude",
+            "CLLocation.horizontalAccuracy",
+            "CLLocation.speed",
+            "CLLocation.timestamp"
+        ],
+        "constants": [
+            "CLLocationAccuracy.best",
+            "CLLocationAccuracy.bestForNavigation",
+            "CLLocationAccuracy.hundredMeters",
+            "CLLocationAccuracy.kilometer",
+            "CLAuthorizationStatus.authorizedWhenInUse",
+            "CLAuthorizationStatus.authorizedAlways",
+            "CLAuthorizationStatus.denied",
+            "CLDistanceFilter.none",
+            "kCLDistanceFilterNone"
+        ],
+        "functions": [
+            "CLLocationCoordinate2DMake(_:_:)",
+            "CLLocationCoordinate2DIsValid(_:)"
+        ]
+    },
+    "MapKit": {
+        "methods": [
+            "MKMapView.addAnnotation(_:)",
+            "MKMapView.removeAnnotation(_:)",
+            "MKMapView.addOverlay(_:)",
+            "MKMapView.removeOverlay(_:)",
+            "MKMapView.setRegion(_:animated:)",
+            "MKMapView.setCenter(_:animated:)",
+            "MKMapView.dequeueReusableAnnotationView(withIdentifier:)",
+            "MKDirections.calculate(completionHandler:)",
+            "MKLocalSearch(request:)",
+            "MKLocalSearch.start(completionHandler:)"
+        ],
+        "properties": [
+            "MKMapView.region",
+            "MKMapView.centerCoordinate",
+            "MKMapView.mapType",
+            "MKMapView.isZoomEnabled",
+            "MKMapView.isScrollEnabled",
+            "MKMapView.showsUserLocation",
+            "MKCoordinateRegion.center",
+            "MKCoordinateRegion.span",
+            "MKAnnotationView.annotation",
+            "MKAnnotationView.image"
+        ],
+        "constants": [
+            "MKMapType.standard",
+            "MKMapType.satellite",
+            "MKMapType.hybrid",
+            "MKMapType.mutedStandard",
+            "MKPinAnnotationView.redPinColor",
+            "MKPinAnnotationView.greenPinColor",
+            "MKDirectionsTransportType.automobile",
+            "MKDirectionsTransportType.walking",
+            "MKDirectionsTransportType.transit"
+        ],
+        "functions": [
+            "MKCoordinateRegionMakeWithDistance(_:_:_:)",
+            "MKCoordinateSpanMake(_:_:)"
+        ]
+    },
+    "AVFoundation": {
+        "methods": [
+            "AVPlayer(url:)",
+            "AVPlayer.play()",
+            "AVPlayer.pause()",
+            "AVPlayer.seek(to:)",
+            "AVAudioPlayer(contentsOf:)",
+            "AVAudioPlayer.play()",
+            "AVAudioPlayer.stop()",
+            "AVAudioPlayer.prepareToPlay()",
+            "AVCaptureSession.startRunning()",
+            "AVCaptureSession.stopRunning()",
+            "AVCaptureSession.addInput(_:)",
+            "AVCaptureSession.addOutput(_:)",
+            "AVAsset(url:)",
+            "AVAssetExportSession(asset:presetName:)"
+        ],
+        "properties": [
+            "AVPlayer.rate",
+            "AVPlayer.volume",
+            "AVPlayer.currentItem",
+            "AVPlayerItem.status",
+            "AVPlayerItem.duration",
+            "AVAudioPlayer.isPlaying",
+            "AVAudioPlayer.duration",
+            "AVAudioPlayer.volume",
+            "AVAudioPlayer.numberOfLoops",
+            "AVCaptureDevice.position",
+            "AVAsset.duration",
+            "AVAsset.tracks"
+        ],
+        "constants": [
+            "AVAudioSession.Category.playback",
+            "AVAudioSession.Category.record",
+            "AVAudioSession.Category.playAndRecord",
+            "AVCaptureDevice.Position.front",
+            "AVCaptureDevice.Position.back",
+            "AVAssetExportPresetHighestQuality",
+            "AVAssetExportPreset1280x720",
+            "AVFileType.mp4",
+            "AVFileType.mov"
+        ],
+        "functions": [
+            "AVAudioSession.sharedInstance()",
+            "AVCaptureDevice.default(for:)",
+            "AVCaptureDevice.default(_:for:position:)"
+        ]
+    },
+    "SpriteKit": {
+        "methods": [
+            "SKScene.addChild(_:)",
+            "SKScene.removeChildren(in:)",
+            "SKNode.run(_:)",
+            "SKNode.removeFromParent()",
+            "SKNode.childNode(withName:)",
+            "SKPhysicsBody(circleOfRadius:)",
+            "SKPhysicsBody(rectangleOf:)",
+            "SKPhysicsBody(edgeLoopFrom:)",
+            "SKAction.move(to:duration:)",
+            "SKAction.rotate(byAngle:duration:)",
+            "SKAction.sequence(_:)",
+            "SKAction.group(_:)",
+            "SKAction.repeatForever(_:)",
+            "SKSpriteNode(imageNamed:)",
+            "SKLabelNode(text:)"
+        ],
+        "properties": [
+            "SKNode.position",
+            "SKNode.zPosition",
+            "SKNode.alpha",
+            "SKNode.isHidden",
+            "SKNode.name",
+            "SKScene.physicsWorld",
+            "SKScene.anchorPoint",
+            "SKSpriteNode.size",
+            "SKSpriteNode.texture",
+            "SKPhysicsBody.velocity",
+            "SKPhysicsBody.isDynamic",
+            "SKPhysicsBody.affectedByGravity",
+            "SKPhysicsBody.categoryBitMask",
+            "SKPhysicsBody.collisionBitMask",
+            "SKPhysicsBody.contactTestBitMask"
+        ],
+        "constants": [
+            "SKBlendMode.alpha",
+            "SKBlendMode.add",
+            "SKLabelHorizontalAlignmentMode.center",
+            "SKLabelVerticalAlignmentMode.center",
+            "SKSceneScaleMode.aspectFill",
+            "SKSceneScaleMode.aspectFit",
+            "SKTextureFilteringMode.linear",
+            "SKTextureFilteringMode.nearest"
+        ],
+        "functions": [
+            "SKTexture(imageNamed:)",
+            "SKAction.wait(forDuration:)",
+            "SKAction.fadeIn(withDuration:)",
+            "SKAction.fadeOut(withDuration:)",
+            "SKAction.scale(to:duration:)"
+        ]
+    },
+    "SceneKit": {
+        "methods": [
+            "SCNScene(named:)",
+            "SCNNode()",
+            "SCNNode.addChildNode(_:)",
+            "SCNNode.removeFromParentNode()",
+            "SCNNode.runAction(_:)",
+            "SCNView.present(_:with:incomingPointOfView:completionHandler:)",
+            "SCNPhysicsBody(type:shape:)",
+            "SCNPhysicsShape(geometry:options:)",
+            "SCNAction.move(to:duration:)",
+            "SCNAction.rotate(by:around:duration:)",
+            "SCNAction.sequence(_:)",
+            "SCNAction.repeatForever(_:)"
+        ],
+        "properties": [
+            "SCNNode.position",
+            "SCNNode.eulerAngles",
+            "SCNNode.scale",
+            "SCNNode.opacity",
+            "SCNNode.geometry",
+            "SCNNode.light",
+            "SCNNode.camera",
+            "SCNNode.physicsBody",
+            "SCNGeometry.firstMaterial",
+            "SCNMaterial.diffuse",
+            "SCNView.scene",
+            "SCNView.allowsCameraControl",
+            "SCNView.autoenablesDefaultLighting"
+        ],
+        "constants": [
+            "SCNPhysicsBodyType.dynamic",
+            "SCNPhysicsBodyType.static",
+            "SCNPhysicsBodyType.kinematic",
+            "SCNLightType.omni",
+            "SCNLightType.directional",
+            "SCNLightType.spot",
+            "SCNLightType.ambient",
+            "SCNAntialiasingMode.multisampling4X"
+        ],
+        "functions": [
+            "SCNVector3Make(_:_:_:)",
+            "SCNVector4Make(_:_:_:_:)",
+            "SCNMatrix4MakeTranslation(_:_:_:)",
+            "SCNMatrix4MakeRotation(_:_:_:_:)"
+        ]
+    },
+    "Metal": {
+        "methods": [
+            "MTLCreateSystemDefaultDevice()",
+            "MTLDevice.makeCommandQueue()",
+            "MTLCommandQueue.makeCommandBuffer()",
+            "MTLCommandBuffer.makeRenderCommandEncoder(descriptor:)",
+            "MTLRenderCommandEncoder.setRenderPipelineState(_:)",
+            "MTLRenderCommandEncoder.setVertexBuffer(_:offset:index:)",
+            "MTLRenderCommandEncoder.drawPrimitives(type:vertexStart:vertexCount:)",
+            "MTLRenderCommandEncoder.endEncoding()",
+            "MTLCommandBuffer.present(_:)",
+            "MTLCommandBuffer.commit()",
+            "MTLDevice.makeBuffer(bytes:length:options:)",
+            "MTLDevice.makeTexture(descriptor:)",
+            "MTLLibrary.makeFunction(name:)"
+        ],
+        "properties": [
+            "MTLDevice.name",
+            "MTLDevice.maxThreadsPerThreadgroup",
+            "MTLTexture.width",
+            "MTLTexture.height",
+            "MTLTexture.pixelFormat",
+            "MTLBuffer.length",
+            "MTLBuffer.contents()",
+            "MTLRenderPassDescriptor.colorAttachments",
+            "MTLRenderPipelineDescriptor.vertexFunction",
+            "MTLRenderPipelineDescriptor.fragmentFunction"
+        ],
+        "constants": [
+            "MTLPixelFormat.bgra8Unorm",
+            "MTLPixelFormat.rgba8Unorm",
+            "MTLPixelFormat.depth32Float",
+            "MTLPrimitiveType.triangle",
+            "MTLPrimitiveType.line",
+            "MTLPrimitiveType.point",
+            "MTLStorageMode.shared",
+            "MTLStorageMode.private",
+            "MTLLoadAction.clear",
+            "MTLStoreAction.store"
+        ],
+        "functions": [
+            "MTLCreateSystemDefaultDevice()",
+            "MTLCopyAllDevices()"
+        ]
+    },
+    "CoreML": {
+        "methods": [
+            "MLModel.load(contentsOf:configuration:completionHandler:)",
+            "MLModel.prediction(from:)",
+            "MLModel.predictions(fromBatch:)",
+            "MLFeatureProvider.featureValue(for:)",
+            "MLDictionaryFeatureProvider(dictionary:)",
+            "VNCoreMLRequest(model:completionHandler:)",
+            "VNImageRequestHandler(ciImage:options:)",
+            "VNImageRequestHandler.perform(_:)"
+        ],
+        "properties": [
+            "MLModel.modelDescription",
+            "MLModelDescription.inputDescriptionsByName",
+            "MLModelDescription.outputDescriptionsByName",
+            "MLFeatureDescription.type",
+            "MLModelConfiguration.computeUnits",
+            "MLMultiArray.shape",
+            "MLMultiArray.dataType"
+        ],
+        "constants": [
+            "MLComputeUnits.all",
+            "MLComputeUnits.cpuOnly",
+            "MLComputeUnits.cpuAndGPU",
+            "MLFeatureType.int64",
+            "MLFeatureType.double",
+            "MLFeatureType.string",
+            "MLFeatureType.image",
+            "MLFeatureType.multiArray",
+            "MLFeatureType.dictionary",
+            "MLFeatureType.sequence"
+        ],
+        "functions": [
+            "MLModel(contentsOf:)",
+            "MLModel(contentsOf:configuration:)"
+        ]
+    },
+    "Vision": {
+        "methods": [
+            "VNImageRequestHandler(cgImage:options:)",
+            "VNImageRequestHandler(ciImage:options:)",
+            "VNImageRequestHandler(url:options:)",
+            "VNImageRequestHandler.perform(_:)",
+            "VNRecognizeTextRequest(completionHandler:)",
+            "VNDetectFaceRectanglesRequest(completionHandler:)",
+            "VNDetectFaceLandmarksRequest(completionHandler:)",
+            "VNDetectHumanBodyPoseRequest(completionHandler:)",
+            "VNDetectRectanglesRequest(completionHandler:)",
+            "VNClassifyImageRequest(completionHandler:)",
+            "VNCoreMLRequest(model:completionHandler:)"
+        ],
+        "properties": [
+            "VNFaceObservation.boundingBox",
+            "VNFaceObservation.landmarks",
+            "VNRecognizedTextObservation.topCandidates(_:)",
+            "VNRectangleObservation.topLeft",
+            "VNRectangleObservation.topRight",
+            "VNRectangleObservation.bottomLeft",
+            "VNRectangleObservation.bottomRight",
+            "VNObservation.confidence",
+            "VNHumanBodyPoseObservation.availableJointNames"
+        ],
+        "constants": [
+            "VNImageCropAndScaleOption.scaleFit",
+            "VNImageCropAndScaleOption.scaleFill",
+            "VNRecognizeTextRequest.RecognitionLevel.accurate",
+            "VNRecognizeTextRequest.RecognitionLevel.fast",
+            "VNHumanBodyPoseObservation.JointName.nose",
+            "VNHumanBodyPoseObservation.JointName.leftWrist",
+            "VNHumanBodyPoseObservation.JointName.rightWrist"
+        ],
+        "functions": [
+            "VNNormalizedRectIsIdentityRect(_:)",
+            "VNImageRectForNormalizedRect(_:_:_:)"
+        ]
+    },
+    "HealthKit": {
+        "methods": [
+            "HKHealthStore()",
+            "HKHealthStore.requestAuthorization(toShare:read:completion:)",
+            "HKHealthStore.execute(_:)",
+            "HKHealthStore.stop(_:)",
+            "HKHealthStore.save(_:withCompletion:)",
+            "HKHealthStore.delete(_:withCompletion:)",
+            "HKSampleQuery(sampleType:predicate:limit:sortDescriptors:resultsHandler:)",
+            "HKStatisticsQuery(quantityType:quantitySamplePredicate:options:completionHandler:)",
+            "HKObserverQuery(sampleType:predicate:updateHandler:)",
+            "HKAnchoredObjectQuery(type:predicate:anchor:limit:resultsHandler:)"
+        ],
+        "properties": [
+            "HKHealthStore.isHealthDataAvailable()",
+            "HKQuantitySample.quantity",
+            "HKQuantitySample.sampleType",
+            "HKQuantitySample.startDate",
+            "HKQuantitySample.endDate",
+            "HKStatistics.averageQuantity()",
+            "HKStatistics.sumQuantity()",
+            "HKStatistics.minimumQuantity()",
+            "HKStatistics.maximumQuantity()"
+        ],
+        "constants": [
+            "HKQuantityType.quantityType(forIdentifier:)",
+            "HKQuantityTypeIdentifier.stepCount",
+            "HKQuantityTypeIdentifier.heartRate",
+            "HKQuantityTypeIdentifier.activeEnergyBurned",
+            "HKQuantityTypeIdentifier.distanceWalkingRunning",
+            "HKQuantityTypeIdentifier.bodyMass",
+            "HKQuantityTypeIdentifier.height",
+            "HKUnit.count()",
+            "HKUnit.meter()",
+            "HKUnit.kilocalorie()",
+            "HKSampleQuery.noLimit"
+        ],
+        "functions": [
+            "HKHealthStore.isHealthDataAvailable()",
+            "HKObjectType.quantityType(forIdentifier:)",
+            "HKObjectType.categoryType(forIdentifier:)"
+        ]
+    },
+    "WatchKit": {
+        "methods": [
+            "WKInterfaceController.pushController(withName:context:)",
+            "WKInterfaceController.popController()",
+            "WKInterfaceController.presentController(withName:context:)",
+            "WKInterfaceController.dismiss()",
+            "WKInterfaceController.becomeCurrentPage()",
+            "WKInterfaceController.reloadRootPageControllers(withNames:contexts:orientation:pageIndex:)",
+            "WKExtension.openSystemURL(_:)",
+            "WKInterfaceDevice.current().play(_:)",
+            "WKInterfaceTable.setNumberOfRows(_:withRowType:)",
+            "WKInterfaceTable.rowController(at:)"
+        ],
+        "properties": [
+            "WKInterfaceController.title",
+            "WKInterfaceDevice.current().screenBounds",
+            "WKInterfaceDevice.current().screenScale",
+            "WKInterfaceDevice.current().model",
+            "WKInterfaceDevice.current().systemVersion",
+            "WKInterfaceLabel.setText(_:)",
+            "WKInterfaceImage.setImage(_:)",
+            "WKInterfaceButton.setTitle(_:)",
+            "WKInterfaceTable.numberOfRows"
+        ],
+        "constants": [
+            "WKHapticType.notification",
+            "WKHapticType.directionUp",
+            "WKHapticType.directionDown",
+            "WKHapticType.success",
+            "WKHapticType.failure",
+            "WKHapticType.retry",
+            "WKPageOrientation.horizontal",
+            "WKPageOrientation.vertical"
+        ],
+        "functions": [
+            "WKExtension.shared()",
+            "WKInterfaceDevice.current()"
+        ]
+    },
+    "CloudKit": {
+        "methods": [
+            "CKContainer.default()",
+            "CKDatabase.fetch(withRecordID:completionHandler:)",
+            "CKDatabase.save(_:completionHandler:)",
+            "CKDatabase.delete(withRecordID:completionHandler:)",
+            "CKDatabase.perform(_:inZoneWith:completionHandler:)",
+            "CKQuery(recordType:predicate:)",
+            "CKOperation.start()",
+            "CKFetchRecordsOperation(recordIDs:)",
+            "CKModifyRecordsOperation(recordsToSave:recordIDsToDelete:)",
+            "CKSubscription(recordType:predicate:options:)"
+        ],
+        "properties": [
+            "CKContainer.publicCloudDatabase",
+            "CKContainer.privateCloudDatabase",
+            "CKContainer.sharedCloudDatabase",
+            "CKRecord.recordID",
+            "CKRecord.recordType",
+            "CKRecord.creationDate",
+            "CKRecord.modificationDate",
+            "CKRecordID.recordName",
+            "CKRecordID.zoneID",
+            "CKRecordZone.default()"
+        ],
+        "constants": [
+            "CKContainer.default()",
+            "CKRecord.SystemFieldKey.createdBy",
+            "CKRecord.SystemFieldKey.lastModifiedBy",
+            "CKQueryOperation.maximumResults",
+            "CKModifyRecordsOperation.SavePolicy.changedKeys",
+            "CKModifyRecordsOperation.SavePolicy.allKeys",
+            "CKError.Code.networkUnavailable",
+            "CKError.Code.quotaExceeded",
+            "CKError.Code.notAuthenticated"
+        ],
+        "functions": [
+            "CKContainer.default()",
+            "CKRecord(recordType:)",
+            "CKRecord(recordType:recordID:)"
+        ]
+    },
+    "StoreKit": {
+        "methods": [
+            "Product.products(for:)",
+            "Product.purchase()",
+            "Transaction.updates",
+            "Transaction.currentEntitlements",
+            "Transaction.finish()",
+            "AppStore.sync()",
+            "SKPaymentQueue.default().add(_:)",
+            "SKPaymentQueue.default().restoreCompletedTransactions()",
+            "SKProductsRequest(productIdentifiers:)",
+            "SKProductsRequest.start()"
+        ],
+        "properties": [
+            "Product.id",
+            "Product.displayName",
+            "Product.description",
+            "Product.price",
+            "Product.displayPrice",
+            "Product.type",
+            "Transaction.id",
+            "Transaction.productID",
+            "Transaction.purchaseDate",
+            "Transaction.expirationDate",
+            "SKProduct.productIdentifier",
+            "SKProduct.localizedTitle",
+            "SKProduct.price"
+        ],
+        "constants": [
+            "Product.ProductType.consumable",
+            "Product.ProductType.nonConsumable",
+            "Product.ProductType.autoRenewable",
+            "Product.ProductType.nonRenewable",
+            "Transaction.OwnershipType.purchased",
+            "Transaction.OwnershipType.familyShared",
+            "SKPaymentTransactionState.purchased",
+            "SKPaymentTransactionState.failed",
+            "SKPaymentTransactionState.restored"
+        ],
+        "functions": [
+            "AppStore.requestReview(in:)",
+            "SKStoreReviewController.requestReview(in:)"
+        ]
+    },
+    "PassKit": {
+        "methods": [
+            "PKPaymentAuthorizationViewController(paymentRequest:)",
+            "PKPaymentAuthorizationController(paymentRequest:)",
+            "PKPaymentAuthorizationController.present(completion:)",
+            "PKPaymentAuthorizationController.dismiss(completion:)",
+            "PKPassLibrary()",
+            "PKPassLibrary.addPasses(_:withCompletionHandler:)",
+            "PKPassLibrary.removePass(_:)",
+            "PKAddPassesViewController(pass:)",
+            "PKAddPassButton(addPassButtonStyle:)"
+        ],
+        "properties": [
+            "PKPaymentRequest.merchantIdentifier",
+            "PKPaymentRequest.countryCode",
+            "PKPaymentRequest.currencyCode",
+            "PKPaymentRequest.supportedNetworks",
+            "PKPaymentRequest.merchantCapabilities",
+            "PKPaymentRequest.paymentSummaryItems",
+            "PKPassLibrary.isPassLibraryAvailable()",
+            "PKPaymentAuthorizationViewController.canMakePayments()"
+        ],
+        "constants": [
+            "PKPaymentNetwork.visa",
+            "PKPaymentNetwork.masterCard",
+            "PKPaymentNetwork.amex",
+            "PKMerchantCapability.capability3DS",
+            "PKMerchantCapability.capabilityEMV",
+            "PKAddPassButtonStyle.black",
+            "PKAddPassButtonStyle.blackOutline",
+            "PKPaymentAuthorizationStatus.success",
+            "PKPaymentAuthorizationStatus.failure"
+        ],
+        "functions": [
+            "PKPaymentAuthorizationViewController.canMakePayments()",
+            "PKPaymentAuthorizationViewController.canMakePayments(usingNetworks:)",
+            "PKPassLibrary.isPassLibraryAvailable()"
+        ]
+    },
+    "PushKit": {
+        "methods": [
+            "PKPushRegistry(queue:)",
+            "PKPushRegistry.desiredPushTypes",
+            "PKPushCredentials.token",
+            "PKPushPayload.dictionaryPayload"
+        ],
+        "properties": [
+            "PKPushRegistry.delegate",
+            "PKPushCredentials.type",
+            "PKPushPayload.type",
+            "PKPushPayload.dictionaryPayload"
+        ],
+        "constants": [
+            "PKPushType.voIP",
+            "PKPushType.complication",
+            "PKPushType.fileProvider"
+        ],
+        "functions": [
+            "PKPushRegistryDelegate.pushRegistry(_:didUpdate:for:)",
+            "PKPushRegistryDelegate.pushRegistry(_:didReceiveIncomingPushWith:for:completion:)",
+            "PKPushRegistryDelegate.pushRegistry(_:didInvalidatePushTokenFor:)"
+        ]
+    },
+    "CallKit": {
+        "methods": [
+            "CXProvider(configuration:)",
+            "CXProvider.reportNewIncomingCall(with:update:completion:)",
+            "CXProvider.reportOutgoingCall(with:connectedAt:)",
+            "CXProvider.reportCall(with:endedAt:reason:)",
+            "CXCallController()",
+            "CXCallController.request(_:completion:)",
+            "CXStartCallAction(call:handle:)",
+            "CXAnswerCallAction.fulfill()",
+            "CXEndCallAction.fulfill()",
+            "CXSetMutedCallAction.fulfill()"
+        ],
+        "properties": [
+            "CXProviderConfiguration.localizedName",
+            "CXProviderConfiguration.ringtoneSound",
+            "CXProviderConfiguration.iconTemplateImageData",
+            "CXProviderConfiguration.maximumCallsPerCallGroup",
+            "CXProviderConfiguration.supportedHandleTypes",
+            "CXCall.uuid",
+            "CXCall.isOutgoing",
+            "CXCall.isOnHold",
+            "CXCall.hasConnected",
+            "CXCall.hasEnded"
+        ],
+        "constants": [
+            "CXHandle.HandleType.phoneNumber",
+            "CXHandle.HandleType.emailAddress",
+            "CXHandle.HandleType.generic",
+            "CXCallEndedReason.failed",
+            "CXCallEndedReason.remoteEnded",
+            "CXCallEndedReason.unanswered",
+            "CXCallEndedReason.answeredElsewhere",
+            "CXCallEndedReason.declinedElsewhere"
+        ],
+        "functions": [
+            "CXProvider.reportNewIncomingCall(with:update:completion:)",
+            "CXTransaction(action:)"
+        ]
+    },
+    "EventKit": {
+        "methods": [
+            "EKEventStore()",
+            "EKEventStore.requestAccess(to:completion:)",
+            "EKEventStore.save(_:span:commit:)",
+            "EKEventStore.remove(_:span:commit:)",
+            "EKEventStore.commit()",
+            "EKEventStore.events(matching:)",
+            "EKEventStore.fetchReminders(matching:completion:)",
+            "EKEvent(eventStore:)",
+            "EKReminder(eventStore:)",
+            "EKAlarm(relativeOffset:)"
+        ],
+        "properties": [
+            "EKEventStore.defaultCalendarForNewEvents",
+            "EKEvent.title",
+            "EKEvent.startDate",
+            "EKEvent.endDate",
+            "EKEvent.calendar",
+            "EKEvent.location",
+            "EKEvent.notes",
+            "EKEvent.alarms",
+            "EKReminder.isCompleted",
+            "EKReminder.completionDate",
+            "EKCalendar.title",
+            "EKCalendar.color"
+        ],
+        "constants": [
+            "EKEntityType.event",
+            "EKEntityType.reminder",
+            "EKSpan.thisEvent",
+            "EKSpan.futureEvents",
+            "EKRecurrenceFrequency.daily",
+            "EKRecurrenceFrequency.weekly",
+            "EKRecurrenceFrequency.monthly",
+            "EKRecurrenceFrequency.yearly",
+            "EKAuthorizationStatus.authorized",
+            "EKAuthorizationStatus.denied"
+        ],
+        "functions": [
+            "EKEventStore.authorizationStatus(for:)",
+            "EKEventStore.predicateForEvents(withStart:end:calendars:)"
+        ]
+    },
+    "HomeKit": {
+        "methods": [
+            "HMHomeManager()",
+            "HMHomeManager.addHome(withName:completionHandler:)",
+            "HMHomeManager.removeHome(_:completionHandler:)",
+            "HMHome.addRoom(withName:completionHandler:)",
+            "HMHome.removeRoom(_:completionHandler:)",
+            "HMHome.addAccessory(completionHandler:)",
+            "HMHome.removeAccessory(_:completionHandler:)",
+            "HMAccessory.updateName(_:completionHandler:)",
+            "HMService.updateName(_:completionHandler:)",
+            "HMCharacteristic.writeValue(_:completionHandler:)",
+            "HMCharacteristic.readValue(completionHandler:)"
+        ],
+        "properties": [
+            "HMHomeManager.homes",
+            "HMHomeManager.primaryHome",
+            "HMHome.name",
+            "HMHome.rooms",
+            "HMHome.accessories",
+            "HMHome.serviceGroups",
+            "HMAccessory.name",
+            "HMAccessory.services",
+            "HMAccessory.isReachable",
+            "HMService.serviceType",
+            "HMCharacteristic.characteristicType",
+            "HMCharacteristic.value"
+        ],
+        "constants": [
+            "HMServiceType.lightbulb",
+            "HMServiceType.switch",
+            "HMServiceType.thermostat",
+            "HMServiceType.lockMechanism",
+            "HMServiceType.garageDoorOpener",
+            "HMCharacteristicType.powerState",
+            "HMCharacteristicType.brightness",
+            "HMCharacteristicType.hue",
+            "HMCharacteristicType.saturation",
+            "HMCharacteristicType.currentTemperature"
+        ],
+        "functions": [
+            "HMHomeManager()",
+            "HMActionSet()",
+            "HMTimerTrigger(name:fireDate:timeZone:recurrence:recurrenceCalendar:)"
+        ]
+    },
+    "UserNotifications": {
+        "methods": [
+            "UNUserNotificationCenter.current()",
+            "UNUserNotificationCenter.requestAuthorization(options:completionHandler:)",
+            "UNUserNotificationCenter.add(_:withCompletionHandler:)",
+            "UNUserNotificationCenter.removePendingNotificationRequests(withIdentifiers:)",
+            "UNUserNotificationCenter.removeAllPendingNotificationRequests()",
+            "UNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers:)",
+            "UNUserNotificationCenter.getNotificationSettings(completionHandler:)",
+            "UNMutableNotificationContent()",
+            "UNTimeIntervalNotificationTrigger(timeInterval:repeats:)",
+            "UNCalendarNotificationTrigger(dateMatching:repeats:)",
+            "UNLocationNotificationTrigger(region:repeats:)",
+            "UNNotificationRequest(identifier:content:trigger:)"
+        ],
+        "properties": [
+            "UNNotificationContent.title",
+            "UNNotificationContent.subtitle",
+            "UNNotificationContent.body",
+            "UNNotificationContent.badge",
+            "UNNotificationContent.sound",
+            "UNNotificationContent.userInfo",
+            "UNNotificationContent.categoryIdentifier",
+            "UNNotificationSettings.authorizationStatus",
+            "UNNotificationSettings.soundSetting",
+            "UNNotificationSettings.badgeSetting"
+        ],
+        "constants": [
+            "UNAuthorizationOptions.alert",
+            "UNAuthorizationOptions.badge",
+            "UNAuthorizationOptions.sound",
+            "UNAuthorizationOptions.provisional",
+            "UNAuthorizationStatus.authorized",
+            "UNAuthorizationStatus.denied",
+            "UNAuthorizationStatus.provisional",
+            "UNNotificationSound.default",
+            "UNNotificationInterruptionLevel.active",
+            "UNNotificationInterruptionLevel.timeSensitive"
+        ],
+        "functions": [
+            "UNUserNotificationCenter.current()",
+            "UNNotificationAction(identifier:title:options:)",
+            "UNNotificationCategory(identifier:actions:intentIdentifiers:options:)"
+        ]
+    },
+    "Contacts": {
+        "methods": [
+            "CNContactStore()",
+            "CNContactStore.requestAccess(for:completionHandler:)",
+            "CNContactStore.enumerateContacts(with:usingBlock:)",
+            "CNContactStore.unifiedContact(withIdentifier:keysToFetch:)",
+            "CNContactStore.save(_:)",
+            "CNSaveRequest.add(_:toContainerWithIdentifier:)",
+            "CNSaveRequest.update(_:)",
+            "CNSaveRequest.delete(_:)",
+            "CNContactFetchRequest(keysToFetch:)",
+            "CNContactFormatter.string(from:style:)"
+        ],
+        "properties": [
+            "CNContact.identifier",
+            "CNContact.givenName",
+            "CNContact.familyName",
+            "CNContact.middleName",
+            "CNContact.phoneNumbers",
+            "CNContact.emailAddresses",
+            "CNContact.postalAddresses",
+            "CNContact.imageData",
+            "CNContact.organizationName",
+            "CNContact.birthday",
+            "CNPhoneNumber.stringValue",
+            "CNLabeledValue.label"
+        ],
+        "constants": [
+            "CNContactType.person",
+            "CNContactType.organization",
+            "CNEntityType.contacts",
+            "CNAuthorizationStatus.authorized",
+            "CNAuthorizationStatus.denied",
+            "CNContactFormatterStyle.fullName",
+            "CNLabelPhoneNumberMobile",
+            "CNLabelPhoneNumberMain",
+            "CNLabelHome",
+            "CNLabelWork"
+        ],
+        "functions": [
+            "CNContactStore.authorizationStatus(for:)",
+            "CNContactFormatter.string(from:style:)",
+            "CNPostalAddressFormatter.string(from:)"
+        ]
+    },
+    "MetricKit": {
+        "methods": [
+            "MXMetricManager.shared",
+            "MXMetricManager.add(_:)",
+            "MXMetricManager.remove(_:)",
+            "MXMetricManager.pastPayloads",
+            "MXMetricPayload.timeStampBegin",
+            "MXMetricPayload.timeStampEnd",
+            "MXDiagnosticPayload.crashDiagnostics",
+            "MXDiagnosticPayload.hangDiagnostics",
+            "MXDiagnosticPayload.cpuExceptionDiagnostics"
+        ],
+        "properties": [
+            "MXMetricManager.shared",
+            "MXMetricPayload.applicationLaunchMetrics",
+            "MXMetricPayload.applicationResponsivenessMetrics",
+            "MXMetricPayload.memoryMetrics",
+            "MXMetricPayload.cpuMetrics",
+            "MXMetricPayload.gpuMetrics",
+            "MXMetricPayload.networkTransferMetrics",
+            "MXAppLaunchMetric.histogrammedTimeToFirstDraw",
+            "MXMemoryMetric.peakMemoryUsage",
+            "MXCPUMetric.cumulativeCPUTime"
+        ],
+        "constants": [
+            "MXUnitSignalBars.bars",
+            "MXUnitAveragePixelLuminance.apl"
+        ],
+        "functions": [
+            "MXMetricManagerSubscriber.didReceive(_:)",
+            "MXMetricManagerSubscriber.didReceive(_:)-diagnostics"
+        ]
+    },
+    "CreateML": {
+        "methods": [
+            "MLImageClassifier(trainingData:parameters:)",
+            "MLImageClassifier.write(to:metadata:)",
+            "MLTextClassifier(trainingData:parameters:)",
+            "MLTextClassifier.write(to:metadata:)",
+            "MLTabularClassifier(trainingData:targetColumn:parameters:)",
+            "MLTabularRegressor(trainingData:targetColumn:parameters:)",
+            "MLRecommender(trainingData:userColumn:itemColumn:parameters:)",
+            "MLObjectDetector(trainingData:parameters:)",
+            "MLSoundClassifier(trainingData:parameters:)",
+            "MLActivityClassifier(trainingData:labelColumn:recordingFileColumn:parameters:)"
+        ],
+        "properties": [
+            "MLImageClassifier.trainingMetrics",
+            "MLImageClassifier.validationMetrics",
+            "MLTextClassifier.trainingMetrics",
+            "MLClassifierMetrics.classificationError",
+            "MLClassifierMetrics.confusionMatrix",
+            "MLRegressorMetrics.rootMeanSquaredError",
+            "MLRegressorMetrics.maximumError",
+            "MLProgress.fractionCompleted"
+        ],
+        "constants": [
+            "MLImageClassifier.ModelParameters.FeatureExtractorType.scenePrint",
+            "MLTextClassifier.ModelAlgorithmType.maxEnt",
+            "MLTextClassifier.ModelAlgorithmType.transferLearning",
+            "MLSplitStrategy.automatic",
+            "MLSplitStrategy.fixed(ratio:)"
+        ],
+        "functions": [
+            "MLJob.cancel()",
+            "MLDataTable(contentsOf:)",
+            "MLDataTable(dictionary:)"
+        ]
+    },
+    "RealityKit": {
+        "methods": [
+            "ARView(frame:)",
+            "ARView.scene.addAnchor(_:)",
+            "AnchorEntity(plane:)",
+            "AnchorEntity(world:)",
+            "ModelEntity(mesh:materials:)",
+            "Entity.addChild(_:)",
+            "Entity.removeFromParent()",
+            "ModelEntity.generateBoxWithCorners(size:cornerRadius:)",
+            "MeshResource.generateBox(size:)",
+            "MeshResource.generateSphere(radius:)",
+            "MeshResource.generatePlane(width:depth:)",
+            "SimpleMaterial(color:isMetallic:)",
+            "PhysicsBodyComponent(massProperties:material:mode:)"
+        ],
+        "properties": [
+            "ARView.scene",
+            "ARView.environment",
+            "ARView.cameraMode",
+            "Entity.transform",
+            "Entity.position",
+            "Entity.orientation",
+            "Entity.scale",
+            "Entity.isEnabled",
+            "ModelEntity.model",
+            "ModelComponent.mesh",
+            "ModelComponent.materials"
+        ],
+        "constants": [
+            "ARView.CameraMode.ar",
+            "ARView.CameraMode.nonAR",
+            "PhysicsBodyMode.dynamic",
+            "PhysicsBodyMode.static",
+            "PhysicsBodyMode.kinematic",
+            "CollisionGroup.default",
+            "AnchoringComponent.Target.plane(.horizontal)",
+            "AnchoringComponent.Target.plane(.vertical)",
+            "AnchoringComponent.Target.camera"
+        ],
+        "functions": [
+            "MeshResource.generateBox(size:)",
+            "MeshResource.generateSphere(radius:)",
+            "PhysicsMaterialResource.generate(friction:restitution:)"
+        ]
+    },
+    "NetworkExtension": {
+        "methods": [
+            "NEVPNManager.shared()",
+            "NEVPNManager.loadFromPreferences(completionHandler:)",
+            "NEVPNManager.saveToPreferences(completionHandler:)",
+            "NEVPNManager.removeFromPreferences(completionHandler:)",
+            "NEVPNConnection.startVPNTunnel()",
+            "NEVPNConnection.stopVPNTunnel()",
+            "NEHotspotHelper.register(options:queue:handler:)",
+            "NWPathMonitor()",
+            "NWPathMonitor.start(queue:)",
+            "NWPathMonitor.cancel()"
+        ],
+        "properties": [
+            "NEVPNManager.shared().connection",
+            "NEVPNManager.isEnabled",
+            "NEVPNManager.protocolConfiguration",
+            "NEVPNConnection.status",
+            "NWPath.status",
+            "NWPath.isExpensive",
+            "NWPath.isConstrained",
+            "NWPath.availableInterfaces",
+            "NWPathMonitor.currentPath",
+            "NWInterface.type"
+        ],
+        "constants": [
+            "NEVPNStatus.connected",
+            "NEVPNStatus.connecting",
+            "NEVPNStatus.disconnected",
+            "NEVPNStatus.disconnecting",
+            "NEVPNStatus.invalid",
+            "NWPath.Status.satisfied",
+            "NWPath.Status.unsatisfied",
+            "NWPath.Status.requiresConnection",
+            "NWInterface.InterfaceType.wifi",
+            "NWInterface.InterfaceType.cellular"
+        ],
+        "functions": [
+            "NWPathMonitor(requiredInterfaceType:)",
+            "NEVPNManager.shared()"
+        ]
+    },
+    "UniformTypeIdentifiers": {
+        "methods": [
+            "UTType(filenameExtension:)",
+            "UTType(mimeType:)",
+            "UTType(exportedAs:)",
+            "UTType(importedAs:)",
+            "UTType.conforms(to:)",
+            "UTType.isSubtype(of:)",
+            "UTType.isSupertype(of:)"
+        ],
+        "properties": [
+            "UTType.identifier",
+            "UTType.preferredMIMEType",
+            "UTType.preferredFilenameExtension",
+            "UTType.localizedDescription",
+            "UTType.version",
+            "UTType.referenceURL",
+            "UTType.isDynamic",
+            "UTType.isPublic",
+            "UTType.supertypes",
+            "UTType.subtypes"
+        ],
+        "constants": [
+            "UTType.item",
+            "UTType.content",
+            "UTType.data",
+            "UTType.text",
+            "UTType.plainText",
+            "UTType.utf8PlainText",
+            "UTType.image",
+            "UTType.jpeg",
+            "UTType.png",
+            "UTType.gif",
+            "UTType.pdf",
+            "UTType.json",
+            "UTType.xml",
+            "UTType.html",
+            "UTType.audio",
+            "UTType.video",
+            "UTType.movie",
+            "UTType.mpeg4Movie",
+            "UTType.mp3",
+            "UTType.zip",
+            "UTType.folder",
+            "UTType.directory"
+        ],
+        "functions": [
+            "UTType(filenameExtension:conformingTo:)",
+            "UTType(mimeType:conformingTo:)"
+        ]
     }
 }
