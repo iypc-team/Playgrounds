@@ -1,5 +1,4 @@
-//  FrameworkRow.swift
-//  
+// FrameworkRow.swift
 
 import SwiftUI
 
@@ -7,13 +6,14 @@ struct FrameworkRow: View {
     let framework: Framework
     
     var body: some View {
-        HStack {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(framework.displayName)
+                .font(.headline)
+            
             Text(framework.name)
-                .font(.body)
-            Spacer()
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
-        .padding(.vertical, 8)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(framework.name)
+        .padding(.vertical, 4)
     }
 }

@@ -1,61 +1,56 @@
 // MethodListView.swift
-// 
 
 import SwiftUI
 
 struct MethodListView: View {
+    
     let framework: Framework
     @StateObject private var viewModel: MethodViewModel
     
+    // Updated initializer - accepts Framework, not String
     init(framework: Framework) {
         self.framework = framework
-        _viewModel = StateObject(wrappedValue: MethodViewModel(framework: framework))
+        self._viewModel = StateObject(
+            wrappedValue: MethodViewModel(frameworkName: framework.name)
+        )
     }
     
     var body: some View {
-        Group {
-            if viewModel.isLoading {
-                LoadingView()
-            } else if let errorMessage = viewModel.errorMessage {
-                ErrorView(error: errorMessage) {
-                    Task { await viewModel.fetchMethods() }
-                }
-            } else {
-                List {
-                    makeSection(title: "Methods", items: viewModel.methods)
-                    makeSection(title: "Properties", items: viewModel.properties)
-                    makeSection(title: "Constants", items: viewModel.constants)
-                    makeSection(title: "Functions", items: viewModel.functions)
-                }
-                .listStyle(.insetGrouped)
-            }
+        List {
+            SectionContent(title: "Methods", items: viewModel.methods, icon: "arrow.right.circle")
+            SectionContent(title: "Properties", items: viewModel.properties, icon: "gear")
+            SectionContent(title: "Constants", items: viewModel.constants, icon: "number")
+            SectionContent(title: "Functions", items: viewModel.functions, icon: "f.cursive")
         }
-        .navigationTitle(framework.name)
+        .navigationTitle(framework.displayName)
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await viewModel.fetchMethods()
-        }
-        .onDisappear {
-            viewModel.cancelFetch()
-        }
     }
+}
+
+// MARK: - Reusable Section View
+
+private struct SectionContent: View {
+    let title: String
+    let items: [String]
+    let icon: String
     
-    private func makeSection(title: String, items: [String]) -> some View {
-        Section {
-            if items.isEmpty {
-                Text("No \(title.lowercased()) available")
-                    .foregroundColor(.secondary)
-                    .italic()
-            } else {
+    // Customize the font here
+    private let itemFont: Font = .system(.body, design: .monospaced)
+    
+    var body: some View {
+        if !items.isEmpty {
+            Section {
                 ForEach(items, id: \.self) { item in
-                    Text(item)
-                        .font(.body.monospaced())
+                    Label(item, systemImage: icon)
+                        .font(itemFont)
+                        .textSelection(.enabled)
                 }
+            } header: {
+                Text(title)
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+                    .textCase(.uppercase)
             }
-        } header: {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.blue)
         }
     }
 }
@@ -64,6 +59,6 @@ struct MethodListView: View {
 
 #Preview {
     NavigationStack {
-        MethodListView(framework: Framework(name: "SwiftUI"))
+        MethodListView(framework: Framework(name: "CoreMotion"))
     }
 }

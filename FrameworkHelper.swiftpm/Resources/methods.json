@@ -1,10 +1,3 @@
-// methods.json
-// FrameworkHelper.swiftpm
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
-// Last Updated: 2026-05-26
-//
-// This file contains method, property, constant, and function references 
-// for various Apple frameworks. Used by MethodViewModel.
 
 {
     "SwiftUI": {
@@ -53,7 +46,6 @@
             "Image(systemName:)"
         ]
     },
-    
     "UIKit": {
         "methods": [
             "UIView.addSubview(_:)",
@@ -82,7 +74,6 @@
         ],
         "functions": []
     },
-    
     "Foundation": {
         "methods": [
             "Date()",
@@ -107,7 +98,6 @@
             "fatalError(_:file:line:)"
         ]
     },
-    
     "Combine": {
         "methods": [
             "Publisher.sink(receiveCompletion:receiveValue:)",
@@ -124,7 +114,6 @@
         ],
         "functions": []
     },
-    
     "CoreMotion": {
         "methods": [
             "CMMotionManager()",
