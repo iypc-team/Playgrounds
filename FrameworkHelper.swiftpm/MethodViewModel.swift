@@ -1,23 +1,28 @@
 // MethodViewModel.swift
+// 
 
 import Foundation
 
 @MainActor
 final class MethodViewModel: ObservableObject {
+    let frameworkName: String
     
+    @Published var types: [String] = []
+    @Published var initializers: [String] = []
     @Published var methods: [String] = []
     @Published var properties: [String] = []
     @Published var constants: [String] = []
-    @Published var functions: [String] = []
+    @Published var freeFunctions: [String] = []
     
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let frameworkName: String
+    private let repository: any FrameworksRepository
     private var loadTask: Task<Void, Never>?
     
-    init(frameworkName: String) {
+    init(frameworkName: String, repository: any FrameworksRepository = StaticFrameworksRepository()) {
         self.frameworkName = frameworkName
+        self.repository = repository
     }
     
     func loadMethods() async {
@@ -35,19 +40,23 @@ final class MethodViewModel: ObservableObject {
         
         do {
             let data = try await loadJSONData()
-            let allMethods = try JSONDecoder().decode([String: MethodEntry].self, from: data)
+            let allMethods = try JSONDecoder().decode([String: FrameworkMethods].self, from: data)
             
             if let entry = allMethods[frameworkName] {
-                self.methods     = entry.methods
-                self.properties  = entry.properties
-                self.constants   = entry.constants
-                self.functions   = entry.functions
+                self.types         = entry.types
+                self.initializers  = entry.initializers
+                self.methods       = entry.methods
+                self.properties    = entry.properties
+                self.constants     = entry.constants
+                self.freeFunctions = entry.freeFunctions
             } else {
-                // Fallback for frameworks not yet present in the JSON.
-                self.methods     = defaultEntries(for: frameworkName)
-                self.properties  = []
-                self.constants   = []
-                self.functions   = []
+                // Fallback for frameworks not in JSON
+                self.types         = []
+                self.initializers  = []
+                self.methods       = defaultEntries(for: frameworkName)
+                self.properties    = []
+                self.constants     = []
+                self.freeFunctions = []
             }
         } catch {
             errorMessage = "Failed to load methods: \(error.localizedDescription)"
@@ -58,51 +67,48 @@ final class MethodViewModel: ObservableObject {
     }
     
     private func loadJSONData() async throws -> Data {
-        // Data(contentsOf:) is synchronous but acceptable here — source is always
-        // a local bundle resource so there is no network latency risk.
-        let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
-        for bundle in candidateBundles.compactMap({ $0 }) {
-            if let url = bundle.url(forResource: "methods", withExtension: "json") {
-                return try Data(contentsOf: url)
-            }
+        guard let url = Bundle.main.url(forResource: "methods", withExtension: "json") else {
+            throw NSError(domain: "MethodViewModel", 
+                          code: 404, 
+                          userInfo: [NSLocalizedDescriptionKey: "methods.json file not found in bundle"])
         }
-        throw NSError(
-            domain: "MethodViewModel",
-            code: 404,
-            userInfo: [NSLocalizedDescriptionKey: "methods.json not found"]
-        )
+        
+        return try Data(contentsOf: url)
     }
     
-    // ✅ clearError() keeps all @Published mutation inside the ViewModel, not in the view.
+    private func defaultEntries(for framework: String) -> [String] {
+        // You can expand this if needed
+        return ["Check Apple Documentation for \(framework)"]
+    }
+    
     func clearError() {
         errorMessage = nil
     }
-    
-    // MARK: - Fallback Data
-    
-    private func defaultEntries(for framework: String) -> [String] {
-        switch framework {
-        case "CoreMotion":
-            return [
-                "CMMotionManager()",
-                "startDeviceMotionUpdates()",
-                "startAccelerometerUpdates()",
-                "startGyroUpdates()",
-                "stopDeviceMotionUpdates()",
-                "isDeviceMotionAvailable",
-                "deviceMotion"
-            ]
-        default:
-            return ["No reference data available for \(framework)"]
-        }
-    }
 }
 
-// MARK: - Supporting Model
+// MARK: - JSON Data Model
 
-struct MethodEntry: Decodable {
+struct FrameworkMethods: Codable {
+    let types: [String]
+    let initializers: [String]
     let methods: [String]
     let properties: [String]
     let constants: [String]
-    let functions: [String]
+    let freeFunctions: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case types, initializers, methods, properties, constants
+        case freeFunctions = "freeFunctions"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.types         = try container.decodeIfPresent([String].self, forKey: .types) ?? []
+        self.initializers  = try container.decodeIfPresent([String].self, forKey: .initializers) ?? []
+        self.methods       = try container.decodeIfPresent([String].self, forKey: .methods) ?? []
+        self.properties    = try container.decodeIfPresent([String].self, forKey: .properties) ?? []
+        self.constants     = try container.decodeIfPresent([String].self, forKey: .constants) ?? []
+        self.freeFunctions = try container.decodeIfPresent([String].self, forKey: .freeFunctions) ?? []
+    }
 }

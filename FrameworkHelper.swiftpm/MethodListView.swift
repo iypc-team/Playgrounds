@@ -14,10 +14,12 @@ struct MethodListView: View {
     
     var body: some View {
         List {
+            SectionContent(title: "Types", items: viewModel.types, icon: "cube")
+            SectionContent(title: "Initializers", items: viewModel.initializers, icon: "plus.circle")
             SectionContent(title: "Methods", items: viewModel.methods, icon: "arrow.right.circle")
             SectionContent(title: "Properties", items: viewModel.properties, icon: "gear")
             SectionContent(title: "Constants", items: viewModel.constants, icon: "number")
-            SectionContent(title: "Functions", items: viewModel.functions, icon: "f.cursive")
+            SectionContent(title: "Free Functions", items: viewModel.freeFunctions, icon: "f.cursive")
         }
         .navigationTitle(framework.displayName)
         .navigationBarTitleDisplayMode(.inline)
@@ -35,23 +37,27 @@ struct MethodListView: View {
     }
 }
 
-// MARK: - Enhanced SectionContent with Copy All
+// MARK: - Enhanced SectionContent (Always Shows Header)
+
 private struct SectionContent: View {
     let title: String
     let items: [String]
     let icon: String
     
     @State private var copiedItem: String? = nil
-    @State private var showCopiedAll = false
     
     private let itemFont: Font = .system(.body, design: .monospaced)
     
     var body: some View {
-        if !items.isEmpty {
-            Section {
+        Section {
+            if items.isEmpty {
+                Text("No \(title.lowercased()) available for this framework")
+                    .foregroundStyle(.secondary)
+                    .italic()
+                    .padding(.vertical, 8)
+            } else {
+                // Copy All button
                 HStack {
-                    Text(title)
-                        .font(.headline)
                     Spacer()
                     Button(action: copyAll) {
                         Label("Copy All", systemImage: "doc.on.doc")
@@ -61,38 +67,46 @@ private struct SectionContent: View {
                 }
                 
                 ForEach(items, id: \.self) { item in
-                    HStack {
+                    HStack(alignment: .top, spacing: 12) {
                         Image(systemName: icon)
                             .foregroundStyle(.secondary)
+                            .frame(width: 20)
+                        
                         Text(item)
                             .font(itemFont)
                             .textSelection(.enabled)
+                            .lineLimit(nil)
+                        
                         Spacer()
+                        
                         Button(action: { copyItem(item) }) {
-                            Image(systemName: copiedItem == item ? "checkmark" : "doc.on.doc")
+                            Image(systemName: copiedItem == item ? "checkmark.circle.fill" : "doc.on.doc")
+                                .foregroundStyle(copiedItem == item ? .green : .blue)
                         }
                         .buttonStyle(.borderless)
                     }
+                    .padding(.vertical, 2)
                 }
             }
-            .alert("Copied to Clipboard", isPresented: $showCopiedAll) {
-                Button("OK") { }
-            } message: {
-                Text("\(items.count) \(title.lowercased()) copied.")
-            }
+        } header: {
+            Label(title, systemImage: icon)
+                .font(.headline)
+                .foregroundStyle(.primary)
+                .textCase(.none)
         }
     }
     
     private func copyItem(_ item: String) {
         UIPasteboard.general.string = item
         copiedItem = item
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             copiedItem = nil
         }
     }
     
     private func copyAll() {
+        guard !items.isEmpty else { return }
         UIPasteboard.general.string = items.joined(separator: "\n")
-        showCopiedAll = true
     }
 }
