@@ -8,16 +8,11 @@ struct Framework: Identifiable, Hashable, Codable {
     let name: String
     let displayName: String
     
-    /// Main initializer
+    /// Main initializer — id and displayName are derived automatically when omitted.
     init(id: String? = nil, name: String, displayName: String? = nil) {
         self.name = name
         self.displayName = displayName ?? FrameworksConstants.displayName(for: name)
         self.id = id ?? FrameworksConstants.normalizedID(for: name)
-    }
-    
-    /// Convenience initializer (most commonly used)
-    init(name: String) {
-        self.init(id: nil, name: name)
     }
     
     // MARK: - Hashable & Equatable

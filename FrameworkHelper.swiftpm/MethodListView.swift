@@ -26,16 +26,18 @@ struct MethodListView: View {
         .task {
             await viewModel.loadMethods()
         }
+        // ✅ LoadingView replaces the inline ProgressView overlay.
+        // ✅ ErrorView replaces the fragile .alert(isPresented: .constant(...)) pattern.
+        //    ErrorView exposes a retry action so the user can recover without leaving the screen.
         .overlay {
             if viewModel.isLoading {
-                ProgressView("Loading \(framework.displayName)…")
-                    .progressViewStyle(.circular)
+                LoadingView(message: "Loading \(framework.displayName)…")
+            } else if let error = viewModel.errorMessage {
+                ErrorView(error: error) {
+                    viewModel.clearError()
+                    Task { await viewModel.loadMethods() }
+                }
             }
-        }
-        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-            Button("OK") { viewModel.errorMessage = nil }
-        } message: {
-            Text(viewModel.errorMessage ?? "An unknown error occurred.")
         }
     }
 }
@@ -63,10 +65,12 @@ private struct SectionContent: View {
                         Spacer()
                         
                         Button {
-                            UIPasteboard.general.string = item
+                            copyToClipboard(item)
                             copiedItem = item
-                            // Reset the checkmark after 1.5 seconds
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            // ✅ Task.sleep replaces DispatchQueue.main.asyncAfter —
+                            //    structured concurrency, no escaping closure needed.
+                            Task {
+                                try? await Task.sleep(for: .seconds(1.5))
                                 if copiedItem == item {
                                     copiedItem = nil
                                 }
@@ -78,10 +82,9 @@ private struct SectionContent: View {
                         }
                         .buttonStyle(.borderless)
                     }
-                    // Long-press context menu as an alternative
                     .contextMenu {
                         Button {
-                            UIPasteboard.general.string = item
+                            copyToClipboard(item)
                         } label: {
                             Label("Copy", systemImage: "doc.on.doc")
                         }
@@ -94,6 +97,19 @@ private struct SectionContent: View {
                     .textCase(.uppercase)
             }
         }
+    }
+    
+    // MARK: - Clipboard Helper
+    
+    /// Writes `text` to the system clipboard.
+    /// ✅ #if canImport guard ensures this compiles on macOS as well as iOS.
+    private func copyToClipboard(_ text: String) {
+#if canImport(UIKit)
+        UIPasteboard.general.string = text
+#elseif canImport(AppKit)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+#endif
     }
 }
 

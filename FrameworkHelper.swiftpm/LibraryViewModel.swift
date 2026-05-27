@@ -1,7 +1,6 @@
 // LibraryViewModel.swift
 
 import Foundation
-import SwiftUI
 
 @MainActor
 final class LibraryViewModel: ObservableObject {
@@ -34,7 +33,11 @@ final class LibraryViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            frameworks = try await FrameworksConstants.sortedFrameworks()
+            // ✅ Now calls the injected repository — restores testability.
+            let loaded = try await repository.fetchFrameworks()
+            frameworks = loaded.sorted {
+                $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
+            }
             applySearchFilter()
         } catch {
             errorMessage = "Failed to load frameworks: \(error.localizedDescription)"
@@ -49,10 +52,10 @@ final class LibraryViewModel: ObservableObject {
         if searchText.isEmpty {
             filteredFrameworks = frameworks
         } else {
-            let lowercasedSearch = searchText.lowercased()
-            filteredFrameworks = frameworks.filter { framework in
-                framework.displayName.lowercased().contains(lowercasedSearch) ||
-                framework.name.lowercased().contains(lowercasedSearch)
+            let query = searchText.lowercased()
+            filteredFrameworks = frameworks.filter {
+                $0.displayName.lowercased().contains(query) ||
+                $0.name.lowercased().contains(query)
             }
         }
     }

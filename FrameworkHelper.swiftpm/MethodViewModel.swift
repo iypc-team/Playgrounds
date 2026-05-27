@@ -1,7 +1,6 @@
 // MethodViewModel.swift
 
 import Foundation
-import SwiftUI
 
 @MainActor
 final class MethodViewModel: ObservableObject {
@@ -39,20 +38,19 @@ final class MethodViewModel: ObservableObject {
             let allMethods = try JSONDecoder().decode([String: MethodEntry].self, from: data)
             
             if let entry = allMethods[frameworkName] {
-                self.methods = entry.methods
-                self.properties = entry.properties
-                self.constants = entry.constants
-                self.functions = entry.functions
+                self.methods     = entry.methods
+                self.properties  = entry.properties
+                self.constants   = entry.constants
+                self.functions   = entry.functions
             } else {
-                // Fallback for frameworks not in JSON
-                self.methods = defaultEntries(for: frameworkName)
-                self.properties = []
-                self.constants = []
-                self.functions = []
+                // Fallback for frameworks not yet present in the JSON.
+                self.methods     = defaultEntries(for: frameworkName)
+                self.properties  = []
+                self.constants   = []
+                self.functions   = []
             }
         } catch {
             errorMessage = "Failed to load methods: \(error.localizedDescription)"
-            // Use fallback data
             self.methods = defaultEntries(for: frameworkName)
         }
         
@@ -60,15 +58,24 @@ final class MethodViewModel: ObservableObject {
     }
     
     private func loadJSONData() async throws -> Data {
+        // Data(contentsOf:) is synchronous but acceptable here — source is always
+        // a local bundle resource so there is no network latency risk.
         let candidateBundles: [Bundle?] = [Bundle.module, Bundle.main]
-        
         for bundle in candidateBundles.compactMap({ $0 }) {
             if let url = bundle.url(forResource: "methods", withExtension: "json") {
                 return try Data(contentsOf: url)
             }
         }
-        
-        throw NSError(domain: "MethodViewModel", code: 404, userInfo: [NSLocalizedDescriptionKey: "methods.json not found"])
+        throw NSError(
+            domain: "MethodViewModel",
+            code: 404,
+            userInfo: [NSLocalizedDescriptionKey: "methods.json not found"]
+        )
+    }
+    
+    // ✅ clearError() keeps all @Published mutation inside the ViewModel, not in the view.
+    func clearError() {
+        errorMessage = nil
     }
     
     // MARK: - Fallback Data
@@ -99,4 +106,3 @@ struct MethodEntry: Decodable {
     let constants: [String]
     let functions: [String]
 }
-

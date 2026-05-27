@@ -18,7 +18,6 @@ final class ContentViewModel: ObservableObject {
     }
     
     func loadFrameworks() async {
-        // Prevent concurrent loads
         guard currentLoadTask == nil else { return }
         
         currentLoadTask = Task {
@@ -32,7 +31,12 @@ final class ContentViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            frameworks = try await FrameworksConstants.sortedFrameworks()
+            // Use the injected repository so the abstraction is actually exercised
+            // (enables testing via MockFrameworksRepository).
+            let loaded = try await repository.fetchFrameworks()
+            frameworks = loaded.sorted {
+                $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
+            }
         } catch {
             errorMessage = "Failed to load frameworks: \(error.localizedDescription)"
             frameworks = []
