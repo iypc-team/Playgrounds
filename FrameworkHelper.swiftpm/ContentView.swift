@@ -1,12 +1,10 @@
-//  FrameworkHelper 05/27/2026-2
+//  FrameworkHelper 05/27/2026-3
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
 
 import SwiftUI
 
 struct ContentView: View {
-    
-    // ✅ Switched to LibraryViewModel — activates previously dead code and adds search support.
     @StateObject private var viewModel = LibraryViewModel()
     
     var body: some View {
@@ -21,9 +19,8 @@ struct ContentView: View {
             .navigationDestination(for: Framework.self) { framework in
                 MethodListView(framework: framework)
             }
-            // ✅ Live search wired to LibraryViewModel.applySearchFilter()
             .searchable(text: $viewModel.searchText, prompt: "Search frameworks")
-            .onChange(of: viewModel.searchText) {
+            .onChange(of: viewModel.searchText) { _ in
                 viewModel.applySearchFilter()
             }
             .refreshable {
@@ -32,9 +29,25 @@ struct ContentView: View {
             .task {
                 await viewModel.loadFrameworks()
             }
-            // ✅ LoadingView replaces inline ProgressView.
-            // ✅ ErrorView replaces fragile .alert(isPresented: .constant(...)) pattern.
-            //    ErrorView exposes a retry action so the user can recover without leaving the screen.
+            // Category Picker
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button("All Categories") {
+                            viewModel.selectedCategory = nil
+                            viewModel.applySearchFilter()
+                        }
+                        ForEach(Array(FrameworksConstants.categories.keys).sorted(), id: \.self) { category in
+                            Button(category) {
+                                viewModel.selectedCategory = category
+                                viewModel.applySearchFilter()
+                            }
+                        }
+                    } label: {
+                        Label("Categories", systemImage: "folder")
+                    }
+                }
+            }
             .overlay {
                 if viewModel.isLoading {
                     LoadingView()
@@ -48,8 +61,6 @@ struct ContentView: View {
         }
     }
 }
-
-// MARK: - Preview
 
 #Preview {
     ContentView()

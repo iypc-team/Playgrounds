@@ -14,6 +14,7 @@ struct Framework: Identifiable, Hashable, Codable {
         self.displayName = displayName ?? FrameworksConstants.displayName(for: name)
         self.id = id ?? FrameworksConstants.normalizedID(for: name)
     }
+    // In Framework.swift Type 'FrameworksConstants' has no member 'normalizedID'
     
     // MARK: - Hashable & Equatable
     
