@@ -1,4 +1,4 @@
-//  FrameworkHelper 05/27/2026-4
+//  FrameworkHelper 05/28/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/FrameworkHelper.swiftpm
 
@@ -64,4 +64,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .preferredColorScheme(.dark)
 }
