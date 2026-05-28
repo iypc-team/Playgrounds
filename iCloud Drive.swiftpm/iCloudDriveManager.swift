@@ -19,14 +19,22 @@ class iCloudDriveManager: ObservableObject {
         metadataQuery?.stop()
     }
     
-    // MARK: - iCloud Documents URL
-    var iCloudDocumentsURL: URL? {
-        FileManager.default.url(forUbiquityContainerIdentifier: nil)?
-            .appendingPathComponent("Documents")
+    // MARK: - iCloud Available (checks sign-in status, not container)
+    var iCloudAvailable: Bool {
+        FileManager.default.ubiquityIdentityToken != nil
     }
     
-    var iCloudAvailable: Bool {
-        FileManager.default.url(forUbiquityContainerIdentifier: nil) != nil
+    // MARK: - iCloud Documents URL
+    var iCloudDocumentsURL: URL? {
+        guard let base = FileManager.default.url(forUbiquityContainerIdentifier: nil) else {
+            return nil
+        }
+        let docsURL = base.appendingPathComponent("Documents")
+        // Create Documents folder if it doesn't exist
+        if !FileManager.default.fileExists(atPath: docsURL.path) {
+            try? FileManager.default.createDirectory(at: docsURL, withIntermediateDirectories: true)
+        }
+        return docsURL
     }
     
     init() {
@@ -45,7 +53,6 @@ class iCloudDriveManager: ObservableObject {
                 self?.successMessage = "iCloud account status changed."
             }
         }
-        
         setupMetadataQuery()
     }
     
@@ -74,9 +81,7 @@ class iCloudDriveManager: ObservableObject {
     
     private func processMetadataQueryResults() {
         guard let items = metadataQuery?.results as? [NSMetadataItem] else { return }
-        
         let urls = items.compactMap { $0.value(forAttribute: NSMetadataItemURLKey) as? URL }
-        
         DispatchQueue.main.async {
             self.iCloudFiles = urls.sorted { $0.lastPathComponent < $1.lastPathComponent }
         }
@@ -86,12 +91,11 @@ class iCloudDriveManager: ObservableObject {
     private func handleError(_ error: Error, operation: String) {
         DispatchQueue.main.async {
             let nsError = error as NSError
-            
             switch nsError.code {
             case NSFileWriteNoPermissionError, NSFileReadNoPermissionError:
                 self.errorMessage = "Permission denied during \(operation). Check iCloud settings."
             case NSUbiquitousFileUnavailableError:
-                self.errorMessage = "iCloud Drive is not enabled or file unavailable."
+                self.errorMessage = "iCloud file unavailable. Check your connection."
             case NSFileWriteOutOfSpaceError:
                 self.errorMessage = "Insufficient iCloud storage space."
             default:
@@ -103,31 +107,27 @@ class iCloudDriveManager: ObservableObject {
     // MARK: - List Files
     func listFiles() {
         guard iCloudAvailable else {
-            DispatchQueue.main.async { self.errorMessage = "iCloud Drive is not available. Please sign in." }
+            DispatchQueue.main.async {
+                self.errorMessage = "iCloud Drive is not available. Please sign in to iCloud in Settings."
+            }
             return
         }
         
-        guard let documentsURL = iCloudDocumentsURL else { return }
+        guard let documentsURL = iCloudDocumentsURL else {
+            DispatchQueue.main.async {
+                self.errorMessage = "Could not access iCloud container. Ensure iCloud Drive is enabled in Settings > [Your Name] > iCloud."
+            }
+            return
+        }
         
         let coordinator = NSFileCoordinator(filePresenter: nil)
-        
         coordinator.coordinate(readingItemAt: documentsURL, options: [], error: nil) { url in
-            if !FileManager.default.fileExists(atPath: url.path) {
-                do {
-                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-                } catch {
-                    self.handleError(error, operation: "Create Documents folder")
-                    return
-                }
-            }
-            
             do {
                 let contents = try FileManager.default.contentsOfDirectory(
                     at: url,
                     includingPropertiesForKeys: [.nameKey, .fileSizeKey, .contentModificationDateKey],
                     options: .skipsHiddenFiles
                 )
-                
                 DispatchQueue.main.async {
                     self.iCloudFiles = contents.sorted { $0.lastPathComponent < $1.lastPathComponent }
                     self.errorMessage = nil
@@ -148,11 +148,14 @@ class iCloudDriveManager: ObservableObject {
     }
     
     private func saveFile(fileName: String, data: Data) {
-        guard let documentsURL = iCloudDocumentsURL else { return }
-        
+        guard let documentsURL = iCloudDocumentsURL else {
+            DispatchQueue.main.async {
+                self.errorMessage = "Could not access iCloud container."
+            }
+            return
+        }
         let fileURL = documentsURL.appendingPathComponent(fileName)
         let coordinator = NSFileCoordinator(filePresenter: nil)
-        
         coordinator.coordinate(writingItemAt: fileURL, options: .forReplacing, error: nil) { url in
             do {
                 try data.write(to: url, options: .atomic)
@@ -169,7 +172,6 @@ class iCloudDriveManager: ObservableObject {
     // MARK: - Delete File
     func deleteFile(at url: URL) {
         let coordinator = NSFileCoordinator(filePresenter: nil)
-        
         coordinator.coordinate(writingItemAt: url, options: .forDeleting, error: nil) { urlToDelete in
             do {
                 try FileManager.default.removeItem(at: urlToDelete)
@@ -183,23 +185,21 @@ class iCloudDriveManager: ObservableObject {
         }
     }
     
-    // MARK: - Conflict Resolution (Fixed)
+    // MARK: - Conflict Resolution (Fixed) ✅
     func resolveConflicts(for url: URL) {
         let coordinator = NSFileCoordinator(filePresenter: nil)
-        
         coordinator.coordinate(writingItemAt: url, options: [], error: nil) { _ in
             do {
-                // Get all conflict versions
-                let conflictVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: url)
-                
-                if let latestConflict = conflictVersions?.first {
-                    // Example strategy: Keep the most recent conflict version
+                if let conflictVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: url),
+                   let latestConflict = conflictVersions.first {
+                    
                     try latestConflict.replaceItem(at: url, options: .byMoving)
                     
-                    // Remove other conflicts
-                    for version in conflictVersions?.dropFirst() {
+                    for version in conflictVersions.dropFirst() {
                         try version.remove()
                     }
+                    
+                    try NSFileVersion.removeOtherVersionsOfItem(at: url)
                     
                     DispatchQueue.main.async {
                         self.successMessage = "Conflicts resolved for '\(url.lastPathComponent)'"
