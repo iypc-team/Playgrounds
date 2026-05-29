@@ -1,4 +1,4 @@
-//  iCloudDrive 02/23/2026-1
+//  iCloudDrive 05/29/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloudDrive.swiftpm
 //  
@@ -19,9 +19,11 @@ struct ContentView: View {
                         lastEvent = "Picker presented"
                         showingPicker = true
                     }
+                    .buttonStyle(.borderedProminent)
+                    
                     Button("Mock add") {
                         vm.pickedURLs = [URL(fileURLWithPath: "/tmp/example.txt")]
-                        vm.previewText = "Preview text"
+                        vm.previewText = "Mock preview text"
                         lastEvent = "Mock added"
                     }
                     .buttonStyle(.bordered)
@@ -58,8 +60,8 @@ struct ContentView: View {
                     }
                     
                     if let error = vm.errorMessage {
-                        Section {
-                            Text("Error: \(error)")
+                        Section(header: Text("Error")) {
+                            Text(error)
                                 .foregroundColor(.red)
                                 .font(.caption)
                         }
@@ -77,7 +79,7 @@ struct ContentView: View {
             switch result {
             case .success(let urls):
                 lastEvent = "Importer success: \(urls.count) url(s)"
-                vm.handle(result: result)
+                vm.handle(result: .success(urls))   // More explicit
             case .failure(let error):
                 lastEvent = "Importer failure: \(error.localizedDescription)"
                 vm.errorMessage = error.localizedDescription

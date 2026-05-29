@@ -1,5 +1,5 @@
 //  FilePickerViewModel.swift
-//
+//  
 
 import Foundation
 import SwiftUI
@@ -39,7 +39,6 @@ final class FilePickerViewModel: ObservableObject {
                 errorMessage = nil
             }
         case .failure(let error):
-            // Keep UI-state update on MainActor
             previewText = ""
             errorMessage = error.localizedDescription
         }
@@ -49,45 +48,40 @@ final class FilePickerViewModel: ObservableObject {
         // Start security-scoped access synchronously before handing off work.
         let didStart = url.startAccessingSecurityScopedResource()
         
-        // Use structured concurrency: perform blocking I/O off the actor via Task.detached,
-        // then resume on MainActor for state updates.
         Task { [weak self] in
-            // Capture the pieces we need from self on the MainActor so we do NOT capture `self`
-            // inside the detached concurrent work below.
+            // Ensure cleanup always happens, even on early returns or errors
+            defer {
+                if didStart {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+            
+            // Capture the pieces we need from self on the MainActor
             let capturedFileService = self?.fileService
             let capturedMaxPreviewChars = self?.maxPreviewChars ?? 20_000
             
             do {
-                // Detached task performs the blocking I/O without referencing `self`.
-                let data = try await Task.detached { [url, capturedFileService] in
-                    if let fs = capturedFileService {
-                        return try fs.readData(from: url)
-                    } else {
-                        // Fallback to direct read if we don't have a fileService (rare).
+                let data = try await Task.detached {
+                    guard let service = capturedFileService else {
+                        // Fallback
                         return try Data(contentsOf: url)
                     }
+                    return try service.readData(from: url)
                 }.value
                 
-                // Build preview text (pure computation)
+                // Build preview text
                 let preview = Self.makePreviewText(from: data, maxChars: capturedMaxPreviewChars)
                 
-                // Ensure we still have self on MainActor, then update @Published properties
-                guard let self = self else {
-                    if didStart { url.stopAccessingSecurityScopedResource() }
-                    return
-                }
+                // Update UI on MainActor
+                guard let self = self else { return }
                 self.previewText = preview
                 self.errorMessage = nil
+                
             } catch {
-                guard let self = self else {
-                    if didStart { url.stopAccessingSecurityScopedResource() }
-                    return
-                }
+                guard let self = self else { return }
                 self.previewText = ""
                 self.errorMessage = error.localizedDescription
             }
-            
-            if didStart { url.stopAccessingSecurityScopedResource() }
         }
     }
     
@@ -101,14 +95,7 @@ final class FilePickerViewModel: ObservableObject {
                 return text
             }
         } else {
-            return "Binary file — \(data.count) bytes"
+            return "Binary file or unreadable encoding (\(data.count) bytes)"
         }
-    }
-    
-    // Optional helpers you can add:
-    func clear() {
-        pickedURLs = []
-        previewText = ""
-        errorMessage = nil
     }
 }
