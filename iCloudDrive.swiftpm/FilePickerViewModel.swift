@@ -1,5 +1,5 @@
 //  FilePickerViewModel.swift
-//  
+//
 
 import Foundation
 import SwiftUI
@@ -20,6 +20,7 @@ final class FilePickerViewModel: ObservableObject {
     @Published var pickedURLs: [URL] = []
     @Published var previewText: String = ""
     @Published var errorMessage: String?
+    @Published var isLoading: Bool = false
     
     private let fileService: FileService
     private let maxPreviewChars = 20_000
@@ -45,42 +46,39 @@ final class FilePickerViewModel: ObservableObject {
     }
     
     func readFileForPreview(url: URL) {
-        // Start security-scoped access synchronously before handing off work.
-        let didStart = url.startAccessingSecurityScopedResource()
+        isLoading = true
+        errorMessage = nil
+        
+        // Capture fileService as a value type — safe to use across concurrency boundaries.
+        let capturedFileService: FileService = self.fileService
+        let capturedMaxPreviewChars = self.maxPreviewChars
         
         Task { [weak self] in
-            // Ensure cleanup always happens, even on early returns or errors
+            // Start security-scoped access inside the Task, immediately before reading.
+            let didStart = url.startAccessingSecurityScopedResource()
             defer {
                 if didStart {
                     url.stopAccessingSecurityScopedResource()
                 }
             }
             
-            // Capture the pieces we need from self on the MainActor
-            let capturedFileService = self?.fileService
-            let capturedMaxPreviewChars = self?.maxPreviewChars ?? 20_000
-            
             do {
                 let data = try await Task.detached {
-                    guard let service = capturedFileService else {
-                        // Fallback
-                        return try Data(contentsOf: url)
-                    }
-                    return try service.readData(from: url)
+                    return try capturedFileService.readData(from: url)
                 }.value
                 
-                // Build preview text
                 let preview = Self.makePreviewText(from: data, maxChars: capturedMaxPreviewChars)
                 
-                // Update UI on MainActor
                 guard let self = self else { return }
                 self.previewText = preview
                 self.errorMessage = nil
+                self.isLoading = false
                 
             } catch {
                 guard let self = self else { return }
                 self.previewText = ""
                 self.errorMessage = error.localizedDescription
+                self.isLoading = false
             }
         }
     }
