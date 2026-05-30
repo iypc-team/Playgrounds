@@ -1,4 +1,4 @@
-//  iCloudDrive 05/29/2026-2
+//  iCloudDrive 05/30/2026-1
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloudDrive.swiftpm
 //
@@ -10,15 +10,24 @@ import UIKit
 struct ContentView: View {
     @StateObject private var vm = FilePickerViewModel()
     @State private var showingPicker = false
-    @State private var lastEvent = "Idle"
     @State private var clipboardToast = false
+    // ✅ FIX 3: cancellable Task token for toast dismissal
+    @State private var toastTask: Task<Void, Never>?
+    
+#if DEBUG
+    // ✅ BONUS: lastEvent scoped to DEBUG only
+    @State private var lastEvent = "Idle"
+#endif
     
     var body: some View {
-        NavigationView {
+        // ✅ FIX 1: NavigationView → NavigationStack
+        NavigationStack {
             VStack(spacing: 12) {
                 HStack(spacing: 12) {
                     Button("Pick files from iCloud Drive") {
+#if DEBUG
                         lastEvent = "Picker presented"
+#endif
                         showingPicker = true
                     }
                     .buttonStyle(.borderedProminent)
@@ -49,13 +58,16 @@ struct ContentView: View {
                             ForEach(vm.pickedURLs, id: \.self) { url in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(url.lastPathComponent).font(.headline)
-                                    Text(url.path).font(.caption).foregroundColor(.secondary)
+                                    // ✅ FIX 2: url.path → url.path(percentEncoded: false)
+                                    Text(url.path(percentEncoded: false))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
                                 .padding(.vertical, 4)
-                                // Long-press to copy file path
                                 .contextMenu {
                                     Button {
-                                        copyToClipboard(url.path)
+                                        // ✅ FIX 2: url.path → url.path(percentEncoded: false)
+                                        copyToClipboard(url.path(percentEncoded: false))
                                     } label: {
                                         Label("Copy File Path", systemImage: "doc.on.clipboard")
                                     }
@@ -71,9 +83,9 @@ struct ContentView: View {
                     
                     Section(
                         header: HStack {
-                            Text("Preview")
+                            // ✅ BONUS: clarifies only first file is previewed
+                            Text("Preview (first file)")
                             Spacer()
-                            // Copy preview text button — disabled when there is nothing to copy
                             Button {
                                 copyToClipboard(vm.previewText)
                             } label: {
@@ -82,11 +94,12 @@ struct ContentView: View {
                             }
                             .disabled(vm.previewText.isEmpty || vm.isLoading)
                             
-                            // Paste from clipboard into preview
                             Button {
                                 if let pasted = UIPasteboard.general.string {
                                     vm.previewText = pasted
+#if DEBUG
                                     lastEvent = "Pasted from clipboard"
+#endif
                                 }
                             } label: {
                                 Label("Paste", systemImage: "clipboard")
@@ -108,7 +121,6 @@ struct ContentView: View {
                                     .font(.system(.body, design: .monospaced))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(8)
-                                // Long-press on preview text to copy
                                     .contextMenu {
                                         Button {
                                             copyToClipboard(vm.previewText)
@@ -126,7 +138,6 @@ struct ContentView: View {
                             Text(error)
                                 .foregroundColor(.red)
                                 .font(.caption)
-                            // Long-press to copy error message
                                 .contextMenu {
                                     Button {
                                         copyToClipboard(error)
@@ -138,7 +149,6 @@ struct ContentView: View {
                     }
                 }
                 .listStyle(.insetGrouped)
-                // Toast overlay for clipboard confirmation
                 .overlay(alignment: .bottom) {
                     if clipboardToast {
                         Text("Copied to clipboard")
@@ -146,7 +156,8 @@ struct ContentView: View {
                             .padding(.horizontal, 16)
                             .padding(.vertical, 10)
                             .background(Color(.systemGray5))
-                            .cornerRadius(20)
+                        // ✅ BONUS: .cornerRadius → .clipShape
+                            .clipShape(.rect(cornerRadius: 20))
                             .shadow(radius: 4)
                             .padding(.bottom, 16)
                             .transition(.opacity)
@@ -155,6 +166,7 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 0.3), value: clipboardToast)
             }
             .navigationTitle("iCloud Drive Picker")
+            // ✅ REVERTED: back to .fileImporter — the correct API for Swift Playgrounds
             .fileImporter(
                 isPresented: $showingPicker,
                 allowedContentTypes: [.item],
@@ -162,10 +174,14 @@ struct ContentView: View {
             ) { result in
                 switch result {
                 case .success(let urls):
+#if DEBUG
                     lastEvent = "Importer success: \(urls.count) url(s)"
+#endif
                     vm.handle(result: .success(urls))
                 case .failure(let error):
+#if DEBUG
                     lastEvent = "Importer failure: \(error.localizedDescription)"
+#endif
                     vm.errorMessage = error.localizedDescription
                 }
             }
@@ -177,13 +193,19 @@ struct ContentView: View {
     private func copyToClipboard(_ text: String) {
         guard !text.isEmpty else { return }
         UIPasteboard.general.string = text
+#if DEBUG
         lastEvent = "Copied to clipboard"
+#endif
         showToast()
     }
     
+    // ✅ FIX 3: cancellable Task — rapid copies always show a full 2-second toast
     private func showToast() {
+        toastTask?.cancel()
         clipboardToast = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        toastTask = Task {
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
             clipboardToast = false
         }
     }
@@ -192,6 +214,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
+//            .preferredColorScheme(.dark)
     }
 }
