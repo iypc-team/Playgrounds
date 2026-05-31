@@ -8,10 +8,15 @@ struct BookmarkManager {
     
     static func saveBookmark(for url: URL) {
         do {
-            let data = try url.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil)
+            // In BookmarkManager.swift, 'withSecurityScope' is unavailable in iOS.
+            let data = try url.bookmarkData(
+                options: .withSecurityScope,
+                includingResourceValuesForKeys: nil,
+                relativeTo: nil
+            )
             UserDefaults.standard.set(data, forKey: bookmarkKey)
         } catch {
-            print("Error saving bookmark: \(error.localizedDescription)")
+            print("Failed to save bookmark: \(error.localizedDescription)")
         }
     }
     
@@ -20,23 +25,18 @@ struct BookmarkManager {
         
         var isStale = false
         do {
-            let url = try URL(resolvingBookmarkData: data, options: [], relativeTo: nil, bookmarkDataIsStale: &isStale)
+            let url = try URL(resolvingBookmarkData: data,
+                              options: .withSecurityScope,
+                              relativeTo: nil,
+                              bookmarkDataIsStale: &isStale)
             
-            if isStale {
-                print("Bookmark is stale; clearing.")
+            if isStale || !FileManager.default.fileExists(atPath: url.path) {
                 UserDefaults.standard.removeObject(forKey: bookmarkKey)
                 return nil
             }
-            
-            // Verify file exists at the path
-            if !FileManager.default.fileExists(atPath: url.path) {
-                print("File no longer exists at: \(url.path)")
-                return nil
-            }
-            
             return url
         } catch {
-            print("Error resolving bookmark: \(error.localizedDescription)")
+            print("Failed to restore bookmark: \(error.localizedDescription)")
             return nil
         }
     }

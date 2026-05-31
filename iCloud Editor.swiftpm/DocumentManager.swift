@@ -1,31 +1,41 @@
 // DocumentManager.swift
 // 
-
+// DocumentManager.swift
 import Foundation
 import SwiftUI
 
 @MainActor
 class DocumentManager: ObservableObject {
     @Published var documentData: String = ""
+    @Published var isLoading = false
+    @Published var isSaving = false
+    @Published var fileMetadata: FileMetadata?
+    
     private let fileCoordinator = NSFileCoordinator()
     
-    // Helper to bypass Swift's exclusive access constraints
-    private class ErrorBox {
-        var error: NSError?
+    struct FileMetadata {
+        let name: String
+        let lastModified: Date?
+        let fileSize: Int64
+        let isDownloaded: Bool
+        let iCloudStatus: String
     }
     
-    // MARK: - Save File
+    // MARK: - Save
     func saveFile(data: String, to url: URL) async throws {
+        isSaving = true
+        defer { isSaving = false }
+        
         let dataToSave = data.data(using: .utf8) ?? Data()
+        
         let shouldStop = url.startAccessingSecurityScopedResource()
         defer { if shouldStop { url.stopAccessingSecurityScopedResource() } }
         
-        try await Task.detached(priority: .userInitiated) {
+        try await Task.detached { [fileCoordinator] in
             let errorBox = ErrorBox()
             var coordinationError: NSError?
             
-            await self.fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordinationError) { newURL in
-                // 
+            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordinationError) { newURL in
                 do {
                     try dataToSave.write(to: newURL, options: .atomic)
                 } catch {
@@ -33,47 +43,75 @@ class DocumentManager: ObservableObject {
                 }
             }
             
-            if let error = coordinationError { throw error }
-            if let writeError = errorBox.error { throw writeError }
+            if let err = coordinationError ?? errorBox.error { throw err }
         }.value
     }
     
-    // MARK: - Load File
+    // MARK: - Load with Large File Check
     func loadFile(from url: URL) async throws -> String {
-        // Ensure the file is downloaded from iCloud
-        try FileManager.default.startDownloadingUbiquitousItem(at: url)
-        
-        // Wait for download to complete
-        var isDownloaded = false
-        while !isDownloaded {
-            let values = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
-            if values.ubiquitousItemDownloadingStatus == .current {
-                isDownloaded = true
-            } else {
-                try await Task.sleep(nanoseconds: 500_000_000) // Poll every 0.5s
-            }
-        }
+        isLoading = true
+        defer { isLoading = false }
         
         let shouldStop = url.startAccessingSecurityScopedResource()
         defer { if shouldStop { url.stopAccessingSecurityScopedResource() } }
         
-        return try await Task.detached(priority: .userInitiated) {
-            let errorBox = ErrorBox()
-            var result: String = ""
-            var coordinationError: NSError?
-            
-            await self.fileCoordinator.coordinate(readingItemAt: url, options: [], error: &coordinationError) { readURL in
-                do {
-                    result = try String(contentsOf: readURL, encoding: .utf8)
-                } catch {
-                    errorBox.error = error as NSError
-                }
-            }
-            
-            if let error = coordinationError { throw error }
-            if let readError = errorBox.error { throw readError }
-            
-            return result
+        // Update metadata
+        await updateMetadata(for: url)
+        
+        try await downloadIfNeeded(url)
+        
+        // Large file warning
+        if let size = fileMetadata?.fileSize, size > 10_000_000 { // >10MB
+            print("⚠️ Large file detected (\(size / 1_000_000) MB). Performance may be affected.")
+        }
+        
+        return try await Task.detached {
+            let data = try Data(contentsOf: url)
+            return String(decoding: data, as: UTF8.self)
         }.value
+    }
+    
+    private func updateMetadata(for url: URL) async {
+        do {
+            let resourceValues = try url.resourceValues(forKeys: [
+                .fileSizeKey,
+                .contentModificationDateKey,
+                .ubiquitousItemDownloadingStatusKey,
+                .ubiquitousItemIsDownloadingKey
+            ])
+            
+            let status = resourceValues.ubiquitousItemDownloadingStatus?.rawValue ?? "unknown"
+            
+            fileMetadata = FileMetadata(
+                name: url.lastPathComponent,
+                lastModified: resourceValues.contentModificationDate,
+                fileSize: Int64(resourceValues.fileSize ?? 0),
+                isDownloaded: resourceValues.ubiquitousItemDownloadingStatus == .current,
+                iCloudStatus: status
+            )
+        } catch {
+            print("Metadata error: \(error)")
+        }
+    }
+    
+    private func downloadIfNeeded(_ url: URL) async throws {
+        let values = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+        
+        guard values.ubiquitousItemDownloadingStatus != .current else { return }
+        
+        try FileManager.default.startDownloadingUbiquitousItem(at: url)
+        
+        // Timeout after 15s
+        for _ in 0..<30 {
+            try await Task.sleep(nanoseconds: 500_000_000)
+            let status = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+                .ubiquitousItemDownloadingStatus
+            if status == .current { return }
+        }
+        throw NSError(domain: "iCloud", code: 1, userInfo: [NSLocalizedDescriptionKey: "iCloud download timeout"])
+    }
+    
+    private class ErrorBox {
+        var error: NSError?
     }
 }
