@@ -1,6 +1,6 @@
 // DocumentManager.swift
 // 
-// DocumentManager.swift
+
 import Foundation
 import SwiftUI
 
@@ -21,7 +21,7 @@ class DocumentManager: ObservableObject {
         let iCloudStatus: String
     }
     
-    // MARK: - Save
+    // MARK: - Save (Improved - No ErrorBox)
     func saveFile(data: String, to url: URL) async throws {
         isSaving = true
         defer { isSaving = false }
@@ -32,19 +32,24 @@ class DocumentManager: ObservableObject {
         defer { if shouldStop { url.stopAccessingSecurityScopedResource() } }
         
         try await Task.detached { [fileCoordinator] in
-            let errorBox = ErrorBox()
             var coordinationError: NSError?
+            var writeError: Error?
             
             fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordinationError) { newURL in
                 do {
                     try dataToSave.write(to: newURL, options: .atomic)
                 } catch {
-                    errorBox.error = error as NSError
+                    writeError = error
                 }
             }
             
-            if let err = coordinationError ?? errorBox.error { throw err }
+            if let err = coordinationError ?? (writeError as? NSError) {
+                throw err
+            }
         }.value
+        
+        // Refresh metadata after successful save
+        await updateMetadata(for: url)
     }
     
     // MARK: - Load with Large File Check
@@ -71,19 +76,21 @@ class DocumentManager: ObservableObject {
         }.value
     }
     
+    // MARK: - Metadata
     private func updateMetadata(for url: URL) async {
         do {
             let resourceValues = try url.resourceValues(forKeys: [
                 .fileSizeKey,
                 .contentModificationDateKey,
                 .ubiquitousItemDownloadingStatusKey,
-                .ubiquitousItemIsDownloadingKey
+                .ubiquitousItemIsDownloadingKey,
+                .nameKey
             ])
             
             let status = resourceValues.ubiquitousItemDownloadingStatus?.rawValue ?? "unknown"
             
             fileMetadata = FileMetadata(
-                name: url.lastPathComponent,
+                name: resourceValues.name ?? url.lastPathComponent,
                 lastModified: resourceValues.contentModificationDate,
                 fileSize: Int64(resourceValues.fileSize ?? 0),
                 isDownloaded: resourceValues.ubiquitousItemDownloadingStatus == .current,
@@ -94,6 +101,7 @@ class DocumentManager: ObservableObject {
         }
     }
     
+    // MARK: - iCloud Download
     private func downloadIfNeeded(_ url: URL) async throws {
         let values = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
         
@@ -109,9 +117,5 @@ class DocumentManager: ObservableObject {
             if status == .current { return }
         }
         throw NSError(domain: "iCloud", code: 1, userInfo: [NSLocalizedDescriptionKey: "iCloud download timeout"])
-    }
-    
-    private class ErrorBox {
-        var error: NSError?
     }
 }
