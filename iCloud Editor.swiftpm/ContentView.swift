@@ -1,7 +1,6 @@
-//  iCloud Editor 06/01/2026-4
+//  iCloud Editor 06/01/2026-5
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloud%20Editor.swiftpm
-//  
 
 import SwiftUI
 
@@ -9,7 +8,6 @@ struct ContentView: View {
     @StateObject private var manager = DocumentManager()
     @State private var showingImporter = false
     @State private var errorMessage: String?
-    @State private var currentURL: URL?
     
     var body: some View {
         NavigationStack {
@@ -19,7 +17,7 @@ struct ContentView: View {
                     .font(.body.monospaced())
                     .padding()
                     .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))          // Fix #4
                 
                 // Metadata Panel
                 if let metadata = manager.fileMetadata {
@@ -36,16 +34,18 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Button("Save") {
-                        Task {
-                            await saveDocument()
-                        }
+                        Task { await saveDocument() }
                     }
                     .buttonStyle(.borderedProminent)
-                    .disabled(currentURL == nil || manager.isSaving)
+                    .disabled(                                              // Fix #5
+                        manager.currentURL == nil ||
+                        manager.isSaving ||
+                        manager.isLoading
+                    )
                 }
             }
             .padding()
-            .navigationTitle(currentURL?.lastPathComponent ?? "iCloud Editor")
+            .navigationTitle(manager.currentURL?.lastPathComponent ?? "iCloud Editor")  // Fix #2
             .overlay {
                 if manager.isLoading || manager.isSaving {
                     ProgressView(manager.isLoading ? "Loading..." : "Saving...")
@@ -59,12 +59,15 @@ struct ContentView: View {
             ) { result in
                 handleFileSelection(result)
             }
-            .alert("Error", isPresented: .constant(errorMessage != nil)) {
-                Button("OK") { errorMessage = nil }
-            } message: {
-                Text(errorMessage ?? "")
-            }
-            .onAppear { restoreSession() }
+            .alert("Error", isPresented: Binding(                          // Fix #1
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+                                                )) {
+                                                    Button("OK") { errorMessage = nil }
+                                                } message: {
+                                                    Text(errorMessage ?? "")
+                                                }
+                                                .onAppear { restoreSession() }
         }
     }
     
@@ -73,25 +76,23 @@ struct ContentView: View {
     private func handleFileSelection(_ result: Result<URL, Error>) {
         switch result {
         case .success(let url):
-            currentURL = url
+            manager.currentURL = url                                       // Fix #2
             BookmarkManager.saveBookmark(for: url)
-            
             Task {
                 do {
-                    let content = try await manager.loadFile(from: url)
-                    manager.documentData = content
+                    try await manager.loadFile(from: url)                  // Fix #3
                 } catch {
                     errorMessage = "Failed to load file: \(error.localizedDescription)"
                 }
             }
-            
         case .failure(let error):
             errorMessage = "Failed to select file: \(error.localizedDescription)"
         }
     }
     
     private func saveDocument() async {
-        guard let url = currentURL else { return }
+        guard let url = manager.currentURL,                                // Fix #2
+              !manager.documentData.isEmpty else { return }                // Fix #7
         do {
             try await manager.saveFile(data: manager.documentData, to: url)
         } catch {
@@ -101,11 +102,10 @@ struct ContentView: View {
     
     private func restoreSession() {
         if let restoredURL = BookmarkManager.restoreURL() {
-            currentURL = restoredURL
+            manager.currentURL = restoredURL                               // Fix #2
             Task {
                 do {
-                    let content = try await manager.loadFile(from: restoredURL)
-                    manager.documentData = content
+                    try await manager.loadFile(from: restoredURL)          // Fix #3
                 } catch {
                     errorMessage = "Failed to restore session: \(error.localizedDescription)"
                 }

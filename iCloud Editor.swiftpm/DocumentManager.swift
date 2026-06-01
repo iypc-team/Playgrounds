@@ -7,12 +7,11 @@ import SwiftUI
 @MainActor
 class DocumentManager: ObservableObject {
     @Published var documentData: String = ""
+    @Published var currentURL: URL?                                        // Fix #2
     @Published var isLoading = false
     @Published var isSaving = false
     @Published var fileMetadata: FileMetadata?
     @Published var lastError: DocumentError?
-    
-    // ✅ Removed instance-level fileCoordinator — no longer needed
     
     // MARK: - Custom Errors
     enum DocumentError: LocalizedError {
@@ -67,17 +66,17 @@ class DocumentManager: ObservableObject {
         await updateMetadata(for: url)
     }
     
-    // MARK: - Load
-    func loadFile(from url: URL) async throws -> String {
+    // MARK: - Load                                                         // Fix #3
+    func loadFile(from url: URL) async throws {
         isLoading = true
         lastError = nil
         defer { isLoading = false }
         
-        return try await withSecurityScopedAccess(url) { scopedURL in
+        let content = try await withSecurityScopedAccess(url) { scopedURL in
             await updateMetadata(for: scopedURL)
             try await downloadIfNeeded(scopedURL)
             
-            if let size = fileMetadata?.fileSize, size > 10_000_000 {
+            if let size = fileMetadata?.fileSize {                         // Simplified large-file check
                 let sizeMB = Double(size) / 1_000_000
                 if sizeMB > 50 {
                     throw DocumentError.fileTooLarge(sizeMB: sizeMB)
@@ -86,6 +85,8 @@ class DocumentManager: ObservableObject {
             
             return try await readFileContents(from: scopedURL)
         }
+        
+        documentData = content                                             // Fix #3: manager owns assignment
     }
     
     // MARK: - Private Helpers
@@ -132,7 +133,6 @@ class DocumentManager: ObservableObject {
     private func readFileContents(from url: URL) async throws -> String {
         try await Task.detached {
             let data = try Data(contentsOf: url)
-            // ✅ String(data:encoding:) returns String? — valid for guard let
             guard let text = String(data: data, encoding: .utf8) else {
                 throw DocumentError.readFailed(reason: "Invalid UTF-8 encoding")
             }
