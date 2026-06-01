@@ -1,4 +1,4 @@
-//  iCloud Editor 06/01/2026-3
+//  iCloud Editor 06/01/2026-4
 //  ContentView.swift
 //  Repo:  https://github.com/iypc-team/Playgrounds/tree/main/iCloud%20Editor.swiftpm
 //  
@@ -111,5 +111,12 @@ struct ContentView: View {
                 }
             }
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+        //            .preferredColorScheme(.dark)
     }
 }

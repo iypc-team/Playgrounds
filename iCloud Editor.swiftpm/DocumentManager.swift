@@ -10,9 +10,9 @@ class DocumentManager: ObservableObject {
     @Published var isLoading = false
     @Published var isSaving = false
     @Published var fileMetadata: FileMetadata?
-    @Published var lastError: DocumentError? // For UI display
+    @Published var lastError: DocumentError?
     
-    private let fileCoordinator = NSFileCoordinator()
+    // ✅ Removed instance-level fileCoordinator — no longer needed
     
     // MARK: - Custom Errors
     enum DocumentError: LocalizedError {
@@ -64,7 +64,6 @@ class DocumentManager: ObservableObject {
             try await coordinateWrite(to: scopedURL, data: dataToSave)
         }
         
-        // Refresh metadata after save
         await updateMetadata(for: url)
     }
     
@@ -74,11 +73,10 @@ class DocumentManager: ObservableObject {
         lastError = nil
         defer { isLoading = false }
         
-        try await withSecurityScopedAccess(url) { scopedURL in
+        return try await withSecurityScopedAccess(url) { scopedURL in
             await updateMetadata(for: scopedURL)
             try await downloadIfNeeded(scopedURL)
             
-            // Large file check
             if let size = fileMetadata?.fileSize, size > 10_000_000 {
                 let sizeMB = Double(size) / 1_000_000
                 if sizeMB > 50 {
@@ -92,7 +90,10 @@ class DocumentManager: ObservableObject {
     
     // MARK: - Private Helpers
     
-    private func withSecurityScopedAccess<T>(_ url: URL, operation: (URL) async throws -> T) async throws -> T {
+    private func withSecurityScopedAccess<T>(
+        _ url: URL,
+        operation: (URL) async throws -> T
+    ) async throws -> T {
         let shouldStop = url.startAccessingSecurityScopedResource()
         defer { if shouldStop { url.stopAccessingSecurityScopedResource() } }
         
@@ -104,11 +105,17 @@ class DocumentManager: ObservableObject {
     }
     
     private func coordinateWrite(to url: URL, data: Data) async throws {
-        try await Task.detached { [fileCoordinator] in
+        try await Task.detached {
+            // ✅ Create coordinator locally — no capture of non-Sendable type
+            let coordinator = NSFileCoordinator()
             var coordinationError: NSError?
             var writeError: Error?
             
-            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordinationError) { newURL in
+            coordinator.coordinate(
+                writingItemAt: url,
+                options: .forReplacing,
+                error: &coordinationError
+            ) { newURL in
                 do {
                     try data.write(to: newURL, options: .atomic)
                 } catch {
@@ -124,9 +131,9 @@ class DocumentManager: ObservableObject {
     
     private func readFileContents(from url: URL) async throws -> String {
         try await Task.detached {
-            // Initializer for conditional binding must have Optional type, not 'String'
             let data = try Data(contentsOf: url)
-            guard let text = String(decoding: data, as: UTF8.self) else {
+            // ✅ String(data:encoding:) returns String? — valid for guard let
+            guard let text = String(data: data, encoding: .utf8) else {
                 throw DocumentError.readFailed(reason: "Invalid UTF-8 encoding")
             }
             return text
@@ -145,7 +152,6 @@ class DocumentManager: ObservableObject {
             ]
             
             let resourceValues = try url.resourceValues(forKeys: keys)
-            
             let status = resourceValues.ubiquitousItemDownloadingStatus?.rawValue ?? "unknown"
             
             fileMetadata = FileMetadata(
@@ -170,7 +176,7 @@ class DocumentManager: ObservableObject {
         try FileManager.default.startDownloadingUbiquitousItem(at: url)
         
         // Poll with timeout (15 seconds)
-        for attempt in 0..<30 {
+        for _ in 0..<30 {
             try await Task.sleep(nanoseconds: 500_000_000) // 0.5s
             
             let status = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
