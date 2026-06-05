@@ -22,7 +22,9 @@ struct ARViewContainer: UIViewRepresentable {
     private func loadModel(into arView: ARView) {
         Task { @MainActor in
             do {
-                let entity = try await Entity(contentsOf: usdzURL)
+                // ✅ Fixed: Entity.load(contentsOf:) is the correct static
+                //    synchronous API — Entity(contentsOf:) does not exist here.
+                let entity = try Entity.load(contentsOf: usdzURL)
                 
                 let bounds = entity.visualBounds(relativeTo: nil)
                 let maxExtent = max(bounds.extents.x, bounds.extents.y, bounds.extents.z)

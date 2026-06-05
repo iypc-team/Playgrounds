@@ -1,6 +1,6 @@
-// SKEdit 06/05/2026-6
+// SKEdit 06/05/2026-7
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm.
 
 import SwiftUI
 import SceneKit
