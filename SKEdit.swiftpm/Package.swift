@@ -8,18 +8,18 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "iCloud Editor",
+    name: "SKEdit",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "iCloud Editor",
+            name: "SKEdit",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .earth),
-            accentColor: .presetColor(.yellow),
+            appIcon: .placeholder(icon: .tv),
+            accentColor: .presetColor(.teal),
             supportedDeviceFamilies: [
                 .pad,
                 .phone

@@ -1,6 +1,6 @@
 // BookmarkManager.swift
 // 
-// BookmarkManager.swift
+
 import Foundation
 
 struct BookmarkManager {
@@ -69,3 +69,4 @@ struct BookmarkManager {
         }
     }
 }
+
