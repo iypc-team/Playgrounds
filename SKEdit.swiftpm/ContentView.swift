@@ -1,10 +1,9 @@
-// SKEdit 06/05/2026 initial commit
+// SKEdit 06/05/2026-1
 // ContentView.swift
-// Repo: 
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm Cannot find type 'View' in scope.
 
 struct ContentView: View {
     var body: some View {
-        // Cannot find type 'View' in scope.
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
