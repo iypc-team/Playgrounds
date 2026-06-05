@@ -1,10 +1,19 @@
-// SKEdit 06/05/2026-3
+// SKEdit 06/05/2026-4
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm
 
 import SwiftUI
 import SceneKit
 import UniformTypeIdentifiers
+
+// MARK: - SceneKit .scn UTType
+private extension UTType {
+    /// com.apple.scenekit.scene  →  fallback to filename extension  →  .data
+    static let scnScene: UTType =
+    UTType("com.apple.scenekit.scene")
+    ?? UTType(filenameExtension: "scn")
+    ?? .data
+}
 
 struct ContentView: View {
     @StateObject private var documentManager = DocumentManager()
@@ -13,9 +22,8 @@ struct ContentView: View {
     @State private var isFilePickerPresented = false
     @State private var showMetadata = false
     
-    // ✅ [.data] — shows ALL files; no USDZ/3D content-type categorisation.
-    //    DocumentManager validates file extensions (.scn / .swift / .txt) after pick.
-    private let allowedTypes: [UTType] = [.data]
+    // ✅ Restrict picker to .scn files only.
+    private let allowedTypes: [UTType] = [.scnScene]
     
     var body: some View {
         NavigationStack {
@@ -48,29 +56,22 @@ struct ContentView: View {
                         ProgressView("Loading…")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
-                    } else if documentManager.isSceneFile,
-                              let scene = documentManager.scene {
+                    } else if let scene = documentManager.scene {
                         SceneKitView(scene: scene, cameraNode: $cameraNode)
-                        
-                    } else if !documentManager.documentData.isEmpty
-                                || selectedURL != nil {
-                        TextEditor(text: $documentManager.documentData)
-                            .font(.system(.body, design: .monospaced))
-                            .padding(4)
                         
                     } else {
                         // Empty / welcome state
                         VStack(spacing: 20) {
-                            Image(systemName: "doc.badge.plus")
+                            Image(systemName: "cube.transparent")
                                 .font(.system(size: 60))
                                 .foregroundStyle(.teal)
                             Text("SKEdit")
                                 .font(.title.bold())
-                            Text("Open a .scn, .swift, or .txt file to begin")
+                            Text("Open a .scn file to begin")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
-                            Button("Open File") {
+                            Button("Open .scn File") {
                                 isFilePickerPresented = true
                             }
                             .buttonStyle(.borderedProminent)
@@ -117,7 +118,8 @@ struct ContentView: View {
                     if documentManager.isSaving {
                         ProgressView()
                             .progressViewStyle(.circular)
-                    } else if let url = selectedURL, !documentManager.isSceneFile {
+                    } else if let url = selectedURL, documentManager.scene != nil {
+                        // ✅ Save is available for loaded .scn scenes.
                         Button {
                             Task { await saveFile(to: url) }
                         } label: {
@@ -136,10 +138,7 @@ struct ContentView: View {
                     }
                 }
             }
-            // MARK: - File Picker (defaults to iCloud Playgrounds directory)
-            // ✅ Replaced .sheet with .background + DocumentPickerView.
-            //    The transparent container VC presents the picker via UIKit's
-            //    present(_:animated:) — fixing the presentation-hierarchy crash.
+            // MARK: - File Picker
             .background {
                 DocumentPickerView(
                     isPresented: $isFilePickerPresented,

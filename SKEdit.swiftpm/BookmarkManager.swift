@@ -7,24 +7,25 @@ struct BookmarkManager {
     static let bookmarkKey = "iCloudDocumentBookmark"
     
     static func saveBookmark(for url: URL) {
+        // ✅ Only persist bookmarks for .scn files.
+        guard url.pathExtension.lowercased() == "scn" else {
+            print("⚠️ Skipping bookmark — not a .scn file")
+            return
+        }
         do {
             let options: URL.BookmarkCreationOptions
-            
 #if os(macOS)
             options = .withSecurityScope
 #else
             options = []
 #endif
-            
             let data = try url.bookmarkData(
                 options: options,
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
-            
             UserDefaults.standard.set(data, forKey: bookmarkKey)
             print("✅ Bookmark saved successfully")
-            
         } catch {
             print("Failed to save bookmark: \(error.localizedDescription)")
         }
@@ -36,13 +37,11 @@ struct BookmarkManager {
         var isStale = false
         do {
             let options: URL.BookmarkResolutionOptions
-            
 #if os(macOS)
             options = .withSecurityScope
 #else
             options = []
 #endif
-            
             let url = try URL(resolvingBookmarkData: data,
                               options: options,
                               relativeTo: nil,
@@ -50,6 +49,13 @@ struct BookmarkManager {
             
             if isStale {
                 print("⚠️ Bookmark is stale")
+                UserDefaults.standard.removeObject(forKey: bookmarkKey)
+                return nil
+            }
+            
+            // ✅ Discard any previously bookmarked non-.scn file.
+            guard url.pathExtension.lowercased() == "scn" else {
+                print("⚠️ Bookmarked file is not a .scn file — discarding")
                 UserDefaults.standard.removeObject(forKey: bookmarkKey)
                 return nil
             }
@@ -69,4 +75,3 @@ struct BookmarkManager {
         }
     }
 }
-

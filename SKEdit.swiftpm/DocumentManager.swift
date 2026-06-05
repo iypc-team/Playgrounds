@@ -1,4 +1,6 @@
 // DocumentManager.swift
+// 
+
 import Foundation
 import SwiftUI
 import SceneKit
@@ -7,16 +9,22 @@ import UniformTypeIdentifiers
 @MainActor
 class DocumentManager: ObservableObject {
     
-    @Published var documentData: String = ""
     @Published var scene: SCNScene?
     @Published var isLoading = false
     @Published var isSaving = false
     @Published var fileMetadata: FileMetadata?
-    @Published var isSceneFile = false
     @Published var errorMessage: String?
     
     // MARK: - Load File
     func loadFile(from url: URL) async throws {
+        // ✅ Reject anything that isn't a .scn file before doing any work.
+        guard url.pathExtension.lowercased() == "scn" else {
+            throw NSError(
+                domain: "SKEditError", code: 4,
+                userInfo: [NSLocalizedDescriptionKey: "Only .scn files can be opened"]
+            )
+        }
+        
         isLoading = true
         defer { isLoading = false }
         
@@ -26,17 +34,7 @@ class DocumentManager: ObservableObject {
         await updateMetadata(for: url)
         try await downloadIfNeeded(url)
         
-        let isSCN = url.pathExtension.lowercased() == "scn"
-        isSceneFile = isSCN
-        
-        if isSCN {
-            documentData = ""
-            self.scene = try await loadScene(from: url)
-        } else {
-            let data = try Data(contentsOf: url)
-            documentData = String(decoding: data, as: UTF8.self)
-            self.scene = nil
-        }
+        self.scene = try await loadScene(from: url)
     }
     
     private func loadScene(from url: URL) async throws -> SCNScene {
@@ -47,43 +45,47 @@ class DocumentManager: ObservableObject {
     
     // MARK: - Save File
     func saveFile(to url: URL) async throws {
+        guard url.pathExtension.lowercased() == "scn" else {
+            throw NSError(
+                domain: "SKEditError", code: 5,
+                userInfo: [NSLocalizedDescriptionKey: "Only .scn files can be saved"]
+            )
+        }
+        guard let sceneToSave = self.scene else {
+            throw NSError(
+                domain: "SKEditError", code: 6,
+                userInfo: [NSLocalizedDescriptionKey: "No scene loaded to save"]
+            )
+        }
+        
         isSaving = true
         defer { isSaving = false }
         
         let shouldStop = url.startAccessingSecurityScopedResource()
         defer { if shouldStop { url.stopAccessingSecurityScopedResource() } }
         
-        let isSCN = url.pathExtension.lowercased() == "scn"
-        let sceneToSave = self.scene
-        let textToSave = self.documentData
-        
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             let coordinator = NSFileCoordinator(filePresenter: nil)
             var coordinationError: NSError?
             
-            coordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordinationError) { coordinatedURL in
-                do {
-                    if isSCN, let scene = sceneToSave {
-                        let success = scene.write(to: coordinatedURL,
-                                                  options: nil,
-                                                  delegate: nil,
-                                                  progressHandler: nil)
-                        if !success {
-                            throw NSError(domain: "SceneKitSaveError", code: 1,
-                                          userInfo: [NSLocalizedDescriptionKey: "Failed to write SCNScene"])
-                        }
-                    } else {
-                        guard let data = textToSave.data(using: .utf8) else {
-                            throw NSError(domain: "TextEncodingError", code: 2,
-                                          userInfo: [NSLocalizedDescriptionKey: "Failed to encode text"])
-                        }
-                        try data.write(to: coordinatedURL, options: .atomic)
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                    return
+            coordinator.coordinate(
+                writingItemAt: url, options: .forReplacing,
+                error: &coordinationError
+            ) { coordinatedURL in
+                let success = sceneToSave.write(
+                    to: coordinatedURL,
+                    options: nil,
+                    delegate: nil,
+                    progressHandler: nil
+                )
+                if success {
+                    continuation.resume()
+                } else {
+                    continuation.resume(throwing: NSError(
+                        domain: "SceneKitSaveError", code: 1,
+                        userInfo: [NSLocalizedDescriptionKey: "Failed to write SCNScene"]
+                    ))
                 }
-                continuation.resume()
             }
             
             if let err = coordinationError {
@@ -96,11 +98,9 @@ class DocumentManager: ObservableObject {
     
     // MARK: - iCloud Download
     private func downloadIfNeeded(_ url: URL) async throws {
-        // ✅ Skip entirely for non-iCloud (local) files
         let isUbiquitous = (try? url.resourceValues(forKeys: [.isUbiquitousItemKey]))?.isUbiquitousItem == true
         guard isUbiquitous else { return }
         
-        // ✅ resourceValues(forKeys:) is synchronous — no `await`
         let resourceValues = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
         guard resourceValues.ubiquitousItemDownloadingStatus != .current else { return }
         
@@ -108,8 +108,7 @@ class DocumentManager: ObservableObject {
         
         var attempts = 0
         while attempts < 40 {
-            try await Task.sleep(nanoseconds: 250_000_000) // ✅ genuinely async
-            // ✅ resourceValues(forKeys:) is synchronous — no `await`
+            try await Task.sleep(nanoseconds: 250_000_000)
             let status = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
                 .ubiquitousItemDownloadingStatus
             if status == .current { return }
@@ -149,10 +148,8 @@ class DocumentManager: ObservableObject {
     }
     
     func clear() {
-        documentData = ""
         scene = nil
         fileMetadata = nil
-        isSceneFile = false
         errorMessage = nil
     }
 }
