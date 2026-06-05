@@ -1,16 +1,14 @@
 // SKEdit 06/05/2026-6
 // ContentView.swift
-// SKEdit - Updated with .scn → .usdz conversion + RealityKit preview
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm. 
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm
 
 import SwiftUI
 import SceneKit
-import RealityKit
 import UniformTypeIdentifiers
 
 // MARK: - SceneKit .scn UTType
 private extension UTType {
-    /// com.apple.scenekit.scene → fallback to filename extension
+    /// com.apple.scenekit.scene  →  fallback to filename extension  →  .data
     static let scnScene: UTType =
     UTType("com.apple.scenekit.scene")
     ?? UTType(filenameExtension: "scn")
@@ -24,10 +22,7 @@ struct ContentView: View {
     @State private var isFilePickerPresented = false
     @State private var showMetadata = false
     
-    // NEW: USDZ conversion & preview states
-    @State private var convertedUSDZURL: URL?
-    @State private var showRealityKit = false
-    
+    // ✅ Restrict picker to .scn files only.
     private let allowedTypes: [UTType] = [.scnScene]
     
     var body: some View {
@@ -60,9 +55,6 @@ struct ContentView: View {
                     if documentManager.isLoading {
                         ProgressView("Loading…")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        
-                    } else if showRealityKit, let usdzURL = convertedUSDZURL {
-                        RealityKitView(usdzURL: usdzURL)
                         
                     } else if let scene = documentManager.scene {
                         SceneKitView(scene: scene, cameraNode: $cameraNode)
@@ -121,48 +113,42 @@ struct ContentView: View {
                     }
                 }
                 
-                // Trailing: Convert + Save + Close
+                // Trailing: Save + Close
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if documentManager.isSaving {
                         ProgressView()
                             .progressViewStyle(.circular)
-                    } 
-                    else if let scene = documentManager.scene, !showRealityKit {
-                        Button("Convert to USDZ") {
-                            Task {
-                                await convertToUSDZ()
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                    
-                    if let url = selectedURL, documentManager.scene != nil, !showRealityKit {
+                    } else if let url = selectedURL, documentManager.scene != nil {
+                        // ✅ Save is available for loaded .scn scenes.
                         Button {
                             Task { await saveFile(to: url) }
                         } label: {
-                            Label("Save SCN", systemImage: "square.and.arrow.down")
+                            Label("Save", systemImage: "square.and.arrow.down")
                         }
                     }
                     
                     if selectedURL != nil {
                         Button(role: .destructive) {
-                            resetToSceneMode()
+                            documentManager.clear()
+                            selectedURL = nil
+                            showMetadata = false
                         } label: {
                             Label("Close", systemImage: "xmark.circle")
                         }
                     }
                 }
             }
-            // MARK: - File Picker
+            // MARK: - File Picker (explicit onPick to fix initializer error)
             .background {
                 DocumentPickerView(
                     isPresented: $isFilePickerPresented,
-                    allowedContentTypes: allowedTypes
-                ) { url in
-                    selectedURL = url
-                    BookmarkManager.saveBookmark(for: url)
-                    Task { await loadFile(from: url) }
-                }
+                    allowedContentTypes: allowedTypes,
+                    onPick: { url in
+                        selectedURL = url
+                        BookmarkManager.saveBookmark(for: url)
+                        Task { await loadFile(from: url) }
+                    }
+                )
             }
             // MARK: - Restore bookmark on launch
             .onAppear {
@@ -189,39 +175,6 @@ struct ContentView: View {
         } catch {
             documentManager.errorMessage = "Save failed: \(error.localizedDescription)"
         }
-    }
-    
-    // NEW: Convert SCNScene to USDZ
-    private func convertToUSDZ() async {
-        guard let scene = documentManager.scene, let originalURL = selectedURL else { return }
-        
-        documentManager.isLoading = true
-        defer { documentManager.isLoading = false }
-        
-        let usdzName = originalURL.deletingPathExtension().lastPathComponent + ".usdz"
-        let tempDir = FileManager.default.temporaryDirectory
-        let usdzURL = tempDir.appendingPathComponent(usdzName)
-        
-        do {
-            let success = scene.write(to: usdzURL, options: nil, delegate: nil, progressHandler: nil)
-            guard success else {
-                throw NSError(domain: "ConversionError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Scene write failed"])
-            }
-            
-            convertedUSDZURL = usdzURL
-            showRealityKit = true
-            documentManager.errorMessage = nil
-        } catch {
-            documentManager.errorMessage = "Conversion failed: \(error.localizedDescription)"
-        }
-    }
-    
-    private func resetToSceneMode() {
-        documentManager.clear()
-        selectedURL = nil
-        showMetadata = false
-        convertedUSDZURL = nil
-        showRealityKit = false
     }
 }
 
