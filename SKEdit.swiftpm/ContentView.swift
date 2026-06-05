@@ -1,7 +1,6 @@
-// SKEdit 06/05/2026-2
+// SKEdit 06/05/2026-3
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm Cannot find type 'View' in scope.
-
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm
 
 import SwiftUI
 import SceneKit
@@ -13,6 +12,10 @@ struct ContentView: View {
     @State private var cameraNode: SCNNode?
     @State private var isFilePickerPresented = false
     @State private var showMetadata = false
+    
+    // ✅ [.data] — shows ALL files; no USDZ/3D content-type categorisation.
+    //    DocumentManager validates file extensions (.scn / .swift / .txt) after pick.
+    private let allowedTypes: [UTType] = [.data]
     
     var body: some View {
         NavigationStack {
@@ -45,12 +48,12 @@ struct ContentView: View {
                         ProgressView("Loading…")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
-                    } else if documentManager.isSceneFile, let scene = documentManager.scene {
-                        // SceneKit viewer for .scn files
+                    } else if documentManager.isSceneFile,
+                              let scene = documentManager.scene {
                         SceneKitView(scene: scene, cameraNode: $cameraNode)
                         
-                    } else if !documentManager.documentData.isEmpty || selectedURL != nil {
-                        // Text / source-code editor
+                    } else if !documentManager.documentData.isEmpty
+                                || selectedURL != nil {
                         TextEditor(text: $documentManager.documentData)
                             .font(.system(.body, design: .monospaced))
                             .padding(4)
@@ -133,31 +136,23 @@ struct ContentView: View {
                     }
                 }
             }
-            // MARK: - File Importer
-            .fileImporter(
-                isPresented: $isFilePickerPresented,
-                allowedContentTypes: [
-                    UTType.text,
-                    UTType.sourceCode,
-                    UTType(filenameExtension: "scn") ?? .data,
-                    UTType(filenameExtension: "swift") ?? .sourceCode,
-                    UTType(filenameExtension: "txt") ?? .text
-                ],
-                allowsMultipleSelection: false
-            ) { result in
-                switch result {
-                case .success(let urls):
-                    guard let url = urls.first else { return }
+            // MARK: - File Picker (defaults to iCloud Playgrounds directory)
+            // ✅ Replaced .sheet with .background + DocumentPickerView.
+            //    The transparent container VC presents the picker via UIKit's
+            //    present(_:animated:) — fixing the presentation-hierarchy crash.
+            .background {
+                DocumentPickerView(
+                    isPresented: $isFilePickerPresented,
+                    allowedContentTypes: allowedTypes
+                ) { url in
                     selectedURL = url
-                    BookmarkManager.saveBookmark(for: url)    // BookmarkManager.swift
+                    BookmarkManager.saveBookmark(for: url)
                     Task { await loadFile(from: url) }
-                case .failure(let error):
-                    documentManager.errorMessage = error.localizedDescription
                 }
             }
             // MARK: - Restore bookmark on launch
             .onAppear {
-                if let restoredURL = BookmarkManager.restoreURL() {   // BookmarkManager.swift
+                if let restoredURL = BookmarkManager.restoreURL() {
                     selectedURL = restoredURL
                     Task { await loadFile(from: restoredURL) }
                 }
@@ -168,7 +163,7 @@ struct ContentView: View {
     // MARK: - Helpers
     private func loadFile(from url: URL) async {
         do {
-            try await documentManager.loadFile(from: url)    // DocumentManager.swift
+            try await documentManager.loadFile(from: url)
         } catch {
             documentManager.errorMessage = "Load failed: \(error.localizedDescription)"
         }
@@ -176,7 +171,7 @@ struct ContentView: View {
     
     private func saveFile(to url: URL) async {
         do {
-            try await documentManager.saveFile(to: url)      // DocumentManager.swift
+            try await documentManager.saveFile(to: url)
         } catch {
             documentManager.errorMessage = "Save failed: \(error.localizedDescription)"
         }

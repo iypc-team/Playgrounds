@@ -45,7 +45,7 @@ class DocumentManager: ObservableObject {
         }.value
     }
     
-    // MARK: - Save File (Fixed: No non-Sendable capture)
+    // MARK: - Save File
     func saveFile(to url: URL) async throws {
         isSaving = true
         defer { isSaving = false }
@@ -96,16 +96,21 @@ class DocumentManager: ObservableObject {
     
     // MARK: - iCloud Download
     private func downloadIfNeeded(_ url: URL) async throws {
-        let resourceValues = try await url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+        // ✅ Skip entirely for non-iCloud (local) files
+        let isUbiquitous = (try? url.resourceValues(forKeys: [.isUbiquitousItemKey]))?.isUbiquitousItem == true
+        guard isUbiquitous else { return }
         
+        // ✅ resourceValues(forKeys:) is synchronous — no `await`
+        let resourceValues = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
         guard resourceValues.ubiquitousItemDownloadingStatus != .current else { return }
         
         try FileManager.default.startDownloadingUbiquitousItem(at: url)
         
         var attempts = 0
         while attempts < 40 {
-            try await Task.sleep(nanoseconds: 250_000_000)
-            let status = try await url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+            try await Task.sleep(nanoseconds: 250_000_000) // ✅ genuinely async
+            // ✅ resourceValues(forKeys:) is synchronous — no `await`
+            let status = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
                 .ubiquitousItemDownloadingStatus
             if status == .current { return }
             attempts += 1

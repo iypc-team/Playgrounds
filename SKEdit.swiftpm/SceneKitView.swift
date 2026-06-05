@@ -12,8 +12,9 @@ struct SceneKitView: UIViewRepresentable {
         scnView.allowsCameraControl = true
         scnView.autoenablesDefaultLighting = true
         scnView.backgroundColor = UIColor.systemBackground
-        scnView.showsStatistics = true
+        scnView.showsStatistics = false
         scnView.debugOptions = [.showWireframe, .showSkeletons, .showBoundingBoxes]
+        scnView.debugOptions = []
         scnView.preferredFramesPerSecond = 60
         
         if let scene = scene {
