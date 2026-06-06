@@ -1,5 +1,4 @@
 // DocumentManager.swift
-// 
 
 import Foundation
 import SwiftUI
@@ -12,14 +11,12 @@ class DocumentManager: ObservableObject {
     @Published var scene: SCNScene?
     @Published var isLoading    = false
     @Published var isSaving     = false
-    @Published var isConverting = false       // ← NEW
-    @Published var convertedUsdzURL: URL?     // ← NEW
+    @Published var isConverting = false
     @Published var fileMetadata: FileMetadata?
     @Published var errorMessage: String?
     
     // MARK: - Load File
     func loadFile(from url: URL) async throws {
-        // ✅ Reject anything that isn't a .scn file before doing any work.
         guard url.pathExtension.lowercased() == "scn" else {
             throw NSError(
                 domain: "SKEditError", code: 4,
@@ -35,7 +32,6 @@ class DocumentManager: ObservableObject {
         
         await updateMetadata(for: url)
         try await downloadIfNeeded(url)
-        
         self.scene = try await loadScene(from: url)
     }
     
@@ -98,12 +94,10 @@ class DocumentManager: ObservableObject {
         await updateMetadata(for: url)
     }
     
-    // MARK: - Convert to USDZ  ← NEW
-    /// Converts the loaded `SCNScene` to USDZ and saves it to
-    /// `iCloud Drive / … / USDZ Files`.
-    ///
-    /// - Parameter sourceName: The original `.scn` filename used to derive the output name.
-    /// - Returns: The `URL` of the newly written `.usdz` file.
+    // MARK: - Convert to USDZ
+    /// Writes the loaded SCNScene to a temporary .usdz file and returns its URL.
+    /// ContentView presents ExportPickerView with this URL so the user chooses
+    /// the final save location via the iOS "Save to Files" sheet.
     func convertToUSDZ(sourceName: String) async throws -> URL {
         guard let scene = self.scene else {
             throw USDZConversionError.noSceneLoaded
@@ -112,13 +106,9 @@ class DocumentManager: ObservableObject {
         isConverting = true
         defer { isConverting = false }
         
-        // Run the CPU-intensive conversion off the main thread.
-        let resultURL = try await Task.detached(priority: .userInitiated) {
+        return try await Task.detached(priority: .userInitiated) {
             try USDZConverter.convert(scene: scene, sourceName: sourceName)
         }.value
-        
-        self.convertedUsdzURL = resultURL
-        return resultURL
     }
     
     // MARK: - iCloud Download
@@ -173,9 +163,8 @@ class DocumentManager: ObservableObject {
     }
     
     func clear() {
-        scene           = nil
-        fileMetadata    = nil
-        errorMessage    = nil
-        convertedUsdzURL = nil   // ← NEW
+        scene        = nil
+        fileMetadata = nil
+        errorMessage = nil
     }
 }

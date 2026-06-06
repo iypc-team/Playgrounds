@@ -1,4 +1,4 @@
-// SKEdit 06/06/2026-1
+// SKEdit 06/06/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm.
 
@@ -21,10 +21,11 @@ struct ContentView: View {
     @State private var isFilePickerPresented = false
     @State private var showMetadata          = false
     @State private var convertSuccessBanner: String?
+    @State private var usdzTempURL: URL?         // triggers ExportPickerView
+    @State private var usdzPreviewURL: URL?      // ← NEW: triggers QuickLookPreviewView
     
     private let allowedTypes: [UTType] = [.scnScene]
     
-    // Plain Bool helpers — safe everywhere, no Void-return risk
     private var isBusy:   Bool { documentManager.isSaving || documentManager.isConverting }
     private var hasScene: Bool { documentManager.scene != nil }
     
@@ -40,24 +41,38 @@ struct ContentView: View {
             .navigationTitle(documentManager.fileMetadata?.name ?? "SKEdit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                // ToolbarContentBuilder sees only two simple items — no conditionals here
-                ToolbarItemGroup(placement: .topBarLeading) {
-                    leadingToolbar
-                }
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    trailingToolbar
-                }
+                ToolbarItemGroup(placement: .topBarLeading)  { leadingToolbar }
+                ToolbarItemGroup(placement: .topBarTrailing) { trailingToolbar }
             }
             .background {
-                DocumentPickerView(
-                    isPresented: $isFilePickerPresented,
-                    allowedContentTypes: allowedTypes,
-                    onPick: { url in
-                        selectedURL = url
-                        BookmarkManager.saveBookmark(for: url)
-                        Task { await loadFile(from: url) }
+                ZStack {
+                    // Open .scn picker
+                    DocumentPickerView(
+                        isPresented: $isFilePickerPresented,
+                        allowedContentTypes: allowedTypes,
+                        onPick: { url in
+                            selectedURL = url
+                            BookmarkManager.saveBookmark(for: url)
+                            Task { await loadFile(from: url) }
+                        }
+                    )
+                    
+                    // "Save to Files" export picker
+                    ExportPickerView(exportURL: $usdzTempURL) { savedURL in
+                        if let savedURL = savedURL {
+                            let folder = savedURL.deletingLastPathComponent().lastPathComponent
+                            withAnimation {
+                                convertSuccessBanner =
+                                "✓ '\(savedURL.lastPathComponent)' saved to '\(folder)'"
+                            }
+                            // ← NEW: auto-preview the saved file immediately after export
+                            usdzPreviewURL = savedURL
+                        }
                     }
-                )
+                    
+                    // ← NEW: In-app USDZ preview (object viewer — no AR room backdrop)
+                    QuickLookPreviewView(previewURL: $usdzPreviewURL)
+                }
             }
             .onAppear {
                 if let restoredURL = BookmarkManager.restoreURL() {
@@ -69,8 +84,6 @@ struct ContentView: View {
     }
     
     // MARK: - Toolbar: Leading
-    // @ViewBuilder handles conditionals far more reliably than @ToolbarContentBuilder
-    // on iOS 16.6. withAnimation is intentionally absent — plain toggle only.
     @ViewBuilder
     private var leadingToolbar: some View {
         Button {
@@ -81,7 +94,7 @@ struct ContentView: View {
         
         if selectedURL != nil {
             Button {
-                showMetadata.toggle()   // ← direct toggle; no withAnimation returning ()
+                showMetadata.toggle()
             } label: {
                 Label("Info", systemImage: "info.circle")
             }
@@ -91,13 +104,11 @@ struct ContentView: View {
     // MARK: - Toolbar: Trailing
     @ViewBuilder
     private var trailingToolbar: some View {
-        // Spinner — shown while save or convert is running
         if isBusy {
             ProgressView()
                 .progressViewStyle(.circular)
         }
         
-        // Save + Convert — share one if-let so `url` is bound for both
         if let url = selectedURL, !isBusy, hasScene {
             Button {
                 Task { await saveFile(to: url) }
@@ -112,13 +123,23 @@ struct ContentView: View {
             }
         }
         
-        // Close — always shown when a file is open
+        // ← NEW: Preview button — only visible when a converted USDZ temp file exists
+        if usdzTempURL != nil && !isBusy {
+            Button {
+                usdzPreviewURL = usdzTempURL
+            } label: {
+                Label("Preview", systemImage: "eye")
+            }
+        }
+        
         if selectedURL != nil {
             Button(role: .destructive) {
                 documentManager.clear()
                 selectedURL          = nil
                 showMetadata         = false
                 convertSuccessBanner = nil
+                usdzTempURL          = nil
+                usdzPreviewURL       = nil   // ← NEW
             } label: {
                 Label("Close", systemImage: "xmark.circle")
             }
@@ -241,12 +262,7 @@ struct ContentView: View {
     
     private func convertToUSDZ(sourceName: String) async {
         do {
-            let outputURL = try await documentManager.convertToUSDZ(sourceName: sourceName)
-            // withAnimation is safe here — plain function body, not a builder
-            withAnimation {
-                convertSuccessBanner =
-                "✓ Saved '\(outputURL.lastPathComponent)' → iCloud Drive / USDZ Files"
-            }
+            usdzTempURL = try await documentManager.convertToUSDZ(sourceName: sourceName)
         } catch {
             documentManager.errorMessage = "Convert failed: \(error.localizedDescription)"
         }
