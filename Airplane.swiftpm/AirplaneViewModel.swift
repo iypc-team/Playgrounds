@@ -1,6 +1,6 @@
 //  AirplaneViewModel.swift
 //  
-// 
+
 
 import SwiftUI
 import RealityKit

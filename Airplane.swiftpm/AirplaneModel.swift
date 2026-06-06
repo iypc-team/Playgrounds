@@ -1,6 +1,5 @@
 //  AirplaneModel.swift
 //
-//  Model materials
 
 import RealityFoundation
 import RealityKit
@@ -9,14 +8,14 @@ import Combine
 
 /// Configuration for airplane model loading.
 struct AirplaneModelConfig {
-    var airplaneScale: Float = 9.0  // default 5.0
+    var airplaneScale: Float = 1.0  // default 5.0
 }
 
 struct AirplaneModel {
     let entity: ModelEntity
     
     static func load(config: AirplaneModelConfig = AirplaneModelConfig()) async throws -> AirplaneModel {
-        let loadRequest = await Entity.loadModelAsync(named: "Airplane")
+        let loadRequest = await Entity.loadModelAsync(named: "fighter")
         
         return try await withCheckedThrowingContinuation { continuation in
             loadRequest.subscribe(Subscribers.Sink(
