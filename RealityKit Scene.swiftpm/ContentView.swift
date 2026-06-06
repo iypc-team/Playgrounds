@@ -1,8 +1,6 @@
-//  RealityKit Scene  01/30/2026-2
+//  RealityKit Scene  06/06/2026-1
 //  ContentView.swift
-//  
 //  https://github.com/iypc-team/Playgrounds/tree/main/RealityKit%20Scene.swiftpm
-//  
 //  
 
 import SwiftUI

@@ -25,7 +25,7 @@ struct RealityKitView: UIViewRepresentable {
         let anchor = AnchorEntity(world: .zero)
         
         // MARK: - Airplane
-        let airplane = try! Entity.load(named: "Airplane")
+        let airplane = try! Entity.load(named: "fighter")
         normalize(airplane)
         airplane.position = SIMD3<Float>(-0.6, 0, 0)
         
