@@ -10,8 +10,10 @@ import UniformTypeIdentifiers
 class DocumentManager: ObservableObject {
     
     @Published var scene: SCNScene?
-    @Published var isLoading = false
-    @Published var isSaving = false
+    @Published var isLoading    = false
+    @Published var isSaving     = false
+    @Published var isConverting = false       // ← NEW
+    @Published var convertedUsdzURL: URL?     // ← NEW
     @Published var fileMetadata: FileMetadata?
     @Published var errorMessage: String?
     
@@ -96,6 +98,29 @@ class DocumentManager: ObservableObject {
         await updateMetadata(for: url)
     }
     
+    // MARK: - Convert to USDZ  ← NEW
+    /// Converts the loaded `SCNScene` to USDZ and saves it to
+    /// `iCloud Drive / … / USDZ Files`.
+    ///
+    /// - Parameter sourceName: The original `.scn` filename used to derive the output name.
+    /// - Returns: The `URL` of the newly written `.usdz` file.
+    func convertToUSDZ(sourceName: String) async throws -> URL {
+        guard let scene = self.scene else {
+            throw USDZConversionError.noSceneLoaded
+        }
+        
+        isConverting = true
+        defer { isConverting = false }
+        
+        // Run the CPU-intensive conversion off the main thread.
+        let resultURL = try await Task.detached(priority: .userInitiated) {
+            try USDZConverter.convert(scene: scene, sourceName: sourceName)
+        }.value
+        
+        self.convertedUsdzURL = resultURL
+        return resultURL
+    }
+    
     // MARK: - iCloud Download
     private func downloadIfNeeded(_ url: URL) async throws {
         let isUbiquitous = (try? url.resourceValues(forKeys: [.isUbiquitousItemKey]))?.isUbiquitousItem == true
@@ -148,8 +173,9 @@ class DocumentManager: ObservableObject {
     }
     
     func clear() {
-        scene = nil
-        fileMetadata = nil
-        errorMessage = nil
+        scene           = nil
+        fileMetadata    = nil
+        errorMessage    = nil
+        convertedUsdzURL = nil   // ← NEW
     }
 }
