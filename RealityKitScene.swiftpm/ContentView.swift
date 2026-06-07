@@ -1,28 +1,11 @@
-// RealityKitScene  06/07/2026-1
+// RealityKitScene  06/07/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/RealityKitScene.swiftpm
-// 
 
 import SwiftUI
 
-enum RotationSpeed: Float, CaseIterable {
-    case off = 0.0
-    case slow = 0.15
-    case medium = 0.3
-    case fast = 0.6
-    
-    var displayName: String {
-        switch self {
-        case .off: return "Off"
-        case .slow: return "Slow"
-        case .medium: return "Medium"
-        case .fast: return "Fast"
-        }
-    }
-}
-
 struct ContentView: View {
-    @State private var currentSpeed: RotationSpeed = .slow  // ← Changed default for visibility
+    @State private var currentSpeed: RotationSpeed = .slow
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -39,7 +22,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     
-                    Button(role: .destructive) {
+                    Button {
                         currentSpeed = .off
                     } label: {
                         Text("Stop")
@@ -50,7 +33,7 @@ struct ContentView: View {
                 .padding(.horizontal, 24)
                 .padding(.vertical, 12)
                 .background(.ultraThinMaterial)
-                .cornerRadius(16)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 .padding(.horizontal, 20)
             }
             .padding(.bottom, 32)
