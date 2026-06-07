@@ -20,6 +20,8 @@ struct RealityKitView: UIViewRepresentable {
         arView.environment.background = .color(.black)
         
         let anchor = AnchorEntity(world: .zero)
+        // loadModels is @MainActor; makeUIView is also @MainActor via
+        // UIViewRepresentable — direct synchronous call, no await needed.
         let (airplaneEntity, spaceshipEntity) = loadModels(into: anchor)
         setupLighting(anchor: anchor)
         let camera = setupCamera(anchor: anchor)
@@ -57,12 +59,15 @@ struct RealityKitView: UIViewRepresentable {
     
     // MARK: - Scene Assembly
     
+    /// @MainActor ensures all Entity property mutations (.name, .position,
+    /// .orientation, .scale) satisfy RealityKit's actor isolation requirement.
+    /// Entity.load(named:) is synchronous on iOS 16.6 — no async/await needed.
+    @MainActor
     private func loadModels(into anchor: AnchorEntity) -> (Entity, Entity) {
         do {
 #if DEBUG
             print("🔄 Loading models...")
 #endif
-            
             let airplane = try Entity.load(named: "fighter")
             normalizeScale(airplane)
             airplane.setupKinematicPhysics()
@@ -75,7 +80,7 @@ struct RealityKitView: UIViewRepresentable {
             
             let spaceship = try Entity.load(named: "smooth_ship")
             spaceship.orientation = simd_quatf(angle: .pi / 2, axis: [1, 0, 0]) *
-            simd_quatf(angle: .pi,     axis: [0, 1, 0])
+            simd_quatf(angle: .pi, axis: [0, 1, 0])
             normalizeScale(spaceship)
             spaceship.setupKinematicPhysics()
             spaceship.name = "Spaceship"
@@ -91,7 +96,6 @@ struct RealityKitView: UIViewRepresentable {
 #if DEBUG
             print("❌ Failed to load models: \(error.localizedDescription). Using fallbacks.")
 #endif
-            
             let fallback1 = ModelEntity(
                 mesh: .generateBox(size: 0.6),
                 materials: [SimpleMaterial(color: .orange, isMetallic: true)]
@@ -144,7 +148,8 @@ struct RealityKitView: UIViewRepresentable {
             to: SceneEvents.Update.self
         ) { [weak coordinator, weak camera] event in
             guard let coordinator = coordinator, let camera = camera else { return }
-            guard coordinator.rotationSpeed.rawValue != 0 else { return }
+            // Fix #5: Enum case comparison instead of raw value.
+            guard coordinator.rotationSpeed != .off else { return }
             
             let delta = Float(event.deltaTime) * coordinator.rotationSpeed.rawValue * 2.0
             

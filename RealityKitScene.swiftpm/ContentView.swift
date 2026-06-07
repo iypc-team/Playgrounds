@@ -1,4 +1,4 @@
-// RealityKitScene  06/07/2026-2
+// RealityKitScene  06/07/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/RealityKitScene.swiftpm
 
@@ -14,10 +14,11 @@ struct ContentView: View {
             
             VStack {
                 HStack(spacing: 16) {
+                    // Fix #2/#3: Label now reflects current speed via displayName.
                     Button {
                         toggleSpeed()
                     } label: {
-                        Text("Toggle Speed")
+                        Text("Speed: \(currentSpeed.displayName)")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -29,6 +30,9 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
+                    // Fix #4: Disabled when already stopped so both buttons
+                    // have distinct, unambiguous roles.
+                    .disabled(currentSpeed == .off)
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical, 12)
@@ -41,14 +45,17 @@ struct ContentView: View {
         .preferredColorScheme(.dark)
     }
     
+    // Fix #4: .off excluded from toggle cycle — "Toggle Speed" and "Stop"
+    // now each have one clear purpose.
+    // Cycle: slow → medium → fast → slow → …
+    // If called while stopped, restarts at .slow.
     private func toggleSpeed() {
-        let allSpeeds = RotationSpeed.allCases
-        guard let currentIndex = allSpeeds.firstIndex(of: currentSpeed) else {
+        let activeSpeeds = RotationSpeed.allCases.filter { $0 != .off }
+        guard let idx = activeSpeeds.firstIndex(of: currentSpeed) else {
             currentSpeed = .slow
             return
         }
-        let nextIndex = (currentIndex + 1) % allSpeeds.count
-        currentSpeed = allSpeeds[nextIndex]
+        currentSpeed = activeSpeeds[(idx + 1) % activeSpeeds.count]
     }
 }
 
