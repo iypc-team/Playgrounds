@@ -21,6 +21,6 @@ struct ContentViewReality: View {
             ), in: 1.0...4.0)
             .padding()
         }
-        .onAppear { vm.loadModel(named: "Airplane.usdz") }
+        .onAppear { vm.loadModel(named: "fighter.usdz") }
     }
 }

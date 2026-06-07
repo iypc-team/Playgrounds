@@ -10,7 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "My App",
     platforms: [
-        .iOS("16.7")
+        .iOS("16.6")
     ],
     products: [
         .iOSApplication(
@@ -29,6 +29,9 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+            ],
+            capabilities: [
+                .motion(purposeString: "Access device motion sensors.")
             ]
         )
     ],
