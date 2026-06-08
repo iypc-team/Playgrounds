@@ -1,8 +1,9 @@
-// ConvertSK 06/08/2026-1
+// ConvertSK 06/08/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/ConvertSK.swiftpm.
 
 import SwiftUI
+import QuickLook
 import SceneKit
 import UniformTypeIdentifiers
 
@@ -21,8 +22,8 @@ struct ContentView: View {
     @State private var isFilePickerPresented = false
     @State private var showMetadata          = false
     @State private var convertSuccessBanner: String?
-    @State private var usdzTempURL: URL?         // triggers ExportPickerView
-    @State private var usdzPreviewURL: URL?      // ← NEW: triggers QuickLookPreviewView
+    @State private var usdzTempURL: URL?     // triggers ExportPickerView
+    @State private var usdzPreviewURL: URL?  // triggers .quickLookPreview modifier
     
     private let allowedTypes: [UTType] = [.scnScene]
     
@@ -65,15 +66,13 @@ struct ContentView: View {
                                 convertSuccessBanner =
                                 "✓ '\(savedURL.lastPathComponent)' saved to '\(folder)'"
                             }
-                            // ← NEW: auto-preview the saved file immediately after export
                             usdzPreviewURL = savedURL
                         }
                     }
-                    
-                    // ← NEW: In-app USDZ preview (object viewer — no AR room backdrop)
-                    QuickLookPreviewView(previewURL: $usdzPreviewURL)
                 }
             }
+            // Native SwiftUI Quick Look — replaces QuickLookPreviewView entirely.
+            .quickLookPreview($usdzPreviewURL)
             .onAppear {
                 if let restoredURL = BookmarkManager.restoreURL() {
                     selectedURL = restoredURL
@@ -123,7 +122,6 @@ struct ContentView: View {
             }
         }
         
-        // ← NEW: Preview button — only visible when a converted USDZ temp file exists
         if usdzTempURL != nil && !isBusy {
             Button {
                 usdzPreviewURL = usdzTempURL
@@ -139,7 +137,7 @@ struct ContentView: View {
                 showMetadata         = false
                 convertSuccessBanner = nil
                 usdzTempURL          = nil
-                usdzPreviewURL       = nil   // ← NEW
+                usdzPreviewURL       = nil
             } label: {
                 Label("Close", systemImage: "xmark.circle")
             }
