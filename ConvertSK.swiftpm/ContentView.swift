@@ -1,6 +1,6 @@
-// SKEdit 06/06/2026-2
+// ConvertSK 06/08/2026-1
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SKEdit.swiftpm.
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/ConvertSK.swiftpm.
 
 import SwiftUI
 import SceneKit

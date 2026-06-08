@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "SKEdit",
+    name: "ConvertSK",
     platforms: [
         .iOS("16.6")
     ],
     products: [
         .iOSApplication(
-            name: "SKEdit",
+            name: "ConvertSK",
             targets: ["AppModule"],
             displayVersion: "1.0",
             bundleVersion: "1",

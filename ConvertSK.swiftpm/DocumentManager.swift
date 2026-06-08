@@ -32,13 +32,31 @@ class DocumentManager: ObservableObject {
         
         await updateMetadata(for: url)
         try await downloadIfNeeded(url)
-        self.scene = try await loadScene(from: url)
+        let loadedScene = try await loadScene(from: url)
+        applyPreLoadRotation(to: loadedScene, filename: url.lastPathComponent) // ← NEW
+        self.scene = loadedScene
     }
     
     private func loadScene(from url: URL) async throws -> SCNScene {
         try await Task.detached {
             try SCNScene(url: url, options: nil)
         }.value
+    }
+    
+    // MARK: - Pre-load Transform
+    /// Rotates each top-level child node of `smooth_ship.scn` by π/2 radians
+    /// about the x-axis by pre-multiplying its simdTransform with a
+    /// quaternion-derived rotation matrix — before the scene is assigned to
+    /// self.scene. No eulerAngles, no intermediate pivot node.
+    private func applyPreLoadRotation(to scene: SCNScene, filename: String) {
+        guard filename.lowercased() == "smooth_ship.scn" else { return }
+        
+        let rotation = simd_quatf(angle: .pi / 2.0, axis: SIMD3<Float>(1, 0, 0))
+        let rotMatrix = simd_float4x4(rotation)
+        
+        scene.rootNode.childNodes.forEach { node in
+            node.simdTransform = rotMatrix * node.simdTransform
+        }
     }
     
     // MARK: - Save File
@@ -95,9 +113,6 @@ class DocumentManager: ObservableObject {
     }
     
     // MARK: - Convert to USDZ
-    /// Writes the loaded SCNScene to a temporary .usdz file and returns its URL.
-    /// ContentView presents ExportPickerView with this URL so the user chooses
-    /// the final save location via the iOS "Save to Files" sheet.
     func convertToUSDZ(sourceName: String) async throws -> URL {
         guard let scene = self.scene else {
             throw USDZConversionError.noSceneLoaded
