@@ -1,6 +1,6 @@
 // RealityKitView.swift
-// Collision debugging version - explicit shapes + better kinematic handling
-// Fixed damping property access
+// Final clean iOS 16.6 compatible version
+// COLLISION:
 
 import SwiftUI
 import RealityKit
@@ -42,7 +42,7 @@ struct RealityKitView: UIViewRepresentable {
             camera: camera
         )
         
-        print("RealityKit scene setup complete - Collision debug mode")
+        print("RealityKit scene setup complete")
         return arView
     }
     
@@ -61,7 +61,6 @@ struct RealityKitView: UIViewRepresentable {
     @MainActor
     private func loadModels(into anchor: AnchorEntity) -> (Entity, Entity) {
         do {
-            print("Loading models...")
             let friendlyShip = try Entity.load(named: "fighter")
             normalizeScale(friendlyShip)
             friendlyShip.setupKinematicPhysics()
@@ -69,7 +68,6 @@ struct RealityKitView: UIViewRepresentable {
             addCollisionComponent(to: friendlyShip, sizeMultiplier: 1.15)
             friendlyShip.position = SIMD3<Float>(-1.7, 0, 0)
             anchor.addChild(friendlyShip)
-            print("Loaded Friendly Ship")
             
             let enemyShip = try Entity.load(named: "smooth_ship")
             normalizeScale(enemyShip)
@@ -79,12 +77,11 @@ struct RealityKitView: UIViewRepresentable {
             addCollisionComponent(to: enemyShip, sizeMultiplier: 1.15)
             enemyShip.position = SIMD3<Float>(1.7, 0.4, 0)
             anchor.addChild(enemyShip)
-            print("Loaded Enemy Ship with X-axis rotation (π/2)")
             
             return (friendlyShip, enemyShip)
             
         } catch {
-            print("Failed to load models: \(error.localizedDescription). Using fallbacks.")
+            print("Using fallback models: \(error.localizedDescription)")
             let friendlyShip = ModelEntity(
                 mesh: .generateBox(size: 0.8),
                 materials: [SimpleMaterial(color: .orange, isMetallic: true)]
@@ -160,21 +157,18 @@ struct RealityKitView: UIViewRepresentable {
             coordinator.angle2      += delta * 0.85
             coordinator.cameraAngle += Float(event.deltaTime) * 0.25
             
-            // Friendly Ship
             friendlyShip.position = SIMD3(
                 sin(coordinator.angle1) * 1.7,
                 0.15 * sin(coordinator.angle1 * 3),
                 cos(coordinator.angle1) * 1.7
             )
             
-            // Enemy Ship
             enemyShip.position = SIMD3(
                 sin(coordinator.angle2) * 1.7,
                 0.35 + 0.2 * sin(coordinator.angle2 * 2),
                 cos(coordinator.angle2) * 1.7
             )
             
-            // Camera
             let camRadius: Float = 5.0
             camera.position = SIMD3(
                 sin(coordinator.cameraAngle) * camRadius,
@@ -209,47 +203,15 @@ struct RealityKitView: UIViewRepresentable {
             friendlyShip: Entity,
             enemyShip: Entity
         ) {
-            printPhysicsProperties(for: friendlyShip, label: "Friendly Ship")
-            printPhysicsProperties(for: enemyShip, label: "Enemy Ship")
-            
             collisionBeginSub = scene.subscribe(to: CollisionEvents.Began.self) { event in
-                let a = event.entityA.name
-                let b = event.entityB.name
-                print("🚨 COLLISION BEGAN: \(a) ↔ \(b)")
+                print("COLLISION: \(event.entityA.name) ↔ \(event.entityB.name)")
                 event.entityA.highlightOnCollision()
                 event.entityB.highlightOnCollision()
             }
             
             collisionEndSub = scene.subscribe(to: CollisionEvents.Ended.self) { event in
-                print("✅ COLLISION ENDED: \(event.entityA.name) ↔ \(event.entityB.name)")
+                print("Collision ended: \(event.entityA.name) ↔ \(event.entityB.name)\n")
             }
-        }
-        
-        private func printPhysicsProperties(for entity: Entity, label: String) {
-            print("--- Physics Properties for \(label) ---")
-            
-            if let physicsBody = entity.components[PhysicsBodyComponent.self] as? PhysicsBodyComponent {
-                print("  Mode: \(physicsBody.mode)")
-                print("  Mass: \(physicsBody.massProperties.mass)")
-                
-                // Safe access for damping (may not be directly available on all setups)
-                print("  Linear Damping: \(physicsBody.linearDamping)")
-                print("  Angular Damping: \(physicsBody.angularDamping)")
-                // Value of type 'PhysicsBodyComponent' has no component 'linearDamping'. Value of type 'PhysicsBodyComponent' has no component 'angularDamping'.
-            } else {
-                print("  No PhysicsBodyComponent")
-            }
-            
-            if let collision = entity.components[CollisionComponent.self] as? CollisionComponent {
-                print("  Collision shapes: \(collision.shapes.count)")
-            } else {
-                print("  No CollisionComponent")
-            }
-            
-            print("  Initial Position: \(entity.position)")
-            print("  Scale: \(entity.scale)")
-            print("  Orientation: \(entity.orientation)")
-            print("-----------------------------")
         }
     }
 }

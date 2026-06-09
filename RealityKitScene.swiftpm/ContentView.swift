@@ -1,6 +1,6 @@
-// RealityKitScene  06/09/2026-3
+// RealityKitScene  06/09/2026-4
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/RealityKitScene.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/RealityKitScene.swiftpm  Value of type 'PhysicsBodyComponent' has no component 'linearDamping'. Value of type 'PhysicsBodyComponent' has no component 'angularDamping'.
 
 import SwiftUI
 
