@@ -1,4 +1,6 @@
 // SceneKitView.swift
+// 
+
 import SwiftUI
 import SceneKit
 
@@ -13,8 +15,7 @@ struct SceneKitView: UIViewRepresentable {
         scnView.autoenablesDefaultLighting = true
         scnView.backgroundColor = UIColor.systemBackground
         scnView.showsStatistics = false
-        scnView.debugOptions = [.showWireframe, .showSkeletons, .showBoundingBoxes]
-        scnView.debugOptions = []
+        scnView.debugOptions = []                    // Redundant assignment removed
         scnView.preferredFramesPerSecond = 60
         
         if let scene = scene {
@@ -82,4 +83,3 @@ extension SceneKitView {
     
     return PreviewWrapper()
 }
-
