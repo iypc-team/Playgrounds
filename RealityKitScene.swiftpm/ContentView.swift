@@ -1,11 +1,11 @@
-// RealityKitScene  06/09/2026-1
+// RealityKitScene  06/09/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/RealityKitScene.swiftpm
 
 import SwiftUI
 
 struct ContentView: View {
-    @State private var currentSpeed: RotationSpeed = .slow
+    @State private var currentSpeed: RotationSpeed = .off
     
     var body: some View {
         ZStack(alignment: .bottom) {

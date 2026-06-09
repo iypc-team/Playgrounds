@@ -1,5 +1,6 @@
 // RealityKitView.swift
-// Refactored: friendlyShip / enemyShip naming + weak capture safety
+// Collision debugging version - explicit shapes + better kinematic handling
+// Fixed damping property access
 
 import SwiftUI
 import RealityKit
@@ -21,8 +22,6 @@ struct RealityKitView: UIViewRepresentable {
         arView.environment.background = .color(.black)
         
         let anchor = AnchorEntity(world: .zero)
-        // loadModels is @MainActor; makeUIView is also @MainActor via
-        // UIViewRepresentable — direct synchronous call, no await needed.
         let (friendlyShip, enemyShip) = loadModels(into: anchor)
         setupLighting(anchor: anchor)
         let camera = setupCamera(anchor: anchor)
@@ -31,8 +30,10 @@ struct RealityKitView: UIViewRepresentable {
         
         context.coordinator.setupCollisionDetection(
             scene: arView.scene,
-            entity: friendlyShip
+            friendlyShip: friendlyShip,
+            enemyShip: enemyShip
         )
+        
         setupAnimationLoop(
             arView: arView,
             coordinator: context.coordinator,
@@ -41,9 +42,7 @@ struct RealityKitView: UIViewRepresentable {
             camera: camera
         )
         
-#if DEBUG
-        print("RealityKit scene setup complete")
-#endif
+        print("RealityKit scene setup complete - Collision debug mode")
         return arView
     }
     
@@ -59,61 +58,62 @@ struct RealityKitView: UIViewRepresentable {
     
     // MARK: - Scene Assembly
     
-    /// @MainActor ensures all Entity property mutations (.name, .position,
-    /// .orientation, .scale) satisfy RealityKit's actor isolation requirement.
-    /// Entity.load(named:) is synchronous on iOS 16.6 — no async/await needed.
     @MainActor
     private func loadModels(into anchor: AnchorEntity) -> (Entity, Entity) {
         do {
-#if DEBUG
             print("Loading models...")
-#endif
             let friendlyShip = try Entity.load(named: "fighter")
             normalizeScale(friendlyShip)
             friendlyShip.setupKinematicPhysics()
             friendlyShip.name = "Friendly Ship"
-            friendlyShip.position = SIMD3<Float>(-1.2, 0, 0)
+            addCollisionComponent(to: friendlyShip, sizeMultiplier: 1.15)
+            friendlyShip.position = SIMD3<Float>(-1.7, 0, 0)
             anchor.addChild(friendlyShip)
-#if DEBUG
             print("Loaded Friendly Ship")
-#endif
             
             let enemyShip = try Entity.load(named: "smooth_ship")
-//            enemyShip.orientation = simd_quatf(angle: .pi / 2, axis: [1, 0, 0]) *
-//            simd_quatf(angle: .pi, axis: [0, 1, 0])
             normalizeScale(enemyShip)
+            enemyShip.orientation = simd_quatf(angle: .pi / 2, axis: [1, 0, 0])
             enemyShip.setupKinematicPhysics()
             enemyShip.name = "Enemy Ship"
-            enemyShip.position = SIMD3<Float>(1.8, 0.3, 0)
+            addCollisionComponent(to: enemyShip, sizeMultiplier: 1.15)
+            enemyShip.position = SIMD3<Float>(1.7, 0.4, 0)
             anchor.addChild(enemyShip)
-#if DEBUG
-            print("Loaded Enemy Ship")
-#endif
+            print("Loaded Enemy Ship with X-axis rotation (π/2)")
             
             return (friendlyShip, enemyShip)
             
         } catch {
-#if DEBUG
             print("Failed to load models: \(error.localizedDescription). Using fallbacks.")
-#endif
             let friendlyShip = ModelEntity(
-                mesh: .generateBox(size: 0.6),
+                mesh: .generateBox(size: 0.8),
                 materials: [SimpleMaterial(color: .orange, isMetallic: true)]
             )
             let enemyShip = ModelEntity(
-                mesh: .generateBox(size: 0.7),
+                mesh: .generateBox(size: 0.9),
                 materials: [SimpleMaterial(color: .cyan, isMetallic: true)]
             )
+            
             friendlyShip.setupKinematicPhysics()
             enemyShip.setupKinematicPhysics()
+            addCollisionComponent(to: friendlyShip)
+            addCollisionComponent(to: enemyShip)
+            
             friendlyShip.name = "Fallback Friendly Ship"
             enemyShip.name = "Fallback Enemy Ship"
-            friendlyShip.position = SIMD3(-1.2, 0, 0)
-            enemyShip.position = SIMD3(1.8, 0.3, 0)
+            friendlyShip.position = SIMD3(-1.7, 0, 0)
+            enemyShip.position = SIMD3(1.7, 0.4, 0)
             anchor.addChild(friendlyShip)
             anchor.addChild(enemyShip)
             return (friendlyShip, enemyShip)
         }
+    }
+    
+    private func addCollisionComponent(to entity: Entity, sizeMultiplier: Float = 1.0) {
+        let bounds = entity.visualBounds(relativeTo: nil)
+        let extents = bounds.extents * sizeMultiplier
+        let shape = ShapeResource.generateBox(size: extents)
+        entity.components.set(CollisionComponent(shapes: [shape], mode: .default))
     }
     
     private func setupLighting(anchor: AnchorEntity) {
@@ -152,37 +152,39 @@ struct RealityKitView: UIViewRepresentable {
                   let enemyShip = enemyShip,
                   let camera = camera else { return }
             
-            // Fix #5: Enum case comparison instead of raw value.
             guard coordinator.rotationSpeed != .off else { return }
             
             let delta = Float(event.deltaTime) * coordinator.rotationSpeed.rawValue * 2.0
             
             coordinator.angle1      += delta
-            coordinator.angle2      -= delta * 0.7
+            coordinator.angle2      += delta * 0.85
             coordinator.cameraAngle += Float(event.deltaTime) * 0.25
             
+            // Friendly Ship
             friendlyShip.position = SIMD3(
-                sin(coordinator.angle1) * 1.4,
-                0.1 * sin(coordinator.angle1 * 2),
-                cos(coordinator.angle1) * 1.4
-            )
-            enemyShip.position = SIMD3(
-                sin(coordinator.angle2) * 2.0,
-                0.4,
-                cos(coordinator.angle2) * 2.0
+                sin(coordinator.angle1) * 1.7,
+                0.15 * sin(coordinator.angle1 * 3),
+                cos(coordinator.angle1) * 1.7
             )
             
-            let camRadius: Float = 4.8
+            // Enemy Ship
+            enemyShip.position = SIMD3(
+                sin(coordinator.angle2) * 1.7,
+                0.35 + 0.2 * sin(coordinator.angle2 * 2),
+                cos(coordinator.angle2) * 1.7
+            )
+            
+            // Camera
+            let camRadius: Float = 5.0
             camera.position = SIMD3(
                 sin(coordinator.cameraAngle) * camRadius,
-                2.2,
+                2.5,
                 cos(coordinator.cameraAngle) * camRadius
             )
             camera.look(at: .zero, from: camera.position, relativeTo: nil)
         }
     }
     
-    /// Normalises an entity's scale so its largest dimension fits within 0.85 units.
     private func normalizeScale(_ entity: Entity) {
         let bounds = entity.visualBounds(relativeTo: nil)
         let maxDim = max(bounds.extents.x, bounds.extents.y, bounds.extents.z)
@@ -195,29 +197,59 @@ struct RealityKitView: UIViewRepresentable {
     
     final class Coordinator {
         var angle1: Float = 0
-        var angle2: Float = 0
+        var angle2: Float = .pi / 2
         var cameraAngle: Float = 0
         var rotationSpeed: RotationSpeed = .off
         var subscription: Cancellable?
         var collisionBeginSub: Cancellable?
         var collisionEndSub: Cancellable?
         
-        func setupCollisionDetection(scene: RealityKit.Scene, entity: Entity) {
-            collisionBeginSub = scene.subscribe(to: CollisionEvents.Began.self, on: entity) { event in
-                let other = (event.entityA == entity) ? event.entityB : event.entityA
-#if DEBUG
-                print("PHYSICS COLLISION BEGAN: \"\(entity.name)\" ↔ \"\(other.name)\"")
-#endif
-                entity.highlightOnCollision()
-                other.highlightOnCollision()
+        func setupCollisionDetection(
+            scene: RealityKit.Scene,
+            friendlyShip: Entity,
+            enemyShip: Entity
+        ) {
+            printPhysicsProperties(for: friendlyShip, label: "Friendly Ship")
+            printPhysicsProperties(for: enemyShip, label: "Enemy Ship")
+            
+            collisionBeginSub = scene.subscribe(to: CollisionEvents.Began.self) { event in
+                let a = event.entityA.name
+                let b = event.entityB.name
+                print("🚨 COLLISION BEGAN: \(a) ↔ \(b)")
+                event.entityA.highlightOnCollision()
+                event.entityB.highlightOnCollision()
             }
             
-            collisionEndSub = scene.subscribe(to: CollisionEvents.Ended.self, on: entity) { event in
-                let other = (event.entityA == entity) ? event.entityB : event.entityA
-#if DEBUG
-                print("PHYSICS COLLISION ENDED: \"\(entity.name)\" ↔ \"\(other.name)\"")
-#endif
+            collisionEndSub = scene.subscribe(to: CollisionEvents.Ended.self) { event in
+                print("✅ COLLISION ENDED: \(event.entityA.name) ↔ \(event.entityB.name)")
             }
+        }
+        
+        private func printPhysicsProperties(for entity: Entity, label: String) {
+            print("--- Physics Properties for \(label) ---")
+            
+            if let physicsBody = entity.components[PhysicsBodyComponent.self] as? PhysicsBodyComponent {
+                print("  Mode: \(physicsBody.mode)")
+                print("  Mass: \(physicsBody.massProperties.mass)")
+                
+                // Safe access for damping (may not be directly available on all setups)
+                print("  Linear Damping: \(physicsBody.linearDamping)")
+                print("  Angular Damping: \(physicsBody.angularDamping)")
+                // Value of type 'PhysicsBodyComponent' has no component 'linearDamping'. Value of type 'PhysicsBodyComponent' has no component 'angularDamping'.
+            } else {
+                print("  No PhysicsBodyComponent")
+            }
+            
+            if let collision = entity.components[CollisionComponent.self] as? CollisionComponent {
+                print("  Collision shapes: \(collision.shapes.count)")
+            } else {
+                print("  No CollisionComponent")
+            }
+            
+            print("  Initial Position: \(entity.position)")
+            print("  Scale: \(entity.scale)")
+            print("  Orientation: \(entity.orientation)")
+            print("-----------------------------")
         }
     }
 }
