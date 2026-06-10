@@ -1,5 +1,5 @@
-//
-// Modified AirplaneModel.swift with retry mechanism for failed loads
+// AirplaneModel.swift
+// 
 
 import SwiftUI
 import RealityKit
@@ -46,7 +46,7 @@ class AirplaneModel: ObservableObject {
     
     private func loadModelWithRetry(attempt: Int) async {
         do {
-            let loadedEntity = try await Entity.load(named: "Spaceship")
+            let loadedEntity = try await Entity.load(named: "fighter")
             DispatchQueue.main.async {
                 self.entity = loadedEntity
                 self.isLoading = false

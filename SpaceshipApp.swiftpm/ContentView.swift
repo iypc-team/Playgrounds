@@ -1,7 +1,6 @@
-// SpaceshipApp 01/07/2026-6
-/*
- https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
- */
+// SpaceshipApp 06/10/2026-1
+// ContentView.swift
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
 
 import SwiftUI
 

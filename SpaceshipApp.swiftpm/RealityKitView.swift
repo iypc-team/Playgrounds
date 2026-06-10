@@ -1,4 +1,4 @@
-// 
+// RealityKitView.swift
 // 
 
 import SwiftUI
@@ -12,8 +12,9 @@ struct RealityKitView: UIViewRepresentable {
         arView.cameraMode = .nonAR
         
         let camera = PerspectiveCamera()
-        camera.transform.translation = SIMD3<Float>(0, 5, 5)
-        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 5.0), relativeTo: nil)
+        print(camera.debugDescription)
+        camera.transform.translation = SIMD3<Float>(0, 0, 25)
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 5), relativeTo: nil)
         
         let cameraAnchor = AnchorEntity(world: .zero)
         cameraAnchor.addChild(camera)
