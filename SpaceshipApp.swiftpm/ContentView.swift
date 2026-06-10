@@ -1,29 +1,31 @@
-// SpaceshipApp 06/10/2026-1
+// SpaceshipApp 06/10/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
 
 import SwiftUI
 
-// Define constants for design consistency
 private enum Dimensions {
-    static let buttonPadding: CGFloat = 10
-    static let fontSize: CGFloat = 18
-    static let cornerRadius: CGFloat = 8
-    static let scaleFactor: CGFloat = 1.0
+    static let buttonPadding: CGFloat = 12
+    static let fontSize: CGFloat = 17
+    static let cornerRadius: CGFloat = 10
 }
 
 struct HighlightedButtonStyle: ButtonStyle {
     let borderColor: Color
-    let backgroundColor: Color
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(Dimensions.buttonPadding)
-            .font(.system(size: Dimensions.fontSize, weight: .medium))
+            .padding(.horizontal, Dimensions.buttonPadding)
+            .padding(.vertical, 8)
+            .font(.system(size: Dimensions.fontSize, weight: .semibold))
             .foregroundColor(borderColor)
-            .background(backgroundColor)
+            .background(Color.black.opacity(0.25))
             .cornerRadius(Dimensions.cornerRadius)
-            .scaleEffect(configuration.isPressed ? Dimensions.scaleFactor : 1.0)
+            .overlay(
+                RoundedRectangle(cornerRadius: Dimensions.cornerRadius)
+                    .stroke(borderColor, lineWidth: 1.5)
+            )
+            .scaleEffect(configuration.isPressed ? 0.96 : 1.0)
     }
 }
 
@@ -31,42 +33,81 @@ struct ContentView: View {
     @StateObject private var model = AirplaneModel()
     
     var body: some View {
-        Group {
+        ZStack {
             if let _ = model.entity {
                 RealityKitView(model: model)
-                    .gesture(
-                        MagnificationGesture()
-                            .onChanged { model.updateScale(with: Float($0)) }
-                            .onEnded {
-                                print("Magnification gesture: final scale \(Float($0))")
-                            }
-                    )
-                    .overlay(overlayButtons, alignment: .bottom)
+                    .gesture(magnificationGesture)
+                    .gesture(dragGesture)
+                    .overlay(controlsOverlay, alignment: .bottom)
+            } else if let error = model.loadError {
+                errorView(error)
             } else {
-                ProgressView("Loading model…")
-                    .onAppear {
-                        print("Starting model load")
-                        model.loadModel()
-                    }
+                loadingView
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
     }
     
-    private var overlayButtons: some View {
-        HStack {
-            Button("Start Rotation") {
-                print("Start Rotation button pressed")
+    private var magnificationGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                model.updateScale(with: Float(value))
+            }
+    }
+    
+    private var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                model.updateRotation(from: value.translation)
+            }
+    }
+    
+    private var controlsOverlay: some View {
+        HStack(spacing: 16) {
+            Button("Start Demo Rotation") {
                 Task { model.rotateModel() }
             }
-            .buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
+            .buttonStyle(HighlightedButtonStyle(borderColor: .green))
             
-            Button("Cancel Rotation") {
-                print("Cancel Rotation button pressed")
+            Button("Stop & Reset") {
                 model.cancelRotation()
                 model.resetRotation()
             }
-            .buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
+            .buttonStyle(HighlightedButtonStyle(borderColor: .red))
+        }
+        .padding(.bottom, 40)
+    }
+    
+    private var loadingView: some View {
+        VStack(spacing: 16) {
+            ProgressView()
+                .scaleEffect(1.4)
+            Text("Loading 3D model…")
+                .foregroundColor(.secondary)
+        }
+        .onAppear {
+            model.loadModel()
+        }
+    }
+    
+    private func errorView(_ message: String) -> some View {
+        VStack(spacing: 12) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.largeTitle)
+                .foregroundColor(.orange)
+            Text("Failed to load model")
+                .font(.headline)
+            Text(message)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            Button("Retry") {
+                model.loadModel()
+            }
+            .buttonStyle(.borderedProminent)
         }
     }
 }

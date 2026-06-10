@@ -4,99 +4,48 @@
 import SwiftUI
 import RealityKit
 
-// Extend AirplaneModel with DRY gesture updates
-extension AirplaneModel {
-    func updateScale(with value: Float) {
-        self.scale = value
-    }
-    
-    func updateRotation(from translation: CGSize) {
-        let dragAngle = Angle(degrees: Double(translation.height) * 1.0)
-        self.yaw = dragAngle  // Unified: Update yaw for Y-axis drag
-    }
-}
-
 class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 1.0
+    @Published var pitch: Angle = .zero
+    @Published var yaw: Angle = .zero
+    @Published var roll: Angle = .zero
     
-    @Published var pitch: Angle = .zero  // X-axis rotation
-    @Published var yaw: Angle = .zero    // Y-axis rotation
-    @Published var roll: Angle = .zero   // Z-axis rotation
-    
-    // Constants for axis vectors and animation settings
-    private let fullRotationDegrees: Float = 360.0
-    private let animationDuration: TimeInterval = 0.5
+    @Published var loadError: String?
     
     private var rotationTask: Task<Void, Never>?
     
-    // Add retry-related properties
-    private let maxRetryAttempts = 3
-    private let retryDelay: TimeInterval = 2.0  // Delay between retries in seconds
-    @Published var isLoading = false
-    @Published var loadError: String?
+    private let minScale: Float = 0.2
+    private let maxScale: Float = 8.0
+    private let rotationStep: Float = 15.0
+    private let rotationDelay: TimeInterval = 0.08
     
     func loadModel() {
-        isLoading = true
         loadError = nil
         Task {
             await loadModelWithRetry(attempt: 1)
         }
     }
     
-    private func loadModelWithRetry(attempt: Int) async {
-        do {
-            let loadedEntity = try await Entity.load(named: "fighter")
-            DispatchQueue.main.async {
-                self.entity = loadedEntity
-                self.isLoading = false
-                self.loadError = nil
-            }
-        } catch {
-            print("Error loading model (attempt \(attempt)): \(error)")
-            if attempt < maxRetryAttempts {
-                try? await Task.sleep(nanoseconds: UInt64(retryDelay * 1_000_000_000))
-                await loadModelWithRetry(attempt: attempt + 1)
-            } else {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.loadError = "Failed to load model after \(self.maxRetryAttempts) attempts: \(error.localizedDescription)"
-                    print(self.loadError!)
-                }
-            }
-        }
+    func updateScale(with value: Float) {
+        scale = max(minScale, min(maxScale, value))
     }
     
-    // ... (rest of the class remains unchanged)
+    func updateRotation(from translation: CGSize) {
+        let yawDelta = Double(translation.width) * 0.4
+        let pitchDelta = Double(translation.height) * 0.4
+        yaw += Angle(degrees: yawDelta)
+        pitch += Angle(degrees: pitchDelta)
+    }
     
     func rotateModel() {
-        rotationTask?.cancel()
-        
+        cancelRotation()
         rotationTask = Task {
-            guard let _ = entity else { return }
-            
-            let stepAngle: Float = 22.5  // Use a constant for clarity
-            let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
-            let delayPerStep: TimeInterval = 1.0  // Set delay to 0.5 seconds between each rotation step
-            
-            // Rotate on X-axis (pitch)
-            for _ in 0..<stepsPerAxis {
-                if Task.isCancelled { return }
-                await animateRotationIncrement(by: stepAngle, axis: .pitch, delay: delayPerStep)
-            }
-            
-            // Rotate on Y-axis (yaw)
-            for _ in 0..<stepsPerAxis {
-                if Task.isCancelled { return }
-                await animateRotationIncrement(by: stepAngle, axis: .yaw, delay: delayPerStep)
-            }
-            
-            // Rotate on Z-axis (roll)
-            for _ in 0..<stepsPerAxis {
-                if Task.isCancelled { return }
-                await animateRotationIncrement(by: stepAngle, axis: .roll, delay: delayPerStep)
-            }
-            await resetRotation()
+            guard entity != nil else { return }
+            await rotateAxis(.pitch, degrees: 360)
+            await rotateAxis(.yaw, degrees: 360)
+            await rotateAxis(.roll, degrees: 360)
+            await MainActor.run { resetRotation() }
         }
     }
     
@@ -112,22 +61,40 @@ class AirplaneModel: ObservableObject {
         roll = .zero
     }
     
-    private enum RotationAxis {
-        case yaw, pitch, roll
-    }
+    private enum RotationAxis { case yaw, pitch, roll }
     
-    private func animateRotationIncrement(by angleDegrees: Float, axis: RotationAxis, delay: TimeInterval) async {
-        let increment = Angle(degrees: Double(angleDegrees))
-        await MainActor.run {
-            switch axis {
-            case .yaw:
-                yaw += increment
-            case .pitch:
-                pitch += increment
-            case .roll:
-                roll += increment
+    private func loadModelWithRetry(attempt: Int) async {
+        do {
+            let loaded = try await Entity.load(named: "fighter")
+            await MainActor.run {
+                self.entity = loaded
+                self.loadError = nil
+            }
+        } catch {
+            if attempt < 3 {
+                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                await loadModelWithRetry(attempt: attempt + 1)
+            } else {
+                await MainActor.run {
+                    self.loadError = error.localizedDescription
+                }
             }
         }
-        try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+    }
+    
+    private func rotateAxis(_ axis: RotationAxis, degrees: Float) async {
+        let steps = Int(degrees / rotationStep)
+        for _ in 0..<steps {
+            if Task.isCancelled { return }
+            await MainActor.run {
+                let increment = Angle(degrees: Double(rotationStep))
+                switch axis {
+                case .yaw:   yaw += increment
+                case .pitch: pitch += increment
+                case .roll:  roll += increment
+                }
+            }
+            try? await Task.sleep(nanoseconds: UInt64(rotationDelay * 1_000_000_000))
+        }
     }
 }
