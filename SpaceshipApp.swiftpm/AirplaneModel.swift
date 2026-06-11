@@ -48,7 +48,7 @@ class AirplaneModel: ObservableObject {
     
     private func loadModelWithRetry(attempt: Int) async {
         do {
-            let loadedEntity = try await Entity.load(named: "fighter")
+            let loadedEntity = try await Entity.load(named: "newEnemy") // smooth_ship, newFighter, fighter, newEnemy
             await MainActor.run {
                 self.entity = loadedEntity
                 self.isLoading = false
