@@ -1,8 +1,8 @@
 // AirplaneModel.swift
-// 
 
 import SwiftUI
 import RealityKit
+import CoreMotion  // ← Required for MotionManager
 
 // Extend AirplaneModel with DRY gesture updates
 extension AirplaneModel {
@@ -12,7 +12,7 @@ extension AirplaneModel {
     
     func updateRotation(from translation: CGSize) {
         let dragAngle = Angle(degrees: Double(translation.height) * 1.0)
-        self.yaw = dragAngle  // Unified: Update yaw for Y-axis drag
+        self.yaw = dragAngle
     }
 }
 
@@ -20,21 +20,23 @@ class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 1.0 / 15
     
-    @Published var pitch: Angle = .zero  // X-axis rotation
-    @Published var yaw: Angle = .zero    // Y-axis rotation
-    @Published var roll: Angle = .zero   // Z-axis rotation
+    @Published var pitch: Angle = .zero
+    @Published var yaw: Angle = .zero
+    @Published var roll: Angle = .zero
     
-    // Constants for axis vectors and animation settings
-    private let fullRotationDegrees: Float = 360.0
-    private let animationDuration: TimeInterval = 0.5
+    // Motion
+    private let motionManager = MotionManager()
+    private var motionTask: Task<Void, Never>?
+    @Published var isMotionActive = false
     
+    // Rotation & Loading
     private var rotationTask: Task<Void, Never>?
-    
-    // Add retry-related properties
     private let maxRetryAttempts = 3
-    private let retryDelay: TimeInterval = 2.0  // Delay between retries in seconds
+    private let retryDelay: TimeInterval = 2.0
     @Published var isLoading = false
     @Published var loadError: String?
+    
+    private let fullRotationDegrees: Float = 360.0
     
     func loadModel() {
         isLoading = true
@@ -47,7 +49,7 @@ class AirplaneModel: ObservableObject {
     private func loadModelWithRetry(attempt: Int) async {
         do {
             let loadedEntity = try await Entity.load(named: "fighter")
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.entity = loadedEntity
                 self.isLoading = false
                 self.loadError = nil
@@ -58,40 +60,77 @@ class AirplaneModel: ObservableObject {
                 try? await Task.sleep(nanoseconds: UInt64(retryDelay * 1_000_000_000))
                 await loadModelWithRetry(attempt: attempt + 1)
             } else {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.isLoading = false
                     self.loadError = "Failed to load model after \(self.maxRetryAttempts) attempts: \(error.localizedDescription)"
-                    print(self.loadError!)
                 }
             }
         }
     }
     
-    // ... (rest of the class remains unchanged)
+    // MARK: - Motion Control
+    func startMotion() {
+        guard !isMotionActive else { return }
+        motionManager.startUpdates(updateInterval: 1.0 / 60.0)
+        isMotionActive = true
+        
+        motionTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                for try await attitude in self.motionManager.attitudeStream! {
+                    await self.updateFromQuaternion(attitude.quaternion)
+                }
+            } catch {
+                print("Motion stream error: \(error)")
+            }
+            await MainActor.run { self.isMotionActive = false }
+        }
+    }
     
+    func cancelMotion() {
+        motionTask?.cancel()
+        motionTask = nil
+        motionManager.stopUpdates()
+        isMotionActive = false
+    }
+    
+    @MainActor
+    private func updateFromQuaternion(_ quat: CMQuaternion) {
+        let qx = quat.x, qy = quat.y, qz = quat.z, qw = quat.w
+        
+        let sinr_cosp = 2 * (qw * qx + qy * qz)
+        let cosr_cosp = 1 - 2 * (qx * qx + qy * qy)
+        let rollRad = atan2(sinr_cosp, cosr_cosp)
+        
+        let sinp = 2 * (qw * qy - qz * qx)
+        let pitchRad = abs(sinp) >= 1 ? copysign(.pi/2, sinp) : asin(sinp)
+        
+        let siny_cosp = 2 * (qw * qz + qx * qy)
+        let cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
+        let yawRad = atan2(siny_cosp, cosy_cosp)
+        
+        pitch = Angle(radians: pitchRad)
+        yaw = Angle(radians: yawRad)
+        roll = Angle(radians: rollRad)
+    }
+    
+    // MARK: - Rotation Demo (unchanged from repo)
     func rotateModel() {
         rotationTask?.cancel()
-        
         rotationTask = Task {
             guard let _ = entity else { return }
-            
-            let stepAngle: Float = 22.5  // Use a constant for clarity
+            let stepAngle: Float = 22.5
             let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
-            let delayPerStep: TimeInterval = 1.0  // Set delay to 0.5 seconds between each rotation step
+            let delayPerStep: TimeInterval = 1.0
             
-            // Rotate on X-axis (pitch)
             for _ in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: .pitch, delay: delayPerStep)
             }
-            
-            // Rotate on Y-axis (yaw)
             for _ in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: .yaw, delay: delayPerStep)
             }
-            
-            // Rotate on Z-axis (roll)
             for _ in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: .roll, delay: delayPerStep)
@@ -112,22 +151,24 @@ class AirplaneModel: ObservableObject {
         roll = .zero
     }
     
-    private enum RotationAxis {
-        case yaw, pitch, roll
-    }
+    private enum RotationAxis { case yaw, pitch, roll }
     
     private func animateRotationIncrement(by angleDegrees: Float, axis: RotationAxis, delay: TimeInterval) async {
         let increment = Angle(degrees: Double(angleDegrees))
         await MainActor.run {
             switch axis {
-            case .yaw:
-                yaw += increment
-            case .pitch:
-                pitch += increment
-            case .roll:
-                roll += increment
+            case .yaw:   yaw += increment
+            case .pitch: pitch += increment
+            case .roll:  roll += increment
             }
         }
         try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+    }
+    
+    @MainActor
+    func resetAll() {
+        cancelMotion()
+        cancelRotation()
+        resetRotation()
     }
 }
