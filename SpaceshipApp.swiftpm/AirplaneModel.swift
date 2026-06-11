@@ -2,7 +2,7 @@
 
 import SwiftUI
 import RealityKit
-import CoreMotion  // ← Required for MotionManager
+import CoreMotion
 
 // Extend AirplaneModel with DRY gesture updates
 extension AirplaneModel {
@@ -71,14 +71,16 @@ class AirplaneModel: ObservableObject {
     // MARK: - Motion Control
     func startMotion() {
         guard !isMotionActive else { return }
-        motionManager.startUpdates(updateInterval: 1.0 / 60.0)
+        motionManager.startUpdates(updateInterval: 1.0 / 30.0)
         isMotionActive = true
         
         motionTask = Task { [weak self] in
             guard let self else { return }
             do {
                 for try await attitude in self.motionManager.attitudeStream! {
-                    await self.updateFromQuaternion(attitude.quaternion)
+                    await MainActor.run {
+                        self.updateFromQuaternion(attitude.quaternion)
+                    }
                 }
             } catch {
                 print("Motion stream error: \(error)")
@@ -98,23 +100,33 @@ class AirplaneModel: ObservableObject {
     private func updateFromQuaternion(_ quat: CMQuaternion) {
         let qx = quat.x, qy = quat.y, qz = quat.z, qw = quat.w
         
+        // Roll (X)
         let sinr_cosp = 2 * (qw * qx + qy * qz)
         let cosr_cosp = 1 - 2 * (qx * qx + qy * qy)
-        let rollRad = atan2(sinr_cosp, cosr_cosp)
+        var rollRad = atan2(sinr_cosp, cosr_cosp)
         
+        // Pitch (Y)
         let sinp = 2 * (qw * qy - qz * qx)
-        let pitchRad = abs(sinp) >= 1 ? copysign(.pi/2, sinp) : asin(sinp)
+        var pitchRad = abs(sinp) >= 1 ? copysign(.pi/2, sinp) : asin(sinp)
         
+        // Yaw (Z)
         let siny_cosp = 2 * (qw * qz + qx * qy)
         let cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
-        let yawRad = atan2(siny_cosp, cosy_cosp)
+        var yawRad = atan2(siny_cosp, cosy_cosp)
         
-        pitch = Angle(radians: pitchRad)
-        yaw = Angle(radians: yawRad)
-        roll = Angle(radians: rollRad)
+        // CRITICAL: Normalize angles to prevent wild spinning / NaN issues
+        pitchRad = fmod(pitchRad + .pi, 2 * .pi) - .pi
+        yawRad   = fmod(yawRad   + .pi, 2 * .pi) - .pi
+        rollRad  = fmod(rollRad  + .pi, 2 * .pi) - .pi
+        
+        // Apply sensitivity
+        let sensitivity: Double = 0.8
+        pitch = Angle(radians: pitchRad * sensitivity)
+        yaw   = Angle(radians: yawRad * sensitivity)
+        roll  = Angle(radians: rollRad * sensitivity)
     }
     
-    // MARK: - Rotation Demo (unchanged from repo)
+    // MARK: - Rotation Demo
     func rotateModel() {
         rotationTask?.cancel()
         rotationTask = Task {
