@@ -1,6 +1,9 @@
-// SpaceshipApp 06/12/2026-1
+// SpaceshipApp 06/12/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
+
+// ContentView.swift
+// Updated for iOS 16.6 + simultaneous gestures + AirplaneModel
 
 import SwiftUI
 
@@ -31,19 +34,19 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 struct ContentView: View {
-    @StateObject private var model = FighterModel()
+    @StateObject private var model = AirplaneModel()
     
     var body: some View {
         Group {
             if let _ = model.entity {
                 RealityKitView(model: model)
                     .gesture(
-                        MagnificationGesture()
-                            .onChanged { model.updateScale(with: Float($0)) }
-                    )
-                    .gesture(
-                        DragGesture()
-                            .onChanged { model.updateRotation(from: $0.translation) }
+                        SimultaneousGesture(
+                            MagnificationGesture()
+                                .onChanged { model.updateScale(with: Float($0)) },
+                            DragGesture()
+                                .onChanged { model.updateRotation(from: $0.translation) }
+                        )
                     )
                     .overlay(alignment: .top) { modelPicker }
                     .overlay(overlayButtons, alignment: .bottom)
@@ -63,7 +66,6 @@ struct ContentView: View {
         }
     }
     
-    // === NEW: Menu-style Picker at the top ===
     private var modelPicker: some View {
         Picker("Select Model", selection: $model.currentModelName) {
             ForEach(model.availableModels, id: \.self) { name in
@@ -85,7 +87,6 @@ struct ContentView: View {
     
     private var overlayButtons: some View {
         VStack(spacing: 16) {
-            // Rotation buttons
             HStack(spacing: 20) {
                 Button("Start Rotation") {
                     Task { model.rotateModel() }
@@ -93,12 +94,11 @@ struct ContentView: View {
                 .buttonStyle(HighlightedButtonStyle(borderColor: .green, backgroundColor: .clear))
                 
                 Button("Cancel Rotation") {
-                    model.resetAll()
+                    model.cancelRotation()
                 }
                 .buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
             }
             
-            // Motion buttons
             HStack(spacing: 20) {
                 Button("Start Motion") {
                     model.startMotion()

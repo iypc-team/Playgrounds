@@ -1,11 +1,11 @@
 // RealityKitView.swift
-// Updated with fixed camera + clean model switching support
+// Updated with AirplaneModel + clean model switching (iOS 16.6)
 
 import SwiftUI
 import RealityKit
 
 struct RealityKitView: UIViewRepresentable {
-    @ObservedObject var model: FighterModel
+    @ObservedObject var model: AirplaneModel
     
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -15,19 +15,20 @@ struct RealityKitView: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR
         
-        // === FIXED CAMERA SETUP ===
+        // Fixed camera
         let camera = PerspectiveCamera()
-        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 25), relativeTo: nil)
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 22), relativeTo: nil)
         
         let cameraAnchor = AnchorEntity(world: .zero)
         cameraAnchor.addChild(camera)
         arView.scene.addAnchor(cameraAnchor)
         
-        // Light
+        // Lighting
         let directionalLight = DirectionalLight()
-        directionalLight.light.color = .gray
-        directionalLight.light.intensity = 2500
-        directionalLight.orientation = simd_quatf(angle: -.pi / 4, axis: [1, 0, 0])
+        directionalLight.light.color = .white
+        directionalLight.light.intensity = 3000
+        directionalLight.orientation = simd_quatf(angle: -.pi / 3, axis: [1, 0, 0])
+        
         let lightAnchor = AnchorEntity(world: .zero)
         lightAnchor.addChild(directionalLight)
         arView.scene.addAnchor(lightAnchor)
@@ -38,7 +39,7 @@ struct RealityKitView: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         guard let entity = model.entity else { return }
         
-        // Remove previous model anchor for clean switching
+        // Clean model switching
         if let oldAnchor = context.coordinator.modelAnchor {
             uiView.scene.removeAnchor(oldAnchor)
         }
@@ -48,16 +49,15 @@ struct RealityKitView: UIViewRepresentable {
         uiView.scene.addAnchor(anchor)
         context.coordinator.modelAnchor = anchor
         
-        // Scale
-        let scaleFactor: Float = 4.0
-        entity.scale = SIMD3<Float>(scaleFactor * model.scale, scaleFactor * model.scale, scaleFactor * model.scale)
+        // Apply transforms
+        let s = Float(model.scale)
+        entity.scale = SIMD3<Float>(s, s, s)
         
-        // Rotation
-        let yawQuat   = simd_quatf(angle: Float(model.yaw.radians),   axis: SIMD3<Float>(0, 1, 0))
-        let pitchQuat = simd_quatf(angle: Float(model.pitch.radians), axis: SIMD3<Float>(1, 0, 0))
-        let rollQuat  = simd_quatf(angle: Float(model.roll.radians),  axis: SIMD3<Float>(0, 0, 1))
+        let yawQ   = simd_quatf(angle: Float(model.yaw.radians),   axis: [0, 1, 0])
+        let pitchQ = simd_quatf(angle: Float(model.pitch.radians), axis: [1, 0, 0])
+        let rollQ  = simd_quatf(angle: Float(model.roll.radians),  axis: [0, 0, 1])
         
-        entity.transform.rotation = yawQuat * pitchQuat * rollQuat
+        entity.transform.rotation = yawQ * pitchQ * rollQ
     }
     
     class Coordinator {
