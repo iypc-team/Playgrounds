@@ -1,11 +1,12 @@
-// AirplaneModel.swift
+// FighterModel.swift
+// Fully optimized with USDZ caching + instant cloning for fast model switching
 
 import SwiftUI
 import RealityKit
 import CoreMotion
 
-// Extend AirplaneModel with DRY gesture updates
-extension AirplaneModel {
+// MARK: - Gesture Helpers
+extension FighterModel {
     func updateScale(with value: Float) {
         self.scale = value
     }
@@ -16,7 +17,7 @@ extension AirplaneModel {
     }
 }
 
-class AirplaneModel: ObservableObject {
+class FighterModel: ObservableObject {
     @Published var entity: Entity?
     @Published var scale: Float = 1.0 / 15
     
@@ -38,37 +39,85 @@ class AirplaneModel: ObservableObject {
     
     private let fullRotationDegrees: Float = 360.0
     
-    func loadModel() {
+    // === PERFORMANCE OPTIMIZATION: In-memory cache ===
+    private var modelCache: [String: Entity] = [:]
+    
+    // Model Selection
+    @Published var currentModelName: String = "fighter"
+    let availableModels: [String] = [
+        "newEnemy", "smooth_ship", "newFighter", "fighter",
+        "Spaceship", "Airplane", "Airplane-2"
+    ]
+    
+    // MARK: - Model Loading (Optimized)
+    
+    func loadModel(named name: String? = nil) {
+        if let name = name {
+            currentModelName = name
+        }
         isLoading = true
         loadError = nil
+        
         Task {
-            await loadModelWithRetry(attempt: 1)
+            await loadOrCloneModel()
         }
     }
     
-    private func loadModelWithRetry(attempt: Int) async {
-        do {
-            let loadedEntity = try await Entity.load(named: "newEnemy") // smooth_ship, newFighter, fighter, newEnemy
+    private func loadOrCloneModel() async {
+        let name = currentModelName
+        
+        // Fast path: Clone from cache (no disk I/O)
+        if let cachedEntity = modelCache[name] {
+            let clonedEntity = await cachedEntity.clone(recursive: true)
+            
             await MainActor.run {
-                self.entity = loadedEntity
+                self.entity = clonedEntity
+                self.scale = 1.0 / 15
+                self.resetRotation()
+                self.isLoading = false
+                self.loadError = nil
+            }
+            return
+        }
+        
+        // Slow path: Load from disk, cache it, then clone
+        await loadModelWithRetry(attempt: 1, modelName: name)
+    }
+    
+    private func loadModelWithRetry(attempt: Int, modelName: String) async {
+        do {
+            let loadedEntity = try await Entity.load(named: modelName)
+            
+            // Cache the original entity
+            modelCache[modelName] = loadedEntity
+            
+            // Clone so we never mutate the cached version
+            let clonedEntity = await loadedEntity.clone(recursive: true)
+            
+            await MainActor.run {
+                self.entity = clonedEntity
+                self.scale = 1.0 / 15
+                self.resetRotation()
                 self.isLoading = false
                 self.loadError = nil
             }
         } catch {
-            print("Error loading model (attempt \(attempt)): \(error)")
+            print("Error loading model '\(modelName)' (attempt \(attempt)): \(error)")
+            
             if attempt < maxRetryAttempts {
                 try? await Task.sleep(nanoseconds: UInt64(retryDelay * 1_000_000_000))
-                await loadModelWithRetry(attempt: attempt + 1)
+                await loadModelWithRetry(attempt: attempt + 1, modelName: modelName)
             } else {
                 await MainActor.run {
                     self.isLoading = false
-                    self.loadError = "Failed to load model after \(self.maxRetryAttempts) attempts: \(error.localizedDescription)"
+                    self.loadError = "Failed to load \(modelName) after \(maxRetryAttempts) attempts"
                 }
             }
         }
     }
     
     // MARK: - Motion Control
+    
     func startMotion() {
         guard !isMotionActive else { return }
         motionManager.startUpdates(updateInterval: 1.0 / 30.0)
@@ -114,12 +163,11 @@ class AirplaneModel: ObservableObject {
         let cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
         var yawRad = atan2(siny_cosp, cosy_cosp)
         
-        // CRITICAL: Normalize angles to prevent wild spinning / NaN issues
+        // Normalize to [-π, π]
         pitchRad = fmod(pitchRad + .pi, 2 * .pi) - .pi
         yawRad   = fmod(yawRad   + .pi, 2 * .pi) - .pi
         rollRad  = fmod(rollRad  + .pi, 2 * .pi) - .pi
         
-        // Apply sensitivity
         let sensitivity: Double = 0.8
         pitch = Angle(radians: pitchRad * sensitivity)
         yaw   = Angle(radians: yawRad * sensitivity)
@@ -127,6 +175,7 @@ class AirplaneModel: ObservableObject {
     }
     
     // MARK: - Rotation Demo
+    
     func rotateModel() {
         rotationTask?.cancel()
         rotationTask = Task {

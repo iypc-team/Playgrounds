@@ -1,10 +1,9 @@
-// SpaceshipApp 06/11/2026-5
+// SpaceshipApp 06/12/2026-1
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
 
 import SwiftUI
 
-// Define constants for design consistency
 private enum Dimensions {
     static let buttonPadding: CGFloat = 10
     static let fontSize: CGFloat = 18
@@ -32,7 +31,7 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 struct ContentView: View {
-    @StateObject private var model = AirplaneModel()
+    @StateObject private var model = FighterModel()
     
     var body: some View {
         Group {
@@ -46,6 +45,7 @@ struct ContentView: View {
                         DragGesture()
                             .onChanged { model.updateRotation(from: $0.translation) }
                     )
+                    .overlay(alignment: .top) { modelPicker }
                     .overlay(overlayButtons, alignment: .bottom)
             } else if let error = model.loadError {
                 errorView(error)
@@ -63,6 +63,26 @@ struct ContentView: View {
         }
     }
     
+    // === NEW: Menu-style Picker at the top ===
+    private var modelPicker: some View {
+        Picker("Select Model", selection: $model.currentModelName) {
+            ForEach(model.availableModels, id: \.self) { name in
+                Text(name).tag(name)
+            }
+        }
+        .pickerStyle(.menu)
+        .onChange(of: model.currentModelName) { newName in
+            model.loadModel(named: newName)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(.ultraThinMaterial)
+        .cornerRadius(12)
+        .padding(.top, 8)
+        .padding(.horizontal)
+        .tint(.white)
+    }
+    
     private var overlayButtons: some View {
         VStack(spacing: 16) {
             // Rotation buttons
@@ -78,7 +98,7 @@ struct ContentView: View {
                 .buttonStyle(HighlightedButtonStyle(borderColor: .red, backgroundColor: .clear))
             }
             
-            // New Motion buttons
+            // Motion buttons
             HStack(spacing: 20) {
                 Button("Start Motion") {
                     model.startMotion()
