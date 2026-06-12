@@ -1,11 +1,12 @@
 // RealityKitView.swift
-// Updated with AirplaneModel + clean model switching (iOS 16.6)
+// Fixed coordinator + consistent FighterModel + debug prints
+// iOS 16.6 compliant
 
 import SwiftUI
 import RealityKit
 
 struct RealityKitView: UIViewRepresentable {
-    @ObservedObject var model: AirplaneModel
+    @ObservedObject var model: FighterModel
     
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -14,6 +15,7 @@ struct RealityKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR
+        print("✅ ARView created (nonAR mode)")
         
         // Fixed camera
         let camera = PerspectiveCamera()
@@ -37,17 +39,24 @@ struct RealityKitView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        guard let entity = model.entity else { return }
+        guard let entity = model.entity else { 
+            print("⚠️ updateUIView: No entity available yet")
+            return 
+        }
         
-        // Clean model switching
+        print("🔄 updateUIView for model: '\(model.currentModelName)'")
+        
+        // Clean previous anchor
         if let oldAnchor = context.coordinator.modelAnchor {
             uiView.scene.removeAnchor(oldAnchor)
+            print("🗑️ Removed previous anchor")
         }
         
         let anchor = AnchorEntity(world: .zero)
         anchor.addChild(entity)
         uiView.scene.addAnchor(anchor)
         context.coordinator.modelAnchor = anchor
+        print("📍 New anchor added")
         
         // Apply transforms
         let s = Float(model.scale)
@@ -58,6 +67,8 @@ struct RealityKitView: UIViewRepresentable {
         let rollQ  = simd_quatf(angle: Float(model.roll.radians),  axis: [0, 0, 1])
         
         entity.transform.rotation = yawQ * pitchQ * rollQ
+        
+        print("✅ Applied transform → Scale: \(s)x | Yaw: \(model.yaw.degrees)° Pitch: \(model.pitch.degrees)° Roll: \(model.roll.degrees)°")
     }
     
     class Coordinator {

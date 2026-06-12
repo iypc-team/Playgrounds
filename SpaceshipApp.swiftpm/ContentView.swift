@@ -1,9 +1,6 @@
-// SpaceshipApp 06/12/2026-2
+// SpaceshipApp 06/12/2026-3
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
-
-// ContentView.swift
-// Updated for iOS 16.6 + simultaneous gestures + AirplaneModel
 
 import SwiftUI
 
@@ -34,7 +31,7 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 struct ContentView: View {
-    @StateObject private var model = AirplaneModel()
+    @StateObject private var model = FighterModel()  // ← Updated to match FighterModel.swift
     
     var body: some View {
         Group {

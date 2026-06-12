@@ -1,5 +1,6 @@
 // FighterModel.swift
-// Fully optimized with USDZ caching + instant cloning for fast model switching
+// Scale default changed to 1.0 + enhanced debug prints
+// reset
 
 import SwiftUI
 import RealityKit
@@ -9,17 +10,19 @@ import CoreMotion
 extension FighterModel {
     func updateScale(with value: Float) {
         self.scale = value
+        print("🔄 Scale updated to: \(value)")
     }
     
     func updateRotation(from translation: CGSize) {
         let dragAngle = Angle(degrees: Double(translation.height) * 1.0)
         self.yaw = dragAngle
+        print("🔄 Drag rotation - Yaw updated: \(dragAngle.degrees)°")
     }
 }
 
 class FighterModel: ObservableObject {
     @Published var entity: Entity?
-    @Published var scale: Float = 1.0 / 15
+    @Published var scale: Float = 1.0   // ← Changed from 1.0/15 to 1.0 as requested
     
     @Published var pitch: Angle = .zero
     @Published var yaw: Angle = .zero
@@ -49,7 +52,7 @@ class FighterModel: ObservableObject {
         "Spaceship", "Airplane", "Airplane-2"
     ]
     
-    // MARK: - Model Loading (Optimized)
+    // MARK: - Model Loading (Optimized + Debug Prints)
     
     func loadModel(named name: String? = nil) {
         if let name = name {
@@ -57,6 +60,7 @@ class FighterModel: ObservableObject {
         }
         isLoading = true
         loadError = nil
+        print("🚀 Starting load for model: '\(currentModelName)'")
         
         Task {
             await loadOrCloneModel()
@@ -65,61 +69,73 @@ class FighterModel: ObservableObject {
     
     private func loadOrCloneModel() async {
         let name = currentModelName
+        print("📦 loadOrCloneModel called for: '\(name)' | Cache hit? \(modelCache.keys.contains(name))")
         
-        // Fast path: Clone from cache (no disk I/O)
+        // Fast path: Clone from cache
         if let cachedEntity = modelCache[name] {
+            print("⚡ Cache hit for '\(name)' – cloning...")
             let clonedEntity = await cachedEntity.clone(recursive: true)
             
             await MainActor.run {
                 self.entity = clonedEntity
-                self.scale = 1.0 / 15
+                self.scale = 1.0          // ← Ensured 1.0 on cache hit
                 self.resetRotation()
                 self.isLoading = false
                 self.loadError = nil
+                print("✅ Successfully loaded from cache: '\(name)' (scale=1.0)")
             }
             return
         }
         
-        // Slow path: Load from disk, cache it, then clone
+        print("⏳ No cache – loading from disk: '\(name)'")
         await loadModelWithRetry(attempt: 1, modelName: name)
     }
     
     private func loadModelWithRetry(attempt: Int, modelName: String) async {
         do {
+            print("🔄 Attempt \(attempt)/\(maxRetryAttempts) loading '\(modelName)'...")
             let loadedEntity = try await Entity.load(named: modelName)
+            print("✅ Entity.load succeeded for '\(modelName)'")
             
-            // Cache the original entity
+            // Cache the original
             modelCache[modelName] = loadedEntity
+            print("💾 Cached model: '\(modelName)' | Total cached: \(modelCache.count)")
             
-            // Clone so we never mutate the cached version
             let clonedEntity = await loadedEntity.clone(recursive: true)
             
             await MainActor.run {
                 self.entity = clonedEntity
-                self.scale = 1.0 / 15
+                self.scale = 1.0          // ← Ensured 1.0 on fresh load
                 self.resetRotation()
                 self.isLoading = false
                 self.loadError = nil
+                print("🎉 Model fully loaded and applied: '\(modelName)' (scale=1.0)")
             }
         } catch {
-            print("Error loading model '\(modelName)' (attempt \(attempt)): \(error)")
+            print("❌ Error loading '\(modelName)' (attempt \(attempt)): \(error.localizedDescription)")
             
             if attempt < maxRetryAttempts {
+                print("🔁 Retrying in \(retryDelay)s...")
                 try? await Task.sleep(nanoseconds: UInt64(retryDelay * 1_000_000_000))
                 await loadModelWithRetry(attempt: attempt + 1, modelName: modelName)
             } else {
                 await MainActor.run {
                     self.isLoading = false
                     self.loadError = "Failed to load \(modelName) after \(maxRetryAttempts) attempts"
+                    print("🛑 Final failure for '\(modelName)': \(self.loadError ?? "")")
                 }
             }
         }
     }
     
-    // MARK: - Motion Control
+    // MARK: - Motion Control + Debug
     
     func startMotion() {
-        guard !isMotionActive else { return }
+        guard !isMotionActive else { 
+            print("⚠️ Motion already active")
+            return 
+        }
+        print("📡 Starting device motion updates...")
         motionManager.startUpdates(updateInterval: 1.0 / 30.0)
         isMotionActive = true
         
@@ -132,13 +148,17 @@ class FighterModel: ObservableObject {
                     }
                 }
             } catch {
-                print("Motion stream error: \(error)")
+                print("❌ Motion stream error: \(error)")
             }
-            await MainActor.run { self.isMotionActive = false }
+            await MainActor.run { 
+                self.isMotionActive = false
+                print("⏹️ Motion updates stopped")
+            }
         }
     }
     
     func cancelMotion() {
+        print("🛑 Cancelling motion...")
         motionTask?.cancel()
         motionTask = nil
         motionManager.stopUpdates()
@@ -149,21 +169,17 @@ class FighterModel: ObservableObject {
     private func updateFromQuaternion(_ quat: CMQuaternion) {
         let qx = quat.x, qy = quat.y, qz = quat.z, qw = quat.w
         
-        // Roll (X)
         let sinr_cosp = 2 * (qw * qx + qy * qz)
         let cosr_cosp = 1 - 2 * (qx * qx + qy * qy)
         var rollRad = atan2(sinr_cosp, cosr_cosp)
         
-        // Pitch (Y)
         let sinp = 2 * (qw * qy - qz * qx)
         var pitchRad = abs(sinp) >= 1 ? copysign(.pi/2, sinp) : asin(sinp)
         
-        // Yaw (Z)
         let siny_cosp = 2 * (qw * qz + qx * qy)
         let cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
         var yawRad = atan2(siny_cosp, cosy_cosp)
         
-        // Normalize to [-π, π]
         pitchRad = fmod(pitchRad + .pi, 2 * .pi) - .pi
         yawRad   = fmod(yawRad   + .pi, 2 * .pi) - .pi
         rollRad  = fmod(rollRad  + .pi, 2 * .pi) - .pi
@@ -174,33 +190,42 @@ class FighterModel: ObservableObject {
         roll  = Angle(radians: rollRad * sensitivity)
     }
     
-    // MARK: - Rotation Demo
+    // MARK: - Rotation Demo + Debug
     
     func rotateModel() {
+        print("🔄 Starting full rotation demo...")
         rotationTask?.cancel()
         rotationTask = Task {
-            guard let _ = entity else { return }
+            guard let _ = entity else { 
+                print("⚠️ No entity for rotation")
+                return 
+            }
             let stepAngle: Float = 22.5
             let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
             let delayPerStep: TimeInterval = 1.0
             
-            for _ in 0..<stepsPerAxis {
-                if Task.isCancelled { return }
+            for i in 0..<stepsPerAxis {
+                if Task.isCancelled { print("🛑 Rotation cancelled"); return }
                 await animateRotationIncrement(by: stepAngle, axis: .pitch, delay: delayPerStep)
+                print("🔄 Pitch step \(i+1)/\(stepsPerAxis)")
             }
-            for _ in 0..<stepsPerAxis {
+            for i in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: .yaw, delay: delayPerStep)
+                print("🔄 Yaw step \(i+1)/\(stepsPerAxis)")
             }
-            for _ in 0..<stepsPerAxis {
+            for i in 0..<stepsPerAxis {
                 if Task.isCancelled { return }
                 await animateRotationIncrement(by: stepAngle, axis: .roll, delay: delayPerStep)
+                print("🔄 Roll step \(i+1)/\(stepsPerAxis)")
             }
             await resetRotation()
+            print("✅ Rotation demo completed")
         }
     }
     
     func cancelRotation() {
+        print("🛑 Cancelling rotation demo")
         rotationTask?.cancel()
         rotationTask = nil
     }
@@ -210,6 +235,7 @@ class FighterModel: ObservableObject {
         yaw = .zero
         pitch = .zero
         roll = .zero
+        print("🔄 Rotations reset to zero")
     }
     
     private enum RotationAxis { case yaw, pitch, roll }
@@ -231,5 +257,6 @@ class FighterModel: ObservableObject {
         cancelMotion()
         cancelRotation()
         resetRotation()
+        print("🔄 All controls reset")
     }
 }

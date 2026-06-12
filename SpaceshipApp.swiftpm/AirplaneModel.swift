@@ -1,172 +1,236 @@
 // AirplaneModel.swift
-// Fully implemented for iOS 16.6 + RealityKit + CoreMotion
+// Fully optimized with USDZ caching + instant cloning for fast model switching
+// Updated for iOS 16.6 compliance (class name aligned with ContentView / RealityKitView)
 
 import SwiftUI
 import RealityKit
 import CoreMotion
-import Combine
 
-@MainActor
-final class AirplaneModel: ObservableObject {
-    // Published state for SwiftUI + RealityKitView
-    @Published var entity: Entity?
-    @Published var loadError: String?
-    @Published var currentModelName: String = "Spaceship"
-    @Published var scale: Double = 1.0
-    @Published var yaw: Angle = .zero
-    @Published var pitch: Angle = .zero
-    @Published var roll: Angle = .zero
-    @Published var isMotionActive: Bool = false
-    
-    // Available models (matches your .usdz files in Resources/)
-    let availableModels: [String] = [
-        "Airplane", "Airplane-2", "Spaceship",
-        "fighter", "newFighter", "newEnemy", "smooth_ship"
-    ]
-    
-    private let motionManager = MotionManager()
-    private var motionTask: Task<Void, Never>?
-    private var rotationTask: Task<Void, Never>?
-    private var isRotating = false
-    
-    // MARK: - Model Loading
-    func loadModel() {
-        loadModel(named: currentModelName)
+// MARK: - Gesture Helpers
+extension AirplaneModel {
+    func updateScale(with value: Float) {
+        self.scale = value
     }
     
-    func loadModel(named name: String) {
+    func updateRotation(from translation: CGSize) {
+        let dragAngle = Angle(degrees: Double(translation.height) * 1.0)
+        self.yaw = dragAngle
+    }
+}
+
+class AirplaneModel: ObservableObject {
+    @Published var entity: Entity?
+    @Published var scale: Float = 1.0 / 15
+    
+    @Published var pitch: Angle = .zero
+    @Published var yaw: Angle = .zero
+    @Published var roll: Angle = .zero
+    
+    // Motion
+    private let motionManager = MotionManager()
+    private var motionTask: Task<Void, Never>?
+    @Published var isMotionActive = false
+    
+    // Rotation & Loading
+    private var rotationTask: Task<Void, Never>?
+    private let maxRetryAttempts = 3
+    private let retryDelay: TimeInterval = 2.0
+    @Published var isLoading = false
+    @Published var loadError: String?
+    
+    private let fullRotationDegrees: Float = 360.0
+    
+    // === PERFORMANCE OPTIMIZATION: In-memory cache ===
+    private var modelCache: [String: Entity] = [:]
+    
+    // Model Selection
+    @Published var currentModelName: String = "fighter"
+    let availableModels: [String] = [
+        "newEnemy", "smooth_ship", "newFighter", "fighter",
+        "Spaceship", "Airplane", "Airplane-2"
+    ]
+    
+    // MARK: - Model Loading (Optimized)
+    
+    func loadModel(named name: String? = nil) {
+        if let name = name {
+            currentModelName = name
+        }
+        isLoading = true
         loadError = nil
-        entity = nil
-        currentModelName = name
         
-        guard let url = Bundle.main.url(forResource: name, withExtension: "usdz") else {
-            loadError = "Model '\(name).usdz' not found in Resources."
+        Task {
+            await loadOrCloneModel()
+        }
+    }
+    
+    private func loadOrCloneModel() async {
+        let name = currentModelName
+        
+        // Fast path: Clone from cache (no disk I/O)
+        if let cachedEntity = modelCache[name] {
+            let clonedEntity = await cachedEntity.clone(recursive: true)
+            
+            await MainActor.run {
+                self.entity = clonedEntity
+                self.scale = 1.0 / 15
+                self.resetRotation()
+                self.isLoading = false
+                self.loadError = nil
+            }
             return
         }
         
+        // Slow path: Load from disk, cache it, then clone
+        await loadModelWithRetry(attempt: 1, modelName: name)
+    }
+    
+    private func loadModelWithRetry(attempt: Int, modelName: String) async {
         do {
-            let loaded = try Entity.load(contentsOf: url)
-            self.entity = loaded
-            resetTransforms()
+            let loadedEntity = try await Entity.load(named: modelName)
+            
+            // Cache the original entity
+            modelCache[modelName] = loadedEntity
+            
+            // Clone so we never mutate the cached version
+            let clonedEntity = await loadedEntity.clone(recursive: true)
+            
+            await MainActor.run {
+                self.entity = clonedEntity
+                self.scale = 1.0 / 15
+                self.resetRotation()
+                self.isLoading = false
+                self.loadError = nil
+            }
         } catch {
-            loadError = "Failed to load \(name): \(error.localizedDescription)"
+            print("Error loading model '\(modelName)' (attempt \(attempt)): \(error)")
+            
+            if attempt < maxRetryAttempts {
+                try? await Task.sleep(nanoseconds: UInt64(retryDelay * 1_000_000_000))
+                await loadModelWithRetry(attempt: attempt + 1, modelName: modelName)
+            } else {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.loadError = "Failed to load \(modelName) after \(maxRetryAttempts) attempts"
+                }
+            }
         }
     }
     
-    private func resetTransforms() {
-        scale = 1.0
+    // MARK: - Motion Control
+    
+    func startMotion() {
+        guard !isMotionActive else { return }
+        motionManager.startUpdates(updateInterval: 1.0 / 30.0)
+        isMotionActive = true
+        
+        motionTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                for try await attitude in self.motionManager.attitudeStream! {
+                    await MainActor.run {
+                        self.updateFromQuaternion(attitude.quaternion)
+                    }
+                }
+            } catch {
+                print("Motion stream error: \(error)")
+            }
+            await MainActor.run { self.isMotionActive = false }
+        }
+    }
+    
+    func cancelMotion() {
+        motionTask?.cancel()
+        motionTask = nil
+        motionManager.stopUpdates()
+        isMotionActive = false
+    }
+    
+    @MainActor
+    private func updateFromQuaternion(_ quat: CMQuaternion) {
+        let qx = quat.x, qy = quat.y, qz = quat.z, qw = quat.w
+        
+        // Roll (X)
+        let sinr_cosp = 2 * (qw * qx + qy * qz)
+        let cosr_cosp = 1 - 2 * (qx * qx + qy * qy)
+        var rollRad = atan2(sinr_cosp, cosr_cosp)
+        
+        // Pitch (Y)
+        let sinp = 2 * (qw * qy - qz * qx)
+        var pitchRad = abs(sinp) >= 1 ? copysign(.pi/2, sinp) : asin(sinp)
+        
+        // Yaw (Z)
+        let siny_cosp = 2 * (qw * qz + qx * qy)
+        let cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
+        var yawRad = atan2(siny_cosp, cosy_cosp)
+        
+        // Normalize to [-π, π]
+        pitchRad = fmod(pitchRad + .pi, 2 * .pi) - .pi
+        yawRad   = fmod(yawRad   + .pi, 2 * .pi) - .pi
+        rollRad  = fmod(rollRad  + .pi, 2 * .pi) - .pi
+        
+        let sensitivity: Double = 0.8
+        pitch = Angle(radians: pitchRad * sensitivity)
+        yaw   = Angle(radians: yawRad * sensitivity)
+        roll  = Angle(radians: rollRad * sensitivity)
+    }
+    
+    // MARK: - Rotation Demo
+    
+    func rotateModel() {
+        rotationTask?.cancel()
+        rotationTask = Task {
+            guard let _ = entity else { return }
+            let stepAngle: Float = 22.5
+            let stepsPerAxis = Int(fullRotationDegrees / stepAngle)
+            let delayPerStep: TimeInterval = 1.0
+            
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: .pitch, delay: delayPerStep)
+            }
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: .yaw, delay: delayPerStep)
+            }
+            for _ in 0..<stepsPerAxis {
+                if Task.isCancelled { return }
+                await animateRotationIncrement(by: stepAngle, axis: .roll, delay: delayPerStep)
+            }
+            await resetRotation()
+        }
+    }
+    
+    func cancelRotation() {
+        rotationTask?.cancel()
+        rotationTask = nil
+    }
+    
+    @MainActor
+    func resetRotation() {
         yaw = .zero
         pitch = .zero
         roll = .zero
     }
     
-    // MARK: - Gesture Handlers (called from ContentView)
-    func updateScale(with factor: Float) {
-        let newScale = max(0.2, min(8.0, scale * Double(factor)))
-        scale = newScale
-    }
+    private enum RotationAxis { case yaw, pitch, roll }
     
-    func updateRotation(from translation: CGSize) {
-        let sensitivity: Double = 0.006
-        yaw += Angle.radians(translation.width * sensitivity)
-        pitch += Angle.radians(-translation.height * sensitivity) // natural feel
-        
-        // Clamp pitch to avoid flipping
-        let maxPitch = Angle.degrees(80)
-        if pitch > maxPitch { pitch = maxPitch }
-        if pitch < -maxPitch { pitch = -maxPitch }
-    }
-    
-    // MARK: - Continuous Rotation
-    func rotateModel() {
-        cancelRotation()
-        isRotating = true
-        
-        rotationTask = Task {
-            while !Task.isCancelled && isRotating {
-                try? await Task.sleep(for: .milliseconds(16))
-                await MainActor.run {
-                    self.yaw += Angle.degrees(0.8)
-                }
+    private func animateRotationIncrement(by angleDegrees: Float, axis: RotationAxis, delay: TimeInterval) async {
+        let increment = Angle(degrees: Double(angleDegrees))
+        await MainActor.run {
+            switch axis {
+            case .yaw:   yaw += increment
+            case .pitch: pitch += increment
+            case .roll:  roll += increment
             }
         }
+        try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
     }
     
-    func cancelRotation() {
-        isRotating = false
-        rotationTask?.cancel()
-        rotationTask = nil
-    }
-    
-    // MARK: - Device Motion Control
-    func startMotion() {
-        guard !isMotionActive else { return }
-        isMotionActive = true
-        cancelRotation()
-        
-        motionManager.startUpdates(updateInterval: 1.0 / 60.0)
-        
-        motionTask = Task {
-            guard let stream = motionManager.attitudeStream else { return }
-            do {
-                for try await attitude in stream {
-                    await MainActor.run {
-                        guard self.isMotionActive else { return }
-                        self.applyDeviceAttitude(attitude.quaternion)
-                    }
-                }
-            } catch {
-                await MainActor.run {
-                    self.loadError = "Motion error: \(error.localizedDescription)"
-                    self.cancelMotion()
-                }
-            }
-        }
-    }
-    // Cannot find 
-    private func applyDeviceAttitude(_ quat: CMQuaternion) {
-        let q = simd_quatf(ix: Float(quat.x), iy: Float(quat.y), iz: Float(quat.z), r: Float(quat.w))
-        
-        // Convert to Euler (tuned for typical spaceship viewing)
-        let euler = quaternionToEuler(q)
-        yaw = Angle.radians(Double(euler.yaw))
-        pitch = Angle.radians(Double(euler.pitch))
-        roll = Angle.radians(Double(euler.roll))
-    }
-    
-    private func quaternionToEuler(_ q: simd_quatf) -> (pitch: Float, yaw: Float, roll: Float) {
-        // Standard robust conversion
-        let sinr_cosp = 2 * (q.real * q.imag.x + q.imag.y * q.imag.z)
-        let cosr_cosp = 1 - 2 * (q.imag.x * q.imag.x + q.imag.y * q.imag.y)
-        let roll = atan2(sinr_cosp, cosr_cosp)
-        
-        let sinp = 2 * (q.real * q.imag.y - q.imag.z * q.imag.x)
-        let pitch = abs(sinp) >= 1 ? copysign(.pi / 2, sinp) : asin(sinp)
-        
-        let siny_cosp = 2 * (q.real * q.imag.z + q.imag.x * q.imag.y)
-        let cosy_cosp = 1 - 2 * (q.imag.y * q.imag.y + q.imag.z * q.imag.z)
-        let yaw = atan2(siny_cosp, cosy_cosp)
-        
-        return (pitch: pitch, yaw: yaw, roll: roll)
-    }
-    
-    func cancelMotion() {
-        isMotionActive = false
-        motionTask?.cancel()
-        motionTask = nil
-        motionManager.stopUpdates()
-    }
-    
+    @MainActor
     func resetAll() {
-        cancelRotation()
         cancelMotion()
-        resetTransforms()
-    }
-    
-    deinit {
-        motionTask?.cancel()
-        rotationTask?.cancel()
-        motionManager.stopUpdates()
+        cancelRotation()
+        resetRotation()
     }
 }
-
