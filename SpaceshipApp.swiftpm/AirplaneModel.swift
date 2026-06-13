@@ -1,12 +1,9 @@
-// Updated AirplaneModel.swift (primary model used by ContentView)
-// - Safe stream access (no force-unwrap)
-// - Minor cleanups for iOS 16.6
-// FighterModel.swift can be deleted as dead/unused duplicate.
+// AirplaneModel.swift
+// 
 
 import SwiftUI
 import RealityKit
 import CoreMotion
-import Combine
 
 @MainActor
 final class AirplaneModel: ObservableObject {
@@ -22,6 +19,23 @@ final class AirplaneModel: ObservableObject {
     let availableModels: [String] = [
         "Airplane", "Airplane-2", "Spaceship",
         "fighter", "newFighter", "newEnemy", "smooth_ship"
+    ]
+    
+    // MARK: - Per-model adjustments (tweak these values after testing each model)
+    private let recommendedScales: [String: Double] = [
+        "Airplane":     0.55,
+        "Airplane-2":   0.55,
+        "Spaceship":    1.0,
+        "fighter":      1.35,
+        "newFighter":   1.25,
+        "newEnemy":     1.15,
+        "smooth_ship":  0.90
+    ]
+    
+    private let yOffsets: [String: Float] = [
+        "fighter":     -0.25,
+        "newFighter":  -0.15,
+        // Add small Y offsets for any model that sits too low or high
     ]
     
     private let motionManager = MotionManager()
@@ -46,15 +60,31 @@ final class AirplaneModel: ObservableObject {
         
         do {
             let loaded = try Entity.load(contentsOf: url)
+            
+            // Apply per-model Y offset (baked into entity)
+            if let yOff = yOffsets[name] {
+                loaded.position.y = yOff
+            }
+            
             self.entity = loaded
-            resetTransforms()
+            
+            // Start at the recommended scale for this model so it frames nicely
+            let recScale = recommendedScales[name] ?? 1.0
+            self.scale = recScale
+            
+            // Reset angles only
+            yaw = .zero
+            pitch = .zero
+            roll = .zero
+            
         } catch {
             loadError = "Failed to load \(name): \(error.localizedDescription)"
         }
     }
     
     private func resetTransforms() {
-        scale = 1.0
+        let recScale = recommendedScales[currentModelName] ?? 1.0
+        scale = recScale
         yaw = .zero
         pitch = .zero
         roll = .zero
@@ -97,7 +127,7 @@ final class AirplaneModel: ObservableObject {
         rotationTask = nil
     }
     
-    // MARK: - Device Motion Control (safe stream access)
+    // MARK: - Device Motion
     func startMotion() {
         guard !isMotionActive else { return }
         isMotionActive = true

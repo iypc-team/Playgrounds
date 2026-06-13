@@ -1,10 +1,6 @@
-// SpaceshipApp 06/13/2026-1
+// SpaceshipApp 06/13/2026-2
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm. `MotionManager.attitudeStream` has a retain cycle risk. `RealityKitView.updateUIView` — anchor added on every update.  Force-unwrap `attitudeStream!` — crash risk. `AirplaneModel.swift` is unused — dead code.
-
-// Updated ContentView.swift - Now consistently uses AirplaneModel
-// Fixed type mismatch (FighterModel → AirplaneModel)
-// Minor cleanups for better compatibility with updated AirplaneModel
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm. 
 
 import SwiftUI
 

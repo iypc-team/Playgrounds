@@ -1,5 +1,7 @@
-// Updated RealityKitView.swift - Prevent anchor spam on every updateUIView
-// Reuse single anchor via coordinator. Update transform/scale in place.
+// Updated RealityKitView.swift
+// - Fixed 'AmbientLight' scope error
+// - Uses correct iOS 16.6+ skybox API
+// - Clean and reliable lighting setup
 
 import SwiftUI
 import RealityKit
@@ -15,7 +17,7 @@ struct RealityKitView: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         arView.cameraMode = .nonAR
         
-        // Fixed camera
+        // === Camera ===
         let camera = PerspectiveCamera()
         camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 22), relativeTo: nil)
         
@@ -23,7 +25,16 @@ struct RealityKitView: UIViewRepresentable {
         cameraAnchor.addChild(camera)
         arView.scene.addAnchor(cameraAnchor)
         
-        // Lighting
+        // === Skybox + Environment (Correct iOS 16.6+ API) ===
+        if let skyboxResource = try? EnvironmentResource.load(named: "space_nebula") {
+            arView.environment.lighting.resource = skyboxResource
+            arView.environment.background = .skybox(skyboxResource)
+            arView.environment.lighting.intensityExponent = 1.15
+        } else {
+            arView.backgroundColor = .black
+        }
+        
+        // === Main Directional Light ===
         let directionalLight = DirectionalLight()
         directionalLight.light.color = .white
         directionalLight.light.intensity = 3000
@@ -39,20 +50,18 @@ struct RealityKitView: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         guard let entity = model.entity else { return }
         
-        // Reuse anchor instead of creating new one every update (fixes accumulation)
+        // Reuse anchor via Coordinator
         if let existingAnchor = context.coordinator.modelAnchor {
-            // Update existing
             existingAnchor.children.forEach { $0.removeFromParent() }
             existingAnchor.addChild(entity)
         } else {
-            // First time
             let anchor = AnchorEntity(world: .zero)
             anchor.addChild(entity)
             uiView.scene.addAnchor(anchor)
             context.coordinator.modelAnchor = anchor
         }
         
-        // Apply transforms
+        // Apply scale and rotation
         let s = Float(model.scale)
         entity.scale = SIMD3<Float>(s, s, s)
         
