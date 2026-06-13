@@ -1,6 +1,10 @@
-// SpaceshipApp 06/12/2026-3
+// SpaceshipApp 06/13/2026-1
 // ContentView.swift
-// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm
+// Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm. `MotionManager.attitudeStream` has a retain cycle risk. `RealityKitView.updateUIView` — anchor added on every update.  Force-unwrap `attitudeStream!` — crash risk. `AirplaneModel.swift` is unused — dead code.
+
+// Updated ContentView.swift - Now consistently uses AirplaneModel
+// Fixed type mismatch (FighterModel → AirplaneModel)
+// Minor cleanups for better compatibility with updated AirplaneModel
 
 import SwiftUI
 
@@ -31,7 +35,7 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 struct ContentView: View {
-    @StateObject private var model = FighterModel()  // ← Updated to match FighterModel.swift
+    @StateObject private var model = AirplaneModel()  // ← Fixed: Use AirplaneModel
     
     var body: some View {
         Group {
