@@ -19,7 +19,7 @@ struct RealityKitView: UIViewRepresentable {
         
         // === Camera ===
         let camera = PerspectiveCamera()
-        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, 22), relativeTo: nil)
+        camera.look(at: SIMD3<Float>(0, 0, 0), from: SIMD3<Float>(0, 0, Constants.cameraDistance), relativeTo: nil)
         
         let cameraAnchor = AnchorEntity(world: .zero)
         cameraAnchor.addChild(camera)
@@ -29,7 +29,7 @@ struct RealityKitView: UIViewRepresentable {
         if let skyboxResource = try? EnvironmentResource.load(named: "space_nebula") {
             arView.environment.lighting.resource = skyboxResource
             arView.environment.background = .skybox(skyboxResource)
-            arView.environment.lighting.intensityExponent = 1.15
+            arView.environment.lighting.intensityExponent = Constants.skyboxIntensityExponent
         } else {
             arView.backgroundColor = .black
         }
@@ -37,8 +37,8 @@ struct RealityKitView: UIViewRepresentable {
         // === Main Directional Light ===
         let directionalLight = DirectionalLight()
         directionalLight.light.color = .white
-        directionalLight.light.intensity = 3000
-        directionalLight.orientation = simd_quatf(angle: -.pi / 3, axis: [1, 0, 0])
+        directionalLight.light.intensity = Constants.directionalLightIntensity
+        directionalLight.orientation = simd_quatf(angle: Constants.lightTiltAngleRadians, axis: [1, 0, 0])
         
         let lightAnchor = AnchorEntity(world: .zero)
         lightAnchor.addChild(directionalLight)

@@ -1,41 +1,15 @@
-// SpaceshipApp 06/14/2026-1
+// SpaceshipApp 06/14/2026-2
 // ContentView.swift
 // Repo: https://github.com/iypc-team/Playgrounds/tree/main/SpaceshipApp.swiftpm. 
 
 import SwiftUI
-
-private enum Dimensions {
-    static let buttonPadding: CGFloat = 10
-    static let fontSize: CGFloat = 18
-    static let cornerRadius: CGFloat = 8
-    static let scaleFactor: CGFloat = 1.0
-}
-
-struct HighlightedButtonStyle: ButtonStyle {
-    let borderColor: Color
-    let backgroundColor: Color
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(Dimensions.buttonPadding)
-            .font(.system(size: Dimensions.fontSize, weight: .medium))
-            .foregroundColor(borderColor)
-            .background(backgroundColor)
-            .cornerRadius(Dimensions.cornerRadius)
-            .scaleEffect(configuration.isPressed ? Dimensions.scaleFactor : 1.0)
-            .overlay(
-                RoundedRectangle(cornerRadius: Dimensions.cornerRadius)
-                    .stroke(borderColor, lineWidth: 1.5)
-            )
-    }
-}
 
 struct ContentView: View {
     @StateObject private var model = AirplaneModel()  // ← Fixed: Use AirplaneModel
     
     var body: some View {
         Group {
-            if let _ = model.entity {
+            if model.entity != nil {
                 RealityKitView(model: model)
                     .gesture(
                         SimultaneousGesture(
@@ -76,7 +50,7 @@ struct ContentView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(.ultraThinMaterial)
-        .cornerRadius(12)
+        .cornerRadius(Constants.cornerRadius)
         .padding(.top, 8)
         .padding(.horizontal)
         .tint(.white)
@@ -127,6 +101,26 @@ struct ContentView: View {
             }
             .buttonStyle(.borderedProminent)
         }
+    }
+}
+
+// MARK: - Button Style
+struct HighlightedButtonStyle: ButtonStyle {
+    let borderColor: Color
+    let backgroundColor: Color
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(Constants.buttonPadding)
+            .font(.system(size: Constants.fontSize, weight: .medium))
+            .foregroundColor(borderColor)
+            .background(backgroundColor)
+            .cornerRadius(Constants.cornerRadius)
+            .scaleEffect(configuration.isPressed ? Constants.scaleFactor : 1.0)
+            .overlay(
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .stroke(borderColor, lineWidth: 1.5)
+            )
     }
 }
 

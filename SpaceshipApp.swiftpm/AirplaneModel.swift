@@ -1,5 +1,5 @@
 // AirplaneModel.swift
-// 14.0
+// 15.0
 
 import SwiftUI
 import RealityKit
@@ -23,9 +23,9 @@ final class AirplaneModel: ObservableObject {
     
     // MARK: - Per-model adjustments (tweak these values after testing each model)
     private let recommendedScales: [String: Double] = [
-        "Airplane":     14.0,
-        "Airplane-2":   14.0,
-        "Spaceship":    14.0,
+        "Airplane":     15.0,
+        "Airplane-2":   15.0,
+        "Spaceship":    15.0,
         "fighter":      1.0,
         "newFighter":   1.0,
         "newEnemy":     0.33,
@@ -97,11 +97,10 @@ final class AirplaneModel: ObservableObject {
     }
     
     func updateRotation(from translation: CGSize) {
-        let sensitivity: Double = 0.006
-        yaw += Angle.radians(translation.width * sensitivity)
-        pitch += Angle.radians(-translation.height * sensitivity)
+        yaw += Angle.radians(translation.width * Constants.dragSensitivity)
+        pitch += Angle.radians(-translation.height * Constants.dragSensitivity)
         
-        let maxPitch = Angle.degrees(80)
+        let maxPitch = Angle.degrees(Constants.maxPitchDegrees)
         if pitch > maxPitch { pitch = maxPitch }
         if pitch < -maxPitch { pitch = -maxPitch }
     }
@@ -115,7 +114,7 @@ final class AirplaneModel: ObservableObject {
             while !Task.isCancelled && isRotating {
                 try? await Task.sleep(for: .milliseconds(16))
                 await MainActor.run {
-                    self.yaw += Angle.degrees(0.8)
+                    self.yaw += Angle.degrees(Constants.autoRotationSpeedDegreesPerFrame)
                 }
             }
         }
