@@ -13,7 +13,7 @@ final class MotionManager {
     
     private(set) var attitudeStream: AsyncThrowingStream<AttitudeQuaternion, Error>?
     
-    func startUpdates(updateInterval: TimeInterval = 1.0 / 30.0) {
+    func startUpdates(updateInterval: TimeInterval = 1.0 / 60) {
         if attitudeStream != nil { return }
         
         motionManager.deviceMotionUpdateInterval = updateInterval

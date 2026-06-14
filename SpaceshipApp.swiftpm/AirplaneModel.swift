@@ -1,5 +1,5 @@
 // AirplaneModel.swift
-// 
+// 14.0
 
 import SwiftUI
 import RealityKit
@@ -9,7 +9,7 @@ import CoreMotion
 final class AirplaneModel: ObservableObject {
     @Published var entity: Entity?
     @Published var loadError: String?
-    @Published var currentModelName: String = "Spaceship"
+    @Published var currentModelName: String = "Airplane-2"
     @Published var scale: Double = 1.0
     @Published var yaw: Angle = .zero
     @Published var pitch: Angle = .zero
@@ -23,13 +23,13 @@ final class AirplaneModel: ObservableObject {
     
     // MARK: - Per-model adjustments (tweak these values after testing each model)
     private let recommendedScales: [String: Double] = [
-        "Airplane":     0.55,
-        "Airplane-2":   0.55,
-        "Spaceship":    1.0,
-        "fighter":      1.35,
-        "newFighter":   1.25,
-        "newEnemy":     1.15,
-        "smooth_ship":  0.90
+        "Airplane":     14.0,
+        "Airplane-2":   14.0,
+        "Spaceship":    14.0,
+        "fighter":      1.0,
+        "newFighter":   1.0,
+        "newEnemy":     0.33,
+        "smooth_ship":  0.75
     ]
     
     private let yOffsets: [String: Float] = [
